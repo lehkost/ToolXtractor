@@ -5,7 +5,7 @@ Extract tools from TEI-encoded abstracts against a matching list.
 mvn clean package
 
 # Launch the tool
-java -jar target/ToolXtractor-jar-with-dependencies.jar -byTool -dir data/dh2015_abstracts/ -inputTools src/main/resources/tools_teresah.txt
+java -jar target/ToolXtractor-jar-with-dependencies.jar -byTool -dir data/2015/ -inputTools src/main/resources/tools_teresah.txt
 
 # Dataset
 All under CC and retrieved from the ADHO github page: https://github.com/ADHO/
