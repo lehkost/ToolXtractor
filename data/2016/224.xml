@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>Time Series Analysis Enhances Authorship Attribution</title>
+                <author>
+                    <persName>
+                        <surname>Ochab</surname>
+                        <forename>Jeremi K.</forename>
+                    </persName>
+                    <affiliation>Jagiellonian University, Poland</affiliation>
+                    <email>jeremi.ochab@uj.edu.pl</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2016-02-25T17:39:00Z</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Maciej Eder, Pedagogical University in Krakow</publisher>
+                <publisher>Jan Rybicki, Jagiellonian University</publisher>
+                <address>
+                    <addrLine>Institute of Polish Studies</addrLine>
+                    <addrLine>Pedagogical University</addrLine>
+                    <addrLine>ul. Podchorazych 2</addrLine>
+                    <addrLine>30-084 Krakow, Poland</addrLine>
+                    <addrLine>maciej.eder@ijp-pan.krakow.pl</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from a Word document </p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.20">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Poster</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>time series analysis</term>
+                    <term>long-range memory</term>
+                    <term>authorship attribution</term>
+                    <term>machine learning</term>
+                    <term>feature selection</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>information retrieval</term>
+                    <term>natural language processing</term>
+                    <term>semantic analysis</term>
+                    <term>stylistics and stylometry</term>
+                    <term>text analysis</term>
+                    <term>authorship attribution / authority</term>
+                    <term>interdisciplinary collaboration</term>
+                    <term>linguistics</term>
+                    <term>machine translation</term>
+                    <term>english studies</term>
+                    <term>networks, relationships, graphs</term>
+                    <term>spatio-temporal modeling, analysis and visualisation</term>
+                    <term>data mining / text mining</term>
+                    <term>English</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <div type="div1" rend="DH-Heading1">
+                <head>Introduction</head>
+                <p>Long-range correlations in texts – emerging even in dictionaries and allowing to differentiate genres (Montemurro and Pury, 2002) – prove that structures larger than necessitated by syntax exist. They might reflect organisation of literary works, and be one of authorial fingerprints.</p>
+                <p>Stylometry, however, have not exploited the information carried by memory longer than one clause apart – other than use of n-grams (e.g., Eder, 2011). Existing studies include investigating: sequences of (un)stressed syllables (Pawłowski, 1998; 1999); sentence lengths (Drożdż et al., 2016); transferring long-range correlations between letter and word sequences (Altmann et al., 2012).</p>
+                <p>To quantify correlations in a script, successive symbols can be treated as a time-series with symbolic values (Stanley, 1992) or numeric positions on a word frequency list (Montemurro and Pury, 2002; Ausloos, 2012), see Fig. 1. Below, I use information extracted from such time-series as features in machine learning (ML) methods to increase accuracy of authorship attribution (AA) in a benchmark literary corpus.</p>
+                <figure>
+                    <graphic url="224/image1.png" rend="inline"/>
+                    <head>
+                        <hi rend="bold">Figure 1</hi> A book translated into a time-series: 
+                        <hi rend="italic">x</hi>-axis corresponds to the position of a word in a text; 
+                        <hi rend="italic">y</hi>-axis corresponds to the total number of times the word appears in the book
+                    </head>
+                </figure>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Methods</head>
+                <div type="div2" rend="DH-Heading2">
+                    <head>Complexity measures</head>
+                    <p>For a series, defined as ranks of words at consecutive positions in a text, following measures are used (formatted as 
+                        <hi rend="bold">Quantity</hi>: 
+                        <hi rend="italic">ML features</hi>):
+                    </p>
+                    <p>
+                        <hi rend="bold">Power spectrum</hi>: 
+                        <hi rend="italic">psLen</hi>, 
+                        <hi rend="italic">psExp</hi>
+                    </p>
+                    <p>Power spectrum 
+                        <hi rend="italic">S(f)</hi> of a series at a frequency 
+                        <hi rend="italic">f </hi>can be interpreted as the strength of correlation of the series with itself at word-to-word distances 
+                        <hi rend="italic">1/f</hi>. As Fig. 2 illustrates, it is described well by two parameters: the length 
+                        <hi rend="italic">psLen</hi> of the high-correlation plateau and the slope of its decay 
+                        <hi rend="italic">psExp</hi>.
+                    </p>
+                    <p>
+                        <hi rend="bold">Predictability</hi>: 
+                        <hi rend="italic">pred</hi>
+                    </p>
+                    <p>As the name suggests, it measures how well can the next step in a series be predicted given previous steps (see definition: Stone, 1996).</p>
+                    <p>
+                        <hi rend="bold">Fano factor exponent</hi>: 
+                        <hi rend="italic">fanoF</hi>
+                    </p>
+                    <p>Fano factor measures signal autocorrelation, especially in fractal processes (Thurner et al., 1997), as one takes increasingly bigger chunks of text – similarly to the slope of power spectrum or detrended fluctuation analysis (Grabska-Gradzińska et al., 2013).</p>
+                    <p>
+                        <hi rend="bold">Entropy rate of word variation</hi>: 
+                        <hi rend="italic">entExp</hi>, 
+                        <hi rend="italic">entConst</hi>
+                    </p>
+                    <p>The entropy is maximal for equiprobable word occurences, and minimal when a single word is always used. As one reads a text, new words appear and the entropy grows, and saturates. 
+                        <hi rend="italic">entExp</hi> and 
+                        <hi rend="italic">entConst</hi> are characteristic time and a multiplicative constant of such a growth.
+                    </p>
+                    <p>
+                        <hi rend="bold">Static entropy</hi>: 
+                        <hi rend="italic">entLocM</hi>, 
+                        <hi rend="italic">entLocSD</hi>
+                    </p>
+                    <p>For a window of a constant length moving across the whole text, the entropy fluctuates. Parameters 
+                        <hi rend="italic">entLocM</hi> and 
+                        <hi rend="italic">entLocSD</hi> are its mean and standard deviation.
+                    </p>
+                    <figure>
+                        <graphic url="224/image2.png" rend="inline"/>
+                        <head>
+                            <hi rend="bold">Figure 2</hi> Power spectrum 
+                            <hi rend="italic">S(f)</hi> of the time-series as a function of word-to-word distance 1/f
+                        </head>
+                    </figure>
+                </div>
+                <div type="div2" rend="DH-Heading2">
+                    <head>Algorithm and parameters</head>
+                    <p>AA was performed with the R package 
+                        <hi rend="italic">stylo</hi> (Eder et al., 2013) with settings: delta distance (Burrows, 2002), 1000-fold cross-validation, one book of each author in the training set. (None of the other ML methods (Stamatatos, 2009; Jockers and Witten, 2010) implemented in 
+                        <hi rend="italic">stylo</hi> did significantly better than Burrows’s delta.)
+                    </p>
+                    <p>Since on this corpus about 90 most frequent words (MFW) are needed for 100% accuracy, only the first ten were used as features, which left room for improvement. Having precomputed all the eight measures, they were appended to the feature list.</p>
+                </div>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Data</head>
+                <p>A corpus (Rybicki, 2015) comprising 27 classic British 19
+                    <hi rend="superscript">th</hi> c. novels of 11 authors was used (see Fig. 3, where each leaf is a shorthand for a novel’s 
+                    <hi rend="italic">Author_Title</hi>). The reason for choosing this corpus is that many AA algorithms have been tested on it, and they perform very well, not least thanks to its size.
+                </p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Results</head>
+                <div type="div2" rend="DH-Heading2">
+                    <head>Authorship attribution</head>
+                    <p>AA algorithms at best use 6-grams (Eder, 2011), whereas the correlations may reach hundreds of words, as demonstrated in Fig. 2. The results in Tables 1-2 show that the measures from Sec. 2.1 can aid ML. As a proof of concept, Fig. 3 shows a cluster analysis based exclusively on these complexity measures; although imperfect, it strongly indicates that the temporal characteristics contain traces of authorial style.</p>
+                    <figure>
+                        <graphic url="224/image3.png" rend="inline"/>
+                        <head>
+                            <hi rend="bold">Figure 3</hi> Cluster analysis of the corpus based only on the eight complexity measures
+                        </head>
+                    </figure>
+                </div>
+                <div type="div2" rend="DH-Heading2">
+                    <head>Informativeness of complexity measures</head>
+                    <p>Surprisingly, 
+                        <hi rend="italic">psLen</hi> is not correlated with paragraph lengths (cf. Kosmidis et al., 2006). Its smallest values 280-300 come, intriguingly, from Austen and Anne and Emily Brontë, while the largest 370-390 from Dickens, Thackeray and Trollope.
+                    </p>
+                    <p>Note that correlated features (see Tab. 3 for a summary) worsen performance and should be eliminated. Remaining parameters are expected to contain non-overlapping information. Further, PCA analysis showed that 
+                        <hi rend="italic">psLen</hi> and 
+                        <hi rend="italic">entLocM</hi> contain the most distinctive information. Tables 1-2 show that indeed these parameters most significantly aid ML.
+                    </p>
+                </div>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Conclusions</head>
+                <p>This preliminary study shows that measures reflecting long-range word-to-word correlations carry authorial information and enhance stylometric ML methods. More complex features than words and n-grams are needed.</p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Acknowledgements</head>
+                <p>I thank Maciej Eder for insightful discussions. The research was funded by Grant No. DEC-2013/09/N/ST6/01419 of the National Science Centre of Poland.</p>
+                <figure>
+                    <graphic url="224/image4.png" rend="inline"/>
+                    <head>
+                        <hi rend="bold">Table 1 Left:</hi> Reference values 
+                        <hi rend="bold">Right:</hi> Clustering accuracy for 10 MFW+1 complexity measure as a feature (accuracy above 10-MFW reference level is in bold)
+                    </head>
+                </figure>
+                <figure>
+                    <graphic url="224/image5.png" rend="inline"/>
+                    <head>
+                        <hi rend="bold">Table 2</hi> Best accuracy obtained for 10 MFW plus two/three complexity measures
+                    </head>
+                </figure>
+                <figure>
+                    <graphic url="224/image6.png" rend="inline"/>
+                    <head>
+                        <hi rend="bold">Table 3</hi> Positive (+) and negative (–) correlations between parameters from Sec. 2.1
+                    </head>
+                </figure>
+            </div>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl><hi rend="bold">Altmann, E. G., Cristadoro, G. and Esposti, M. D.</hi> (2012). On the origin of long-range correlations in texts, <hi rend="italic">Proceedings of the National Academy of Sciences</hi>, <hi rend="bold">109</hi>: 11582–87.</bibl>
+                    <bibl><hi rend="bold">Ausloos, M.</hi> (2012). Generalized Hurst exponent and multifractal function of original and translated texts mapped into frequency and length time series, <hi rend="italic">Physical Review E</hi>, <hi rend="bold">86</hi>: 031108.</bibl>
+                    <bibl><hi rend="bold">Burrows, J. F. </hi>(2002). "Delta": a measure of stylistic difference and a guide to likely authorship, <hi rend="italic">Literary and Linguistic Computing</hi>, <hi rend="bold">17</hi>: 267–87.</bibl>
+                    <bibl><hi rend="bold">Drożdż, S., Oświęcimka, P., Kulig, A., Kwapień, J., Bazarnik, K., Grabska-Gradzińska, I., Rybicki, J. and Stanuszek, M.</hi> (2016). Quantifying origin and character of long-range correlations in narrative texts, <hi rend="italic">Information Sciences</hi> <hi rend="bold">331</hi>: 32-44.</bibl>
+                    <bibl><hi rend="bold">Eder, M. </hi>(2011). Style-markers in authorship attribution: a cross-language study of the authorial fingerprint, <hi rend="italic">Studies in Polish Linguistics</hi>, <hi rend="bold"></hi>pp. 99–114.</bibl>
+                    <bibl><hi rend="bold">Eder, M., Kestemont, M. and Rybicki, J.</hi> (2013). Stylometry with R: a suite of tools. <hi rend="italic">Digital Humanities 2013: Conference Abstracts.</hi> University of Nebraska-Lincoln, NE, pp. 487–89.</bibl>
+                    <bibl><hi rend="bold">Grabska-Gradzińska, I., Kulig, A., Kwapień, J., Oświęcimka, P. and Drożdż, S.</hi> (2013). Multifractal analysis of sentence lengths in English literary texts, <hi rend="italic">AWERProcedia Information Technology and Computer Science</hi> <hi rend="bold">3</hi>: 1700-06.</bibl>
+                    <bibl><hi rend="bold">Jockers, M. L. and Witten, D. M.</hi> (2010). A comparative study of machine learning methods for authorship attribution, <hi rend="italic">Literary and Linguistic Computing</hi>, <hi rend="bold">25</hi>: 15–223.</bibl>
+                    <bibl><hi rend="bold">Kosmidis, K., Kalampokis, A. and Argyrakis, P.</hi> (2006). Language time series analysis, <hi rend="italic">Physica A: Statistical Mechanics and its Applications</hi>, <hi rend="bold">370</hi>: 808–16.</bibl>
+                    <bibl><hi rend="bold">Montemurro, M. A. and Pury, P. A.</hi> (2002). <hi rend="italic">Long-range fractal correlations in literary corpora, Fractals</hi> <hi rend="bold">10</hi>: 451–61.</bibl>
+                    <bibl><hi rend="bold">Pawłowski, A.</hi> (1998). Séries temporelles en linguistique. avec application a lattribution de textes: Romain Gary et Émile Ajar. <hi rend="italic">Travaux de linguistique quantitative</hi>, Vol. <hi rend="bold">62</hi>, Honoré Champion, Paris, Geneve: Champion-Slatkine.</bibl>
+                    <bibl><hi rend="bold">Pawłowski, A.</hi> (2011). Language in the line vs. language in the mass: On the efficiency of sequential modeling in the analysis of rhythm, <hi rend="italic">Journal of Quantitative Linguistics</hi> <hi rend="bold">6</hi>: 70–77.</bibl>
+                    <bibl><hi rend="bold">Peng, C., Buldyrev, S., Goldberger, A., Havlin, S., Sciortino, F., Simons, M. and Stanley, H.</hi> (1992). Long-range correlations in nucleotide sequences, <hi rend="italic">Nature</hi>, <hi rend="bold">356</hi>: 168–70.</bibl>
+                    <bibl><hi rend="bold">Rybicki, J.</hi> (2015). <hi rend="italic">A short collection of British fiction.</hi> 
+                        <ref target="https://sites.google.com/site/computationalstylistics/corpora">https://sites.google.com/site/computationalstylistics/corpora</ref> (accessed 23 February 2016).</bibl>
+                    <bibl><hi rend="bold">Stamatatos, E.</hi> (2009). A survey of modern authorship attribution methods, <hi rend="italic">Journal of the American Society for Information Science and Technology</hi>, <hi rend="bold">60</hi>: 538–56.</bibl>
+                    <bibl><hi rend="bold">Stone, J. V. </hi> (1996). Perceptually salient visual parameters using spatiotemporal smoothness constraints, <hi rend="italic">Neural Computation</hi>, <hi rend="bold">8</hi>: 1463–92.</bibl>
+                    <bibl><hi rend="bold">Thurner, S., Lowen, S. B., Feurstein, M. C., Heneghan, C., Feichtinger, H. G. and Teich, M. C.</hi> (1997). Analysis, synthesis, and estimation of fractal-rate stochastic point processes, <hi rend="italic">Fractals</hi>, <hi rend="bold">5</hi>: 565–95.</bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

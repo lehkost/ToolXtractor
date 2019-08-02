@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>Rebuilding Digital Harlem for Sustainability and Change</title>
+                <author>
+                    <persName>
+                        <surname>Johnson</surname>
+                        <forename>Ian R.</forename>
+                    </persName>
+                    <affiliation>University of Sydney, Australia</affiliation>
+                    <email>ian.johnson@sydney.edu.au</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Osmakov</surname>
+                        <forename>Artem</forename>
+                    </persName>
+                    <affiliation>University of Sydney, Australia</affiliation>
+                    <email>osmakov@gmail.com</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2016-03-06T13:54:00Z</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Maciej Eder, Pedagogical University in Krakow</publisher>
+                <publisher>Jan Rybicki, Jagiellonian University</publisher>
+                <address>
+                    <addrLine>Institute of Polish Studies</addrLine>
+                    <addrLine>Pedagogical University</addrLine>
+                    <addrLine>ul. Podchorazych 2</addrLine>
+                    <addrLine>30-084 Krakow, Poland</addrLine>
+                    <addrLine>maciej.eder@ijp-pan.krakow.pl</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from a Word document </p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.21">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Poster</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>sustainability</term>
+                    <term>open source</term>
+                    <term>database structure</term>
+                    <term>public user interface</term>
+                    <term>mapping</term>
+                    <term>timelines</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>archives, repositories, sustainability and preservation</term>
+                    <term>databases &amp; dbms</term>
+                    <term>historical studies</term>
+                    <term>interface and user experience design</term>
+                    <term>publishing and delivery systems</term>
+                    <term>maps and mapping</term>
+                    <term>English</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <div type="div1" rend="DH-Heading1">
+                <head>Background</head>
+                <p>Digital Harlem (<ref target="http://DigitalHarlem.org">DigitalHarlem.org</ref>), winner of the 
+                    <hi rend="italic">American Historical Association's </hi>2009 
+                    <ref target="http://www.historians.org/prizes/Rosenzweig_Fellowship.cfm">Roy Rosenzweig Prize for Innovation in Digital History</ref>, was a bespoke php/js/MySQL application with 34 tables and over 9,000 lines of code. While bespoke programming may under some circumstances offer the shortest path to a particular outcome, a fixed database structure and bespoke codebase pose problems for sustainability (the codebase will require ongoing maintenance and retention of support for code which is no longer current), for transferability (knowledge and development work which is not directly transferrable to other projects) and for evolutionary change (modification can involve significant rewriting and programming expertise). For Digital Harlem both evolving requirements and external changes have forced the excavation and re-learning of code long after development funding ceased, an experience which will be common for any project which seeks longevity beyond short-term project grants.
+                </p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Conversion</head>
+                <p>In 2014/2015 we converted the Digital Harlem database to Heurist (<ref target="http://HeuristNetwork.org">HeuristNetwork.org</ref>). This allowed us to unlock the previously inflexible data structures and rigid interface, and refine the data model, enabling the project to start a campaign of data entry for a new research grant and focus. Where analysis of the data was previously restricted to three rather limiting search forms for People, Places and Events, the new version (Figure 1) opens up a full range of built-in data management functions and user-defined searches/filters, including multi-level faceted search. Search results can now be saved and visualised with maps, timelines, network diagrams and user-defined reports, as well as file and printed output. 
+                </p>
+                <figure>
+                    <graphic url="350/image1.png" rend="inline"/>
+                    <head>Figure 1. Digital Harlem - the standard Heurist interface (used by the research team)</head>
+                </figure>
+                <p>The original public website was subsequently reimplemented, with minor external changes, as a reskinned view of the database running natively within Heurist (Figure 2). We moved significant elements of the interface - search forms, base maps, popup content, buttons – out of custom code into data. These data can be easily edited by the research team allowing them to extend the interface without technical assistance. Fixed form-based searches were replaced with saved faceted searches which can be added to or modified without programming.</p>
+                <figure>
+                    <graphic url="350/image2.png" rend="inline"/>
+                    <head>Figure 2. Digital Harlem - the reimplemented public interface with faceted search</head>
+                </figure>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Adaptability</head>
+                <p>The public interface is easily adaptable to other projects requiring a customised public search, mapping and timeline interface for richly linked entities. It is not tied to specific types of entity or relationship, as almost all customisation other than visual appearance occurs within the database content. The interface is built from reusable widgets in a responsive framework, using less than 1,000 lines of html, css, php and js code. New widgets can be added for additional types of interaction, although many projects will find the existing widgets adequate.</p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Sustainability</head>
+                <p>Heurist databases retain the inherent medium-term sustainability of an Open Source MySQL database at the backend, but reinforce this sustainability through the adoption of an identical structure across many diverse projects. The use of a single, well-documented database structure across all projects promotes the transfer of expertise and leverages the effort of code development - when someone requests Zotero synchronisation or the generation of GEPHI network files, the code can be written just once and every database inherits the capability. The same goes for any maintenance required to keep pace with the changing web environment and for bug fixing. Standard documented SQL queries, which can be run from any programming language, will work across all databases. A complete, fully documented XML data archive can be generated in a couple of clicks.</p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Conclusion</head>
+                <p>In this poster we will outline the sustainability and development benefits of the new implementation of Digital Harlem. By adopting an adaptable codebase (Heurist) which can run many heterogeneous projects we have leveraged development effort and benefits across Digital Harlem and several dozen other projects. For new projects, common data structures can be imported with a few mouse clicks from a clearinghouse of projects, adapted to specific needs and republished for use by others. Existing public interfaces can, with slightly more effort, be repurposed for new projects. A stable well-documented underlying data format also allows independent code development in a variety of languages.</p>
+                <p>If there is a final takeaway, it is that - while there will always be a place for bespoke, one-off code as a vehicle for experimentation - for the majority of projects, re-use of a shared codebase and body of expertise (where practical) will be more cost-effective, require less technical development and provide a better chance of longevity. Heurist offers one such generic solution which has allowed Digital Harlem to escape its self-imposed straightjacket of bespoke data structure and code; new data structures, research tools or public interfaces can simply be added without reengineering the system. Digial Harlem builds on the work of many preceding projects, and future projects can build on this experience without the cost of reinvention.</p>
+            </div>
+        </body>
+    </text>
+</TEI>

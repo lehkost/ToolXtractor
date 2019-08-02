@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>Text Line Detection and Transcription Alignment: a Case Study on the Statuti del Doge Tiepolo</title>
+                <author>
+                    <persName>
+                        <surname>Slimane</surname>
+                        <forename>Fouad</forename>
+                    </persName>
+                    <affiliation>EPFL, Switzerland</affiliation>
+                    <email>fouad.slimane@epfl.ch</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Mazzei</surname>
+                        <forename>Andrea</forename>
+                    </persName>
+                    <affiliation>EPFL, Switzerland</affiliation>
+                    <email>andrea.mazzei@epfl.ch</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Tomasin</surname>
+                        <forename>Lorenzo</forename>
+                    </persName>
+                    <affiliation>EPFL, Switzerland</affiliation>
+                    <email>lorenzo.tomasin@unil.ch</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Kaplan</surname>
+                        <forename>Frédéric</forename>
+                    </persName>
+                    <affiliation>EPFL, Switzerland</affiliation>
+                    <email>frederic.kaplan@epfl.ch</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2014-12-19T13:50:00Z</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Paul Arthur, University of Western Sidney</publisher>
+                <address>
+                    <addrLine>Locked Bag 1797</addrLine>
+                    <addrLine>Penrith NSW 2751</addrLine>
+                    <addrLine>Australia</addrLine>
+                    <addrLine>Paul Arthur</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from a Word document </p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.9">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Long Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>text line</term>
+                    <term>transcription</term>
+                    <term>aligment</term>
+                    <term>HMM</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>image processing</term>
+                    <term>English</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <p>In this paper, we propose a fully automatic system for the transcription alignment of historical documents. We introduce the ‘Statuti del Doge Tiepolo’ data that include images as well as transcription from the 14th century written in Gothic script. Our transcription alignment system is based on forced alignment technique and character Hidden Markov Models and is able to efficiently align complete document pages. </p>
+            <p>* * *</p>
+            <p>Many libraries and archives are currently engaged in large-scale digitization programs to make their documents accessible to larger audiences. However, to make these ancient documents searchable and linkable, it is mandatory to go beyond digital images and encode their textual content. Text transcription is a notoriously complex and time-consuming task, requiring years of scholarly practice, particularly when one has to deal with a range of different scripts. </p>
+            <p>Machine learning approaches need good training sets to succeed. Luckily, several ancient manuscripts have been already transcribed by paleographers and exist as critical printed editions. These transcriptions could serve as a relevant starting point for developing automatic encoders. However, an additional step must be performed to use these materials as training sets in machine learning approaches: transcriptions must be aligned with digital images of the manuscripts. Most handwritten documents have transcription aligned only at the page level. To be used as a training set, it is necessary to generate a mapping at the line level at the very least.</p>
+            <p>The goal of this paper is to present a full transcription alignment system for historical Latin page documents using Hidden Markov Models (HMMs). In this work, we focus on the Statuti of the Doge Tiepolo, a manuscript transcribed and studied extensively by Prof. Lorenzo Tomasin (2001; 2007). Our system presents many advantages, such as the following; no segmentation into words is needed, the emission probability density functions of the HMMs can be trained to model variations of the character shapes, and the same system can be used for transcription alignment and recognition in an incremental training process. So, the decoding procedure will carry out recognition of words/lines, line/word transcription alignment, and segmentation into words/character models at the same time.</p>
+            <p>Corpus </p>
+            <p>The 
+                <hi rend="italic">Statuta Veneta </hi>of the Duke Iacopo Tiepolo are the principal statutory norms of the Venetian Middle Ages, which were promulgated in 1242.
+            </p>
+            <p>It is one of the most ancient experiments of translation in vulgar of an Italian normative source, and it represents the act of foundation of a linguistic register. The existence of multiple medieval versions of the 
+                <hi rend="italic">Statuta Veneta </hi>in the vernacular has already been verified; the most ancient has been found in three manuscripts held in Vienna and in Venice (Tomasin, 2001; 2007). Prof. Lorenzo Tomasin has already carried out a complete transcription of the Vienna manuscript.
+            </p>
+            <p>In this work, we use the Venetian version of the manuscript (Senato e collegio Miscellanea Statuta Veneta) with a diplomatic transcription of 72 pages. A diplomatic transcription copies everything it sees as it is. An example of a page image and its transcription is presented in Figure 1. </p>
+            <p>
+                <pb/>
+            </p>
+            <figure>
+                <graphic n="1001" width="15.24cm" height="11.310055555555556cm" url="Pictures/image1.png" rend="inline"/>
+            </figure>
+            <p>Figure 1. Page image and transcription from the Statuti del Doge Tiepolo corpus. </p>
+            <p>
+                <hi rend="bold">System Description </hi>
+            </p>
+            <p>In this section we describe the four main steps of our method: page segmentation, text segmentation, textline detection, and transcription alignment. </p>
+            <p>Page Segmentation </p>
+            <p>The first processing step aims at segmenting each page of the scanned document. Each scanned image contains one page surrounded by a black border and a portion of the subsequent page (Figure 2).</p>
+            <p>
+                <pb/>
+            </p>
+            <figure>
+                <graphic n="1002" width="12.206111111111111cm" height="14.11111111111111cm" url="Pictures/image2.jpg" rend="inline"/>
+            </figure>
+            <p>Figure 2. Scanned image from the Statuti del Doge Tiepolo corpus.</p>
+            <p>To segment the page we use a binarization-based approach, as follows: </p>
+            <p> • 
+                <hi rend="italic">Binarization </hi>using the technique proposed by 
+                <hi rend="color(222222) background(white)">Howe</hi>
+                <hi rend="color(222222)"> (2013)</hi> (Figure 3).
+            </p>
+            <p> • 
+                <hi rend="italic">Contour Detection</hi>: The binarized image is processed in order to extract all the contours (Figure 4) (Suzuki, 1985). 
+            </p>
+            <p> • 
+                <hi rend="italic">Contour Classification</hi>: The contour having the largest area is classified as the one circumscribing the page of the text (Figure 5). 
+            </p>
+            <p> • 
+                <hi rend="italic">Vertical RGB Projection Profile</hi>: For each image it is necessary to detect the book binding. Each page is positioned horizontally with respect to the border of the image (Figure 6). The projection profile is processed in order to extract all the local minima. A voting system based on the a priori knowledge of the aspect ratio of the document page is used to elect the best local minima corresponding to the bookbinding separation (Figures 6 and 7). 
+            </p>
+            <p>
+                <pb/>
+            </p>
+            <figure>
+                <graphic n="1003" width="13.546666666666667cm" height="14.11111111111111cm" url="Pictures/image3.jpg" rend="inline"/>
+            </figure>
+            <p>Figure 3. Howe (2013) binarization.</p>
+            <p>
+                <pb/>
+            </p>
+            <figure>
+                <graphic n="1004" width="13.546666666666667cm" height="14.11111111111111cm" url="Pictures/image4.jpg" rend="inline"/>
+            </figure>
+            <p>Figure 4. Contour detection.</p>
+            <p>
+                <pb/>
+            </p>
+            <figure>
+                <graphic n="1005" width="13.546666666666667cm" height="14.11111111111111cm" url="Pictures/image5.jpg" rend="inline"/>
+            </figure>
+            <p>Figure 5. Contour classification and image cropping.</p>
+            <p>
+                <pb/>
+            </p>
+            <figure>
+                <graphic n="1006" width="9.595555555555556cm" height="14.11111111111111cm" url="Pictures/image6.jpg" rend="inline"/>
+            </figure>
+            <p>Figure 6. Vertical projection profile.</p>
+            <p>
+                <pb/>
+            </p>
+            <figure>
+                <graphic n="1007" width="14.57325cm" height="22.86cm" url="Pictures/image7.jpg" rend="inline"/>
+            </figure>
+            <p>Figure 7. Page cropping.</p>
+            <p>Text Segmentation </p>
+            <p>The second step aims at segmenting the pixels of the text. For this step we use the adaptive thresholding approach proposed by Howe (2013). In this case we estimate the thresholding parameters by a brute force technique applied to the 2D cost function: </p>
+            <p>
+                <pb/>
+            </p>
+            <figure>
+                <graphic n="1008" width="15.24cm" height="1.8679583333333334cm" url="Pictures/image8.jpg" rend="inline"/>
+            </figure>
+            <p>For each iteration of the optimization procedure, the connected regions are recomputed over the binarized image. 
+                <hi rend="italic">Std</hi>
+                <hi rend="italic subscript">x</hi> is the average standard deviation of the pixel x position of the extracted connected regions, 
+                <hi rend="italic">std</hi>
+                <hi rend="italic subscript">y</hi> is the average standard deviation of the pixel y position, 
+                <hi rend="italic">area </hi>is the average surface of the connected regions, and 
+                <hi rend="italic">num</hi>
+                <hi rend="italic subscript">contours</hi> is the number of extracted connected regions. 
+            </p>
+            <p>Textline Segmentation </p>
+            <p>The third step corresponds to the detection of text lines. For this task we have created a novel approach based on the following steps: </p>
+            <p> • Blurring of the binarized image (Figure 8).</p>
+            <p> • Binarization of the blurred image (Figure 9).</p>
+            <p> • Contour detection (Figure 10).</p>
+            <p> • Iterative contour expansions: each polygon detected in the previous step is expanded iteratively by 1 pixel until it touches another polygon. The procedure stops when each polygon touches at least one other polygon (Figure 11). </p>
+            <p>
+                <pb/>
+            </p>
+            <figure>
+                <graphic n="1009" width="15.24cm" height="20.877388888888888cm" url="Pictures/image9.jpg" rend="inline"/>
+            </figure>
+            <p>Figure 8. Blurring of the binarized image.</p>
+            <p>
+                <pb/>
+            </p>
+            <figure>
+                <graphic n="10010" width="15.24cm" height="20.877388888888888cm" url="Pictures/image10.jpg" rend="inline"/>
+            </figure>
+            <p>Figure 9. Binarization of the blurred image.</p>
+            <p>
+                <pb/>
+            </p>
+            <figure>
+                <graphic n="10011" width="16.002cm" height="21.919847222222224cm" url="Pictures/image11.jpg" rend="inline"/>
+                <graphic n="10012" width="16.002cm" height="21.919847222222224cm" url="Pictures/image12.jpg" rend="inline"/>
+            </figure>
+            <p>Figure 10. Contour and textline detection.</p>
+            <p>Transcription Alignment </p>
+            <p>The transcription alignment system is HMM-based. This system is inspired by Slimane et al. (2008). Figure 11 illustrates the different phases of the text recognition / transcription alignment system. </p>
+            <p>In the feature extraction phase, each text line is transformed into a sequence of feature vectors extracted by moving, from left to right, an analysis window with a width of 17 pixels and a shift of one pixel. Sixty-three typographical and statistical features and delta coefficients are extracted from each window. For more details, we refer to Slimane et al. (2008) and Mezghani et al. (2014). </p>
+            <p>In the training phase, each character model, represented by six HMM states, is trained using labeled textline images. Our system is developed with 53 character models, including white space and punctuation characters. All the observation sequences are used to estimate the emission probability functions of each character model. The training procedure involves two steps that are iteratively applied to increase the number of Gaussian mixtures to a given M value. In the first step, a binary split procedure is applied to the Gaussians to increase their number. In the second step, the Baum-Welch re-estimation procedure is launched to estimate the parameters of the Gaussians. </p>
+            <p>In the transcription alignment phase, the feature vector sequences of all extracted text lines of one page are first concatenated into a single sequence. Then the page HMM is created using the concatenation of all character models given by the page transcription. Finally, the Viterbi algorithm is employed for forced alignment of page image, resulting in line boundaries. So, for each line image, we will obtain the corresponding transcription. </p>
+            <p>This system can be used for recognition using a HMM to build an open vocabulary recognizer when all transitions from one character model to the others are allowed.</p>
+            <p>
+                <pb/>
+            </p>
+            <figure>
+                <graphic n="10013" width="16.002cm" height="16.123708333333333cm" url="Pictures/image13.jpg" rend="inline"/>
+            </figure>
+            <p>Figure 11. HMM-based text recognition / transcription alignment system. </p>
+            <p>This system, evaluated using 72 pages (2,302 text lines), achieved considerable accuracy for transcription alignment: 98.44% of the returned words were correct in terms of word position and label. </p>
+            <p>Conclusion </p>
+            <p>In this paper, we propose a fully automatic system that is able to efficiently extract handwritten text lines from images and perform their transcription alignment at the page level. </p>
+            <p>In the future, we will continue the optimization of the system, and we will also test it on other scripts from the Venice Time Machine project (http://vtm.epfl.ch/). </p>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl>
+                        <hi rend="bold background(white)">Howe, N. R.</hi>
+                        <hi rend="background(white)">(2013). Document Binarization with Automatic Parameter Tuning. </hi>
+                        <hi rend="italic background(white)">International Journal on Document Analysis and Recognition (IJDAR),</hi>
+                        <hi rend="bold background(white)">16</hi>
+                        <hi rend="background(white)">(3): 247–58.</hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Mezghani, A., Slimane, F., Kanoun, S., and Märgner, V.</hi> (2014). Identification of Arabic/French–Handwritten/Printed Words Using GMM Based System. 
+                        <hi rend="italic">Proceedings from CIFED</hi>, Nancy, France, 18–21 March 2014, pp. 371–74. 
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Slimane, F., Ingold, R., Alimi, A. M. and Hennebert, J. </hi>(2008). Duration Models for Arabic Text Recognition Using Hidden Markov Models. 
+                        <hi rend="italic">Proceedings from International Conference on Computational Intelligence for Modelling Control and Automation</hi>, Vienna, Austria, 10–12 December 2008, pp. 838–43. 
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Suzuki, S.</hi> (1985). Topological Structural Analysis of Digitized Binary Images by Border Following. 
+                        <hi rend="italic">CVGIP,</hi>
+                        <hi rend="bold">30</hi>(1): 32–46. 
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Tomasin, L.</hi> (2001). 
+                        <hi rend="italic">Il volgare e la legge: Storia linguistica del diritto veneziano.</hi> Esedra, Padova.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Tomasin, L.</hi> (2007). Il volgare nella cancelleria veneziana fra Tre e Quattrocento. 
+                        <hi rend="italic">Medioevo Letterario d’Italia</hi>, 
+                        <hi rend="bold">4</hi>: 69–89.
+                    </bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

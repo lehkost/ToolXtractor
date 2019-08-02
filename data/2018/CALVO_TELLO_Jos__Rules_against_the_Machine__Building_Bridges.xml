@@ -1,0 +1,392 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title type="full">
+                    <title type="main">Rules against the Machine: Building Bridges from Text to Metadata</title>
+                    <title type="sub"/>
+                </title>
+                <author>
+                    <persName>
+                        <surname>Calvo Tello</surname>
+                        <forename>José</forename>
+                    </persName>
+                    <affiliation>University of Würzburg, Germany</affiliation>
+                    <email>jose.calvo@uni-wuerzburg.de</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2018-04-26T09:52:17.556822531</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Name, Institution</publisher>
+                <address>
+                    <addrLine>Street</addrLine>
+                    <addrLine>City</addrLine>
+                    <addrLine>Country</addrLine>
+                    <addrLine>Name</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from an OASIS Open Document</p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.22">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Poster (was submitted as Short Paper)</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>Machine Learning</term>
+                    <term>rule-based classification</term>
+                    <term>metadata</term>
+                    <term>novels</term>
+                    <term>Spanish Literature</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>literary studies</term>
+                    <term>metadata</term>
+                    <term>stylistics and stylometry</term>
+                    <term>spanish and spanish american studies</term>
+                    <term>English</term>
+                    <term>artificial intelligence and machine learning</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <div type="div1" rend="DH-Heading1">
+                <head>Introduction</head>
+                <p>Digital literary studies advance in their research, requiring more specific metadata about literary phenomena: narrator (Hoover 2004), characters (Kastorp et al. 2015), place and period, etcetera. This metadata can be used to explain results in tasks like authorship attribution or genre detection, or to evaluate digital methods (Calvo Tello 2017). What could be the most efficient way to start annotating this information in corpora of thousand of texts in languages, genres and historical periods for which many NLP tools are not trained for? In this proposal, the aim is to identify specific literary metadata about entire texts with methods that are either language-independent or easily adaptable for humanists.</p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Two Ways from Text to Metadata</head>
+                <p>The two approaches to classify unlabeled samples applied here are rule-based classification and supervised machine learning. In rule-based classification (Witten et al. 2011), domain experts define formalised rules that correctly classify the samples. For example a rule based on a single token can be defined for each class to predict whether a text is written in third person (83% of the corpus) or first person using tokens for the two values are the Spanish words 
+                    <hi rend="italic">dije</hi> ('I said') and 
+                    <hi rend="italic">dijo</hi> (‘he said’), and the rule:
+                </p>
+                <list type="ordered">
+                    <item>if 
+                        <hi rend="italic">dijo</hi> appears 90% more than 
+                        <hi rend="italic">dije</hi>, the novel is written in third person
+                    </item>
+                    <item>if 
+                        <hi rend="italic">dijo</hi> appears less, in first person
+                    </item>
+                </list>
+                <p>The results of applying this rule can be presented as a confusion matrix:</p>
+                <p>
+                    <figure>
+                        <graphic url="Pictures/21663ab62a689b32f814d12cb68ddc7d.png"/>
+                    </figure>
+                </p>
+                <p>Fig 1. Confusion Matrix of rule-based results about narrator</p>
+                <p>For supervised methods (Müller and Guido 2016; VanderPlas 2016), we need labeled samples to train and evaluate the method. In the following table, the different classifiers and document-representations achieve different accuracy scores:</p>
+                <table rend="frame" xml:id="Table1">
+                    <row>
+                        <cell/>
+                        <cell rend="start bold">raw</cell>
+                        <cell rend="start bold">relative</cell>
+                        <cell rend="start bold">tfidf</cell>
+                        <cell rend="start bold">zscores</cell>
+                    </row>
+                    <row>
+                        <cell rend="start bold">SVC</cell>
+                        <cell rend="center">0.90</cell>
+                        <cell rend="center">0.83</cell>
+                        <cell rend="center">0.83</cell>
+                        <cell rend="center">0.88</cell>
+                    </row>
+                    <row>
+                        <cell rend="start bold">KNN</cell>
+                        <cell rend="center">0.83</cell>
+                        <cell rend="center">0.88</cell>
+                        <cell rend="center">0.81</cell>
+                        <cell rend="center">0.81</cell>
+                    </row>
+                    <row>
+                        <cell rend="start bold">RF</cell>
+                        <cell rend="center">0.88</cell>
+                        <cell rend="center">0.88</cell>
+                        <cell rend="center">0.86</cell>
+                        <cell rend="center">0.90</cell>
+                    </row>
+                    <row>
+                        <cell rend="start bold">DT</cell>
+                        <cell rend="center">0.84</cell>
+                        <cell rend="center">0.83</cell>
+                        <cell rend="center">0.84</cell>
+                        <cell rend="center">0.82</cell>
+                    </row>
+                    <row>
+                        <cell rend="start bold">LR</cell>
+                        <cell rend="center">0.88</cell>
+                        <cell rend="center">0.83</cell>
+                        <cell rend="center">0.83</cell>
+                        <cell rend="center">0.17</cell>
+                    </row>
+                    <row>
+                        <cell rend="start bold">BN</cell>
+                        <cell rend="center">0.72</cell>
+                        <cell rend="center">0.72</cell>
+                        <cell rend="center">0.72</cell>
+                        <cell rend="center">0.82</cell>
+                    </row>
+                    <row>
+                        <cell rend="start bold">GN</cell>
+                        <cell rend="center">0.72</cell>
+                        <cell rend="center">0.80</cell>
+                        <cell rend="center">0.80</cell>
+                        <cell rend="center">0.81</cell>
+                    </row>
+                </table>
+                <p>Fig 2. Accuracy (F1-score) for narrator</p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Corpus and Metadata</head>
+                <p>The data is part of the 
+                    <hi rend="italic">Corpus of Spanish Novels of the Silver Age (1880-1939)</hi> (used in Calvo Tello et al. 2017), with 350 novels in XML-TEI by 58 authors. Each text has been annotated manually with metadata and its degree of certainty has been assigned. 262 texts with either high or medium certainty have been used to create a gold-standard with the following classes:
+                </p>
+                <list type="ordered">
+                    <item>protagonist.gender</item>
+                    <item>protagonist.age</item>
+                    <item>protagonist.socLevel</item>
+                    <item>setting.type</item>
+                    <item>setting.continent</item>
+                    <item>setting.country</item>
+                    <item>setting.name</item>
+                    <item>narrator</item>
+                    <item>representation</item>
+                    <item>time.period</item>
+                    <item>end</item>
+                </list>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Modelisation and Methods</head>
+                <p>The scripts have been written in Python (available on GitHub)
+                    <note xml:id="ftn1" place="foot" n="1"> &lt;https://github.com/cligs/projects2018/tree/master/text2metadata-dh&gt;</note>. The features have been represented as different document models (Kestemont et al. 2016):
+                </p>
+                <list type="unordered">
+                    <item>raw frequencies</item>
+                    <item>relative frequencies</item>
+                    <item>tf-idf</item>
+                    <item>z-scores</item>
+                </list>
+                <p>Different classify algorithms (cross validation, 10 folds) and amount of Most Frequent Words have been evaluated. For each class a single token was used to represent each class value and a ratio was assigned for the default class value (see repository in GitHub for rules). Both approaches were compared to a “most populated class” baseline, quite high in many cases. </p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Results</head>
+                <p>The results of both approaches are as following:</p>
+                <table rend="frame" xml:id="Table2">
+                    <row>
+                        <cell rend="center bold">Class</cell>
+                        <cell rend="center bold">F1 baseline</cell>
+                        <cell rend="center bold">F1 Rule</cell>
+                        <cell rend="center bold">F1 Cross Mean</cell>
+                        <cell rend="center bold">F1 Cross Std</cell>
+                        <cell rend="center bold">Algorithm</cell>
+                        <cell rend="center bold">Model</cell>
+                        <cell rend="center bold">MFW</cell>
+                        <cell rend="center bold">Winner</cell>
+                    </row>
+                    <row>
+                        <cell rend="start">end</cell>
+                        <cell rend="center">0.60</cell>
+                        <cell rend="center">0.54</cell>
+                        <cell rend="center">0.60</cell>
+                        <cell rend="center">0.02</cell>
+                        <cell rend="center">LR</cell>
+                        <cell rend="center">tfidf</cell>
+                        <cell rend="center">100</cell>
+                        <cell rend="start">Baseline</cell>
+                    </row>
+                    <row>
+                        <cell rend="start">narrator</cell>
+                        <cell rend="center">0.83</cell>
+                        <cell rend="center">0.80</cell>
+                        <cell rend="center bold">0.91</cell>
+                        <cell rend="center">0.04</cell>
+                        <cell rend="center bold">RF</cell>
+                        <cell rend="center bold">tfidf</cell>
+                        <cell rend="center bold">1000</cell>
+                        <cell rend="start bold">ML</cell>
+                    </row>
+                    <row>
+                        <cell rend="start">protagonist.age</cell>
+                        <cell rend="center">0.55</cell>
+                        <cell rend="center">0.25</cell>
+                        <cell rend="center">0.55</cell>
+                        <cell rend="center">0.01</cell>
+                        <cell rend="center">LR</cell>
+                        <cell rend="center">tfidf</cell>
+                        <cell rend="center">100</cell>
+                        <cell rend="start">Baseline</cell>
+                    </row>
+                    <row>
+                        <cell rend="start">protagonist.gender</cell>
+                        <cell rend="center">0.80</cell>
+                        <cell rend="center">0.68</cell>
+                        <cell rend="center">0.80</cell>
+                        <cell rend="center">0.01</cell>
+                        <cell rend="center">BN</cell>
+                        <cell rend="center">tfidf</cell>
+                        <cell rend="center">100</cell>
+                        <cell rend="start">Baseline</cell>
+                    </row>
+                    <row>
+                        <cell rend="start">protagonist.socLevel</cell>
+                        <cell rend="center">0.63</cell>
+                        <cell rend="center">0.49</cell>
+                        <cell rend="center">0.64</cell>
+                        <cell rend="center">0.07</cell>
+                        <cell rend="center">SVC</cell>
+                        <cell rend="center">zscores</cell>
+                        <cell rend="center">5000</cell>
+                        <cell rend="start">Baseline</cell>
+                    </row>
+                    <row>
+                        <cell rend="start">representation</cell>
+                        <cell rend="center">0.88</cell>
+                        <cell rend="center">0.80</cell>
+                        <cell rend="center">0.88</cell>
+                        <cell rend="center">0.01</cell>
+                        <cell rend="center">LR</cell>
+                        <cell rend="center">tfidf</cell>
+                        <cell rend="center">100</cell>
+                        <cell rend="start">Baseline</cell>
+                    </row>
+                    <row>
+                        <cell rend="start">setting.continent</cell>
+                        <cell rend="center">0.95</cell>
+                        <cell rend="center">0.94</cell>
+                        <cell rend="center">0.96</cell>
+                        <cell rend="center">0.01</cell>
+                        <cell rend="center">SVC</cell>
+                        <cell rend="center">zscores</cell>
+                        <cell rend="center">5000</cell>
+                        <cell rend="start">Baseline</cell>
+                    </row>
+                    <row>
+                        <cell rend="start">setting.continent.binar</cell>
+                        <cell rend="center">0.95</cell>
+                        <cell rend="center">0.95</cell>
+                        <cell rend="center">0.95</cell>
+                        <cell rend="center">0.19</cell>
+                        <cell rend="center">LR</cell>
+                        <cell rend="center">zscores</cell>
+                        <cell rend="center">500</cell>
+                        <cell rend="start">Baseline</cell>
+                    </row>
+                    <row>
+                        <cell rend="start">setting.country</cell>
+                        <cell rend="center">0.93</cell>
+                        <cell rend="center">0.38</cell>
+                        <cell rend="center">0.94</cell>
+                        <cell rend="center">0.01</cell>
+                        <cell rend="center">SVC</cell>
+                        <cell rend="center">zscores</cell>
+                        <cell rend="center">1000</cell>
+                        <cell rend="start">Baseline</cell>
+                    </row>
+                    <row>
+                        <cell rend="start">setting.country.binar</cell>
+                        <cell rend="center">0.87</cell>
+                        <cell rend="center">0.47</cell>
+                        <cell rend="center">0.88</cell>
+                        <cell rend="center">0.03</cell>
+                        <cell rend="center">SVC</cell>
+                        <cell rend="center">zscores</cell>
+                        <cell rend="center">1000</cell>
+                        <cell rend="start">Baseline</cell>
+                    </row>
+                    <row>
+                        <cell rend="start">setting.name</cell>
+                        <cell rend="center">0.64</cell>
+                        <cell rend="center bold">0.85</cell>
+                        <cell rend="center">0.71</cell>
+                        <cell rend="center">0.02</cell>
+                        <cell rend="center">SVC</cell>
+                        <cell rend="center">zscores</cell>
+                        <cell rend="center">1000</cell>
+                        <cell rend="start bold">Rule</cell>
+                    </row>
+                    <row>
+                        <cell rend="start">setting.type</cell>
+                        <cell rend="center">0.48</cell>
+                        <cell rend="center">0.46</cell>
+                        <cell rend="center bold">0.71</cell>
+                        <cell rend="center">0.05</cell>
+                        <cell rend="center bold">SVC</cell>
+                        <cell rend="center bold">zscores</cell>
+                        <cell rend="center bold">5000</cell>
+                        <cell rend="start bold">ML</cell>
+                    </row>
+                    <row>
+                        <cell rend="start">time.period</cell>
+                        <cell rend="center">0.95</cell>
+                        <cell rend="center">0.95</cell>
+                        <cell rend="center">0.97</cell>
+                        <cell rend="center">0.01</cell>
+                        <cell rend="center">BN</cell>
+                        <cell rend="center">zscores</cell>
+                        <cell rend="center">5000</cell>
+                        <cell rend="start">Baseline</cell>
+                    </row>
+                </table>
+                <p>Fig 3. Results</p>
+                <p>In many cases the baselines are higher than the results of both approaches. The rule outperformed the baseline in the case of name of the setting with very good results. In two cases (narrator and setting's type), Machine Learning is the most successful approach and its F1 is statistically higher than the baseline (one sample t-test, ɑ = 5%). The algorithms Supported Vector Machines, Logistic Regression and Random Forest are most successful, while tf-idf and speacilly z-scores got the best results, the last one a data representation “highly uncommon in other applications” different from stylometry (Kestemont et al, 2016).</p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Conclusions</head>
+                <p>In this proposal I have used simple rules and simple features in order to detect relatively complex literary metadata in many cases with high baselines. While Machine Learning showed a statistically significant improvement in detection for two classes (type of setting and narrator), rules worked better for the name of the setting. This is a promising point to continue researching in order to annotate the rest of the corpus.</p>
+            </div>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl>
+                        <hi rend="bold">Calvo Tello, J.</hi> (2017). What does Delta see inside the Author?: Evaluating Stylometric Clusters with Literary Metadata. III Congreso de La Sociedad Internacional Humanidades Digitales Hispánicas: Sociedades, Políticas, Saberes. Málaga: HDH, pp. 153–61 &lt;
+                        <ptr target="http://hdh2017.es/wp-content/uploads/2017/10/Actas-HDH2017.pdf"/>&gt;.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Calvo Tello, J., Schlör, D., Henny-Krahmer, U. and Schöch, C.</hi> (2017). Neutralising the Authorial Signal in Delta by Penalization: Stylometric Clustering of Genre in Spanish Novels. Montréal: ADHO, pp. 181–83 &lt;
+                        <ptr target="https://dh2017.adho.org/abstracts/037/037.pdf"/>&gt;.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Hoover, D. L.</hi> (2004). Testing Burrows’s Delta. Literary and Linguistic Computing, 19(4): 453–75.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Kastorp, F., Kestemont, M., Schöch, C. and Bosch, A. Van den</hi> (2015). The Love Equation: Computational Modeling of Romantic Relationships in French Classical Drama. Sixth International Workshop on Computational Models of Narrative. Atlanta, GA, USA. &lt;https://zenodo.org/record/18343&gt;.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Kestemont, M., Stover, J., Koppel, M., Karsdorp, F. and Daelemans, W.</hi> (2016). Authenticating the writings of Julius Caesar. Expert Systems with Applications, 63: 86–96 &lt;http://dx.doi.org/10.1016/j.eswa.2016.06.029&gt;.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Müller, A. C. and Guido, S.</hi> (2016). Introduction to Machine Learning with Python: A Guide for Data Scientist. Beijing: O’Reilly.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">VanderPlas, J.</hi> (2016). Python Data Science Handbook: Essential Tools for Working with Data. First edition. Beijing Boston Farnham: O’Reilly.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Witten, I., Frank, E. and Hall, M. </hi>(2011). Data Mining: Practical Machine Learning Tools and Techniques. 3rd edition. San Francisco: Morgan Kaufmann.
+                    </bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

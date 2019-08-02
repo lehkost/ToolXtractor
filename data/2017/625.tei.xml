@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xsi:schemaLocation="http://www.tei-c.org/ns/1.0 /Users/yoann/Work/Grobid/grobid-home/schemas/xsd/Grobid.xsd"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+	<teiHeader xml:lang="en">
+		<encodingDesc>
+			<appInfo>
+				<application version="0.5.4-SNAPSHOT" ident="GROBID" when="2019-06-05T06:45+0000">
+					<ref target="https://github.com/kermitt2/grobid">GROBID - A machine learning software for extracting information from scholarly documents</ref>
+				</application>
+			</appInfo>
+		</encodingDesc>
+		<fileDesc>
+			<titleStmt>
+				<title level="a" type="main">Character-distinguishing features in fictional dialogue: the case of War and Peace</title>
+			</titleStmt>
+			<publicationStmt>
+				<publisher/>
+				<availability status="unknown"><licence/></availability>
+			</publicationStmt>
+			<sourceDesc>
+				<biblStruct>
+					<analytic>
+						<author role="corresp">
+							<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">Daniil</forename><surname>Skorinkin</surname></persName>
+							<email>skorinkin.danil@gmail.com</email>
+							<affiliation key="aff0">
+								<orgName type="institution">National Research University Higher School of Economics</orgName>
+								<address>
+									<country key="RU">Russia</country>
+								</address>
+							</affiliation>
+						</author>
+						<title level="a" type="main">Character-distinguishing features in fictional dialogue: the case of War and Peace</title>
+					</analytic>
+					<monogr>
+						<imprint>
+							<date/>
+						</imprint>
+					</monogr>
+				</biblStruct>
+			</sourceDesc>
+		</fileDesc>
+		<profileDesc>
+			<abstract/>
+		</profileDesc>
+	</teiHeader>
+	<text xml:lang="en">
+		<body>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Introduction</head><p>The study of character speech is a topic of fairly consistent interest among digital literary scholars. It is usually acknowledged that voices of characters are essentially different from narrator's own voice and should be treated separately. Some researchers have fictional dialogue removed from the texts they studied before any tools of computational investigation are applied <ref type="bibr">(Hoover, 2004)</ref>. Quite a lot of effort has been made recently to address the problem of identifying character speech in prose and attributing it to the correct speaker (ссылки!). One of the outcomes of such research is the possibility to study voices of different characters on relatively large scale and apply computational tools that measure their recurring stylistic parameters.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Method</head><p>The study of character speech has traditionally had strong ties to the fields of stylometry and authorship attribution, as their methods proved quite useful for studying idiolect of a fictional speaker. Suffice it to say that one of the seminal works in stylometry, Computation into criticism# by <ref type="bibr">Burrows (Burrows, 1987)</ref>, was focused on the study of character speech in Jane Austen's novels. The method developed by Burrows grew into what is currently known as Delta, a widelyadopted standard for authorship attribution. Delta has been consistently and successfully applied to identifying the author of an unattributed text of different languages and genres, but at the same time it saw considerable usage as a purely stylometric tool for the study of text where authorship is undisputed. Among other things, this included research into the specific idiolects of fictional characters (see, for example, <ref type="bibr">Rybicki, 2006</ref>).</p><p>In our research Delta was used as one of the two possible approaches to studying character voices in Leo Tolstoy's War and peace. Much like in case of <ref type="bibr">Senkewic (Rybicki, 2006</ref>), there's certain critical opinion <ref type="bibr">(Eikhenbaum, 2009</ref>) that Tolstoy's characters are quite distinct from each other in their speech. Our own experience of carefully reading speech instances extracted from War and peace (for details on extraction procedure see <ref type="bibr">(Skorinkin, Bonch-Osmolovskaya, 2015</ref>) supports the opinion. So it seemed natural to try and test computational methods that already showed their applicability to precisely such task. We used R package stylo by <ref type="bibr">(Eder et al, 2013</ref>)</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Testing the method on Russian material</head><p>Surprisingly enough, we were unable to find any work that applied Delta to any Russian material. Therefore we felt obliged to conduct a couple of experiments that would test its general applicability to Russian before we proceed with character speech. At the first stage we tried Delta's ability to distinguish between Tolstoy and Dostoevsky. The training set contained one of the six parts of Dostoyevsky's Crime and Punishment and three of the fifteen books of Tolstoy's War and Peace. The remaining 18 pieces of text (5 by Dostoevsky and 13 by Tolstoy) constituted the test set. The results with different settings can be seen in <ref type="table">Table  1</ref>   The second experiment involved four Russian authors Tolstoy, Dostoevsky, Goncharov and Turgenev. All four represent (roughly) the same epoch of Russian literature and all four are recognized as masters of realistic prose. We used three novels by each author for our experiment. At the first stage two out of each three were placed in the training corpus, and Delta was supposed to attribute the remaining one. All four novels from the test corpus were attributed correctly. At the second stage we reverted the experiment and left only one novel by each author in the training set. In this case Delta consistently showed 7 out of 8 correct attributions (the only mistake being Tolstoy's Family Happiness incorrectly attributed to Dostoevsky.A possible explanation could be that Family Hap-piness is written in first person from the point of view of a young woman, something uncommon for Tolstoy; and the only Dostoevsky's work the training corpus contained was The Insulted and Humiliated , also a firstperson narrative). <ref type="figure" target="#fig_1">Fig. 3</ref> shows Delta scores for all the novels visualized with help of principal component analysis. </p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Applying Delta to Tolstoy's characters</head><p>Having thus shown that Delta is applicable to Russian, we proceeded with our experiment. In the first place we applied the method to top 5 characters by the total number of speech instances. We split the total sets of speeches by each character and then tried authorship attribution The results are shown in <ref type="table" target="#tab_1">Table 2</ref>. The most common mistakes are between princess Marya Bolkonskaya and Natasha Rostova and between prince Andrew Bolkonsky and Pierre Bezukhov. Their closeness can be seen in <ref type="figure" target="#fig_2">Figure 4</ref>: The quality of speech authorship attribution inevitably got worse once we expanded our selection from 5 to 15 characters. The results were still quite tolerable reaching 10 out of 15 with certain settings. The analysis of mistakes showed that a) they're less likely to occur between characters of different gender and b) the mistaken characters have quite a lot of mutual conversations.</p><p>Further on, we decided to pay more attention to overall Delta scores of character voices and see if they give us any meaningful clustering of characters. <ref type="figure" target="#fig_3">Figure  6</ref> shows PCA of characters based on Delta. One can easily see the clustering of Rostov family, to a lesser extent this applies to Bolkonsky family as well. Dolokhov, Denisov and Kutuzov could constitute the 'war' cluster.</p><p>We then made another expansion and moved from 15 to 30 characters. <ref type="figure" target="#fig_4">Figure 7</ref> demonstrates PCA of Delta scores for this selection. The most striking thing here is the obvious separation of Vera Rostova from the rest of Rostov family. The difference between cold, tempered and rational Vera and her emotional and very sentimental relatives is outspoken and obvious to the reader, but it seems valuable to have this potential quantiative support in the form of different Delta scores. What is even more striking is that Vera is quite close to Berg, a rationalizing careerist who becomes her husband. Note also the closeness of Boris and Julie Karagine, another pragmatic couple happily united in a marriage of convenience.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Applying alternative features</head><p>Having tried Delta, we proceeded with our own set of alternative features for character voice analysis (a typical step, as dectibed in Eder, 2015). These features are not related to the lexical makeup of character speech and attempt to reduce the influence of genderrelated morphological features of Russian language and the factor of mutual interactions between characters. At this stage we limited ourselves to four features only: the average number of words, the ratio of exclamatory sentences, the ratio oа question sentences and the ratio of punctuation marks (latter being a crude approximation of the 'disruptedness' of speech, which seems rather typical of certain more emotional and lively characters).</p><p>When the character set is limited to 5 characters these features even manage to distinguish character speech with some tolerable accuracy (though worse than Delta). However, the analysis of mistakes shows that they capture fundamentally different types of similarities than Delta does. For instance, joyful Natasha in this case is never mistaken for sentimental and melancholic Marya, but rather for her boisterous brother Nikolai. Pierre, on the other hand, is mistaken for Marya rather than for Andrey, who is distinct from them all. <ref type="figure" target="#fig_5">Figures 8 and 9</ref> show the results of PCA and hierarchical clustering for these characters based on our own alternative features. If we compare figures 8 and 9 to their counterparts from the Delta experiment (figures 4 and 5) we can see that the alternative features ignore gender or mutual interactions/ The hypothesis is that they enable us with a more indepth view of a character personality, his/her emotional type and so on. <ref type="figure" target="#fig_0">Figures 10-12</ref> show data on wider selections of characters using alternative features. </p></div><figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_0"><head>Fig. 1 .</head><label>1</label><figDesc>Fig. 1. Delta PCA on 150 most frequent character 4-grams, Tolstoy vs Dostoevsky</figDesc><graphic url="image-2.png" coords="2,54.58,72.58,228.96,144.24" type="bitmap" /></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_1"><head>Fig. 3 .</head><label>3</label><figDesc>Fig. 3. Delta PCA for 12 Russian novels of 1850-1870-ies, 250 most frequent words</figDesc><graphic url="image-4.png" coords="2,331.30,97.30,236.64,171.12" type="bitmap" /></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_2"><head>Fig. 4 .</head><label>4</label><figDesc>Fig. 4. Delta PCA for top 5 most talkative characters in War and Peace, 100 most frequent words</figDesc><graphic url="image-7.png" coords="3,68.74,275.86,224.40,168.72" type="bitmap" /></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_3"><head>Fig. 6 .</head><label>6</label><figDesc>Fig. 6. Delta-based PCA for top 15 most talkative characters in War and Peace, 100 most frequent words</figDesc><graphic url="image-8.png" coords="3,317.14,72.58,243.36,189.12" type="bitmap" /></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_4"><head>Fig. 7 .</head><label>7</label><figDesc>Fig. 7. Delta-based PCA for top 30 most talkative characters in War and Peace, 100 most frequent words</figDesc><graphic url="image-9.png" coords="3,317.14,387.46,238.32,162.72" type="bitmap" /></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_5"><head>Fig. 8 .</head><label>8</label><figDesc>Fig. 8. PCA for top 5 most talkative characters in War and Peace, 4 alternative features</figDesc><graphic url="image-10.png" coords="4,68.74,466.18,220.32,170.64" type="bitmap" /></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_6"><head>Fig. 10 .</head><label>10</label><figDesc>Fig. 10. PCA for top 15 most talkative characters in War and Peace, alternative features</figDesc><graphic url="image-12.png" coords="4,331.30,406.18,247.44,153.12" type="bitmap" /></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0"><head></head><label></label><figDesc></figDesc><graphic url="image-1.png" coords="1,317.14,441.70,241.44,216.24" type="bitmap" /></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" type="table" xml:id="tab_1" validated="false"><head>Table 2 .</head><label>2</label><figDesc></figDesc><table></table></figure>
+		</body>
+		<back>
+			<div type="annex">
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Bibliography</head></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Ipsum, L. (2017) "Lorem ipsum dolor sit amet, consectetur</head><p>adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua". Lorem Ipsum Quarterly.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>13.1: 27-45</head><p>Lorem, I. (2014) "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua". Lorem Ipsum Quarterly. 7.1: 46-55 Amet, C. (1887) "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua". Lorem Ipsum Quarterly. 3.1: 56-71</p></div>			</div>
+			<div type="references">
+
+				<listBibl/>
+			</div>
+		</back>
+	</text>
+</TEI>

@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title type="full">
+                    <title type="main">Distributions of Function Words Across Narrative Time in 50,000 Novels</title>
+                    <title type="sub"/>
+                </title>
+                <author>
+                    <persName>
+                        <surname>McClure</surname>
+                        <forename>David William</forename>
+                    </persName>
+                    <affiliation>Massachusetts Institute of Technology</affiliation>
+                    <email>dclure@mit.edu</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Enderle</surname>
+                        <forename>Scott</forename>
+                    </persName>
+                    <affiliation>University of Pennsylvania</affiliation>
+                    <email>scott.enderle@gmail.com</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2018-05-02T16:12:35</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Name, Institution</publisher>
+                <address>
+                    <addrLine>Street</addrLine>
+                    <addrLine>City</addrLine>
+                    <addrLine>Country</addrLine>
+                    <addrLine>Name</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from an OASIS Open Document</p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.22">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Long Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>narratology</term>
+                    <term>novel</term>
+                    <term>computational literary studies</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>literary studies</term>
+                    <term>text analysis</term>
+                    <term>linguistics</term>
+                    <term>data mining / text mining</term>
+                    <term>English</term>
+                    <term>computer science</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <p>
+                <anchor xml:id="id_docs-internal-guid-f209a3eb-227d-2b55-07ae-c729cca4363e"/>
+                <hi rend="color(#000000)">What can be said, at an empirical level, about the internal structure of literary narratives? Can we model the “shape” of a plot? In recent years, there has been a surge of interest in what might be thought of as a computational form of narratology. Instead of flattening out the text into an unordered bag of words, a series of studies have looked at the fluctuation of different types of literary signals across “novel time,” the linear space between the beginning and end of a text. Most well-known is probably Matt Jockers' work with Syuzhet, an R package that calculates the dispersion of positive and negative sentiment across novels. Ben Schmidt, working with a corpus of movie and TV scripts, tracked the distribution of topics across the screenplays, finding a footprint of the prototypical cop drama, with a crime at the beginning and a trial at the end. Andrew Piper, writing in New Literary History, identifies a signature for the “conversional” narrative, based on Augustine's </hi>
+                <hi rend="color(#000000)italic">Confessions</hi>
+                <hi rend="color(#000000)">, and then traces this signal forward in literary history. At the Stanford Literary Lab, Holst Katsma tracked the “loudness” of speech utterances across chapters in Dostoevsky and Austen. And Mark Algee-Hewitt, working with collaborators on the Suspense project, has trained a classifier that can score the “suspensefulness” of passages of text at different regions across narrative time.</hi>
+            </p>
+            <p>Each of these signals -- sentiment, topic, suspense, loudness -- is a fascinating object of study in its own right. But what are they signals of? How do they interact with one another? Do they track distinct literary phenomena, or are they moved by the same underlying forces? Are they hierarchically related to one another -- is “conversion” a subset of “topic”? Does “sentiment” encompass “suspense”? From among the infinite proliferation of threads that weave through the text, why should we select these? Are they the most explanatory, the most cross-cutting, the most fundamental? Or are there any fundamental, cross-cutting aspects to narrative at all?</p>
+            <p>Far from trying to offer definitive answers to these questions, we explore a minimalist, bottom-up approach, with the goal of providing a basic corpus-linguistic survey of the internal structure of English language novels -- we are interested in a very simple treatment of the question, with the aim of providing framing and context for higher-level studies. Instead of starting with a relatively complex signal like sentiment or suspense, we just look at the distributions of individual words across narrative time in a corpus of ~50,000 novels, and then systematically identify the words that have the most non-uniform distributions across narrative time when averaged across the entire corpus -- words that are most skewed, the most distinctive of beginnings, middles, ends, and anything in between.</p>
+            <p>This is extremely simple, essentially just a particular way of counting words. Working with Gale’s American Fiction corpus (~18k novels from 1820-1940), a subset of cleaned texts from the Chicago Novel Corpus (~7k American novels from 1880-2000), and a subset of HathiTrust (a sample of 20k works identified as fiction by Underwood et al.), we split each text into a set of N equally-sized chunks and then count the total number of times that each word appears in each of these chunks across all novels. For example -- the word “love” appears 9,418 times in the first 1/100th of novels in the corpus, compared to 25,132 in the last percentile. With this, we can represent each word as a distribution across narrative time and compare the variance to what would be expected, given the frequency of the word, under a uniform distribution -- the baseline variation that we would expect if the frequency of the word had no significant relationship with the position inside the narrative. This gives a simple way to score each word, to quantify the degree to which it tends to cluster in some regions of the narrative at the expense of others.</p>
+            <p>With content words, many of these results confirm basic intuitions about genre conventions and the pragmatic requirements of storytelling. For example, beginnings are filled with descriptions of people, places, and things; birth, youth, education; and enumerations of family relationships. Guns, death, war, and criminal justice peak right around 95%, the moment of climax and peak action. Endings are marked by marriage, death, and expressions of emotion, both happy and sad.</p>
+            <p>
+                <figure>
+                    <graphic url="Pictures/b21a0c3ff75aa7df0d9aaefbcafb959e.png"/>
+                    <head/>
+                    <p>Education, guns, and marriage across ~30k novels. (Gale American Fiction, Chicago Novel Corpus)</p>
+                </figure>
+            </p>
+            <p>Other words have patterns that are somewhat less self-evident. For example -- words related to food, eating, talking, and female characters peak strongly around the 10-20% marker in the novel, as if -- once the cast of characters is introduced at the start, it's common novelistic practice to sit them down and put them in conversation together over a meal, as an early set-piece. Or, at the 50% marker -- novelistic middles seem to be dominated by speaking and thought, words related to dialogue and psychological experience.</p>
+            <p>
+                <figure>
+                    <graphic url="Pictures/a2c31e969f5a4ae121c3634db9d90f12.png"/>
+                    <head/>
+                    <p>Food and conversation at ~20%; dialogue at ~50%. (Gale American Fiction, Chicago Novel Corpus)</p>
+                </figure>
+            </p>
+            <p>More interesting, though, it turns out that function words -- including many of the most frequent words in English -- also have very irregular distributions across narratives when averaged across tens of thousands of texts, often in ways that seem to suggest the presence of low-level (and highly consistent) narratological tendencies that sit well below the conventions of genre or plot. For example, the indefinite articles “a” and “an” fall off dramatically across narrative time -- they are overrepresented at the start, fall off quickly in the first 20%, decline more slowly across the middle, and then fall quickly again at the end.</p>
+            <p>
+                <figure>
+                    <graphic url="Pictures/c15f7c05e634ca6833e6b7151479bd84.png"/>
+                    <head/>
+                    <p>“A” and “an” across ~30k novels. (Gale American Fiction, Chicago Novel Corpus)</p>
+                </figure>
+            </p>
+            <p>Since “a” carries very little semantic content, the interpretation of this is more complex. Perhaps this is related to the fact that “a” is used when an entity is referred to for the first time, when it is “unfamiliar” in the narrative frame? For instance, to use an example from Abbot (2006), we might first say -- “Mary saw a movie last week” -- before then switching to the definite “the,” once the entity has been introduced -- “The movie was not very interesting.” It seems plausible, then, that “a” would be in higher demand at the beginning, when everything is unfamiliar and the fictional world needs to be described for the first time. If this is the narratological role of “a” -- can we treat it as a marker for a general notion of “speed” or “motion” in narrative, the degree to which the text is moving into new fictive contexts that need to be described for the first time?</p>
+            <p>The distribution of “the,” though, is neither the same nor precisely the opposite of “a,” and seems to be marking some different configuration of narrative pressures. “The” is high at the start, like “a,” but with a much faster falloff; then flat across the middle, and with a significant rise at the end.</p>
+            <p>
+                <figure>
+                    <graphic url="Pictures/f639e838385b393890d9f46f6434d83b.png"/>
+                    <head/>
+                    <p>Indefinite vs. definite articles. (Gale American Fiction, Chicago Novel Corpus)</p>
+                </figure>
+            </p>
+            <p>This seems to muddy the picture. “A” seems to be marking something about how beginnings and ends are different, whereas “the” is marking something about how they are similar. But how precisely, and why? Why do “a” and “the” diverge at the end?</p>
+            <p>These trends are highly variable across the ~50 most frequent words in English, often in ways that seem to suggest a kind of basic taxonomy of narrative variation, a set of lenses for thinking about the ways in which narratives can change across the axis of the text. For example, “and” and “or” also separate cleanly at the end:</p>
+            <p>
+                <figure>
+                    <graphic url="Pictures/2390bb4a5068d4bd3c97d731c7f1cd16.png"/>
+                    <head/>
+                    <p>“And” vs. “or.” (Gale American Fiction, Chicago Novel Corpus)</p>
+                </figure>
+            </p>
+            <p>
+                <hi rend="color(#000000)">Where, perhaps, “or” tends to introduce a state of indeterminacy, a potential fork, and thus falls off as the text approaches the end, as the “circle” of the plot comes to a close, as James would say? Or, less intuitive -- personal pronouns tend to increase across the narrative. But, the object pronouns “him” and “her” rise more steeply than the subject pronouns “he” and “she” -- so, as the narrative progresses, people increasingly become grammatical </hi>
+                <hi rend="color(#000000)italic">objects</hi>
+                <hi rend="color(#000000)">? People do things at the beginning of stories, and increasingly have things done to them at the end?</hi>
+            </p>
+            <p>
+                <figure>
+                    <graphic url="Pictures/8aaf6638ab3dbc73c86f164c253e92ce.png"/>
+                    <head/>
+                    <p>Object pronouns rise more steeply across the narrative than subject pronouns. (Gale American Fiction, Chicago Novel Corpus)</p>
+                </figure>
+            </p>
+            <p>This paper will investigate these patterns and attempt to provide linguistic and literary explanations for why they look the way they do, with a focus on the differences between “a” and “the.” Overall, we find that the distributions are highly consistent across corpora (Gale, Chicago, HathiTrust), date of publication (1850-2000), and available metadata for canonicity and author identity:</p>
+            <p>
+                <figure>
+                    <graphic url="Pictures/918525cbc2d12ad437c0e5420e0720f6.png"/>
+                    <head/>
+                    <p>The distribution of “a,” sliced by corpus, publication date, author gender, and canonicity. (Gale American Fiction, Chicago Novel Corpus)</p>
+                </figure>
+            </p>
+            <p>
+                <figure>
+                    <graphic url="Pictures/522dc14bc6f5b91339ce5f7b63db5372.png"/>
+                    <head/>
+                    <p>The distribution of “the,” sliced by corpus, publication date, author gender, and canonicity. (Gale American Fiction, Chicago Novel Corpus)</p>
+                </figure>
+            </p>
+            <p>We also find that the patterns are significantly different than trends observed in a corpus of ~20k nonfiction volumes from HathiTrust (Underwood et al., 2015), which suggests that they mark something specific about the structure of (fictional) narratives, and not just something that arises generally in long documents. Beyond the aggregate trends -- we explore the degree to which individual texts do and don’t conform to the corpus-level averages, with a focus on what can be learned from the extreme examples that most strongly exemplify and resist the overall trends -- for example, the ~1% of novels for which “a” increases consistently across the entire text at a statistically significant level.</p>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl>
+                        <anchor xml:id="id_docs-internal-guid-f209a3eb-227d-bfa5-db18-016c119f9e52"/>Abbott, B., 2006. Definite and indefinite. Encyclopedia of language and linguistics, 3, pp.392-399.
+                    </bibl>
+                    <bibl>Chu, E. and Roy, D., 2017. Audio-Visual Sentiment Analysis for Learning Emotional Arcs in Movies. arXiv preprint arXiv:1712.02896.</bibl>
+                    <bibl>Froehlich, H., 2012. Independent women? Representations of gender-specific possession in two Shakespeare plays. 7th Lancaster University Postgraduate Conference in Linguistics &amp; Language Teaching.</bibl>
+                    <bibl>
+                        <hi rend="color(#000000)">Jockers, M., 2015. Revealing Sentiment and Plot Arcs with the Syuzhet Package. Matthew L. Jockers [blog], </hi>
+                        <ptr target="http://www.matthewjockers.net/2015/02/02/syuzhet/"/>
+                        <hi rend="color(#000000)">.</hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="color(#000000)">Katsma, H., 2014. Loudness in the Novel. Stanford Literary Lab, Pamphlet 7. </hi>
+                        <ptr target="https://litlab.stanford.edu/LiteraryLabPamphlet7.pdf"/>
+                    </bibl>
+                    <bibl>Piper, A., 2015. Novel devotions: Conversional reading, computational modeling, and the modern novel. New Literary History, 46(1), pp.63-98.</bibl>
+                    <bibl>Reagan, A.J., Mitchell, L., Kiley, D., Danforth, C.M. and Dodds, P.S., 2016. The emotional arcs of stories are dominated by six basic shapes. EPJ Data Science, 5(1), p.31.</bibl>
+                    <bibl>Schmidt, B.M., 2015, October. Plot arceology: A vector-space model of narrative structure. In Big Data (Big Data), 2015 IEEE International Conference on (pp. 1667-1672). IEEE.</bibl>
+                    <bibl>Underwood, T., Black, M.L., Auvil, L. and Capitanu, B., 2013, October. Mapping mutable genres in structurally complex volumes. In 
+                        <hi rend="italic">Big Data, 2013 IEEE International Conference on</hi>(pp. 95-103). IEEE.
+                    </bibl>
+                    <bibl>Underwood, T., Capitanu, B.,Organisciak, P., Bhattacharyya, S., Auvil, L., Fallaw, C., Downie, J.S., 2015. Word Frequencies in English-Language Literature, 1700-1922 (0.2) [Dataset]. HathiTrust Research Center. doi:10.13012/J8JW8BSJ.</bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

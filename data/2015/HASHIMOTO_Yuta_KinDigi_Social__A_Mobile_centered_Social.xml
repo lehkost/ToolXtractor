@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>KinDigi Social: A Mobile-centered Social Annotation Platform for the Kindai Digital Library</title>
+                <author>
+                    <persName>
+                        <surname>Hashimoto</surname>
+                        <forename>Yuta</forename>
+                    </persName>
+                    <affiliation>Kyoto University, Japan</affiliation>
+                    <email>yhashimoto1984@gmail.com</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Araki</surname>
+                        <forename>Yasuyuki</forename>
+                    </persName>
+                    <affiliation>National Diet Library, Japan</affiliation>
+                    <email>ya-araki@ndl.go.jp</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2014-12-19T13:50:00Z</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Paul Arthur, University of Western Sidney</publisher>
+                <address>
+                    <addrLine>Locked Bag 1797</addrLine>
+                    <addrLine>Penrith NSW 2751</addrLine>
+                    <addrLine>Australia</addrLine>
+                    <addrLine>Paul Arthur</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from a Word document </p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.9">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Short Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>social annotation</term>
+                    <term>digital collections</term>
+                    <term>online collaboration</term>
+                    <term>open annotation</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>historical studies</term>
+                    <term>interface and user experience design</term>
+                    <term>software design and development</term>
+                    <term>programming</term>
+                    <term>social media</term>
+                    <term>crowdsourcing</term>
+                    <term>semantic web</term>
+                    <term>linking and annotation</term>
+                    <term>English</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <p>The Kindai Digital Library (KDL) is an online collection of out-of-copyright books published in Japan in the 19th and 20th centuries run by the National Diet Library (NDL) of Japan.
+                <hi rend="superscript">1</hi> It offers full access to images scanned from books previously only available in the NDL. As of November 2014, the total number of volumes in the collection has grown to around 360,000. Although digitized text of the scans is not available due to the technical difficulties of applying OCR to old Japanese type fonts, the collection has been a precious resource for studies of the history of modern Japan since its start in 2003.
+            </p>
+            <p>KinDigi Social is an online platform for social annotation of digitized books in KDL; it offers iOS and Android clients to browse books in the KDL collection and provides a set of features to create and share annotations and tags, allowing users to exchange and discuss historical knowledge and ideas concerning the books. The project is one of the experimental projects supported by the NDL Lab, an R&amp;D section of NDL,
+                <hi rend="superscript">2</hi> and is going to be available at http://kindigi-social.org/ by the spring of 2015. In this paper, we will discuss the aims, methods, and implementation of the KinDigi Social platform.
+            </p>
+            <p>Aim of the Project</p>
+            <p>The past several years saw growing interest in the use of social media for humanities studies in the digital humanities world. Possibilities of online collaboration for research in the humanities have been discussed on various occasions and put into practice in a number of research projects (Siemens et al, 2012; Barr and Tonra, 2014). Our research attempt is to apply the methodologies and techniques suggested by the results of those studies to the KDL. The need for such an attempt becomes clear when we see the numerous references and comments on books in the KDL made by professional and amateur historians not only in their academic papers but also in their blogs and social media posts (search ‘kindai.ndl.go.jp’ on Twitter, for instance). Although this sort of user-generated content is often quite valuable in that it can provide better understandings of the historical context of books, it has been left scattered over the Web and has not been archived for later references, which has resulted in a great loss of intellectual resources. Thus KinDigi Social aims to be a platform that aggregates and accumulates such annotations, and enables interdisciplinary discussion and collaboration among scholars for the purpose of further knowledge creation.</p>
+            <p>Methods</p>
+            <p>KinDigi Social allows its users to create annotations on both image region parts of a book and on the text itself. Each annotation accepts replies from other users so that idea-exchanging and discussion can take place. It is also possible to label each annotation with Twitter-like hashtags. On the other hand, the mere capacity to create annotations is not enough to build a sustainable social medium that will keep driving engagement of users and that can endure long-term use as an archive of historical knowledge; there are difficulties concerning user interfaces, information sharing, archiving and reuse of user-generated content, among other issues. Therefore we took the following three additional measures:</p>
+            <p> • 
+                <hi rend="bold">Mobile first development:</hi> Since currently the KDL doesn’t offer a user interface optimized for mobile devices, its users need to keep their eyes on PC displays to read the books held in the KDL. The loss of productivity derived from the limitations of this user interface cannot and should not be ignored. Although a desktop client is also planned for KinDigi Social, we have especially focused on building a rich mobile client that enables users to access the KDL almost anywhere using their iPads or other mobile devices, and provides them the same user experience gained from the use of mobile readers such as the Amazon Kindle (see Figure 1). One large problem with displaying scanned book images on mobile devices is their size; the images from the KDL have margins surrounding the actual books. For this we developed a lightweight image analysis library that automatically detects edges in a book image and removes unnecessary margins from it (see Figure 2). The code is open-source and available on Github.
+                <hi rend="superscript">3</hi>
+            </p>
+            <p> • 
+                <hi rend="bold">Support for real-time collaboration:</hi> As the recent success of social media shows, real-time communication between users is indispensable for their continual engagement. In order to support this kind of collaboration, KinDigi Social implements the following Twitter-like system: user activities, such as the creation of an annotation, will immediately prompt a notification sent to the user’s ‘followers’ through their social feeds, for real-time responses and information sharing (see Figure 3). Likewise it is possible to ‘watch’ any book in KDL just like a GitHub repository so that the user will get a notification when an annotation is created on a book. This system also contributes to forming loosely bound clusters of users. For those who do not want to make their annotations public, support for private annotations is also planned.
+            </p>
+            <p> • 
+                <hi rend="bold">Data modeling following the Open Annotation specification:</hi> As a description model of user-generated annotations, KinDigi Social implements the Open Annotation Data Model, an RDF-based framework designed for modeling annotations on web content whose specification has been developed by a W3C community group (Hunter, 2010).
+                <hi rend="superscript">4</hi> It provides controlled and machine-friendly vocabulary for modeling not only annotations but also replies from other users, folksonomy tags, and links to other resources. The adoption of the Open Annotation framework makes it possible to store and serialize user-derived content in an interoperable and reusable way for their long-term preservation and for secondary uses such as text analysis.
+            </p>
+            <figure>
+                <graphic n="1001" width="16.007291666666667cm" height="11.990916666666667cm" url="Pictures/image1.png" rend="inline"/>
+            </figure>
+            <p>Figure 1. The iOS client of KinDigi Social running on an iPad.</p>
+            <p>
+                <pb/>
+            </p>
+            <figure>
+                <graphic n="1002" width="16.007291666666667cm" height="11.045472222222223cm" url="Pictures/image2.png" rend="inline"/>
+            </figure>
+            <p>Figure 2. An example of the automatic detection of book edges.</p>
+            <p>
+                <pb/>
+            </p>
+            <figure>
+                <graphic n="1003" width="14.118166666666667cm" height="17.485430555555556cm" url="Pictures/image3.png" rend="inline"/>
+            </figure>
+            <p>Figure 3. An example of social feed of user activities.</p>
+            <p>
+                <pb/>
+            </p>
+            <figure>
+                <graphic n="1004" width="16.007291666666667cm" height="11.075458333333334cm" url="Pictures/image4.png" rend="inline"/>
+            </figure>
+            <p>Figure 4. System architecture of KinDigi Social platform.</p>
+            <p>Implementation</p>
+            <p>As shown in Figure 4, KinDigi Social is a server-client system. The web server is written in Ruby on Rails and is hosted on a physical server in the NDL Lab where it retrieves scanned images and the bibliographic metadata of books in the KDL through the APIs provided by the NDL. It also exchanges JSON messages with its iOS and Android clients through its REST API. The mobile clients are built with HTML5 using the Apache Cordova framework,
+                <hi rend="superscript">5</hi> so that a single source code will generate distributions for different platforms. 
+            </p>
+            <p>Annotation data generated by users is at first stored in a relational database (PostgreSQL), and is regularly converted and dumped into an RDF database and made public through its SPARQL endpoint. In this way annotation data can be easily retrieved and processed by standard semantic web technologies. We chose a relational database as a primary method of data storage purely for performance and maintenance reasons.</p>
+            <p>The user authentication is done via OAuth 2.0 protocol; users need to use their Facebook or Twitter account to log in to KinDigi Social (Authentication via OpenID is also planned). This implementation is intended to make it easy to connect with other social media platforms and to prevent vandalism by anonymous users. </p>
+            <p>Conclusion and Future Directions</p>
+            <p>Our basic standpoint is that every historical digital collection should behave like a living organism; it should continue to grow, absorbing its users’ knowledge and ideas and connecting to other historical resources. The online collaboration of scholars enhanced by real-time and mobile computing, and the standardized archive system built with Open Annotation model will contribute to the transformation of currently static digital collections into such dynamic organisms.</p>
+            <p>Although our project is still in its very early stages and we first need to evaluate how KinDigi Social can contribute to humanities research based on digital resources, a possible extension of our project would be to include support for multiple digital archives, and collections other than the KDL. A prime candidate is the digital archive administered by the Japan Center for Asian Historical Records (JACAR),
+                <hi rend="superscript">6</hi> which holds the official documents of the Japanese Cabinet dating from the period prior to World War II. If it were possible to search the annotations created in both the KDL and JACAR seamlessly with a single query, that would greatly benefit studies of the history of modern politics in Japan, and we therefore hope to offer this functionality with our project.
+            </p>
+            <p>Notes</p>
+            <p>1. Kindai Digital Library. http://kindai.ndl.go.jp/?__lang=en.</p>
+            <p>2. NDL Lab, http://lab.kn.ndl.go.jp/cms/.</p>
+            <p>3. Kindai-cropper (a github repository). https://github.com/yuta1984/kindai-cropper.</p>
+            <p>4. Open Annotation Data Model, http://www.openannotation.org/spec/core/.</p>
+            <p>5. Apache Cordova, http://cordova.apache.org/.</p>
+            <p rend="footnote text">6. Japan Center for Asian Historical Records, http://www.jacar.go.jp/english/index.html.</p>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl>
+                        <hi rend="bold">Barr, R. A. and Tonra, J.</hi> (2014). Crowdsourcing Annotation and the Social Edition: Ossian Online. 
+                        <hi rend="italic">DH2014</hi>.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Hunter, J., et al.</hi> (2010). The Open Annotation Collaboration: A Data Model to Support Sharing and Interoperability of Scholarly Annotations. 
+                        <hi rend="italic">Digital Humanities 2010: Conference Abstracts</hi>, pp. 175–78.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Siemens, R., et al.</hi> (2012). Toward Modeling the Social Edition: An Approach to Understanding the Electronic Scholarly Edition in the Context of New and Emerging Social Media. 
+                        <hi rend="italic">Literary and Linguistic Computing,</hi>
+                        <hi rend="bold">27</hi>(4): 445–61. 
+                    </bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

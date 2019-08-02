@@ -1,0 +1,448 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>If Paintings were Plants: Measuring Genre Diversity in Seventeenth-Century Dutch Painting and Printmaking</title>
+                <author>
+                    <persName>
+                        <surname>Lincoln</surname>
+                        <forename>Matthew</forename>
+                    </persName>
+                    <affiliation>University of Maryland, United States of America</affiliation>
+                    <email>mlincol1@umd.edu</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2016-03-03T16:32:00Z</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Maciej Eder, Pedagogical University in Krakow</publisher>
+                <publisher>Jan Rybicki, Jagiellonian University</publisher>
+                <address>
+                    <addrLine>Institute of Polish Studies</addrLine>
+                    <addrLine>Pedagogical University</addrLine>
+                    <addrLine>ul. Podchorazych 2</addrLine>
+                    <addrLine>30-084 Krakow, Poland</addrLine>
+                    <addrLine>maciej.eder@ijp-pan.krakow.pl</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from a Word document </p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.20">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Long Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>painting</term>
+                    <term>printmaking</term>
+                    <term>genre</term>
+                    <term>keyword analysis</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>art history</term>
+                    <term>data modeling and architecture including hypothesis-driven modeling</term>
+                    <term>GLAM: galleries, libraries, archives, museums</term>
+                    <term>data mining / text mining</term>
+                    <term>English</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <p>Tracing the "origins of pictorial species" (to borrow Larry Silver's turn of phrase) has long been an interest of art historians. (Silver, 2006) The emergence of distinct genres of painting (e.g. dedicated landscapes or still-lifes) in the sixteenth and seventeenth centuries in Europe, and in the Netherlands in particular, has proven especially fascinating. Historians of art and economics have hypothesized that, by specializing in standalone still-lifes, landscapes, or so-called "genre scenes" of everyday life, painters may have reaped two advantages: an opportunity to distinguish themselves in the uniquely competitive art market in the sixteenth- and seventeenth-century Netherlands; and the ability to efficiently paint similar compositions over and over again. (Chong, 1987; Montias, 1988) But would professional printmakers also have adopted this specialization strategy? Or did the medium, which was often put to use making reproductions after other artists' designs, instead favor etchers and engravers willing to render the works of a wide variety of artists? Existing case studies present conflicting evidence. How can we test this question at scale?</p>
+            <p>While Silver only invokes speciation as a metaphor, ecology may offer a useful quantitative model for thinking about genre specialization. A common measurement of species diversity (Shannon's diversity metric) can be used to characterize artists' relative specialization or diversification in genre, thus allowing us to gain a broader perspective on printmakers' specialization or diversification strategies. I will first demonstrate how this index can detect Dutch painters' trend towards genre specialization from a database of paintings seventeenth-century Dutch household inventories, and a comprehensive database of Dutch paintings in modern-day museum collections. I will then use it to test whether or not we can detect similar results in a database of prints maintained by the Rijksmuseum.</p>
+            <div xml:id="methodology" type="div1" rend="DH-Heading1">
+                <head>Methodology</head>
+                <p>Whether looking at the diversity of species within an ecosystem, or the variety of different industries within a state, diversity measures have to account for two dimensions:</p>
+                <list type="ordered">
+                    <item>Categorical: How many discrete classes are observed?</item>
+                    <item>Allocation: How even is the distribution of units among categories?</item>
+                </list>
+                <p>Shannon's measurement of diversity (
+                    <formula>
+                        <mml:math xmlns:mml="http://www.w3.org/1998/Math/MathML">
+                            <msub xmlns="http://www.w3.org/1998/Math/MathML">
+                                <mrow>
+                                    <mi>D</mi>
+                                </mrow>
+                                <mrow>
+                                    <mi>s</mi>
+                                </mrow>
+                            </msub>
+                        </mml:math>
+                    </formula>), a widely-used metric, captures both of these dimensions of diversity.
+                    <note place="foot" xml:id="ftn1" n="1">
+                        <p> Shannon's diversity index 
+                            <formula>
+                                <mml:math xmlns:mml="http://www.w3.org/1998/Math/MathML">
+                                    <msub xmlns="http://www.w3.org/1998/Math/MathML">
+                                        <mrow>
+                                            <mi>D</mi>
+                                        </mrow>
+                                        <mrow>
+                                            <mi>s</mi>
+                                        </mrow>
+                                    </msub>
+                                </mml:math>
+                            </formula> is defined as the negative sum of the proportions of every class size within the population multiplied by their logged equivalents, where 
+                            <formula>
+                                <mml:math xmlns:mml="http://www.w3.org/1998/Math/MathML">
+                                    <msub xmlns="http://www.w3.org/1998/Math/MathML">
+                                        <mrow>
+                                            <mi>n</mi>
+                                        </mrow>
+                                        <mrow>
+                                            <mi>i</mi>
+                                        </mrow>
+                                    </msub>
+                                </mml:math>
+                            </formula> is the number of observations in class 
+                            <formula>
+                                <mml:math xmlns:mml="http://www.w3.org/1998/Math/MathML">
+                                    <mi xmlns="http://www.w3.org/1998/Math/MathML">i</mi>
+                                </mml:math>
+                            </formula>, and 
+                            <formula>
+                                <mml:math xmlns:mml="http://www.w3.org/1998/Math/MathML">
+                                    <mi xmlns="http://www.w3.org/1998/Math/MathML">N</mi>
+                                </mml:math>
+                            </formula> is the total population size:
+                        </p>
+                        <p>
+                            <formula>
+                                <mml:math xmlns:mml="http://www.w3.org/1998/Math/MathML">
+                                    <msub xmlns="http://www.w3.org/1998/Math/MathML">
+                                        <mrow>
+                                            <mi>D</mi>
+                                        </mrow>
+                                        <mrow>
+                                            <mi>s</mi>
+                                        </mrow>
+                                    </msub>
+                                    <mo xmlns="http://www.w3.org/1998/Math/MathML">=</mo>
+                                    <mo xmlns="http://www.w3.org/1998/Math/MathML">-</mo>
+                                    <mo xmlns="http://www.w3.org/1998/Math/MathML">∑</mo>
+                                    <mfrac xmlns="http://www.w3.org/1998/Math/MathML">
+                                        <mrow>
+                                            <msub>
+                                                <mrow>
+                                                    <mi>n</mi>
+                                                </mrow>
+                                                <mrow>
+                                                    <mi>i</mi>
+                                                </mrow>
+                                            </msub>
+                                        </mrow>
+                                        <mrow>
+                                            <mi>N</mi>
+                                        </mrow>
+                                    </mfrac>
+                                    <mi mathvariant="normal" xmlns="http://www.w3.org/1998/Math/MathML">l</mi>
+                                    <mi mathvariant="normal" xmlns="http://www.w3.org/1998/Math/MathML">n</mi>
+                                    <mfrac xmlns="http://www.w3.org/1998/Math/MathML">
+                                        <mrow>
+                                            <msub>
+                                                <mrow>
+                                                    <mi>n</mi>
+                                                </mrow>
+                                                <mrow>
+                                                    <mi>i</mi>
+                                                </mrow>
+                                            </msub>
+                                        </mrow>
+                                        <mrow>
+                                            <mi>N</mi>
+                                        </mrow>
+                                    </mfrac>
+                                </mml:math>
+                            </formula>
+                        </p>
+                        <p>For the original derivation of Shannon's diversity, see (Shannon and Weaver, 1949); for the R implementation of this formula, see (Oksanen et al., 2015).</p>
+                    </note> Originally developed to characterize entropy in information transmission, this metric of diversity has been applied to the studies as diverse as ecological diversity, economic specialization, and racial segregation. (Gibbs and Martin, 1962; Ottaviano et al., 2003) To measure whether specialization or generalization was more favored by painters and printmakers, each artist's oeuvre is treated as a "population" with a single diversity score calculated per artist. By this measure, a population whose members are distributed evenly across several different species/categories will have a higher diversity index than a population whose members are largely concentrated in just one category.
+                </p>
+            </div>
+            <div xml:id="data" type="div1" rend="DH-Heading1">
+                <head>Data</head>
+                <figure>
+                    <graphic url="327/image1.png" rend="inline"/>
+                    <head>Figure The number of unique artists and artworks represented in each dataset, subdivided by birth year</head>
+                </figure>
+                <p>This study is based on two sources of information about paintings, and one source for prints.</p>
+                <p>The first, a modern resource, is the 
+                    <hi rend="italic">RKDimages</hi> database compiled by the Rijksbureau voor Kunsthistorische Documentatie.
+                    <note place="foot" xml:id="ftn2" n="2">
+                        <p rend="footnote text">
+                            <ref target="https://rkd.nl/en/explore/images">https://rkd.nl/en/explore/images</ref>
+                        </p>
+                    </note> This catalog of Dutch and Flemish artworks extant in collections around the world contains approximately 13,000 dated and attributed paintings that have each been tagged with a series of keywords (on average between 6 to 7 keywords per painting) describing their subject matter.
+                    <note place="foot" xml:id="ftn3" n="3">
+                        <p> These keywords have been assigned by hand by researchers at the RKD, building on the index cards typewritten by Hofstede de Groot (1863--1930) that have served as the foundation of the RKD's current digital databases.</p>
+                    </note> The scale of the RKD database makes it unfeasible for the individual researcher to manually categorize each artwork into a single broad subject category. Therefore, I identified clusters of artworks that shared groups of keywords though community detection on a constructed graph where each object was connected to others based on shared RKD subject keywords.
+                    <note place="foot" xml:id="ftn4" n="4">
+                        <p> On the community detection algorithm, see (Blondel et al. ,2008); implemented in R by (Csardi and Nepusz, 2006).</p>
+                    </note> I then checked the resulting groups manually to confirm that they did, in fact, corresponded relatively well to common genre categories. The resulting groups roughly encompassed: 1) portraits, 2) still lifes, 3) landscapes, 4) religious paintings, and 5) a looser array of other works that featured multiple figures (generally genre scenes or history subjects).
+                </p>
+                <p>Because the surviving paintings in the RKD database are a biased proxy of the 
+                    <hi rend="bold">actual</hi> patterns of paintings produced in the seventeenth century, it is crucial to compare the trends derived from the RKD's modern database against contemporary archival records. The Montias Database of 17th Century Dutch Art Inventories, maintained by the Frick Art Reference Library, contains information on household inventories from Amsterdam that were recorded between 1575 and 1700.
+                    <note place="foot" xml:id="ftn5" n="5">
+                        <p rend="footnote text">
+                            <ref target="http://research.frick.org/montias/home.php">http://research.frick.org/montias/home.php</ref>
+                        </p>
+                    </note> Of these inventories, 1153 contained at least two paintings The Montias Database has 86 different subject headings, which have been manually grouped into the same general set of subject headings that we used for the RKD database.
+                    <note place="foot" xml:id="ftn6" n="6">
+                        <p> The number of subject headings detailed by Montias are small enough that it was feasible to manually generate a concordance between the 86 original subject headings and the ten subject headings used by Van der Woude in his study of the same database: "old testament", "new testament", "other religious", "mythology-allegory", "history", "landscape", "genre", "still life", "portrait", "animals", "other", and "unknown"; (van der Woude, 1991).</p>
+                    </note> The MDI describes 34,147 paintings, of which 26,349 (about 77% of the total) have an identified subject (the rest are labeled "unknown"), with 4,377 of those described paintings (about 13% of the total) attributed to a specific artist.
+                    <note place="foot" xml:id="ftn7" n="7">
+                        <p> This limited level of description common in collection inventories from the seventeenth century. While it was common to describe the subject of the painting and its size, notaries generally did not make an attribution of an artwork unless its painter was well-known enough that its attribution would have impacted the painting's monetary value.</p>
+                    </note> The Montias inventories are also an imperfect reflection of seventeenth-century painting production, being biased towards rich collectors, mostly in Amsterdam, who died with outstanding debt. However, if both the modern and contemporary datasets reveal similar patterns in specialization, this would strengthen the case for claiming that a trend towards specialization existed historically. (De Vries, 1991:259--260.)
+                </p>
+                <p>Unfortunately, there are virtually no seventeenth-century inventories that catalog individual prints. Instead, we rely solely on the surviving prints in the collection of the Rijksmuseum
+                    <note place="foot" xml:id="ftn8" n="8">
+                        <p rend="footnote text">
+                            <ref target="https://www.rijksmuseum.nl/">https://www.rijksmuseum.nl/</ref>
+                        </p>
+                    </note>: an imperfect source, though one that is also unparalleled in its coverage of known surviving prints from this period. The Rijksmuseum has classified their artworks based on the ICONCLASS system for tagging iconography in European art
+                    <note place="foot" xml:id="ftn9" n="9">
+                        <p rend="footnote text">
+                            <ref target="http://iconclass.org/">http://iconclass.org/</ref>
+                        </p>
+                    </note>, and this has also been mapped to the same broader categories used in the Montias database. Multiple impressions of the same print have been roughly disambiguated by removing prints with a duplicate engraver, title, and dates. This study is also only considering reproductive prints, so prints made by engravers or etchers after their own designs are excluded from this analysis.
+                </p>
+            </div>
+            <div xml:id="results" type="div1" rend="DH-Heading1">
+                <head>Results</head>
+                <figure>
+                    <graphic url="327/image2.png" rend="inline"/>
+                    <head>Figure The oeuvre diversity ranges of painters (Montias and RKD datasets) and printmakers (RKM dataset) born at different points between 1500 and 1700</head>
+                </figure>
+                <p>We find that, although both the Montias and RKD paintings datasets show wide variation, with both highly specialized painters and highly diversified ones, both datasets reflect an increasing number of specialized painters born after 1600, as shown by a decreasing median oeuvre diversity. On the other hand, the median oeuvre diversity of printmakers in the Rijksmuseum dataset remains consistent during the entire period of study. This confirms the widely-held hypothesis that an increasing number of Dutch painters defined a niche for themselves by specializing in a particular genre. The results also appear to support the previously-unexamined hypothesis that reproductive printmakers instead favored making prints after a wide array of artworks; printmakers who did define highly specialized niches appear to have been the exception, rather than the norm.</p>
+                <p>So what subjects did these specialists prefer? Prolific specialized painters overwhelmingly favored landscapes: of those artists in the bottom diversity quartile (i.e. the 25% most specialized painters in the Montias database), almost 85% of their paintings are described as landscapes, followed in a distant second by still-life paintings. Landscape was a genre that was both highly conventionalized - it was easy to produce endless variations on the same general set of topographical motifs - and also amenable to a very efficient technique - a landscape could be rendered in broad brushwork with a limited palette and still be an aesthetic success. (Goedde, 1997) Still-life paintings in this period were also, by in large, the purview of specialists. They may comprise a much smaller share of the total number of paintings in the Montias database because, unlike landscapes, the aesthetic effect of still lifes was often dependent on the painter's mimetic skill and illusionistc finish - not a technique conducive to speedy production.</p>
+                <p>On the other hand, of those printmakers who 
+                    <hi rend="bold">did</hi> specialize in particular genres of prints, we do not find a single dominant theme. Rather, a few specialties rise to the top: "news" prints depicting current events, architectural illustrations, and allegorical or biblical series prints. Those printmakers who did specialize (Table 1) did not rely on prints as their main means of support; many were specialist painters who happened to produce prints as well. But these printmakers were outnumbered by those professional printmakers (Table 2) who were willing and able to render reproductions after a wide variety of artists. This flexibility could have presented an attractive insurance policy for print publishers, who had to continually react to the demands of a quickly-moving market for artistic prints and illustrations, while also appealing to the seventeenth-century function of prints as encyclopedic sources of knowledge. (MacGregor, 1999:395)
+                </p>
+                <table rend="rules">
+                    <row>
+                        <cell rend="Compact">artist name</cell>
+                        <cell rend="Compact">works</cell>
+                        <cell rend="Compact">div</cell>
+                        <cell rend="Compact">subjects</cell>
+                    </row>
+                    <row>
+                        <cell rend="Compact">Abraham Dircksz Santvoort</cell>
+                        <cell rend="Compact">123</cell>
+                        <cell rend="Compact">0.74</cell>
+                        <cell rend="Compact">topographical views, history prints</cell>
+                    </row>
+                    <row>
+                        <cell rend="Compact">Allaert van Everdingen</cell>
+                        <cell rend="Compact">113</cell>
+                        <cell rend="Compact">0.77</cell>
+                        <cell rend="Compact">landscape, animals</cell>
+                    </row>
+                    <row>
+                        <cell rend="Compact">Adriaen van Ostade</cell>
+                        <cell rend="Compact">85</cell>
+                        <cell rend="Compact">0.67</cell>
+                        <cell rend="Compact">genre, low-life</cell>
+                    </row>
+                    <row>
+                        <cell rend="Compact">Isaac Vincentsz van der Vinne</cell>
+                        <cell rend="Compact">82</cell>
+                        <cell rend="Compact">0.23</cell>
+                        <cell rend="Compact">heraldry</cell>
+                    </row>
+                    <row>
+                        <cell rend="Compact">Reinier Nooms</cell>
+                        <cell rend="Compact">72</cell>
+                        <cell rend="Compact">0.58</cell>
+                        <cell rend="Compact">seascape</cell>
+                    </row>
+                    <row>
+                        <cell rend="Compact">Cornelis Dusart</cell>
+                        <cell rend="Compact">57</cell>
+                        <cell rend="Compact">0.76</cell>
+                        <cell rend="Compact">portraiture</cell>
+                    </row>
+                    <row>
+                        <cell rend="Compact">Theodoor van Thulden</cell>
+                        <cell rend="Compact">52</cell>
+                        <cell rend="Compact">0.68</cell>
+                        <cell rend="Compact">antiquity, mythology</cell>
+                    </row>
+                    <row>
+                        <cell rend="Compact">Cornelis Pietersz Bega</cell>
+                        <cell rend="Compact">36</cell>
+                        <cell rend="Compact">0.62</cell>
+                        <cell rend="Compact">genre</cell>
+                    </row>
+                    <row>
+                        <cell rend="Compact">Anthonie Waterloo</cell>
+                        <cell rend="Compact">35</cell>
+                        <cell rend="Compact">0.67</cell>
+                        <cell rend="Compact">landscape</cell>
+                    </row>
+                </table>
+                <p>Table 1: The most productive Dutch and Flemish specialist printmakers (those falling below the 45th diversity percentile). Note that the count of "works" treats print series as a single work</p>
+                <table rend="rules">
+                    <row>
+                        <cell rend="Compact">artist name</cell>
+                        <cell rend="Compact">works</cell>
+                        <cell rend="Compact">div</cell>
+                        <cell rend="Compact">subjects</cell>
+                    </row>
+                    <row>
+                        <cell rend="Compact">Jan Luyken</cell>
+                        <cell rend="Compact">2,047</cell>
+                        <cell rend="Compact">1.64</cell>
+                        <cell rend="Compact">bible scenes, seascape, genre, historical, architecture, titlepages</cell>
+                    </row>
+                    <row>
+                        <cell rend="Compact">Caspar Luyken</cell>
+                        <cell rend="Compact">454</cell>
+                        <cell rend="Compact">1.74</cell>
+                        <cell rend="Compact">bible, landscape, historical, genre, maps</cell>
+                    </row>
+                    <row>
+                        <cell rend="Compact">Aegidius Sadeler</cell>
+                        <cell rend="Compact">238</cell>
+                        <cell rend="Compact">1.80</cell>
+                        <cell rend="Compact">landscape, portraiture, allegory, mythology, religious</cell>
+                    </row>
+                    <row>
+                        <cell rend="Compact">Jacob Matham</cell>
+                        <cell rend="Compact">229</cell>
+                        <cell rend="Compact">1.73</cell>
+                        <cell rend="Compact">allegory, mythology, portraiture, biblical</cell>
+                    </row>
+                    <row>
+                        <cell rend="Compact">Hendrick Goltzius</cell>
+                        <cell rend="Compact">228</cell>
+                        <cell rend="Compact">1.80</cell>
+                        <cell rend="Compact">biblical, portraiture, allegory, antiquity, mythology, landscape</cell>
+                    </row>
+                    <row>
+                        <cell rend="Compact">Crispin van de Passe (I)</cell>
+                        <cell rend="Compact">203</cell>
+                        <cell rend="Compact">1.80</cell>
+                        <cell rend="Compact">moralizing allegories, portraiture, devotional, botanical, biblical</cell>
+                    </row>
+                    <row>
+                        <cell rend="Compact">Johannes Wierix</cell>
+                        <cell rend="Compact">215</cell>
+                        <cell rend="Compact">1.54</cell>
+                        <cell rend="Compact">portraiture, biblical, allegory, genre, mythology, devotional,</cell>
+                    </row>
+                    <row>
+                        <cell rend="Compact">Abraham Bloteling</cell>
+                        <cell rend="Compact">188</cell>
+                        <cell rend="Compact">1.72</cell>
+                        <cell rend="Compact">landscape, genre scenes, portraiture, mythological</cell>
+                    </row>
+                    <row>
+                        <cell rend="Compact">Cornelis Bloemaert (II)</cell>
+                        <cell rend="Compact">180</cell>
+                        <cell rend="Compact">1.69</cell>
+                        <cell rend="Compact">saints &amp; other religious, biblical, portraiture</cell>
+                    </row>
+                    <row>
+                        <cell rend="Compact">Raphaël Sadeler (I)</cell>
+                        <cell rend="Compact">156</cell>
+                        <cell rend="Compact">1.57</cell>
+                        <cell rend="Compact">devotional series, biblical, allegory, mythology, titlepages</cell>
+                    </row>
+                </table>
+                <p>Table 2: The most generalist Dutch and Flemish printmakers (those falling above the 85th diversity percentile)</p>
+            </div>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl rend="Bibliography">
+                        <hi rend="bold">Blondel, V. D., Guillaume, J.-L., Lambiotte, R. and Lefebvre, E.</hi> (2008). Fast Unfolding of Communities in Large Networks. 
+                        <hi rend="italic">Journal of Statistical Mechanics: Theory and Experiment</hi>, 
+                        <hi rend="bold">2008</hi>(10): P10008 doi:
+                        <ref target="https://doi.org/10.1088/1742-5468/2008/10/P10008">10.1088/1742-5468/2008/10/P10008</ref>.
+                    </bibl>
+                    <bibl rend="Bibliography">
+                        <hi rend="bold">Chong, A.</hi> (1987). The Market for Landscape Painting in Seventeenth-Century Holland. In Sutton, P. C. and Blankert, A. (eds), 
+                        <hi rend="italic">Masters of Seventeenth-Century Dutch Landscape Painting</hi>. Boston: Museum of Fine Arts, pp. 104–20.
+                    </bibl>
+                    <bibl rend="Bibliography">
+                        <hi rend="bold">Csardi, G. and Nepusz, T.</hi> (2006). The igraph Software Package for Complex Network Research. 
+                        <hi rend="italic">InterJournal</hi>: 1695.  
+                        <ref target="http://igraph.org">http://igraph.org</ref>.
+                    </bibl>
+                    <bibl rend="Bibliography">
+                        <hi rend="bold">De Vries, J.</hi> (1991). Art History. In Freedberg, D. and De Vries, J. (eds), 
+                        <hi rend="italic">Art in History, History in Art: Studies in Seventeenth-Century Dutch Culture</hi>. Santa Monica: Getty Center for the History of Art &amp; the Humanities, pp. 249–71.
+                    </bibl>
+                    <bibl rend="Bibliography">
+                        <hi rend="bold">Gibbs, J. P. and Martin, W. T.</hi> (1962). Urbanization, Technology, and the Division of Labor: International Patterns. 
+                        <hi rend="italic">American Sociological Review</hi>, 
+                        <hi rend="bold">27</hi>(5): 667–77. doi:
+                        <ref target="https://doi.org/10.2307/2089624">10.2307/2089624</ref>.
+                    </bibl>
+                    <bibl rend="Bibliography">
+                        <hi rend="bold">Goedde, L. O.</hi> (1997). Naturalism as Convention: Subject, Style, and Artistic Self-Consciousness in Dutch Landscape. In Franits, W. E. (ed), 
+                        <hi rend="italic">Looking at Seventeenth-Century Dutch Art: Realism Reconsidered</hi>. Cambridge: Cambridge University Press, pp. 129–43.
+                    </bibl>
+                    <bibl rend="Bibliography">
+                        <hi rend="bold">MacGregor, W. B.</hi> (1999). The Authority of Prints: An Early Modern Perspective. 
+                        <hi rend="italic">Art History</hi>, 
+                        <hi rend="bold">22</hi>(3): 389–420. doi:
+                        <ref target="https://doi.org/10.1111/1467-8365.00163">10.1111/1467-8365.00163</ref>.
+                    </bibl>
+                    <bibl rend="Bibliography">
+                        <hi rend="bold">Montias, J. M.</hi> (1988). Art Dealers in the Seventeenth-Century Netherlands. 
+                        <hi rend="italic">Simiolus: Netherlands Quarterly for the History of Art</hi>, 
+                        <hi rend="bold">18</hi>(4): 244–56. doi:
+                        <ref target="https://doi.org/10.2307/3780702">10.2307/3780702</ref>.
+                    </bibl>
+                    <bibl rend="Bibliography">
+                        <hi rend="bold">Montias, J. M.</hi> (2015). The Montias Database of 17th Century Dutch Art Inventories. Frick art reference library Database. 
+                        <ref target="http://research.frick.org/montias/home.php">http://research.frick.org/montias/home.php</ref>.
+                    </bibl>
+                    <bibl rend="Bibliography">
+                        <hi rend="bold">Oksanen, J., Blanchet, F. G., Kindt, R., Legendre, P., Minchin, P. R., O’Hara, R. B., Sipson, G. L., Solymos, P., Stevens, M. H. H. and Wagner, H.</hi> (2015). Vegan: Community Ecology Package R Package (version 2.2-1) R Package (version 2.2-1), ms 
+                        <ref target="http://cran.r-project.org/package=vegan">http://cran.r-project.org/package=vegan</ref>.
+                    </bibl>
+                    <bibl rend="Bibliography">
+                        <hi rend="bold">Ottaviano, G. I. P., Pinelli, D., Maignan, C. J. and Rullani, F.</hi> (2003). 
+                        <hi rend="italic">Bio-Ecological Diversity Vs. Socio-Economic Diversity: A Comparison of Existing Measures</hi>. SSRN Scholarly Paper.  
+                        <ref target="http://papers.ssrn.com/abstract=389043">http://papers.ssrn.com/abstract=389043</ref>.
+                    </bibl>
+                    <bibl rend="Bibliography">
+                        <hi rend="bold">Shannon, C. E. and Weaver, W.</hi> (1949). 
+                        <hi rend="italic">The Mathematical Theory of Communication</hi>. Urbana: University of Illinois Press.
+                    </bibl>
+                    <bibl rend="Bibliography">
+                        <hi rend="bold">Silver, L.</hi> (2006). 
+                        <hi rend="italic">Peasant Scenes and Landscapes: The Rise of Pictorial Genres in the Antwerp Art Market</hi>. Philadelphia: University of Pennsylvania Press.
+                    </bibl>
+                    <bibl rend="Bibliography">
+                        <hi rend="bold">Woude, A. M. van der</hi> (1991). The Volume and Value of Paintings in Holland at the Time of the Dutch Republic. In Freedberg, D. and De Vries, J. (eds), 
+                        <hi rend="italic">Art in History, History in Art: Studies in Seventeenth-Century Dutch Culture</hi>. Santa Monica: Getty Center for the History of Art &amp; the Humanities, pp. 285–329.
+                    </bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

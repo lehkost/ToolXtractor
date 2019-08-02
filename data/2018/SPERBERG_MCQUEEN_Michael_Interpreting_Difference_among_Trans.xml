@@ -1,0 +1,370 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title type="full">
+                    <title type="main">Interpreting Difference among Transcripts</title>
+                    <title type="sub"/>
+                </title>
+                <author>
+                    <persName>
+                        <surname>Sperberg-McQueen</surname>
+                        <forename>Michael</forename>
+                    </persName>
+                    <affiliation>Black Mesa Technologies LLC, United States of America</affiliation>
+                    <email>cmsmcq@acm.org</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Huitfeldt</surname>
+                        <forename>Claus</forename>
+                    </persName>
+                    <affiliation>University of Bergen</affiliation>
+                    <email>Claus.Huitfeldt@uib.no</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2018-04-26T13:43:56.751711000</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Name, Institution</publisher>
+                <address>
+                    <addrLine>Street</addrLine>
+                    <addrLine>City</addrLine>
+                    <addrLine>Country</addrLine>
+                    <addrLine>Name</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from an OASIS Open Document</p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.22">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Long Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>transcription</term>
+                    <term>digital editions</term>
+                    <term>digitization</term>
+                    <term>modeling</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>historical studies</term>
+                    <term>data modeling and architecture including hypothesis-driven modeling</term>
+                    <term>scholarly editing</term>
+                    <term>philology</term>
+                    <term>digitisation - theory and practice</term>
+                    <term>English</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <div type="div1" rend="DH-Heading1">
+                <head>Introduction</head>
+                <p>The semantics and logic of transcription have received attention from a number of digital humanists, some starting from the practice of digital editions [Pierazzo 2011, 2015], some from a consideration of markup languages [Robinson 1994, Huitfeldt 1995], some from a critical examination of the foundations of digital humanities [Caton 2009, 2013a, 2013b, 2014].</p>
+                <p>Attempts to describe how transcripts provide information about their exemplars [Huitfeldt/Sperberg-McQueen 2014, Sperberg-McQueen et al. 2017] have focused on individual transcripts, not multiple divergent transcripts of the same exemplar. Here we describe ways in which transcripts of the same exemplar can differ and we sketch a model of transcription which accounts for such differences.</p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Examples</head>
+                <p>Our catalog of ways in which transcripts differ and disagree takes the form of examples, many illustrating exceptions to the general rule that a transcript reflects “the exemplar, the whole exemplar, and nothing but the exemplar” and that competent transcribers will agree on the reading of the exemplar [Sperberg-McQueen et al. 2014].</p>
+                <p>For brevity, examples often consider only single words; discussions refer to the first of several transcripts as A, the second as B, an arbitrary transcript as T, and the exemplar as E. Some transcripts were constructed for this paper.</p>
+                <div type="div2" rend="DH-Heading2">
+                    <head>Transcripts which differ and disagree</head>
+                    <div type="div3" rend="DH-Heading3">
+                        <head>Example LW: what type does this token instantiate?</head>
+                        <p>
+                            <figure>
+                                <graphic url="Pictures/d6665d1ac1331c6430383f0354847b53.jpg"/>
+                            </figure>E is a word from Ludwig Wittgenstein's notebook 117 (p. 269), written in a simple substitution code [Wittgenstein, n.d.]. A and B, ignorant of the cipher, transcribe it as “munonyqi” and “wunouyqi”, respectively. C, better informed, has “muuvnyzi” (“offenbar”).
+                        </p>
+                        <p>
+                            <figure>
+                                <graphic url="Pictures/3bfe10ef36d2ddb397e57a325ed7b3a1.png"/>
+                            </figure>The transcripts reflect contradictory readings of the token in E; at most one can be correct.
+                        </p>
+                        <p>Here all transcripts agree on which marks in E are tokens, but disagree on the types they instantiate. We infer that a transcript's mapping from tokens in E to types is a salient feature for modeling.</p>
+                    </div>
+                    <div type="div3" rend="DH-Heading3">
+                        <head>Example MCN: which marks are tokens?</head>
+                        <p>E is a tombstone from northwestern Britain [Collingwood/Wright 1965-1990, no. 932].</p>
+                        <p>
+                            <figure>
+                                <graphic url="Pictures/a7d6597d50fd0b42825130da2d7ee6b8.jpg"/>
+                            </figure>
+                        </p>
+                        <p>A [Lafleur 2010 p. 28f.] reads the mark between some word pairs as a punctum:</p>
+                        <quote>DIS</quote>
+                        <quote>MANIB · M · COCCEI</quote>
+                        <quote>NONNI · ANNOR · VI</quote>
+                        <quote>HIC SITVS EST</quote>
+                        <p>B is similar except for the last line: ‘HIC · SITVS · EST’.</p>
+                        <p>Here A and B do not disagree over the reading of any tokens; they disagree on what marks in E are tokens. A formal account must distinguish the identification of tokens from the mapping of tokens to types.</p>
+                    </div>
+                    <div type="div3" rend="DH-Heading3">
+                        <head>Example TE: what is the structure of this text?</head>
+                        <p>At the eastern end of Magdeburg cathedral lies the Tumba Edithae (tomb of Edith), with an inscription part of which is shown here.</p>
+                        <p>
+                            <figure>
+                                <graphic url="Pictures/5fec6b172576670ae3c995990c7ff54c.jpg"/>
+                            </figure>
+                        </p>
+                        <p>A [Neugebauer/Brandl 2012] begins reading on the south:</p>
+                        <p>
+                            <figure>
+                                <graphic url="Pictures/9c9d2dd464c182a3d75750e10aed0bcd.png"/>
+                            </figure>B begins reading on the north with “INPVLSV” but otherwise resembles A.
+                        </p>
+                        <p>A and B agree in their readings of each individual character and word and also in identifying which marks in E are writing; they differ only in the higher-level structure(s) compounded from words and characters. A model of transcription must include such higher-level structural organization as a substantive part of transcription; so similarly [Huitfeldt et al. 2010].</p>
+                    </div>
+                </div>
+                <div type="div2" rend="DH-Heading2">
+                    <head>Transcripts which differ without disagreeing</head>
+                    <p>That some differences between transcripts do not signal disagreements about E goes (almost) without saying. A and B can differ in pagination and running heads without disagreeing on how to read E: page furniture is normally an exception to the general rule that everything in T transcribes something in E.</p>
+                    <div type="div3" rend="DH-Heading3">
+                        <head>Example JA: literal transcription and marked corrections</head>
+                        <p>
+                            <figure>
+                                <graphic url="Pictures/ae5e7271733ae374dd8aac9af5d2afdc.jpg"/>
+                            </figure>
+                        </p>
+                        <p>E is a word from a letter of Jane Addams [Hajo et al. 2015-].</p>
+                        <p>
+                            <figure>
+                                <graphic url="Pictures/c7d1001111c4eae52303eef694cbfb91.png"/>
+                            </figure>A writes “altho”, B “altho[
+                            <hi rend="italic">ugh</hi>]” (bracketed italics mark editorial additions), and C “[although]” (brackets mark editorial interventions). A and B thus differ in content but agree that E has “altho”. B and C provide the same normalized spelling but provide different (albeit compatible) information about E.
+                        </p>
+                        <p>B and C assign special meaning to brackets and bracketed material: unlike other characters, they transcribe nothing in E.</p>
+                        <p>An account of transcription must specify which tokens in the transcript are to be interpreted as transcribing tokens in E and which not.</p>
+                    </div>
+                    <div type="div3" rend="DH-Heading3">
+                        <head>Example SJ: long and short s</head>
+                        <p>
+                            <figure>
+                                <graphic url="Pictures/d2423d71a489e95df40a506a0abd6a81.png"/>
+                            </figure>
+                        </p>
+                        <p>E is one word from a sonnet by Sor Juana Inés de la Cruz [Sor Juana 1700 p. 163].</p>
+                        <p>A (a web site presenting Sor Juana's work) writes “vista”, B “viſta”.</p>
+                        <p>A and B differ but do not disagree. Both identify the third character of this word as a lower-case S; B further specifies a long S. If we take A to be ambiguous (the S could be long or short), then A subsumes B: B provides additional but not contradictory information.</p>
+                        <p>In E, however, long and short S are allographs in complementary distribution; typographic context determines which appears. In vi_ta, S will always be long not short. So in reality A provides the same information as B, not less.</p>
+                        <p>Many differences without disagreement arise where one transcript preserves allographic differences and the other preserves graphemes. Arguments on the topic involve no disagreements about E, only about the choice of type system. A model should clarify the role of type systems in transcription.</p>
+                    </div>
+                    <div type="div3" rend="DH-Heading3">
+                        <head>Example TJ: word-level and character-level fidelity</head>
+                        <p>
+                            <figure>
+                                <graphic url="Pictures/e2e3d8c0693dd669d22865de8f0c9113.png"/>
+                            </figure>E is from Thomas Jefferson's draft of the U.S. Declaration of Independence.
+                        </p>
+                        <p>
+                            <figure>
+                                <graphic url="Pictures/8875994972ae6e9f287136bdf843444d.png"/>
+                            </figure>
+                        </p>
+                        <quote>A: the laws of nature &amp; of nature's god</quote>
+                        <quote>B: the laws of nature and of nature's God</quote>
+                        <p>A [Boyd 1950- p. 1:423] preserves and reinstantiates the type of each character, while B [Harrison 1993 p. 39] preserves and reinstantiates the type of each word but not each character. (That is, it normalizes the spelling of words.)</p>
+                        <p>Here the type systems of A and B diverge even more sharply than above. A formal account must be able to describe type-system differences of this kind.</p>
+                    </div>
+                    <div type="div3" rend="DH-Heading3">
+                        <head>Example FK: typographic rendering of inscription details</head>
+                        <p>
+                            <figure>
+                                <graphic url="Pictures/1396a5c82ddc51fed1b2567b3ce2f828.png"/>
+                            </figure>
+                        </p>
+                        <p>E is the words “para siempre” in a letter from Frida Kahlo to Diego Rivera [Kahlo]. A and B differ only in rendering the underscoring in E as italics or underscoring.</p>
+                        <p>Typographic features of T often convey information about E, but different transcribers use different conventions. A formalization must account for such conventions.</p>
+                    </div>
+                    <div type="div3" rend="DH-Heading3">
+                        <head>Example FE: completeness and incompleteness</head>
+                        <p>
+                            <figure>
+                                <graphic url="Pictures/b4da6219ac45aa2824adec122c091544.jpg"/>
+                            </figure>
+                        </p>
+                        <p>E is a grave marker (Naples, fourth/fifth century CE) now in the Jewish Museum, New York (JM3-50).</p>
+                        <p>A:</p>
+                        <p>
+                            <figure>
+                                <graphic url="Pictures/5c616fd5afd1324c16d19cc405201623.png"/>
+                            </figure>B:
+                        </p>
+                        <p>
+                            <figure>
+                                <graphic url="Pictures/4dc57feb90a56d2c54e51965b90cf111.png"/>
+                            </figure>B transcribes all of E, A [Lafleur 2010 p. 144]] only the Latin text. Any model must describe how we know which material in E is transcribed and which (if any) is not.
+                        </p>
+                    </div>
+                    <div type="div3" rend="DH-Heading3">
+                        <head>JLM: Transcripts which disagree without differing</head>
+                        <p>It is hard to find plausible examples of this class of phenomena. But an imaginary example may illustrate it. If A uses italics to mark editorial insertions, and B to represent underlining in E, then</p>
+                        <quote>John 
+                            <hi rend="italic">loves</hi> Mary.
+                        </quote>
+                        <p>will mean different and contradictory things in A and B.</p>
+                        <p>Differences in typographic conventions and type system can lead to conflicting interpretations of T. A model must describe how such conflicts arise.</p>
+                    </div>
+                </div>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Formal model</head>
+                <p>Space constraints limit us to a sketch.</p>
+                <p>We assume the concepts 
+                    <hi rend="italic">type</hi>, 
+                    <hi rend="italic">token</hi>, and 
+                    <hi rend="italic">document</hi>. Types and tokens are not limited to graphemes or words but include larger structures. The document itself is typically a compound token, and its text a compound type.
+                </p>
+                <p>A set of mutually exclusive types we call a type inventory. Tokens instantiate exactly one type in an inventory: a letter is an I or a J, but not both. Transcriptions commonly involve not one type inventory but several. (“I” is both a letter and a word.) A set of type inventories is a type system.</p>
+                <p>A reading of a token k with respect to a type inventory I maps k to a type p in I; we write (k, I, p) for such a reading.</p>
+                <p>A reading of a document D identifies a set K of tokens in D and maps them to types. We write R = (D, K, P, M), where P is a type system and M a set of triples (k, I, p) where k ∈ K, I ∈ P, p ∈ I. Every k in K maps to at least one type; none maps to two types in the same inventory.</p>
+                <p>Examples MCN and TE illustrate differences in K, examples SJ and TJ differences in P, example LW differences in M.</p>
+                <p>Transcription policies determine which tokens in E are transcribed (normal) and which not (special); similarly which tokens in T transcribe E (normal) and which do not (special). They also constrain the type system by distinguishing some types and equating some with each other. A transcription policy is thus a triple (SE, ST, Q), where SE and SE are predicates true of all and only the special tokens in E and T respectively, and Q is a set of type equivalences.</p>
+                <p>Examples FE and JLM illustrate differences in SE, example JA a difference in ST, and example FK a difference in Q.</p>
+                <p>From a reading of T we can reconstruct a reading of E based on an assumed transcription policy; this allows readers of T to have information about E without examining E directly.</p>
+            </div>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl>
+                        <hi rend="bold">Boyd, J. P., et al.</hi> (eds). (1950-). 
+                        <hi rend="italic">The Papers of Thomas Jefferson.</hi> Princeton: Princeton University Press. Quoted from (Stevens/Burg 1997), p. 81.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Caton, P</hi>. (2009). Lost in Transcription: Types, Tokens, and Modality in Document Representation. Paper given at DH 2009, held June 2009 at College Park, University of Maryland.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Caton, P.</hi> (2013a). Pure transcriptional markup. Paper given at DH 2013, held July 2013 at the University of Nebraska in Lincoln.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Caton, P.</hi> (2013b). On ‘text’ in Digital Humanities. 
+                        <hi rend="italic">Literary &amp; Linguistic Computing</hi> 28.1 (2013): 209-220.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Caton, P.</hi> (2014). Six terms fundamental to modelling transcription. Paper given at DH 2014, held July 2014 at the University of Lausanne. Short version on the Web at 
+                        <ptr target="http://dharchive.org/paper/DH2014/Paper-780.xml"/>.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Collingwood, R. G., Wright, R. P.</hi> (eds). (1965-1990). 
+                        <hi rend="italic">The Roman inscriptions of Britain (RIB).</hi> Vol. 1 Oxford: Oxford Univ. Press; Vol 2 Gloucester: Alan Sutton. Image and transcript of RIB 932 reproduced from (Lafleur 2010), pp. 28f.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Driscoll, M. J.</hi> (2006). Levels of transcription. In (Unsworth 2006). On the web at http://www.tei-c.org/About/Archive_new/ETE/Preview/driscoll.xml.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Hajo, C. M., et al.</hi> (eds). (2015-). J
+                        <hi rend="italic">ane Addams Digital Edition.</hi> Mahwah, NJ: Ramapo College of New Jersey. https://digital.janeaddams.ramapo.edu. The letter cited is from Jane Addams to Florence Kelley, February 1, 1901. https://digital.janeaddams.ramapo.edu/items/show/64.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Harrison, M., and Gilbert, S.</hi> (eds). (1993). 
+                        <hi rend="italic">Thomas Jefferson Word for Word.</hi> La Jolla: Excellent Books. Quoted from (Stevens/Burg 1997), p. 82.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Hayford, H., Parker, H., and Tanselle, G. T.</hi> (eds). (1988). 
+                        <hi rend="italic">Moby Dick, or, The Whale.</hi> Vol. 7 of 
+                        <hi rend="italic">The Writings of Herman Melville.</hi> The Northwestern–Newberry Edition. Evanston [Ill.]: Northwestern University Press; Chicago : Newberry Library. Rpt. 1994, 1997.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">[Huitfeldt, C].</hi> (1993). 
+                        <hi rend="italic">MECS-WIT, A registration standard for the Wittgenstein Archives at the University of Bergen.</hi> [Bergen]: Wittgenstein Archives, 1993. Currently on the Web at http://folk.uib.no/fafch/oldstuff/mecswit.html.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Huitfeldt, C.</hi> (1995). Multi-dimensional texts in a one dimensional medium. 
+                        <hi rend="italic">Computers and the Humanities</hi> 28: 235-241.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Huitfeldt, C.</hi> (2006). Philosophy case study. In (Unsworth 2006). On the web at http://www.tei-c.org/About/Archive_new/ETE/Preview/huitfeldt.xml.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Huitfeldt, C., Marcoux, Y., and Sperberg-McQueen, C. M.</hi> (2010). Extension of the type/token distinction to document structure. Paper presented at Balisage: The Markup Conference 2010, Montréal, Canada, August 3 - 6, 2010. In Proceedings of Balisage: The Markup Conference 2010. Balisage Series on Markup Technologies, vol. 5 (2010). doi:10.4242/BalisageVol5.Huitfeldt01. On the Web at http://www.balisage.net/Proceedings/vol5/html/Huitfeldt01/BalisageVol5-Huitfeldt01.html.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Huitfeldt, C., and Sperberg-McQueen, C. M.</hi> (2017). Transcriptional implicature: Using a transcript to reason about an exemplar. Paper given at DH 2017, held August 2017 at the McGill University, Montréal. Short version on the web at https://dh2017.adho.org/abstracts/235/235.pdf.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Kahlo, F.</hi> (1940). Letter to Diego Rivera, 1940. Emmy Lou Packard Papers 1900-1990, Archives of American Art, Smithsonian Institution. Facsimile of letter on the Web at https://www.aaa.si.edu/collections/items/detail/frida-kahlo-letter-to-diego-rivera-739
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Kline, M.-J.</hi> (1987). 
+                        <hi rend="italic">A guide to documentary editing.</hi> Baltimore and London: Johns Hopkins University Press; second edition 1998.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Lafleur, R. A.</hi> (2010). 
+                        <hi rend="italic">Scribblers, sculptors, and scribes: A companion to Wheelock's Latin and other introductory textbooks.</hi> [New York]: Collins Reference.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Mommsen, T., et al.</hi> (eds). (1863-). 
+                        <hi rend="italic">Corpus Inscriptionum Latinarum.</hi> Berlin: Georg Reimber. Image and transcript of CIL 12 498 reproduced from (Lafleur 2010)xs, p. 14.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Neugebauer, A., and Brandl, H.</hi> (2012). ubi sancta requiescit Aedith. Das Grabmal der Königin Editha im Magdeburger Dom. In Meller, H., et al. (eds), 
+                        <hi rend="italic">Königin Editha und ihre Grablegen in Magdeburg.</hi> (Archäologie in Sachsen-Anhalt, Sonderband 18.) Halle, pp. 33-54.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Pierazzo, E.</hi> (2011). A rationale of digital documentary editions. 
+                        <hi rend="italic">Literary &amp; Linguistic Computing</hi> 26.4: 463-477.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Pierazzo, E.</hi> (2015). 
+                        <hi rend="italic">Digital scholarly editing: Theories, models and methods.</hi> Aldershot: Ashgate , 2015.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Robinson, P.</hi> (1994). 
+                        <hi rend="italic">The transcription of primary textual sources using SGML.</hi> Office for Humanities Communication Publications, Number 6. [Oxford: OHC].
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Robinson, P., and Solopova, E.</hi> (1993). Guidelines for the transcription of the manuscripts of the Wife of Bath's Prologue. In Blake, N., and Robinson, P. (eds), 
+                        <hi rend="italic">The Canterbury Tales Project Occasional Papers Volume I</hi>. Office for Humanities Communication Publications, Number 5. [Oxford: OHC], 1993.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Sanger, M.</hi> (1914). 
+                        <hi rend="italic">The Woman Rebel.</hi> Vol. 1 No. 1. From Katz, E., Hajo, C. M., and Engelman, P. C. (eds). 
+                        <hi rend="italic">The Margaret Sanger Papers.</hi> Sample from the MSP in the Model Editions Partnership at http://modeleditions.blackmesatech.com/mep/.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Sor Juana Ines de la Cruz.</hi> (1700). 
+                        <hi rend="italic">Fama y obras posthumas del fenix de Mexico, Decima musa, poetisa americana Sor Juana Ines de la Cruz, Reliogiosa profesa,</hi> [ed.] Don Juan Ignacio de Castorena y Visua. Madrid: Manuel Ruiz de Murga. Digitized version by the University of Bielefeld on Web at http://ds.ub.uni-bielefeld.de/viewer/image/1592397/1/; page 163 is at http://ds.ub.uni-bielefeld.de/viewer/image/1592397/153/as.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Sperberg-McQueen. C. M., Marcoux, Y., and Huitfeldt, C.</hi> (2014). Transcriptional implicature: A contribution to markup semantics. Paper given at DH 2014, held July 2014 at the University of Lausanne. Short version on the Web at http://dharchive.org/paper/DH2014/Paper-61.xml.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Stevens, M. E., and Burg, S. B.</hi> (1997). 
+                        <hi rend="italic">Editing historical documents: A handbook of practice.</hi> Walnut Creek, Ca.: Altamira Press, published in cooperation with the American Association for State and Local History, the Association for Documentary Editing, and the State Historical Society of Wisconsin.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Unsworth, J., O'Brien O'Keeffe, K., and Burnard, L.</hi> (eds) (2006). 
+                        <hi rend="italic">Electronic textual editing.</hi> New York: MLA.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Vander Meulen, D. L, and Tanselle, G. T</hi>. (1999). A system of manuscript transcription. 
+                        <hi rend="italic">Studies in Bibliography</hi> 52: 201-212.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Wittgenstein, L.</hi> (n.d.). Wittgenstein Source. Curator: Alois Pichler, Wittgenstein Archives at the University of Bergen (WAB). http://wittgensteinsource.org/. Includes material from the Bergen Electronic Edition (BEE) of Wittgenstein's Nachlaß.
+                    </bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

@@ -1,0 +1,356 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>Comparison of Methods for the Identification of Main Characters in German Novels</title>
+                <author>
+                    <persName>
+                        <surname>Jannidis</surname>
+                        <forename>Fotis</forename>
+                    </persName>
+                    <affiliation>University of Wuerzburg, Germany</affiliation>
+                    <email>fotis.jannidis@uni-wuerzburg.de</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Reger</surname>
+                        <forename>Isabella</forename>
+                    </persName>
+                    <affiliation>University of Wuerzburg, Germany</affiliation>
+                    <email>isabella.reger@uni-wuerzburg.de</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Krug</surname>
+                        <forename>Markus</forename>
+                    </persName>
+                    <affiliation>University of Wuerzburg, Germany</affiliation>
+                    <email>markus.krug@uni-wuerzburg.de</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Weimer</surname>
+                        <forename>Lukas</forename>
+                    </persName>
+                    <affiliation>University of Wuerzburg, Germany</affiliation>
+                    <email>lukas.weimer@stud-mail.uni-wuerzburg.de</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Macharowsky</surname>
+                        <forename>Luisa</forename>
+                    </persName>
+                    <affiliation>University of Wuerzburg, Germany</affiliation>
+                    <email>luisa.macharowsky@stud-mail.uni-wuerzburg.de</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Puppe</surname>
+                        <forename>Frank</forename>
+                    </persName>
+                    <affiliation>University of Wuerzburg, Germany</affiliation>
+                    <email>frank.puppe@uni-wuerzburg.de</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2014-12-19T13:50:00Z</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Maciej Eder, Pedagogical University in Krakow</publisher>
+                <publisher>Jan Rybicki, Jagiellonian University</publisher>
+                <address>
+                    <addrLine>Institute of Polish Studies</addrLine>
+                    <addrLine>Pedagogical University</addrLine>
+                    <addrLine>ul. Podchorazych 2</addrLine>
+                    <addrLine>30-084 Krakow, Poland</addrLine>
+                    <addrLine>maciej.eder@ijp-pan.krakow.pl</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from a Word document </p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.21">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Short Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>character networks</term>
+                    <term>evaluation</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>literary studies</term>
+                    <term>text analysis</term>
+                    <term>german studies</term>
+                    <term>networks, relationships, graphs</term>
+                    <term>English</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <div type="div1" rend="DH-Heading1">
+                <head>Motivation</head>
+                <p>Digital literary studies have embraced social network analysis as a powerful tool to formalize and analyze social networks in literary texts (Elson et al., 2010b, Hettinger et al., 2015). Extracting networks automatically from texts is still a challenging task with the following steps: identification of all character references (which is not identical to named entity recognition), coreference resolution (CR) and a final step defining the amount of interaction between the characters, for example by the amount of verbal exchanges or the co-occurrence in a text segment. In the following we will discuss different ways to solve this task using an annotated corpus of German novels. One of the related problems is the definition of an evaluation metric which connects the computational problem to literary concepts like “main characters” and “character constellation”. Our goal is to find the best way to capture the intuition behind these literary concepts in a formalized procedure. For this purpose we introduce a new way of evaluating automatically extracted networks. We make use of carefully created and revised summaries of German novels, provided by Kindler Literary Lexicon Online
+                    <note place="foot" xml:id="ftn1" n="1">
+                        <p> http://kll-online.de</p>
+                    </note>. Besides, this work is to the best of our knowledge the first to compare different methods of creating and evaluating automatically extracted character networks.
+                </p>
+            </div>
+            <div xml:id="h.v3iw2mr0znz6" type="div1" rend="DH-Heading1">
+                <head>Related Work</head>
+                <p>Social Network Analysis (SNA) is a well-established discipline, e.g. in the social sciences, which literary studies can apply for the analysis of character networks (Trilcke, 2013). Approaches to automatic extraction of SNs from literary text using NLP techniques have been manifold.</p>
+                <p>Most works start by identifying entities in the text and connect them via CR. Park et al. (Park et al., 2013) extract SNs based on proximity of names in the text and define a kernel function to distinguish protagonists from less important characters. Celikyilmaz et al. (Celikyilmaz et al., 2010) use an unsupervised actor-topic-model to create SNs from narratives. Elson et al. associate speakers with direct speech passages in novels (Elson et al., 2010a) and create SNs from the dialogues to validate literary hypotheses like whether the amount of dialogues is inversely proportional to the amount of characters that appear in the novel (Elson et al., 2010b).</p>
+                <p>Moreover, three end-to-end systems for the extraction and visualization of SNs from English literary texts already exist: PLOS (Waumans et al., 2015) works similarly to the approach by Elson et al. by creating networks from dialogue interactions. He et al. use their own speaker identification system to detect family connections between entities (He et al., 2013). SINNET by Agarwal et al. (Agarwal et al., 2013b) finds different types of directed events in a text and creates a directed SN from these events.</p>
+            </div>
+            <div xml:id="h.q2ob5nq3n80n" type="div1" rend="DH-Heading1">
+                <head>Data</head>
+                <p>This work is based on a corpus of 452 German novels from the TextGrid Digital Library
+                    <note place="foot" xml:id="ftn2" n="2">
+                        <p> https://textgrid.de/digitale-bibliothek</p>
+                    </note>. Expert plot summaries from Kindlers Literary Lexicon Online are available for 215 of these novels. As the following experiments are partly based on direct speech, we analysed the novels with regard to the direct speech they contain. We selected 58 novels with the highest possible amount of direct speech for which there was also a summary on hand.
+                </p>
+                <p>Those 58 novels have been split into tokens and sentences with OpenNLP
+                    <note place="foot" xml:id="ftn3" n="3">
+                        <p> https://opennlp.apache.org/</p>
+                    </note>, POS-tagged and lemmatized by the TreeTagger (Schmid, 1995), further processed by the RFTagger (Schmid and Laws, 2008) and the morphological tagger from MATE-Tools
+                    <note place="foot" xml:id="ftn4" n="4">
+                        <p> https://code.google.com/p/mate-tools/</p>
+                    </note>. Additionally, we use the dependency parser by Bohnet (Bohnet and Kuhn, 2012) to analyze the sentence structure. Named Entity Recognition is done with the tool by Jannidis et al. (Jannidis et al., 2015) and the rule-based component by Krug et al. is used for CR. The detection of the speaker and the addressee for each direct speech passage is also part of the CR (Krug et al., 2015). In the summaries from Kindler, Named Entities and Coreferences have been manually labeled by two annotators.
+                </p>
+            </div>
+            <div xml:id="h.ma9231knkmpe" type="div1" rend="DH-Heading1">
+                <head>Methods</head>
+                <p>We use four different methods to identify the most central characters in the novels and evaluate their quality by comparison with the characters occurring in the Kindler summaries.</p>
+                <p>The first method relies only on the frequencies of the characters in the text: the most central characters are those appearing most often in the novel (coreferences resolved). The second methods counts only those entities that have at least once been detected as speaker or addressee of direct speech. The other methods each construct a different type of social network and make use of SNA to find the most central characters. The first network is based on co-occurrences of characters in the same window of text: an edge between two characters exists if they are mentioned in the same paragraph and the weight of the edge is the number of paragraphs in which this is the case. The second network is created using the dialogue structure of the text. For each direct speech for which both speaker and addressee could be detected, an edge is drawn between those two. Longer dialogues consequently lead to higher edge weights between the participants. Thus, both network types are undirected and weighted. Examples for networks that were created with those methods are shown in Figure 1.</p>
+                <p>To identify the most central characters we use the weighted degree of each node (i.e. the sum of the weights of all edges incident to a node) in decreasing order. This metric is most intuitively interpretable with regard to the importance of characters in a fictional world.</p>
+                <p>In the following paragraph, we compare the rankings with the summaries and discuss possible sources of error and their influence on the results.</p>
+                <figure>
+                    <graphic url="462/image1.png" rend="inline"/>
+                </figure>
+                <p>Figure 1: Automatically extracted SNs for Goethes: “Die Wahlverwandtschaften”. The left picture shows the ten most connected characters when an interaction is created for a common appearance in a paragraph. The right picture shows the corresponding network when only direct speech is used as interactions.</p>
+            </div>
+            <div xml:id="h.v0r87yttfc9w" type="div1" rend="DH-Heading1">
+                <head>Evaluation</head>
+                <p>Evaluating automatically extracted SNs is not a trivial task and there are no established practices. Elson et al. (Elson et al., 2010b) validate literary hypotheses, (Park et al., 2013) and (Waumans et al., 2015) analyze typical distributions that they expect of literary character networks. Agarwal et al. (Agarwal et al., 2013a) evaluate a machine-generated network of 
+                    <hi rend="italic">Alice in Wonderland </hi>against a manually conceived version by comparing typical SNA metrics like different centrality measures.
+                </p>
+                <p>In this work, we want to compare the methods for identifying the most central characters as described in section 4. As a gold standard, we use the manually annotated Kindler summaries. The generated rankings for each novel, as well as the rankings from the summaries are first cleaned up so that only real names remain.</p>
+                <p>Our evaluation is based on the assumption that a summary contains all important characters. Since those summaries are carefully created and even revised by experts we propose that this assumption holds. For each summary, we create a ranking of the mentioned characters by [a] the number of occurrences (gold_count from here) and [b] the order of occurrence (gold_order from here). We relax the ranking assumption and only select the top 5 (top 10) figures from the summary rankings and compare them against the top 5 (top 10) characters in the automatically obtained rankings for the novels without respecting the particular ordering. If the name of a character from the gold standard is exactly found in an automatic ranking, there is a match. Table 1 shows the resulting correspondences with the two gold rankings, averaged over all 58 novels.</p>
+                <p>Table 1: Overview of the successfully matched entities between the two relaxed rankings from the summaries (gold_count, gold_order) and the generated relaxed rankings for the top 5 and the top 10 entities (DSN= Direct Speech Network; PN = Paragraph Network;DSC = Direct Speech Count; Count = simple frequency)</p>
+                <table rend="rules">
+                    <row>
+                        <cell>Algorithm</cell>
+                        <cell>DSN_5</cell>
+                        <cell>DSN_10</cell>
+                        <cell>PN_5</cell>
+                        <cell>PN_10</cell>
+                        <cell>DSC_5</cell>
+                        <cell>DSC_10</cell>
+                        <cell>Count_5</cell>
+                        <cell>Count_10</cell>
+                    </row>
+                    <row>
+                        <cell>gold_count</cell>
+                        <cell>40.5%</cell>
+                        <cell>50.2%</cell>
+                        <cell>39.3%</cell>
+                        <cell>51.6%</cell>
+                        <cell>38.9%</cell>
+                        <cell>49.0%</cell>
+                        <cell>40.1%</cell>
+                        <cell>52.0%</cell>
+                    </row>
+                    <row>
+                        <cell>gold_order</cell>
+                        <cell>38.6%</cell>
+                        <cell>45.1%</cell>
+                        <cell>41.3%</cell>
+                        <cell>48.6%</cell>
+                        <cell>37.5%</cell>
+                        <cell>45.3%</cell>
+                        <cell>41.2%</cell>
+                        <cell>48.5%</cell>
+                    </row>
+                </table>
+            </div>
+            <div xml:id="h.u4zcca2l7xt" type="div1" rend="DH-Heading1">
+                <head>Results and Discussion</head>
+                <p>Table 1 displays first results for the identification of main characters in novels. Nevertheless, none of the methods yields very high scores for this kind of evaluation. Interestingly, the simpler approaches seem to be suited well for the task.</p>
+                <p>The low values can be explained by a variety of errors which can be grouped in three categories. Firstly, a character might not be among the top 10 of the relaxed ranking from Kindler. If automatic matches to lower positions in the ranking are allowed, the score in Table 2 can be reached.</p>
+                <p>Table 2: Accuracy of the matching, independent of the position in the automatic ranking</p>
+                <table rend="rules">
+                    <row>
+                        <cell>Algorithm</cell>
+                        <cell>DSN_Max</cell>
+                        <cell>PN_Max</cell>
+                        <cell>DSC_Max</cell>
+                        <cell>Count_Max</cell>
+                    </row>
+                    <row>
+                        <cell>gold_count</cell>
+                        <cell>55.1%</cell>
+                        <cell>56.6%</cell>
+                        <cell>53.8%</cell>
+                        <cell>57.3%</cell>
+                    </row>
+                    <row>
+                        <cell>gold_order</cell>
+                        <cell>58.0%</cell>
+                        <cell>64.7%</cell>
+                        <cell>55.1%</cell>
+                        <cell>64.7%</cell>
+                    </row>
+                </table>
+                <p>We can see that approximately 60% of the characters can now be matched unambiguously.</p>
+                <p>The highest percentage of errors is due to incorrectly resolved coreferences. Clusters of the same character that have not been merged during the CR do not only create redundant elements in the rankings, wrongly merged clusters also mean, that one character can never be matched correctly. If coreference errors are ignored, the results are as shown in table 3.</p>
+                <p>Table 3: Accuracy of the matching, independent of the position in the automatic ranking, CR errors ignored</p>
+                <table rend="rules">
+                    <row>
+                        <cell>Algorithm</cell>
+                        <cell>DSN_Maxcr</cell>
+                        <cell>PN_Maxcr</cell>
+                        <cell>DSC_Maxcr</cell>
+                        <cell>Count_Maxcr</cell>
+                    </row>
+                    <row>
+                        <cell>gold_count</cell>
+                        <cell>79.7%</cell>
+                        <cell>81.2%</cell>
+                        <cell>78.8%</cell>
+                        <cell>81.2%</cell>
+                    </row>
+                    <row>
+                        <cell>gold_order</cell>
+                        <cell>58.6%</cell>
+                        <cell>65.3%</cell>
+                        <cell>55.6%</cell>
+                        <cell>65.3%</cell>
+                    </row>
+                </table>
+                <p>The third error type of originates from different spellings of the same name which make an unambiguous matching very difficult (e.g. “Amanzéi” vs. “Amanzei”, “Lenore” vs. “Leonore”). Those kinds of errors are caused by different encodings, since the novels and the summaries originate from separate sources. Further reasons which render the matching more difficult or impossible respectively are missing or incorrectly detected Named Entities. The error analysis shows that future improvements are especially needed for the CR or procedures which avoid CR, since those have a better chance to succeed.</p>
+            </div>
+            <div xml:id="h.ghsdfzda1v8e" type="div1" rend="DH-Heading1">
+                <head>Conclusion</head>
+                <p>In this paper we showed work in progress to extract SNs from German novels. We compared four different approaches to the identification of central characters and evaluated against manually annotated summaries. Two presented methods rely on direct speech, the other methods can be applied to any novel. At least for this task, the more challenging approaches of determining speaker and addressee of direct speech and creating networks from the resulting interactions did score slightly lower than the simpler approaches. To improve the results, future work especially needs to be invested into the creation of a less error-prone CR system. </p>
+            </div>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl>
+                        <hi rend="bold">Agarwal, A., Kotalwar, A. and Rambow, O.</hi> (2013a). Automatic Extraction of Social Networks from Literary Text: A Case Study on Alice in Wonderland, 
+                        <hi rend="italic">Proceedings of the 6</hi>
+                        <hi rend="italic superscript">th</hi>
+                        <hi rend="italic"> International Joint Conference on Natural Language Processing (IJCNLP 2013),</hi> Nagoya, Japan.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Agarwal, A. et al.</hi> (2013b). Sinnet: Social Interaction Network Extractor from Text, 
+                        <hi rend="italic">Proceedings of the 6</hi>
+                        <hi rend="italic superscript">th</hi>
+                        <hi rend="italic"> International Joint Conference on Natural Language Processing (IJCNLP 2013)</hi>, Nagoya, Japan.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Ardanuy, M. C. and Sporleder, C.</hi> (2014). Structure-based Clustering of Novels, 
+                        <hi rend="italic">Proceedings of EACL 2014, </hi>Gothenburg, Sweden.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Bohnet, B. and Kuhn, J.</hi> (2012). The Best of Both Worlds: a Graph-based Completion Model for Transition-based Parsers, 
+                        <hi rend="italic">Proceedings of EACL 2012, </hi>Avignon, France.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Celikyilmaz, A. et al.</hi> (2010). The Actor-Topic Model for Extracting Social Networks in Literary Narrative, 
+                        <hi rend="italic">NIPS Workshop: Machine Learning for Social Computing</hi>.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Elson, D. K. and McKeown, K.</hi> (2010a). Automatic Attribution of Quoted Speech in Literary Narrative, 
+                        <hi rend="italic">Proceedings of AAAI 2010</hi>, Atlanta, Georgia.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Elson, D. K., Dames, N. and McKeown, K.</hi> (2010b). Extracting Social Networks from Literary Fiction, 
+                        <hi rend="italic">Proceedings of ACL 2010, </hi>Uppsala, Sweden.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Gruzd, A. A. and Haythornthwaite, C.</hi> (2008). Automated Discovery and Analysis of Social Networks from Threaded Discussions, 
+                        <hi rend="italic">Proceedings of INSNA 2008</hi>, St. Pete Beach, Florida.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Hassan, A., Abu-Jbara, A. and Radev, D.</hi> (2012). Extracting Signed Social Networks from Text, 
+                        <hi rend="italic">Workshop Proceedings of TextGraphs7 on Graph-based Methods for Natural Language Processing</hi>, Jeju, Republic of Korea.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">He, H., Barbosa, D. and Kondrak, G.</hi> (2013). Identification of Speakers in Novels, 
+                        <hi rend="italic">Proceedings of ACL 2013, </hi>Sofia, Bulgaria.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Hettinger, L. et al.</hi> (2015). Genre Classification on German Novels, 
+                        <hi rend="italic">Proceedings of the 12th International Workshop on Text-based Information Retrieval, </hi>Valencia, Spain.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Jannidis, F. et al. </hi>(2015). Automatische Erkennung von Figuren in deutschsprachigen Romanen, 
+                        <hi rend="italic">Digital Humanities im deutschsprachigen Raum</hi>, Graz, Austria.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Jing, H., Kambhatla, N. and Roukos, S.</hi> (2007). Extracting Social Networks and Biographical Facts from Conversational Speech Transcripts, 
+                        <hi rend="italic">Proceedings of ACL 2007</hi>, Prague, Czech Republic.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Krug, M. et al.</hi> (2015). Attribuierung direkter Reden in deutschen Romanen, 
+                        <hi rend="italic">Digital Humanities im deutschsprachigen Raum 2016, </hi>Leipzig, Germany, 2016.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Krug, M. et al.</hi> (2015). Rule-based Coreference Resolution in German Historic Novels, 
+                        <hi rend="italic">Proceedings of the 4</hi>
+                        <hi rend="italic superscript">th</hi>
+                        <hi rend="italic"> Workshop on Computational Linguistics for Literature</hi>, Denver, CO, USA, 2015.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Park, G. M. et al.</hi> (2013). Complex System Analysis of Social Networks Extracted from Literary Fictions, 
+                        <hi rend="italic">International Journal of Machine Learning and Computing </hi><hi rend="bold">31</hi>: 107-11.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Schmid, H. and Laws, F. </hi>(2008). Estimation of Conditional Probabilities with Decision Trees and an Application to Finegrained POS Tagging, 
+                        <hi rend="italic">Proceedings of Coling 2008</hi>, Manchester, UK.
+                        <hi rend="italic">.</hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Schmid, H., Fitschen, A. and Heid, U.</hi> (2004). SMOR: A German Computational Morphology Covering Derivation, Composition and Inflection, 
+                        <hi rend="italic">Proceedings of LREC 2004, </hi>Lisbon, Portugal.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Schmid, H.</hi> (1995). Improvements in Part-of-Speech Tagging with an Application to German, 
+                        <hi rend="italic">In Proceedings of the EACL SIGDAT Workshop 1995, </hi>Dublin, Ireland.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Sutton, C. and McCallum, A.</hi> (2006). An Introduction to Conditional Random Fields for Relational Learning. In Getoor, L. and Taskar, B. (Eds.), 
+                        <hi rend="italic">Introduction to Statistical Relational Learning</hi>. Cambridge: MIT Press, pp. 93-128.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Trilcke, P.</hi> (2013). Social Network Analysis (SNA) als Methode einer textempirischen Literaturwissenschaft. In Philip Ajouri, P., Mellmann, K. and Rauen, C. (Eds.)
+                        <hi rend="italic">, Empirie in der Literaturwissenschaft, </hi>Münster: Mentis, pp. 201-47.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Waumans, M. C., Nicodème, T. and Bersini, H.</hi> (2015). Topology Analysis of Social Networks Extracted from Literature, 
+                        <hi rend="italic">PloS one </hi>10.6: e0126470.
+                    </bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

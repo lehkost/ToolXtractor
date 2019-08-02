@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>Creating and Implementing an Ontology of Documents and Texts</title>
+                <author>
+                    <persName>
+                        <surname>Robinson</surname>
+                        <forename>Peter</forename>
+                    </persName>
+                    <affiliation>University of Saskatchewan, Canada</affiliation>
+                    <email>peter.robinson@usask.ca</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2014-12-19T13:50:00Z</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Name, Institution</publisher>
+                <address>
+                    <addrLine>Street</addrLine>
+                    <addrLine>City</addrLine>
+                    <addrLine>Country</addrLine>
+                    <addrLine>Name</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from a Word document</p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.22">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Long Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>Scholarly editing</term>
+                    <term>ontology</term>
+                    <term>document</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>literary studies</term>
+                    <term>ontologies</term>
+                    <term>scholarly editing</term>
+                    <term>information architecture and modeling</term>
+                    <term>philology</term>
+                    <term>english studies</term>
+                    <term>networks</term>
+                    <term>relationships</term>
+                    <term>graphs</term>
+                    <term>English</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <p>Outline</p>
+            <p>The application of computing methods to scholarly editing was one of the first major areas to be explored in the nascent discipline of “Humanities Computing”: the direct ancestor of what we now know as “Digital Humanities”. The highly-structured nature of scholarly editions, with their formal links between text and carefully crafted apparatus, and the promise that complex patterns in historical texts might be usefully explored by computer methods, made them obvious targets for the early application of computer methods to humanities materials (Hockey; see also early work by Dearing and Petty and Gibson). The first formal attempt at systematic computer representation of texts, the Text Encoding Initiative, analyzed these structures into a formal encoding scheme, itself building on the principles set out in De Rose et al’s landmark 1990 publication, “What is Text, Really”.</p>
+            <p>While the TEI encodings created from 1990 onward proved a solid foundation for many scholarly editions in digital form, from the very beginning scholars recognized a fundamental problem in the TEI encodings when applied to scholarly editions. At its most basic: one wants to see the text of a manuscript on screen as it appears in the manuscript: page by page, line by line. But also one wants to see that text not as it appears in the manuscript, but according to its logical structure as an act of communication: that is, as composed of segments (Acts and scenes; or stanzas and lines; or chapters, paragraphs and sentences). Because these two views almost never correspond, we have what is usually termed the problem of “overlapping hierarchies”: paragraphs cross page boundaries; manuscripts contain multiple works, distributed in complex ways across the pages. </p>
+            <p>Many papers have addressed this issue of the “overlapping hierarchy” (De Rose; Sperberg-McQueen and Huitfeldt), and this author has wrestled with this issue across multiple editions and operating systems. In 2010, the author commenced work on a new system for collaborative online scholarly editing, “Textual Communities”. A key aim was that this system would seek a robust and fundamental solution to the problem described as “overlapping hierarchies”. Accordingly, the first task was to rethink exactly what we mean by the terms “document”, “work” and “text”. For this, the author went to textual scholarship, which has been considering the meaning of these terms for centuries. In a series of articles (2013a, 2013b, 2017) the author has explored their meaning, with the 2013a article most clearly anchoring his perceptions in the traditions of textual scholarship. In summary, these terms are defined as follows:</p>
+            <list type="ordered">
+                <item>A text is an act of communication instanced in a document</item>
+                <item>The act of communication is composed of an ordered hierarchy of objects (Acts and scenes; or stanzas and lines; or chapters, paragraphs and sentences): hence, a tree</item>
+                <item>The document is composed of an ordered hierarchy of objects: the volume, divided into quires, divided into leaves, divided into recto and verso pages, divided into columns, divided into lines (or, surfaces, divided into zones, etc): hence, a tree</item>
+            </list>
+            <p>In this analysis, every text is composed of two distinct and independent hierarchies: one tree for the document, and one for the act of communication. Both trees are essential. An act of communication cannot exist unless it is physically instantiated in a document. If the document does not present an act of communication, then it is simply marks on paper, without lexical meaning.</p>
+            <p>Textual communities formalized these definitions in an ontology. The naming system used by this ontology is based on the well-known Kahn-Wilensky system (1995), commencing with a naming authority (in this example, TC:CTP) and then using a sequence of property/value pairs to specify each object. In this case, we are describing that part of paragraph 291 of the Parson’s Tale (“PA”) which appears in line 40 of folio 232v of the Hengwrt manuscript of the Canterbury Tales:</p>
+            <list type="ordered">
+                <item>The document hierarchy: TC:CTP/Document=Hg:Page=232v:Line=40</item>
+                <item>The act of communication hierarchy: TC:CTP/Entity=CTP:Part=PA:ab=291</item>
+                <item>The text, combining both hierarchies: TC:CTP/Entity=CTP:Part=PA:ab=291: Document=Hg:Page=232v:Line=40</item>
+            </list>
+            <p>In this formulation, every text is composed of a sequence of leaves, with every leaf shared by two distinct trees. Thus the “leaf” of text contained in line 40 of folio 232v occupies TC:CTP/Document=Hg:Page=232v:Line=40; that same text is part of TC:CTP/Entity=CTP:Part=PA:ab=291. The power of the system can be readily appreciated. First, one may travel through the document hierarchy to show the text page by page, line by line. Second, one may travel through the act of communication (“entity” in our system) hierarchy to find the different versions of paragraph 291 in multiple manuscripts and compare them. In this analysis, what we term “overlapping hierarchies” is a symptom, a result of the underlying system of distinct trees sharing leaves.</p>
+            <p>Theory is one thing; implementation is another. We wanted a system that could be updated in real time. (Here, I speak of “we” as the progressing work became more and more a collaborative project). That is: a manuscript page could be transcribed, the order and structure of the text on the page rearranged, deleted, replaced, and the results written near-instantly to a storage system and available immediately to others. Over a long text (20,000 lines of the Canterbury Tales) in many manuscripts (88 for the Tales, some 30,000 pages in total) this is rather challenging. One may compare this with removing leaves from the trees, rebuilding the branches to which they were attached, and then reattaching the leaves, all in a howling gale. A brief attempt to use an XML database (in this case, XML DB, now maintained by Oracle) revealed substantial performance problems. For several years, we used a MySQL relational database. But the tables linking the distinct trees rapidly became so complex, and the queries required to manipulate them so unwieldy, that we abandoned it. Finally we moved to representing all documents in JSON form, and then storing and retrieving them through a JSON document store (MungoDB). This has proved complex, but very fast and effective. We are able to represent the two hierarchies precisely, in a manner which permits realtime updating and retrieval, within the JSON store. Indeed, one could extend the model we apply beyond two hierarchies: a text could be composed of as many hierarchies as one likes.</p>
+            <p>The first public version of Textual Communities (after seven years of work) will be released in the first half of 2018, and the author will propose a workshop on the system at the conference. This paper will show the full system briefly. It is designed to be easy to use, to the point that a textual scholar with no special computer expertise will be able to use it to create an edition. Further, the implementation of the underlying database in JSON, and of javascript throughout the system, should make it possible for computer programmers expert in Javascript (and with no expertise in XML) to make complex critical editons. The system also contains tools to allow management of a large collaborative edition, with management of transcription page by page. The sophisticated Collation Editor, developed by the New Testament Greek edition projects in Birmingham, England and Munster, Germany, itself built on CollateX, is also integrated.</p>
+            <p>This work raises many questions. XML is currently used for basic document input, and for transcription page-by-page. However, the inability of XML to fully represent more than a single hierarchy in a single document is a serious impediment to Textual Communities. In essence, the textual model we implement in Textual Communities is more powerful than XML can provide. Our hope is that others will take up this challenge, to find ways to move past this weakness in XML. Indeed, we offer Textual Communities not as, in any sense, a definitive system. It is a first attempt to implement the ontology of text and document upon which it is built. We hope and expect others will do better than this system.</p>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl>Dearing, Vinton A. 1962. “Methods of Textual Editing”. Clarke Library Lecture. University of California.</bibl>
+                    <bibl>DeRose, S., David Durand, Elli Mylonas, and Allen Renear, 1990. “What is Text, Really?” 
+                        <hi rend="italic">Journal of Computing in Higher Education</hi>, pp. 3-26.
+                    </bibl>
+                    <bibl>DeRose, S. 2004. Markup overlap: A review and a horse. 
+                        <hi rend="italic">Proceedings of the extreme markup languages 2004</hi>. Rockville: Mulberry Technologies.
+                    </bibl>
+                    <bibl>Hockey, Susan. 1980.  
+                        <hi rend="italic">Guide to Computer Applications in the Humanities</hi>, Duckworth and Johns Hopkins.
+                    </bibl>
+                    <bibl>Kahn, Robert E., and Robert Wilensky, 1995. A Framework for Distributed Digital Object Services. Available at http://www.cnri.reston.va.us/home/cstr/arch/k-w.html.</bibl>
+                    <bibl>Petty, George R. and William M. Gibson, 1970. 
+                        <hi rend="italic" xml:space="preserve">Project OCCULT: The Ordered Computer Collation of Unprepared Literary Text. </hi>New York: New York University Press.
+                    </bibl>
+                    <bibl>Robinson, P., 2013a. “The Concept of the Work in the Digital Age.” In Barbara Bordalejo (ed.), 
+                        <hi rend="italic">Work, Text and Document in the Digital Age</hi>. 
+                        <hi rend="italic">Ecdotica</hi>, 10, 13- 41.
+                    </bibl>
+                    <bibl>Robinson, P., 2013b. “Towards A Theory of Digital Editions.” 
+                        <hi rend="italic" xml:space="preserve">Variants </hi>10, 105- 132.
+                    </bibl>
+                    <bibl>Robinson, P. 2017. ‘Some principles for making collaborative scholarly editions in digital form.’ Digital Humanities Quarterly 11.2.</bibl>
+                    <bibl>Sperberg-McQueen, C. M. and Claus Huitfeldt, 2004 “GODDAG: A Data Structure for Overlapping Hierarchies”. In DDEP/PODDP, pp. 139-160.</bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

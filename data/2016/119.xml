@@ -1,0 +1,492 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title type="full">
+                    <title type="main">Topic Modeling Literary Quality</title>
+                    <title type="sub"/>
+                </title>
+                <author>
+                    <persName>
+                        <surname>Jautze</surname>
+                        <forename>Kim</forename>
+                    </persName>
+                    <affiliation>Huygens ING, Royal Netherlands Academy of Arts and Sciences, Netherlands</affiliation>
+                    <email>kim.jautze@huygens.knaw.nl</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>van Cranenburgh</surname>
+                        <forename>Andreas</forename>
+                    </persName>
+                    <affiliation>Huygens ING, Royal Netherlands Academy of Arts and Sciences, Netherlands; Institute for Logic, Language and Computation, University of Amsterdam</affiliation>
+                    <email>andreas.van.cranenburgh@huygens.knaw.nl</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Koolen</surname>
+                        <forename>Corina</forename>
+                    </persName>
+                    <affiliation>Institute for Logic, Language and Computation, University of Amsterdam</affiliation>
+                    <email>c.w.koolen@uva.nl</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2016-03-03T16:56:54.054256569</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Maciej Eder, Pedagogical University in Krakow</publisher>
+                <publisher>Jan Rybicki, Jagiellonian University</publisher>
+                <address>
+                    <addrLine>Institute of Polish Studies</addrLine>
+                    <addrLine>Pedagogical University</addrLine>
+                    <addrLine>ul. Podchorazych 2</addrLine>
+                    <addrLine>30-084 Krakow, Poland</addrLine>
+                    <addrLine>maciej.eder@ijp-pan.krakow.pl</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from an OASIS Open Document</p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.20">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Long Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>literary quality</term>
+                    <term>topic models</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>literary studies</term>
+                    <term>stylistics and stylometry</term>
+                    <term>text analysis</term>
+                    <term>English</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <div type="div1" rend="DH-Heading1">
+                <head>Introduction</head>
+                <p>To what extent can topic models explain variation in perceptions of literary quality? We try to find correlations between topics and judgments of literary quality using a topic model of 401 recent bestselling Dutch novels. Instead of examining topics on a macro-scale in a geographical or historical interpretation (e.g., Jockers 2013; Riddell 2014), we take a new perspective: whether novels have a dominant topic in their topic distributions (mono-topicality), and whether certain topics may express an explicit or implicit genre in the corpus. We hypothesize that there is a relationship between these aspects of the topic distributions and perceptions of literary quality. We then interpret the model by taking a closer look at the topics in a selection of the novels.</p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>
+                    <anchor xml:id="id_h.hwo31iwoyajz"/>Riddle survey and corpus
+                </head>
+                <p>This research is part of a Dutch computational humanities project called The Riddle of Literary Quality. In the project we aim
+                    <hi rend="color(#0000ff)"> </hi>to identify textual features that may play a role in readers’ evaluations of a novel as being good or bad and as high or low literature. We analyze a corpus of 401 contemporary Dutch-language (including translated) novels in search of textual features they have in common. Within our corpus there is a small variety of novelistic genres, which can be roughly divided into suspense, romantic and general novels. The readers’ judgments were gathered in a large online survey. We asked a general public to rate the novels they had read on a 7-point scale from 
+                    <hi rend="italic">definitely not</hi> through 
+                    <hi rend="italic">highly</hi> literary. Approximately 14,000 respondents participated, providing us with much data on the perceived quality of our 401 novels.
+                    <note xml:id="ftn1" place="foot" n="1"> Extensive details on the survey will be published in two articles, one of which is in submission.</note> The mean rating over all 401 novels is 4.2, with 2.1 being the lowest rating for 
+                    <hi rend="italic">Fifty Shades of Grey </hi>by E.L. James, and 6.6 the highest for Julian Barnes’ 
+                    <hi rend="italic">The Sense of an Ending</hi>.
+                </p>
+                <p>
+                    <anchor xml:id="id_h.n7lskb6rsaof"/>
+                    <figure>
+                        <graphic url="119/10000201000002EE000005DCD6EE8AC0.png"/>
+                        <head>Figure 1: Overview of topics, sorted by proportion of the corpus</head>
+                    </figure>
+                </p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>
+                    <anchor xml:id="id_h.8uc0a79nppo5"/>Topic model
+                </head>
+                <p>A topic model aims to automatically discover topics in a collection of documents. We use Latent Dirichlet Allocation (Blei et al., 2003), which assumes the documents have been generated from a fixed number of probability distributions (the topics) over words. The topics reflect word co-occurrence patterns. We preprocess the novels by lemmatizing the words, removing punctuation, function words and names, and splitting the remaining text in chunks of 1000 tokens. We use MALLET to create a topic model with 50 topics. Fig. 1 shows an overview of the topics with their proportion across the corpus.</p>
+                <p>We have attempted to identify topics for novels with high literary ratings, and topics specific for suspense and romantic novels. According to Jockers and Mimno (2013), the topics can be used to identify literary themes. They use the terms “theme” and “topic” as “proxies for [...] a type of literary content that is semantically unified and recurs with some degree of frequency or regularity throughout and across a corpus” (p. 751).
+                    <hi rend="color(#ff00ff)"> </hi>We found that three topics are specific to a single author (for instance t3), and about a third seem genre specific. By inspecting the most important words for each topic we found that most topics (genre related or not) indeed cohere with certain themes (cf. Fig.1). This suggests that the choice for 50 topics is neither too small nor too high.
+                </p>
+                <div type="div2" rend="DH-Heading2">
+                    <head>
+                        <anchor xml:id="id_h.i8hby3sksr0l"/>Quantitative analysis
+                    </head>
+                    <p>We aim to gain insight into the distribution of topics in relation to the literary ratings of the novels (predicting literary ratings is not the main aim here). In order to interpret the topic distributions, we introduce the concept of mono-topicality.
+                        <note xml:id="ftn2" place="foot" n="2"> After submitting this abstract, we discovered the Literary Lab pamphlet by Algee-Hewitt et al. (2015), who independently devised a concept called mono-topicality.</note> A mono-topical novel contains little diversity in topic distribution, which means that one or two topics are dominant throughout the novel. A novel which shows more variation in topics has a more even distribution of topics, i.e., such a novel has a larger topic diversity. Fig. 2 shows an example of both cases.
+                    </p>
+                    <p>The x-axis shows the distribution of topics, sorted from least to most prevalent. In John Grisham’s 
+                        <hi rend="italic">The Appeal, </hi>topic 5 (“lawsuits”) has a proportion of 47.8 % of all 50 topics. This novel is more mono-topical than the Franzen’s 
+                        <hi rend="italic">Corrections</hi>, which has a more balanced distribution of topic proportions.
+                    </p>
+                    <p>We hypothesize that the less mono-topical a novel is, the higher the perceived literariness by readers will be. And indeed, Fig. 3 shows that there is a statistically significant correlation between the diversity of topics of a book and its perceived literariness. Books with a single, highly prominent topic, such as Grisham’s, tend to be seen as less literary.</p>
+                    <p>
+                        <figure>
+                            <graphic url="119/100002010000037A00000191B20BB108.png"/>
+                            <head>Figure 2: Distribution of the top 15 topics in novels with high (left) and low (right) mono-topicality</head>
+                        </figure>
+                    </p>
+                    <table rend="frame" xml:id="Table1">
+                        <head>Table 1: Themes in fifteen highly literary novels, all of which are originally Dutch Table 2: Six topics from the model that address themes present in the fifteen highly literary novels, but which are not the most prominent as topics in those novels</head>
+                        <row>
+                            <cell>
+                                <figure>
+                                    <graphic url="119/10000201000001AB000001A83F9F1B90.png"/>
+                                    <head>Figure 3: Correlation between share of themost prominent topic per book and mean literariness ratings</head>
+                                </figure>
+                            </cell>
+                            <cell>
+                                <figure>
+                                    <graphic url="119/10000201000001AB000001A8B6C60109.png"/>
+                                    <head>Figure 4: Correlation between topic 29 proportion and mean literariness ratings</head>
+                                </figure>
+                            </cell>
+                        </row>
+                    </table>
+                </div>
+                <div type="div2" rend="DH-Heading2">
+                    <head>
+                        <anchor xml:id="id_h.ltz2p1h11072"/>Interpretation
+                    </head>
+                    <p>There are several possible explanations for the correlation. Genre novels could have a tendency to single out certain topics, as they deal with more ‘typical’ or genre-specific subject matter than do general novels. If this were the case, we would simply be finding that genre novels are considered to be less literary than general novels, and this would tell us little about literary quality in a more general sense. General novels in the other hand, deal with all sorts of subjects and themes, across and beyond ‘genre’ subjects, and therefore a topic model may not be able to single out thematic groups of words common to these novels, and thus may
+                        <hi rend="color(#ff00ff)"> </hi>not find one single prominent topic. A third explanation could be that highly literary novels 
+                        <hi rend="italic">do</hi> deal with specific themes and subjects which are also part of genre novels, but that these are described in wordings that are more implicit or subtle, and therefore do not come up as single, clear topics. If this were the case, that would bring us closer to an explanation of what topics have to do with literary quality. These explanations are not mutually exclusive and we will explore the topic model here to examine the value of the second and third explanation.
+                    </p>
+                    <p>The topic that shows the highest correlation (r=0.49) with literary appreciation is topic 29; cf. Fig. 4. This topic is most prominent in fifteen originally Dutch general novels. The twenty words in topic 29 with the highest weights are 
+                        <hi rend="italic">begin, music, play, occasion, first, the first, sing, only, year, one, stay, sometimes, even, new, own, always, high, exact(ly), bike, appear</hi>. They show little coherence, making it hard to interpret their context, although ‘music and performance’ appears to be part of it. To find out more about the novels in which this topic is prominent, we consult a Dutch website maintained by librarians called 
+                        <hi rend="italic">Literatuurplein</hi>, which provides information on the themes and content of Dutch novels.
+                    </p>
+                    <table rend="frame" xml:id="Table2">
+                        <head>Table 1: Themes in fifteen highly literary novels, all of which are originally Dutch Table 2: Six topics from the model that address themes present in the fifteen highly literary novels, but which are not the most prominent as topics in those novels</head>
+                        <row>
+                            <cell>Author_Title</cell>
+                            <cell>Survey rating</cell>
+                            <cell>% topic 29</cell>
+                            <cell>Relationships</cell>
+                            <cell/>
+                            <cell/>
+                            <cell>Complications</cell>
+                            <cell/>
+                            <cell>Artistic profession</cell>
+                            <cell/>
+                            <cell>True story</cell>
+                            <cell/>
+                        </row>
+                        <row>
+                            <cell/>
+                            <cell/>
+                            <cell/>
+                            <cell>Friend / family</cell>
+                            <cell>parent-
+                                <lb/>child
+                            </cell>
+                            <cell>love</cell>
+                            <cell>rivalry</cell>
+                            <cell>illness &amp; death</cell>
+                            <cell>writer / editor</cell>
+                            <cell>other
+                            </cell>
+                            <cell>autobio-
+                                <lb/>graphic
+                            </cell>
+                            <cell>history</cell>
+                        </row>
+                        <row>
+                            <cell>Hart_Verlovingstijd</cell>
+                            <cell>5.9</cell>
+                            <cell>24.8</cell>
+                            <cell>X</cell>
+                            <cell/>
+                            <cell/>
+                            <cell>X</cell>
+                            <cell/>
+                            <cell/>
+                            <cell/>
+                            <cell/>
+                            <cell/>
+                        </row>
+                        <row>
+                            <cell>Rosenboom_ZoeteMond</cell>
+                            <cell>6.2</cell>
+                            <cell>22.5</cell>
+                            <cell/>
+                            <cell/>
+                            <cell>X</cell>
+                            <cell>X</cell>
+                            <cell/>
+                            <cell/>
+                            <cell/>
+                            <cell/>
+                            <cell/>
+                        </row>
+                        <row>
+                            <cell>Lanoye_Sprakeloos</cell>
+                            <cell>6.4</cell>
+                            <cell>21.8</cell>
+                            <cell/>
+                            <cell>X</cell>
+                            <cell/>
+                            <cell/>
+                            <cell>X</cell>
+                            <cell>X</cell>
+                            <cell/>
+                            <cell>X</cell>
+                            <cell/>
+                        </row>
+                        <row>
+                            <cell>Dewulf_KleineDagen</cell>
+                            <cell>6.0</cell>
+                            <cell>19.6</cell>
+                            <cell>X</cell>
+                            <cell/>
+                            <cell/>
+                            <cell/>
+                            <cell/>
+                            <cell>X</cell>
+                            <cell/>
+                            <cell>X</cell>
+                            <cell/>
+                        </row>
+                        <row>
+                            <cell>Rosenboom_Mechanica</cell>
+                            <cell>6.2</cell>
+                            <cell>17.0</cell>
+                            <cell/>
+                            <cell/>
+                            <cell/>
+                            <cell/>
+                            <cell/>
+                            <cell>X</cell>
+                            <cell/>
+                            <cell/>
+                            <cell/>
+                        </row>
+                        <row>
+                            <cell>Heijden_Tonio</cell>
+                            <cell>6.3</cell>
+                            <cell>16.8</cell>
+                            <cell/>
+                            <cell>X</cell>
+                            <cell/>
+                            <cell/>
+                            <cell>X</cell>
+                            <cell>X</cell>
+                            <cell/>
+                            <cell>X</cell>
+                            <cell/>
+                        </row>
+                        <row>
+                            <cell>Verhulst_LaatsteLiefdeVan</cell>
+                            <cell>5.8</cell>
+                            <cell>16.5</cell>
+                            <cell/>
+                            <cell>X</cell>
+                            <cell/>
+                            <cell>X</cell>
+                            <cell/>
+                            <cell/>
+                            <cell/>
+                            <cell/>
+                            <cell/>
+                        </row>
+                        <row>
+                            <cell>Lanoye_HeldereHemel</cell>
+                            <cell>5.8</cell>
+                            <cell>15.7</cell>
+                            <cell>X</cell>
+                            <cell/>
+                            <cell/>
+                            <cell>X</cell>
+                            <cell/>
+                            <cell/>
+                            <cell/>
+                            <cell/>
+                            <cell>X</cell>
+                        </row>
+                        <row>
+                            <cell>Springer_Quadriga</cell>
+                            <cell>6.0</cell>
+                            <cell>15.7</cell>
+                            <cell/>
+                            <cell/>
+                            <cell>X</cell>
+                            <cell/>
+                            <cell/>
+                            <cell>X</cell>
+                            <cell/>
+                            <cell/>
+                            <cell>X</cell>
+                        </row>
+                        <row>
+                            <cell>Mortier_GestameldLiedboek</cell>
+                            <cell>6.5</cell>
+                            <cell>15.5</cell>
+                            <cell/>
+                            <cell>X</cell>
+                            <cell/>
+                            <cell/>
+                            <cell>X</cell>
+                            <cell>X</cell>
+                            <cell/>
+                            <cell>X</cell>
+                            <cell/>
+                        </row>
+                        <row>
+                            <cell>Kooten_Verrekijker</cell>
+                            <cell>5.0</cell>
+                            <cell>15.2</cell>
+                            <cell/>
+                            <cell>X</cell>
+                            <cell/>
+                            <cell/>
+                            <cell/>
+                            <cell>X</cell>
+                            <cell/>
+                            <cell>X</cell>
+                            <cell/>
+                        </row>
+                        <row>
+                            <cell>Moor_SchilderEnMeisje</cell>
+                            <cell>5.9</cell>
+                            <cell>14.7</cell>
+                            <cell/>
+                            <cell/>
+                            <cell>X</cell>
+                            <cell/>
+                            <cell/>
+                            <cell/>
+                            <cell>X</cell>
+                            <cell/>
+                            <cell>X</cell>
+                        </row>
+                        <row>
+                            <cell>Zwagerman_Duel</cell>
+                            <cell>5.5</cell>
+                            <cell>14.6</cell>
+                            <cell/>
+                            <cell/>
+                            <cell/>
+                            <cell/>
+                            <cell/>
+                            <cell/>
+                            <cell>X</cell>
+                            <cell/>
+                            <cell/>
+                        </row>
+                        <row>
+                            <cell>Giphart_IJsland</cell>
+                            <cell>5.3</cell>
+                            <cell>13.0</cell>
+                            <cell/>
+                            <cell>X</cell>
+                            <cell/>
+                            <cell/>
+                            <cell/>
+                            <cell/>
+                            <cell>X</cell>
+                            <cell/>
+                            <cell/>
+                        </row>
+                        <row>
+                            <cell>Dorrestein_Stiefmoeder</cell>
+                            <cell>5.5</cell>
+                            <cell>8.7</cell>
+                            <cell>X</cell>
+                            <cell>X</cell>
+                            <cell/>
+                            <cell/>
+                            <cell/>
+                            <cell/>
+                            <cell/>
+                            <cell/>
+                            <cell/>
+                        </row>
+                    </table>
+                    <p>Most of these novels show similarities in themes, such as family relationships. In ten of the novels the protagonist has an artistic profession: a couple of writers, a painter and a stand-up comedian. None of them has a musical or acting career, despite the 'music and performance' words; and vice versa, none of the twenty most prominent words concern writing.
+                        <hi rend="italic"> </hi>All in all, at first glance topic 29 seems not to address the themes and content of the novels, whereas most other topics in the model do concern specific themes (cf. Fig. 1 and Table 2).
+                    </p>
+                    <table rend="frame" xml:id="Table3">
+                        <head>Table 2: Six topics from the model that address themes present in the fifteen highly literary novels, but which are not the most prominent as topics in those novels</head>
+                        <row>
+                            <cell>Topic</cell>
+                            <cell>Name</cell>
+                            <cell>Top 10 words with highest weight</cell>
+                        </row>
+                        <row>
+                            <cell>2</cell>
+                            <cell>Family relations I</cell>
+                            <cell>father, mother, child, year, son, girl, brother, woman, older, daughter</cell>
+                        </row>
+                        <row>
+                            <cell>6</cell>
+                            <cell>Health I</cell>
+                            <cell>doctor, body, pain, illness, pill, blood, death, medicine, child, patient</cell>
+                        </row>
+                        <row>
+                            <cell>11</cell>
+                            <cell>Family relations II</cell>
+                            <cell>child, mother, mom, baby, dad, little, cry, hand, time, grandma</cell>
+                        </row>
+                        <row>
+                            <cell>12</cell>
+                            <cell>Writing &amp; memories</cell>
+                            <cell>picture, letter, write, read, paper, book, year, day, enveloppe, memories</cell>
+                        </row>
+                        <row>
+                            <cell>33</cell>
+                            <cell>Health II</cell>
+                            <cell>doctor, hospital, patient, women, bed, lie, nurse, room, hall, hour</cell>
+                        </row>
+                        <row>
+                            <cell>41</cell>
+                            <cell>Novels</cell>
+                            <cell>book, writing, story, year, word, writer, human, novel, time</cell>
+                        </row>
+                    </table>
+                    <p>For instance, topic 2 and 11 address family relations, topic 12 and 41 are about writing novels, and topic 6 and 33 concern health issues. These topics are present, but as smaller topics. This shows that the second explanation, of the general novels not sharing themes, is not valid. It could be an indication though that the highly literary novels indeed use a more subtle way of describing themes similar to other novels in our corpus, our third explanation. As a final note, in topic 29 there are proportionally more adverbs than in the other topics mentioned, which contain more nouns. Perhaps this shows that style is a more shared element in literary novels than the choice of words. In other words, this brief analysis shows that there is merit to our third explanation. This will therefore become a new hypothesis for further research.</p>
+                </div>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>
+                    <anchor xml:id="id_h.rbkzcj4b41u"/>Conclusion
+                </head>
+                <p>We have explored a topic model of contemporary novels in relation to genre and literariness, and shown that topic diversity correlates with literary ratings. Most topics express a clear theme or genre. However, topic 29, the most literary topic, does not. It rather appears to be associated with a particular Dutch literary writing style.</p>
+            </div>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl>
+                        <hi rend="bold">Algee-Hewitt, M., Heuser R., and Moretti, F.</hi> (2015). On paragraphs. Scale, themes, and narrative form. Stanford Literary Lab pamphlet 10. 
+                        <ptr target="http://litlab.stanford.edu/LiteraryLabPamphlet10.pdf"/>
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Blei, D. M., Ng, A. Y., and Jordan, M. I.</hi> (2003). Latent Dirichlet allocation. 
+                        <hi rend="italic">Journal of Machine Learning Research</hi>, 3:993–1022.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Jockers, M. L. and Mimno, D.</hi> (2013). Significant Themes in 19th-Century Literature. 
+                        <hi rend="italic">Poetics</hi>
+                        <hi rend="bold">41</hi>(6):750–69. 
+                        <ptr target="http://dx.doi.org/10.1016/j.poetic.2013.08.005"/>
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Jockers, M. L</hi> (2013). 
+                        <hi rend="italic">Macroanalysis: Digital methods and literary history</hi>. University of Illinois Press.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Riddell, Allen </hi>(2014). How to read 22,198 journal articles: Studying the history of German studies with topic models. In Erlin, M. and Tatlock, L. (eds), 
+                        <hi rend="italic">Distant Readings: Topologies of German Culture in the Long Nineteenth Century</hi>, Rochester, New York: Camden House, pp. 91–114.
+                    </bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

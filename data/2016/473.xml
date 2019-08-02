@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title type="full">
+                    <title type="main">Etymology Meets Linked Data. A Case Study In Turkic</title>
+                    <title type="sub"/>
+                </title>
+                <author>
+                    <persName>
+                        <surname>Chiarcos</surname>
+                        <forename>Christian</forename>
+                    </persName>
+                    <affiliation>University of Frankfurt, Germany</affiliation>
+                    <email>christian.chiarcos@web.de</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Abromeit</surname>
+                        <forename>Frank</forename>
+                    </persName>
+                    <affiliation>University of Frankfurt, Germany</affiliation>
+                    <email>abromeit@unitybox.de</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Fäth</surname>
+                        <forename>Christian</forename>
+                    </persName>
+                    <affiliation>University of Frankfurt, Germany</affiliation>
+                    <email>chris.faeth.de@t-online.de</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Ionov</surname>
+                        <forename>Max</forename>
+                    </persName>
+                    <affiliation>University of Frankfurt, Germany</affiliation>
+                    <email>max.ionov@gmail.com</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2016-03-05T19:41:45.684570647</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Maciej Eder, Pedagogical University in Krakow</publisher>
+                <publisher>Jan Rybicki, Jagiellonian University</publisher>
+                <address>
+                    <addrLine>Institute of Polish Studies</addrLine>
+                    <addrLine>Pedagogical University</addrLine>
+                    <addrLine>ul. Podchorazych 2</addrLine>
+                    <addrLine>30-084 Krakow, Poland</addrLine>
+                    <addrLine>maciej.eder@ijp-pan.krakow.pl</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from an OASIS Open Document</p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.21">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Short Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>etymology</term>
+                    <term>dictionaries</term>
+                    <term>Turkic</term>
+                    <term>LLOD</term>
+                    <term>Lemon</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>historical studies</term>
+                    <term>lexicography</term>
+                    <term>ontologies</term>
+                    <term>knowledge representation</term>
+                    <term>linguistics</term>
+                    <term>query languages</term>
+                    <term>linking and annotation</term>
+                    <term>standards and interoperability</term>
+                    <term>English</term>
+                    <term>digital humanities - multilinguality</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <div type="div1">
+                <head>Linking Etymological Dictionaries</head>
+                <p>When studying low-resource languages, historical documents or dialectal variation, researchers often face the problem that lexical resources are sparse, dated, or simply unavailable. At the moment, the problem is addressed by different initiatives to either aggregate language resources
+                        <note xml:id="ftn1" place="foot" n="1"> e.g. ELRA 
+                            <ref target="http://www.elra.info/">http://www.elra.info</ref>
+                        </note> in a central repository or to collect metadata about them
+                        <note xml:id="ftn2" place="foot" n="2"> e.g. OLAC 
+                            <ptr target="http://www.language-archives.org/"/>
+                        </note>. The availability of this huge and diverse amount of material, often in different formats, and with a highly specialized focus on selected language varieties, poses the challenge how to access and search this wealth of information. Our project aims to address both aspects:</p>
+                <list type="unordered">
+                    <item>
+                        <hi rend="bold">uniform access to lexical resources</hi>. At the moment, most resources are distributed across different providers. Platforms to query or browse this data are available, but they use different representation formalisms and remain isolated from each other. We employ <hi rend="bold">Linked Data</hi> to develop interoperable representations to access distributed resources in a uniform fashion.
+                    </item>
+                    <item>
+                        <hi rend="bold">search across multilingual resources</hi>. We are not only interested in a specific language, but also, in related varieties: Much of the material we have is sparse, and we can address gaps in our lexical knowledge by consulting background information about form and meaning of possible cognates in other languages.
+                    </item>
+                </list>
+                <p>The project will implement search functionalities as web services and provide a prototypical web interface that allows to query Linked Data versions of open lexical resources. As a first step towards this goal, this paper addresses representation formalisms and data modelling, illustrated for an etymological dictionary of the Turkic language family.</p>
+            </div>
+            <div type="div1">
+                <head>Linked Open Data</head>
+                <p>Linked (Open) Data defines rules of best practice for publishing data on the web, and since (Chiarcos et al., 2012), these rules have been increasingly applied to language resources, giving rise to the 
+                    <hi rend="bold">Linguistic Linked Open Data</hi> (LLOD) cloud (Chiarcos et al., 2013)
+                        <note xml:id="ftn3" place="foot" n="3"> e.g. 
+                            <ptr target="http://linguistics.okfn.org/"/>
+                            <ref target="http://linguistics.okfn.org/,http://linguistic-lod.org">, http://linguistic-lod.org</ref>
+                        </note>. A 
+                    <hi rend="italic">linguistically relevant</hi>
+                    <hi rend="italic">resource</hi> constitutes Linguistic Linked (Open) Data if (1) its elements are uniquely identifiably by means of 
+                    <hi rend="bold">URIs</hi>, (2) its URIs 
+                    <hi rend="bold">resolve via HTTP</hi>, (3) it can be accessed using 
+                    <hi rend="bold">web standards</hi> such as RDF and SPARQL, and (4) it includes 
+                    <hi rend="bold">links</hi> to other resources. It is Linguistic Linked Open Data (LLOD) if – in addition to these rules –, it is published under an 
+                    <hi rend="bold">open</hi> license. For etymological dictionaries, the capability to refer to and to search across distributed data sets (federation, dynamicity, ecosystem) in an interoperable way (representation, interoperability) allows to design novel, integrative approaches on accessing and using etymological databases, but only if common vocabularies and terms already established in the community are being used, re-used and extended. (Moran &amp; Brümmer, 2013) established lemon (McCrae et al., 2011)
+                        <note xml:id="ftn4" place="foot" n="4">
+                            <ref target="http://lemon-model.net/">http://lemon-model.net</ref>
+                        </note> for representing etymological data. Inspired by the pre-lemon inventory (de Melo, 2014), we introduce lemon extensions for etymological relations, illustrated for the linked data edition of the Starling Turkic etymological dictionary. With further dictionaries for Turkic languages becoming available as a result of our project, these are linked with each other and with language resources from contact languages such as Mongolian, Iranian, Caucasian, Arabic, and Russian.
+                </p>
+            </div>
+            <div type="div1">
+                <head>Turkic Etymology in Starling</head>
+                <p>The 
+                    <hi rend="bold">Tower of Babel (Starling)</hi>
+                        <note xml:id="ftn5" place="foot" n="5">
+                            <ptr target="http://starling.rinet.ru/"/>
+                        </note> is a web portal on historical and comparative linguistics (Starostin, 2010), widely used in academia to publish etymological datasets over the internet. Starling allows exploring its dictionaries by means of faceted browsing using a coarse-grained phylogenetic tree (Fig. 2.a). We illustrate its data structures for the Turkic Etymological Dictionary (Dybo et al., 2012) with an example result for the query 
+                    <hi rend="bold">meaning="bird"</hi> (Fig.2.b). Following the 
+                    <hi rend="bold">Proto-Turkic</hi> root, we find a cross-reference to the Altaic dictionary, and the 
+                    <hi rend="bold">meaning</hi> (sense) of the proto-form in English and Russian. The following entries pertain to 
+                    <hi rend="bold">cognates</hi> in different Turkic languages: They provide complex information including one or multiple 
+                    <hi rend="bold">forms</hi>, 
+                    <hi rend="bold">co-indexed</hi> with the meaning field, and optionally augmented with additional gloss (e.g., ‘moth’ for Middle Turkic/Chagatai), bibliography (as a hyperlink, Fig. 3) or additional comments (e.g., &lt; Az. for Halaj). We used an XML export of the Starling data (Fig. 1) to create RDF and (by converting cross-references) Linked Data.
+                </p>
+                <p>
+                    <figure>
+                        <graphic url="473/10000000000002EB000001A21D73B82B2543251A.png"/>
+                        <head>Fig. 1: XML snippet</head>
+                    </figure>
+                </p>
+                <p>
+                    <figure>
+                        <graphic url="473/10000000000002D60000053C60B558B8371927A4.png"/>
+                        <head>Fig. 2a: Starling phylogenetic tree for faceted browsing</head>
+                    </figure>
+                    <figure>
+                        <graphic url="473/10000000000001F500000421DEABCA479CA6F640.png"/>
+                        <head>Fig. 2b: First query result for meaning “bird” in the Turkic etymological dictionary</head>
+                    </figure>
+                    <figure>
+                        <graphic url="473/10000000000002E800000192E4FB4F49502DFAA6.png"/>
+                        <head>Fig. 3: Bibliographic information for <hi rend="bold">Abush</hi>
+                        </head>
+                    </figure>
+                </p>
+            </div>
+            <div type="div1">
+                <head>Data Model for the Turkic Etymology</head>
+                <p>Following LLOD conventions, we employ the Ontolex/Lemon vocabulary (McCrae et al., 2011)
+                        <note xml:id="ftn6" place="foot" n="6">
+                            <ptr target="http://www.w3.org/community/ontolex/wiki/Final_Model_Specification"/>
+                        </note> as shown in Fig. 4. Originally developed to add linguistic information to existing ontologies, Lemon evolved into a de-facto standard to represent lexical resources as LLOD. Here, we focus on Lemon extensions to represent etymological cognates: Etymological relations involve a relationship on the level of meaning (sense) and on the level of form, and thus require a novel property between one 
+                    <hi rend="bold">LexicalEntry</hi> and another. Between etymological cognates, it is not always clear whether one was the source of the other, or a more indirect relation holds. To express a generic etymological link without additional directionality information, we introduce the property 
+                    <hi rend="bold">lemonet:cognate</hi>. If source and target are known, a subproperty 
+                    <hi rend="bold">lemonet:derivedFrom</hi> is introduced. Similar to 
+                    <hi rend="bold">lemonet:cognate</hi>, it is transitive, but it is not symmetric. Distinguishing 
+                    <hi rend="bold">lemonet:cognate</hi> and 
+                    <hi rend="bold">lemonet:derivedFrom</hi> follows de Melo’s apparent directionality differentiation. Here, however, we provide a formal definition as a (minimal) extension of Lemon following (Chiarcos &amp; Sukhareva, 2014) which supports inferring general cognate relations by subsumption and transitive/symmetric closure. In the Starling data, the directionality of etymological links is generally known, so we represent etymological relations with 
+                    <hi rend="bold">lemonet:derivedFrom</hi> between lexical entries from different Lemon lexicons. By subsumption inference, transitivity and symmetry of its superproperty, 
+                    <hi rend="bold">lemonet:cognate</hi> relations can be inferred automatically between all language-specific forms.
+                </p>
+                <p>
+                    <figure>
+                        <graphic url="473/10000201000002B1000001B6C730D528F4CA5EBB.png"/>
+                        <head>Fig. 4: Lemon-Core (Ontolex) module</head>
+                    </figure>
+                </p>
+            </div>
+            <div type="div1">
+                <head>Applications</head>
+                <p>The 
+                    <hi rend="bold">Comparative-Lexicographical Workbench</hi> (Fig. 5) will provide novel search functionalities extending the functionality of existing platforms, form-based search and a gloss-(meaning-) based search, currently applied to the Turkic language family and its contact languages.
+                </p>
+                <list type="unordered">
+                    <item>
+                        <hi rend="bold">gloss-(meaning-)based search</hi>. Dictionary lemmas are complemented with a gloss paraphrasing their meaning. Linked Data allows transitive search over sequences of bilingual dictionaries (e.g., Kazakh-Russian-English).
+                    </item>
+                    <item>
+                        <hi rend="bold">form-based search</hi>. Given a lexeme in a particular language, say, Kazakh, and a set of related languages, say, the Turkish languages in general, the system will retrieve phonologically similar lexemes for the respective target languages.
+                    </item>
+                </list>
+                <p>Both search functionalities aim to detect candidate cognates. The data provided by Starling represents a gold standard, but can also be directly integrated into the search process: In Fig. 5, we query for Chalkan 
+                    <hi rend="bold">ана</hi> and possible cognates from Turkic (as an inherited word) or Mongolic (as a possible source of loan words). The results are organized according to the taxonomic status of the varieties in 
+                    <hi rend="italic">www.multitree.org</hi>. They include a gloss from a Chalkan dictionary (marked by subscript C), but in addition provide form-based matches (subscript +) from the Starling dictionaries (S), e.g., with Turkish 
+                    <hi rend="bold">ana</hi> and its etymologically corresponding forms, etc.
+                </p>
+                <p>
+                    <figure>
+                        <graphic url="473/100000000000036C000001859BCD84B9DB5D43F8.png"/>
+                        <head>Fig. 5: Design study: Form-based search in the Comparative-Lexicographical Workbench</head>
+                    </figure>
+                </p>
+            </div>
+            <div type="div1">
+                <head>Summary</head>
+                <p>We described preliminary steps towards the development of a Comparative-Lexicographical Workbench that uses Linked Data formalisms to retrieve cognates as given in etymological dictionaries as well as to automatically identify cognate candidates from different languages (which are similar in form and meaning). In our presentation, both will be illustrated for the Turkic language family, and we will show how both aspects complement each other.</p>
+            </div>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl>
+                        <hi rend="bold">Chiarcos, C., Nordhoff, S. and Hellmann, S.</hi> (2012). 
+                        <hi rend="italic">Linked Data in Linguistics.</hi> Berlin: Springer.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Chiarcos, C., Cimiano, P., Declerck, T. and McCrae, J.</hi> (2013). Linguistic linked open data (llod).
+                        <hi rend="italic">Proc. 2nd Workshop on Linked Data in Linguistics (LDL-2013)</hi>, Pisa, Italy, pp. 1-11.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Chiarcos, C. and Sukhareva, M.</hi> (2014). Linking Etymological Databases.
+                        <hi rend="italic">Proc. 3rd Workshop on Linked Data in Linguistics</hi> (LDL-2014), Reykjavik, pp. 41–49.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">De Melo, G.</hi> (2014). Etymological Wordnet: Tracing the history of words.
+                        <hi rend="italic">Proc. LREC 2014</hi>, Reykjavik.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Dybo, A. V., Starostin, S. A. and Mudrak, O. A.</hi> (2012). 
+                        <hi rend="italic">Etymological Dictionary of the Altaic Languages.</hi> Brill, Leiden.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">McCrae, J., Spohr, D. and Cimiano, P.</hi> (2011). Linking lexical resources and ontologies on the semantic web with lemon.
+                        <hi rend="italic">Proc. 8th Extended Semantic Web Conference (ESWC-2011)</hi>, Heraklion, Crete, pp. 245–59.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Moran, S. and Brümmer, M.</hi> (2013). Lemon-aid: Using Lemon to aid quantitative historical linguistic analysis. 
+                        <hi rend="italic">Proc. 2nd Workshop on Linked Data in Linguistics (LDL-2013)</hi>, Pisa, Italy.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Starostin, G.</hi> (2010). Preliminary lexicostatistics as a basis for language classification: A new approach. 
+                        <hi rend="italic">Journal of Language Relationship</hi>, <hi rend="bold">3</hi>: 79–117.
+                    </bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title type="full">
+                    <title type="main">A White-Box Model for Detecting Author Nationality by Linguistic Differences in Spanish Novels</title>
+                    <title type="sub"/>
+                </title>
+                <author>
+                    <persName>
+                        <surname>Zehe</surname>
+                        <forename>Albin</forename>
+                    </persName>
+                    <affiliation>Julius-Maximilians-Universität Würzburg, Germany</affiliation>
+                    <email>zehe@informatik.uni-wuerzburg.de</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Schlör</surname>
+                        <forename>Daniel</forename>
+                    </persName>
+                    <affiliation>Julius-Maximilians-Universität Würzburg, Germany</affiliation>
+                    <email>schloer@informatik.uni-wuerzburg.de</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Henny-Krahmer</surname>
+                        <forename>Ulrike</forename>
+                    </persName>
+                    <affiliation>Julius-Maximilians-Universität Würzburg, Germany</affiliation>
+                    <email>ulrike.henny@uni-wuerzburg.de</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Becker</surname>
+                        <forename>Martin</forename>
+                    </persName>
+                    <affiliation>Julius-Maximilians-Universität Würzburg, Germany</affiliation>
+                    <email>becker@informatik.uni-wuerzburg.de</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Hotho</surname>
+                        <forename>Andreas</forename>
+                    </persName>
+                    <affiliation>Julius-Maximilians-Universität Würzburg, Germany</affiliation>
+                    <email>hotho@informatik.uni-wuerzburg.de</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2018-04-26T13:58:37.705720655</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Name, Institution</publisher>
+                <address>
+                    <addrLine>Street</addrLine>
+                    <addrLine>City</addrLine>
+                    <addrLine>Country</addrLine>
+                    <addrLine>Name</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from an OASIS Open Document</p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.22">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Short Paper (was submitted as Long Paper)</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>machine learning svm ngram language</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>metadata</term>
+                    <term>spanish and spanish american studies</term>
+                    <term>content analysis</term>
+                    <term>data mining / text mining</term>
+                    <term>English</term>
+                    <term>computer science</term>
+                    <term>artificial intelligence and machine learning</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <div type="div1" rend="DH-Heading1">
+                <head>Introduction</head>
+                <p>Automatic nationality detection of authors writing in the same language (such as Spanish) can be used for many tasks, like author attribution, building large corpora to analyse nationality specific writing styles, or detecting outliers like exiled or bilingual authors. While machine learning provides many methods in this area, the corresponding results are usually not directly interpretable. However, in the Digital Humanities, explainable models are of special interest, as the analysis of selected features can help to confirm assumptions about differing writing styles among countries, or reveal novel insights into country-specific formulations. </p>
+                <p>In this work, we aim to bridge this gap: Our assumption is that nationality or country of origin of an author is strongly connected to their writing style. Thus, we first present a machine learning approach to automatically classifying literary texts regarding their author’s nationality. We then provide an analysis of the most relevant features for this classification and show that they are well interpretable from a literary and linguistic standpoint.</p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Related Work</head>
+                <p>The problem of detecting regional linguistic differences is at the core of Digital Humanities, as it touches research questions in both traditional linguistics and modern computer science. In Spanish philology and linguistics, the analysis of different regional varieties has a long tradition (see for example Alvar 1969, Eberenz 1995, Noll 2001). There are well-known differences between the Spanish spoken and written in Spain itself and the variations used in the formercolonies, for example in forms of address (“vosotros/ustedes” vs. just “ustedes”, voseo) and articles (le/la vs. lo).
+                    <hi rend="sup">1</hi> More recently, these differences have been investigated with quantitative methods, for example by applying Zeta to find distinctive words for novels from Spain and from Latin America, respectively (Schöch et al. 2018).
+                </p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Model</head>
+                <div type="div2" rend="DH-Heading2">
+                    <head>Baseline SVM-Model for classifying author nationality</head>
+                    <p>We assume that writers from different countries are distinguishable by a) their vocabulary and b) phrases that are more or less popular in different regions (cf. Section “Related Work”). Thus, we choose to use an n-gram model to represent our corpus in a computer readable way: First, we determine all word n-grams of length 1 to 4 in the corpus. Then, we select the 1000 most frequent n-grams of each length. We also tried selecting the 100 or 10000 most frequent n-grams, which led to slightly worse results. We represent a piece of text as tf*idf vectors of these n-grams (see Manning 2008).</p>
+                    <p>We then train a linear SVM (see Steinwart 2008) to predict the nationality of an author given a piece of text. The linear SVM is known for good results in text classification (Joachims 1998) and - essential for interpretability - allows to inspect the importance of specific features.</p>
+                </div>
+                <div type="div2" rend="DH-Heading2">
+                    <head>Enhancing Feature Interpretability</head>
+                    <p>When examining our classification model, we observed an over-representation of geographical entities (e.g., frequent locations like Buenos Aires) as well as names. To instead enforce linguistic properties, we replaced all uppercase tokens by distinct UNKNOWN-tokens (except at the beginning of a sentence). For example “¡Oh, María, María! ¡Cómo deseaba triunfar, conquistar Buenos Aires [...]”, becomes “¡Oh, UNK
+                        <hi rend="sub">1</hi>, UNK
+                        <hi rend="sub">2</hi>! ¡Cómo deseaba triunfar, conquistar UNK
+                        <hi rend="sub">3</hi> UNK
+                        <hi rend="sub">4</hi> [...]”. This ensures that n-grams with proper nouns will never be frequent enough to be used as a feature in our classification task.
+                    </p>
+                </div>
+                <div type="div2" rend="DH-Heading2">
+                    <head>Augmenting Training Examples</head>
+                    <p>The success of machine learning algorithms depends largely on the amount of training data. Thus, to increase the number of training samples, we split each novel into multiple segments of equal length, assigning each segment the same label as the entire novel.The cross validation split was performed before segmentation, ensuring that no novel was present in both training and test set. The classifier is then trained and evaluated on individual segments, resulting in a set of “votes” for the nationality of each novel in the test set. The nationality is then established by majority vote. </p>
+                </div>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Corpus</head>
+                <p>We use a corpus composed of 100 novels from four Spanish-speaking countries, specifically Spain, Argentina, Cuba and Mexico, written in the 19th and early 20th century (Calvo Tello 2017, Henny-Krahmer 2017). Figure 1 shows the distribution over countries and the distributions over subgenres in the countries. All countries are represented by a roughly equal number of texts. We note that our corpus may have a bias towards a specific subgenre in some countries, which will later be addressed in the analysis of the features.</p>
+                <p>
+                    <figure>
+                        <graphic url="Pictures/761fadf28b030882956e212a28f3633e.png"/>
+                    </figure>Figure 1: Distribution of countries and subgenres in our corpus
+                </p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Experiments</head>
+                <p>We performed extensive experiments on the dataset to determine the accuracy of our approach. The main hyper-parameters of our model are the segment size s, determining how many words a segment contains, and the parameter C of the SVM. We performed parameter optimisation by grid search, choosing from s ∈ {100, 200, 500, 1000, 5000, 10000, 100000, ∞} and C ∈ {10
+                    <hi rend="sup">−5</hi>, 10
+                    <hi rend="sup">−4</hi>, …, 10
+                    <hi rend="sup">5</hi> }. The setting s = ∞ does not perform segmentation. We also varied the maximum length of n-grams: unigrams (n = 1) vs. n-grams of length 1 to 4. All scores reported below are weighted average F1-scores over 10-fold cross validation.
+                </p>
+                <p>Generally, our model performed best when using only unigrams, removing uppercase tokens and splitting the novels into segments of length s = 1000 (see Table 1 for details).</p>
+                <p>Table 1: Classification report for the best configuration, using only unigrams, segments of length s = 1000 and C = 10000</p>
+                <p>
+                    <figure>
+                        <graphic url="Pictures/64245d16eeb16ccd07d4469ea45403f3.png"/>
+                    </figure>
+                </p>
+                <p>This can be explained by the small dataset: Unigrams are likely to occur in multiple samples even in a small corpus, while higher-order n-grams possibly only occur once and can therefore not be used for classification. </p>
+                <p>Figure 2 shows the results for varying s and C. Segments of a length around 1000 perform best, yielding F1-scores of up to 86.8 %. Very small segments fail to deliver satisfying results, while larger segments still provide reasonable classification accuracy. The value for C must be set high enough, but the specific value does not matter for C &gt; 10.</p>
+                <p>
+                    <figure>
+                        <graphic url="Pictures/ec75651aab996374e166f3a9efc05e7c.png"/>
+                    </figure>Figure 2: Weighted average F1-score depending on the segment size s and the cost parameter C of the SVM. The separated line denotes no segmentation (s = ∞). Only unigrams were used as features.
+                </p>
+                <p>Using all n-grams of length 1 to 4 also delivered good accuracy (highest F1-score of 80.4% for C = 10000, s = 1000). Removing uppercase tokens had a positive effect when using unigrams, while it hardly influenced the accuracy using all n-grams.</p>
+                <p>A detailed view of all results can be found on GitHub
+                    <hi rend="sup">2</hi>.
+                </p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Feature Analysis</head>
+                <p>Using a linear SVM enables us to analyse the 10 n-grams that provide the strongest evidence for and against a country (according to internal weights). In the following, we focus on features that are weighted strongly in all or at least multiple folds of the cross validation.</p>
+                <p>Generally, we identify three feature groups: topical features, features related to the geographical setting and linguistic features. The presence of topical features can be explained by the bias in subgenres that is present in our corpus and is not necessarily representative. The geographical features seem to point to a tendency of the authors to base their stories in their respective home countries rather than other countries. </p>
+                <p>With regard to the different model variants, the model based on \emph{unigrams without removing uppercase tokens} tends to select names as its top-features such as the country itself or characteristic cities, for example “Madrid” for Spain. While these features are surely helpful for classification (yielding an F1-score of 81.7%), they are not particularly interesting for linguistic analysis. The features selected after removing uppercase tokens, on the other hand, seem more relevant from a linguistic viewpoint, while at the same time providing the best accuracy. Table 2 shows features that are among the highest weighted for more than 5 folds for each country in this setting.</p>
+                <p>Table 2: Unigrams with large weights assigned by the SVM. Features marked with + and - are signals for and against a country, respectively.</p>
+                <p>
+                    <figure>
+                        <graphic url="Pictures/40caea4810f1f6981550d0a1f862029e.png"/>
+                    </figure>
+                </p>
+                <p>Using all n-grams without removing uppercase tokens, we again find a preference for geographical phrases like “de la Habana”. As with unigrams, linguistic features become more important than topical features when uppercase tokens are removed. Table 3 shows some particularly interesting n-grams with high weights.</p>
+                <p>Table 3: N-grams with large weights assigned by the SVM. Features marked with + and - are signals for and against a country, respectively.</p>
+                <p>
+                    <figure>
+                        <graphic url="Pictures/c9ec74609d1a8a12765d6c184cd08123.png"/>
+                    </figure>
+                </p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Discussion</head>
+                <div type="div2" rend="DH-Heading2">
+                    <head>Technical Aspects</head>
+                    <p>We found that segmenting novels to augment the training data does improve results, but only if the segments are not too short and thus do not contain enough information to detect the author’s nationality.</p>
+                    <p>Removing uppercase tokens improves the classification accuracy and makes the selected features more interesting from a linguistic standpoint. We assume that otherwise proper nouns are picked up by the classifier as important clues on the training set, which fail to generalise to the test set.</p>
+                </div>
+                <div type="div2" rend="DH-Heading2">
+                    <head>Feature Interpretation</head>
+                    <p>The words and phrases that our algorithms selects for differentiating between nationalities strongly resemble features that humans would consider given the same task. These include well-known linguistic differences (leísmo) as well as country-specific words (hacienda/huerta). However, it also finds phrases, such as temporal expressions, that are not very well known to be specific for some countries, but should be further investigated in future work. We also observe that authors in our corpus appear to have a strong tendency towards writing about their respective home countries, as evidenced by the selection of city or country names.</p>
+                </div>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Conclusion and Future Work</head>
+                <p>We have presented a classifier that is able to distinguish between novels from different countries based on word n-grams. Our experiments show that this classifier is able to select features that are interpretable and reveal interesting insights into the language used in novels from different Spanish-speaking countries.</p>
+                <p>We note that our findings are only based on a limited dataset. However, the tools we have built enable us to replicate the experiments and confirm our findings as soon as larger collections of text become available.</p>
+                <p>Thus, our work is an important step towards combining machine learning with in-depth analysis and discovery of novel concepts in corpus-based linguistic studies through interpretable models.</p>
+                <p>In future work, we believe that replacing the majority vote over segments by more sophisticated methods can further improve our results. We also believe that incorporating linguistic information like parse-trees into our features can help to reveal more interesting insights into subtle linguistic differences between countries.</p>
+                <p>
+                    <hi rend="sup">1</hi>
+                    <hi rend="sup color(#000000)"> </hi>
+                    <ptr target="http://lema.rae.es/dpd/?key=voseo"/>
+                    <hi rend="color(#000000)">, </hi>
+                    <ptr target="http://lema.rae.es/dpd/?key=loísmo&amp;lema=loísmo"/>
+                </p>
+                <p>
+                    <hi rend="sup color(#000000)">2 </hi>
+                    <ptr target="https://github.com/cligs/projects2018/tree/master/country-dh"/>
+                </p>
+            </div>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl>
+                        <hi rend="bold">Alvar, Manuel</hi> (1969). Variedad y unidad del español: estudios lingüísticos desde la historia. Editorial Prensa Española.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Calvo Tello, José (ed.)</hi> (2017). Corpus of Spanish Novel from 1880-1940. Würzburg: CLiGS. https://github.com/cligs/textbox/blob/master/es/novela-espanola.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Eberenz, Rolf </hi>(1995). “Norm und regionale Standards des Spanischen in Europa und Amerika”. In: Oskar Müller, Dieter Nerius, Jürgen Schmidt-Radefeldt (eds.). Sprachnormen und Sprachnormenwandel in gegenwärtigen europäischen Sprachen. Rostock: Universität Rostock, 47-58.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Henny-Krahmer, Ulrike (ed.) </hi>(2017). Collection of 19th Century Spanish-American Novels (1880-1916). Würzburg: CLiGS, 2017. https://github.com/cligs/textbox/master/spanish/novela-hispanoamericana/.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Joachims, T.</hi> (1998). Text categorization with support vector machines: Learning with many relevant features. Machine learning: ECML-98, 137--142.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Manning, C. D., Raghavan, P., Schütze, H.</hi> (2008). Introduction to Information Retrieval. New York, NY, USA: Cambridge University Press. ISBN: 0521865719, 9780521865715
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Noll, Volker</hi> (2001). Das amerikanische Spanisch: ein regionaler und historischer Überblick. Tübingen: Niemeyer.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Schöch, C., Calvo, J., Zehe, A., Hotho, A.</hi> (2018). Burrows Zeta: Varianten und Evaluation. DHd 2018
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Siskind, Mariano</hi> (2010): “The Globalization of the Novel and the Novelization of the Global. A Critique of World Literature.” In: Comparative Literature 62 (4), 336-360. https://doi.org/10.1215/00104124-2010-021
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Steinwart, I., Christmann, A.</hi> (2008). Support Vector Machines. Springer Publishing Company, Incorporated. ISBN: 0387772413
+                    </bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

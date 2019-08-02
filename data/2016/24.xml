@@ -1,0 +1,449 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title type="full">
+                    <title type="main">Defining the Core Entities of an Environment for Textual Processing in Literary Computing</title>
+                    <title type="sub"/>
+                </title>
+                <author>
+                    <persName>
+                        <surname>Del Grosso</surname>
+                        <forename>Angelo Mario</forename>
+                    </persName>
+                    <affiliation>National Research Council, Italy</affiliation>
+                    <email>angelo.delgrosso@ilc.cnr.it</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Albanesi</surname>
+                        <forename>Davide</forename>
+                    </persName>
+                    <affiliation>National Research Council, Italy</affiliation>
+                    <email>davide.albanesi@ilc.cnr.it</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Giovannetti</surname>
+                        <forename>Emiliano</forename>
+                    </persName>
+                    <affiliation>National Research Council, Italy</affiliation>
+                    <email>emiliano.giovannetti@ilc.cnr.it</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Marchi</surname>
+                        <forename>Simone</forename>
+                    </persName>
+                    <affiliation>National Research Council, Italy</affiliation>
+                    <email>simone.marchi@ilc.cnr.it</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2016-02-24T15:42:35.479447990</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Maciej Eder, Pedagogical University in Krakow</publisher>
+                <publisher>Jan Rybicki, Jagiellonian University</publisher>
+                <address>
+                    <addrLine>Institute of Polish Studies</addrLine>
+                    <addrLine>Pedagogical University</addrLine>
+                    <addrLine>ul. Podchorazych 2</addrLine>
+                    <addrLine>30-084 Krakow, Poland</addrLine>
+                    <addrLine>maciej.eder@ijp-pan.krakow.pl</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from an OASIS Open Document</p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.21">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Poster</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>Textual Processing</term>
+                    <term>Literary Computing</term>
+                    <term>Object-Oriented Analysis and Design</term>
+                    <term>Analysis Architectural and Design Patterns</term>
+                    <term>Web infrastructure</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>archives, repositories, sustainability and preservation</term>
+                    <term>classical studies</term>
+                    <term>corpora and corpus activities</term>
+                    <term>databases &amp; dbms</term>
+                    <term>encoding - theory and practice</term>
+                    <term>digital humanities - institutional support</term>
+                    <term>information retrieval</term>
+                    <term>lexicography</term>
+                    <term>literary studies</term>
+                    <term>metadata</term>
+                    <term>natural language processing</term>
+                    <term>project design, organization, management</term>
+                    <term>digitisation, resource creation, and discovery</term>
+                    <term>scholarly editing</term>
+                    <term>software design and development</term>
+                    <term>text analysis</term>
+                    <term>user studies / user needs</term>
+                    <term>information architecture</term>
+                    <term>philology</term>
+                    <term>xml</term>
+                    <term>concording and indexing</term>
+                    <term>content analysis</term>
+                    <term>GLAM: galleries, libraries, archives, museums</term>
+                    <term>digital humanities - facilities</term>
+                    <term>bibliographic methods / textual studies</term>
+                    <term>linguistics</term>
+                    <term>programming</term>
+                    <term>cultural studies</term>
+                    <term>digitisation - theory and practice</term>
+                    <term>cultural infrastructure</term>
+                    <term>linking and annotation</term>
+                    <term>standards and interoperability</term>
+                    <term>data mining / text mining</term>
+                    <term>English</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <div type="div1" rend="DH-Heading1">
+                <head>Introduction</head>
+                <p>The development of applications in the field of Digital Humanities (DH) does not adequately take into account domain modelling, software design principles and software engineering methodologies (Bozzi, 2013; D'Iorio, 2015; McCarty, 2008; Terras and Crane, 2010). In fact, many systems developed in the context of DH-related projects have not been conceived to be modular, extensible, and scalable: they only tend to solve specific problems such as data-driven and project-oriented tools (Boschetti and Del Grosso, 2015). In addition, most projects focus on the requirements of humanists (as end users), but leave out the needs of software developers.</p>
+                <p>This research was motivated by a number of issues emerged from the projects we worked on 
+                    <hi rend="background-color(#ffff00)"> </hi>(Abrate et al., 2014a; Albanesi et al., 2015; Bellandi et al., 2014; Bozzi, 2015; Del Grosso, 2013; Ruimy et al., 2012) and it fits into an ongoing discussion about textual modelling and research infrastructures (Moulin et al., 2011; Pierazzo, 2015; Schmidt, 2014). In particular, this work aims at providing methodological guidelines for the definition of the core entities of a digital scholarly environment. We chose to adopt an object-oriented approach since it can bring benefits in the definition of efficient and effective digital tools (Boschetti et al., 2014; Del Grosso and Nahli, 2014). To give an analogy, the environment we propose can help developers and scholars as CMS (e.g. Wordpress) can help Web designers and publishers.
+                </p>
+                <p>The development of the environment follows three criteria: i) adopting an agile process (Ashmore and Runyan, 2014) to define the nature and behavior of the environment through both functional (e.g. user stories) and non-functional requirements (e.g. data model, system architecture) (Cohn, 2004; Collins-Cope et al., 2005); ii) providing well-defined Application Programming Interfaces (APIs) among components (Grill et al., 2012; Tulach, 2008); iii) applying analysis, architectural and design patterns for the sake of abstraction, generalization and flexibility (Ackerman and Gonzalez, 2011; Buschmann et al., 2007; Gamma et al., 1995).</p>
+                <p>Following the agile methodology, we are developing a modular environment by starting from the design and implementation of a 
+                    <hi rend="bold">microkernel</hi> (Buschmann et al., 1996) as the manager of the different components. In addition, the microkernel provides all the operations needed to manipulate the domain basic entities which are described in the section “Domain entities and design patterns”.
+                </p>
+                <div type="div2" rend="DH-Heading2">
+                    <head>Related works</head>
+                    <p>Digital humanists have access to several tools for literary studies. TextGrid, for example, provides integrated tools for analyzing texts and gives computer support for digital editing purposes (Hedges et al., 2013). The NINES project offers an environment to support scholars in the creation of long-term digital research materials. It includes three main tools: Collex (Nowviskie, 2007), Juxta, and Ivanhoe. Annotation Studio is a collaborative system to annotate texts and add links to multimedia objects (Paradis et al., 2013). The CULTURA project aims at developing a “corpus agnostic research environment” providing customizable services for a wide range of users (Steiner et al., 2014). The development of an online workspace which helps scholars in the production of critical editions is the main objective of the Workspace for Collaborative Editing framework (Houghton et al., 2014). It uses existing standards and open-source solutions to create an architecture of reusable components. Other platforms worth mentioning are TUSTEP/TXSTEP (Ott, 2000; Ott and Ott, 2014), WebLicht (Hinrichs et al., 2010), Perseids (Almas and Beaulieu, 2013), Muruca/Pundit (Grassi et al., 2013), Textual Communities (Bordalejo and Robinson, 2015), SAWS (Jordanous et al., 2012), Voyant Tools (Sinclair and Rockwell, 2012), Transcribe Bentham (Causer and Terras, 2014) and Alcide (Moretti et al., 2014). However, the aforementioned initiatives allow digital scholars to meet specific needs, but none of them seems to provide, simultaneously, all the following characteristics: i) reusability and extensibility, ii) ease of use and configuration, iii) continuous availability of the services and development over time, iv) a well-grounded software data model.</p>
+                </div>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Domain entities and design patterns</head>
+                <p>One of the main challenges of the DH community is to provide suitable software models and tools (Ciotti, 2014). To model the literary domain and the relative user requirements, we chose to follow the engineering principles of 
+                    <hi rend="bold">object-oriented analysis and design</hi> (Ackerman and Gonzalez, 2011). The digital representation of a textual resource is a challenge as it involves several theoretical and epistemological issues in semiotics, paleography, philology, linguistics, engineering, and computer science (McCarty, 2005; Meister, 2012; Moretti, 2013; Robinson, 2013; Sahle, 2013).
+                </p>
+                <p>In this work, we define each textual element by means of four properties: i) the 
+                    <hi rend="bold">version</hi> allows to select a specific textual element among those available in its history of changes; ii) the 
+                    <hi rend="bold">granularity</hi> represents a level of a hierarchical structure (e.g. a page composed of lines); iii) the 
+                    <hi rend="bold">position</hi> provides the location of a textual element within the hierarchical representation (e.g. the second page of a book); iv) the 
+                    <hi rend="bold">layer</hi> indicates the set of homogeneous information the textual element belongs to (e.g. morphological layer). As pointed outby (Buzzetti, 2002; McGann, 2004; Pierazzo, 2015), the information conveyed by a textual resource is logically organized through multiple layers (also called 
+                    <hi rend="italic">dimensions</hi>) of information.
+                </p>
+                <p>
+                    <figure>
+                        <graphic url="24/100002010000070400000824354E1F7F0D4DC755.png"/>
+                        <head>Fig. 1: Class diagram of the domain entities</head>
+                    </figure>On these four properties we have designed and implemented a set of core entities as the fundamental data types shared among all the components of the environment (Fig. 1)
+                    <note xml:id="ftn1" place="foot" n="1"> The ongoing implementation of the environment is available at: https://github.com/literarycomputinglab</note>. The 
+                    <hi rend="bold">Source</hi> class is in charge of managing the low-level data: it is composed of a 
+                    <hi rend="bold">Payload</hi> representing the information conveyed by the textual resource and a
+                    <hi rend="bold">SourceType</hi> which indicates the nature of the Source (e.g. text, image, audio, etc.). Payload objects (as used in networking) have the only purpose of encapsulating the information. The 
+                    <hi rend="bold">Locus</hi> and the 
+                    <hi rend="bold">P</hi>
+                    <hi rend="bold">lace</hi>
+                    <hi rend="bold">OfInterest</hi> (POI) classes identify, through a 
+                    <hi rend="italic">composition pattern</hi>, specific data fragments of the source content, and they are used to establish the boundaries of an 
+                    <hi rend="bold">Annotation</hi>. A chunk of text, for example, can be addressed to by a locus having a POI (of type Sequence of Interest) representing its start and end coordinates. Similarly, a region of an image can be identified by a locus having a POI (of type Region of Interest) composed of a sequence of coordinates. The Locus and POI provide a stand-off text annotation technique able to tackle, for example, the overlapping hierarchies problem, which cannot be handled easily with inline markup techniques (Schmidt, 2010). As a matter of fact, it is possible, simultaneously, to manipulate a resource on the basis of its documental and textual structure (Renear et al., 1996; Robinson, 2013) (see the example in the following section). However, since stand-off models are affected by the issue of the indexing updating, a dedicated component must be in charge of automatically maintaining the coherence of the annotations each time the underlying text is edited.
+                </p>
+                <p>An Annotation represents an information associated to a locus and is defined by an 
+                    <hi rend="bold">AnnotationType</hi> (e.g. a token, a lemma, a named entity, etc.). Since the hierarchical structure of the source may evolve over time, the changes to the relative tree must be managed. For example, a tree structure having tokens as leaves could need to be updated with a finer-grained layer of characters (e.g. to assign annotations to specific letters). In this case, the tokens should become intermediate nodes and the characters would become the leaf nodes. Typically, this kind of editing is unpredictable and it often implies heavy adaptations if the software is not flexible enough to manage changes in the underlying text representation schema. Consequently, we decided to exploit the flexibility of the Object Oriented model by adopting the Role Design Pattern (Fowler, 1997) to switch between leaf and intermediate nodes dynamically. This pattern has been implemented by the 
+                    <hi rend="bold">AnnotationRole</hi>, 
+                    <hi rend="bold">AnnotationRoleElement</hi> and 
+                    <hi rend="bold">AnnotationRoleStructure</hi> classes. Moreover, an annotation is a source in itself (see the inheritance relationship between the Annotation and the Source classes in Fig. 1) and, thus, it can be annotated recursively.
+                </p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>An Example</head>
+                <p>We here introduce an example showing a representation of a snippet of text with annotations. The chosen text is an excerpt of a letter, written in Latin, belonging to the epistolary corpus of the Clavius on the Web project
+                    <note xml:id="ftn2" place="foot" n="2"> Clavius on the Web is a project funded by Registro.it and partecipated by the Institute of Informatics and Telematics (IIT-CNR), the Institute of Computational Linguistics “A. Zampolli” (ILC-CNR), and the Historical Archives of the Pontifical Gregorian University (APUG). Website: http://claviusontheweb.it/</note> (Abrate et al., 2014b). Fig. 2 shows a typical way of encoding sentences and lines with a markup language as TEI (Burnard, 2014): the resulting XML hierarchical structure has been broken by the addition of the line anchors (&lt;lb /&gt;) mixing up the textual and documental structure of the text. Indeed, to preserve the integrity of the word “Dinostrati” (spanning across lines 4 and 5), it is necessary to encapsulate it with the element &lt;w /&gt;.
+                </p>
+                <p>
+                    <figure>
+                        <graphic url="24/10000201000006EC00000398E68D91980964673A.png"/>
+                        <head>Fig. 2: A standard way of encoding a text with TEI-XML</head>
+                    </figure>
+                    <figure>
+                        <graphic url="24/1000020100000386000001F5970322C0327A03CA.png"/>
+                        <head>Fig. 3: Multi-layered stand-off annotation of text</head>
+                    </figure>The model we propose solves this problem with the stand-off annotations: as shown in Fig. 3 the document (made of lines) and the textual structure (made of sentences and words) are logically separated. Lines, sentences and words do not overlap and they are structured in separate hierarchies.
+                </p>
+            </div>
+            <div type="div1" rend="DH-Heading">
+                <head>Next Steps</head>
+                <p>We plan, in future works, to release a first version of a web environment, called 
+                    <hi rend="italic">Omega</hi>, built around the core entities that we here described. The environment will allow to load, index, annotate, and query a textual collection. Furthermore, we’ll carry on the development of modules for text analysis and textual scholarship with the related APIs.
+                </p>
+            </div>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl>
+                        <hi rend="bold">Abrate, M., </hi>
+                        <hi rend="bold">Del </hi>
+                        <hi rend="bold">Grosso, A. M., Giovannetti, E., </hi>
+                        <hi rend="bold">Lo </hi>
+                        <hi rend="bold">Duca, A., Luzzi, D., Mancini, L., Marchetti, A., Pedretti, I. and Piccini, S.</hi> (2014a). Sharing Cultural Heritage: the Clavius on the Web Project. In Calzolari, N., Choukri, K., Declerck, T., Loftsson, H., Maegaard, B., Mariani, J., Moreno, A., Odijk, J. and Piperidis, S. (eds), 
+                        <hi rend="italic">Proceedings of the 9th International Conference on Language Resources and Evaluation (LREC), Reykjavik</hi>. European Language Resources Association (ELRA), pp. 627–34.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Abrate, M., </hi>
+                        <hi rend="bold">Del </hi>
+                        <hi rend="bold">Grosso,</hi>
+                        <hi rend="bold"> </hi>
+                        <hi rend="bold">A. M., Giovannetti, E., </hi>
+                        <hi rend="bold">Lo </hi>
+                        <hi rend="bold">Duca, A., Marchetti, A., Mancini, L., Pedretti, I. and Piccini, S.</hi> (2014b). Il Progetto Clavius on the Web: tecnologie linguistico-semantiche al servizio del patrimonio documentale e degli archivi storici. In Rossi, F. and Tomasi, F. (eds), 
+                        <hi rend="italic">Book of Abstracts of 3</hi>
+                        <hi rend="sup italic">o</hi>
+                        <hi rend="italic"> AIUCD Conference, Bologna</hi>.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Ackerman, L. and Gonzalez, C.</hi> (2011). 
+                        <hi rend="italic">Patterns-Based Engineering: Successfully Delivering Solutions Via Patterns</hi>. Addison-Wesley.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Albanesi, D., Bellandi, A., Benotto, G., </hi>
+                        <hi rend="bold">Di </hi>
+                        <hi rend="bold">Segni, G. and Giovannetti, E.</hi> (2015). When Translation Requires Interpretation: Collaborative Computer–Assisted Translation of Ancient Texts. 
+                        <hi rend="italic">LaTeCH 2015</hi>: 84–88.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Almas, B. and Beaulieu, M.-C.</hi> (2013). Developing a New Integrated Editing Platform for Source Documents in Classics. 
+                        <hi rend="italic">Literary and Linguistic Computing</hi>, 
+                        <hi rend="bold">28</hi>(4): 493–503 doi:10.1093/llc/fqt046.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Ashmore, S. and Runyan, K.</hi> (2014). 
+                        <hi rend="italic">Introduction to Agile Methods</hi>. Upper Saddle River, NJ: Addison-Wesley Professional, Pearson Education.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Bellandi, A., Albanesi, D., Bellusci, A., Bozzi, A. and Giovannetti, E.</hi> (2014). The Talmud System: a Collaborative web Application for the Translation of the Babylonian Talmud Into Italian. 
+                        <hi rend="italic">The First Italian Conference on Computational Linguistics CLiC-It 2014</hi>, pp. 53–57.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Bordalejo, B. and Robinson, P.</hi> (2015). A new system for collaborative online creation of Scholarly Editions in digital form. 
+                        <hi rend="italic">1st Dixit Convension on Technology, Software, Standards for the Digital Scholarly Edition Workshop</hi>. The Hague.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Boschetti, F. and </hi>
+                        <hi rend="bold">Del </hi>
+                        <hi rend="bold">Grosso, A. M.</hi> (2015). TeiCoPhiLib: A Library of Components for the Domain of Collaborative Philology. 
+                        <hi rend="italic">Journal of the Text Encoding Initiative</hi>(8). doi:10.4000/jtei.1285. http://jtei.revues.org/1285 (accessed 3 March 2016).
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Boschetti, F., </hi>
+                        <hi rend="bold">Del </hi>
+                        <hi rend="bold">Grosso, A. M., Khan, A. F., Lamé, M. and Nahli, O.</hi> (2014). A top-down approach to the design of components for the philological domain. 
+                        <hi rend="italic">Book of Abstract of Digital Humanities Conference (DH), Lausanne, Switzerland</hi>. Alliance of Digital Humanities Organisations, pp. 109–11.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Bozzi, A.</hi> (2013). G2A: A Web application to study, annotate and scholarly edit ancient texts and their aligned translations. (Ed.) ERC Ideas 249431 
+                        <hi rend="italic">Studia Graeco-Arabica</hi>, 
+                        <hi rend="bold">3</hi>: 159–71.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Bozzi, A.</hi> (2015). Greek into Arabic, a research Infrascructure based on computational modules to annotate and query historical and philosophical digital texts. Part I: Methodological aspects. In Bozzi, A. (ed), 
+                        <hi rend="italic">Digital Texts, Translations, Lexicons in a Multi-Modular Web Application: Methods and Samples</hi>. Firenze: Leo S. Olschki editore, pp. 27–42.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Burnard, L.</hi> (2014). TEI P5: Guidelines for Electronic Text Encoding and Interchange. Version 2.9.1. http://www.tei-c.org/Guidelines/P5/index.xml (accessed 3 March 2016).
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Buschmann, F., Henney, K. and Schmidt, D. C.</hi> (2007). 
+                        <hi rend="italic">Pattern-Oriented Software Architecture, On Patterns and Pattern Languages</hi>. (Pattern-Oriented Software Architecture). Hoboken: John Wiley &amp; Sons.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Buschmann, F., Meunier, R., Rohnert, H., Sommerlad, P. and Stal, M.</hi> (1996). Pattern-oriented Software Architecture - A System of Patterns. J. Wiley and Sons Ltd., pp. 171–92.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Buzzetti, D.</hi> (2002). Digital Representation and the Text Model. 
+                        <hi rend="italic">New Literary History</hi>, 
+                        <hi rend="bold">33</hi>(1): 61–88.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Causer, T. and Terras, M.</hi> (2014). “Many hands make light work. Many hands together make merry work”: Transcribe Bentham and crowdsourcing manuscript collections.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Ciotti, F.</hi> (2014). Digital Literary and Cultural Studies: State of the Art and Perspectives. 
+                        <hi rend="italic">Between</hi>, 
+                        <hi rend="bold">4</hi>(8). doi:10.13125/2039-6597/1392. http://dx.doi.org/10.13125/2039-6597/1392 (accessed 3 March 2016).
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Cohn, M.</hi> (2004). 
+                        <hi rend="italic">User Stories Applied: For Agile Software Development</hi>. Redwood City, CA, USA: Addison Wesley Longman Publishing Co., Inc.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Collins-Cope, M., Rosenberg, D. and Stephens, M.</hi> (2005). 
+                        <hi rend="italic">Agile Development with ICONIX Process: People, Process, and Pragmatism</hi>. Berkely, CA, USA: Apress.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Fowler, M.</hi> (1997). Dealing with roles. 
+                        <hi rend="italic">Proceedings of the International Conference on Pattern Languages of Programs</hi>, vol. 97, pp. 13–37.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Gamma, E., Helm, R., Johnson, R. and Vlissides, J.</hi> (1995). 
+                        <hi rend="italic">Design Patterns: Elements of Reusable Object-Oriented Software</hi>. Boston, MA, USA: Addison-Wesley Longman Publishing Co., Inc.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Grassi, M., Morbidoni, C., Nucci, M., Fonda, S. and Piazza, F.</hi> (2013). Pundit: augmenting web contents with semantics. 
+                        <hi rend="italic">Literary and Linguistic Computing</hi>, 
+                        <hi rend="bold">28</hi>(4): 640–59.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Grill, T., Polacek, O. and Tscheligi, M.</hi> (October 29-312012). Methods Towards API Usability: A Structural Analysis of Usability Problem Categories. 
+                        <hi rend="italic">Proceedings of the 4th International Conference on Human-Centered Software Engineering, Toulouse, France</hi>. Berlin, Heidelberg: Springer-Verlag, pp. 164–80. doi:10.1007/978-3-642-34347-6_10.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Del </hi>
+                        <hi rend="bold">Grosso, A. M.</hi> (2013). Indexing techniques and variant readings management. (Ed.) D'Ancona, C. 
+                        <hi rend="italic">Studia Graeco-Arabica</hi>, 
+                        <hi rend="bold">3</hi>: 209–30.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Del </hi>
+                        <hi rend="bold">Grosso, A. M. and Nahli, O.</hi> (2014). Towards a flexible open-source software library for multi-layered scholarly textual studies: An Arabic case study dealing with semi-automatic language processing. 
+                        <hi rend="italic">Proceedings of 3rd IEEE International Colloquium, Information Science and Technology (CIST), Tetouan, Marocco</hi>. Washington, DC, USA: IEEE, pp. 285–90. doi:10.1109/CIST.2014.7016633.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Hedges, M., Neuroth, H., Smith, K. M., Blanke, T., Romary, L., Küster, M. and Illingworth, M.</hi> (2013). TextGrid, TEXTvre, and DARIAH: Sustainability of Infrastructures for Textual Scholarship. 
+                        <hi rend="italic">Journal of the Text Encoding Initiative</hi>(5). doi:10.4000/jtei.774 (accessed 3 March 2016).
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Hinrichs, E., Hinrichs, M. and Zastrow, T.</hi> (2010). WebLicht: Web-based LRT services for German. 
+                        <hi rend="italic">Proceedings of the ACL 2010 System Demonstrations</hi>. Association for Computational Linguistics, pp. 25–29.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Houghton, H., Sievers, M. and Smith, Catherine</hi> (2014). The Workspace for Collaborative Editing. 
+                        <hi rend="italic">Digital Humanities 2014</hi>. Laussanne: Alliance of Digital Humanities Organisations, pp. 204–05.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">D'</hi>
+                        <hi rend="bold">Iorio, P. </hi> (2015). On the scholarly use of the Internet, a conceptual model. In Bozzi, A. (ed), 
+                        <hi rend="italic">Digital Texts, Translations, Lexicons in a Multi-Modular Web Application: Methods and Samples</hi>. Firenze: Leo S. Olschki editore, pp. 1–25.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Jordanous, A., Lawrence, K. F., Hedges, M. and Tupman, C.</hi> (June 13-152012). Exploring Manuscripts: Sharing Ancient Wisdoms Across the Semantic Web. 
+                        <hi rend="italic">Proceedings of the 2nd International Conference on Web Intelligence, Mining and Semantics (WIMS), Craiova, Romania</hi>. New York, NY, USA: ACM, pp. 44:1–44:12. doi:10.1145/2254129.2254184.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">McCarty, W.</hi> (2005). 
+                        <hi rend="italic">Humanities Computing</hi>. Palgrave Macmillan.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">McCarty, W.</hi> (2008). Signs of times present and future. 
+                        <hi rend="italic">Human Discussion Group</hi>, 
+                        <hi rend="bold">22</hi>(218).
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">McGann, J.</hi> (2004). Marking Texts of Many Dimensions. In Schreibman, S., Siemens, R. and Unsworth, J. (eds), 
+                        <hi rend="italic">A Companion to Digital Humanities</hi>. (Blackwell Companions to Literature and Culture). Blackwell Publishing Ltd, pp. 198–217.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Meister, J. C.</hi> (2012). DH is us or on the unbearable lightness of a shared methodology. 
+                        <hi rend="italic">Historical Social Research</hi>, 
+                        <hi rend="bold">37</hi>(3): 77–85.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Moretti, F.</hi> (2013). 
+                        <hi rend="italic">Distant Reading</hi>. Verso Books.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Moretti, G., Tonelli, S., Menini, S. and Sprugnoli, R.</hi> (2014). ALCIDE: An online platform for the Analysis of Language and Content In a Digital Environment. 
+                        <hi rend="italic">Proceedings of the First Italian Conference on Computational Linguistics (CLIC-2014)</hi>. Pisa, Italy.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Moulin, C., Nyhan, J., Ciula, A., Kelleher, M., Mittler, E., Tadić, M., Ågren, M., Bozzi, A. and Kuutma, K.</hi> (2011). 
+                        <hi rend="italic">Research Infrastructures in the Digital Humanities</hi>. http://www.esf.org/hosting-experts/scientific-review-groups/humanities-hum/strategic-activities/research-infrastructures-in-the-humanities.html.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Nowviskie, B.</hi> (2007). Collex: Facets, Folksonomy, and Fashioning the Remixable web. 
+                        <hi rend="italic">Book of Abstract of Digital Humanities Conference (DH), University of Illinois at Urbana-Champaign</hi>. Alliance of Digital Humanities Organisations.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Ott, W.</hi> (2000). Strategies and tools for textual scholarship: the Tübingen system of text processing programs (TUSTEP). 
+                        <hi rend="italic">Literary and Linguistic Computing</hi>, 
+                        <hi rend="bold">15</hi>(1): 93–108. doi:10.1093/llc/15.1.93. http://llc.oxfordjournals.org/content/15/1/93.abstract.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Ott, W. and Ott, T.</hi> (2014). Critical Editing with TXSTEP. In Terras, M. (ed), 
+                        <hi rend="italic">Book of Abstracts of the Digital Humanities Conference, Lausanne, Switzerland</hi>. Alliance of Digital Humanities Organisations, pp. 509–13.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Paradis, J., Fendt, K., Kelley, W., Folsom, J., Pankow, J., Graham, E. and Subbaraj, L.</hi> (2013). Annotation Studio: Bringing a Time-Honored Learning Practice into the Digital Age. 
+                        <hi rend="italic">Whitepaper</hi>. http://cmsw.mit.edu/annotation-studio-whitepaper/ (accessed 3 March 2016).
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Pierazzo, E.</hi> (2015). 
+                        <hi rend="italic">Digital Scholarly Editing : Theories, Models and Methods</hi>. Farnham Surrey: Ashgate.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Renear, A. H., Mylonas, E. and Durand, D.</hi> (1996). Refining our notion of what text really is: The problem of overlapping hierarchies. (Ed.) Hockey, S. M. 
+                        <hi rend="italic">Research in Humanities Computing</hi>, 
+                        <hi rend="bold">4</hi>: 263–80.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Robinson, P.</hi> (2013). Towards a theory of digital editions. (Ed.) Mierlo, W. V. and Fachard, A. 
+                        <hi rend="italic">Variants</hi>, (10): 105–31.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Ruimy, N., Piccini, S. and Giovannetti, E.</hi> (2012). Defining and Structuring Saussure’s Terminology. In Fjeld, R. V. and Torjusen, J. M. (eds), 
+                        <hi rend="italic">Proceedings of 15th EURALEX International Congress</hi>. Oslo, Norway, Department of Linguistics and Scandinavian Studies, University of Oslo, Reprosentralen: UiO press, pp. 828–33.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Sahle, P.</hi> (2013). 
+                        <hi rend="italic">Digitale Editionsformen: Teil 3: Textbegriffe Und Recodierung; Zum Umgang Mit Der Überlieferung Unter Den Bedingungen Des Medienwandels</hi>. Vol. 3. BoD–Books on Demand.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Schmidt, D.</hi> (2010). The inadequacy of embedded markup for cultural heritage texts. 
+                        <hi rend="italic">Literary and Linguistic Computing</hi>, 
+                        <hi rend="bold">25</hi>(3): 337–56. doi:10.1093/llc/fqq007.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Schmidt, D.</hi> (2014). Towards an Interoperable Digital Scholarly Edition. 
+                        <hi rend="italic">Journal of the Text Encoding Initiative</hi>(7). doi:10.4000/jtei.979.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Sinclair, S. and Rockwell, G.</hi> (2012). the Voyant Tools Team (web application) 
+                        <hi rend="italic">Voyant Tools</hi>. http://voyant-tools.org (accessed 3 March 2016).
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Steiner, C., Agosti, M., Sweetnam, M., Hillemann, E.-C., Orio, N., Ponchia, C., Hampson, C., et al.</hi> (2014). Evaluating a digital humanities research environment: the CULTURA approach. 
+                        <hi rend="italic">International Journal on Digital Libraries</hi>, 
+                        <hi rend="bold">15</hi>(1): 53–70. doi:10.1007/s00799-014-0127-x.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Terras, M. and Crane, G. (eds).</hi> (2010). 
+                        <hi rend="italic">Changing the Center of Gravity: Transforming Classical Studies through Cyberinfrastructure</hi>. Piscataway: Gorgias Press.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Tulach, J.</hi> (2008). 
+                        <hi rend="italic">Practical API Design: Confessions of a Java Framework Architect</hi>. 1st ed. Berkely, CA, USA: Apress.
+                    </bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

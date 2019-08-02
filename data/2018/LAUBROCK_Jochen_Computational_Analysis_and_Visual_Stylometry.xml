@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>Computational Analysis and Visual Stylometry of Comics using Convolutional Neural Networks</title>
+                <author>
+                    <persName>
+                        <surname>Laubrock</surname>
+                        <forename>Jochen</forename>
+                    </persName>
+                    <affiliation>University of Potsdam, Germany, Germany</affiliation>
+                    <email>laubrock@uni-potsdam.de</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Dubray</surname>
+                        <forename>David</forename>
+                    </persName>
+                    <affiliation>University of Potsdam, Germany, Germany</affiliation>
+                    <email>ddubray@uni-potsdam.de</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2014-12-19T13:50:00Z</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Name, Institution</publisher>
+                <address>
+                    <addrLine>Street</addrLine>
+                    <addrLine>City</addrLine>
+                    <addrLine>Country</addrLine>
+                    <addrLine>Name</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from a Word document</p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.22">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Long Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>Comics</term>
+                    <term>Visual Stylometry</term>
+                    <term>Convolutional Neural Networks</term>
+                    <term>Image Analysis</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>art and art history</term>
+                    <term>corpora and corpus activities</term>
+                    <term>image processing</term>
+                    <term>literary studies</term>
+                    <term>digitisation</term>
+                    <term>resource creation</term>
+                    <term>and discovery</term>
+                    <term>English</term>
+                    <term>computer science</term>
+                    <term>artificial intelligence and machine learning</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <list type="ordered">
+                <item>Introduction</item>
+            </list>
+            <p>Stylometry is a very successful application area of the digital humanities (e.g., Juola, 2006). However, to date it is mainly confined to the study of linguistic style, perhaps reflecting a general focus of the digital humanities on text. Stylometric tools for 
+                <hi rend="italic">visual</hi> material are not yet as well-established, despite recent advances in digital art history 
+                <hi rend="underline">(</hi>Saleh and Elgammal, 2015; Manovich, 2015). Part of this deficit may originate in the challenging aspects of traditional computational image analysis, which requires deep expert knowledge for hand-crafting engineered features applicable to a problem domain. Recent advances in artificial intelligence together with the availability of large corpora of annotated images have partly ameliorated the situation. Now we can delegate to the machine the task of discovering the features relevant for classification. In particular, deep convolutional neural networks (CNNs; LeCun et al., 2015) have been very successful in many image classification tasks, using a feature hierarchy akin to levels of processing in the human visual system. Here we propose a method for a visual stylometry of comics based on CNN features. We test transfer to comics by using a large corpus of graphic narratives. We further show how CNN features can be used to predict readers’ attention. In closing we explore how the approach might be used for tasks such as locating text or finding characters, as well as in other domains such as art history. 
+            </p>
+            <list type="ordered">
+                <item>Convolutional Neural Networks (CNNs)</item>
+            </list>
+            <p>Convolutional Neural Networks (CNNs) are a class of neural networks specialized in analyzing data with an implicit spatial layout, such as the stack of three 2D matrices commonly used to represent RGB images in the computer. CNNs are characterized by local connections, shared weights, pooling, and the use of many layers. Within each convolutional layer, a stack of different filters (feature maps) is trained. Each unit is connected to local patches in the feature maps of the previous layer through a set of learned weights. These are called a filter kernel, and learned by backpropagation. A local weighted sum computed by applying the filter kernel to the image is passed through a non-linearity
+                <note place="foot" xml:id="ftn1" n="1">
+                    <p rend="footnote text"> This nonlinearity is needed because neural networks with just linear activation functions are effectively only one layer deep, and therefore cannot be used to model the full range of real world problems, many of which are nonlinear.</p>
+                </note>, often a rectified linear unit (ReLU). All units in a feature map share the same filter kernel; feature maps in a layer differ by using different kernels. The receptive size of each filter (i.e. the region of the image it responds to) is small at the lower layers, and becomes progressively larger at higher layers. Conversely, the higher the layer, the more complex the features encoded by the filters. Pooling layers typically replacing a local patch by its maximum value are added to further reduce the number of parameters and to provide a more coarse-grained and robust description. 
+            </p>
+            <p>Lower-level filters often respond well to edges and boundaries and thus resemble simple cells in human visual cortex. Higher-level features, in contrast, can code for complex stimuli like textures or facial parts. Just like the visual system, CNNs compose objects out of simple features by using compositional feature hierarchies. Edges combine into motifs, motifs into parts, and parts into objects. CNNs pre-trained on large-scale image classification tasks like ImageNet (14 million images with over 1,000 classes) can be adapted to specific material by re-training just a few layers, assuming that basic features at the lower level are more or less generic. Therefore, we expected transfer to comics drawings, even for networks that had been pre-trained on photographic images. Note that all of the networks we use have been trained on photographs, i.e., they have never seen graphic novels. However, since they have learned filters and filter combinations that are useful for the interpretation of our environment, we hypothesized that they might also be useful for the analysis of drawings. Drawings are abstractions, but as such they do have a relationship to our environmental reality.</p>
+            <list type="ordered">
+                <item>Method</item>
+            </list>
+            <p>The material we used is the Graphic Narrative Corpus (GNC; Dunst et al., 2017). The GNC is a representative collection of graphic novels, i.e., book-length comics that tell continuous stories and are aimed at an adult readership. The stratified monitor corpus currently includes 209 graphic narratives amounting to nearly 50,000 digitized pages. A subset of the first chapter of these works is annotated by human annotators with respect to the location and identity of panels, main characters, character relations, captions, speech bubbles, onomatopoeia, and the respective text. Furthermore, eye movement data is collected for these pages to measure readers’ attention. At the time of writing we had available the first 10 pages of 95 works by 87 authors.</p>
+            <p>In order to test generalization of the features and their transfer to graphic illustrations, we describe material from the GNC using a specific CNN, Inception V3 (Szegedy et al., 2015) using pre-trained weights from ImageNet. We chose Inception V3 for stylometry and artist attribution due to its state-of-the art performance, economic parameterization, and relative independence of input sizes. Because of the small amount of training data, we trained a support vector machine (SVN) rather than a neural network to classify drawing style, based on a description of 9 pages of each of the works in terms of the visual features coded in each of the main (mixed) layers of Inception V3. One randomly determined page per comic was held out to evaluate performance.</p>
+            <p>Second, we were interested in which features of the material were guiding visual attention of the reader. For the prediction of the distribution of attention we used DeepGaze II (Kümmerer et al., 2016), currently the leading entry in the MIT saliency benchmark. DeepGaze II uses features from several layers of VGG-19 (Simonyan and Zisserman, 2014) to predict “empirical saliency”, i.e., where people look or where they move the mouse to un-blur an image
+                <note place="foot" xml:id="ftn2" n="2">
+                    <p rend="footnote text"> We are convinced that in principle, the DeepGaze architecture could also use features of a different CNN such as Inception as predictors. However, it is currently only available based on VGG features.</p>
+                </note>. We were again interested in determining how good the transfer from photographs to graphic illustrations is. We compared DeepGaze II predictions to empirical gaze locations of 100 readers reading a subset of 105 pages from 6 graphic novels using the metric of information gain explained (Kümmerer et al., 2015). 
+            </p>
+            <list type="ordered">
+                <item>Analysis and Results</item>
+            </list>
+            <p>Overall, the top-1 classification accuracy in the artist attribution analysis, based on the highest vote, was 93%. That is, the artist of 93% of the hold-out pages was correctly classified based on Inception features. It is instructive to further inspect the few misclassifications. For example, a page of “Batman: The Long Halloween” drawn by Tim Sale was mistakenly attributed to David Mazzuchelli, the artist responsible for “Batman: Year One”, which was also part of the training corpus. Tim Sale got only the second highest vote for this particular page. Our analysis illustrates that stylistic classification is generally possible using out-of-the box features of a pre-trained neural network and given only very limited amount of training material. We expect the results to yet improve given more training material, and possibly using a neural network classifier rather than an SVM. An in-depth analysis and the corresponding visualizations of which features are the most discriminative and most strongly associated with a given artist are underway and will be presented at DH.</p>
+            <p>The empirical fixation distribution is very convincingly reproduced using DeepGaze II, even without additional training (Figure 1). Overall, for all 105 pages the match of empirical fixation distribution by the model predictions was quite high (Figure 2). CNN features can thus be used to predict which image regions will attract attention. Most likely this is due to their encoding of image properties that combine into objects such as text boxes, faces, and characters, on which most of the empirical fixations are concentrated.</p>
+            <figure>
+                <graphic n="1001" width="7.653191666666666cm" height="12.111336111111111cm" url="Pictures/5e353aaa188e81c9cd6f2deaa3938c2d.png" rend="inline"/>
+                <head>Figure 1. Empirical fixation distribution of 100 readers (dots) and DeepGaze II predictions (contour lines) on a page from the German translation of Daniel Clowes’ (1997/2000) graphic novel Ghost World </head>
+            </figure>
+            <figure>
+                <graphic n="1002" width="9.87125cm" height="9.30588611111111cm" url="Pictures/9bdca869c7882887ae8f70321e62b46c.png" rend="inline"/>
+                <head>Figure 2. Distribution of the measure 
+                    <hi rend="italic">information gain explained</hi>, comparing theoretical Deep Gaze II predictions with empirical fixation locations obtained by measuring eye movements of 100 readers on 105 pages from six graphic novels
+                </head>
+            </figure>
+            <list type="ordered">
+                <item>Outlook</item>
+            </list>
+            <p>We obtained very promising results of a stylometric analyses of comics artist based on CNN features trained on photographs. Given this successful transfer, we suspect that such features are general enough to be applied in a wide variety of other domains in which a visual stylometry may be useful. For example, arts historians may be interested in combining the method with nearest neighbor search to describe how close different artist are in feature space (cf. Saleh and Elgammal for a similar approach based on classic features). Historians may find visual feature based analyses useful for annotation of documents containing images along with text. </p>
+            <p>If stylometry works so well, CNN features can probably be used for detecting visual elements such as speech bubbles or characters within panels. We currently experiment with YOLO 9000 (Redmond and Farhadi, 2017), which does a very good job at locating objects and persons in panels, and is likely to also function well as a speech bubble locator with additional training. If such object classes can be located automatically, implementation into an annotation tool might make the tedious task of annotation significantly easier, so that annotators have more time to concentrate on work at the narratological level.</p>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl>
+                        <hi rend="bold" xml:space="preserve">Clowes, D. </hi>(1997/2000). Ghost World. Translated by Heinrich Anders. Berlin: Reprodukt.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Dunst, A., Hartel, R. and Laubrock, J.</hi> (2017). The Graphic Narrative Corpus (GNC): Design, Annotation, and Analysis for the Digital Humanities. 
+                        <hi rend="italic">Proceedings of the 14th IAPR International Conference on Document Analysis and Recognition (ICDAR), 03, 15–20.</hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Girshick, R., Donahue, J., Darrell, T. and Malik, J.</hi> (2013). Rich feature hierarchies for accurate object detection and semantic segmentation. 
+                        <hi rend="italic">arXiv</hi>:1311.2524.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">He, K., Zhang, X., Ren, S. and Sun, J.</hi> (2015). Deep residual learning for image recognition. 
+                        <hi rend="italic">CoRR</hi>, abs/1512.03385.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Kümmerer, M., Wallis, T. S. A. and Bethge, M.</hi> (2015). Information-theoretic model comparison unifies saliency metrics. Proceedings of the National Academy of Sciences of the United States of America, 112(52), 16054–59.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold" xml:space="preserve">Kümmerer, M., Wallis, T. S. A. and Bethge, M. </hi>(2016)
+                        <hi rend="bold">.</hi> DeepGaze II: Reading fixations from deep features trained on object recognition. 
+                        <hi rend="italic">CoRR</hi>, abs/1610.01563.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold" xml:space="preserve">Juola, P. </hi>(2006)
+                        <hi rend="bold">.</hi> Authorship Attribution. 
+                        <hi rend="italic">Foundations and Trends in Information Retrieval, 1</hi>, 233-334.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">LeCun, Y., Bengio, Y. and Hinton, G.</hi> (2015). Deep learning. Nature, 521, 436–444.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Manovich, L.</hi> (2015). Data Science and Digital Art History. 
+                        <hi rend="italic">International Journal for Digital Art History, 1</hi>, 13-35. 
+                        <ref target="http://dx.doi.org/10.11588/dah.2015.1.21631">http://dx.doi.org/10.11588/dah.2015.1.21631</ref>.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Redmon, J. and Farhadi, A.</hi> (2017). YOLO9000: Better, Faster, Stronger. CVPR 2017.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold" xml:space="preserve">Saleh, B. and Elgammal, A. M. </hi>(2015)
+                        <hi rend="bold">.</hi> Large-scale classification of fine-art paintings: Learning the right metric on the right feature. 
+                        <hi rend="italic">CoRR</hi>, abs/1505.00855.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Simonyan, K. and Zisserman, A.</hi> (2014). Very deep convolutional networks for large-scale image recognition. 
+                        <hi rend="italic">CoRR</hi>, abs/1409.1556.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Szegedy, C., Vanhoucke, V., Ioffe, S., Shlens, J. and Wojna, Z.</hi> (2015). Rethinking the inception architecture for computer vision. CoRR, abs/1512.00567.
+                    </bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

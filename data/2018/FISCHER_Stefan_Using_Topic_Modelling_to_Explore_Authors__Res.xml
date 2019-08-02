@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title type="full">
+                    <title type="main">Using Topic Modelling to Explore Authors’ Research Fields in a Corpus of Historical Scientific English</title>
+                    <title type="sub"/>
+                </title>
+                <author>
+                    <persName>
+                        <surname>Fischer</surname>
+                        <forename>Stefan</forename>
+                    </persName>
+                    <affiliation>Universität des Saarlandes, Germany</affiliation>
+                    <email>stefan.fischer@uni-saarland.de</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Knappen</surname>
+                        <forename>Jörg</forename>
+                    </persName>
+                    <affiliation>Universität des Saarlandes, Germany</affiliation>
+                    <email>j.knappen@mx.uni-saarland.de</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Teich</surname>
+                        <forename>Elke</forename>
+                    </persName>
+                    <affiliation>Universität des Saarlandes, Germany</affiliation>
+                    <email>e.teich@mx.uni-saarland.de</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2018-04-09T12:31:20.688996880</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Name, Institution</publisher>
+                <address>
+                    <addrLine>Street</addrLine>
+                    <addrLine>City</addrLine>
+                    <addrLine>Country</addrLine>
+                    <addrLine>Name</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from an OASIS Open Document</p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.22">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Poster</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>scientific English</term>
+                    <term>diachronic linguistics</term>
+                    <term>topic modelling</term>
+                    <term>history of science</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>corpora and corpus activities</term>
+                    <term>historical studies</term>
+                    <term>text analysis</term>
+                    <term>linguistics</term>
+                    <term>English</term>
+                    <term>artificial intelligence and machine learning</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <div type="div1" rend="DH-Heading1">
+                <head>Introduction</head>
+                <p>In the digital humanities, topic models are a widely applied text mining method (Meeks and Weingart, 2012). While their use for mining literary texts is not entirely straightforward (Schmidt, 2012), there is ample evidence for their use on factual text (e.g. Au Yeung and Jatowt, 2011; Thompson et al., 2016). We present an approach for exploring the research fields of selected authors in a corpus of late modern scientific English by topic modelling, looking at the topics assigned to an author’s texts over the author’s lifetime. Areas of applications we target are history of science, where we may be interested in the evolution of scientific disciplines over time (Thompson et al., 2016; Fankhauser et al., 2016), or diachronic linguistics, where we may be interested in the formation of languages for specific purposes (LSP) or specific scientific “styles” (cf. Bazerman, 1988; Degaetano-Ortlieb and Teich, 2016).</p>
+                <p>We use the 
+                    <hi rend="italic">Royal Society Corpus</hi> (RSC, Kermes et al., 2016), which is based on the first two centuries (1665–1869) of the 
+                    <hi rend="italic">Philosophical Transactions</hi> and the 
+                    <hi rend="italic">Proceedings</hi> of the 
+                    <hi rend="italic">Royal Society of London</hi>. The corpus contains 9,779 texts (32 million tokens) and is available at 
+                    <ptr target="https://fedora.clarin-d.uni-saarland.de/rsc/"/>. As we are interested in the development of individual authors, we focus on the single-author texts (81%) of the corpus. In total, 2,752 names are annotated in the single-author papers, but the activity of authors varies. Figure 1 shows that a small group of authors wrote a large portion of the texts. In fact, the twelve authors used for our analysis wrote 11% of the single-author articles.
+                </p>
+                <p>
+                    <figure>
+                        <graphic url="Pictures/b0ebdf05e90d32d04f6e87fcc7c8c6d0.png"/>
+                        <head>
+                            <lb/>Productivity of writers of single-author papers
+                        </head>
+                    </figure>
+                </p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Approach</head>
+                <p>The topic modelling approach we take as a basis is Latent Dirichlet Allocation (LDA, Blei et al., 2003). LDA assumes that corpora contain a number of recurring topics and it treats texts as bags of words. Topics, which can be regarded as groups of semantically related words, are represented as probability distributions over words and each text is treated as a mixture of topics. Typically, topics are displayed as lists of the most probable words and labels are assigned manually. We also considered author-topic models (Rosen-Zvi et al., 2010) but their author-topic matrix implies that authors’ topics are fixed over time.</p>
+                <p>As disciplines were not part of the original metadata of the RSC, we applied topic modelling to approximate disciplines. Using MALLET (McCallum, 2002), we built a model with 24 topics, which are shown along with their characteristic words in Figure 2.</p>
+                <p>
+                    <figure>
+                        <graphic url="Pictures/df5d369611fa3cc14b25cd6b3bef3598.png"/>
+                        <head>
+                            <lb/>Topic labels and top words
+                        </head>
+                    </figure>Following the approach of Fankhauser et al. (2016), we clustered the topics using Jensen–Shannon divergence. Figure 3 shows the resulting topic hierarchy. Based on this clustering, we identified broader research areas, which we marked on the branches of the dendrogram.
+                </p>
+                <p>
+                    <figure>
+                        <graphic url="Pictures/fb9bf93a2fe7203358dbe483a8364549.png"/>
+                        <head>
+                            <lb/>Hierarchical clustering of the 24 topics
+                        </head>
+                    </figure>
+                </p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Results</head>
+                <p>Using these broader categories, we explore whether individual authors stayed in the same area or shifted their focus during their time of scientific production. For this purpose, we selected the most prolific authors (29–198 articles) in the RSC and tracked their topics over time (see Figures 4 and 5). We excluded names if we could not identify the author in the 
+                    <hi rend="italic">Virtual International Authority File</hi> or if publication years did not match the author’s lifetime.
+                </p>
+                <p>
+                    <figure>
+                        <graphic url="Pictures/f33818c817df22ae332cd008a7937153.png"/>
+                        <head>
+                            <lb/>Comparison of topics of most prolific authors
+                        </head>
+                    </figure>
+                </p>
+                <p>Figure 4 shows the topics used by twelve authors during their career. We can see two groups of authors. Authors like 
+                    <hi rend="italic">Arthur Cayley</hi> dedicated their life to a single research area whereas 
+                    <hi rend="italic">Humphry Davy</hi> worked on two topics or in an interdisciplinary area. Figure 5 shows the development of the same authors over time. Overall, the authors’ interests did not change dramatically over their professional life. However, one can identify a peak of productivity for most authors.
+                </p>
+                <p>
+                    <figure>
+                        <graphic url="Pictures/f9b3547dc9077aabb350289be50d1350.png"/>
+                        <head>
+                            <lb/>Development of individual authors over time
+                        </head>
+                    </figure>
+                </p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Conclusion</head>
+                <p>We proposed to use topic modelling as a method of exploring the development of the scientific orientation of individual authors over time. Taking topic as an approximation of discipline, our approach can be used to explore the contribution of a particular author to a given discipline over time or find authors with potentially interesting production profiles (e.g. authors shifting topics). In our future work, we will improve our models (e.g. avoid potential confusion of namesakes) by better metadata on the authors which we will obtain from the Royal Society.</p>
+            </div>
+            <div type="div1" rend="DH-Heading">
+                <head>Acknowledgement</head>
+                <p>We acknowledge the support of DFG (Deutsche Forschungsgemeinschaft) through the Cluster of Excellence 
+                    <hi rend="italic">Multimodal Computing and Interaction</hi> (MMCI).
+                </p>
+            </div>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl>
+                        <hi rend="bold">Au Yeung, C. and Jatowt, A.</hi> (2011). Studying How the Past is Remembered: Towards Computational History Through Large Scale Text Mining. 
+                        <hi rend="italic">Proceedings of the 20th ACM </hi>
+                        <hi rend="italic">International Conference on Information and Knowledge Management</hi>. (CIKM ’11). Glasgow, Scotland, UK: ACM, pp. 1231–1240.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Bazerman, C.</hi> (1988). 
+                        <hi rend="italic">Shaping Written Knowledge: The Genre and Activity of the Experimental Article in Science</hi>. Madison: University of Wisconsin Press.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Blei, D. M., Ng, A. Y. and Jordan, M. I.</hi> (2003). Latent Dirichlet Allocation. 
+                        <hi rend="italic">Journal of Machine Learning Research</hi>, 
+                        <hi rend="bold">3</hi>: 993–1022.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Degaetano-Ortlieb, S. and Teich, E.</hi> (2016). Information-based Modeling of Diachronic Linguistic Change: from Typicality to Productivity. 
+                        <hi rend="italic">Proceedings of the 10th SIGHUM Workshop on Language Technology for Cultural Heritage, Social Sciences, and Humanities</hi>. Berlin, Germany: Association for Computational Linguistics, pp. 165–173.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Fankhauser, P., Knappen, J. and Teich, E.</hi> (2016). Topical Diversification over Time in the Royal Society Corpus. 
+                        <hi rend="italic">Digital Humanities 2016: Conference Abstracts</hi>. Kraków: Jagiellonian University &amp; Pedagogical University, pp. 496–500.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Kermes, H., Degaetano-Ortlieb, S., Khamis, A., Knappen, J. and Teich, E.</hi> (2016). The Royal Society Corpus: From Uncharted Data to Corpus. 
+                        <hi rend="italic">Proceedings of the Tenth International Conference on Language Resources and Evaluation (LREC 2016)</hi>. Portorož, Slovenia: European Language Resources Association (ELRA).
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">McCallum, A. K.</hi> (2002). 
+                        <hi rend="italic">MALLET: A Machine Learning for Language Toolkit</hi>. 
+                        <ref target="http://mallet.cs.umass.edu/">http://mallet.cs.umass.edu</ref> (accessed 1 April 2018).
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Meeks, E. and Weingart, S. B.</hi> (2012). The Digital Humanities Contribution to Topic Modeling. 
+                        <hi rend="italic">Journal of Digital Humanities</hi>, 
+                        <hi rend="bold">2</hi>(1): 1–6.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Rosen-Zvi, M., Chemudugunta, C., Griffiths, T., Smyth, P. and Steyvers, M.</hi> (2010). Learning Author-topic Models from Text Corpora. 
+                        <hi rend="italic">ACM Transactions on Information Systems (TOIS)</hi>, 
+                        <hi rend="bold">28</hi>(1): 4:1–4:38.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Schmidt, B. M.</hi> (2012). Words Alone: Dismantling Topic Models in the Humanities. 
+                        <hi rend="italic">Journal of Digital Humanities</hi>, 
+                        <hi rend="bold">2</hi>(1): 49–65.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Thompson, P., Batista-Navarro, R. T., Kontonatsios, G., Carter, J., Toon, E., McNaught, J., Timmermann, C., Worboys, M. and Ananiadou, S.</hi> (2016). Text Mining the History of Medicine. 
+                        <hi rend="italic">PLOS ONE</hi>, 
+                        <hi rend="bold">11</hi>(1): 1–33.
+                    </bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

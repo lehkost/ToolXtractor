@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>Oulipian Stylometry</title>
+                <author>
+                    <persName>
+                        <surname>Wolff</surname>
+                        <forename>Mark</forename>
+                    </persName>
+                    <affiliation>Hartwick College, United States of America</affiliation>
+                    <email>wolff.mark.b@gmail.com</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2016-03-06T01:25:00Z</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Maciej Eder, Pedagogical University in Krakow</publisher>
+                <publisher>Jan Rybicki, Jagiellonian University</publisher>
+                <address>
+                    <addrLine>Institute of Polish Studies</addrLine>
+                    <addrLine>Pedagogical University</addrLine>
+                    <addrLine>ul. Podchorazych 2</addrLine>
+                    <addrLine>30-084 Krakow, Poland</addrLine>
+                    <addrLine>maciej.eder@ijp-pan.krakow.pl</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from a Word document </p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.21">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Long Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>stylometry</term>
+                    <term>oulipo</term>
+                    <term>queneau</term>
+                    <term>matrix</term>
+                    <term>classification</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>corpora and corpus activities</term>
+                    <term>data modeling and architecture including hypothesis-driven modeling</term>
+                    <term>stylistics and stylometry</term>
+                    <term>text analysis</term>
+                    <term>french studies</term>
+                    <term>authorship attribution / authority</term>
+                    <term>history of Humanities Computing/Digital Humanities</term>
+                    <term>English</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <p> The Oulipo, or Ouvroir de littérature potentielle, is a group of writers in Paris who for over fifty years have experimented with algorithmic techniques for writing and reading literature. Raymond Queneau, one of the group’s co-founders, proposed a method in 1964 for analyzing the syntactic structure of texts written in French, and he believed that the method, which he called matrix analysis, could provide a measure of an author’s style.</p>
+            <p> What can matrix analysis contribute to stylometry? Apart from its origins as a form of computational play for play’s sake (Wolff, 2007), matrix analysis offers an alternative to lexically based techniques for authorship attribution such as Burrow’s Delta (2002). Rybicki and Eder reported that Delta does not work as well for texts written in French as for those in English and German (2011). Antonia, Craig and Elliott have shown that analyzing the frequencies of lexical n-grams where n &gt; 1 does not usually yield very good results (2014). Researchers have developed syntactical methods based on bigrams of labels for a simplified parsing of texts (Hirst and Feiguina, 2007) and on correlations between semantics and the structures of dependent and independent clauses (Allison et al., 2013). In the latter study the researchers concluded that their definition of style “entailed […] 
+                <hi rend="italic">a method for looking for it</hi>” (28). The early Oulipo would have agreed with this approach. Recognizing that an author aware of how he or she used words syntactically might apply Queneau’s matrix analysis to change his or her “manner,” François Le Lionnais (the other co-founder) claimed that matrix analysis could serve as a “literary prosthesis” exemplifying the vocation of the group (Bens, 2005: 246). For Le Lionnais, the most important focus of the Oulipo should be the synthesis of new possibilities for understanding literary phenomena (Oulipo, 1973: 17). Matrix analysis enables the identification of significant syntactical patterns for further inquiry into an author’s style. These patterns would be difficult to ascertain without a method like the one developed by Queneau.
+            </p>
+            <p> Queneau devised a grammatical schema of the French language for describing the construction of word pairs using a system similar to linear algebra (1964). He began by dividing all elements of speech into two categories: signifiers, which include nouns, adjectives, and verbs (except 
+                <hi rend="italic">avoir</hi> and 
+                <hi rend="italic">être</hi>); and formatives, which include everything else (
+                <hi rend="italic">avoir</hi>, 
+                <hi rend="italic">être</hi>, pronouns, articles, conjunctions, prepositions, adverbs, interjections, etc.). Given a sentence, one can construct two matrices where the first matrix contains all formatives and the second all signifiers:
+            </p>
+            <figure>
+                <graphic url="51/image1.png" rend="inline"/>
+            </figure>
+            <p>If a sentence contains two consecutive formatives or signifiers, one can use a unitary element to construct the matrices:</p>
+            <figure>
+                <graphic url="51/image2.png" rend="inline"/>
+            </figure>
+            <p>By adopting the conventions that neither (1 × 1) nor (Y × 1) + (1 × Z) are allowed within a sentence, one avoids uninteresting or redundant word pairs.</p>
+            <p> Queneau proposed observing the distribution of formatives and signifiers in a text using the relation F + Uf = S + Us, where F is the number of formatives, S the number of signifiers, Uf the number of unitary elements paired with signifiers (1 × Z), and Us the number of unitary elements paired with formatives (Y × 1). Noting that even if an author like Flaubert worked tirelessly to vary how he wrote, Queneau believed that this distribution could serve as a “potential” but unconscious indicator of the author’s style (1965: 319).</p>
+            <p> In order to test Queneau’s hypothesis, I applied his matrix analysis to a corpus of 328 nineteenth-century French novels from the ARTFL-FRANTEXT database using Helmut Schmidt’s part-of-speech tagger (1995). Figure 3 is a biplot of a principal components analysis of scaled values for F, S and Uf (Us is excluded to avoid collinearity) and the graph shows that works by the authors Jules Barbey d’Aurevilly, Alexandre Dumas and Honoré de Balzac cluster separately whereas works by George Sand form distinct clusters.</p>
+            <figure>
+                <graphic url="51/image3.png" rend="inline"/>
+            </figure>
+            <p>Table 1 indicates the results of using support vector machines with a radial basis function kernel to build a classification model for the texts (Kuhn, 2015). Sixty-seven percent of the corpus was used for training the model with 10-fold cross-validation. A one-against-one method was used for classifying the test set (Karatzoglou, 2004: 7-8). The results show a moderate authorial signal in the works of Barbey d’Aurevilly and weaker signals for Dumas and Balzac.</p>
+            <figure>
+                <graphic url="51/image4.png" rend="inline"/>
+            </figure>
+            <p> To build a better model using matrix analysis, one can observe the distribution of bigrams of matrix analysis pairs in the corpus. Given the labels 
+                <hi rend="bold">F</hi> for (Y × 1), 
+                <hi rend="bold">S</hi> for (1 × Z), and 
+                <hi rend="bold">B</hi> for what Queneau called a biword (Y × Z), one can transcribe a text into a series of these letters. For instance, the sentence from George Sand’s 
+                <hi rend="italic">Indiana</hi> (1832):
+            </p>
+            <quote>(Toute × 1) (sa × conscience), (c’ × 1) (était × 1) (la × loi); (toute × 1) (sa × morale), (c’ × 1) (était × 1) (son × droit).</quote>
+            <p>can be represented as 
+                <hi rend="bold">FBFFBFBFFB</hi>. With the feature set of bigrams 
+                <hi rend="bold">FF</hi>, 
+                <hi rend="bold">FB</hi>, 
+                <hi rend="bold">BF</hi>, 
+                <hi rend="bold">BB</hi>, 
+                <hi rend="bold">BS</hi>, 
+                <hi rend="bold">SB</hi>, 
+                <hi rend="bold">SS</hi>, 
+                <hi rend="bold">SF</hi>, and 
+                <hi rend="bold">FS</hi>, one can analyze its distribution within the corpus. Figure 4 is a biplot of a principal components analysis of the corpus with the nine bigrams as variables and suggests that at least some authors do have measurable differences in style.
+            </p>
+            <figure>
+                <graphic url="51/image5.png" rend="inline"/>
+            </figure>
+            <p>Table 2 shows the results of building a model with support vector machines to classify the texts by author according to the distribution of bigrams.</p>
+            <figure>
+                <graphic url="51/image6.png" rend="inline"/>
+            </figure>
+            <p>The model can identify the styles of Barbey d’Aurevilly and Dumas with very good accuracy, and it can detect authorial signals in works by Flaubert and Balzac. The model does not do well identifying works by Sand because they seem to evince two distinct styles (as suggested by Figure 4). The small cluster of works by Sand on the left side of the graph include 
+                <hi rend="italic">François le champi</hi>, 
+                <hi rend="italic">Elle et lui</hi>, 
+                <hi rend="italic">Le Château des désertes</hi>, 
+                <hi rend="italic">La Mare au diable</hi>, 
+                <hi rend="italic">Consuelo</hi>, 
+                <hi rend="italic">Indiana</hi>, 
+                <hi rend="italic">Lélia</hi>, and 
+                <hi rend="italic">La Comtesse de Rudolstadt</hi>. The predominance of formatives in this cluster is perhaps indicative of a more conversational style: such an hypothesis would require further analysis.
+            </p>
+            <p> Compared to other classification methods based on wordlists, matrix analysis does not deliver as high a level of accuracy. Table 3 summarizes the sensitivity and specificity of several classification models with different statistical techniques for the five selected authors using the 
+                <hi rend="italic">classify()</hi> function of the R software package 
+                <hi rend="italic">stylo</hi> (Eder et al., 2013):
+            </p>
+            <figure>
+                <graphic url="51/image7.png" rend="inline"/>
+            </figure>
+            <p>To minimize the effects of semantic variation, the wordlists for classification with 
+                <hi rend="italic">stylo</hi> were culled 100% (only those words that appear at least once in every text were included).
+            </p>
+            <p>Despite the low accuracy of matrix analysis, it is possible to identify sample sentences that exemplify an author’s style with sequences of bigrams. In Figure 4 the left group of Sand’s texts clusters near the vectors for 
+                <hi rend="bold">FF</hi>, 
+                <hi rend="bold">BF</hi> and 
+                <hi rend="bold">FB</hi>. Scanning the texts for the highest relative frequency of these bigrams yields sentences such as this from Sand’s 
+                <hi rend="italic">Consuelo</hi> (1842):
+            </p>
+            <quote>(Il × faut) (que × 1) (je × sache) (comment × 1) (elle × 1) (se × tient), (ce × 1) (qu’ × 1) (elle × fait) (de × 1) (sa × bouche) (et × 1) (de × 1) (ses × yeux).
+                <hi rend="bold">BFBF</hi><hi rend="bold">FBFFBFBFFB</hi>
+            </quote>
+            <p>The syntax of this sentence as schematized by matrix analysis contains within it the syntax of the previously quoted sentence, inviting further inquiry into how Sand constructed her texts. Although Sand most likely did not think of her writing style in the terms conceived by Queneau, matrix analysis represents a method for thinking about style that not only measures how words are used but can also inform potentially the act of writing and reading. Lexically-based techniques consider texts as “bags of words” with structure-less frequencies, but matrix analysis approaches texts as objects that have undergone a process of development. As an Oulipian procedure, matrix analysis allows the reader to detect reproduced and reproducible patterns through an interactive process of textual exploration.</p>
+            <p> Queneau’s matrix analysis represents an analytical method for defining style that classifies texts according to their structure. The Oulipo in the 1960s made a distinction between the quality of works of literature and the potentiality of the methods used to create works of literature (Bens, 2005: 80). Practitioners of computational text analysis can observe a similar distinction between the accuracy of text classification and the potentiality of classification methods for understanding literature. If style implies how words are used more than what words are used, stylometry should seek to better understand how words are used. The Oulipo provides us with an example of this kind of inquiry into computationally revealed text structures. Queneau performed small experiments with matrix analysis, but Le Lionnais imagined the possibility of harnessing machines to support the necessary calculations on a larger scale (Bens, 2005: 246). Following the Oulipian notion of “plagiarism by anticipation” (Oulipo, 1973: 23), we can understand matrix analysis as a precursor of stylometry in the digital humanities.</p>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl>
+                        <hi rend="bold">Allison, S., Gemma, M., Heuser, R., Moretti, F., Tevel, A. and Yamboliev, I.</hi> (2013). Style at the Scale of the Sentence. 
+                        <hi rend="italic">Literary Lab</hi> 5. Stanford University. Retrieved from &lt;http://litlab.stanford.edu/LiteraryLabPamphlet5.pdf&gt;
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Antonia, A., Craig, H. and Elliott, J.</hi> (2014). Language chunking, data sparseness, and the value of a long marker list: explorations with word n-grams and authorial attribution. 
+                        <hi rend="italic">Literary and Linguistic Computing</hi>, 29/2: 147–63. DOI: 10.1093/llc/fqt028
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Bens, J.</hi> (2005). 
+                        <hi rend="italic">Genèse de l’Oulipo 1960-1963</hi>. Bordeaux: La Castor Astral.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Burrows, J.</hi> (2002). ‘Delta’: a Measure of Stylistic Difference and a Guide to Likely Authorship. 
+                        <hi rend="italic">Literary and Linguistic Computing</hi>, 17/3: 267–87. DOI: 10.1093/llc/17.3.267
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Eder, M., Kestemont, M. and Rybicki, J.</hi> (2013). Stylometry with R: a suite of tools. In: 
+                        <hi rend="italic">Digital Humanities 2013: Conference Abstracts.</hi> University of Nebraska--Lincoln, NE: 487-89.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Hirst, G., and Feiguina, O.</hi> (2007). Bigrams of Syntactic Labels for Authorship Discrimination of Short Texts. 
+                        <hi rend="italic">Literary and Linguistic Computing</hi>, 22/4: 405–17. DOI: 10.1093/llc/fqm023
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Karatzoglou, A., Smola, A., Hornik, K. and Zeileis, A.</hi> (2004). kernlab – An S4 Package for Kernel Methods in R. 
+                        <hi rend="italic">Journal of Statistical Software</hi>, 11/9: 1–20.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Kuhn, M.</hi> (2015). 
+                        <hi rend="italic">caret: Classification and Regression Training</hi>. Retrieved from &lt;http://CRAN.R-project.org/package=caret&gt;
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Oulipo</hi> (1973). 
+                        <hi rend="italic">La Littérature potentielle (Créations Ré-créations Recréations)</hi>. Paris: Gallimard.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Queneau, R.</hi> (1964). L’Analyse matricielle du langage. 
+                        <hi rend="italic">Etudes de linguistique appliquée</hi>, 3: 37–50.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Queneau, R.</hi> (1965). 
+                        <hi rend="italic">Bâtons, chiffres et lettres</hi>. Paris: Gallimard.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Rybicki, J. and Eder, M.</hi> (2011). Deeper Delta across genres and languages: do we really need the most frequent words? 
+                        <hi rend="italic">Literary and Linguistic Computing</hi>, 26/3: 315–21. DOI: 10.1093/llc/fqr031
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Schmid, H.</hi> (1995). TreeTagger: a language independent part-of-speech tagger. Retrieved from &lt;http://www.cis.uni-muenchen.de/~schmid/tools/TreeTagger/&gt;
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Wolff, M.</hi> (2007). Reading Potential: The Oulipo and the Meaning of Algorithms. 
+                        <hi rend="italic">Digital Humanities Quarterly</hi>, 1/1.
+                    </bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

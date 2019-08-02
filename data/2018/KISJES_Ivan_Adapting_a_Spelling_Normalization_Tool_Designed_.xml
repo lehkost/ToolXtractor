@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>Adapting a Spelling Normalization Tool Designed for English to 17th Century Dutch</title>
+                <author>
+                    <persName>
+                        <surname>Kisjes</surname>
+                        <forename>Ivan</forename>
+                    </persName>
+                    <affiliation>University of Amsterdam, Netherlands, The</affiliation>
+                    <email>i.kisjes@uva.nl</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Tessa</surname>
+                        <forename>Wijckmans</forename>
+                    </persName>
+                    <affiliation>Huygens ING/Nederlab</affiliation>
+                    <email>tessa_wijckmans@hotmail.com</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2014-12-19T13:50:00Z</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Name, Institution</publisher>
+                <address>
+                    <addrLine>Street</addrLine>
+                    <addrLine>City</addrLine>
+                    <addrLine>Country</addrLine>
+                    <addrLine>Name</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from a Word document</p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.22">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Short Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>linguistics</term>
+                    <term>normalization</term>
+                    <term>spelling</term>
+                    <term>history</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>historical studies</term>
+                    <term>natural language processing</term>
+                    <term>philology</term>
+                    <term>content analysis</term>
+                    <term>linguistics</term>
+                    <term>English</term>
+                    <term>artificial intelligence and machine learning</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <p>Context</p>
+            <p>
+                <hi rend="Standaardalinea-lettertype">One of the bigger problems in comparing historic Dutch texts is wildly differing spelling of the same word. Seventeenth century Dutch did not have standardized spelling. Many spelling variants of the same word coexisted, making it very difficult to use any language processing tools on such texts because they depend on the same word being spelled the same way. So, for example basic algorithms like named entity recognition to recognize place or personal names, or even just part-of-speech tagging to find the grammatical context of words to analyze, for example, changing meanings of words of phrases work less well on older texts. Other languages, of course, have the same problem.</hi>
+            </p>
+            <p>
+                <hi rend="Standaardalinea-lettertype">The Dutch digital research platform 
+                    <hi rend="italic">Nederlab</hi> aims to provide researchers with as many current and historic Dutch text and a toolset to do research on them. As such, spelling normalization would be an important addition to their tools. This project is a collaboration between the CREATE-project of the University of Amsterdam and 
+                    <hi rend="italic">Nederlab</hi> to tackle that problem. To deal with the problem, rather than developing a tool from scratch, we chose to adapt an existing tool to this situation: VARD2.
+                </hi>
+            </p>
+            <p>VARD2</p>
+            <p>
+                <hi rend="Standaardalinea-lettertype">VARD2
+                    <note place="foot" xml:id="ftn1" n="1">
+                        <p rend="footnote text"> http://ucrel.lancs.ac.uk/vard</p>
+                    </note>
+                    <note place="foot" xml:id="ftn2" n="2">
+                        <p rend="footnote text"> Baron, A. and Rayson, P. (2008). VARD 2: 
+                            <hi rend="italic">A tool for dealing with spelling variation in historical corpora. Proceedings of the Postgraduate Conference in Corpus Linguistics</hi>, Aston University, Birmingham, UK, 22 May 2008.
+                        </p>
+                    </note> (an acronym of VARiant Detector) is a Java tool developed by Alistair Baron. It uses two lists (a normalized word list and a variant list) to suggest or replace variant words with their normalized counterparts. The normalization suggestions using a combination of four different methods: 1. known variant replacements; 2. character edit distance; 3. letter rules and 4. phonetic distance. Not all of these were useful for Dutch: the phonetic matching algorithm for example is based on English phonemes and hence did not work on these texts, but the re-spelling rules and the known word replacements worked very well.
+                </hi>
+            </p>
+            <p>
+                <hi rend="Standaardalinea-lettertype">VARD2 was designed to normalize Early Modern English, but is modifiable for other languages with a custom configuration. To create a configuration we used the modifiable parts of VARD2: the letter rules, the variant list and the normalized word list.</hi>
+            </p>
+            <p>Corpus</p>
+            <p>We used the 1657 edition of the Dutch translation of the bible as a training set. Not only because there was a modernized version of it available that stuck rather closely to the original word order, but also because it would make it possible to later include another edition of the same book printed in 1637 to easily find more spelling variants for the words we had manually respelled or checked in the 1637 edition. We were able to make a golden standard of modernized spelling for the books Genesis and Exodus.</p>
+            <p>Choices</p>
+            <p>We chose to only do orthographic respelling, in order to preserve grammatical relevant elements of the texts as those may be relevant to research using natural language processing. One problem were words that did not follow Dutch re-spelling rules or did not have a clear Dutch respelling: foreign words, particularly place names and personal names, We chose to ignore such words as they would taint re-spelling rules for Dutch.</p>
+            <p>Problems &amp; solutions</p>
+            <p>
+                <hi rend="Standaardalinea-lettertype">The first problem we encountered was the lack of any usable existing word list of all possible conjugations in modern Dutch. To get as many possible conjugations of every Dutch word that occurs in the 
+                    <hi rend="italic">Woordenboek</hi>
+                    <hi rend="italic">der</hi>
+                    <hi rend="italic">Nederlandse</hi>
+                    <hi rend="italic">Taal</hi>
+                    <note place="foot" xml:id="ftn3" n="3">
+                        <p rend="footnote text"> http://wnt.inl.nl</p>
+                    </note>
+                    <hi rend="italic" xml:space="preserve"> (WNT)</hi> a two-pronged approach was necessary. A set of algorithms, one per word class provided possible conjugations for each word in the 
+                    <hi rend="italic">WNT</hi>. First approach: for some word classes we were able to check the conjugations manually, but the large numbers of nomina and verbs made that impossible to do in this project. Second approach: for those the resulting word lists were checked automatically against the occurrences of those words in the 
+                    <hi rend="italic">Corpus of Spoken Dutch</hi>
+                    <hi rend="italic superscript">1</hi>, 
+                    <hi rend="italic">Dutch Wikipedia</hi>
+                    <hi rend="italic superscript">2</hi> and 
+                    <hi rend="italic">Verbix</hi>
+                    <hi rend="italic superscript">3</hi>
+                    <hi rend="italic superscript">,</hi>.
+                </hi>
+            </p>
+            <p>Another problem, there was no set of respelling rules available that was effective for respelling Early Modern Dutch - the rule sets available did correct some spellings but caused mistakes in others. Extracting re-spelling rules from patterns in our golden standard provided an effective set of rules, especially when we generalized the rules where possible to catch similar instances.</p>
+            <p>Third, VARD2 could not handle word variations where two words should be re-spelled to a single word. Our solution was to pre-process texts with a script to remove spaces from such words.</p>
+            <p>
+                <hi rend="Standaardalinea-lettertype">The fourth problem was that some homonyms had overlapping spelling variations but needed to be re-spelled to different spellings in modern Dutch. An example is the word 'nog': spelling variations 'nog' and 'noch' were used interchangeably, but in modern spelling those two spellings denote differences in meaning. The only way to determine the correct modernization is to take the grammatical context of the word into account, which VARD2 does not do. This necessitated a second pre-processing step: we were only able to run a few tests, but part of speech tagging the original text and (manually) selecting a few patterns that marked one meaning or the other seemed to provide enough information to deduce the correct re-spelling.</hi>
+            </p>
+            <p>Results</p>
+            <p>
+                <hi rend="Standaardalinea-lettertype">All in all, with a few additions and modifications a tool like VARD2 can be successfully converted to work on a Early Modern Dutch. Tests on other types of texts (a treatise on mathematics from 1605, the description of a beached whale from 1599, a description of the New World from 1770, a poetry book from 1637 etc) show promising results, indicating that a little extra training can make this configuration work well for different genres. Automatic respelling of the entire 1657 bible at a 95% confidence level resulted in automatic re-spelling of 62% of 340,000 variants. For the earlier edition (1637), automatically correcting at 95% confidence corrects 60% of just short of 350.000 unknown words, at 75% confidence 84% of the variants were corrected. The paper will show the results of automatically re-spelling 17
+                    <hi rend="superscript">th</hi> century texts using a VARD2 trained on just the first two chapters of the bible.
+                </hi>
+            </p>
+        </body>
+    </text>
+</TEI>

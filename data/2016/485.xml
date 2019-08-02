@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title type="full">
+                    <title type="main">CTRaCE: Canonical Text Reader and Citation Exporter</title>
+                    <title type="sub"/>
+                </title>
+                <author>
+                    <persName>
+                        <surname>Reckziegel</surname>
+                        <forename>Martin</forename>
+                    </persName>
+                    <affiliation>Leipzig University, Germany</affiliation>
+                    <email>reckziegel@informatik.uni-leipzig.de</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Jänicke</surname>
+                        <forename>Stefan</forename>
+                    </persName>
+                    <affiliation>Leipzig University, Germany</affiliation>
+                    <email>stjaenicke@informatik.uni-leipzig.de</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Scheuermann</surname>
+                        <forename>Gerik</forename>
+                    </persName>
+                    <affiliation>Leipzig University, Germany</affiliation>
+                    <email>scheuermann@informatik.uni-leipzig.de</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2016-03-03T15:16:26.869929319</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Maciej Eder, Pedagogical University in Krakow</publisher>
+                <publisher>Jan Rybicki, Jagiellonian University</publisher>
+                <address>
+                    <addrLine>Institute of Polish Studies</addrLine>
+                    <addrLine>Pedagogical University</addrLine>
+                    <addrLine>ul. Podchorazych 2</addrLine>
+                    <addrLine>30-084 Krakow, Poland</addrLine>
+                    <addrLine>maciej.eder@ijp-pan.krakow.pl</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from an OASIS Open Document</p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.21">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Poster</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>user interface</term>
+                    <term>citation</term>
+                    <term>visualisation</term>
+                    <term>close reading</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>interface and user experience design</term>
+                    <term>software design and development</term>
+                    <term>visualisation</term>
+                    <term>linking and annotation</term>
+                    <term>English</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <div type="div1" rend="DH-Heading">
+                <head>Motivation</head>
+                <p>“Citation is the core of scholarship” Neel Smith and Chris Blackwell state in their paper on the CTS/CITE Architecture (Smith et al., 2012). A citation like “Athenaeus, 
+                    <hi rend="italic">Deipnosophists</hi>, edition of Kaibel (1887), book 1, chapter 3” can refer to only one string of Greek words and it is valid for every printed copy of Kaibel’s edition. Such a citation identifies an object of study uniquely, and it is “independent of any implementing technology”. But such a citation scheme is hardly machine readable, and the digital processing of citations becomes more and more important in the humanities. To support this task, the CITE Architecture
+                    <hi rend="sup">1</hi> was designed. Adopting the international standard of URNs
+                    <hi rend="sup">2</hi>, unique, complete and machine readable scholarly citations, so called CTS URNs can be generated.
+                </p>
+                <p>Although the CITE Architecture is a substantial basis, it does not provide an interface to intuitively make this capability accessible to humanities scholars. This paper aims to fill this gap. We designed the web-based application 
+                    <hi rend="italic">CTRaCE</hi> that first of all allows the browsing and reading of texts provided in the corresponding canonical format. With basic interaction functionality, 
+                    <hi rend="italic">CTRaCE</hi> supports easy creation of a digital citation of an arbitrary text passage as a CTS URN. As it can also be used to resolve existent CTS URNs, 
+                    <hi rend="italic">CTRaCE</hi> fulfills the major requirements for the processing of manually generated digital citations necessary for digital scholarship.
+                </p>
+                <p>
+                    <figure>
+                        <graphic url="485/10000201000004110000032C69F33001.png"/>
+                        <head>Figure 1: Screenshot of 
+                            <hi rend="italic">CTRaCE</hi> showing the CTS URN greekLit:tlg0008.tlg001.perseus_grc3:1.3:
+                        </head>
+                    </figure>
+                </p>
+            </div>
+            <div type="div1" rend="DH-Heading">
+                <head>Technical Basis</head>
+                <p>
+                    <hi rend="italic">CTRaCE</hi> is based on Canonical Text Services (CTS), which – part of the CITE architecture – addresses two fundamental needs in digital scholarship: (1) the citation of textual units, and (2) their retrieval. To accomplish the transition between classical and digital citations, CTS use Uniform Resource Names (URNs). The top-level structure of a CTS URN
+                    <hi rend="sup">3</hi> has the following format:
+                </p>
+                <p><hi rend="bold">cts:urn:namespace:work:passage</hi></p>
+                <p>As URNs are organized hierarchically from left to right, each component increases the precision of the corresponding reference. The 
+                    <hi rend="italic">namespace </hi>component is the top level division of the system. As we use the Perseus Digital Library
+                    <hi rend="sup">4</hi> as demonstration corpus, one of the namespaces is “greekLit”, which identifies works in ancient Greek that are preserved through manuscript tradition (Smith et al., 2012). The 
+                    <hi rend="italic">work </hi>component specifies the document the URN refers to. It is divided into 
+                    <hi rend="italic">textgroup.work.version.exemplar</hi> from which the last two parts are optional. For example, the URN
+                </p>
+                <p><hi rend="bold">cts:urn:greekLit:tlg0008.tlg001.perseus_grc3:</hi></p>
+                <p>refers to Kaibel’s edition of “Deipnosophists” (tlg001), located in the textgroup that contains works by Athenaeus (tlg0008). Generating a URN representation for each text, the CTS architecture organizes the whole corpus in the form of a tree with inner nodes representing the hierarchical structure among the texts, which are the leaf nodes of the tree.</p>
+                <p>Each individual text further has a canonical citation scheme assigned. As the hierarchy of texts varies depending on genre – a play might be arranged by acts and scenes while a poem uses verses –, this scheme is flexibly designed. Additionally, the URN can be further refined with the 
+                    <hi rend="italic">passage </hi>component that specifies a continuous part of the text – even on character granularity if necessary.
+                </p>
+                <p><hi rend="bold">cts:urn:greekLit:tlg0008.tlg001.perseus_grc3:1.2@καὶ[2]-1.3@δρ</hi></p>
+                <p>refers to the “Deipnosophists” part that ranges from the second occurrence of the string “καὶ” in the second chapter of the first book until the first occurrence of “δρ” in the third chapter. </p>
+                <p>Figure 2 displays an overview of our CTS based architecture. Though the scalable CTS implementation (Tiepmar et al., 2014) we use as server infrastructure supports any text in Unicode, we built our application with the idea to operate with texts in TEI
+                    <hi rend="sup">5</hi> format that often include styling markup, which can be used for visualization purposes. 
+                    <hi rend="italic">CTRaCE</hi> is a client side web application communicating with the CTS server using the CTS protocol
+                    <hi rend="sup">6</hi>. In the following section, we explain the design and the functionality of 
+                    <hi rend="italic">CTRaCE</hi> in detail.
+                </p>
+                <p>
+                    <figure>
+                        <graphic url="485/1000020100000802000002B34CC08B5B.png"/>
+                        <head>Figure 2: Architecture overview</head>
+                    </figure>
+                </p>
+            </div>
+            <div type="div1" rend="DH-Heading">
+                <head>
+                    <hi rend="bold">User Interface </hi>
+                </head>
+                <p>The CTS architecture is a robust basis for digital citations, but due to its technical nature, tools need to be built upon the architecture to leverage its functionality in an intuitive way to humanities scholars. We present 
+                    <hi rend="italic">CTRaCE</hi> for that purpose, an example screenshot is shown in Figure 1. It focuses on supporting the following three tasks:
+                </p>
+                <list type="unordered">
+                    <item>browsing and reading texts in the CTS system</item>
+                    <item>creating and exporting citations using CTS URNs</item>
+                    <item>resolving CTS URNs by visualizing the cited text and its surrounding context</item>
+                </list>
+                <p>
+                    <hi rend="italic">CTRaCE</hi> is designed to display the content of a single URN, always shown as parameter in the address bar of the internet browser. Everything related to the citation this URN points to is drawn with a white background in three view components, which we explain below.
+                </p>
+                <p>
+                    <figure>
+                        <graphic url="485/100002010000040D000000AC2810EA1A.png"/>
+                        <head>Figure 3: Navigation component</head>
+                    </figure>
+                </p>
+                <p>The 
+                    <hi rend="bold">navigation component</hi> shown in Figure 3 is placed in the header section of the user interface and can be used to browse through all available documents. It is derived from the ontology of the CTS system described above. Each row represents one level of the URN parts that identify a text. If appropriate metadata such as authors or titles are available, we display these labels instead of URN identifiers as fallback. Each text in this tree can be selected via mouse click for close reading.
+                </p>
+                <p>
+                    <figure>
+                        <graphic url="485/10000201000003520000025AE8B7C498.png"/>
+                        <head>Figure 4: Distant view component</head>
+                    </figure>
+                </p>
+                <p>
+                    <hi rend="italic">CTRaCE</hi> displays texts as one continuous scrollable block, which for optimal performance is loaded in chunks. To the left of the text, we implemented a 
+                    <hi rend="bold">distant view component</hi> showing the citation structure in relation to the visible portion of the text. We therefore adopt a visualization method called Icicle Plot (Kruskal et al, 1983) that shows hierarchical relations in a compact way. Figure 4 shows a screenshot of this view. The underlying text uses a three level hierarchy to create a citation: book, chapter and section. Each gray-bordered rectangle in the view represents a node within the citation structure. The leftmost rectangle labeled with the URN of the document represents the root. Inside each node’s rectangle, we provide information about their direct children regarding the citation tree. Since the document contains eight books, the same number of alternating shaded rectangles is drawn inside the root node. We provide quick navigation through the document using mouse clicks on these inner rectangles. Depending on the document position, the corresponding citation nodes are drawn in the remaining columns with the leaf nodes aligned to the text. As the text shown in Figure 4 is only part of the first chapter, there is only one node rectangle in the second column. Additionally, the white rectangles depict which part of a node is defined by the current URN, and the blue rectangles represent the visible portion of a node.
+                </p>
+                <p>
+                    <anchor xml:id="id_h.gjdgxs"/>The text of the document is shown in the 
+                    <hi rend="bold">text reader component</hi> in main area of the screen. As the text chunks are loaded from the server, they are transformed into HTML code. So far we implemented two rendering methods as shown in Figure 5. The XML view mode displays the text including its markup in a syntax highlighted, indented fashion. The Styled view mode only displays the text using the markup information to style it appropriately. For example, &lt;head&gt; tags will be rendered bold, &lt;note&gt; tags indented, etc. The user can switch between both modes while viewing the document.
+                </p>
+                <p>
+                    <figure>
+                        <graphic url="485/10000000000004C80000025F37EEFD9E.png"/>
+                        <head>Figure 5: XML (left) and Styled (right) rendering methods</head>
+                    </figure>When generating a new digital citation with our application, basically the current URN is changed. There are two possibilities to do so. First, the scholar can click on one of the labels of the nodes in the distant view component. This selects the corresponding entire citation node. Second, the user can mark the desired text passage in the text reader component with the mouse, and then click the “Set Citation” button. The updated URN then represents the selected text passage. Finally, a popup dialog helps to export the URN or the text it is referring to. This includes the possibility to generate a link pointing to our web application showing the generated citation.
+                </p>
+            </div>
+            <div type="div1" rend="DH-Heading">
+                <head>Conclusion</head>
+                <p>The proposed 
+                    <hi rend="italic">CTRaCE</hi> interface is based on Canonical Text Services in order to provide an online service to generate citations of digital text editions. Such a front-end allows humanities scholars not only to close read texts, but also to identify and retrieve text passages of interest. The interface offers the possibility to generate and export citations of textual works down to the character level. Moreover, 
+                    <hi rend="italic">CTRaCE</hi> is a service that is capable of resolving existent or with 
+                    <hi rend="italic">CTRaCE</hi> generated citations by opening the referenced text passage.
+                </p>
+                <p>As of now, 
+                    <hi rend="italic">CTRaCE</hi> is a very helpful tool for humanities scholars who want to produce machine readable citations. Future steps in the development of 
+                    <hi rend="italic">CTRaCE</hi> include visualizations of different kinds of annotations on a CTS passage produced by different scholars to facilitate the collaborative work on a shared text of interest.
+                </p>
+            </div>
+            <div type="div1" rend="DH-Heading">
+                <head>Acknowledgments</head>
+                <p>Parts of the work presented here is the result of the project “Die Bibliothek der Milliarden Wörter” funded by the European Social Fund. We additionally want to thank Monica Berti for the valuable input and discussion about use cases for our application.</p>
+            </div>
+            <div type="div1" rend="DH-Heading">
+                <head>Notes</head>
+                <p>1. 
+                    <ptr target="http://www.homermultitext.org/hmt-doc/cite/"/>
+                </p>
+                <p>2. 
+                    <ptr target="https://www.ietf.org/rfc/rfc2141.txt"/>
+                </p>
+                <p>3. 
+                    <ptr target="https://github.com/cite-architecture/ctsurn_spec/blob/master/md/specification.md"/>
+                </p>
+                <p>4. 
+                    <ptr target="https://github.com/PerseusDL/canonical"/>
+                </p>
+                <p>5. 
+                    <ptr target="http://www.tei-c.org/index.xml"/>
+                </p>
+                <p>6. 
+                    <ptr target="https://github.com/cite-architecture/cts_spec/blob/master/md/specification.md"/>
+                </p>
+            </div>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl>
+                        <anchor xml:id="id_docs-internal-guid-371a64cc-3d00-5856-f70b-27d2f4bebad1"/>
+                        <hi rend="bold">Kruskal, J. B. and Landwehr, J. M.</hi> (1983). Icicle plots: Better displays for hierarchical clustering. 
+                        <hi rend="italic">The American Statistician</hi>, <hi rend="bold">37</hi>(2): 162-68.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Smith, D. N. and Blackwell, C.</hi> (2012). Four URLs, Limitless Apps: Separation of concerns in the Homer Multitext Architecture. In Muellner, L. (ed.),
+                        <hi rend="italic">Donum natalicium digitaliter confectum Gregorio Nagy septuagenario a discipulis collegis familiaribus oblatum</hi>, Washington, DC: The Center for Hellenic Studies of Harvard University.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Tiepmar, J., Teichmann, C., Heyer, G., Berti, M., and Crane, G.</hi> (2014). A New Implementation for Canonical Text Services. In 
+                        <hi rend="italic">Proceedings of the 8th Workshop on Language Technology for Cultural Heritage, Social Sciences, and Humanities (LaTeCH)</hi>,
+                        Association for Computational Linguistics.
+                    </bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

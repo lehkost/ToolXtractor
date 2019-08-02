@@ -1,0 +1,961 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>Topical Diversification Over Time In The Royal Society Corpus</title>
+                <author>
+                    <persName>
+                        <surname>Fankhauser</surname>
+                        <forename>Peter</forename>
+                    </persName>
+                    <affiliation>IDS-Mannheim, Germany</affiliation>
+                    <email>fankhauser@ids-mannheim.de</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Knappen</surname>
+                        <forename>Jörg</forename>
+                    </persName>
+                    <affiliation>Universität des Saarlandes, Germany</affiliation>
+                    <email>j.knappen@mx.uni-saarland.de</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Teich</surname>
+                        <forename>Elke</forename>
+                    </persName>
+                    <affiliation>Universität des Saarlandes, Germany</affiliation>
+                    <email>e.teich@mx.uni-saarland.de</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2016-02-24T21:22:00Z</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Maciej Eder, Pedagogical University in Krakow</publisher>
+                <publisher>Jan Rybicki, Jagiellonian University</publisher>
+                <address>
+                    <addrLine>Institute of Polish Studies</addrLine>
+                    <addrLine>Pedagogical University</addrLine>
+                    <addrLine>ul. Podchorazych 2</addrLine>
+                    <addrLine>30-084 Krakow, Poland</addrLine>
+                    <addrLine>maciej.eder@ijp-pan.krakow.pl</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from a Word document </p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.19">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Short Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>topic models</term>
+                    <term>historical corpora</term>
+                    <term>history of science</term>
+                    <term>information theory</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>corpora and corpus activities</term>
+                    <term>historical studies</term>
+                    <term>semantic analysis</term>
+                    <term>text analysis</term>
+                    <term>content analysis</term>
+                    <term>data mining / text mining</term>
+                    <term>English</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <p>Science gradually developed into an established sociocultural domain starting from the mid-17
+                <hi rend="superscript">th</hi> century onwards. In this process it became increasingly specialized and diversified. Here, we investigate a particular aspect of specialization on the basis of probabilistic topic models. As a corpus we use the Royal Society Corpus (Khamis et al. 2015), which covers the period from 1665 to 1869 and contains 9015 documents
+                <note place="foot" xml:id="ftn1" n="1">
+                    <p rend="footnote text"> Of these 205 years, 159 years actually contain documents (mean = 56.7, median=36, sd=61.6, min=12, max=444)</p>
+                </note>.
+            </p>
+            <p>We follow the overall approach of applying topic models to diachronic corpora (Blei and Lafferty 2006, Hall et al. 2008, Griffiths and Steyvers 2004, McFarland et al. 2013, Newman and Block 2006, Yang et al. 2011) to map documents to topics. Probabilistic topic models (Steyvers and Griffiths 2007) have become a popular means to summarize and analyze the content of text corpora. The principle idea is to model the generation of documents with a randomized two-stage process: For every word 
+                <formula>
+                    <mml:math xmlns:mml="http://www.w3.org/1998/Math/MathML">
+                        <msub xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mrow>
+                                <mi>w</mi>
+                            </mrow>
+                            <mrow>
+                                <mi>i</mi>
+                            </mrow>
+                        </msub>
+                    </mml:math>
+                </formula> in a document 
+                <hi rend="italic">d </hi>select a topic 
+                <formula>
+                    <mml:math xmlns:mml="http://www.w3.org/1998/Math/MathML">
+                        <msub xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mrow>
+                                <mi>z</mi>
+                            </mrow>
+                            <mrow>
+                                <mi>k</mi>
+                            </mrow>
+                        </msub>
+                    </mml:math>
+                </formula> from the document-topic distribution 
+                <formula>
+                    <mml:math xmlns:mml="http://www.w3.org/1998/Math/MathML">
+                        <mi xmlns="http://www.w3.org/1998/Math/MathML">P</mi>
+                        <mo xmlns="http://www.w3.org/1998/Math/MathML">(</mo>
+                        <msub xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mrow>
+                                <mi>z</mi>
+                            </mrow>
+                            <mrow>
+                                <mi>k</mi>
+                            </mrow>
+                        </msub>
+                        <mo xmlns="http://www.w3.org/1998/Math/MathML">|</mo>
+                        <mi xmlns="http://www.w3.org/1998/Math/MathML">d</mi>
+                        <mo xmlns="http://www.w3.org/1998/Math/MathML">)</mo>
+                    </mml:math>
+                </formula> and then select the word from the topic-word distribution 
+                <formula>
+                    <mml:math xmlns:mml="http://www.w3.org/1998/Math/MathML">
+                        <mi xmlns="http://www.w3.org/1998/Math/MathML">P</mi>
+                        <mo xmlns="http://www.w3.org/1998/Math/MathML">(</mo>
+                        <msub xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mrow>
+                                <mi>w</mi>
+                            </mrow>
+                            <mrow>
+                                <mi>i</mi>
+                            </mrow>
+                        </msub>
+                        <mo xmlns="http://www.w3.org/1998/Math/MathML">|</mo>
+                        <msub xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mrow>
+                                <mi>z</mi>
+                            </mrow>
+                            <mrow>
+                                <mi>k</mi>
+                            </mrow>
+                        </msub>
+                        <mo xmlns="http://www.w3.org/1998/Math/MathML">)</mo>
+                        <mo xmlns="http://www.w3.org/1998/Math/MathML">.</mo>
+                    </mml:math>
+                </formula> Consequently, the document-word distribution is factored as follows:
+            </p>
+            <p>
+                <formula>
+                    <mml:math xmlns:mml="http://www.w3.org/1998/Math/MathML">
+                        <mi xmlns="http://www.w3.org/1998/Math/MathML">P</mi>
+                        <mo xmlns="http://www.w3.org/1998/Math/MathML">(</mo>
+                        <msub xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mrow>
+                                <mi>w</mi>
+                            </mrow>
+                            <mrow>
+                                <mi>i</mi>
+                            </mrow>
+                        </msub>
+                        <mo xmlns="http://www.w3.org/1998/Math/MathML">|</mo>
+                        <mi xmlns="http://www.w3.org/1998/Math/MathML">d</mi>
+                        <mo xmlns="http://www.w3.org/1998/Math/MathML">)</mo>
+                        <mo xmlns="http://www.w3.org/1998/Math/MathML">=</mo>
+                        <msub xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mo>∑</mo>
+                            <mrow>
+                                <mi>k</mi>
+                            </mrow>
+                        </msub>
+                        <mrow xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>P</mi>
+                            <mfenced separators="|">
+                                <mrow>
+                                    <msub>
+                                        <mrow>
+                                            <mi>w</mi>
+                                        </mrow>
+                                        <mrow>
+                                            <mi>i</mi>
+                                        </mrow>
+                                    </msub>
+                                    <mo>|</mo>
+                                    <msub>
+                                        <mrow>
+                                            <mi>z</mi>
+                                        </mrow>
+                                        <mrow>
+                                            <mi>k</mi>
+                                        </mrow>
+                                    </msub>
+                                </mrow>
+                            </mfenced>
+                            <mi>P</mi>
+                            <mfenced separators="|">
+                                <mrow>
+                                    <msub>
+                                        <mrow>
+                                            <mi>z</mi>
+                                        </mrow>
+                                        <mrow>
+                                            <mi>k</mi>
+                                        </mrow>
+                                    </msub>
+                                    <mo>|</mo>
+                                    <mi>d</mi>
+                                </mrow>
+                            </mfenced>
+                            <mo>.</mo>
+                        </mrow>
+                    </mml:math>
+                </formula>
+            </p>
+            <p>This factorization effectively reduces the dimensionality of the model for documents, improving their interpretability: Whereas 
+                <formula>
+                    <mml:math xmlns:mml="http://www.w3.org/1998/Math/MathML">
+                        <mi xmlns="http://www.w3.org/1998/Math/MathML">P</mi>
+                        <mfenced separators="|" xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mrow>
+                                <msub>
+                                    <mrow>
+                                        <mi>w</mi>
+                                    </mrow>
+                                    <mrow>
+                                        <mi>i</mi>
+                                    </mrow>
+                                </msub>
+                                <mo>|</mo>
+                                <mi>d</mi>
+                            </mrow>
+                        </mfenced>
+                    </mml:math>
+                </formula> requires one dimension for each distinct word (10s of thousands) per document, 
+                <formula>
+                    <mml:math xmlns:mml="http://www.w3.org/1998/Math/MathML">
+                        <mi xmlns="http://www.w3.org/1998/Math/MathML">P</mi>
+                        <mfenced separators="|" xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mrow>
+                                <msub>
+                                    <mrow>
+                                        <mi>z</mi>
+                                    </mrow>
+                                    <mrow>
+                                        <mi>k</mi>
+                                    </mrow>
+                                </msub>
+                                <mo>|</mo>
+                                <mi>d</mi>
+                            </mrow>
+                        </mfenced>
+                    </mml:math>
+                </formula> only requires one dimension for each topic (typically in the range of 20-100). Topics are thus not given explicitly for each document, but constitute 
+                <hi rend="italic">latent</hi> variables: A variety of approaches exist to estimate the document-topic and topic-word distributions from the 
+                <hi rend="italic">observable</hi> document-word distributions. We use Gibbs-Sampling as implemented in Mallet (McCallum 2002).
+            </p>
+            <p>For the preliminary analysis in this paper, we process documents as is, without segmenting them further into pages, only excluding stop words but not performing lemmatization or normalization in order to stay reasonably close to the original source. We experimented with the number of topics ranging between 20 and 30, reporting here results on 24 topics. Cursory analysis of multiple runs with different seeds (Steyvers and Griffiths 2007) shows that the resulting topics are rather stable. </p>
+            <p>
+                <hi rend="italic">Table 1</hi> displays the top words for the topics with manually assigned labels and their overall percentage of occurrence. We can roughly distinguish four groups of topics; three non-thematic groups and one thematic. The first group comprises topics arising from documents in 
+                <hi rend="italic">Latin</hi> and 
+                <hi rend="italic">French</hi>, some of which are also translated into English. The second group 
+                <hi rend="italic">Formulae</hi> and 
+                <hi rend="italic">Tables</hi> relates to highly formalized modes of information presentation. The third group of topics is also clearly non-thematic but relates to general scientific processes: 
+                <hi rend="italic">Observation </hi>and
+                <hi rend="italic"> Experiment</hi> both contain rather general verbs and adjectives in addition to nouns. 
+                <hi rend="italic">Events</hi> contains words describing remarkable events. 
+                <hi rend="italic">Headmatter</hi> includes formulaic expressions typically occurring at the beginning and end of documents that are letters. All topics in this group are relatively frequent. Finally, the topics in the fourth group (
+                <hi rend="italic">Geography</hi> through 
+                <hi rend="italic">Chemistry</hi>), consisting mainly of nouns, indeed have a fairly clear thematic interpretation.
+            </p>
+            <table rend="rules">
+                <row>
+                    <cell>Label</cell>
+                    <cell>Words</cell>
+                    <cell>%</cell>
+                </row>
+                <row>
+                    <cell>Latin </cell>
+                    <cell>quae quam sed ab sit vero hoc ac sunt esse qui etiam autem pro erit inter quo aut sive</cell>
+                    <cell>6.4</cell>
+                </row>
+                <row>
+                    <cell>French </cell>
+                    <cell>la le les des en du par dans qui il une qu pour ou ce sur ne au je</cell>
+                    <cell>1.3</cell>
+                </row>
+                <row>
+                    <cell>Formulae</cell>
+                    <cell>cos equation sin equal series point equations number line terms form values curve</cell>
+                    <cell>4.7</cell>
+                </row>
+                <row>
+                    <cell>Tables </cell>
+                    <cell>weight water oo oz parts gr grain io grains fat increase weights grs passed urine specific</cell>
+                    <cell>1.7</cell>
+                </row>
+                <row>
+                    <cell>Observation</cell>
+                    <cell>great made make parts found body time small part water nature long good put find</cell>
+                    <cell>10.4</cell>
+                </row>
+                <row>
+                    <cell>Experiment</cell>
+                    <cell>present general subject case results similar nature author state result cases fact</cell>
+                    <cell>7.3</cell>
+                </row>
+                <row>
+                    <cell>Events</cell>
+                    <cell>great time account stone ground house fire letter place miles found side stones</cell>
+                    <cell>5.9</cell>
+                </row>
+                <row>
+                    <cell>Headmatter</cell>
+                    <cell>years year author society age number time royal life great letter account part letters</cell>
+                    <cell>5.4</cell>
+                </row>
+                <row>
+                    <cell>Geography </cell>
+                    <cell>water sea tide high found river coast north land tides miles height surface great level</cell>
+                    <cell>3.1</cell>
+                </row>
+                <row>
+                    <cell>Meteorology </cell>
+                    <cell>day ditto rain wind cloudy weather fair clear april year days night march july june</cell>
+                    <cell>3.2</cell>
+                </row>
+                <row>
+                    <cell>Botany </cell>
+                    <cell>leaves plant plants tree tab bark folio foliis trees seeds seed flowers species fruit leaf</cell>
+                    <cell>2.9</cell>
+                </row>
+                <row>
+                    <cell>Reproduction </cell>
+                    <cell>cells animal blood fluid eggs membrane found egg part animals ova size young</cell>
+                    <cell>3.0</cell>
+                </row>
+                <row>
+                    <cell>Cells </cell>
+                    <cell>fibres structure form surface portion cells anterior part section side posterior</cell>
+                    <cell>2.7</cell>
+                </row>
+                <row>
+                    <cell>Paleontology </cell>
+                    <cell>part bone bones teeth surface upper side lower anterior length posterior tooth large</cell>
+                    <cell>2.5</cell>
+                </row>
+                <row>
+                    <cell>Physiology </cell>
+                    <cell>blood heart muscles part animal nerves vessels left parts stomach bladder body</cell>
+                    <cell>5.5</cell>
+                </row>
+                <row>
+                    <cell>Galaxy </cell>
+                    <cell>distance position stars star obs small hill double equatorial vf diff st magnitudes nebula</cell>
+                    <cell>1.6</cell>
+                </row>
+                <row>
+                    <cell>Terrestrial Magn. </cell>
+                    <cell>observations needle ship magnetic direct force made variation observed north diurnal</cell>
+                    <cell>2.6</cell>
+                </row>
+                <row>
+                    <cell>Solar System </cell>
+                    <cell>sun time observations moon made observed difference observation clock latitude</cell>
+                    <cell>5.5</cell>
+                </row>
+                <row>
+                    <cell>Thermodyn. </cell>
+                    <cell>air water heat temperature experiments tube experiment glass made time mercury</cell>
+                    <cell>4.2</cell>
+                </row>
+                <row>
+                    <cell>Mechanical Eng. </cell>
+                    <cell>made length weight end diameter iron instrument experiments brass part point line</cell>
+                    <cell>4.5</cell>
+                </row>
+                <row>
+                    <cell>Electromagn.</cell>
+                    <cell>force electricity current wire action body power direction fluid motion surface effect</cell>
+                    <cell>3.8</cell>
+                </row>
+                <row>
+                    <cell>Optics </cell>
+                    <cell>light rays glass eye red colours spectrum colour surface lines angle white blue object</cell>
+                    <cell>3.7</cell>
+                </row>
+                <row>
+                    <cell>Metallurgy </cell>
+                    <cell>water acid salt grains quantity iron found solution colour substance experiments gold</cell>
+                    <cell>4.8</cell>
+                </row>
+                <row>
+                    <cell>Chemistry </cell>
+                    <cell>acid water solution gas oxygen hydrogen carbonic cent action obtained salt potash</cell>
+                    <cell>3.4</cell>
+                </row>
+            </table>
+            <p>
+                <hi rend="italic">Table 1</hi>: Top words and percentages for topics
+            </p>
+            <p>To investigate topical trends in the corpus we follow the approach in (Hall et al. 2008), by averaging the document-topic distributions for each year 
+                <formula>
+                    <mml:math xmlns:mml="http://www.w3.org/1998/Math/MathML">
+                        <mi xmlns="http://www.w3.org/1998/Math/MathML">y</mi>
+                    </mml:math>
+                </formula>:
+            </p>
+            <p>
+                <formula>
+                    <mml:math xmlns:mml="http://www.w3.org/1998/Math/MathML">
+                        <mi xmlns="http://www.w3.org/1998/Math/MathML">P</mi>
+                        <mo xmlns="http://www.w3.org/1998/Math/MathML">(</mo>
+                        <msub xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mrow>
+                                <mi>z</mi>
+                            </mrow>
+                            <mrow>
+                                <mi>k</mi>
+                            </mrow>
+                        </msub>
+                        <mo xmlns="http://www.w3.org/1998/Math/MathML">|</mo>
+                        <mi xmlns="http://www.w3.org/1998/Math/MathML">y</mi>
+                        <mo xmlns="http://www.w3.org/1998/Math/MathML">)</mo>
+                        <mi xmlns="http://www.w3.org/1998/Math/MathML"> </mi>
+                        <mo xmlns="http://www.w3.org/1998/Math/MathML">=</mo>
+                        <mi xmlns="http://www.w3.org/1998/Math/MathML"> </mi>
+                        <mi xmlns="http://www.w3.org/1998/Math/MathML"> </mi>
+                        <mn xmlns="http://www.w3.org/1998/Math/MathML">1</mn>
+                        <mo xmlns="http://www.w3.org/1998/Math/MathML">/</mo>
+                        <mi xmlns="http://www.w3.org/1998/Math/MathML">n</mi>
+                        <mi xmlns="http://www.w3.org/1998/Math/MathML"> </mi>
+                        <msub xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mo>∑</mo>
+                            <mrow>
+                                <msub>
+                                    <mrow>
+                                        <mi>d</mi>
+                                    </mrow>
+                                    <mrow>
+                                        <mi>j</mi>
+                                    </mrow>
+                                </msub>
+                                <mo>∈</mo>
+                                <mi>y</mi>
+                            </mrow>
+                        </msub>
+                        <mrow xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>P</mi>
+                            <mo>(</mo>
+                            <msub>
+                                <mrow>
+                                    <mi>z</mi>
+                                </mrow>
+                                <mrow>
+                                    <mi>k</mi>
+                                </mrow>
+                            </msub>
+                            <mo>|</mo>
+                            <msub>
+                                <mrow>
+                                    <mi>d</mi>
+                                </mrow>
+                                <mrow>
+                                    <mi>j</mi>
+                                </mrow>
+                            </msub>
+                            <mo>)</mo>
+                        </mrow>
+                    </mml:math>
+                </formula>
+            </p>
+            <p>with 
+                <formula>
+                    <mml:math xmlns:mml="http://www.w3.org/1998/Math/MathML">
+                        <mi xmlns="http://www.w3.org/1998/Math/MathML">n</mi>
+                    </mml:math>
+                </formula> the number of documents in a year. 
+                <hi rend="italic">Figure 1</hi> shows a selection of five topics with the most pronounced change over time. Interestingly, some of the major changes occur for non-thematic topics: The topic 
+                <hi rend="italic">Observation</hi> declines sharply from over 30% to less than 1 %. The topics 
+                <hi rend="italic">Experiment</hi> and 
+                <hi rend="italic">Formulae</hi> on the other hand increase starting around 1750. This indicates a substantial paradigm shift over time. Indeed, as Gleick (2010) vividly describes, the early stages of the Royal Society were largely devoted to observing and reporting about natural phenomena. The non-thematic topic 
+                <hi rend="italic">Latin</hi> reaches its peak in the early 18
+                <hi rend="superscript">th</hi> century, and the thematic topics 
+                <hi rend="italic">Cells</hi> and 
+                <hi rend="italic">Chemistry</hi> show a clear increase with the beginning of the 19
+                <hi rend="superscript">th</hi> century.
+            </p>
+            <figure>
+                <graphic url="490/image1.png" rend="inline"/>
+                <head>Figure 1: Major topical trends for selected topics</head>
+            </figure>
+            <p>To gain a better understanding about the correlation of topics, we cluster them hierarchically on the basis of the Jensen-Shannon divergence between the topic-document distributions:</p>
+            <p>
+                <formula>
+                    <mml:math xmlns:mml="http://www.w3.org/1998/Math/MathML">
+                        <mi xmlns="http://www.w3.org/1998/Math/MathML">P</mi>
+                        <mfenced separators="|" xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mrow>
+                                <mi>d</mi>
+                                <mo>|</mo>
+                                <mi>z</mi>
+                            </mrow>
+                        </mfenced>
+                        <mo xmlns="http://www.w3.org/1998/Math/MathML">=</mo>
+                        <mi xmlns="http://www.w3.org/1998/Math/MathML">P</mi>
+                        <mfenced separators="|" xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mrow>
+                                <mi>z</mi>
+                                <mo>|</mo>
+                                <mi>d</mi>
+                            </mrow>
+                        </mfenced>
+                        <mo xmlns="http://www.w3.org/1998/Math/MathML">/</mo>
+                        <msub xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mo>∑</mo>
+                            <mrow>
+                                <mi>j</mi>
+                            </mrow>
+                        </msub>
+                        <mrow xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>P</mi>
+                            <mfenced separators="|">
+                                <mrow>
+                                    <mi>z</mi>
+                                    <mo>|</mo>
+                                    <msub>
+                                        <mrow>
+                                            <mi>d</mi>
+                                        </mrow>
+                                        <mrow>
+                                            <mi>j</mi>
+                                        </mrow>
+                                    </msub>
+                                </mrow>
+                            </mfenced>
+                        </mrow>
+                    </mml:math>
+                </formula>
+            </p>
+            <p>Topics that typically co-occur in documents have similar topic-document distributions, and thus will be placed close in the tree.</p>
+            <figure>
+                <graphic url="490/image2.png" rend="inline"/>
+                <head>Figure 2: Hierarchical clustering of topics by their topic-document distribution</head>
+            </figure>
+            <p>The resulting tree in 
+                <hi rend="italic">Figure 2</hi> indeed identifies meaningful subgroups. Cutting the tree into six groups - 
+                <hi rend="italic">Nature, Latin, Medicine, Astronomy, Engineering, Matter</hi> - allows us to investigate the overall topic distribution over time (
+                <hi rend="italic">Figure 3</hi> with 
+                <hi rend="italic">Latin</hi> left out): 
+            </p>
+            <figure>
+                <graphic url="490/image3.png" rend="inline"/>
+                <head>Figure 3: Distribution of topic groups over time</head>
+            </figure>
+            <p>The topic group 
+                <hi rend="italic">Nature</hi> comprising reports of all kinds of natural phenomena (Gleick 2010) clearly decreases over time, which is partially to be attributed to the strong decrease of the topic 
+                <hi rend="italic">Observation</hi> in this group. The topic groups 
+                <hi rend="italic">Medicine</hi> and 
+                <hi rend="italic">Astronomy </hi>increase over time, whereas the topic groups 
+                <hi rend="italic">Engineering</hi> and 
+                <hi rend="italic">Matter</hi> also generally increase but with some intermediate peaks. Similar to the overall trends at the level of individual topics (
+                <hi rend="italic">Figure 1</hi>), the biggest overall change occurs in the 2
+                <hi rend="superscript">nd</hi> half of the 18
+                <hi rend="superscript">th</hi> century.
+            </p>
+            <p>Looking at the individual trends together, 
+                <hi rend="italic">Figure 3</hi> clearly indicates topical diversification: Until around 1770, the dominance of the topic group 
+                <hi rend="italic">Nature</hi> leads to a highly skewed distribution of topic groups, whereas after 1770 topic groups are distributed much more evenly. The amount of skew can be characterized by the Shannon-Entropy:
+            </p>
+            <p>
+                <formula>
+                    <mml:math xmlns:mml="http://www.w3.org/1998/Math/MathML">
+                        <mi xmlns="http://www.w3.org/1998/Math/MathML">H</mi>
+                        <mo xmlns="http://www.w3.org/1998/Math/MathML">(</mo>
+                        <msub xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mrow>
+                                <mi>P</mi>
+                            </mrow>
+                            <mrow>
+                                <mi>y</mi>
+                            </mrow>
+                        </msub>
+                        <mo xmlns="http://www.w3.org/1998/Math/MathML">)</mo>
+                        <mo xmlns="http://www.w3.org/1998/Math/MathML">=</mo>
+                        <mo xmlns="http://www.w3.org/1998/Math/MathML">-</mo>
+                        <mi xmlns="http://www.w3.org/1998/Math/MathML"> </mi>
+                        <msub xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mo>∑</mo>
+                            <mrow>
+                                <mi>k</mi>
+                            </mrow>
+                        </msub>
+                        <mrow xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>P</mi>
+                            <mfenced separators="|">
+                                <mrow>
+                                    <msub>
+                                        <mrow>
+                                            <mi>z</mi>
+                                        </mrow>
+                                        <mrow>
+                                            <mi>k</mi>
+                                        </mrow>
+                                    </msub>
+                                    <mo>|</mo>
+                                    <mi>y</mi>
+                                </mrow>
+                            </mfenced>
+                            <mi> </mi>
+                            <msub>
+                                <mrow>
+                                    <mi>l</mi>
+                                    <mi>o</mi>
+                                    <mi>g</mi>
+                                </mrow>
+                                <mrow>
+                                    <mn>2</mn>
+                                </mrow>
+                            </msub>
+                            <mi>P</mi>
+                            <mfenced separators="|">
+                                <mrow>
+                                    <msub>
+                                        <mrow>
+                                            <mi>z</mi>
+                                        </mrow>
+                                        <mrow>
+                                            <mi>k</mi>
+                                        </mrow>
+                                    </msub>
+                                    <mo>|</mo>
+                                    <mi>y</mi>
+                                </mrow>
+                            </mfenced>
+                        </mrow>
+                    </mml:math>
+                </formula>
+            </p>
+            <p>of the year-topic distributions 
+                <formula>
+                    <mml:math xmlns:mml="http://www.w3.org/1998/Math/MathML">
+                        <mi xmlns="http://www.w3.org/1998/Math/MathML">P</mi>
+                        <mo xmlns="http://www.w3.org/1998/Math/MathML">(</mo>
+                        <msub xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mrow>
+                                <mi>z</mi>
+                            </mrow>
+                            <mrow>
+                                <mi>k</mi>
+                            </mrow>
+                        </msub>
+                        <mo xmlns="http://www.w3.org/1998/Math/MathML">|</mo>
+                        <mi xmlns="http://www.w3.org/1998/Math/MathML">y</mi>
+                        <mo xmlns="http://www.w3.org/1998/Math/MathML">)</mo>
+                    </mml:math>
+                </formula> (Hall et al. 2010), with highly skewed distributions having low entropy. Indeed as can be seen in 
+                <hi rend="italic">Figure 4 (left), </hi>the entropy (
+                <hi rend="italic">ent</hi>) increases fairly consistently during the 18
+                <hi rend="superscript">th</hi> century and levels out during the 19
+                <hi rend="superscript">th</hi> century, reflecting a general increase of topical diversity over time.
+            </p>
+            <p>It is interesting to compare this with the mean entropy of the 
+                <hi rend="italic">individual</hi> document-topic distributions (
+                <hi rend="italic">ment</hi>):
+            </p>
+            <p>
+                <formula>
+                    <mml:math xmlns:mml="http://www.w3.org/1998/Math/MathML">
+                        <msub xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mrow>
+                                <mi>H</mi>
+                            </mrow>
+                            <mrow>
+                                <mi>m</mi>
+                                <mi>e</mi>
+                                <mi>a</mi>
+                                <mi>n</mi>
+                            </mrow>
+                        </msub>
+                        <mfenced separators="|" xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mrow>
+                                <msub>
+                                    <mrow>
+                                        <mi>P</mi>
+                                    </mrow>
+                                    <mrow>
+                                        <mi>y</mi>
+                                    </mrow>
+                                </msub>
+                            </mrow>
+                        </mfenced>
+                        <mo xmlns="http://www.w3.org/1998/Math/MathML">≔</mo>
+                        <mn xmlns="http://www.w3.org/1998/Math/MathML">1</mn>
+                        <mo xmlns="http://www.w3.org/1998/Math/MathML">/</mo>
+                        <mi xmlns="http://www.w3.org/1998/Math/MathML">n</mi>
+                        <mi xmlns="http://www.w3.org/1998/Math/MathML"> </mi>
+                        <munder xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mo>∑</mo>
+                            <mrow>
+                                <msub>
+                                    <mrow>
+                                        <mi>d</mi>
+                                    </mrow>
+                                    <mrow>
+                                        <mi>j</mi>
+                                    </mrow>
+                                </msub>
+                                <mo>∈</mo>
+                                <mi>y</mi>
+                            </mrow>
+                        </munder>
+                        <mrow xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mi>H</mi>
+                            <mo>(</mo>
+                            <msub>
+                                <mrow>
+                                    <mi>P</mi>
+                                </mrow>
+                                <mrow>
+                                    <msub>
+                                        <mrow>
+                                            <mi>d</mi>
+                                        </mrow>
+                                        <mrow>
+                                            <mi>i</mi>
+                                        </mrow>
+                                    </msub>
+                                </mrow>
+                            </msub>
+                            <mo>)</mo>
+                        </mrow>
+                    </mml:math>
+                </formula>
+            </p>
+            <p>with 
+                <formula>
+                    <mml:math xmlns:mml="http://www.w3.org/1998/Math/MathML">
+                        <mi xmlns="http://www.w3.org/1998/Math/MathML">n</mi>
+                    </mml:math>
+                </formula> the number of documents 
+                <formula>
+                    <mml:math xmlns:mml="http://www.w3.org/1998/Math/MathML">
+                        <msub xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mrow>
+                                <mi>d</mi>
+                            </mrow>
+                            <mrow>
+                                <mi>j</mi>
+                            </mrow>
+                        </msub>
+                    </mml:math>
+                </formula> in year 
+                <formula>
+                    <mml:math xmlns:mml="http://www.w3.org/1998/Math/MathML">
+                        <mi xmlns="http://www.w3.org/1998/Math/MathML">y</mi>
+                    </mml:math>
+                </formula>. This measure decreases over time, i.e., while the overall topical diversity increases, the individual documents become more specific in terms of their topic distributions.
+            </p>
+            <p>The difference between the entropy of year-topic distributions and mean entropy of individual document-topic distributions,</p>
+            <p>
+                <formula>
+                    <mml:math xmlns:mml="http://www.w3.org/1998/Math/MathML">
+                        <mi xmlns="http://www.w3.org/1998/Math/MathML">J</mi>
+                        <mi xmlns="http://www.w3.org/1998/Math/MathML">S</mi>
+                        <mfenced separators="|" xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mrow>
+                                <msub>
+                                    <mrow>
+                                        <mi>P</mi>
+                                    </mrow>
+                                    <mrow>
+                                        <mi>y</mi>
+                                    </mrow>
+                                </msub>
+                            </mrow>
+                        </mfenced>
+                        <mo xmlns="http://www.w3.org/1998/Math/MathML">=</mo>
+                        <mi xmlns="http://www.w3.org/1998/Math/MathML">H</mi>
+                        <mo xmlns="http://www.w3.org/1998/Math/MathML">(</mo>
+                        <msub xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mrow>
+                                <mi>P</mi>
+                            </mrow>
+                            <mrow>
+                                <mi>y</mi>
+                            </mrow>
+                        </msub>
+                        <mo xmlns="http://www.w3.org/1998/Math/MathML">)</mo>
+                        <mo xmlns="http://www.w3.org/1998/Math/MathML">-</mo>
+                        <msub xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mrow>
+                                <mi>H</mi>
+                            </mrow>
+                            <mrow>
+                                <mi>m</mi>
+                                <mi>e</mi>
+                                <mi>a</mi>
+                                <mi>n</mi>
+                            </mrow>
+                        </msub>
+                        <mo xmlns="http://www.w3.org/1998/Math/MathML">(</mo>
+                        <msub xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mrow>
+                                <mi>P</mi>
+                            </mrow>
+                            <mrow>
+                                <mi>y</mi>
+                            </mrow>
+                        </msub>
+                        <mo xmlns="http://www.w3.org/1998/Math/MathML">)</mo>
+                    </mml:math>
+                </formula>
+            </p>
+            <p>is the Jensen-Shannon divergence, which is usually applied to two distributions, generalized to the 
+                <formula>
+                    <mml:math xmlns:mml="http://www.w3.org/1998/Math/MathML">
+                        <mi xmlns="http://www.w3.org/1998/Math/MathML">n</mi>
+                        <mi xmlns="http://www.w3.org/1998/Math/MathML"> </mi>
+                    </mml:math>
+                </formula>topic distributions of all documents published in year 
+                <hi rend="italic">y</hi>. The two opposing trends of these quantities lead to a constantly increasing Jensen-Shannon divergence, with a particularly sharp increase between 1750 and 1800. 
+                <hi rend="italic">Figure 4 (right)</hi> depicts similar trends based on the 24 individual topic distributions. At this level, the year-topic entropy (
+                <hi rend="italic">ent</hi>) shows less of a clear trend, but mean entropy (
+                <hi rend="italic">ment</hi>) also clearly decreases, and consequently the Jensen-Shannon divergence clearly increases. Thus, at both levels of abstraction we can observe a clear diversification of the topics assigned to the individual documents. This strongly indicates a growing separation of individual scientific disciplines over time.
+            </p>
+            <figure>
+                <graphic url="490/image4.png" rend="inline"/>
+                <head>Figure 4: Entropy (ent), mean Entropy (ment), and Jensen-Shannon Divergence for topic groups (left) and individual topics (right)</head>
+            </figure>
+            <p>As an alternative perspective on topical entropy 
+                <hi rend="italic">Table 2</hi> gives examples of authors with more than 20 papers. The first three authors have the lowest entropy. The dominating topics for Cayley and Owen clearly characterize their main theme of work. Conversely, Rev. John Swinton’s top topic 
+                <hi rend="italic">Headmatter</hi> (62%) does not really reflect the overall theme of his publications (Orientalism), but rather their style as letters to members of the Royal Society – the dominant form of publication in this period. The second three authors have the highest entropy, their three top topics together amount for less than 50% of their overall topic distribution. However, they do characterize the main line of work of the authors in question fairly well. 
+            </p>
+            <table rend="rules">
+                <row>
+                    <cell>author</cell>
+                    <cell>Papers</cell>
+                    <cell>Ent</cell>
+                    <cell>Ment</cell>
+                    <cell>Jsd</cell>
+                    <cell>Years</cell>
+                    <cell>Top Topics</cell>
+                </row>
+                <row>
+                    <cell>Arthur Cayley</cell>
+                    <cell>30</cell>
+                    <cell>1.26</cell>
+                    <cell>1.12</cell>
+                    <cell>0.14</cell>
+                    <cell>1850-1866</cell>
+                    <cell>Formulae</cell>
+                </row>
+                <row>
+                    <cell>Richard Owen</cell>
+                    <cell>26</cell>
+                    <cell>1.83</cell>
+                    <cell>1.58</cell>
+                    <cell>0.25</cell>
+                    <cell>1843-1869</cell>
+                    <cell>Paleontology</cell>
+                </row>
+                <row>
+                    <cell>John Swinton</cell>
+                    <cell>35</cell>
+                    <cell>2.50</cell>
+                    <cell>2.05</cell>
+                    <cell>0.45</cell>
+                    <cell>1753-1774</cell>
+                    <cell>Headmatter</cell>
+                </row>
+                <row>
+                    <cell>John Davy</cell>
+                    <cell>58</cell>
+                    <cell>4.05</cell>
+                    <cell>3.33</cell>
+                    <cell>0.72</cell>
+                    <cell>1800-1856</cell>
+                    <cell>Experiment, Chemistry, Physiology</cell>
+                </row>
+                <row>
+                    <cell>William Watson</cell>
+                    <cell>39</cell>
+                    <cell>4.03</cell>
+                    <cell>3.09</cell>
+                    <cell>0.95</cell>
+                    <cell>1739-1778</cell>
+                    <cell>Events, Observation, Botany</cell>
+                </row>
+                <row>
+                    <cell>Edmond Halley</cell>
+                    <cell>65</cell>
+                    <cell>3.93</cell>
+                    <cell>2.75</cell>
+                    <cell>1.18</cell>
+                    <cell>1683-1731</cell>
+                    <cell>Solar System, Observation, Latin</cell>
+                </row>
+            </table>
+            <p>
+                <hi rend="italic">Table 2:</hi> Authors with minimum entropy (top) and maximum entropy (bottom)
+            </p>
+            <p>In this paper we have analyzed the progression of topics in a corpus of the Royal Society of London. Our main result is the observation that the overall mixture of topics becomes more diverse over time, while the topics of individual documents become more specialized. These two opposing trends lead to a topical fragmentation of scientific discourse, which can be quantified by means of the generalized Jensen-Shannon divergence between the topic distributions of individual documents per time period. We are currently working on consolidating our analysis, experimenting with documents segmented into pages, focusing the analysis on different text types, and more carefully evaluating the resulting topic models (McFarland et al. 2013). </p>
+            <p>Of course, topic models only provide one, rather broad perspective on diversification of domain specific language. We plan to apply our approach also to other levels of linguistic analysis, such as terminology or grammar.</p>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl>
+                        <hi rend="bold">Blei, D. and Lafferty, J.D.</hi> (2006). <hi rend="italic">Dynamic topic models</hi>. ICML.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Gleick, J.</hi> (2010). At the Beginning: More Things in Heaven and Earth: Bryson, B. (Ed.), <hi rend="italic">Seeing Further. The Story of Science and The Royal Society</hi>. Harper Press, pp. 17-36.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Griffiths, T. L. and Steyvers M.</hi> (2004). Finding scientific topics. <hi rend="italic">PNAS</hi>, 101 Suppl <hi rend="bold">1</hi>:5228–35. 
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Hall, D., Jurafsky, D., and Manning, C.D. </hi>(2008). Studying the history of ideas using topic models.
+                        <hi rend="italic">Proceedings of the Conference on Empirical Methods in Natural Language Processing</hi> (EMNLP '08). Association for Computational Linguistics, Stroudsburg, PA, USA, pp. 363-71.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Khamis, A., et al. </hi>(2015). A resource for the diachronic study of scientific English: Introducing the Royal Society Corpus. 
+                        <hi rend="italic">Corpus Linguistics 2015</hi>. Lancaster.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">McCallum, A. K.</hi> (2002). MALLET: A Machine Learning for Language Toolkit. http://mallet.cs.umass.edu.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">McFarland, D. A., et al. </hi>(2013). Differentiating language usage through topic models. <hi rend="italic">Poetics</hi>, <hi rend="bold">41</hi>(6): 607-25.
+                        <ref target="http://dx.doi.org/10.1016/j.poetic.2013.06.004">http://dx.doi.org/10.1016/j.poetic.2013.06.004</ref>.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Newman, D. J. and Block, S.</hi> (2006). Probabilistic topic decomposition of an eighteenth-century American newspaper. 
+                        <hi rend="italic">J. Am. Soc. Inf. Sci. Technol.</hi>, <hi rend="bold">57</hi>(6): 753-67. DOI=http://dx.doi.org/10.1002/asi.v57:6
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Steyvers, M. and Griffiths, T.</hi> (2007). Probabilistic topic models. Landauer, T., et al.(Eds.), <hi rend="italic">Handbook of Latent Semantic Analysis</hi>. Hillsdale, NJ: Erlbaum.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Yang, T., Torget, A. J., and Mihalcea, R.</hi> (2011). Topic modeling on historical newspapers. 
+                        <hi rend="italic">Proceedings of the 5th ACL-HLT Workshop on Language Technology for Cultural Heritage, Social Sciences, and Humanities</hi> (LaTeCH '11). Association for Computational Linguistics, Stroudsburg, PA, USA, pp. 96-104.
+                    </bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

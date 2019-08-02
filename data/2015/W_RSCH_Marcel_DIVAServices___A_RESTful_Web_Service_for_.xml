@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>DIVAServices – A RESTful Web Service for Document Image Analysis Methods</title>
+                <author>
+                    <persName>
+                        <surname>Würsch</surname>
+                        <forename>Marcel</forename>
+                    </persName>
+                    <affiliation>University of Fribourg, Switzerland</affiliation>
+                    <email>marcel.wuersch@unifr.ch</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Ingold</surname>
+                        <forename>Rolf</forename>
+                    </persName>
+                    <affiliation>University of Fribourg, Switzerland</affiliation>
+                    <email>rolf.ingold@unifr.ch</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Liwicki</surname>
+                        <forename>Marcus</forename>
+                    </persName>
+                    <affiliation>University of Fribourg, Switzerland</affiliation>
+                    <email>marcus.eichenberger-liwicki@unifr.ch</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2014-12-19T13:50:00Z</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Paul Arthur, University of Western Sidney</publisher>
+                <address>
+                    <addrLine>Locked Bag 1797</addrLine>
+                    <addrLine>Penrith NSW 2751</addrLine>
+                    <addrLine>Australia</addrLine>
+                    <addrLine>Paul Arthur</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from a Word document </p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.9">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Short Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>web services</term>
+                    <term>document image analysis</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>image processing</term>
+                    <term>information architecture</term>
+                    <term>internet / world wide web</term>
+                    <term>programming</term>
+                    <term>English</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <p>This paper presents an open-source web service providing researchers in all fields with state-of-the-art computational methods for several Document Image Analysis (DIA) steps. Research on automatic DIA focuses mainly on developing and refining automatic processing steps, e.g., text line extraction, binarization, and layout analysis. While many state-of-the-art methods perform satisfactorily, the algorithms applied to obtain the results are not easily accessible for other researchers. Just making the source available online is not sufficient, as it typically requires a cumbersome installation of required libraries and reading long manuals about the usage. Our approach is to directly make the methods available as web services that can be accessed via RESTful HTTP requests, the current state of the art in online web communication. Thus, the resulting services can be integrated easily into document processing workflows by any software engineer without specific knowledge of the mathematical and algorithmic details of DIA. We will build on standards for result presentation, such as the Text Encoding Initiative (TEI)
+                <hi rend="superscript">1</hi> and the International Image Interoperability Framework (IIIF).
+                <hi rend="superscript">2</hi>
+            </p>
+            <p>
+                <hi rend="bold">State of the Art</hi>
+            </p>
+            <p>Our research is motivated by the availability of many different web-based tools for researchers with a humanist background wanting to do document image analysis (e.g., 
+                <hi rend="italic">SALSAH</hi> [Schweizer and Rosenthaler, 2011], Transcribe Bentham [Causer and Wallace, 2012], or the Genizah project [Wolf et al., 2011]). Most of these tools were either developed to solve a specific task or lack the inclusion of (semi)-automatic methods. Several projects using web services for DIA have been proposed in recent years. One such example is the Document Analysis and Exploitation (DAE; Lamiroy and Lopresti, 2011) that provides different algorithms as web services and allows for workflow creation. Our aim is to expand this research with a focus on making the algorithms available for researchers with only little computer science knowledge by providing them also with simple web interfaces as showcases building on the web services and demonstrating how to use them to integrate computational methods into their research. 
+            </p>
+            <p>Methodology</p>
+            <p>We propose an open-source framework for providing algorithms to the public. For this we designed a RESTful web service architecture exposing all information using the JavaScript Object Notation (JSON). The intention is to include a wide assortment of services for different tasks:</p>
+            <p> • Image processing and enhancement in order to make the desired content more easily visible or to make the processing of further automatic analysis simpler. Those methods include, for example, binarization methods (Otsu 1979), Laplacian of Gaussian (LoG), Difference of Gaussian (DoG).</p>
+            <p> • Document layout analysis methods allowing automatic extraction of texts, text lines, or images. These methods include pixel- (Wei, 2013) and interest point– (Garz et al., 2011) based approaches.</p>
+            <p> • Optical Character Recognition (OCR) to support the transcription of the documents.</p>
+            <p> • Methods for palaeographic analysis, such as script identification (Ghosh et al., 2010), writer identification (Fiel et al., 2013), and water mark analysis.</p>
+            <p> • Methods for feature extraction and feature selection, so that computer scientists can directly work on extracted meta-information without any specific knowledge in DIA. For example, the following methods are included: Local Binary Patterns (LBP; Nicolaou et al., 2014), Scale-Invariant Feature Transform (SIFT; Lowe, 1999), Gabor features (Chen et al., 2010), standard feature search algorithms, as well as several feature selection methods (Wei et al., 2014).</p>
+            <p> • Machine Learning algorithms: Support Vector Machines (SVMs), k-nearest neighbor algorithm (k-NN), Gaussian Mixture Models (GMMs).
+                <hi rend="superscript">3</hi>
+            </p>
+            <p> • 
+                <graphic n="1001" width="8.606013888888889cm" height="5.363986111111111cm" url="Pictures/image1.png" rend="block"/>Evaluation metrics for the automatic assessment of results and to allow computer science researchers to compare their systems. There we will build on the standards laid out in DAE
+                <anchor xml:id="Ref402634392"/>.
+            </p>
+            <p>Figure 1. Conceptual overview of the proposed D
+                <hi rend="smallcaps">iva</hi>Services framework. Access to the provided methods and tools would all be standardized using HTTP requests and JSON as input/output format.
+            </p>
+            <p>Besides a large set of own implementations we will integrate several open-source software like Tesseract
+                <hi rend="superscript">4</hi> and OCROpus.
+                <hi rend="superscript">5</hi> This enables fast integration of many available image processing algorithms that have been in development for years and proven to produce reliable results.
+            </p>
+            <p>A high-level overview of the proposed framework is provided in Figure 1. Access to the provided tools and algorithms would be standardized across all possible end-user applications using simple HTTP requests and JSON as input/output format. For accessing the methods we will follow the proposed URL format for RESTful services.</p>
+            <p>The current state of D
+                <hi rend="smallcaps">iva</hi>Services is available at http://divaservices.unifr.ch. Using GET requests allows for browsing the available services. We are in the process of developing a web front-end that will allow for automated prototype creation of all available algorithms in order to allow for experimenting with them.
+            </p>
+            <p>Since we only provide algorithms, creating specific workflows is left to developers designing client applications and can therefore be designed targeting the specific need of end users. At a later stage we aim at directly implementing some of the more common workflows directly into D
+                <hi rend="smallcaps">iva</hi>Services.
+            </p>
+            <p>As proof of concept
+                <hi rend="superscript">6</hi> a simple histogram-based line segmentation method was exposed using the proposed framework. This service was then integrated into the D
+                <hi rend="smallcaps">iva</hi>D
+                <hi rend="smallcaps">ia</hi>WT, a web-based interface that allows for the creation of transcriptions. The user interface of the D
+                <hi rend="smallcaps">iva</hi>D
+                <hi rend="smallcaps">ia</hi>WT is shown in Figure 2.
+            </p>
+            <figure>
+                <graphic n="1002" width="11.410597222222222cm" height="4.928305555555555cm" url="Pictures/image2.png" rend="block"/>
+            </figure>
+            <p>Figure 2. Overview of the DivaDiaWT. The original image is displayed on the left side, transcriptions on the right side. Transcriptions can be displayed in Layout mode, where they are aligned with the original image. </p>
+            <p>The line segmentation service is used on a user-marked region and automatically extracts lines from there. In Figure 3 a user created a box using his mouse around a region that he wants to have automatically processed into text lines. The result of the automated text line segmentation is shown in Figure 4. </p>
+            <p>We have set up a web server on which we run our RESTful web services. When the user wants to automatically segment a text area, a POST request is made to the server containing the following JSON:</p>
+            <p>{</p>
+            <p> "url": "http://www.e-codices.unifr.ch/loris/bbb/bbb-0360/bbb-0360_001r.jp2/full/pct:25/0/default.jpg",</p>
+            <p> "top": "300",</p>
+            <p> "bottom": "500",</p>
+            <p> "left": "190",</p>
+            <p> "right": "750"</p>
+            <p>}</p>
+            <p>Listing 1. Example of a JSON sent together with the POST request for automatic line segmentation. The url points to the source image; the four location values mark the region within the image that the user selected.</p>
+            <p>[</p>
+            <p> {</p>
+            <p> "bottom": "180",</p>
+            <p> "left": "95",</p>
+            <p> "right": "469",</p>
+            <p> "top": "156"</p>
+            <p> },</p>
+            <p> { …}</p>
+            <p>]</p>
+            <p>Listing 2. The JSON the server sends back to the client application containing all bounding boxes of the detected text lines.</p>
+            <p>The web service downloads the image and processes the region marked by the user. This can lead to several detected text lines, and the server responds with a JSON file containing the bounding box of each detected text line:</p>
+            <p>[</p>
+            <p> {</p>
+            <p> "bottom": "180",</p>
+            <p> "left": "95",</p>
+            <p> "right": "469",</p>
+            <p> "top": "156"</p>
+            <p> },</p>
+            <p> { …}</p>
+            <p>]</p>
+            <p>The D
+                <hi rend="smallcaps">iva</hi>D
+                <hi rend="smallcaps">ia</hi>WT parses this information and presents it as shown in Figure 4. 
+            </p>
+            <figure>
+                <graphic n="1003" width="12.292541666666667cm" height="2.779888888888889cm" url="Pictures/image3.png" rend="block"/>
+            </figure>
+            <p>Figure 3. The user marked a box (visible as grey shaded area) that should be automatically divided into text lines using an algorithm provided by D
+                <hi rend="smallcaps">iva</hi>Services. 
+            </p>
+            <figure>
+                <graphic n="1004" width="12.292541666666667cm" height="2.684638888888889cm" url="Pictures/image4.png" rend="block"/>
+            </figure>
+            <p>Figure 4. The result of the automated segmentation process. </p>
+            <p>Notes</p>
+            <p>1. http://www.tei-c.org. </p>
+            <p>2. http://www.iiif.io. </p>
+            <p>3. See 
+                <?biblio ADDIN CSL_CITATION { "citationItems" : [ { "id" : "ITEM-1", "itemData" : { "author" : [ { "dropping-particle" : "", "family" : "Ma", "given" : "Huanfeng", "non-dropping-particle" : "", "parse-names" : false, "suffix" : "" }, { "dropping-particle" : "", "family" : "Doermann", "given" : "David", "non-dropping-particle" : "", "parse-names" : false, "suffix" : "" } ], "container-title" : "Document Recognition and Retrieval", "id" : "ITEM-1", "issued" : { "date-parts" : [ [ "2003", "12" ] ] }, "page" : "124-135", "title" : "Word level script identification for scanned document images", "type" : "paper-conference" }, "uris" : [ "http://www.mendeley.com/documents/?uuid=33a69a5c-4bd9-4d26-9085-f81c60ff39b5" ] } ], "mendeley" : { "formattedCitation" : "(Ma and Doermann 2003)", "plainTextFormattedCitation" : "(Ma and Doermann 2003)", "previouslyFormattedCitation" : "(Ma and Doermann 2003)" }, "properties" : { "noteIndex" : 0 }, "schema" : "https://github.com/citation-style-language/schema/raw/master/csl-citation.json" }?> for an overview of classification algorithms in script identification.
+            </p>
+            <p>4. http://code.google.com/p/tesseract-ocr. </p>
+            <p>5. http://github.com/tmbdev/ocropy. </p>
+            <p>6. Code of the proof of concept is available at https://github.com/lunactic/Diva-WebService.</p>
+        </body>
+    </text>
+</TEI>

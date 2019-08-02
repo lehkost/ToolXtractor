@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xsi:schemaLocation="http://www.tei-c.org/ns/1.0 /Users/yoann/Work/Grobid/grobid-home/schemas/xsd/Grobid.xsd"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+	<teiHeader xml:lang="en">
+		<encodingDesc>
+			<appInfo>
+				<application version="0.5.4-SNAPSHOT" ident="GROBID" when="2019-06-05T06:29+0000">
+					<ref target="https://github.com/kermitt2/grobid">GROBID - A machine learning software for extracting information from scholarly documents</ref>
+				</application>
+			</appInfo>
+		</encodingDesc>
+		<fileDesc>
+			<titleStmt>
+				<title level="a" type="main">Integrating Image Resources Into Virtual Research Environments For The Humanities -a Simple Image Presentation Interface (SIPI) based on IIIF</title>
+			</titleStmt>
+			<publicationStmt>
+				<publisher/>
+				<availability status="unknown"><licence/></availability>
+			</publicationStmt>
+			<sourceDesc>
+				<biblStruct>
+					<analytic>
+						<author>
+							<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">Lukas</forename><surname>Rosenthaler</surname></persName>
+							<email>lukas.rosenthaler@unibas.ch</email>
+						</author>
+						<author>
+							<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">Andrea</forename><surname>Bianco</surname></persName>
+							<email>andrea.bianco@unibas.ch</email>
+						</author>
+						<author>
+							<affiliation key="aff0">
+								<orgName type="institution">University of Basel</orgName>
+								<address>
+									<country key="CH">Switzerland</country>
+								</address>
+							</affiliation>
+						</author>
+						<author>
+							<affiliation key="aff1">
+								<orgName type="institution">University of Basel</orgName>
+								<address>
+									<country>Switzerland Peter Fornaro</country>
+								</address>
+							</affiliation>
+						</author>
+						<author>
+							<affiliation key="aff2">
+								<orgName type="institution">University of Basel</orgName>
+								<address>
+									<country key="CH">Switzerland</country>
+								</address>
+							</affiliation>
+						</author>
+						<title level="a" type="main">Integrating Image Resources Into Virtual Research Environments For The Humanities -a Simple Image Presentation Interface (SIPI) based on IIIF</title>
+					</analytic>
+					<monogr>
+						<imprint>
+							<date/>
+						</imprint>
+					</monogr>
+				</biblStruct>
+			</sourceDesc>
+		</fileDesc>
+		<profileDesc>
+			<abstract/>
+		</profileDesc>
+	</teiHeader>
+	<text xml:lang="en">
+		<body>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Introduction</head><p>that are passed using the HTTP request (e.g. embedded in the URL or as URL-parameters). Recently, the International Image Interoperability Framework (IIIF) emerged as a standard syntax to pass parameters such as image size in pixels, cropping region, rotation angle and file format using a well-defined URL syntax. The IIIF-standard allows to share image resources between web-applications such as Virtual Research Environments (VRE) in a standardized way. There are quite a few IIIF-compliant image servers around, some using a native implementation, some wrapping image transformation programs using a script language such as python.</p><p>By a mandate of the State Secretariat for Education, <ref type="bibr">Research and Innovation (SERI)</ref>, the Swiss Academy of Humanities and Social Sciences (SAHSS) has created a new institution for the preservation and long-term curation of research data in the humanities (Data and Service Center for the Humanities, DaSCH). It ensures permanent access to research data in order to make it available for further research. A pilot program started in 2013 and has been successfully finished. The DaSCH will be permanently installed on January 1st 2017, to guarantee seamless services. The Digital Humanities Lab (DHLab) of the University of Basel has been mandated with the operation of the new institution. For this purposed, DHLab has developed a flexible platform based on semantic web technologies (RDF, RDFS, OWL). Besides text sources, about 500,000 high-resolution images have been ingested to the system during the pilot phase. We decided to use IIIF for presenting the images in order to maximize the interoperability with external systems. Furthermore, we need to preserve only one image file, since IIIF allows using the archiving master also for dissemination and presentation. However, none of the existing IIIF-compliant servers satisfied our needs.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Design Requirements</head><p>Therefore, we decided to design and implement our own IIIF server guided by the following requirements:</p><p>• Interoperability with internal databases (e.g. RDF-triplestores, RDBMS etc.) containing annotations, metadata etc. as well as access permissions.</p><p>• Preservation of all embedded metadata (e.g. EXIF, XMP, TIFF etc.) during all format conversions</p><p>• ICC color profile conversions where necessary</p><p>• User authentication compatible with the proposed draft of the IIIF for authentication • High-performance transformation of images including rotation, format conversions (e.g. 16 bit to 8 bit depth) etc.</p><p>• Support of Secure Socket Layer (SSL/https) • A configurable image cache in order to reduce the computational load on the server • Support of cross origin resource sharing (CORS) • Import and transformation of images. The server must be able to import images and convert them to the desired master file format (in our case JPEG2000).</p><p>• Features beyond the scope of the IIIF-standard such as adding watermarks, size restrictions etc.</p><p>• Integrated simple webserver functionality • Modular extensibility, e.g. integrating support for RTI imaging (both initial transformation and serving a web-based RTI-viewer - Fornaro et al, 2016)</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Implementation</head><p>In order to fulfill these requirements, we decided to use C++11 to develop a native, modular, high performance IIIF-compliant image server. A decisive feature was to make the server scriptable with a script language without compromising on performance. We decided to use Lua, an extremely fast, performing, and extensible script language with a small footprint that has only small overhead. It is widely in use for computer games such as World of Warcraft or Minecraft. In order to support different image file formats, we use open source libraries such as libtiff, libjpeg etc. and a modular, extensible architecture. In order to support the JPEG2000 image format, we rely on the kakadu-library. Unfortunately kakadu is not open source, but it is one of the most performant JPEG2000-libraries available. In addition, when acquiring a license, the full source code is provided. Depending on the licensing model, the free distribution of binary packages is included.</p><p>In order to reduce the computational load of the server, an efficient caching service has been implemented. The canonical IIIF-URL is used as key for caching since it is unique for each parameter set of the IIIF request.</p><p>The Lua-interpreter has been extended with SIPIspecific functionality. Using configurable routes, a fully IIIF-compliant image server has been implemented with the following features:</p><p>• Full support of SSL (https) using the OpenSSL library.</p><p>• Preservation of metadata. We use the open source exiv2 library and own parsing/generating routines to bridge the differences between the different image formats.</p><p>• ICC profiles are interpreted and converted using the open source "little cms" library.</p><p>• Before serving an image, a configurable preflight lua-script may be executed. Within this script different tasks can be performed, e.g. querying a database for access rights, adding watermarks, ICC profile conversions etc.</p><p>• Native support of JSON Web Tokens. JWT's may be analyzed using simple Lua functions (e.g. in the pre-flight script) for authentication and access control.</p><p>• Querying other databases using RESTful services. These RESTful query functions are also exposed to Lua.</p><p>• Image upload using HTTP multipart/formdata headers. The upload process and file conversions can be controlled with simple Lua scripts.</p><p>• Cache control with a simple web-based administration interface.</p><p>• Native support for sqlite3 databases from the embedded Lua.</p><p>SIPI is open source and can be found on Github. In order to use the JPEG2000 format, a licensed copy of the kakadu library has to be provided by the user. We will provide an extensive manual and binary downloads (including JPEG2000 support) for all major Linux distributions, OS X and a docker image on http://sipi.io</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Conclusion</head><p>SIPI is a fully IIIF-compliant native image server which integrates extremely well into existing platforms. The flexibility provided by the embedded scripting language, as well as the features going beyond the IIIF specification, allow the integration of IIIIF-based interoperability into existing imaging platforms and image repositories. The support of the secure socket layer (https) access control is a necessity in the environment of digital humanities.</p><p>SIPI can easily be customized and extended for special purposes. Elaborated imaging methods (e.g. support for multi-spectral images, image processing functions etc.) could be implemented using the existing SIPI server as base. However, such enhancements will require extensions to the IIIF-syntax. Further development at the DHLab will include the preprocessing of RTI-images as well support for other media types such as PDF and moving image. We are also working on the implementation of the Amazon S3 client-API in order for SIPI to directly serve images that are stored in a S3 compatible cloud storage. </p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Bibliography</head></div>		</body>
+		<back>
+			<div type="references">
+
+				<listBibl/>
+			</div>
+		</back>
+	</text>
+</TEI>

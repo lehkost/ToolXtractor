@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>Entities as topic labels: improving topic interpretability and evaluability combining Entity Linking and Labeled LDA</title>
+                <author>
+                    <persName>
+                        <surname>Nanni</surname>
+                        <forename>Federico</forename>
+                    </persName>
+                    <affiliation>Data and Web Science Group, University of Mannheim</affiliation>
+                    <email>federico.nanni8@unibo.it</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Ruiz Fabo</surname>
+                        <forename>Pablo</forename>
+                    </persName>
+                    <affiliation>LATTICE Lab, École Normale Supérieure, France</affiliation>
+                    <email>pablo.ruiz.fabo@ens.fr</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2016-03-04T11:43:00Z</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Maciej Eder, Pedagogical University in Krakow</publisher>
+                <publisher>Jan Rybicki, Jagiellonian University</publisher>
+                <address>
+                    <addrLine>Institute of Polish Studies</addrLine>
+                    <addrLine>Pedagogical University</addrLine>
+                    <addrLine>ul. Podchorazych 2</addrLine>
+                    <addrLine>30-084 Krakow, Poland</addrLine>
+                    <addrLine>maciej.eder@ijp-pan.krakow.pl</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from a Word document </p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.21">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Short Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>topic modeling</term>
+                    <term>labeled lda</term>
+                    <term>entity linking</term>
+                    <term>interpretability</term>
+                    <term>evaluation</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>information retrieval</term>
+                    <term>natural language processing</term>
+                    <term>text analysis</term>
+                    <term>content analysis</term>
+                    <term>data mining / text mining</term>
+                    <term>English</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <div type="div1" rend="DH-Heading1">
+                <head>Introduction</head>
+                <p>Humanities scholars have experimented with the potential of different text mining techniques for exploring large corpora, from co-occurrence-based methods to sequence-labeling algorithms (e.g. Named entity recognition). LDA topic modeling (Blei et al., 2003) has become one of the most employed approaches (Meeks and Weingart, 2012). Scholars have often remarked its potential for distant reading analyses (Milligan, 2012) and have assessed its reliability by, for example, using it for examining already well-known historical facts (Au Yeung, 2011). However, researchers have observed that topic modelling results are usually difficult to interpret (Schmidt, 2012). This limits the possibilities to evaluate topic modeling outputs (Chang et al., 2009).</p>
+                <p>In order to create a corpus exploration method providing topics that are easier to interpret than standard LDA topic models, we propose combining two techniques called Entity linking and Labeled LDA; we are not aware of literature combining these two techniques in the way we describe. Our method identifies in an ontology a series of descriptive labels for each document in a corpus. Then it generates a specific topic for each label. Having a direct relation between topics and labels makes interpretation easier; using an ontology as background knowledge limits label ambiguity. As our topics are described with a limited number of clear-cut labels, they promote interpretability, and this may help quantitative evaluation. </p>
+                <p>We illustrate the potential of the approach by applying it to define the most relevant topics addressed by each party in the European Parliament’s fifth term (1999-2004).
+                    <lb/>
+                    <lb/>The structure of our work is as follows: We first describe the basic technologies considered. We then describe our approach combining Entity Linking and Labeled LDA. Based on the European Parliament corpus (Koehn, 2005),
+                    <note place="foot" xml:id="ftn1" n="1">
+                        <p> http://www.statmt.org/europarl/</p>
+                    </note> we show how the results of the combined approach are easier to interpret or evaluate than results for Standard LDA. 
+                </p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Basic technologies</head>
+                <div type="div2" rend="DH-Heading2">
+                    <head>Entity Linking</head>
+                    <p>Entity linking (Rao et al., 2013) tags textual mentions with an entity from a knowledge base like DBpedia (Auer et al., 2007). Mentions can be ambiguous, and the challenge is to choose the entity that most closely reflects the sense of the mention in context. For instance, in the expression Clinton Sanders debate, Clinton is more likely to refer to DBpedia entity Hillary_Clinton than to Bill_Clinton. However, in the expression Clinton vs. Bush debate, the mention Clinton is more likely to refer to Bill_Clinton. An entity linking tool is able to disambiguate mentions taking into account their context, among other factors. </p>
+                </div>
+                <div type="div2" rend="DH-Heading2">
+                    <head>LDA Topic Modeling</head>
+                    <p>Topic modeling is arguably one of most popular text mining techniques in digital humanities (Brauer and Fridlund, 2013). It addresses a common research need, as it can identify the most important topics in a collection of documents, and how these topics are distributed across the documents in the collection. The method’s unsupervised nature makes it attractive for large corpora.</p>
+                    <p>However, topic modeling does not always yield satisfactory results. The topics obtained are usually difficult to interpret (Schmidt, 2012, among others). Each topic is presented as a list of words. It generally depends on the intuitions of the researcher how to interpret these tokens in order to propose concepts or issues that these lists of words represent.</p>
+                </div>
+                <div type="div2" rend="DH-Heading2">
+                    <head>Labeled LDA</head>
+                    <p>An extension of LDA topic model is Labeled LDA (Ramage et al., 2009). If each document in a corpus is described by a set of tags (e.g. a newspaper archive with articles tagged for areas like “economics”, “foreign policy”, etc.), Labeled LDA will identify the relation between LDA topics, documents and tags, and the output will consist of a list of labeled topics.</p>
+                </div>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Our approach</head>
+                <p>Labeled LDA has shown its potential for fine grained topic modeling (e.g. Zirn and Stuckenschmidt, 2014). The method requires a corpus where documents are annotated with tags describing their content. Several methods can be applied to automatically generating tags, e.g. keyphrase-extraction (Kim et al., 2010). Our source for tags is Entity linking. Since entity linking provides a unique label for sets of topically-related expressions across a corpus’ documents, it can help researchers get an overview of different concepts present in the corpus, even if the concepts are conveyed by different expressions in different documents. </p>
+                <p>Our first step is identifying potential topic labels via entity linking. Linked entities were obtained with DBpedia Spotlight (Mendes et al., 2011). Spotlight disambiguates against DBpedia, outputting a confidence value for each annotation.
+                    <note place="foot" xml:id="ftn2" n="2">
+                        <p> Spotlight outperforms other systems when corpus entities often correspond to common-noun mentions like 
+                            <hi rend="italic">democracy</hi>, vs. proper-noun mentions (e.g. 
+                            <hi rend="italic">Greenpeace</hi>). See Cornolti et al., 2013 and Usbeck et al., 2015. 
+                        </p>
+                    </note> Annotations whose confidence was below 0.1 were filtered out. We also removed too general or too frequent entities (e.g. Country or European_Union)
+                </p>
+                <p>We then rank entities' relevance per document with tf-idf (Jones, 1972), which promotes entities that are salient in a specific subset of corpus documents rather than frequent overall in the corpus. Finally, we select the top five entities per document as per tf-idf. These five entities are used as labels to identify, with Labeled LDA, the distribution of labeled topics in the corpus. </p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Experiments and Results</head>
+                <p>Using the Stanford Topic Modeling Toolbox,
+                    <note place="foot" xml:id="ftn3" n="3">
+                        <p> http://nlp.stanford.edu/software/tmt/tmt-0.4/</p>
+                    </note> we performed both Standard LDA (k=300) and Labeled LDA (with 5 labels)
+                    <note place="foot" xml:id="ftn4" n="4">
+                        <p> Each document (party) is labeled with 5 entities. Some entities are shared across parties. For the 125 parties, this gives 300 distinct labels. This corresponds to k=300 topics in Standard LDA.</p>
+                    </note> on speech transcripts for the 125 parties at the European Parliament (1999-2004 session). The corpus contains 125 documents, representing one party each. Documents were tokenized and lemmatised; stopwords were removed. DBpedia entities were detected with Spotlight and ranked by tf-idf, as described above.
+                    <lb/>We present the outputs of Labeled LDA with entity labels (EL_LDA) for three parties, compared to both Standard LDA and to the top-ranked entities for each party (by tf-idf). In each case, we show topics with relevance above 10%. Results for the remaining parties are available online.
+                    <note place="foot" xml:id="ftn5" n="5">
+                        <p> https://sites.google.com/site/entitylabeledlda</p>
+                    </note>
+                </p>
+                <figure>
+                    <graphic url="240/image1.png" rend="inline"/>
+                    <head>Figure: Linked entities (tf-idf-ranked), standard LDA topics and EL-LDA topics for speeches by Les Verts (France).</head>
+                </figure>
+                <figure>
+                    <graphic url="240/image2.png" rend="inline"/>
+                    <head>Figure: Linked entities (tf-idf-ranked), standard LDA topics and EL-LDA topics for speeches by the Conservative Party (UK).</head>
+                </figure>
+                <figure>
+                    <graphic url="240/image3.png" rend="inline"/>
+                    <head>Figure: Linked entities (tf-idf-ranked), standard LDA topics and EL-LDA topics for speeches by Partido Nacionalista Vasco (Spain).</head>
+                </figure>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Discussion</head>
+                <p>Labeled LDA combines the strengths of Entity Linking and standard LDA. Entity Linking provides clear labels, but no notion of the proportion of the document that is related to the entity. Standard LDA’s relevance scores do provide an estimate to what an extent the topic is relevant for the document, but the topics are not expressed with clear labels. Labeled LDA provides both clear labels, and a quantification of the extent to which the label covers the document's content.</p>
+                <p>An advantage of Labeled LDA over Standard LDA is topic interpretability. Consider the UK Conservative Party's topics. In each standard LDA topic, there are words related to the concepts of 
+                    <hi rend="italic">Industry</hi> and 
+                    <hi rend="italic">Business</hi> in general, and some words related to the UK appear on the first topic. However, in each topic, some other words (e.g. 
+                    <hi rend="italic">government, directive, decision, measure, health, consumer</hi>) are related to other concepts, like perhaps 
+                    <hi rend="italic">Legislation</hi> or 
+                    <hi rend="italic">Social policy</hi>. A researcher trying to understand the standard LDA topics is faced with choosing which lexical areas are most representative of each topic: is it the ones related to 
+                    <hi rend="italic">Industry</hi>, 
+                    <hi rend="italic">Business</hi>, and the UK, or is it the other ones? The clear-cut labels from Labeled LDA are more interpretable than a collection of words representing a topic.
+                </p>
+                <p>The Labeled LDA topics may be more or less correct, just like Standard LDA topics. But we find it easier to evaluate a topic via questions like "is this document about 
+                    <hi rend="italic">Industry</hi>, 
+                    <hi rend="italic">Business</hi> and 
+                    <hi rend="italic">the UK</hi>, in the proportions indicated by our outputs?" than via questions like "is this document about issues like 
+                    <hi rend="italic">house, british, amendment, market, industry, government,</hi> (and so on for the remaining topics)"?
+                </p>
+                <p>The topics for French party Les Verts illustrate Labeled LDA’s strengths further. Most of the Standard LDA topics contain some words indicative of the party's concerns (e.g. 
+                    <hi rend="italic">environment</hi> or 
+                    <hi rend="italic">development</hi>). However, it is not easy to point out which specific issues the party addresses. In Labeled LDA, concrete issues come out, like 
+                    <hi rend="italic">Genetically modified organism</hi>.
+                </p>
+                <p>Topic label 
+                    <hi rend="italic">Development aid</hi> shows a challenge with entity linking as a source of labels. Occurrences of the word 
+                    <hi rend="italic">development</hi> have been disambiguated towards the entity 
+                    <hi rend="italic">Development_aid</hi>, whereas the correct entity is likely 
+                    <hi rend="italic">Sustainable_development</hi>. These errors do not undermine the method’s usefulness. Efficient ways to filter out such errors exist; this is conceptually similar to removing irrelevant words from Standard LDA topics. However, we need to be aware of and address this challenge. 
+                </p>
+                <p>Regarding Partido Nacionalista Vasco (Basque Nationalist Party), the Standard LDA topic misses the word 
+                    <hi rend="italic">basque</hi>, which is essential to this party. Labeled LDA identifies 
+                    <hi rend="italic">Basque people</hi> as a dominant concept in this party’s interventions. 
+                </p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Outlook</head>
+                <p>Our method performs Labeled LDA using Entity Linking outputs as labels. Its main advantage is providing a specific label for each topic, that improves topic interpretability, and can simplify human evaluation of topic models. </p>
+                <p>More evaluation is needed to fully assess the approach. We will consider two possible complementary evaluations: first, a crowdsourced task where participants evaluate the coherence of Labeled LDA topics with the corpus documents. Second, an assessment of our topics by political science experts. We’re mostly interested in evaluating the approach for diachronic comparisons.</p>
+            </div>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl>
+                        <hi rend="bold">Au Yeung, C. M. and Jatowt, A.</hi> (2011). Studying how the past is remembered: towards computational history through large scale text mining.
+                        <hi rend="italic">Proceedings of the 20th ACM international conference on Information and knowledge management.</hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Auer, S., Bizer, C., Kobilarov, G., Lehmann, J., Cyganiak, R. and Ives, Z.</hi> (2007).
+                        <hi rend="italic">Dbpedia: A nucleus for a web of open data</hi>. Berlin Heidelberg: Springer.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Blei, D. M., Ng, A. Y. and Jordan, M. I.</hi> (2003). Latent dirichlet allocation.
+                        <hi rend="italic">The Journal of machine Learning research</hi>,
+                        <hi rend="bold">3</hi>: 993-1022.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Brauer, R., and Fridlund, M.</hi> (2013). Historicizing Topic Models, A distant reading of topic modeling texts within historical studies.
+                        <hi rend="italic">International Conference on Cultural Research in the context of "Digital Humanities"</hi>, St. Petersburg: Russian State Herzen University.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Chang, J., Gerrish, S., Wang, C., Boyd-Graber, J. L. and Blei, D. M.</hi> (2009). Reading tea leaves: How humans interpret topic models.
+                        <hi rend="italic">Advances in neural information processing systems</hi>.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Cornolti, M., Ferragina, P. and Ciaramita, M.</hi> (2013). A framework for benchmarking entity-annotation systems.
+                        <hi rend="italic">Proceedings of the 22nd international conference on World Wide Web</hi>. International World Wide Web Conferences Steering Committee.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Kim, S. N., Medelyan, O., Kan, M. Y. and Baldwin, T.</hi> (2010). Semeval-2010 task 5: Automatic keyphrase extraction from scientific articles.
+                        <hi rend="italic">Proceedings of the 5th International Workshop on Semantic Evaluation</hi>. Association for Computational Linguistics.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Koehn, P.</hi> (2005). Europarl: A parallel corpus for statistical machine translation.
+                        <hi rend="italic">MT summit</hi>.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Mendes, P. N., Jakob, M., García-Silva, and Bizer, C.</hi> (2011). DBpedia spotlight: shedding light on the web of documents.
+                        <hi rend="italic">Proceedings of the 7th International Conference on Semantic Systems</hi>. ACM.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Meeks, E. and Weingart, S. B.</hi> (2013). The digital humanities contribution to topic modeling.
+                        <hi rend="italic">Journal of Digital Humanities</hi>, 
+                        <hi rend="bold">2</hi>(1): 2-1.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Milligan, I. </hi>(2012). Mining the "Internet Graveyard": Rethinking the Historians' Toolkit.>
+                        <hi rend="italic">Journal of the Canadian Historical Association/Revue de la Société historique du Canada</hi>,
+                        <hi rend="italic">23</hi>(2), 21-64.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Ramage, D., Hall, D., Nallapati, R. and Manning, C. D.</hi> (2009). Labeled LDA: A supervised topic model for credit attribution in multi-labeled corpora.
+                        <hi rend="italic">Proceedings of the 2009 Conference on Empirical Methods in Natural Language Processing</hi>. Association for Computational Linguistics.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Rao, D., McNamee, P. and Dredze, M.</hi> (2013). Entity linking: Finding extracted entities in a knowledge base.
+                        <hi rend="italic">Multi-source, Multilingual Information Extraction and Summarization</hi>. Springer Berlin Heidelberg.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Salton, G., Fox, E. A. and Wu, H.</hi> (1983). Extended Boolean information retrieval. 
+                        <hi rend="italic">Communications of the ACM</hi>, 
+                        <hi rend="bold">26</hi>(11): 1022-1036.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Schmidt, B. M</hi>. (2012). Words alone: Dismantling topic models in the humanities.
+                        <hi rend="italic">Journal of Digital Humanities</hi>, 
+                        <hi rend="bold">2</hi>(1): 49-65.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Sparck Jones, K. </hi>(1972). A statistical interpretation of term specificity and its application in retrieval. 
+                        <hi rend="italic">Journal of documentation</hi>, <hi rend="bold">28</hi>(1): 11-21.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Usbeck, R., Röder, M. and Ngonga, A. C. N.</hi> (2015). Evaluating Entity Annotators Using GERBIL.
+                        <hi rend="italic">The Semantic Web: ESWC 2015 Satellite Events</hi>. Springer International Publishing.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Zirn, C. and Stuckenschmidt, H.</hi> (2014). Multidimensional topic analysis in political texts.
+                        <hi rend="italic">Data and Knowledge Engineering</hi>, 
+                        <hi rend="bold">90</hi>: 38-53.
+                    </bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

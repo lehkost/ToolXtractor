@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title type="full">
+                    <title type="main">Automatic Emotion Detection for Quantitative Literary Studies *</title>
+                    <title type="sub">A case study based on Franz Kafka’s “Das Schloss” und “Amerika”</title>
+                </title>
+                <author>
+                    <persName>
+                        <surname>Klinger</surname>
+                        <forename>Roman</forename>
+                    </persName>
+                    <affiliation>University of Stuttgart, Germany</affiliation>
+                    <email>roman.klinger@ims.uni-stuttgart.de</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Suliya</surname>
+                        <forename>Surayya Samat</forename>
+                    </persName>
+                    <affiliation>University of Stuttgart, Germany</affiliation>
+                    <email>suliyasa@ims.uni-stuttgart.de</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Reiter</surname>
+                        <forename>Nils</forename>
+                    </persName>
+                    <affiliation>University of Stuttgart, Germany</affiliation>
+                    <email>nils.reiter@ims.uni-stuttgart.de</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2016-02-22T15:57:00Z</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Maciej Eder, Pedagogical University in Krakow</publisher>
+                <publisher>Jan Rybicki, Jagiellonian University</publisher>
+                <address>
+                    <addrLine>Institute of Polish Studies</addrLine>
+                    <addrLine>Pedagogical University</addrLine>
+                    <addrLine>ul. Podchorazych 2</addrLine>
+                    <addrLine>30-084 Krakow, Poland</addrLine>
+                    <addrLine>maciej.eder@ijp-pan.krakow.pl</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from a Word document </p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.21">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Poster</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>emotion analysis</term>
+                    <term>text mining</term>
+                    <term>dictionaries</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>literary studies</term>
+                    <term>natural language processing</term>
+                    <term>semantic analysis</term>
+                    <term>content analysis</term>
+                    <term>data mining / text mining</term>
+                    <term>English</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <div type="div1" rend="DH-Heading1">
+                <head>Introduction</head>
+                <p>Sentiment analysis and opinion mining methods are established for automatically summarizing information shared by users in product reviews or in social media platforms like Twitter, Facebook or more specific fora (Liu 2015). These approaches can be categorized into coarse-grained and fine-grained methods: The first focus on assigning a polarity (positive, negative, neutral) and optionally an intensity to a text snippet (Täckström and McDonald 2011; Pang and Lee 2004). The latter additionally aim at detecting the opinion holder (for instance a specific person mentioned in a news article) and the target (for instance a specific aspect of a product in a review) (Hu and Liu 2004; Popescu and Etzioni 2005; Jakob and Gurevych 2010).</p>
+                <p>Transferring such methods to the analysis of literature leads to at least two questions: Firstly, are polarities for this domain as helpful as for the analysis of reviews? Secondly, how can such methods from sentiment analysis be improved, and what can they contribute to literature analysis?</p>
+                <p>Regarding the first aspect, resources to measure the occurrence of words which are associated with different emotions have been developed for English but, to the best of our knowledge, not for German (Mohammad et al. 2015). Secondly, it should be noted that research in German sentiment analysis is still comparably limited (counter examples are Ruppenhofer et al. 2014; Klinger and Cimiano 2015; Remus, Quasthoff, and Heyer 2010). In addition, sentiment analysis has mainly focused on the Web, like social media, and product reviews. However, the analysis of emotions and sentiment in literature has been proven to be of interest and value (Mellmann 2007; Winko 2003). A prerequisite for a quantitative approach is that emotions are (at least to some extend) a surface phenomenon (Hillebrandt 2011, p. 154), i.e., that words carry information such that it is possible to infer “private states” of specific emotions (Wiebe, Wilson, and Cardie 2005).</p>
+                <p>Our two main contributions are: (a) We make German dictionaries of words associated with seven fundamental emotions publicly available, and (b) perform a case study on Kafka’s “Amerika” and “Das Schloss” regarding emotion analysis to support literature studies with a focus on complex non-factual phenomena and the analysis of personality traits. All resources and software used in this paper are made publicly available at 
+                    <ref target="http://www.romanklinger.de/emotion/">http://www.romanklinger.de/emotion/</ref>.
+                </p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Materials and Methods</head>
+                <p>The goal of this work is to detect different emotions represented in literary texts. Psychological research offers different models to categorize emotions. The most common ones include Plutchik’s wheel of emotions (Plutchik 2001) and Ekman’s definition of fundamental emotions (Ekman 1999). A discussion of relevant context is offered by Russell (Russell 1991). We opt for roughly following the structure of Ekman’s definition of emotions and focus on 
+                    <hi rend="italic">anger</hi> (Wut), 
+                    <hi rend="italic">disgust</hi> (Ekel), 
+                    <hi rend="italic">fear</hi> (Angst), 
+                    <hi rend="italic">enjoyment</hi> (Glück), 
+                    <hi rend="italic">sadness</hi> (Trauer), and 
+                    <hi rend="italic">surprise</hi> (Überraschung) and 
+                    <hi rend="italic">contempt</hi> (Verachtung).
+                </p>
+                <p>To track emotions over the whole text, we assign an emotion score es(
+                    <hi rend="italic">e,</hi>
+                    <hi rend="bold">t</hi>
+                    <hi rend="italic subscript">ab</hi>) to a subset of consecutive tokens 
+                    <hi rend="bold">t</hi>
+                    <hi rend="italic subscript">ab</hi> from textual position 
+                    <hi rend="italic">a</hi> to position 
+                    <hi rend="italic">b</hi> as
+                </p>
+                <figure>
+                    <graphic url="427/image1.png" rend="inline"/>
+                </figure>
+                <p>where 
+                    <hi rend="italic">D</hi>
+                    <hi rend="italic subscript">e</hi> is a dictionary containing words expressing the specific emotion 
+                    <hi rend="italic">e</hi> and 1
+                    <hi rend="italic subscript">t</hi>
+                    <hi rend="subscript">∈</hi>
+                    <hi rend="italic subscript">D</hi> is 1 if and only if t
+                    <hi rend="subscript">i</hi>∈
+                    <hi rend="italic">D</hi>
+                    <hi rend="italic subscript">e</hi> and 0 otherwise. This score corresponds to the number of tokens which are in a window and in the respective emotion dictionary, normalized by the dictionary size.
+                </p>
+                <p>To track the development of the emotions over the whole text, we apply a sliding window approach which is parameterized by window size w such that 
+                    <hi rend="italic">b = a + w − 1</hi> (which can be interpreted as a smoothing parameter). To allow for a character oriented analysis, we assign an emotion score as in the sliding window, but for windows around each mention of such character in the text, with an additional normalization based on number of character mentions. Each token and dictionary entry is normalized by mapping to lower-case and stemming with the Porter stemmer (Porter 2001).
+                </p>
+                <p>As a resource for the emotion dictionaries, two authors of this paper manually selected words from different sentiment polarity, subjectivity, and emotion resources in German and English (translated to German) into the emotion categories (Waltinger 2010a; Waltinger 2010b; Remus, Quasthoff, and Heyer 2010; Mohammad and Turney 2013). We semi-automatically enriched this resource with synonyms (Naber 2005; Wermke, Kunkel-Razum, and Scholze-Stubenrecht 2010).</p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Experiments and Conclusions</head>
+                <p>As an estimate for the difficulty of emotion assignments, we performed an annotation experiment of 300 words (stratified sample from all emotions in the dictionary mentioned above) with fluent speakers of German. In 85 % of all words two out of three annotators agree on the same emotion, however, only in 46 % of of all words, three annotators agree on the associated emotion.</p>
+                <p>As a use-case, we apply our methods to Franz Kafka’s “Der Verschollene” (“Amerika”) and “Das Schloß”. Especially the latter is interesting as a comprehensive emotion-focused manual analysis is available (Hillebrandt 2011). It is narrated in third person and interesting from an emotion analysis point of view, as attribution of specific emotions to the protagonist is difficult (Hillebrandt 2011, p. 165).</p>
+                <p>The development of emotions in Figures 1 and 2 visualize the outcomes of our analyzes. In “Das Schloss”, the strong increase of surprise towards the end is striking (most indicative words are “neu”, “schnell”, “plötzlich”, “ungeduldig”). Another example for an eye-catching peak of fear is shortly after start of chapter 3 (“ängstlich”, “Gefahr”, “unruhig”, “Gewalt”). In “Amerika”, one striking characteristic is the decrease of enjoyment after a peak in chapter 4 (“gut”, “Mutter”, “glücklich”) followed by disgust in chapter 5 (“unerträglich”, “Elend”, “schrecklich”, “beschmutzt”). Emotions for each mention of a selection of characters in “Amerika” and “Das Schloss” are shown in Figures 3 and 4.</p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Acknowledgements</head>
+                <p>This project has been partially funded by the project CRETA (Zentrum für reflektierte Textanalyse, 
+                    <ref target="http://www.creta.uni-stuttgart.de/">http://www.creta.uni-stuttgart.de/</ref>), funded by the German Ministry of Education and Research.
+                </p>
+                <figure>
+                    <graphic url="427/image2.png" rend="inline"/>
+                </figure>
+                <figure>
+                    <graphic url="427/image3.png" rend="inline"/>
+                </figure>
+                <figure>
+                    <graphic url="427/image4.png" rend="inline"/>
+                </figure>
+                <figure>
+                    <graphic url="427/image5.png" rend="inline"/>
+                </figure>
+            </div>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl>
+                        <hi rend="bold">Ekman, P.</hi> (1999). “Basic Emotions”. In: 
+                        <hi rend="italic">Handbook of Cognition and Emotion</hi>. Ed. by M Dalgleish T; Power. Sussex, UK: John Wiley &amp; Sons.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Hillebrandt, C.</hi> (2011). 
+                        <hi rend="italic">Das emotionale Wirkungspotenzial von Erzähltexten</hi>. Deutsche Literatur - Studien und Quellen. Berlin, Germany: Akademie Verlag.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Hu, M. and Liu, B.</hi> (2004). “Mining and summarizing customer reviews”. In: 
+                        <hi rend="italic">Proceedings of the tenth ACM SIGKDD international conference on Knowledge discovery and data mining.</hi> Seattle, WA, USA: ACM, pp. 168–77.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Jakob, N. and Gurevych, I.</hi> (2010). “Extracting opinion targets in a single- and cross-domain setting with conditional random fields”. In: 
+                        <hi rend="italic">Proceedings of the 2010 Conference on Empirical Methods in Natural Language Processing</hi>. Cambridge, Massachusetts: Association for Computational Linguistics, pp. 1035–45.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Klinger, R. and Cimiano, P.</hi> (2015). “Instance Selection Improves Cross-Lingual Model Training for Fine-Grained Sentiment Analysis”. In: 
+                        <hi rend="italic">Proceedings of the Nineteenth Conference on Computational Natural Language Learning</hi>. Beijing, China: Association for Computational Linguistics, pp. 153–63.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Liu, B.</hi> (2015). 
+                        <hi rend="italic">Sentiment Analysis</hi>. Cambridge University Press.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Mellmann, K.</hi> (2007). 
+                        <hi rend="italic">Emotionalisierung – Von der Nebenstundenpoesie zum Buch als Freund</hi>. Vol. 4. Poetogenesis - Studien zur empirischen Anthropologie der Literatur. Münster, Germany: Mentis Verlag.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Mohammad, S. M. and Turney, P. D.</hi> (2013). “Crowdsourcing a Word-Emotion Association Lexicon”. In: <hi rend="italic">Computational Intelligence</hi>, <hi rend="bold">29</hi>(3): 436–65.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Mohammad, S. M., Zhu, X., Kiritchenko, S. and Martin, J.</hi> (2015). “Sentiment, emotion, purpose, and style in electoral tweets”. In: 
+                        <hi rend="italic">Information Processing &amp; Management</hi>, <hi rend="bold">51</hi>(4): 480–99.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Naber, D.</hi> (2005). 
+                        <hi rend="italic">OpenThesaurus: ein offenes deutsches Wortnetz</hi>. http://danielnaber.de/ publications/gldv-openthesaurus.pdf (visited on 02/17/2015).
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Pang, B. and Lee, L.</hi> (2004). “A Sentimental Education: Sentiment Analysis Using Subjectivity Summarization Based on Minimum Cuts”. In: 
+                        <hi rend="italic">Proceedings of the 42nd Meeting of the Association for Computational Linguistics, Main Volume.</hi> Barcelona, Spain, pp. 271–78.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Plutchik, R.</hi> (2001). “The Nature of Emotions”. In: 
+                        <hi rend="italic">American Scientist</hi>, <hi rend="bold"> 89</hi>: 344–50.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Popescu, A.-M. and Etzioni, O.</hi> (2005). “Extracting Product Features and Opinions from Reviews”. In: 
+                        <hi rend="italic">Proceedings of Human Language Technology Conference and Conference on Empirical Methods in Natural Language Processing</hi>. Vancouver, British Columbia, Canada: Associ- ation for Computational Linguistics, pp. 339–46.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Porter, M. F.</hi> (2001). 
+                        <hi rend="italic">Snowball: A language for stemming algorithms</hi>. http://snowball. tartarus.org/texts/introduction.html.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Remus, R., Quasthoff, U. and Heyer, G.</hi> (2010). “SentiWS – a Publicly Available German- language Resource for Sentiment Analysis”. In: 
+                        <hi rend="italic">Proceedings of the 7th International Language Resources and Evaluation (LREC’10),</hi> pp. 1168–71.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Ruppenhofer, J., Klinger, R., Struß, J. M., Sonntag, J. and Wiegand, M.</hi> (2014). “IGGSA Shared Tasks on German Sentiment Analysis”. In
+                        <hi rend="italic">: Workshop Proceedings of the 12th Edition of the KONVENS Conference</hi>. Ed. by G. Faaß and J. Ruppenhofer. Hildesheim, Germany: Uni- versity of Hildesheim.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Russell, J. A.</hi> (1991). “In Defense of a Prototype Approach to Emotion Concepts”. In: 
+                        <hi rend="italic">Journal of Personality and Social Psychology</hi>, <hi rend="bold">60</hi>(1): 37–47.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Täckström, O. and McDonald, R.</hi> (2011). “Semi-supervised latent variable models for sentence- level sentiment analysis”. In: 
+                        <hi rend="italic">Proceedings of the 49th Annual Meeting of the Association for Computational Linguistics: Human Language Technologies</hi>. Portland, Oregon, USA: Association for Computational Linguistics, pp. 569–74.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Waltinger, U.</hi> (2010a). “GERMANPOLARITYCLUES: A Lexical Resource for German Sentiment Analysis”. In: 
+                        <hi rend="italic">Proceedings of the Seventh International Conference on Language Resources and Evaluation (LREC).</hi> Valletta, Malta.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Waltinger, U.</hi> (2010b). “Sentiment Analysis Reloaded: A Comparative Study On Sentiment Polarity Identi- fication Combining Machine Learning And Subjectivity Features”. In: 
+                        <hi rend="italic">Proceedings of the 6th International Conference on Web Information Systems and Technologies (WEBIST ’10)</hi>. Valencia, Spain.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Wermke, M., Kunkel-Razum, K. and Scholze-Stubenrecht, W., (eds). </hi>(2010). 
+                        <hi rend="italic">Duden – Das Synonymwörterbuch</hi>. Mannheim, Zürich: Dudenverlag.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Wiebe, J., Wilson, T. and Cardie, C.</hi> (2005). “Annotating Expressions of Opinions and Emotions in Language”. In: 
+                        <hi rend="italic">Language Resources and Evaluation</hi>, <hi rend="bold">39</hi>(2): 165–210.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Winko, S.</hi> (2003). 
+                        <hi rend="italic">Kodierte Gefühle: Zu einer Poetik der Emotionen in lyrischen und poetologischen Texten um 1900</hi>. Erich Schmidt Verlag.
+                    </bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

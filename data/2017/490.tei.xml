@@ -1,0 +1,433 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xsi:schemaLocation="http://www.tei-c.org/ns/1.0 /Users/yoann/Work/Grobid/grobid-home/schemas/xsd/Grobid.xsd"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+	<teiHeader xml:lang="en">
+		<encodingDesc>
+			<appInfo>
+				<application version="0.5.4-SNAPSHOT" ident="GROBID" when="2019-06-05T06:30+0000">
+					<ref target="https://github.com/kermitt2/grobid">GROBID - A machine learning software for extracting information from scholarly documents</ref>
+				</application>
+			</appInfo>
+		</encodingDesc>
+		<fileDesc>
+			<titleStmt>
+				<title level="a" type="main">Tracing the Colors of Clothing in Paintings with Image Analysis</title>
+			</titleStmt>
+			<publicationStmt>
+				<publisher/>
+				<availability status="unknown"><licence/></availability>
+			</publicationStmt>
+			<sourceDesc>
+				<biblStruct>
+					<analytic>
+						<author>
+							<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">Cihan</forename><surname>Sarı</surname></persName>
+							<email>cihan.sari@boun.edu.tr</email>
+						</author>
+						<author>
+							<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">Albert</forename><forename type="middle">Ali</forename><surname>Salah</surname></persName>
+							<email>salah@boun.edu.tr</email>
+						</author>
+						<author>
+							<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">Alkım</forename><forename type="middle">Almıla</forename><surname>Akda˘</surname></persName>
+						</author>
+						<author>
+							<persName xmlns="http://www.tei-c.org/ns/1.0"><surname>Salah</surname></persName>
+						</author>
+						<author>
+							<affiliation key="aff0">
+								<orgName type="institution">Bogazici University</orgName>
+								<address>
+									<country key="TR">Turkey</country>
+								</address>
+							</affiliation>
+						</author>
+						<author>
+							<affiliation key="aff1">
+								<orgName type="institution">Bogazici University</orgName>
+								<address>
+									<country key="TR">Turkey</country>
+								</address>
+							</affiliation>
+						</author>
+						<author>
+							<affiliation key="aff2">
+								<orgName type="institution">Istanbul Sehir University</orgName>
+								<address>
+									<country key="TR">Turkey</country>
+								</address>
+							</affiliation>
+						</author>
+						<title level="a" type="main">Tracing the Colors of Clothing in Paintings with Image Analysis</title>
+					</analytic>
+					<monogr>
+						<imprint>
+							<date/>
+						</imprint>
+					</monogr>
+				</biblStruct>
+			</sourceDesc>
+		</fileDesc>
+		<profileDesc>
+			<abstract/>
+		</profileDesc>
+	</teiHeader>
+	<text xml:lang="en">
+		<body>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Introduction</head><p>The history of color is full of instances of how and why certain colors come to be associated with certain concepts, ideas, politics, status and power. Sometimes the connotations occur arbitrarily, like in the instance when pink was assigned to baby girls, and blue started to be associated with baby boys at the turn of 19 th Century <ref type="bibr" target="#b10">[Paoletti, 1987]</ref>. Sometimes though, color associations have very tangible reasons, such as in the case of Marian blue, reserved only for painting Virgin Mary over the centuries. The reason is found in the scarcity of the rock lapis lazuli -even more valuable than goldfrom which the blue pigments were extracted. Individual colors have convoluted and contested histories, since they have been attached to many symbols at any given time. John Gage, an art historian who has devoted 30 years of research on the topic of color, explains the conundrum of what he terms "politics of color" in a simple fashion: "The same colors, or combinations of colors can, for example, be shown to have held quite antithetical connotations in different periods and cultures, and even at the same time and in the same place." <ref type="bibr" target="#b2">[Gage, 1990]</ref>.</p><p>The purpose of the present study is to introduce a method for automatically extracting color distributions and main colors of paintings, as well as color schemes of people in paintings. By visualizing these over time for cross-referencing with historical data, this study will reveal changes in how particular colors were used in a given time period and culture. In this study, we will look at artworks to find out whether certain colors or tones are associated with a specific sex, and if these connotations change over time. To that end, we apply algorithmic tools to process very large datasets automatically, and information visualization tools to depict the findings.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Related Work</head><p>Today, major cultural heritage collections are available online. Digitization and preservation of artworks is an important occupation of museums and cultural heritage institutions, as well as many Digital Humanities projects. Portions of of such digitized collections are made available to further computer vision research in order to scrutinize art historical questions. Such collections are usually enriched with meticulously tagged metadata describing the origins of each artwork. However, these datasets do not provide comprehensive gender annotations. For example, Rijksmuseum's arts database has a wide selection of categories with rich metadata that is primarily about the art objects themselves (see <ref type="table" target="#tab_0">Table 1</ref> - the quantity of meta information and context vary between different art samples), but without any reference to what these artworks hold <ref type="bibr" target="#b7">[Mensink and Van Gemert, 2014]</ref>. Automatically determining whether a sitter of a portrait is female or male in a painting is not an easy task. Several publications have appeared in recent years with the aim of automatic gender recognition. The survey by Ng et al. described a variety of approaches to gender recognition in natural images <ref type="bibr" target="#b8">[Ng et al., 2012]</ref>. Xiong and De la Torre (2013) proposed a practical and effective method for automatically detecting faces in natural or man-made images. Once the face is detected, a supervised classifier is used to determine whether it belongs to a male or female. This requires the ground truth annotation of a large number of face images, from which the automatic classifier learns the visual boundary between these two classes.</p><p>There has been focused studies to address face recognition tasks on artistic images <ref type="bibr" target="#b13">[Srinivasan et al., 2015]</ref>. For the purposes of face detection, mainstream algorithms perform sufficiently well on paintings that are of interest for this study. Automatic male/female classification is not perfect, it will occasionally get confused and produce an incorrect label. However, over thousands of images, a small number of individual errors will not prevent us from seeing the general patterns of color usage with males and females.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Methodology</head><p>In this study, the aim is to analyze the trends of clothing color in different periods, separately for males and females. For this purpose, we work on a database of paintings, for which the era (or date) is provided, and we seek to annotate each image with the gender of the depicted person, as well as a rough segmentation of the area of the clothing. The general workflow of the proposed approach is depicted in <ref type="figure" target="#fig_0">Figure 1</ref>. </p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Database</head><p>The Rijksmuseum is a Dutch national museum dedicated to arts and history in Amsterdam. The Rijksmuseum database contains 112.039 high-resolution images with extended meta data <ref type="bibr">[Mensink and Van Ge- mert, 2014]</ref>. However, as mentioned previously in Section 2, the Rijksmuseum database has neither gender nor clothing color information embedded into its metadata. We describe briefly how we determine the missing information.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Gender Classification</head><p>We have performed classification of the perceived sex from the face images. This process is commonly called Gender classification in computer vision -not to be mixed with characteristics of masculinity, femininity or sex organs, but what is perceived solely from the face crops on the paintings.</p><p>For this purpose we have prepared a test dataset of face images from Rijksmuseum paintings and three training datasets of face images: 10k US Adult Faces <ref type="bibr" target="#b0">[Bainbridge et al., 2013]</ref>, Labeled faces in the wild <ref type="bibr" target="#b4">[Huang et al., 2007]</ref> and in an approach similar to Jia's work <ref type="bibr" target="#b5">[Jia and Cristianini, 2015]</ref>, we have gen-erated our own IMDB dataset. IMDB dataset images are collected using the Google Image search, using actor and actress names as queries. In total, 5600 male and 5300 female faces were downloaded.</p><p>None of the datasets have gender annotations, and hence we have performed face detection and facial landmark extraction methods in <ref type="bibr" target="#b14">[Xiong and De la Torre, 2013]</ref>, first, then hand-clean face detection and landmark extraction results against false positives and validate gender information (for all 10k US Adult Faces dataset and LFW dataset we had to manually annotate each image, but also Google Image search results for IMDB dataset are not perfectly robust, hence the IMDB dataset also had to be verified). Then we have aligned the faces to a mean shape <ref type="bibr" target="#b3">[Gower, 1975]</ref>, and extract features that are resistant to illumi-nation effects <ref type="bibr" target="#b9">[Ojala et al., 2002]</ref>. We then train a classifier using the sequential minimal optimization (SMO) method <ref type="bibr" target="#b11">[Platt et al., 1998</ref>].</p><p>The biggest challenge for evaluating gender recognition performance on the paintings is to make sure the ground-truth gender data are actually correct <ref type="bibr" target="#b6">[Mathias et al., 2014]</ref>. From our experience, this demanding task requires a full view of the painting, rather than just the detected face. Results of some combinations of the datasets are given in <ref type="table">Table 2</ref>. We could reach above 75% accuracy on paintings, just by using photographs of actors and actresses in the training of the system. Some of misclassification examples are given in <ref type="figure">figure 2</ref>. <ref type="table">Table 2</ref>. Gender recognition performance on Rijksmuseum.</p><p>All results are com-parable and best (by small margin) is acquired when only the IMDB dataset is used. <ref type="figure">Figure 2</ref>. Misclassified paintings</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Clothing color information</head><p>Portrait paintings that are completely focused on the sitter's face have still a lot of background noise that disrupt the color representation of the paintings (see <ref type="figure" target="#fig_1">Figure 3</ref>). Our hypothesis is that color representation, when focused on the clothing of the model, will still reflect the color scheme that is associated with the gender of the sitter. In order to extract the color information of an outfit we need to do a coarse segmentation of the clothing. We used the GrabCut approach <ref type="bibr" target="#b12">[Rother et al., 2004]</ref>. In this method, a user defines an area of interest, as well as foreground and background seeds for the segmentation. In our study, background and foreground seeds are initialized based on the detected face landmarks. <ref type="figure" target="#fig_2">Figure 4</ref> provides an initial visualization of the dominant color distributions for each era, for males and females. Concentric circles have thickness associated with the frequency of the color. Bright colors are relatively rare, as the paintings in our tagged collection are generally dark, with the occasional shaft of light illuminating part of the painting. But a very distinct pattern can be observed in that females wear lighter colors compared to males, and show higher variance over the years. Some painting examples are given in <ref type="figure" target="#fig_3">Figure 5</ref>.  </p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Conclusions</head><p>Every period and location has certain dominant color associations and symbolism. To investigate hundreds of thousands paintings in a single sweep requires automatic analysis tools. Our main objective in this work in progress is to perform an analysis on the usage of color for different genders along the centuries, and to develop tools for establishing semantic associations of colors for each particular period of study. With the increased popularity of open-art, this study can be extended significantly by introducing more databases alongside Rijksmuseum, for example, drawing on the Europeana collection <ref type="bibr" target="#b1">[Doerr et al., 2010]</ref>.</p></div><figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_0"><head>Figure 1 .</head><label>1</label><figDesc>Figure 1. The workflow of the proposed approach.</figDesc><graphic url="image-2.png" coords="2,54.30,239.82,241.44,204.96" type="bitmap" /></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_1"><head>Figure 3 .</head><label>3</label><figDesc>Figure 3. Four paintings from the Rijksmuseum collection, classified and segmented in terms of colors.</figDesc><graphic url="image-6.png" coords="3,54.30,180.06,241.44,313.44" type="bitmap" /></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_2"><head>Figure 4 .</head><label>4</label><figDesc>Figure 4. Clothing colors over time. Females wear significantly lighter colors than males. Best viewed in color.</figDesc><graphic url="image-7.png" coords="3,316.86,114.06,241.44,161.04" type="bitmap" /></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_3"><head>Figure 5 .</head><label>5</label><figDesc>Figure 5. Paintings of males and females from the Rijksmuseum database over time. Best viewed in color.</figDesc><graphic url="image-8.png" coords="3,321.90,302.70,241.44,200.40" type="bitmap" /></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" type="table" xml:id="tab_0" validated="false"><head>Table 1 : Sample from Rijksmuseum meta data</head><label>1</label><figDesc></figDesc><table></table></figure>
+		</body>
+		<back>
+			<div type="references">
+
+				<listBibl>
+
+<biblStruct xml:id="b0">
+	<analytic>
+		<title level="a" type="main">The intrin- sic memorability of face photographs</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">W</forename><forename type="middle">A</forename><surname>Bainbridge</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">P</forename><surname>Isola</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">A</forename><surname>Oliva</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Journal of Experimental Psychology: General</title>
+		<imprint>
+			<biblScope unit="volume">142</biblScope>
+			<biblScope unit="issue">4</biblScope>
+			<biblScope unit="page">1323</biblScope>
+			<date type="published" when="2013" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b1">
+	<analytic>
+		<title level="a" type="main">The europeana data model (edm)</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">M</forename><surname>Doerr</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">S</forename><surname>Gradmann</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">S</forename><surname>Hennicke</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">A</forename><surname>Isaac</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">C</forename><surname>Meghini</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><surname>Van De</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">H</forename><surname>Sompel</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">World Library and Information Congress: 76th IFLA general conference and assembly</title>
+		<imprint>
+			<date type="published" when="2010" />
+			<biblScope unit="page" from="10" to="15" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b2">
+	<monogr>
+		<title level="m" type="main">Color in western art: An issue? The Art Bulletin</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">J</forename><surname>Gage</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="1990" />
+			<biblScope unit="volume">72</biblScope>
+			<biblScope unit="page" from="518" to="541" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b3">
+	<analytic>
+		<title level="a" type="main">Generalized procrustes analysis</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">J</forename><forename type="middle">C</forename><surname>Gower</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Psychometrika</title>
+		<imprint>
+			<biblScope unit="volume">40</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="33" to="51" />
+			<date type="published" when="1975" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b4">
+	<monogr>
+		<title level="m" type="main">Labeled faces in the wild: A database for studying face recognition in unconstrained environments</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">G</forename><forename type="middle">B</forename><surname>Huang</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">M</forename><surname>Ramesh</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">T</forename><surname>Berg</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">E</forename><surname>Miller</surname></persName>
+		</author>
+		<idno>07-49</idno>
+		<imprint>
+			<date type="published" when="2007" />
+			<pubPlace>Amherst</pubPlace>
+		</imprint>
+		<respStmt>
+			<orgName>University of Massachusetts</orgName>
+		</respStmt>
+	</monogr>
+<note type="report_type">Technical Report</note>
+</biblStruct>
+
+<biblStruct xml:id="b5">
+	<analytic>
+		<title level="a" type="main">Learning to classify gender from four million images</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">S</forename><surname>Jia</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">N</forename><surname>Cristianini</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Pattern Recognition Letters</title>
+		<imprint>
+			<biblScope unit="volume">58</biblScope>
+			<biblScope unit="page" from="35" to="41" />
+			<date type="published" when="2015" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b6">
+	<analytic>
+		<title level="a" type="main">Face detection without bells and whistles</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">M</forename><surname>Mathias</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">R</forename><surname>Benenson</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">M</forename><surname>Pedersoli</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">L</forename><surname>Van Gool</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Computer Vision-ECCV 2014</title>
+		<imprint>
+			<publisher>Springer</publisher>
+			<date type="published" when="2014" />
+			<biblScope unit="page" from="720" to="735" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b7">
+	<analytic>
+		<title level="a" type="main">The ri- jksmuseum challenge: Museum-centered visual recognition</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">T</forename><surname>Mensink</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">J</forename><surname>Van Gemert</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Proceedings of Inter- national Conference on Multimedia Retrieval</title>
+		<meeting>Inter- national Conference on Multimedia Retrieval</meeting>
+		<imprint>
+			<publisher>ACM</publisher>
+			<date type="published" when="2014" />
+			<biblScope unit="page">451</biblScope>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b8">
+	<analytic>
+		<title level="a" type="main">Recognizing human gen-der in computer vision: a survey</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">C</forename><forename type="middle">B</forename><surname>Ng</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">Y</forename><forename type="middle">H</forename><surname>Tay</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">B.-M</forename><surname>Goi</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">PRICAI 2012: Trends in Artificial Intelligence</title>
+		<imprint>
+			<publisher>Springer</publisher>
+			<date type="published" when="2012" />
+			<biblScope unit="page" from="335" to="346" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b9">
+	<monogr>
+		<title level="m" type="main">Multiresolu-tion gray-scale and rotation invariant texture classification with local binary patterns. IEEE Transactions on pattern analysis and machine intelligence</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">T</forename><surname>Ojala</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">M</forename><surname>Pietikainen</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">T</forename><surname>Maenpaa</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="2002" />
+			<biblScope unit="volume">24</biblScope>
+			<biblScope unit="page" from="971" to="987" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b10">
+	<analytic>
+		<title level="a" type="main">Clothing and gender in America: Children&apos;s fashions, 1890-1920</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">J</forename><forename type="middle">B</forename><surname>Paoletti</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Signs</title>
+		<imprint>
+			<biblScope unit="volume">13</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="136" to="143" />
+			<date type="published" when="1987" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b11">
+	<monogr>
+		<title level="m" type="main">Sequential minimal optimization: A fast algorithm for training support vector machines</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">J</forename><surname>Platt</surname></persName>
+		</author>
+		<idno>MSR-TR-98-14</idno>
+		<imprint>
+			<date type="published" when="1998" />
+			<pubPlace>Microsoft Research</pubPlace>
+		</imprint>
+	</monogr>
+<note type="report_type">Technical Report</note>
+</biblStruct>
+
+<biblStruct xml:id="b12">
+	<analytic>
+		<title level="a" type="main">Grabcut: In- teractive foreground extraction using iterated graph cuts</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">C</forename><surname>Rother</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">V</forename><surname>Kolmogorov</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">Blake</forename></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">A</forename></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">ACM transactions on graphics (TOG)</title>
+		<imprint>
+			<publisher>ACM</publisher>
+			<date type="published" when="2004" />
+			<biblScope unit="volume">23</biblScope>
+			<biblScope unit="page" from="309" to="314" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b13">
+	<analytic>
+		<title level="a" type="main">Computerized face recognition in renaissance portrait art: A quantitative measure for identifying uncertain subjects in ancient portraits</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">R</forename><surname>Srinivasan</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">C</forename><surname>Rudolph</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">Roy-Chowdhury</forename></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">A</forename><forename type="middle">K</forename></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Signal Processing Magazine</title>
+		<imprint>
+			<biblScope unit="volume">32</biblScope>
+			<biblScope unit="issue">4</biblScope>
+			<biblScope unit="page" from="85" to="94" />
+			<date type="published" when="2015" />
+			<publisher>IEEE</publisher>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b14">
+	<analytic>
+		<title level="a" type="main">Supervised de- scent method and its applications to face alignment</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">X</forename><surname>Xiong</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">F</forename><surname>De La Torre</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">IEEE Conference on Com- puter Vision and Pattern Recognition (CVPR)</title>
+		<imprint>
+			<date type="published" when="2013" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+				</listBibl>
+			</div>
+		</back>
+	</text>
+</TEI>

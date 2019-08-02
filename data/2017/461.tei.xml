@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xsi:schemaLocation="http://www.tei-c.org/ns/1.0 /Users/yoann/Work/Grobid/grobid-home/schemas/xsd/Grobid.xsd"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+	<teiHeader xml:lang="en">
+		<encodingDesc>
+			<appInfo>
+				<application version="0.5.4-SNAPSHOT" ident="GROBID" when="2019-06-05T06:28+0000">
+					<ref target="https://github.com/kermitt2/grobid">GROBID - A machine learning software for extracting information from scholarly documents</ref>
+				</application>
+			</appInfo>
+		</encodingDesc>
+		<fileDesc>
+			<titleStmt>
+				<title level="a" type="main">Mapping the STC with MoEML and DEEP</title>
+			</titleStmt>
+			<publicationStmt>
+				<publisher/>
+				<availability status="unknown"><licence/></availability>
+			</publicationStmt>
+			<sourceDesc>
+				<biblStruct>
+					<analytic>
+						<author>
+							<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">Janelle</forename><forename type="middle">Auriol</forename><surname>Jenstad</surname></persName>
+							<email>jenstad@uvic.ca</email>
+							<affiliation key="aff0">
+								<orgName type="institution">University of Victoria</orgName>
+								<address>
+									<country key="CA">Canada</country>
+								</address>
+							</affiliation>
+						</author>
+						<author>
+							<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">Tye</forename><surname>Landels-Gruenewald</surname></persName>
+							<affiliation key="aff1">
+								<orgName type="institution">Queen&apos;s University</orgName>
+								<address>
+									<country key="CA">Canada</country>
+								</address>
+							</affiliation>
+						</author>
+						<author>
+							<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">Joseph</forename><surname>Takeda</surname></persName>
+							<email>joey.takeda@gmail.com</email>
+							<affiliation key="aff2">
+								<orgName type="institution">University of British Columbia</orgName>
+								<address>
+									<country key="CA">Canada</country>
+								</address>
+							</affiliation>
+						</author>
+						<title level="a" type="main">Mapping the STC with MoEML and DEEP</title>
+					</analytic>
+					<monogr>
+						<imprint>
+							<date/>
+						</imprint>
+					</monogr>
+				</biblStruct>
+			</sourceDesc>
+		</fileDesc>
+		<profileDesc>
+			<abstract/>
+		</profileDesc>
+	</teiHeader>
+	<text xml:lang="en">
+		<body>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Introduction</head><p>MoEML's gazetteer of 6500 London place name variants invites the mapping of datasets with a geographical component. As a textual editing project with an interest in print culture, we have long hoped to mobilize our GIS tools and gazetteer data in the service of mapping the English book trade. Our ultimate goal is to publish a layer showing the printing and/or retailing locations of the approximately 25,000 books printed in London between 1475 and 1640. Imprint lines in early modern books include highly granular location data, which has meant that book history has traditionally had an implicit geospatial dimension. A typical imprint line tells us that copies of a folio are "Printed by Elizabeth Purslovv, and are to be sold by Nicholas Bourne, at his shop at the south entrance of the Royall Exchange, 1633." Using the information in such imprint lines, Kathleen Pantzer reorganized the items in the Short Title Catalogue under location headings (Pantzer numbers) in Vol. 3 of the catalogue. Her work facilitates questions about the proximity of one printer or bookseller to another, and thereby questions about affiliations, collaborations, and specialization among a key group of early modern cultural agents.</p><p>However, considerable processing of Pantzer's printed lists is required to visualize or map STC items. Thus far, digital databases like Early English Books Online (EEBO) and the English Short Title Catalogue (ESTC) have captured the imprint line without parsing it into discrete data points, thereby leaving Pantzer's formidable interpretive work behind as we move into the era of digital historical bibliography. The Database of Early English Playbooks (DEEP) has included and corrected Pantzer numbers, but only for the printed plays, of course. MoEML has attempted to replicate Pantzer's work via datamining the ESTC. After several unsuccessful NER experiments on ESTC data, we are now mobilizing the curatorial work of DEEP and planning to extend their work beyond playbooks. In this paper, we take imprint lines and geospatial information about the book trade as a case study in mining carefully curated data. We explain the long history of this project as it extends back to Pantzer's own work creating the strict vocabulary for the print locations of early modern texts. We then discuss how MoEML has been able to put the STC data onto the Agas map, giving a better sense of the spatial relationship of printed early modern texts. In doing so, our argument centers on the necessity for authority names and strict vocabularies. Invoking Mike Poston's suggestion that we cannot predict the uses of our data, we use our own work on various print and digital databases to show how we can control and scaffold the mining processes to establish links between several pairs of projects in order to mine and ingest data from databases that do not share a common data field with the initial project in the sequence. We conclude with a list of considerations and principles for maximizing future interoperability between literary datasets.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Methodology</head><p>Although not strictly based in MySQL technology, our methodology borrows from the work of digital humanists like Harvey Quamen and Jon Bath who use MySQL to design relational databases. Indeed, in order to establish valuable connections across diverse datasets, we must first identify what data points these datasets have in common (either directly or indirectly). For example, suppose that Dataset 1 contains raw data for categories A, B, and C and Database 2 contains raw data for categories X, Y, and C. By identifying common data points in category C between databases 1 and 2, it becomes possible to make further connections among categories A, B, X, and Y. From here, we could identify common data points in a third database that contains raw data for categories E, F, and X. We believe that relational databases provide the best platform to capture this "web of relations" in big data. Quamen and Bath describe relational databases as "a series of interconnected spreadsheets. Each spreadsheet--called a table in database lingo--contains information on a real world entity such as People or Books or Songs or Birds or Rock Concerts or Places. Those tables are then tied together via relationships" <ref type="bibr" target="#b8">(Quamen and Bath, 2016;</ref><ref type="bibr">146-147)</ref>. By providing a set of stepping stones or crosswalks between diverse datasets, relational databases enable us to build links between allied projects (i.e., ones that share a common data point) and more remote projects (i.e., ones that do not share a common data point) in order to combine expertise and mobilize already curated data in new environments.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Past Work</head><p>In 2014, MoEML research assistant Tye LandelsGruenewald undertook a directed study course with director Janelle Jenstad with the aim of geocoding the English Short Title Catalogue (ESTC) from 1475 through 1666. With the generous assistance of David Eichmann and Blaine Greteman of the Shakeosphere project (based at the University of Iowa), we were able to extract toponyms from transcribed imprints in the ESTC catalogue using natural language processing (NLP) technology. We had intended on using named entity recognition to find matches between the extracted ESTC toponyms and our own gazetteer of early modern London locations; however, the toponyms themselves included too many errors or extra text to make this feasible. As Grover, Givon, Tobin, and Ball note in their white paper on "Named Entity Recognition for Digitised Historical Texts," there is still much work be done in order to teach named entity recognition software to recognize early modern English ( <ref type="bibr" target="#b3">Grover et al., 2008)</ref>.</p><p>Concomitantly, Jenstad was manually compiling a spreadsheet of Pantzer numbers and crossreferencing them to MoEML location identifiers. Pantzer numbers are an alphanumeric string consisting of a letter and an integer. The letter indicates a general location. All the Pantzer numbers beginning with the letter O indicate locations in, near, or "against" the Royal Exchange. The numbers offer more granularity. For example, O.2 designates a location "at the north side of the Royal Exchange." Key challenges in matching Pantzer numbers with MoEML IDs were (1) different controlled vocabularies, and (2) the different levels of granularity inherent in the projects. Pantzer's authority names came from the imprint line wording; MoEML authority names are standardized spellings of the official or most common toponym variant (determined by set of critical rules we codified in order to build our gazetteer). Granularity differences emerged from the different interests of the two projects. Book historians map the bookstalls in the Royal Exchange, a location for which MoEML considered as a single entity (ROYA1); MoEML finer granularity emerges elsewhere, in our mapping of conduits, landings, and the many other precise locations that John Stow mentions in his Survey of London. A full crosswalk between Pantzer and MoEML would require the addition of sublocations to MoEML's placeography, a goal we will likely realize via the development of MoEML microsites for the Royal Exchange and Paul's Churchyard. In the meantime, we lose some of the granularity of Pantzer's data by assigning the same MoEML id to two or more Pantzer numbers.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Current Work</head><p>These past-attempts at establishing interoperability between datasets illustrate the challenges in attempting to traverse projects that only weakly share common data points. Between MoEML and the ESTC are a number of assumptions, potential errors, and remediations that weaken the link between the two respective datasets. To get to our larger project of mapping the STC, we must take smaller steps.</p><p>Our current work relates the playbook data collected by Zachary Lesser and Alan B. Farmer at The Database of Early English Playbooks (DEEP) to our own toponymic data, relying on Pantzer's vocabulary as a shared data-point. Jenstad's spreadsheet was transformed into a TEI-conformant XML table, which we ran across DEEP's openly available XML data. Doing so allows us to integrate DEEP numbers into the site, linking outwards to DEEP's newly static and predictable URLs.</p><p>The DEEP data and Pantzer-MoEML table can be related, but we recognize that this relationship is not immutable. In other words, both datasets are "living" databases insofar as the data can-and should becurated and edited. Once Jenstad's spreadsheet was converted into TEI, Landels-Gruenewald was tasked with editing and refining Jenstad's initial findings to reflect the the growth of MoEML's gazetteer over the past two years (the MoEML team tagged nearly 2000 more toponyms between July 25, 2014-the last day Jenstad worked on the spreadsheet- and October <ref type="bibr">31, 2016, from 11,259 to 16,120)</ref>. Lesser and Farmer have also recognized the need to amend Pantzer's findings in their data.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Future Work</head><p>The experiment with DEEP data has given us a stronger link to the ESTC. Now that we know Pantzer numbers are relatable to MoEML toponym IDs, we can now mobilize the data from Pantzer's appendix to connect MoEML with the ESTC. We plan to convert Pantzer's printed aggregations of STC numbers to digital files via OCR. With some curation, we will then have a list of all the STC numbers at each Pantzer number; using our crosswalk between Pantzer numbers and MoEML IDs, we will have a list of STC numbers (and therefore of unique print editions and issues) associated with MoEML locations. From the ESTC, we can obtain a crosswalk relating STC numbers to ESTC numbers. We add the caveat that Pantzer's locations will need to be corrected as book historians like Lesser and Farmer bring their knowledge to bear on her interpretation of STC data; every crosswalk dependent on her data will need to be refreshed and all the data maps remade. We can display these STC numbers as lists on MoEML location pages, much as Pantzer's print database does; in the digital environment, we can make dynamic links to DEEP or ESTC open-access pages for the book. We can also map these numbers on our open-layers Agas map platform as a layer of imprints associated with locations, eventually in combination with other tags (such as genre, now being added to EEBO by other scholars) or with other metadata fields harvested from the ESTC. All this data will pivot on the STC-MoEML data crosswalk that we are producing via Pantzer, following DEEP's initial work.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Distant Future Work</head><p>A longer-term goal is to harvest from the ESTC's XML files the strings of characters transcribed in the imprint line metadata field. Since we will already know from the STC-MoEML crosswalk which location is described in the imprint line, we can sort the imprint lines by locations and do rapid human scans for outliers, which may be a quick way of correcting Pantzer's data. We can also wrap TEI tags around the toponyms in the imprint lines, thereby increasing the number of toponymic variants in the MoEML gazetteer. The more variants in the gazetteer, the more accurate any future NER or geoparsing of large corpora will be. Given that we already search the EEBO-TCP corpus manually for references to place, we aspire to run our gazetteer against the entire TCP corpus to find and then map toponyms.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Principles and Practices of Curation for Future Mining and Interoperability</head><p>Acknowledging that the most interesting future uses of a project's data have not yet been imagined <ref type="bibr" target="#b6">(Poston, 2011)</ref>, how can we maximize the opportunities for other people to do things with that data? We suggest the following principles and practices as a starting point for discussion: </p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Conclusion</head><p>Pantzer died in 2005, the year before MoEML was published at a public URL, but we like to think that she would have welcome the digital recreation, correction, curation, and connection of her data. She used the capacities of print to create a map and dense crossreferences. Having "o'erleapt" Pantzer's curatorial work in building our digital catalogues, we now need to capture her formidable scholarship of interpreting and relating disparate types of data. We began with the goal of relating MoEML toponyms to ESTC numbers, but discovered that Pantzer's hand-curated data was more reliable than the results of NER and NLP. Our new question then became: "What sort of steps, processes, principles, and practices are necessary in doing this sort of work?" Handcrafted data, in conjunction with computer processing, allows for greater interoperability between projects and begins to achieve the possibilities of the data not conceived by Pantzer.</p></div><figure xmlns="http://www.tei-c.org/ns/1.0" type="table" xml:id="tab_0" validated="false"><head>1 .</head><label>1</label><figDesc></figDesc><table>Make your data free to the world, preferably 
+in easily downloadable and manipulable 
+formats (in .json or .xml files, for example). 
+2. Be clear about how you compiled your data. 
+3. If you are aware of limitations in your data, 
+tell the world. 
+4. As you correct and refine your data, 
+communicate regularly about data updates. 
+5. If you are using other people's data in your 
+own applications, check back regularly and 
+rebuild the data crosswalks. 
+6. Know the weak link(s) in your data 
+crosswalks. 
+7. Plan for corrections as other projects 
+improve their data. 
+8. Be mindful of the potential for error to 
+compound. Errors in my data, combined 
+with errors in your data, have the potential 
+to lead scholars to false conclusions. 
+9. Test your data crosswalks in a variety of 
+ways. Take a small subset of the data and 
+compare NLP results to hand curated results, 
+for example. 
+
+</table></figure>
+		</body>
+		<back>
+			<div type="references">
+
+				<listBibl>
+
+<biblStruct xml:id="b0">
+	<analytic>
+		<title level="a" type="main">English Short Title Catalogue (ESTC)</title>
+		<ptr target="http://estc.bl.uk/" />
+	</analytic>
+	<monogr>
+		<title level="j">British Library Board</title>
+		<imprint>
+			<date type="published" when="2017-03-20" />
+		</imprint>
+	</monogr>
+	<note>Available at</note>
+</biblStruct>
+
+<biblStruct xml:id="b1">
+	<monogr>
+		<title level="m" type="main">DEEP: Database of Early English Playbooks</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">A</forename><surname>Farmer</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">Z</forename><surname>Lesser</surname></persName>
+		</author>
+		<ptr target="http://deep.sas.upenn.edu/" />
+		<imprint>
+			<date type="published" when="2007-03-20" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b2">
+	<analytic>
+		<title level="a" type="main">Early Modern Digital Scholarship and DEEP: Database of Early English Playbooks</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">A</forename><surname>Farmer</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">Z</forename><surname>Lesser</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Literature Compass</title>
+		<imprint>
+			<biblScope unit="volume">5</biblScope>
+			<biblScope unit="issue">6</biblScope>
+			<biblScope unit="page" from="1139" to="1153" />
+			<date type="published" when="2008" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b3">
+	<analytic>
+		<title level="a" type="main">Named Entity Recognition for Digitised Historical Texts</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">C</forename><surname>Grover</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">S</forename><surname>Givon</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">R</forename><surname>Tobin</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">J</forename><surname>Ball</surname></persName>
+		</author>
+		<ptr target="http://www.ltg.ed.ac.uk/np/publications/ltg/pa-pers/bopcris-lrec.pdf" />
+	</analytic>
+	<monogr>
+		<title level="m">Proceedings of the 6th International Conference on Language Resources and Evaluation. Paris: European Language Resources Association, n. pag. Available at</title>
+		<meeting>the 6th International Conference on Language Resources and Evaluation. Paris: European Language Resources Association, n. pag. Available at</meeting>
+		<imprint>
+			<date type="published" when="2008-03-20" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b4">
+	<monogr>
+		<title level="m" type="main">The Map of Early Modern London (MoEML)</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">J</forename><surname>Jenstad</surname></persName>
+		</author>
+		<ptr target="http://mapoflondon.uvic.ca/" />
+		<imprint>
+			<date type="published" when="2017-03-20" />
+		</imprint>
+	</monogr>
+	<note>Available at</note>
+</biblStruct>
+
+<biblStruct xml:id="b5">
+	<analytic>
+		<title level="a" type="main">A Short-Title Catalogue of Books Printed in England, Scotland, &amp; Ireland and of English Books Printed Abroad</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">K</forename><surname>Pantzer</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">P</forename><surname>Rider</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Begun by A. Pollard and G. Redgrave</title>
+		<imprint>
+			<biblScope unit="volume">3</biblScope>
+			<biblScope unit="page" from="1475" to="1640" />
+			<date type="published" when="1991" />
+			<publisher>Bibliographical Society</publisher>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b6">
+	<monogr>
+		<title level="m" type="main">The most interesting use of our data will not be what we think it is</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">M</forename><surname>Poston</surname></persName>
+		</author>
+		<ptr target="http://collation.folger.edu/2011/12/the-most-in-teresting-use-of-our-data-will-not-be-what-we-think-it-is/" />
+		<imprint>
+			<date type="published" when="2011-03-20" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b7">
+	<monogr>
+				<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">Llc</forename><surname>Proquest</surname></persName>
+		</author>
+		<idno>Ac- cessed 20</idno>
+		<ptr target="http://eebo.chadwyck.com/home" />
+		<title level="m">EEBO: Early English Books Online</title>
+		<imprint>
+			<date type="published" when="2003-03" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b8">
+	<analytic>
+		<title level="a" type="main">Databases</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">H</forename><surname>Quamen</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">J</forename><surname>Bath</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Doing Digital Humanities: Practice, Training, Research. London and New York: Routledge</title>
+		<editor>C. Crompton, R. Lane, and R. Siemens</editor>
+		<imprint>
+			<date type="published" when="2016" />
+			<biblScope unit="page" from="145" to="162" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b9">
+	<monogr>
+		<title level="m" type="main">A Survey of London</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">J</forename><surname>Stow</surname></persName>
+		</author>
+		<editor>John Windet for John Wolfe. STC 23341</editor>
+		<imprint>
+			<date type="published" when="1598" />
+			<pubPlace>London</pubPlace>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+				</listBibl>
+			</div>
+		</back>
+	</text>
+</TEI>

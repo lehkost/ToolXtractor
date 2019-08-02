@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>Automated Genre and Author Distinction in Comics: Towards a Stylometry for Visual Narrative</title>
+                <author>
+                    <persName>
+                        <surname>Dunst</surname>
+                        <forename>Alexander</forename>
+                    </persName>
+                    <affiliation>University of Paderborn, Germany</affiliation>
+                    <email>dunst@mail.upb.de</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Hartel</surname>
+                        <forename>Rita</forename>
+                    </persName>
+                    <affiliation>University of Paderborn, Germany</affiliation>
+                    <email>rst@upb.de</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2018-04-27T12:50:00Z</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Name, Institution</publisher>
+                <address>
+                    <addrLine>Street</addrLine>
+                    <addrLine>City</addrLine>
+                    <addrLine>Country</addrLine>
+                    <addrLine>Name</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from a Word document</p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.22">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Long Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>Image Analysis</term>
+                    <term>Stylometry</term>
+                    <term>Comics</term>
+                    <term>Visual Culture</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>art and art history</term>
+                    <term>corpora and corpus activities</term>
+                    <term>image processing</term>
+                    <term>literary studies</term>
+                    <term>stylistics and stylometry</term>
+                    <term>content analysis</term>
+                    <term>cultural studies</term>
+                    <term>English</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <div type="div1" rend="DH-Heading1">
+                <head>1. Introduction</head>
+                <p>Stylometry has a long tradition in linguistics and literary studies and has only gained in popularity with the digitization of text corpora and out-of-the-box tools (Holmes and Calle-Martin &amp; Miranda-García). Stilometric methods for paintings have been advanced in digital art history but remain at an early stage of development (Qu, Taeb &amp; Hughes; Manovich). Stylometric analyses for visual narratives are not yet established.
+                    <hi rend="endnote_reference">
+                        <note place="end">
+                            <p rend="endnote text"> Lev Manovich applied stylistic description to manga but his studies remained explorative and did not offer an analysis of categories such as author or genre.</p>
+                        </note>
+                    </hi> Visual narratives include film and TV, comics and other illustrated print literature, and to an extent computer games, constituting some of the most popular cultural formats of the twentieth and twenty-first centuries. The relative lack of research in this area may be traced to the technical hurdles of image analysis and the absence of suitable corpora. This paper will introduce a method for visual stylometry in comics based on the analysis of a corpus of 209 book-length graphic narratives. In closing, we explore how the method may be applied to other media.
+                </p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>2. Corpus &amp; Data Analysis</head>
+                <p>Our analysis is based on the Graphic Narrative Corpus (GNC), the first representative collection of what is commonly called graphic novels (Dunst et al.). The GNC was conceived as a stratified monitor corpus and defines graphic narratives as comics of more than 64 pages in length that tell one continuous or closely-related stories and are aimed at an adult readership. Due to the absence of reliable bibliographies, the total population remains unknown. A random sample is therefore not feasible. To avoid bias, we sampled from a wide array of sources: academic and general audience databases, library collections, international comics prizes, Amazon.com bestseller lists, literary histories, surveys of comics scholars, and media reports. At the time of analysis in November 2017, 209 full-length graphic narratives running to nearly 50.000 pages had been digitized and checked for scanning artefacts.</p>
+                <p>The focus on image analysis is due to both methodological and practical reasons: stylometric methods for text analysis are more established and are being continuously improved by an existing research community. These methods can be directly applied, or easily adapted, for analyzing text in comics. Automatic text localization and OCR for comics still represent work in progress, and text can not yet be extracted automatically with sufficient quality. This leaves time-consuming manual annotation as the only option, which excludes the analysis of large corpora. Visual style thus represents the most promising avenue for distinguishing between authors and genres. We used five basic measures for analysis, all of which are low-level features that are commonly used in computer vision and information theory. In all these cases, we were interested in finding significant relationships between these measures as indicators of visual style and the critical concepts we are investigating, i.e. genre and authorship.</p>
+                <list type="unordered">
+                    <item>
+                        <hi rend="bold">Median Brightness</hi>: the mean value of all brightness values of all pixels of a page. We transformed each page into a grayscale image by computing the Luma of each pixel, i.e., the weighted sums of the gamma-compressed R’G’B’-values of the image.
+                    </item>
+                    <item>
+                        <hi rend="bold">Shannon Entropy</hi>: the expected value of the information in a message. The entropy H(X) of a message X=(x
+                        <hi rend="subscript">1</hi>,…,x
+                        <hi rend="subscript">n</hi>) of length n is defined to be H(X):=Σ
+                        <hi rend="subscript">i=1..n</hi>P(x
+                        <hi rend="subscript">i</hi>)*log
+                        <hi rend="subscript">2</hi>(P(x
+                        <hi rend="subscript">i</hi>)). The message X of the entropy is the list of the brightness values of each pixel, with the x
+                        <hi rend="subscript" xml:space="preserve">i </hi>range between 0 and 255. In addition, n is the total number of pixels. As P(x
+                        <hi rend="subscript">i</hi>) denotes the probability or relative frequency of item x
+                        <hi rend="subscript">i</hi>, we can compute P(x
+                        <hi rend="subscript">i</hi>) for a given x
+                        <hi rend="subscript">i</hi> by P(x
+                        <hi rend="subscript">i</hi>):= (Number of pixels having value x
+                        <hi rend="subscript">i</hi>)/(n=total number of pixels).
+                    </item>
+                    <item>
+                        <hi rend="bold">Number of Shapes</hi>: describes an image’s agitation. To yield normalized values, we scaled each image to a height of 250 pixels. We first split grayscale images into 5 sub-images of different brightness levels and then measured individual sub-images and filled unconnected areas up to a diameter of four pixels. In a final step, we discounted components that came to less than ten pixels in size.
+                    </item>
+                    <item>
+                        <hi rend="bold">Color Layout</hi>: A color layout descriptor (CLD; MPEG 7) captures the spatial distribution of color using the YCbCr color space. The extraction process consists of image partitioning, representative color selection, discrete cosine transform, and zigzag scanning. The color components Cb and Cr represent the range of blue and red present in an image.
+                    </item>
+                    <item>
+                        <hi rend="bold">Edge Types</hi>: the edge histogram descriptor (MPEG 7) calculates the frequency of different edges in an image: vertical, horizontal, 45° diagonal, 135° diagonal, and non-directional. Each image is divided into 4x4 subframes. Each subframe consists of five bins, each of which represents the different edge types. Subframes are divided into non-overlapping blocks to extract edge types and bin values are normalized by the total number of blocks in the subframe.
+                    </item>
+                </list>
+                <p>After calculating the five basic measures, we derived the median for each of the 209 graphic narratives. To analyze stylistic variation within individual narratives, we calculated standard deviation from each of the five measures. We performed Anova and Tukey’s HSD, which are standard statistical methods for testing for significant differences among the means of more than two samples, with p&lt;0.05.</p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>3. Results &amp; Discussion</head>
+                <div type="div2" rend="DH-Heading2">
+                    <head>3.a Genre</head>
+                    <p>The GNC consists of fictional and non-fictional texts, including graphic memoirs and journalism, which are often summarized under the somewhat misleading umbrella term graphic novel. We assigned 23 subgenre categories using plot summaries and information provided by publishers. Their distribution can be seen in figure 1. Subgenres were grouped into six larger categories for analysis: graphic novel, graphic memoir, other non-fiction, humor, graphic fantasy, and miscellaneous.</p>
+                    <figure>
+                        <graphic n="1001" width="15.003638888888888cm" height="11.289963888888888cm" url="Pictures/e45c1acb001abb777ae487c24f13e4d5.png" rend="inline"/>
+                    </figure>
+                    <p>
+                        <hi rend="bold">Figure 1</hi>: Larger genre categories are indicated by color ranges: graphic novel (red), graphic memoir (green), other non-fiction (blue), humor (yellow), graphic fantasy (purple), and miscellaneous (gray).
+                    </p>
+                    <p>Results show highly significant distinctions for graphic novel, graphic memoir, and graphic fantasy across several measures. Graphic memoirs (including such canonical text as Spiegelman’s 
+                        <hi rend="italic">Maus</hi> and Bechdel’s 
+                        <hi rend="italic">Fun Home</hi>) are brighter, show less color variation (cb &amp; cr), and are more regular in their visual style than other genres. Regularity of visual style can be seen in the lowest median scores for entropy and the high frequency of horizontal edges. Graphic fantasy is significantly darker, while showing the highest entropy and lowest number of horizontal edges. Graphic fantasy also distinguishes itself by the highest amount of color variation. Graphic novels are situated between the two extremes of graphic memoirs and fantasy, yet are statistically distinct in their visual style. The measure number of shapes did not return significant results, while the edge histogram only did so for horizontal edges. The boxplots in figures 2-4 show results for entropy, brightness, and horizontal edges.
+                    </p>
+                    <figure>
+                        <graphic n="1002" width="15.991416666666666cm" height="11.260666666666667cm" url="Pictures/fbe1faf846529fbed1a67bc43a76c52c.png" rend="inline"/>
+                    </figure>
+                    <p>
+                        <hi rend="bold">Figure 2</hi>: Boxplot Entropy: Graphic Fantasy – Graphic Memoir (p&lt;0.003)
+                    </p>
+                    <p>
+                        <graphic n="1003" width="15.991416666666666cm" height="11.260666666666667cm" url="Pictures/1104647cda0733ce260d9d29278d604e.png" rend="inline"/>
+                        <hi rend="bold">Figure 3</hi>: Boxplot Mean Brightness: Graphic Memoir – Graphic Novel (p&lt;0.016); Graphic Fantasy – Graphic Novel (p&lt;0.000)
+                    </p>
+                    <p>
+                        <graphic n="1004" width="15.991416666666666cm" height="11.260666666666667cm" url="Pictures/a06b717f5393a980a53e0c7d3dac78b0.png" rend="inline"/>
+                        <hi rend="bold">Figure 4</hi>: Boxplot Horizontal Edges: Graphic Fantasy – Graphic Memoir (p&lt;0.001)
+                    </p>
+                </div>
+                <div type="div2" rend="DH-Heading2">
+                    <head>3.b Authorship</head>
+                    <p>The GNC includes several authors that are represented with more than one graphic narrative. The GNC also contains information on single authorship, or collaborations between one writer and one illustrator, or multiple authors. Results returned highly significant distinctions for individual authors and for authorship categories (single, two, and multiple authors). Works by authors such as Neil Gaiman and Frank Miller show consistently higher entropy and a comparatively higher mean brightness than other authors, while the opposite holds for Will Eisner, for instance. Results align with genres in which these authors publish, respectively, graphic fantasy versus graphic novel and memoir. Similarly, the number of shapes and the variation in mean brightness are significantly lower for authors who publish in the latter genres. Individual and multiple authorship also results in distinct visual styles. Graphic narratives written by a single author show lower entropy and number of shapes, are brighter and less colorful, and contain fewer diagonal edges (45° and 135°). Results were highly significant, with p&lt;0.01 throughout. Figure 5 and 6 visualize entropy for individual authors and number of shapes for authorship categories.</p>
+                    <p>
+                        <graphic n="1005" width="15.991416666666666cm" height="9.816041666666667cm" url="Pictures/c40c3d3254f3a2795244008482c3eafb.png" rend="inline"/>
+                        <hi rend="bold">Figure 5</hi>: Boxplot Entropy Authors with &gt;3 titles
+                    </p>
+                    <p>
+                        <graphic n="1006" width="15.991416666666666cm" height="10.484555555555556cm" url="Pictures/c25d78b3bed0b9c0a4338badb26e9a02.png" rend="inline"/>
+                        <hi rend="bold">Figure 6</hi>: Boxplot Number of Shapes for Authorship Categories: 1 – 2 Authors (p&lt;0.001); 1 – &gt;3 Authors (p&lt;0.001)
+                    </p>
+                </div>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>4. Outlook and Future Work</head>
+                <p>We introduced image analyses that adapt stylometric distinctions to visual narrative. As our paper shows, comics grouped together under authorship or genre affiliation share numerous visual traits. The correlation between author and genre categories indicates that we need to disentangle these signals. We are working on neutralizing the author signal by penalizing texts from the same writer and will integrate this approach in time for DH 2018 (Tello et al.). As examples of hand-drawn still images, comics have stylistic traits that distinguish them from moving image narratives such as film and TV. Thus, the visual descriptors used here may be adapted most readily to other forms of graphic art, including drawings, woodcuts, and lithographs. Given that the measures we used are highly generic and low-level features, the method also has potential for other media in which the concepts of genre and authorship play a role. Thus, they could be adapted for investigating authorship in film, for instance.</p>
+            </div>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl>
+                        <hi rend="bold">Calle-Martin, J. &amp; A. Miranda-García</hi> (2012). "Stylometry and Authorship Attribution: Introduction to the Special Issue“ 
+                        <hi rend="italic">English Studies</hi> 93-3: 251-58.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Dunst, A., R. Hartel, and J. Laubrock</hi> (2017). “The Graphic Narrative Corpus (GNC): Design, Annotation, and Analysis for the Digital Humanities” in 
+                        <hi rend="italic">Proceedings of the 14th IAPR International Conference on Document Analysis and Recognition (ICDAR 2017)</hi>, 15-20, DOI: 10.1109/ICDAR.2017.286. 
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Holmes, D</hi> (1998). “The Evolution of Stylometry in Humanities Scholarship“ 
+                        <hi rend="italic">Literary and Linguistic Computing</hi> 13-3: 111-17.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Manovich, L., J. Douglas, T. Zepel</hi> (2011). “How to Compare One Million Images“, http://manovich.net/index.php/projects/how-to-compare.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Qi, Hanchao, Armeen Taeb &amp; Shannon M. Hughes</hi> (2013). “Visual stylometry using background selection and wavelet-HMT-based Fisher information distances for attribution and dating of impressionist paintings” 
+                        <hi rend="italic">Signal Processing</hi> 93-3: 541-53.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Tello, José Calvo, et al.</hi> (2017).“Neutralising the Author Signal by Penalization: Stylometric Clustering of Genre in Spanish Novels.” 
+                        <hi rend="italic">DH 2017: Conference Abstracts</hi>, 181-184. 
+                    </bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

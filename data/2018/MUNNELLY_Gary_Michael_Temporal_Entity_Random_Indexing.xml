@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title type="full">
+                    <title type="main">Temporal Entity Random Indexing</title>
+                    <title type="sub"/>
+                </title>
+                <author>
+                    <persName>
+                        <surname>Caputo</surname>
+                        <forename>Annalina</forename>
+                    </persName>
+                    <affiliation>Adapt Centre, Trinity College Dublin, Ireland</affiliation>
+                    <email>annalina.caputo@adaptcentre.ie</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Munnelly</surname>
+                        <forename>Gary</forename>
+                    </persName>
+                    <affiliation>Adapt Centre, Trinity College Dublin, Ireland</affiliation>
+                    <email>gary.munnelly@adaptcentre.ie</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Lawless</surname>
+                        <forename>Seamus</forename>
+                    </persName>
+                    <affiliation>Adapt Centre, Trinity College Dublin, Ireland</affiliation>
+                    <email>seamus.lawless@adaptcentre.ie</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2018-04-25T13:30:58.542970442</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Name, Institution</publisher>
+                <address>
+                    <addrLine>Street</addrLine>
+                    <addrLine>City</addrLine>
+                    <addrLine>Country</addrLine>
+                    <addrLine>Name</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from an OASIS Open Document</p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.22">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Short Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>Diachronic analysis</term>
+                    <term>Named Entity Disambiguation</term>
+                    <term>Distributional Semantics</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>natural language processing</term>
+                    <term>text analysis</term>
+                    <term>content analysis</term>
+                    <term>linguistics</term>
+                    <term>linking and annotation</term>
+                    <term>English</term>
+                    <term>computer science</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <div type="div1" rend="DH-Heading">
+                <head>Introduction</head>
+                <p>In this exploratory research, we sought to investigate how we might identify and quantify the contextual shift surrounding significant entities in news based corpora. For example, might we be able to see changing public opinion such as that experienced by George W. Bush Jr. after the events of 9/11 and thus note how a population can rally behind their leader in the face of cultural trauma?</p>
+                <p>Our method of identifying these changes has its roots in the field of distributional semantics and the measurement of semantic shift. A typical approach to solving this problem involves building multiple word models across subsets of the sample corpus which are organized by date. By comparing the outputs of the different models we can see how the definitions of words have evolved. We adopt Temporal Random Indexing (TRI) (Basile et al., 2014) as our method of measuring semantic shift over time as it allows for a direct comparison between word representations on the basis of simple cosine similarities.</p>
+            </div>
+            <div type="div1" rend="DH-Heading">
+                <head>Method</head>
+                <p>In order to apply our method of measuring contextual shift in relation to entities we require a consistent representation of each entity that will span the entire collection e.g. the algorithm will need to know that “President Bush”, “G.W.” and “Dubyah” all refer to the same individual. In order to achieve this, an Entity Disambiguation process is applied to the source text prior to building the semantic space. This step substitutes mentions of each entity with a URI obtained from DBpedia, allowing the algorithm to track an individual through the collection irrespective of how they are referenced. We use CogComp NER
+                    <note xml:id="ftn1" place="foot" n="1">
+                        <ptr target="https://github.com/CogComp/cogcomp-nlp/tree/master/ner"/>
+                    </note> (Ratinov and Roth, 2009) for entity recognition and AGDISTIS
+                    <note xml:id="ftn2" place="foot" n="2">
+                        <ptr target="https://github.com/dice-group/AGDISTIS"/>
+                    </note> (Usbeck et al., 2014) for disambiguation.
+                </p>
+                <p>Given the output from the disambiguation tools, a different semantic space for each year in the collection’s timespan is built using the TRI implementation by Basile
+                    <note xml:id="ftn3" place="foot" n="3">
+                        <ptr target="https://github.com/pippokill/tri"/>
+                    </note> (Basile et al., 2014). Each space provides a semantic representation of words and Named Entites (NE) in terms of their proximity in space, which reflects their semantic relatedness. A time series for each NE is extracted by computing the cosine similarity between two consecutive semantic spaces (e.g. 2001 and 2002). Finally, candidate dates for the shift in meaning are extracted using the Change Point Detection algorithm as implemented by Kulkarni
+                    <note xml:id="ftn4" place="foot" n="4">
+                        <ptr target="https://github.com/viveksck/langchangetrack"/>
+                    </note> (Kulkarni et al., 2015).
+                </p>
+            </div>
+            <div type="div1" rend="DH-Heading">
+                <head>Evaluation</head>
+                <p>For test data we utilized the New York Times collection curated by LDC
+                    <note xml:id="ftn5" place="foot" n="5">
+                        <ptr target="https://catalog.ldc.upenn.edu/ldc2008t19"/>
+                    </note> (Sandhaus, 2008) which spans 20 years of American news from 1987 to 2007. While methods which measure semantic shift in word sense typically require collections which span hundreds of years, because circumstances evolve more quickly than language, we believe that a 20 year span is more than enough to produce interesting results when the same methods are applied to the examination of entities.
+                </p>
+                <p>The collection was preprocessed and analysed using the method described in Section 2. This yielded a series of 20 language models which provided semantic representations for each entity identified and linked by CogComp NER and AGDISTIS. We computed the temporal shift for all the entities in the corpus and ranked them by the magnitude of this shift (p-value from the Change Point Detection algorithm). We selected the top 100 entities from this ranking (i.e. those with the greatest semantic shift) and selected the largest group of entities which underwent a semantic shift in the same year from within that group.</p>
+            </div>
+            <div type="div1" rend="DH-Heading">
+                <head>Results</head>
+                <p>The evaluation methodology described in Section 3 yielded a shortlist of 12 entities which undergo a sizeable semantic shift in 2001: Federal_Bureau_of_Investigation, Pentagon, White_House, New_York, Congress, Department_of_Justice, George_H._W._Bush, Texas, West, Saddam_Hussein, Republican_Party_(United_States), and American_Motors. Almost all of them are related to politics and have strong connections with the happenings of 9/11. Notably, while a member of the Bush family is connected with these events and does indeed undergo a shift in semantic representation, it is the wrong individual - the father rather than the son. This assignment of a semantic shift to George_H._W._Bush in 2001 is certainly due to the disambiguation process.</p>
+                <p>While we believe the inclusion of the entity disambiguation step is an interesting contribution of this work, we observed a number of problems with the process.</p>
+                <p>The contents of the knowledge base, which informs the disambiguation software, has a dramatic impact on the quality of the results obtained. So too does the nature of the entities being disambiguated. One notable example of this was our results with regards to mentions of “the Internet”. Our method showed a dramatic increase in discourse surrounding the Internet from the mid 90s up into the second millennium. However, while the representation was consistent, the referent chosen by the disambiguation software was an American band known as “The Internet”, rather than the network of computers we use today.</p>
+                <p>While the error with the Internet is obvious, more challenging was distinguishing between mentions of George W. Bush Jr. and George H. W. Bush Sr. The former’s role in the events post 9/11 (reports of which were included in our corpus) made him an important entity for the disambiguation software to correctly annotate. However, in many cases this proved to be extremely difficult. This is understandable given the similarity in context surrounding both Bush Jr. and Bush Sr., We can work with an incorrect annotation provided it is consistently incorrect. However the unpredictability surrounding the name “Bush” presents a difficult problem when this information is used as part of the Random Indexing process.</p>
+            </div>
+            <div type="div1" rend="DH-Heading">
+                <head>Conclusion</head>
+                <p>We have presented a preliminary case study, which although not robust enough to infer any conclusions, highlights the potential of this type of analysis. We conducted our preliminary investigation guided by a major cultural trauma that occurred between 1987 and 2007, and which caused a sudden reaction and change in the public discourse. It is clear that a weakness in the method is the disambiguation process. Future work will focus on improving the quality of disambiguation as well as investigating the possibility of building time series models over shorter spans of time e.g. months or weeks.</p>
+            </div>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl>
+                        <hi rend="bold">Basile, P., Caputo, A. and Semeraro, A.</hi> (2014). Analysing word meaning over time by exploiting temporal Random Indexing. 
+                        <hi rend="italic">Proceedings of the First Italian Conference on Computational Linguistics CLiCit 2014 and of the Fourth International Workshop EVALITA 2014 911 December 2014 Pisa</hi> doi:10.12871/CLICIT201418. http://www.pisauniversitypress.it (accessed 25 April 2018).
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Kulkarni, V., Al-Rfou, R., Perozzi, B. and Skiena, S.</hi> (2015). Statistically Significant Detection of Linguistic Change. ACM Press, pp. 625–35 doi:10.1145/2736277.2741627. http://dl.acm.org/citation.cfm?doid=2736277.2741627 (accessed 25 April 2018).
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Ratinov, L. and Roth, D.</hi> (2009). Design challenges and misconceptions in named entity recognition. Association for Computational Linguistics, p. 147 doi:10.3115/1596374.1596399. http://portal.acm.org/citation.cfm?doid=1596374.1596399 (accessed 25 April 2018).
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Sandhaus, E.</hi> (2008). The new york times annotated corpus. 
+                        <hi rend="italic">Linguistic Data Consortium, Philadelphia</hi>, 
+                        <hi rend="bold">6</hi>(12): e26752.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Usbeck, R., Ngomo, A.-C. N., Röder, M., Gerber, D., Coelho, S. A., Auer, S. and Both, A.</hi> (2014). AGDISTIS-graph-based disambiguation of named entities using linked data. 
+                        <hi rend="italic">International Semantic Web Conference</hi>. Springer, pp. 457–471 http://link.springer.com/chapter/10.1007/978-3-319-11964-9_29 (accessed 12 February 2017).
+                    </bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

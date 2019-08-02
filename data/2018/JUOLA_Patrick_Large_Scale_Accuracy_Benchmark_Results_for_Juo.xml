@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>Large-Scale Accuracy Benchmark Results for Juola's Authorship Verification Protocols</title>
+                <author>
+                    <persName>
+                        <surname>Juola</surname>
+                        <forename>Patrick</forename>
+                    </persName>
+                    <affiliation>Duquesne University, United States of America</affiliation>
+                    <email>juola@mathcs.duq.edu</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2014-12-19T13:50:00Z</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Name, Institution</publisher>
+                <address>
+                    <addrLine>Street</addrLine>
+                    <addrLine>City</addrLine>
+                    <addrLine>Country</addrLine>
+                    <addrLine>Name</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from a Word document</p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.22">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Short Paper (was submitted as Long Paper)</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>authorship analysis</term>
+                    <term>formal protocols</term>
+                    <term>forensics</term>
+                    <term>accuracy</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>stylistics and stylometry</term>
+                    <term>authorship attribution / authority</term>
+                    <term>linguistics</term>
+                    <term>crowdsourcing</term>
+                    <term>English</term>
+                    <term>computer science</term>
+                    <term>library &amp; information science</term>
+                    <term>artificial intelligence and machine learning</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <p>Authorship attribution, the analysis of a document’s contents to determine its author, is an important issue in the digital humanities. An accurate answer to this question is important, as not only do scholars rely on this type of analysis, but they are also used, for example, to help settle real disputes in the court system (Solan, 2012). It is thus important both to have analyses that are as accuracy, and to know what the expected accuracy levels are. </p>
+            <p>In keeping with good forensic practice, scholars such as Juola (2015) have proposed formal protocols for addressing authorship questions such as “were these two documents written by the same person?” Juola (2015) described a simple and understandable protocol based on a relatively small number of distractor authors, multiple independent analyses (e.g, separate analyses based on character n-grams, on word lengths, and on distributions of function words), and a data fusion step based on the assumption that the analyses were biased towards giving correct answers. Juola (2016) proposed minor revisions using Fisher’s exact test to formalize the probability of a spurious match. The revised protocol has been formalized into a software-as-a-service product called Envelope to provide a standard (and low cost) authorship verification service.</p>
+            <p>We reimplemented Juola’s (2016) protocol on a corpus of blog posts to determine whether, in fact, the protocol yields acceptable accuracy rates. Our reimplementation used the JGAAP open-source software package, an ad-hoc distractor set of ten authors (plus the author of interest), and the five analyses listed in Juola (2016): Vocabulary overlap, word lengths, character 4-grams, 50 MFW, and punctuation.</p>
+            <p>Blog data was taken from the Blog Authorship Corpus [Schler et al. (2006)] a collection of collected roughly 140 million words of blog text from 20,000 bloggers collected in August 2004. From this collection, we gathered 4000 examples of authors who had written 300 or more sentences. Ten of these authors were reserved, following Juola (2015;2016) as fixed distractor authors, while the others were randomly paired to create wrong-author test sets.</p>
+            <p>To test same-author accuracy, the first hundred sentences of each of the remaining 3990 blogs were used as “known documents” in the Envelope protocol, while the last hundred sentences of that author were used as “unknown documents.” Perhaps obviously, the correct answer for these tests is that the documents should verify as the same author. To test different-author accuracy, the first hundred sentences of every author in the set was used as a “known document” and compared to the last hundred sentences of the other, paired, author. This procedure generated nearly four thousand test cases of both same and different authors. Each test case was analyzed five times and the rank sum of the known document within the eleven candidate authors calculated as an overall similarity measure from 5..55. This was converted to a 
+                <hi rend="italic">p</hi>-value using Fisher’s exact test.
+            </p>
+            <p>Juola (2016) recommends a seven-point evaluative scale, as follows:</p>
+            <list type="unordered">
+                <item>p &lt; 0.05 (Strong indications of same authorship)</item>
+                <item>p &lt; 0.10</item>
+                <item>p &lt; 0.20</item>
+                <item>p &lt; 0.80 (Inconclusive)</item>
+                <item>p &lt; 0.90</item>
+                <item>p &lt; 0.95</item>
+                <item>p &gt;= 0.95 (Strong indications of different authorship)</item>
+            </list>
+            <p>The results of these experiments are presented in table 1. The final column indicates the odds ratio; the likelihood that any particular finding at that level corresponds to an actual correct author.</p>
+            <table rend="rules">
+                <row>
+                    <cell>p-value</cell>
+                    <cell>Same Author</cell>
+                    <cell>Different author</cell>
+                    <cell>Odds</cell>
+                </row>
+                <row>
+                    <cell>&lt; 0.05</cell>
+                    <cell>2948</cell>
+                    <cell>748</cell>
+                    <cell>3.941</cell>
+                </row>
+                <row>
+                    <cell>&lt; 0.10</cell>
+                    <cell>246</cell>
+                    <cell>359</cell>
+                    <cell>0.686</cell>
+                </row>
+                <row>
+                    <cell>&lt; 0.20</cell>
+                    <cell>195</cell>
+                    <cell>396</cell>
+                    <cell>0.492</cell>
+                </row>
+                <row>
+                    <cell>&lt; 0.80</cell>
+                    <cell>409</cell>
+                    <cell>1390</cell>
+                    <cell>0.294</cell>
+                </row>
+                <row>
+                    <cell>&lt; 0.90</cell>
+                    <cell>54</cell>
+                    <cell>234</cell>
+                    <cell>0.231</cell>
+                </row>
+                <row>
+                    <cell>&lt; 0.95</cell>
+                    <cell>47</cell>
+                    <cell>230</cell>
+                    <cell>0.204</cell>
+                </row>
+                <row>
+                    <cell>&gt; 0.95</cell>
+                    <cell>91</cell>
+                    <cell>663</cell>
+                    <cell>0.137</cell>
+                </row>
+            </table>
+            <p>These results show that, in the same-author case, the proposed protocol is very good at identifying same-authors; roughly 3/4 of the actual same-author cases tested at the 0.05 level or better. Because of this, any result less stringent than “strong indications of same authorship” is actually evidence 
+                <hi rend="italic">against</hi> same-authorship. The different-author case is more problematic; in theory, if there is no relationship between the known and questioned documents, the p-value should be uniformly distributed, representing a variety of chance relationships. However, the 0.20 &lt; p &lt; 0.80 range (“inconclusive”) contains 60% of the probability space, but only 1390/3990 = 35% of the different-author analyses. By contrast, the 0 &lt; p &lt; 0.05 contains 19% of the analyses, while 0.95 &lt; p &lt; 1.00 contains 17% of the different-author analyses. The observed distribution is thus highly weighted to the extremes of the probability space.
+            </p>
+            <p>These results indicate that the underlying independence assumptions -- that (e.g.) similarity measured by analysis of word lengths is independent of similarity derived from the most common (function) words -- are not held generally. If a set of genuinely independent analyses could be found, the accuracy of this protocol would be greatly enhanced. Assuming the same distribution for the same author case, the odds ratio for the “strongly indications of same authorship” would be closer to 15:1 rather than 4:1.</p>
+            <p>Nevertheless, these results do show that, suitably interpreted, Juola’s proposed protocol yields accurate results in a high proportion of test cases. We continue to work both on the development of a better analysis suite (with better independence properties) as well as continuing to replicate this experiment to obtain more accurate estimates.</p>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl>
+                        <hi rend="al-author-name">
+                            <hi rend="color(2A2A2A)">Juola, Patrick. (201</hi>
+                            <hi rend="color(2A2A2A)" xml:space="preserve">5).  The Rowling Case: A Proposed Standard Analytic Protocol for Authorship Questions.  </hi>
+                        </hi>
+                        <hi rend="italic">
+                            <hi rend="color(2A2A2A)">Digital Scholarship in the Humanities. Vol</hi>
+                        </hi>
+                        <hi rend="italic color(2A2A2A)">ume</hi>
+                        <hi rend="color(2A2A2A)" xml:space="preserve"> 30, Issue suppl_1, 1 December 2015, Pages i100–i113, </hi>https://doi.org/10.1093/llc/fqv040
+                    </bibl>
+                    <bibl rend="p1">Juola, Patrick. (2016). Did Aunt Prunella Really Write That Will? A Simple and Understandable Computational Assessment of Authorial Likelihood. 
+                        <hi rend="italic">Workshop on Legal Text, Document, and Corpus Analytics - LTDCA 2016</hi>, San Diego, California.
+                    </bibl>
+                    <bibl>J. Schler, M. Koppel, S. Argamon and J. Pennebaker. (2006). Effects of Age and Gender on Blogging in 
+                        <hi rend="italic">Proceedings of 2006 AAAI Spring Symposium on Computational Approaches for Analyzing Weblogs</hi>. 
+                    </bibl>
+                    <bibl>
+                        <hi rend="color(222222)">Solan, Lawrence M. "Intuition versus algorithm: The case of forensic authorship attribution." </hi>
+                        <hi rend="italic color(222222)">JL &amp; Pol'y</hi>
+                        <hi rend="color(222222)"> 21 (2012): 551.</hi>
+                    </bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>Backoff Lemmatization as a Philological Method</title>
+                <author>
+                    <persName>
+                        <surname>Burns</surname>
+                        <forename>Patrick J.</forename>
+                    </persName>
+                    <affiliation>Institute for the Study of the Ancient World, United States of America</affiliation>
+                    <email>pjb311@nyu.edu</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2014-12-19T13:50:00Z</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Name, Institution</publisher>
+                <address>
+                    <addrLine>Street</addrLine>
+                    <addrLine>City</addrLine>
+                    <addrLine>Country</addrLine>
+                    <addrLine>Name</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from a Word document</p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.22">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Short Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>Latin</term>
+                    <term>lemmatization</term>
+                    <term>philology</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>classical studies</term>
+                    <term>corpora and corpus activities</term>
+                    <term>natural language processing</term>
+                    <term>text analysis</term>
+                    <term>philology</term>
+                    <term>data mining / text mining</term>
+                    <term>English</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <p>Automated lemmatization, that is the retrieval of dictionary headwords, is an active area of research in Latin text analysis. Latinists have available web-based applications like Collatinus (Ouvard and Verkerk, 2014) and LemLat (Bozzi et al., 1992) and web services like Morpheus (Almas, 2015). LatMor (Springmann, 2016) and TreeTagger (Schmid, 1994) offer lemmatization as a byproduct of their primary tasks as morphological taggers. Recent work, to name a few developments, has seen lexicon-assisted tagging and rule induction (Eger et al., 2015; cf. Juršič, 2010) as well as neural networks (Kestemont and De Gussem, 2017) used as strategies for improving Latin lemmatization.</p>
+            <p>In this short paper, I describe the implementation of the Backoff Lemmatizer (https://github.com/cltk/cltk/blob/master/cltk/lemmatize/latin/backoff.py) for the Classical Language Toolkit, an open-source Python platform dedicated to developing natural language processing tools for historical languages (Johnson, 2017). The Backoff Lemmatizer is in fact not a single lemmatizer but rather a customizable suite of sub-lemmatizers, based on the Natural Language Toolkit’s SequentialBackoffTagger. The SequentialBackoffTagger allows the user to “chain taggers together so that if one tagger doesn’t know how to tag a word, it can pass the word on to the next backoff tagger” (Perkins, 2014, 92). While the backoff process was originally designed to handle part-of-speech tagging, and so, a task with a limited tagset, it works well for lemmatization (~90.34% accuracy compared to the 93.49% to 95.30% range reported in Eger et al., 2015). </p>
+            <p>A default class for sequential lemmatization, BackoffLatinLemmatizer, is available through the CLTK “Lemmatize” module using the following backoff sequence: 1. a dictionary-based lemmatizer for high-frequency, indeclinable vocabulary; 2. a unigram-model lemmatizer based on training data; 3. a rules-based lemmatizer based on regular expression patterns; 4. a variation on the previous regular-expression-based lemmatizer that factors in principal-part information; 5. another dictionary-based lemmatizer using the Morpheus lemma dictionary; and finally 6. an identity lemmatizer that returns the token as lemma. </p>
+            <p>Although currently available and tested only for Latin, the Backoff Lemmatizer is in theory language agnostic, since the sub-lemmatizers can be passed language-specific training data and models. So, for example, the UnigramLemmatizer requires training data in the form of a Python list of tuples of the form 
+                <hi rend="italic">[(‘token1’, ‘lemma1’), (‘token2’, ‘lemma2’), ...]</hi>. A Latin model with data in this form based on The Ancient Greek and Latin Dependency Treebank (Celano, Crane, and Almas, 2017) is available in the CLTK Latin corpora, but a similar model could be built for any language. Similarly, the RegexLemmatizer relies on a custom dictionary of regular expression patterns extracted from Latin morphological patterns. But again, a list of patterns could be written for any language and worked into this sub-lemmatizer. Furthermore, the sub-lemmatizers can be added or removed as necessary, and can be reordered based to optimize accuracy for a given language or language domain. Accordingly, the BackoffLemmatizer is particularly well-suited to less-resourced languages (Piotrowski, 2012, 85): a language without sufficient training data could build a backoff chain that ignores the UnigramLemmatizer and rely only on dictionary- and rules-based sub-lemmatizers. 
+            </p>
+            <p>Because of its multipass combination of probabilistic tagging based on existing Latin text, Latin lexical data, and a ruleset based on Latin morphology, the Backoff Lemmatizer can be described as following a philological method. By this, I mean that the process reflects the reading, decoding, and disambiguating strategies of the modern Latin reader (McCaffrey, 2006). For example, the process echoes the classroom process of Paul Diederich, who describes groups of students reading together and analyzing their text first through a combination of previous knowledge and dictionary lookups, but then “if no member of the group can clear up the difficulty, they resort to a formal analysis of the endings” (Hampel, 2014, 95). </p>
+            <p>One limitation of the current Backoff Lemmatizer setup is its binary sequential decision making; that is, a token is assigned a lemma based on the first match encountered in the backoff chain. By way of conclusion, I will discuss work in progress on a progressively scored Backoff Lemmatizer, or one that returns the lemma with the highest likelihood found after a token passes through and is assigned a score by every sub-lemmatizer in the chain. </p>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl>
+                        <hi rend="bold" xml:space="preserve">Almas, B. </hi>(2013). Morpheus-Wrapper. https://github.com/PerseusDL/morpheus-wrapper (accessed 21 November 2017).
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold" xml:space="preserve">Bozzi, A., G. Cappelli, M. Passarotti, E. Pulcinelli, and P. Ruffolo. </hi>(1992). LemLat. http://www.ilc.cnr.it/lemlat/ (accessed 21 November 2017).
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold" xml:space="preserve">Celano, G. G. A., G. Crane, and B. Almas. </hi>(2017). The Ancient Greek and Latin Dependency Treebank. https://perseusdl.github.io/treebank_data/ (accessed 21 November 2017).
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold" xml:space="preserve">Eger, S., T. vor der Brück, and A. Mehler. </hi>(2015). Lexicon-Assisted Tagging and Lemmatization in Latin: A Comparison of Six Taggers and Two Lemmatization Methods, in Proceedings of the 9th SIGHUM Workshop on Language Technology for Cultural Heritage, Social Sciences, and Humanities: 105–13. 
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold" xml:space="preserve">McCaffrey, D. </hi>(2006). Reading Latin Efficiently and the Need for Cognitive Strategies, in When Dead Tongues Speak: Teaching Beginning Greek and Latin, ed. J. Gruber-Miller. New York: Oxford University Press. 
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold" xml:space="preserve">Hampel, R. L. </hi>(2014). Paul Diederich and the Progressive American High School. Charlotte, NC: Info Age. 
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold" xml:space="preserve">Juršič, M., I. Mozetic, T. Erjavec, and N. Lavrac. </hi>(2010). LemmaGen: Multilingual Lemmatisation with Induced Ripple-Down Rules. Journal of Universal Computer Science: 1190–1214. https://doi.org/10.3217/jucs-016-09-1190. 
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold" xml:space="preserve">Johnson, K. P. </hi>(2017). CLTK: The Classical Language Toolkit. https://github.com/cltk/cltk. (accessed 21 November 2017). 
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold" xml:space="preserve">Kestemont, M., and J. De Gussem. </hi>(2017). Integrated Sequence Tagging for Medieval Latin Using Deep Representation Learning. Journal of Data Mining &amp; Digital Humanities, Special Issue on Computer-Aided Processing of Intertextuality in Ancient Languages. https://arxiv.org/abs/1603.01597v2. 
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold" xml:space="preserve">Loper, E., S. Bird, and T. Tresoldi. </hi>(2017). NLTK 3.2.5 Documentation: nltk.tag.sequential. http://www.nltk.org/_modules/nltk/tag/sequential.html (accessed 21 November 2017). 
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold" xml:space="preserve">Ouvard, Y., and P. Verkerk. </hi>(2014). Collatinus Web. http://outils.biblissima.fr/en/collatinus-web/index.php (accessed 21 November 2017). 
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold" xml:space="preserve">Perkins, J. </hi>(2014). Python 3 Text Processing with NLTK 3 Cookbook. Birmingham, UK: Packt Publishing. 
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold" xml:space="preserve">Piotrowski, M. </hi>(2012). Natural Language Processing for Historical Texts. San Rafael, CA: Morgan &amp; Claypool Publishers 
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold" xml:space="preserve">Schmid, H. </hi>1994. Probabilistic Part-of-Speech Tagging Using Decision Trees, In Proceedings of the Conference on New Methods in Language Processing, Manchester, UK. 
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold" xml:space="preserve">Springmann, U., H. Schmid, and D. Najock. </hi>(2016). LatMor: A Latin Finite-State Morphology Encoding Vowel Quantity. Open Linguistics 2(1). https://doi.org/10.1515/opli-2016-0019. (accessed 21 November 2017).
+                    </bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

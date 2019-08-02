@@ -1,0 +1,401 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xsi:schemaLocation="http://www.tei-c.org/ns/1.0 /Users/yoann/Work/Grobid/grobid-home/schemas/xsd/Grobid.xsd"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+	<teiHeader xml:lang="en">
+		<encodingDesc>
+			<appInfo>
+				<application version="0.5.4-SNAPSHOT" ident="GROBID" when="2019-06-05T06:25+0000">
+					<ref target="https://github.com/kermitt2/grobid">GROBID - A machine learning software for extracting information from scholarly documents</ref>
+				</application>
+			</appInfo>
+		</encodingDesc>
+		<fileDesc>
+			<titleStmt>
+				<title level="a" type="main">Understanding Botnet- driven Blog Spam: Motivations and Methods</title>
+			</titleStmt>
+			<publicationStmt>
+				<publisher/>
+				<availability status="unknown"><licence/></availability>
+			</publicationStmt>
+			<sourceDesc>
+				<biblStruct>
+					<analytic>
+						<author role="corresp">
+							<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">Brandon</forename><surname>Bevans</surname></persName>
+							<email>brandonbevans@gmail.com</email>
+							<affiliation key="aff0">
+								<orgName type="laboratory" key="lab1">California Polytechnic State University United States of America</orgName>
+								<orgName type="laboratory" key="lab2">California Polytechnic State University United States of America</orgName>
+								<orgName type="institution">California Polytechnic State University United States of America</orgName>
+							</affiliation>
+						</author>
+						<author>
+							<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">Bruce</forename><surname>Debruhl</surname></persName>
+							<affiliation key="aff0">
+								<orgName type="laboratory" key="lab1">California Polytechnic State University United States of America</orgName>
+								<orgName type="laboratory" key="lab2">California Polytechnic State University United States of America</orgName>
+								<orgName type="institution">California Polytechnic State University United States of America</orgName>
+							</affiliation>
+						</author>
+						<author>
+							<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">Foaad</forename><surname>Khosmood</surname></persName>
+							<affiliation key="aff0">
+								<orgName type="laboratory" key="lab1">California Polytechnic State University United States of America</orgName>
+								<orgName type="laboratory" key="lab2">California Polytechnic State University United States of America</orgName>
+								<orgName type="institution">California Polytechnic State University United States of America</orgName>
+							</affiliation>
+						</author>
+						<title level="a" type="main">Understanding Botnet- driven Blog Spam: Motivations and Methods</title>
+					</analytic>
+					<monogr>
+						<imprint>
+							<date/>
+						</imprint>
+					</monogr>
+				</biblStruct>
+			</sourceDesc>
+		</fileDesc>
+		<profileDesc>
+			<abstract/>
+		</profileDesc>
+	</teiHeader>
+	<text xml:lang="en">
+		<body>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Introduction</head><p>Spam, or unsolicited commercial communication, has evolved from telemarketing schemes to a highly sophisticated and profitable black-market business. Although many users are aware that email spam is prominent, they are less aware of blog spam <ref type="bibr">(Thom- ason, 2007)</ref>. Blog spam, also known as forum spam, is spam that is posted to a public or outward facing website. Blog spam can be to accomplish many tasks that email spam is used for, such as posting links to a malicious executable.</p><p>Blog spam can also serve some unique purposes. First, blog spam can influence purchasing decisions by featuring illegitimate advertisements or reviews. Second, blog spam can include content with target keywords designed to change the way a search engine identifies pages <ref type="bibr" target="#b5">(Geerthik, 2013)</ref>. Lastly, blog spam can contain link spam, which spams a URL on a victim page to increase the inserted URLs search engine ranking. Overall, blog spam weakens search engines' model of the Internet popularity distribution. Much academic and industrial effort has been spent to detect, filter, and deter spam <ref type="bibr">(Dinh, 2013)</ref>, <ref type="bibr" target="#b12">(Spirin and Han, 2012)</ref>.</p><p>Less effort has been placed in understanding the underlying distribution mechanisms of spambots and botnets. One foundational study in characterizing blog spam ( <ref type="bibr" target="#b9">Niu et al., 2007</ref>) provided a quantitative analysis of blog spam in 2007. This study showed that blogs in 2007 included incredible amounts of spam but does not try to identify linked behavior that would imply botnet behavior. A later study on blog spam <ref type="bibr" target="#b15">(Stringhini, 2015)</ref> explores using IPs and usernames to detect botnets but does not characterize the behavior of these botnets. In 2011, a research team (StoneGross et al., 2011) infiltrated a botnet, which allowed for observations of the logistics around botnet spam campaigns. Overall, our understanding of blog spam generated by botnets is still limited.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Related Work</head><p>Various projects have attempted to identify the mechanics, characteristics, and behavior of botnets that control spam. In one important study <ref type="bibr" target="#b11">(Shin et al., 2011</ref>), researchers fully evaluated how one of the most popular spam automation programs, XRumer, operates. Another study explored the behavior of botnets across multiple spam campaigns ( <ref type="bibr" target="#b17">Thonnard and Dacier, 2011</ref>). Others ( <ref type="bibr" target="#b10">Pitsillidis et al., 2012</ref>) examined the impact that spam datasets had on characterization results. ( <ref type="bibr" target="#b7">Lumezanu et al., 2012</ref>) explored the similarities between email spam and blog spam on Twitter. They show that over 50% of spam links from emails also appeared on Twitter. The underground ecosystem build around the botnet community has been explored <ref type="bibr">(Stone-Gross et al., 2011</ref>). In a surprising result, over 95% of pharmaceuticals advertised in spam were handled by a small group of banks ( <ref type="bibr" target="#b6">Levchenko et al., 2011</ref>). Our work is similar in that we are trying to characterize the botnet ecosystem, focusing on the distribution and classification of certain spam producing botnets.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Experimental Design</head><p>In order to classify linguistic similarity and differences in botnets, we implement 3 honeypots to gather samples of blog spam. We configure our honeypots identically using the Drupal content management systems (CMS) as shown in <ref type="figure" target="#fig_0">Figure 1</ref>. Our honeypots are identical except for the content of their first post and their domain name. Ggjx.org is fashion themed, npcagent.com is sports themed, and gjams.com is pharmaceutical themed. We combine the data collected from Drupal with the Apache server logs <ref type="bibr">(Apache, 2016)</ref> to allow for content analysis of data collected over 42 days. To allow botnets time to discover the honeypots, we activate the honeypots at least 6-weeks before data collection.</p><p>We generate three tables of content for each honeypot <ref type="bibr" target="#b1">(Bevans and Khosmood, 2016</ref>). In the user table, we record the information the spambot enters while registering and user login statistics that we summarize in <ref type="table" target="#tab_0">Table 1</ref>. This includes the user id, username, password, date of registration, registration IP, and number of logins. In the content table, we record the content of spam posts and comments which we summarize in Table 2. This includes the blog node id, the author's unique id, the date posted, the number of hits, type of post, title of the post, text of the post, links in the post, language of the post, and a taxonomy of the post from IBM's Alchemy API.   Lastly, in the access table, we include data and meta-data from the Apache logs. This includes the user id, the access IP, the URL, the HTTP request type, the node ID, and an action keyword describing the type of access.</p><p>Our honeypots received a total of 1.1 million requests for ggjx, 481 thousand requests for gjams, and 591 thousand requests for npcagent.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Entity Reduction</head><p>It is widely accepted that spambot networks, or botnets, are responsible for most spam. Therefore, we algorithmically reduce spam instances into unique entities representing botnets. For each entity, we define 4 attributes: entity id, associated IPs, usernames, and associated user ids. To construct entities we scan through the users and assign each one to an entity as follows.</p><p>1. For a user, if an entity exists which contains its username or IP, the user is added to the entity. 2. If more than one entity matches the above criteria, all matching entities are merged. 3. If no entity matches the above criteria, a new entity is created.</p><p>We summarize the entity characteristics in <ref type="table" target="#tab_2">Table 3</ref>. The maximum number of users in one entity is almost 38 thousand for ggjx with over 100 unique IP addresses. These results confirm what is expected - the vast majority of bots interacting with our honeypots are part of large botnets. This also allows us to perform content analysis exploring what linguistic qualities differentiate botnets. </p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Content Analysis</head><p>To better understand botnets, we use natural language processing <ref type="bibr" target="#b3">(Collobert and Weston, 2008)</ref> for analyzing the linguistic content of entities. For our analysis, we consider various feature sets as proxies for linguistic characteristics as summarized in <ref type="table" target="#tab_3">Table 4</ref>. We use a Maximum Entropy classifier <ref type="bibr" target="#b8">(Mega M, 2016)</ref> to test which features differentiate botnets. In order to test a feature, we train the classifier with 70% of the posts, randomly selected, from the N largest entities and test it with the remaining 30% of the posts. Our final results are the average of three runs.</p><p>The first feature set we test is Bag Of Words (BoW) which models the lexical content of posts. Put simply, each word in a document is put into a 'bag' and the syntactic structure is discarded. For implementation details, see our technical report <ref type="bibr" target="#b2">(Bevans, 2016)</ref>. In <ref type="figure" target="#fig_1">Figure  2</ref>, we show our analysis of the BoW feature set.</p><p>When considering the top 5 contributing entities, the classification accuracy is less than 95% which implies that the lexical content of botnets varies greatly. The second feature we consider is the taxonomy provided by IBM Watson's AlchemyAPI. Alchemy's output is a list of taxonomy labels and associated confidences. For the purpose of our analysis, we discard any low or non-confident labels. In <ref type="figure" target="#fig_2">Figure 3</ref>, we show our analysis of the Alchemy Taxonomy feature set which highlights the accuracy of Alchemy's taxonomy. We note that the Alchemy Taxonomy feature set is dramatically smaller in size than the BoW feature set while still providing high performance. This indicates a full lexical analysis is not necessary but a taxonomic approach is sufficient. Our third feature is based on the links in the posts. To create the feature, we parse each post for any HTTP links and strip the link to its core domain name.</p><p>The classifier with the link feature set had varied results, as shown in <ref type="table" target="#tab_4">Table 5</ref>, where it was reliable in differentiating ggjx entities but less reliable for the other two honeypots. These results correlate with link scarcity from Table 2.  We test the normalized vocabulary size of a post as a feature. We derive this from the number of unique words divided by the total number of words in the post. As shown in <ref type="table" target="#tab_4">Table 5</ref>, the vocabulary size does not differentiate botnets.</p><p>We also form a feature set based on the part-ofspeech (PoS) makeup of a post using the Stanford PoS Tagger. The Stanford PoS tagger returns a pair for each word in the text, the original word and corresponding PoS. We create a BoW from this response that creates an abstract representation of the document's syntax. As shown in <ref type="table" target="#tab_4">Table 5</ref>, the PoS does not differentiate botnets. </p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Conclusions</head><p>In this paper, we examine interesting characteristics of spam-generating botnets and release a novel corpus to the community. We find that hundreds of thousands of fake users are created by a small set of botnets and much fewer numbers of them actually post spam. The spam that is posted is highly correlated by subject language to the point where botnets labeled by their network behavior are to a large degree re-discoverable using content classification <ref type="figure" target="#fig_2">(Figure 3)</ref>.</p><p>While link and vocabulary analysis can be good differentiators of these botnets, it is the content labeling (provided by Alchemy) that is the best indicator. Our experiment only spans 42 days, thus it's possible the subject specialization is a feature of the campaign rather than the botnet itself.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Bibliography</head></div><figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_0"><head>Figure 1 :</head><label>1</label><figDesc>Figure 1: Browser rendering of the ggjx honeypot</figDesc><graphic url="image-1.png" coords="1,317.14,416.98,245.52,161.28" type="bitmap" /></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_1"><head>Figure 2</head><label>2</label><figDesc>Figure 2</figDesc><graphic url="image-6.png" coords="3,54.58,454.18,243.60,169.44" type="bitmap" /></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_2"><head>Figure 3</head><label>3</label><figDesc>Figure 3</figDesc><graphic url="image-7.png" coords="3,331.30,72.58,252.96,170.64" type="bitmap" /></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" type="table" xml:id="tab_0" validated="false"><head>Table 1 : User table characteristics for three honeypots</head><label>1</label><figDesc></figDesc><table></table></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" type="table" xml:id="tab_1" validated="false"><head>Table 2 : Characteristics for the content tables</head><label>2</label><figDesc></figDesc><table></table></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" type="table" xml:id="tab_2" validated="false"><head>Table 3 : Characteristics of entities</head><label>3</label><figDesc></figDesc><table></table></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" type="table" xml:id="tab_3" validated="false"><head>Table 4 :</head><label>4</label><figDesc>NLP feature sets we consider for our content analysis and their effectiveness at differentiating botnets</figDesc><table></table></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" type="table" xml:id="tab_4" validated="false"><head>Table 5 :</head><label>5</label><figDesc></figDesc><table>Accuracies for various features when identifying 10 
+and 60 entities using the maximum entropy classifier 
+
+</table></figure>
+		</body>
+		<back>
+			<div type="references">
+
+				<listBibl>
+
+<biblStruct xml:id="b0">
+	<analytic>
+		<title/>
+	</analytic>
+	<monogr>
+		<title level="j">Apache virtual host</title>
+		<imprint>
+			<date type="published" when="2016" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b1">
+	<monogr>
+		<title level="m" type="main">Forum Spam Corpus</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">B</forename><surname>Bevans</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">Khosmood</forename></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">F</forename></persName>
+		</author>
+		<ptr target="http://users.csc.calpoly.edu/~foaad/bfbevansAc-cessed" />
+		<imprint>
+			<date type="published" when="2016" />
+			<biblScope unit="page" from="2017" to="2021" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b2">
+	<monogr>
+		<title level="m" type="main">Master&apos;s Theses at Cal Poly Digital Commons</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">B</forename><surname>Bevans</surname></persName>
+		</author>
+		<ptr target="http://digitalcom-mons.calpoly.edu/theses/1623Accessed" />
+		<imprint>
+			<date type="published" when="2016" />
+			<biblScope unit="page" from="2017" to="2021" />
+		</imprint>
+	</monogr>
+	<note>Categorizing Forum Spam</note>
+</biblStruct>
+
+<biblStruct xml:id="b3">
+	<analytic>
+		<title level="a" type="main">A unified architecture for natural language processing: Deep neural networks with multitask learning</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">R</forename><surname>Collobert</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">Weston</forename></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">J</forename></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Proceedings of the 25th International Conference on Machine Learning</title>
+		<meeting>the 25th International Conference on Machine Learning</meeting>
+		<imprint>
+			<publisher>ACM</publisher>
+			<date type="published" when="2008" />
+			<biblScope unit="page" from="160" to="67" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b4">
+	<analytic>
+		<title level="a" type="main">Spam campaign detection, analysis, and investigation</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">S</forename><surname>Dinh</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Digital Investigation</title>
+		<imprint>
+			<date type="published" when="2015" />
+			<biblScope unit="page" from="12" to="21" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b5">
+	<analytic>
+		<title level="a" type="main">Survey on internet spam: Classification and analysis</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">S</forename><surname>Geerthik</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">International Journal of Computer Technology and Applications</title>
+		<imprint>
+			<biblScope unit="volume">4</biblScope>
+			<biblScope unit="issue">3</biblScope>
+			<biblScope unit="page">384</biblScope>
+			<date type="published" when="2013" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b6">
+	<analytic>
+		<title level="a" type="main">Click trajectories: End-to-end analysis of the spam value chain</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">K</forename><surname>Levchenko</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Symposium on Security and Privacy</title>
+		<imprint>
+			<publisher>IEEE</publisher>
+			<date type="published" when="2011" />
+			<biblScope unit="page" from="431" to="446" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b7">
+	<analytic>
+		<title level="a" type="main">Observing common spam in twitter and email</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">C</forename><surname>Lumezanu</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">N</forename><surname>Feamster</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Proceedings of the 2012 ACM conference on Internet measurement, ACM</title>
+		<meeting>the 2012 ACM conference on Internet measurement, ACM</meeting>
+		<imprint>
+			<date type="published" when="2012" />
+			<biblScope unit="page" from="461" to="466" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b8">
+	<monogr>
+		<title level="m" type="main">Mega model optimization package</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">M</forename><surname>Mega</surname></persName>
+		</author>
+		<ptr target="https://www.umiacs.umd.edu/~hal/megam/,Ac-cessed" />
+		<imprint>
+			<date type="published" when="2016" />
+			<biblScope unit="page" from="2016" to="2024" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b9">
+	<analytic>
+		<title level="a" type="main">A quantitative study of forum spamming using context-based analysis</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">Y</forename><surname>Niu</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">NDSS</title>
+		<imprint>
+			<date type="published" when="2007" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b10">
+	<analytic>
+		<title level="a" type="main">Taster&apos;s choice: A comparative analysis of spam feeds</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">A</forename><surname>Pitsillidis</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Proceedings of the 2012 ACM conference on Internet measurement</title>
+		<meeting>the 2012 ACM conference on Internet measurement</meeting>
+		<imprint>
+			<publisher>ACM</publisher>
+			<date type="published" when="2012" />
+			<biblScope unit="page" from="427" to="440" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b11">
+	<monogr>
+		<title level="m" type="main">The nuts and bolts of a forum spam automator</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">Y</forename><surname>Shin</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">M</forename><surname>Gupta</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">S</forename><forename type="middle">A</forename><surname>Myers</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="2011" />
+			<publisher>LEET</publisher>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b12">
+	<monogr>
+		<title level="m" type="main">Survey on web spam detection: Principles and algorithms</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">N</forename><surname>Spirin</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">Han</forename></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">J</forename></persName>
+		</author>
+		<imprint>
+			<date type="published" when="2012" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b13">
+	<analytic>
+		<title/>
+	</analytic>
+	<monogr>
+		<title level="j">ACM SIGKDD Explorations Newsletter</title>
+		<imprint>
+			<biblScope unit="volume">13</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<biblScope unit="page" from="50" to="64" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b14">
+	<analytic>
+		<title level="a" type="main">The underground economy of spam: A botmaster&apos;s perspective of coordinating large-scale spam campaigns</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">B</forename><surname>Stone-Gross</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">LEET</title>
+		<imprint>
+			<biblScope unit="volume">11</biblScope>
+			<biblScope unit="page">4</biblScope>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b15">
+	<analytic>
+		<title level="a" type="main">Evilcohort: Detecting communities of malicious accounts on online services</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">G</forename><surname>Stringhini</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">24th USENIX Security Symposium (USENIX Security 15</title>
+		<imprint>
+			<date type="published" when="2015" />
+			<biblScope unit="page" from="563" to="578" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b16">
+	<analytic>
+		<title level="a" type="main">Blog spam: A review</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">A</forename><surname>Thomason</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">CEAS, Citeseer</title>
+		<imprint>
+			<date type="published" when="2007" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b17">
+	<analytic>
+		<title level="a" type="main">A strategic analysis of spam botnets operations</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">O</forename><surname>Thonnard</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">M</forename><surname>Dacier</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Proceedings of the 8th Annual Collaboration, Electronic messaging, Anti-Abuse and Spam Conference</title>
+		<meeting>the 8th Annual Collaboration, Electronic messaging, Anti-Abuse and Spam Conference</meeting>
+		<imprint>
+			<publisher>ACM</publisher>
+			<date type="published" when="2011" />
+			<biblScope unit="page" from="162" to="171" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+				</listBibl>
+			</div>
+		</back>
+	</text>
+</TEI>

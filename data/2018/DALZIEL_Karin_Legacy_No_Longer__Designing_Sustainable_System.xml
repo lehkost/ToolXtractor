@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>Legacy No Longer: Designing Sustainable Systems for Website Development</title>
+                <author>
+                    <persName>
+                        <surname>Dalziel</surname>
+                        <forename>Karin</forename>
+                    </persName>
+                    <affiliation>University of Nebraska–Lincoln, United States of America</affiliation>
+                    <email>kdalziel@unl.edu</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Dussault</surname>
+                        <forename>Jessica</forename>
+                    </persName>
+                    <affiliation>University of Nebraska–Lincoln, United States of America</affiliation>
+                    <email>jdussault@unl.edu</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Tunink</surname>
+                        <forename>Gregory</forename>
+                    </persName>
+                    <affiliation>University of Nebraska–Lincoln, United States of America</affiliation>
+                    <email>techgique@unl.edu</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2018-04-27T16:34:00Z</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Name, Institution</publisher>
+                <address>
+                    <addrLine>Street</addrLine>
+                    <addrLine>City</addrLine>
+                    <addrLine>Country</addrLine>
+                    <addrLine>Name</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from a Word document</p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.22">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Short Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>sustainability</term>
+                    <term>software</term>
+                    <term>development</term>
+                    <term>framework</term>
+                    <term>api</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>archives</term>
+                    <term>repositories</term>
+                    <term>sustainability and preservation</term>
+                    <term>information retrieval</term>
+                    <term>interface &amp; user experience design/publishing &amp; delivery systems/user studies/user needs</term>
+                    <term>software design and development</term>
+                    <term>English</term>
+                    <term>computer science</term>
+                    <term>library &amp; information science</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <div type="div1" rend="DH-Heading1">
+                <head>Introduction</head>
+                <p>    </p>
+                <p>The Center for Digital Research in the Humanities (CDRH) at the University of Nebraska–Lincoln is home to digital collections such as 
+                    <hi rend="italic">The Walt Whitman Archive</hi>, 
+                    <hi rend="italic">The Willa Cather Archive</hi>, 
+                    <hi rend="italic">The Journals of Lewis and Clark</hi>, and 
+                    <hi rend="italic">O Say Can You See</hi>. These projects contain overlap between subjects, individuals, and locations, yet are siloed, and many are built in aging, unsupported technologies with no interoperability or common search. In order to address this, the Center has developed an API (“Henbit”) as part of a modular software stack to index and display data and content.
+                </p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Challenge</head>
+                <p>Over the past twenty years, the Center has created over 30,000 TEI files in addition to other data sets such as VRACore documents, spreadsheets, and databases. Sites showcase the content and metadata of these files using a variety of technologies, many of which are no longer maintained. In addition, some sites used commercial software which became unsustainable when costs went up, cementing a commitment to open source. This experience informed and reinforced our adopted design philosophy, which can be summed up as:</p>
+                <list type="unordered">
+                    <item>Keep it simple, stable, and sustainable</item>
+                    <item>Embrace modularity by writing software for one purpose</item>
+                    <item>Avoid over-engineering solutions (i.e. graphical interfaces where command-line will do)</item>
+                    <item>Provide comprehensive documentation </item>
+                </list>
+                <p>    The Center has been inspired to think bigger about what can be accomplished by including existing data in a new framework. An exciting next step is creating a site to search all Center data, find commonalities between projects, and read materials across sites for comprehensive research. This approach will also help solve accessibility issues of older project sites which do not meet modern requirements. As projects become unsustainable, the Center may retire them while keeping all content available.</p>
+                <p>While having one place to view and search the Center’s data is important, it’s also critical to allow the creation of independent sites which utilize unique organization and include special features requested by principal investigators for new and evolving projects. Quickly creating bare bones sites to view in-progress TEI is essential, as it allows metadata experts and PIs to refine their data and arguments. Such sites should be written for ease of maintenance, freeing future developer time to work on new projects rather than sustaining old ones. </p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Solution</head>
+                <p>The Center explored the possibility of using existing software to address these challenges, such as XTF, Blacklight, and Fedora. These packages did not fit the Center’s needs; though comprehensive, they were not flexible enough to accommodate the variety of document types and project site requirements. Additionally, many solutions would lock the API into using Solr instead of allowing an interchangeable search engine (Blacklight, 2017; DuraSpace, 2017).</p>
+                <p>Instead of heavily customizing existing software, The Center decided to create a modular solution. The system consists of several components:</p>
+                <list type="unordered">
+                    <item>data repository for project files and scripts for transformation</item>
+                    <item>document datastore and search engine (Elasticsearch)</item>
+                    <item>Ruby on Rails (Rails) API to serve data (Henbit)</item>
+                    <item>media retrieval system for associated images, audio, and video</item>
+                    <item>template generator for rapid website creation (Orchid) </item>
+                </list>
+                <p>    With a modular software stack, future changes in technology and project needs can be accommodated with independent upgrades rather than massive redesigns and rewrites.</p>
+                <figure>
+                    <graphic n="1001" width="15.890875cm" height="6.752166666666667cm" url="Pictures/1ac2067841fce9b33209966d82be7271.png" rend="inline"/>
+                </figure>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Project Files and Scripts</head>
+                <p>    The data repository houses original files for projects, such as TEI-XML, VRACore, CSV, and Dublin Core. The repository also contains CLI scripts which create HTML and populate search indexes with document content and metadata (CDRH, 2017a). New projects use generalized scripts, which are organized to allow overriding functionality in individual projects. Older websites may continue to use existing XSLT and populate legacy Solr indexes while their existing sites are supported, as well as populate Elasticsearch using the standardized script. Static HTML files derived from this process are used to create a document which can be viewed in a browser, regardless of the original data format. </p>
+                <p>    </p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Henbit (Public Endpoint)</head>
+                <p>    Henbit is a Rails powered API (application program interface) which creates appropriate requests for the backend index, and returns JSON. Currently, Henbit uses Elasticsearch as a backend, but most of its features (sorting, filtering, aggregating on ranges, etc) could be ported to a different backend. The OpenAPI specification was used during Henbit's creation to fit current design practices (CDRH, 2017b).</p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Media Retrieval</head>
+                <p>    In legacy sites, associated media lived inside the website directory. The Center has created a standard URL path for media files. It will be easier to optimize serving specific file types with this common retrieval structure. In the near future, the CDRH will be implementing a IIIF image server to serve images of varying sizes and resolutions.</p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Orchid (Rails Engine)</head>
+                <p>    Orchid is a Rails engine which connects Rails 5 applications and Henbit. Orchid and a supporting gem, api_bridge, provide a template website that allows users to browse, search, filter, and view documents. This template is highly customizable, and can be altered to allow different URLs, search behavior, and anything possible in Rails (CDRH, 2017c).</p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Current Implementation and Future Plans</head>
+                <p>    Beta versions of all components were released in 2017. In late 2017 the framework was used to build 
+                    <hi rend="italic" xml:space="preserve">The Complete Letters of Willa Cather </hi>(launched January 2018). 
+                    <hi rend="italic">The Complete Letters</hi> demonstrates the customization which can be accomplished with this modular system. The CDRH is currently developing another project, 
+                    <hi rend="italic">Family Letters</hi>, which will also take advantage of the data repositories, scripts, Henbit, and Orchid template.
+                </p>
+                <p>    In the meantime, older websites are being converted for the new system. Updated documents and original XSLT have been reorganized into the structure required by the data repository scripts and are being posted to the Elasticsearch index. Once a site for Centerwide projects has been created, older sites can be retired as needed, replaced by content now available through the new API and supporting website.</p>
+                <p>    The decision to use custom built software rather than an existing, out of the box solution, was not easy. Though at times it felt like reinventing the wheel, our highly customizable and flexible implementation prepares for future technological developments and enables flexibility in meeting project requirements.</p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Notes</head>
+                <list type="ordered">
+                    <item>
+                        <ref target="https://cdrh.unl.edu/">
+                            <hi rend="underline color(1155CC)">https://cdrh.unl.edu</hi>
+                        </ref>
+                    </item>
+                    <item>
+                        <ref target="http://whitmanarchive.org/">
+                            <hi rend="color(1155CC)">http://whitmanarchive.org</hi>
+                        </ref>, 
+                        <ref target="http://cather.unl.edu/">
+                            <hi rend="color(1155CC)">http://cather.unl.edu</hi>
+                        </ref>, 
+                        <ref target="https://lewisandclarkjournals.unl.edu/">
+                            <hi rend="color(1155CC)">https://lewisandclarkjournals.unl.edu</hi>
+                        </ref>, and 
+                        <ref target="http://earlywashingtondc.org/">
+                            <hi rend="color(1155CC)">http://earlywashingtondc.org</hi>
+                        </ref>
+                    </item>
+                    <item>
+                        <ref target="https://xtf.cdlib.org">
+                            <hi rend="color(1155CC)">https://xtf.cdlib.org</hi>
+                        </ref>, 
+                        <ref target="http://projectblacklight.org">
+                            <hi rend="color(1155CC)">http://projectblacklight.org</hi>
+                        </ref>, and 
+                        <ref target="http://fedorarepository.org">
+                            <hi rend="color(1155CC)">http://fedorarepository.org</hi>
+                        </ref>
+                    </item>
+                    <item>
+                        <ref target="https://github.com/CDRH/data">
+                            <hi rend="color(1155CC)">https://github.com/CDRH/data</hi>
+                        </ref>
+                    </item>
+                    <item>
+                        <ref target="https://github.com/CDRH/api">
+                            <hi rend="color(1155CC)">https://github.com/CDRH/api</hi>
+                        </ref>
+                    </item>
+                    <item>
+                        <ref target="https://github.com/OAI/OpenAPI-Specification">
+                            <hi rend="color(1155CC)">https://github.com/OAI/OpenAPI-Specification</hi>
+                        </ref>
+                    </item>
+                    <item>
+                        <ref target="http://iiif.io">
+                            <hi rend="color(1155CC)">http://iiif.io</hi>
+                        </ref>
+                    </item>
+                    <item>
+                        <ref target="https://github.com/CDRH/orchid">
+                            <hi rend="color(1155CC)">https://github.com/CDRH/orchid</hi>
+                        </ref>
+                    </item>
+                    <item>
+                        <ref target="https://github.com/CDRH/api_bridge">
+                            <hi rend="color(1155CC)">https://github.com/CDRH/api_bridge</hi>
+                        </ref>
+                    </item>
+                    <item>
+                        <ref target="http://cather.unl.edu/letters">
+                            <hi rend="color(1155CC)">http://cather.unl.edu/letters</hi>
+                        </ref>
+                    </item>
+                </list>
+            </div>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl>
+                        <hi rend="bold">Blacklight</hi> (2017). "Project Blacklight." 
+                        <ref target="http://projectblacklight.org">http://projectblacklight.org</ref>.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">CDRH</hi> (2017a). "CDRH Data Repository." 
+                        <hi rend="italic" xml:space="preserve">GitHub. </hi>
+                        <ref target="https://github.com/CDRH/data">https://github.com/CDRH/data</ref>.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">CDRH</hi> (2017b). "Henbit." 
+                        <hi rend="italic" xml:space="preserve">GitHub. </hi>
+                        <ref target="https://github.com/CDRH/api">https://github.com/CDRH/api</ref>.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">CDRH</hi> (2017c). "Orchid." 
+                        <hi rend="italic" xml:space="preserve">GitHub. </hi>
+                        <ref target="https://github.com/CDRH/orchid">https://github.com/CDRH/orchid</ref>.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">DuraSpace</hi> (2017). "Fedora Repository." 
+                        <ref target="http://fedorarepository.org">http://fedorarepository.org</ref>.
+                    </bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

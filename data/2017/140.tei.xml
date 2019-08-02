@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xsi:schemaLocation="http://www.tei-c.org/ns/1.0 /Users/yoann/Work/Grobid/grobid-home/schemas/xsd/Grobid.xsd"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+	<teiHeader xml:lang="en">
+		<encodingDesc>
+			<appInfo>
+				<application version="0.5.4-SNAPSHOT" ident="GROBID" when="2019-06-05T06:41+0000">
+					<ref target="https://github.com/kermitt2/grobid">GROBID - A machine learning software for extracting information from scholarly documents</ref>
+				</application>
+			</appInfo>
+		</encodingDesc>
+		<fileDesc>
+			<titleStmt>
+				<title level="a" type="main">Beyond Validation: using programmed diagnostics to learn about, monitor, and successfully complete your DH project</title>
+			</titleStmt>
+			<publicationStmt>
+				<publisher/>
+				<availability status="unknown"><licence/></availability>
+			</publicationStmt>
+			<sourceDesc>
+				<biblStruct>
+					<analytic>
+						<author>
+							<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">Martin</forename><surname>Holmes</surname></persName>
+							<email>mholmes@uvic.ca</email>
+							<affiliation key="aff0">
+								<orgName type="institution">University of Victoria</orgName>
+								<address>
+									<country key="CA">Canada</country>
+								</address>
+							</affiliation>
+						</author>
+						<author>
+							<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">Joey</forename><surname>Takeda</surname></persName>
+							<email>joey.takeda@gmail.com</email>
+							<affiliation key="aff1">
+								<orgName type="institution">University of British Columbia</orgName>
+								<address>
+									<country key="CA">Canada</country>
+								</address>
+							</affiliation>
+						</author>
+						<title level="a" type="main">Beyond Validation: using programmed diagnostics to learn about, monitor, and successfully complete your DH project</title>
+					</analytic>
+					<monogr>
+						<imprint>
+							<date/>
+						</imprint>
+					</monogr>
+				</biblStruct>
+			</sourceDesc>
+		</fileDesc>
+		<profileDesc>
+			<abstract/>
+		</profileDesc>
+	</teiHeader>
+	<text xml:lang="en">
+		<body>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Level 1</head><p>Level 1 diagnostics provide project-level, as opposed to document-level, consistency checking to establish the internal coherence of the project, primarily through ensuring referential integrity. We borrow the phrase "referential integrity" from the MLA's "Guiding Questions for Vetters of Scholarly Editions" (2011), which advises peer-reviewers of digital editions that link to multiple databases to see if "referential integrity <ref type="bibr">[is]</ref> enforced within the database(s)." This includes checking for non-existent pointers, duplicate @xml:ids across the project, and erroneously encoded references (e.g. tagging a place name as a bibliography reference). Ensuring referential integrity is particularly complex for projects that use "abbreviated pointers" to facilitate internal linking (see TEI <ref type="bibr">Consortium (2016)</ref>), since it may not be obvious to the encoder which resource is being referenced by a pointer. Thus, the first level of diagnostics checks both whether or not an object pointed to actually exists and whether or not the markup correctly represents the relationship between the element and the target resource. For instance, to check all instances of the relationship shown in <ref type="figure">Fig. 2</ref>, a number of different tests are actually done: <ref type="figure">Figure 2</ref>: a simple referential integrity check. 1. Every &lt;name type="org"&gt; points at an @xml:id which exists in the project. 2. The element pointed at by &lt;name type="org"&gt; is an &lt;org&gt; element in the ORGS1.xml document. 3. Every &lt;name&gt; element which points at an &lt;org&gt; element in ORGS1.xml has @type="org". For small-scale projects, this kind of referential integrity check could be accomplished with Schematron, since a Schematron rule using XPath 2.0 can read external documents, but for a project of any significant size, this is impractical. For example, Schematron checks to confirm the rules above may add around six seconds to document validation in the Oxygen XML Editor, causing frustration for editors, while simply checking that a linked location exists would require the processing of over a thousand files in this project, since each location is a distinct file. <ref type="bibr">Level 2</ref> While Level 1 diagnostics generally focus on coherence and consistency, Level 2 is more concerned with completeness. Level 2 diagnostics provide progress analysis, generate to-do lists, and identify situations that may indicate error, but require human judgement. These include cases in which:</p><p>• Two bibliography or personography entries appear sufficiently similar that they may be duplicates.</p><p>• Several &lt;name&gt; elements point to the same authority record, but the text of one of them is significantly different from the others, so it may point at the wrong target.</p><p>• A document in the project is not linked from anywhere else, and therefore cannot be "reached".</p><p>Such issues cannot be automatically rectifiedthey are not necessarily errors-but they must be examined. <ref type="figure" target="#fig_1">Figure 3</ref> shows an example of the first check, which uses a similarity metric to identify potential duplicate bibliography entries. to identify duplicate bibliography entries. At Level 2, we also generate to-do lists for specific sub-projects, providing a set of tasks for the project team to focus on in order to reach a milestone or publish a particular document. The definition of "done" for a specific document may transcend the document itself. For instance, before we deem a particular edition of a text publishable, we may require that all authority records (people, places, publications) linked from that document are themselves complete, so the to-do list for a given document may require work in a variety of other documents in the project</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Level 3</head><p>Armed with a comprehensive set of Level 1 and Level 2 diagnostics, and assuming our data is managed using a version-control repository such as Subversion or Git, we can now generate diachronic views of the project's progress. A script can check out a sequence of incarnations of the project, weekly over a period of months, for instance, and run the entire current diagnostic suite against it; we can then combine these snapshots to get a clear sense of how our work is proceeding. This also means that every time we develop a new diagnostic procedure, we can apply it to the entire history of the project to see the trajectory of project work with respect to the datapoint in question. Two examples, this time from the Nxaʔamxcín Dictionary project (an indigenous dictionary project described in detail in <ref type="bibr" target="#b0">Czaykowska-Higgins, Holmes, and Kell (2014)</ref>) appear in Figs 4 and 5 below. <ref type="figure" target="#fig_2">Figure  4</ref> shows the number of completed dictionary entries in orange, rising steadily over a period of 18 months, and the number of occurrences of a known problem: duplicate instances of the same gloss. These duplicates rise along with the number of entries until October 2016, when this issue was added to our diagnostics process, and the encoders were able to address it.  <ref type="figure" target="#fig_3">Fig. 5</ref> shows cases of broken cross-references, which also tend to increase along with the number of completed entries, but we can see from the graph that the issue was aggressively addressed in two separate campaigns in fall 2015 and summer 2016. New instances continue to appear, however. The number of broken cross-references, tracked against completed entries. <ref type="figure" target="#fig_4">Fig. 6</ref>, from a different project, shows how this approach can be used to forecast completion dates for tasks in a project based on the progress rate so far. </p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Conclusion</head><p>As Matthew Kirschenbaum (2009) tells us, there "is no more satisfying sequence of characters" than "Done." The overall purpose of a digital edition project is to finish and publish the edition, and this requires not only that the document-level encoding be valid, but also that the entire dataset be coherent, consistent, and complete. Programmed diagnostics enable projects to enforce coherence and consistency, manage the workflow effectively, and measure their progress towards completeness. Bibliography</p></div><figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_0"><head>Figure 1 :</head><label>1</label><figDesc>Figure 1: A diagnostics output page from the Map of Early Modern London project.</figDesc><graphic url="image-1.png" coords="2,62.94,72.30,223.20,333.12" type="bitmap" /></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_1"><head>Figure 3 :</head><label>3</label><figDesc>Figure 3: Results of a Level 2 diagnostic check that attempts to identify duplicate bibliography entries.</figDesc><graphic url="image-3.png" coords="3,54.30,295.26,241.44,227.28" type="bitmap" /></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_2"><head>Figure 4 :</head><label>4</label><figDesc>Figure 4: The number of instances of duplicate glosses, tracked against completed entries, in the Nxaʔamxcín Dictionary project.</figDesc><graphic url="image-4.png" coords="3,316.86,392.22,241.44,82.80" type="bitmap" /></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_3"><head>Figure 5 :</head><label>5</label><figDesc>Figure 5: The number of broken cross-references, tracked against completed entries.</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_4"><head>Figure 6 :</head><label>6</label><figDesc>Figure 6: Diachronic diagnostics used to project task completion dates.</figDesc><graphic url="image-6.png" coords="4,54.30,148.14,241.44,171.12" type="bitmap" /></figure>
+		</body>
+		<back>
+			<div type="references">
+
+				<listBibl>
+
+<biblStruct xml:id="b0">
+	<analytic>
+		<title level="a" type="main">Using TEI for an Endangered Language Lexical Resource: The Nxaʔamxcín Database-Dictionary Project</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">E</forename><surname>Czaykowska-Higgins</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">M</forename><surname>Holmes</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">S</forename><surname>Kell</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Language Documentation &amp; Conservation</title>
+		<imprint>
+			<biblScope unit="volume">8</biblScope>
+			<biblScope unit="page" from="1" to="37" />
+			<date type="published" when="2014" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b1">
+	<analytic>
+		<title level="a" type="main">Guidelines for Editors of Scholarly Editions</title>
+	</analytic>
+	<monogr>
+		<title level="m">Modern Language Association. Accessed</title>
+		<imprint>
+			<date type="published" when="2016-09-15" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b2">
+	<monogr>
+				<ptr target="https://www.mla.org/Resources/Research/Surveys-Reports-" />
+		<title level="m">Other-Documents/Publishing-andScholarship/Reports-from-the-MLA-Committee-onScholarly-Editions/Guidelines-for</title>
+		<imprint/>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b3">
+	<analytic>
+		<title level="a" type="main">Guiding Questions for Vetters of Scholarly Editions</title>
+	</analytic>
+	<monogr>
+		<title level="m">Modern Language Association. Accessed</title>
+		<imprint>
+			<date type="published" when="2011-10-21" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b4">
+	<monogr>
+		<title level="m" type="main">Constraint specification languages : comparing XCSL, Schematron and XMLSchemas</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">M</forename><forename type="middle">H</forename><surname>Jacinto</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">G</forename><forename type="middle">R</forename><surname>Librelotto</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">J</forename><forename type="middle">C</forename><surname>Ramalho</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">P</forename><forename type="middle">R</forename><surname>Henriques</surname></persName>
+		</author>
+		<ptr target="http://repositorium.sdum.uminho.pt/handle/1822/619" />
+		<imprint>
+			<date type="published" when="2002" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b5">
+	<analytic>
+		<title level="a" type="main">Done: Finishing Projects in the Digital Humanities</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">M</forename><surname>Kirschenbaum</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">DHQ</title>
+		<imprint>
+			<biblScope unit="volume">3</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<date type="published" when="2009" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b6">
+	<monogr>
+				<ptr target="http://www.balisage.net/Proceedings/vol9/contents.html" />
+		<title level="m">Proceedings of the International Symposium on Quality Assurance and Quality Control in XML</title>
+		<meeting>the International Symposium on Quality Assurance and Quality Control in XML</meeting>
+		<imprint>
+			<date type="published" when="2012-08-06" />
+		</imprint>
+	</monogr>
+	<note>. International Symposium on Quality Assurance and Quality Control in XML</note>
+</biblStruct>
+
+<biblStruct xml:id="b7">
+	<monogr>
+		<title level="m" type="main">Technology Overview and Discussion: Data Capture, Editing, and Schemas</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">S</forename><surname>Rahtz</surname></persName>
+		</author>
+		<ptr target="http://tei.it.ox.ac.uk/Talks/2007-02-13-oucs/talk-editing.xml" />
+		<imprint>
+			<date type="published" when="2007-02-13" />
+			<pubPlace>Oxford</pubPlace>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b8">
+	<monogr>
+		<title level="m" type="main">Star Trek, the next Generation: Technical Manual</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">R</forename><surname>Sternbach</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">M</forename><surname>Okuda</surname></persName>
+		</author>
+		<ptr target="http://catalog.hathitrust.org/api/volumes/oclc/24648561.html" />
+		<imprint>
+			<date type="published" when="1991" />
+			<publisher>Pocket Books</publisher>
+			<pubPlace>New York</pubPlace>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b9">
+	<analytic>
+		<title level="a" type="main">Beyond Schemas: Schema Adjuncts and the Outside World</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">S</forename><surname>Vorthmann</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">Robie</forename></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">J</forename></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Markup Languages: Theory &amp; Practice</title>
+		<imprint>
+			<date type="published" when="2001" />
+			<biblScope unit="volume">2</biblScope>
+			<biblScope unit="page" from="281" to="94" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b10">
+	<analytic>
+		<title level="a" type="main">Quality Assurance in the XML World: Beyond Validation</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">D</forename><surname>Waldt</surname></persName>
+		</author>
+		<ptr target="http://www.balisage.net/Proceedings/vol9/author-pkg/Waldt01/BalisageVol9-Waldt01.html" />
+	</analytic>
+	<monogr>
+		<title level="j">Accessed September</title>
+		<imprint>
+			<biblScope unit="volume">15</biblScope>
+			<date type="published" when="2012" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+				</listBibl>
+			</div>
+		</back>
+	</text>
+</TEI>

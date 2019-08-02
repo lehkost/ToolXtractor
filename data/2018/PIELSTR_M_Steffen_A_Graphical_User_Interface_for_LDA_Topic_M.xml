@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title type="full">
+                    <title type="main">A Graphical User Interface for LDA Topic Modeling</title>
+                    <title type="sub"/>
+                </title>
+                <author>
+                    <persName>
+                        <surname>Pielström</surname>
+                        <forename>Steffen</forename>
+                    </persName>
+                    <affiliation>University of Würzburg, Germany</affiliation>
+                    <email>pielstroem@biozentrum.uni-wuerzburg.de</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Simmler</surname>
+                        <forename>Severin</forename>
+                    </persName>
+                    <affiliation>University of Würzburg, Germany</affiliation>
+                    <email>severin.simmler@stud-mail.uni-wuerzburg.de</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Vitt</surname>
+                        <forename>Thorsten</forename>
+                    </persName>
+                    <affiliation>University of Würzburg, Germany</affiliation>
+                    <email>thorsten.vitt@uni-wuerzburg.de</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Jannidis</surname>
+                        <forename>Fotis</forename>
+                    </persName>
+                    <affiliation>University of Würzburg, Germany</affiliation>
+                    <email>fotis.jannidis@uni-wuerzburg.de</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2018-04-27T14:26:14.219669989</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Name, Institution</publisher>
+                <address>
+                    <addrLine>Street</addrLine>
+                    <addrLine>City</addrLine>
+                    <addrLine>Country</addrLine>
+                    <addrLine>Name</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from an OASIS Open Document</p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.22">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Poster</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>topic modeling</term>
+                    <term>GUI</term>
+                    <term>python</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>literary studies</term>
+                    <term>text analysis</term>
+                    <term>content analysis</term>
+                    <term>English</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <p>
+                <anchor xml:id="id_docs-internal-guid-5b641e37-0711-c081-7370-56eaad847d4b"/>Using LDA (Latent Dirichlet Allocation) for analyzing the content structure of digital text collections is a possibility, that aroused the interest of many digital humanists in the recent years. The method allows to generate a so called ‘topic model’ from a text corpus, each ‘topic’ in the model being represented by a probability distribution over the words in the corpus. In each of these topics, another group of semantically related words appears with high probability scores. By labeling topics with their most probable words and then calculating the relative contributions of the topics to each text or text segment, researchers can use LDA as an unsupervised method to survey the contents of a text corpus (Blei 2012, Steyvers and Griffiths 2006).
+            </p>
+            <p>However, to actually use LDA, technical skills lacked by the majority of humanities scholars is necessary. There is a number of accessible implementations of the LDA algorithm, the most popular being in MALLET (McCallum 2002), a Java program that has to be run and controlled from the command line and Gensim (Rehurek und Sojka 2010),  a text analysis library for the Python programming language. Basically, most existing implementations of the algorithm require programming skills to be used efficiently, and for most use cases one has to switch between systems, tools and programming languages to complete the entire workflow from preprocessing to the analysis of results.</p>
+            <p>
+                <hi rend="color(#000000)">With the aim of lowering the threshold to use LDA for humanities scholars, we developed a programming library in Python that significantly reduces the complications to control the whole process of topic modeling from preprocessing to the visualization of results with a single Python script. The library, developed with funding from the European infrastructure project DARIAH (</hi>
+                <ptr target="https://de.dariah.eu/"/>
+                <hi rend="color(#000000)">), allows to choose from three different LDA implementations (MALLET, Gensim, and the ‘LDA’ package by Allan Riddell; </hi>
+                <ptr target="https://pypi.python.org/pypi/lda"/>
+                <hi rend="color(#000000)">). It provides a number of interactive, extensively annotated </hi>
+                <hi rend="color(#000000)">jupyter notebooks (</hi>
+                <ptr target="http://jupyter.org/"/>
+                <hi rend="color(#000000)">) that can be used as tutorials for beginners and template workflows that can be adjusted to individual needs.</hi>
+            </p>
+            <p>Many potential users are not yet familiar with programming at all, but interested in the method and eager to experiment with it a little before deciding if it is worth learning a new set of skills to use it to its full extent. For them the learning curve of a jupyter notebook is still too steep.  That at least was the feedback we received in our workshops which we organized to get feedback from scholars: the wish for a GUI to access at least the basic functionalities was expressed frequently. To meet this demand, we started the development of a ‘GUI Demonstrator’ that mirrors the working steps and explanations in the notebooks, and allows users to analyse their own texts using LDA with a limited set of options.</p>
+            <p>
+                <hi rend="color(#000000)">The current version, that is implemented in the FLASK microframework (</hi>
+                <ptr target="http://flask.pocoo.org/"/>
+                <hi rend="color(#000000)">) and runs within a browser window (Fig 1.), includes all steps necessary to get from a number of raw text files (txt and xml file formats are supported) to a visualized output, currently an interactive heat map showing the distribution of topics over texts (Fig. 2). As the quality of results depends on removing frequent words that appear in all texts, users can decide on the number of most frequent words to remove, or provide their own stopword list. They can control the number of topics to be generated, and the number of iterations the algorithm should run. The latter is important, because a large number of iterations will produce more stable results, but the algorithm will take longer to finish the task.</hi>
+            </p>
+            <p>
+                <hi rend="color(#000000)">The next working steps include the implementation of standalone graphics in the Qt library (</hi>
+                <ptr target="https://www1.qt.io/"/>
+                <hi rend="color(#000000)">), and in allowing for flexibility in the choice and use of the results and outputs users are specifically interested in. The possibility to include metadata and evaluation results is another focus for upcoming developments, e.g. to sort text in the output heatmap according to different categories, or topics according their quality indicated by evaluation metrics.</hi>
+            </p>
+            <p>
+                <hi rend="color(#000000)">Both the library and the Demonstrator as a standalone executable for Windows and OSX are open source and available on Github (</hi>
+                <ptr target="https://github.com/DARIAH-DE/Topics"/>
+                <hi rend="color(#000000)">). </hi>
+            </p>
+            <p>
+                <anchor xml:id="id_docs-internal-guid-d95869d1-0714-7de8-2a87-092c6ac7c990"/>
+                <figure>
+                    <graphic url="Pictures/f99ea2893c9bbecc6e4422aa7a9f9bd2.png"/>
+                </figure>
+            </p>
+            <p>
+                <anchor xml:id="id_docs-internal-guid-d95869d1-0715-4480-dcfc-903dfa4d6acf"/>Figure 1: Screenshot of the upper end of the input screen in the current version of the GUI Demonstrator.
+            </p>
+            <p>
+                <anchor xml:id="id_docs-internal-guid-d95869d1-0712-ece2-b7db-67ea7d3c858d"/>
+                <figure>
+                    <graphic url="Pictures/258203d337f96bd6a3187da7f2a1216f.png"/>
+                </figure>
+            </p>
+            <p>
+                <anchor xml:id="id_docs-internal-guid-d95869d1-0713-c085-b637-5184e8d28e26"/>Figure 2: Example for an interactive heatmap output in the current version of the GUI Demonstrator.
+            </p>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl>
+                        <anchor xml:id="id_docs-internal-guid-d95869d1-0712-5930-1d01-076d58a90485"/>
+                        <hi rend="color(#000000)bold">Blei, David M.</hi>
+                        <hi rend="color(#000000)"> </hi>
+                        <hi rend="color(#000000)">(2012): „Probabilistic Topic Models“, in </hi>
+                        <hi rend="color(#000000)italic">Communication of the ACM</hi>
+                        <hi rend="color(#000000)"> </hi>
+                        <hi rend="color(#000000)">55, Nr. 4 (2012): 77–84. doi:10.1145/2133806.2133826.</hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="color(#000000)bold">McCallum, Andrew K.</hi>
+                        <hi rend="color(#000000)"> </hi>
+                        <hi rend="color(#000000)">(2002): </hi>
+                        <hi rend="color(#000000)italic">MALLET : A Machine Learning for Language Toolkit</hi>
+                        <hi rend="color(#000000)">. </hi>
+                        <ref target="http://mallet.cs.umass.edu/">
+                            <hi rend="color(#000000)underline">http://mallet.cs.umass.edu</hi>
+                        </ref>
+                        <hi rend="color(#000000)">.</hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="color(#000000) background-color(#ffffff)bold">Rehurek, Radim/ Sojka, Petr</hi>
+                        <hi rend="color(#000000) background-color(#ffffff)"> </hi>
+                        <hi rend="color(#000000) background-color(#ffffff)">(2010): "Software framework for topic modelling with large corpora." </hi>
+                        <hi rend="color(#000000) background-color(#ffffff)italic">In Proceedings of the LREC 2010 Workshop on New Challenges for NLP Frameworks</hi>
+                        <hi rend="color(#000000) background-color(#ffffff)">.</hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="color(#000000)bold">Steyvers, Mark/ Griffiths, Tom</hi>
+                        <hi rend="color(#000000)"> </hi>
+                        <hi rend="color(#000000)">(2006): „Probabilistic Topic Models“, in </hi>
+                        <hi rend="color(#000000)italic">Latent Semantic Analysis: A Road to Meaning</hi>
+                        <hi rend="color(#000000)">, herausgegeben von T. Landauer, D. McNamara, S. Dennis, und W. Kintsch. Laurence Erlbaum.</hi>
+                    </bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

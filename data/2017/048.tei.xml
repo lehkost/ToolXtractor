@@ -1,0 +1,366 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xsi:schemaLocation="http://www.tei-c.org/ns/1.0 /Users/yoann/Work/Grobid/grobid-home/schemas/xsd/Grobid.xsd"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+	<teiHeader xml:lang="en">
+		<encodingDesc>
+			<appInfo>
+				<application version="0.5.4-SNAPSHOT" ident="GROBID" when="2019-06-05T06:26+0000">
+					<ref target="https://github.com/kermitt2/grobid">GROBID - A machine learning software for extracting information from scholarly documents</ref>
+				</application>
+			</appInfo>
+		</encodingDesc>
+		<fileDesc>
+			<titleStmt>
+				<title level="a" type="main">A Framework for Historical Russian Flu Epidemic Exploration from German Newspapers</title>
+			</titleStmt>
+			<publicationStmt>
+				<publisher/>
+				<availability status="unknown"><licence/></availability>
+			</publicationStmt>
+			<sourceDesc>
+				<biblStruct>
+					<analytic>
+						<author>
+							<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">Tran</forename><forename type="middle">Van</forename><surname>Canh</surname></persName>
+							<affiliation key="aff0">
+								<orgName type="laboratory">L3S Research Center</orgName>
+								<orgName type="institution">Heidelberg University</orgName>
+								<address>
+									<settlement>Hannover</settlement>
+									<country>Germany Katja Markert, Germany</country>
+								</address>
+							</affiliation>
+						</author>
+						<author role="corresp">
+							<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">Wolfgang</forename><surname>Nejdl</surname></persName>
+							<email>nejdl@l3s.de</email>
+							<affiliation key="aff1">
+								<orgName type="laboratory">L3S Research Center</orgName>
+								<address>
+									<settlement>Hannover</settlement>
+									<country key="DE">Germany</country>
+								</address>
+							</affiliation>
+						</author>
+						<title level="a" type="main">A Framework for Historical Russian Flu Epidemic Exploration from German Newspapers</title>
+					</analytic>
+					<monogr>
+						<imprint>
+							<date/>
+						</imprint>
+					</monogr>
+				</biblStruct>
+			</sourceDesc>
+		</fileDesc>
+		<profileDesc>
+			<abstract/>
+		</profileDesc>
+	</teiHeader>
+	<text xml:lang="en">
+		<body>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Introduction</head><p>The Russian flu 1889-1893 epidemic reached Europe from the East in November and December of 1889 and spread over the whole globe in the space of a few months. It was one of the first epidemics of influenza that occurred during the period of the rapid development of bacteriology. In addition, it was the first ever epidemic that was publicly and intensively narrated in the developing daily press, especially those published in German located in Germany and Austria <ref type="bibr" target="#b5">(Mirosławska et al., 2013)</ref>. However, as stated in <ref type="bibr">(Val- tat et al., 2011</ref>), very limited information about the epidemiology of this influenza has been found, which was based on materials published in English. While a large amount of news about the flu was published in German, it is hard to find a study on the epidemic based on German documents. These motivate our goal in this work, which is to build a framework from German materials to support research community getting more insights into the disease. Our framework consists of different components including data collection and cleaning, corpus creation, and associated tools for analysis. The framework is pictorially shown in <ref type="figure" target="#fig_0">Figure  1</ref>. </p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Related work</head><p>There is limited information about the epidemiology of the Russian flu epidemic <ref type="bibr">1889</ref><ref type="bibr">-1893</ref><ref type="bibr" target="#b5">. In (Mirosławska et al., 2013</ref>, the authors conducted an analysis to examine the impact of the epidemic in 14 cities in Europe. Their results showed that the epidemic spread quickly from Saint Petersburg, Russia to other parts of Europe with a speed of around 400 km/week and reached the American continent only 70 days after the original peak in Saint Petersburg. In addition, some detailed information about case fatality ratio and the median basic reproduction was given also. However, their work was based on reports of only two local daily newspapers in Poznań, which implies some uncertainty due to the lack of data coverage. Valleron et al., 2010 presented a case study on the transmissibility and geographic spread of the Russian flu. A similar approach was followed by <ref type="bibr" target="#b11">Valtat et al., 2011</ref> to examine the age distribution of the affected people and the mortality rate of this flu event. In a recent study, <ref type="bibr" target="#b3">Ewing et al., 2016</ref> collected contemporary reports and explored a digital humanities approach to interpret information dissemination regarding this particular epidemic. The limitations common to all of these studies are the heterogeneity and lack of coverage of data used. </p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Data preparation</head></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Data collection</head><p>Data used in this work was collected from the Austrian Newspapers Online (ANNO) repository. ANNO contains almost all issues from many newspapers in Austria and Germany during the time the Russian flu epidemic took place. The data are accessible in both scanned PDF and OCR formats. These are appropriate for our goal in terms of extracting Russian flu related stories from noisy OCR text and checking against the scanned PDF content for validity. To establish the data collection, the keywords listed in <ref type="table" target="#tab_0">Table 1</ref> (along with some misspelt variations of keywords, which were included due to OCR misrecognition) were used to search the ANNO repository The search query was constrained by the time interval from 1889 to 1893. After preprocessing the search results we obtained 4,806 issues, which become the candidates to extract stories about the Russian flu.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Noise reduction</head><p>Due to the low quality of the scanned images of newspaper issues, a lot of noise is present in the corresponding OCR texts. The word error rate (WER) computed on sample texts is around 18.9%. Our goals here were to remove noise and correct misrecognized words as much as possible but at the same time manage keep the language as it was so that the derived corpus pertains its historical perspective. It is noted that modern German is rather different in writing and usage of many words due to the language's evolution. To cope with these issues, we adopted a snapshot of the Google-2-gram dataset for German from 1885 to 1895. The dataset was used to train our bigram-based model for word segmentation and spell checking. After running the model, the word error rate was reduced to 5.5%.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Text block classification</head><p>A difficult challenge for the task of extracting complete stories is that recognized OCR text blocks are very often not aligned in the same order as they were in the original image of an issue. Our approach was to automatically pre-classify OCR text blocks to identify the ones that are more likely part of some flu-related stories. Then we developed a tool to effectively help annotators extract complete Russian flu stories. For this, we adopted the KL-divergence based technique developed in <ref type="bibr" target="#b8">(Schneider, 2004</ref>) to build a classifier. The model was trained with 245 OCR text paragraphs and obtained recall of 81.5% and precision of 68.6%. Basically, the output of the classifier can be used to help annotators start working on an issue by looking at suggested text blocks first, from which they can then select paragraphs that are part of the same story.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Extraction tool</head><p>After completing the high-recall automatic pre-extraction, we implemented a Web-based tool for annotators to help build our corpus collaboratively. The main GUI of our tool is shown in <ref type="figure" target="#fig_1">Figure 2</ref>. After having annotators work through the whole collection, we obtained a corpus of 639 news articles about Russian flu from 42 newspapers, identified with 85.7% agreement between annotators. </p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Geo and temporal information extraction</head><p>Given that location and time are helpful features for exploring the development of the epidemic, we extracted and normalized geographic names and temporal expressions occurring in the corpus. For geographic names, the Geodict tool created by Pete Warden (2011) was adapted to work with country and city names in German. HeidelTime <ref type="bibr" target="#b9">(Strötgen and Gertz, 2013</ref>) was used for temporal information extraction and normalization.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Indexing and search engine</head><p>We created a search engine on the corpus to support research community in searching for information. The searching GUI is shown in <ref type="figure" target="#fig_2">Figure 3</ref>. </p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Exploration tools and sample results</head><p>We provided associated tools along with the corpus. The corpus timeline provides statistics on the number of stories in the corpus across time and news outlet. In addition, it provides interactive visualization. As an example shown in <ref type="figure" target="#fig_3">Figure 4</ref>, during the peak time in late December 1889 and January 1890, extensive news about the influenza was published. Newspapers were trying to narrate the outbreak as fast as possible. Words that appear significantly in the stories include influenza, epidemic, krankheit (disease) and erkrankt (sick). A short time after this peak period, fewer reports were published about the outbreak of the flu and communities started discussing the treatment more. Names of doctors appearing in the news (e.g., Leyden, Proust) together with words describing symptoms such as fieber (fever), kopfschmerzen (headache), appetitlosigkeit (anorexia). Furthermore, by exploring word collocations one can find even more interesting information. <ref type="figure" target="#fig_4">Figure 5</ref> shows a frequent pattern of word collocation describing the influenza. The words heute (today) and gestern (yesterday) indicate that news about the flu is updated every day; and the word jänner (January) implies that the flu outbreaks happened during winter.  <ref type="figure" target="#fig_5">Figure 6</ref> presents the co-occurrences of three words infuenza, erkrankt, and london over time. It shows a similar trending pattern of the words infuenza and erkrankt being used to note about the flu. In addition, one can observe that the peak time of the flu in London was from late December 1889 to early January 1890 as indicated in <ref type="bibr" target="#b4">(Honigsbaum, 2010;</ref><ref type="bibr" target="#b6">Goff, 2011)</ref>. This suggests that the temporal distribution of terms can give us more insights into the evolution of the epidemic. The framework also supports studying the evolution of the flu over time and geographic regions. We employed the method introduced in ( <ref type="bibr" target="#b0">Abdelhaq et al., 2013</ref>) for localized event detection. <ref type="figure">Figure 7</ref> shows three snapshots describing the development of the epidemic over cities in Europe during the peak time from late November 1889 to January 1890. Summary</p><p>We have introduced a framework for research communities to explore the historical Russian flu 1889-for collaborative annotators to help build our corpus. We further presented some interesting insights that we achieved from analyzing articles in the corpus. By making the corpus and associated tools available, we provide useful contributions to the community in support of conducting studies on influenza epidemics and evaluating temporal IR models. <ref type="figure">Figure 7</ref>. Evolution of the Russian flu over geographic regions during its peak time</p></div><figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_0"><head>Figure 1 .</head><label>1</label><figDesc>Figure 1. Russian flu exploration framework</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_1"><head>Figure 2 .</head><label>2</label><figDesc>Figure 2. Main GUI of our tool for Russian flu story extraction</figDesc><graphic url="image-4.png" coords="2,316.86,233.82,223.44,98.88" type="bitmap" /></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_2"><head>Figure 3 .</head><label>3</label><figDesc>Figure 3. Russian flu story searching module</figDesc><graphic url="image-5.png" coords="2,316.86,560.46,223.44,100.32" type="bitmap" /></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_3"><head>Figure 4 .</head><label>4</label><figDesc>Figure 4. Press attention on the flu and topic changes over time</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_4"><head>Figure 5 :</head><label>5</label><figDesc>Figure 5: A frequent pattern of word collocation extracted from our corpus</figDesc><graphic url="image-7.png" coords="3,316.86,72.30,223.44,156.96" type="bitmap" /></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_5"><head>Figure 6 :</head><label>6</label><figDesc>Figure 6: Similar trending pattern of the two words influenza and erkrankt, and the peak time of the flu in London</figDesc><graphic url="image-8.png" coords="3,316.86,382.86,223.44,143.76" type="bitmap" /></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0"><head></head><label></label><figDesc></figDesc><graphic url="image-9.png" coords="4,47.30,178.98,237.11,332.24" type="bitmap" /></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" type="table" xml:id="tab_0" validated="false"><head>Table 1 :</head><label>1</label><figDesc>Keywords used to collect high recall collection of newspaper issues containing stories about influenza epi- demic</figDesc><table></table></figure>
+		</body>
+		<back>
+
+			<div type="acknowledgement">
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Acknowledgements</head><p>This research is supported by the German Research Foundation (DFG) for the project "Tracking the Russian Flu in U.S. and German Medical and Popular Reports, 1889-1893" on Grant No. NE 638/13-1. We also thank you the Austrian National Library for supporting us in collecting data.</p></div>
+			</div>
+
+			<div type="references">
+
+				<listBibl>
+
+<biblStruct xml:id="b0">
+	<analytic>
+		<title level="a" type="main">EvenTweet: Online Localized Event Detection from Twitter</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">H</forename><surname>Abdelhaq</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">C</forename><surname>Sengstock</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">M</forename><surname>Gertz</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Proc. VLDB Endowment Journal</title>
+		<imprint>
+			<biblScope unit="volume">6</biblScope>
+			<biblScope unit="issue">12</biblScope>
+			<biblScope unit="page" from="1326" to="1330" />
+			<date type="published" when="2013" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b1">
+	<analytic>
+		<title level="a" type="main">Twitter Catches the Flu: Detecting Influenza Epidemics Using Twitter</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">F</forename><surname>Aramaki</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">S</forename><surname>Maskawa</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">M</forename><surname>Morita</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">proceedings of the Conference on Empirical Methods in Natural Language Processing</title>
+		<meeting>the Conference on Empirical Methods in Natural Language Processing</meeting>
+		<imprint>
+			<date type="published" when="2011" />
+			<biblScope unit="page" from="1568" to="1577" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b2">
+	<analytic>
+		<title level="a" type="main">Austrian Newspapers Online</title>
+		<ptr target="http://anno.onb.ac.at" />
+	</analytic>
+	<monogr>
+		<title level="j">Austrian National Library</title>
+		<imprint>
+			<date type="published" when="2011" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b3">
+	<analytic>
+				<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">E</forename><forename type="middle">T</forename><surname>Ewing</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">V</forename><surname>Kimmerly</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">S</forename><surname>Ewing-Nelson</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Look Out for &apos;La Grippe&apos;: Using Digital Humanities Tools to Interpret Information Dissemination during the Russian Flu</title>
+		<imprint>
+			<date type="published" when="2016" />
+			<biblScope unit="volume">60</biblScope>
+			<biblScope unit="page" from="129" to="132" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b4">
+	<monogr>
+		<title level="m" type="main">The Great Dread: Cultural and Psychological Impacts and Responses to the Russian Influenza in the United Kingdom 1889-1893&quot;.Social history of medicine</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">M</forename><surname>Honigsbaum</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="2010" />
+			<biblScope unit="volume">23</biblScope>
+			<biblScope unit="page" from="299" to="320" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b5">
+	<analytic>
+		<title level="a" type="main">The influenza epidemic of 1889-90 in selected European cities - a picture based on the reports of two Poznań daily newspapers from the second half of the nineteenth century</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">B</forename><surname>Kempińska-Mirosławska</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">A</forename><surname>Woÿniak-Kosek</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Med Science Monitor</title>
+		<imprint>
+			<biblScope unit="volume">19</biblScope>
+			<biblScope unit="page" from="1131" to="1142" />
+			<date type="published" when="2013" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b6">
+	<analytic>
+		<title level="a" type="main">Diffusion of influenza during the winter of 1889-1890 in Switzerland</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">Le</forename><surname>Goff</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">J</forename><forename type="middle">M</forename></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Jenus</title>
+		<imprint>
+			<biblScope unit="volume">67</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<biblScope unit="page" from="77" to="100" />
+			<date type="published" when="2011" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b7">
+	<analytic>
+		<title level="a" type="main">You Are What You Tweet: Analyzing Twitter for Public Health</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">M</forename><forename type="middle">J</forename><surname>Paul</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">M</forename><surname>Dredze</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">proceedings of the Fifth International Conference on Weblogs and Social Media</title>
+		<meeting>the Fifth International Conference on Weblogs and Social Media</meeting>
+		<imprint>
+			<date type="published" when="2011" />
+			<biblScope unit="page" from="265" to="273" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b8">
+	<analytic>
+		<title level="a" type="main">A New Feature Selection Score for Multinomial Naive Bayes Text Classification Based on KL-divergence</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">K.-M</forename><surname>Schneider</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Proceedings of the ACL 2004 on Interactive Poster and Demonstration Sessions</title>
+		<meeting>the ACL 2004 on Interactive Poster and Demonstration Sessions</meeting>
+		<imprint>
+			<date type="published" when="2004" />
+			<biblScope unit="page" from="186" to="190" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b9">
+	<analytic>
+		<title level="a" type="main">Multilingual and crossdomain temporal tagging</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">J</forename><surname>Strötgen</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">M</forename><surname>Gertz</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Language Resources and Evaluation</title>
+		<imprint>
+			<biblScope unit="volume">47</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<biblScope unit="page" from="269" to="299" />
+			<date type="published" when="2013" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b10">
+	<analytic>
+		<title level="a" type="main">Transmissibility and geographic spread of the 1889 influenza pandemic</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">A</forename><forename type="middle">J</forename><surname>Valleron</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">A</forename><surname>Cori</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">S</forename><surname>Valtat</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">S</forename><surname>Meurisse</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">F</forename><surname>Fabrice Carrat</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">P</forename><forename type="middle">Y</forename><surname>Boëlle</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">proceedings of the National Academy of Sciences of the United States of America</title>
+		<meeting>the National Academy of Sciences of the United States of America</meeting>
+		<imprint>
+			<publisher>PNAS</publisher>
+			<date type="published" when="2010" />
+			<biblScope unit="page" from="8778" to="8782" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b11">
+	<analytic>
+		<title level="a" type="main">Age distribution of cases and deaths during the 1889 influenza pandemic</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">S</forename><surname>Valtat</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">A</forename><surname>Cori</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">F</forename><surname>Carrat</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">A.-J</forename><surname>Valleron</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Vaccine</title>
+		<imprint>
+			<biblScope unit="volume">29</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<biblScope unit="page" from="6" to="10" />
+			<date type="published" when="2011" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b12">
+	<analytic>
+		<title/>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">P</forename><surname>Warden</surname></persName>
+		</author>
+		<ptr target="https://github.com/petewarden/geodict" />
+	</analytic>
+	<monogr>
+		<title level="j">GeoDict. Accessible via Github</title>
+		<imprint>
+			<date type="published" when="2010" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+				</listBibl>
+			</div>
+		</back>
+	</text>
+</TEI>

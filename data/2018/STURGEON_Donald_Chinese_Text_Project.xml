@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title type="full">
+                    <title type="main">Chinese Text Project</title>
+                    <title type="sub">A Dynamic Digital Library of Pre-modern Chinese</title>
+                </title>
+                <author>
+                    <persName>
+                        <surname>Sturgeon</surname>
+                        <forename>Donald</forename>
+                    </persName>
+                    <affiliation>Harvard University, United States of America</affiliation>
+                    <email>djs@dsturgeon.net</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2014-12-19T13:50:00Z</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Name, Institution</publisher>
+                <address>
+                    <addrLine>Street</addrLine>
+                    <addrLine>City</addrLine>
+                    <addrLine>Country</addrLine>
+                    <addrLine>Name</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from a Word document</p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.22">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Long Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>Chinese</term>
+                    <term>crowdsourcing</term>
+                    <term>OCR</term>
+                    <term>transcription</term>
+                    <term>text</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>image processing</term>
+                    <term>historical studies</term>
+                    <term>digitisation</term>
+                    <term>resource creation</term>
+                    <term>and discovery</term>
+                    <term>asian studies</term>
+                    <term>philology</term>
+                    <term>crowdsourcing</term>
+                    <term>English</term>
+                    <term>public humanities and community engaged scholarship</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <div type="div1" rend="DH-Heading1">
+                <head>Introduction</head>
+                <p>Traditional full-text digital libraries, including those in the field of pre-modern Chinese, have typically followed top-down, centralized, and static models of content creation and curation. In this type of model, written materials are scanned, transcribed by manual effort and/or Optical Character Recognition (OCR), then corrected manually, reviewed, annotated, and finally imported into a system in their final, usable form. This is a natural and well-grounded strategy for design and implementation of such systems, with strong roots in traditional academic publishing models, and offering greatly reduced technical complexity over alternative approaches. This strategy, however, is unable to adequately meet the challenges of increasingly large-scale digitization and the resulting rapid growth in potential corpus size as ever larger volumes of historical materials are digitized by libraries around the world.</p>
+                <p>The Chinese Text Project (https://ctext.org) is a full-text digital library of pre-modern Chinese written materials which implements an alternative model for creation and curation of full-text materials, adapting methodologies from crowdsourcing projects such as Wikipedia and Distributed Proofreaders (Newby and Franks 2003) while also integrating them with full-text database functionality. In contrast to the traditional linear approach, in which all stages of processing including correction and review must be completed before transcribed material is ingested into a database system, this approach works by immediately ingesting unreviewed materials into a publicly available, managed system, within which these materials can be navigated and used, as well as improved through an ongoing collaborative correction and annotation process. From a user perspective, this has the consequence that the utility of the system does not rest upon prior expert review of materials, but instead derives from provision to individual users of the ability to interact directly and effectively with primary source materials and verify accuracy of transcription and annotation for themselves. Combined with specialized Optical Character Recognition techniques leveraging features common to pre-modern Chinese written works (Sturgeon 2017a), this has enabled the creation of a scalable system providing access to a long tail of historical works which would otherwise not be available in transcribed form. The system is highly scalable and currently contains over 25 million pages of primary source material while being used by over 25,000 users around the world every day.</p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Creating transcriptions</head>
+                <p>The most fundamental type of material contained in the Chinese Text Project consists of digital facsimiles of pre-modern published works. These are typically ingested in bulk through collaboration with university libraries which have created high quality digital images of works in their collections. After ingestion, the next step in making these materials more useful to users is creation of approximate transcriptions from page images using OCR. Producing accurate OCR results for historical materials is challenging due to a number of issues, including variation in handwriting and printing styles, varying degrees of contrast between text and paper, bleed-through from reverse sheets, complex and unusual layouts, and physical, water or insect damage to the materials themselves prior to digitization. In addition to these challenges which are common to OCR of historical documents generally, OCR for premodern Chinese works faces additional difficulties in extracting training data due to the large number of distinct character types in the Chinese language. Most OCR techniques apply machine learning to infer from an image of a character which character type it is that the image represents, and these techniques require comprehensive training data in the form of clear and correctly labeled images in the same writing style for every possible character. This is challenging for Chinese due to the large number of character types needed for useful OCR (on the order of 5000); unlike historical OCR of writing systems with much smaller character sets, it is not feasible to simply create this data manually. Instead, training data is extracted through an automated procedure (Sturgeon 2017a) which leverages knowledge about existing transcriptions of other texts to assemble clean labeled character images extracted from historical works for every character to be recognized (Figure 1). Together with image processing and language modeling tailored to pre-modern Chinese, this significantly reduces the error rate in comparison with off-the-shelf OCR software.</p>
+                <figure>
+                    <graphic n="1001" width="15.980833333333333cm" height="6.526388888888889cm" url="Pictures/256d1bd6a57b8d9bdfa0571116529e61.jpeg" rend="inline"/>
+                </figure>
+                <p>Figure 1. OCR training data is extracted automatically from handwritten and block-printed primary source texts.</p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Navigating texts and page images</head>
+                <p>Once transcriptions of page images have been created, they are directly imported into the public database system. The system represents textual transcriptions as sequences of XML fragments, in which markup is used to express both the relationship between transcribed text and the page image to which it corresponds, as well as the logical structure of the document as a whole. This facilitates two distinct methods of interacting with the transcribed material: firstly, as a single document consisting of the transcribed contents of each page concatenated in sequence to give readable plain-text with logical structure (divisions into chapters, sections, and paragraphs); secondly, as a sequence of page-wise transcriptions, in which a direct visual comparison can be made between the transcription and the image from which it is derived (Figure 2). In both cases, an important contribution of the transcription is that it enables full-text search; the primary utility of the page-wise view is that it enables efficient comparison of transcribed material with the facsimile of the primary source itself. As these two views are linked to one another and created from the same underlying data, this makes it feasible to read and navigate a text according to its logical structure, and at any stage of the process jump to the corresponding location in the sequence of page images to confirm accuracy of the transcription.</p>
+                <p>
+                    <graphic n="1002" width="7.882144444444444cm" height="6.420555555555556cm" url="Pictures/637327c13478e287154d398c24e7acce.jpeg" rend="inline"/>
+                    <graphic n="1003" width="7.866944444444444cm" height="6.998630555555556cm" url="Pictures/6d925b79375705576d383925af259d85.jpeg" rend="inline"/>
+                </p>
+                <p>
+                    <hi rend="italic">Figure 2. Full-text search results can be displayed in context in a logical transcription view (left), as well as aligned directly together with the source image in an image and transcription view (right).</hi>
+                </p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Crowdsourced editing and curation</head>
+                <p>As initial transcriptions are created using OCR, they inevitably contain mistakes. Users of the system have the option to correct mistakes they identify, as well as to annotate texts in a number of ways. Two distinct editing interfaces are provided: a direct editor, which enables direct editing of the underlying XML representation, and a visual editor allowing simplified editing of page-level transcriptions, which edits the same underlying content but does not require direct understanding or modification of XML. Regardless of which mechanism is used to submit an edit, all edits are committed immediately to the public system. Edits are versioned, allowing visualization of changes between versions and simple reversion of a text to its state at an earlier point in time. At present, the system receives on the order of 100 edits each day, representing much larger numbers of corrections, as editors frequently choose to correct multiple errors and sometimes entire pages in a single operation.</p>
+                <p>Further visual editing tools supplement these mechanisms to enable crowdsourcing of more complex information. Illustrations are entered by the user drawing a rectangular box on the page image to indicate the location of the illustration, then filling in a simple form describing various aspects of it (Figure 3). This results in an XML fragment describing the illustration, which can simply be inserted into the text at the appropriate location to represent it. This allows the illustration to be extracted from its context on the page and represented in the full-text transcription view as well as in the page-wise view. It also facilitates illustration search functionality, where illustrations can be searched by caption across all materials contained in the system (Figure 4). A similar visual editing interface is used to enable the inputting of rare and variant characters which do not yet exist in Unicode. These characters are no longer in common use, but occur in many historical documents. The visual editing interface for rare character input also uses metadata provided by the user to identify whether a given character is the same as any existing character known to the system, and if so, assigns a common identifier so that data about these characters can be aggregated, and text containing such characters searched.</p>
+                <figure>
+                    <graphic n="1004" width="15.980833333333333cm" height="11.147777777777778cm" url="Pictures/26e3665887963af1cd68a1f413f4c741.jpeg" rend="inline"/>
+                </figure>
+                <p>Figure 3. Identification and markup of illustrations within source materials are crowdsourced using purpose-designed visual editing tools which convert user input into XML.</p>
+                <figure>
+                    <graphic n="1005" width="15.980833333333333cm" height="9.70138888888889cm" url="Pictures/2015dcc8d3a71e1d205b21c00f891beb.jpeg" rend="inline"/>
+                </figure>
+                <p>
+                    <hi rend="italic">Figure 4. Image search: individual images are extracted from (and linked to) the precise locations at which they occur in source materials, and can be searched by caption.</hi>
+                </p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Exporting data and integrating with external systems</head>
+                <p>In addition to the main user interface, a web-based Application Programming Interface (API) provides machine-readable access to data and metadata stored in the system. This facilitates text mining applications, as well as integration with other online systems. An example of the latter is the MARKUS textual markup system (De Weerdt et al. 2016), which can use the API to search for texts and load their transcriptions directly into this externally developed and maintained tool. An XML-based plugin system for the Chinese Text Project user interface also enables users to define and share extensions to the web interface which can be used to create connections to external projects and resources. This allows third-party tools such as MARKUS to integrate directly into the web interface, facilitating seamless connections between separately developed online projects. Text mining access is further facilitated by the provision of a Python module capable of accessing the API (Sturgeon 2017c), which is already in use in teaching and research (Sturgeon 2017b).</p>
+            </div>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl>
+                        <hi rend="bold">Newby, G. B. and Franks, C.</hi> (2003). Distributed proofreading. 
+                        <hi rend="italic">2003 Joint Conference on Digital Libraries, 2003. Proceedings.</hi> pp. 361–63 doi:
+                        <ref target="https://doi.org/10.1109/JCDL.2003.1204888">10.1109/JCDL.2003.1204888</ref>.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Sturgeon, D.</hi> (2017a). Unsupervised Extraction of Training Data for Pre-Modern Chinese OCR.
+                        <hi rend="italic" xml:space="preserve"> Florida Artificial Intelligence Research Society</hi>. 
+                        <hi rend="italic">Proceedings.</hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Sturgeon, D.</hi> (2017b). Classical Chinese DH: Getting Started. 
+                        <hi rend="italic">Digital Sinology</hi>
+                        <ref target="https://digitalsinology.org/classical-chinese-dh-getting-started/">https://digitalsinology.org/classical-chinese-dh-getting-started/</ref> (accessed 27 November 2017).
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Sturgeon, D.</hi> (2017c). Chinese Text Project API wrapper 
+                        <ref target="https://pypi.python.org/pypi/ctext/">https://pypi.python.org/pypi/ctext/</ref> (accessed 27 November 2017).
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Sturgeon, D.</hi> (2017d). Unsupervised identification of text reuse in early Chinese literature. 
+                        <hi rend="italic">Digital Scholarship in the Humanities</hi> doi:
+                        <ref target="https://doi.org/10.1093/llc/fqx024.">10.1093/llc/fqx024.</ref>
+                        <ref target="https://academic.oup.com/dsh/advance-article/doi/10.1093/llc/fqx024/4583485">https://academic.oup.com/dsh/advance-article/doi/10.1093/llc/fqx024/4583485</ref> (accessed 27 April 2018).
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Weerdt, H. D., Ming-Kin, C. and Hou-Ieong, H.</hi> (2016). Chinese Empires in Comparative Perspective: A Digital Approach. 
+                        <hi rend="italic">Verge: Studies in Global Asias</hi>, 
+                        <hi rend="bold">2</hi>(2): 58–69 doi:
+                        <ref target="https://doi.org/10.5749/vergstudglobasia.2.2.0058">10.5749/vergstudglobasia.2.2.0058</ref>.
+                    </bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

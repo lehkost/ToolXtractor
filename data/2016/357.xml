@@ -1,0 +1,382 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>Climate Negotiation Analysis</title>
+                <author>
+                    <persName>
+                        <surname>Ruiz Fabo</surname>
+                        <forename>Pablo</forename>
+                    </persName>
+                    <affiliation>LATTICE Lab, École Normale Supérieure, France</affiliation>
+                    <email>pabloruizfabo@gmail.com</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Plancq</surname>
+                        <forename>Clément</forename>
+                    </persName>
+                    <affiliation>LATTICE Lab, École Normale Supérieure, France</affiliation>
+                    <email>clement.plancq@ens.fr</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Poibeau</surname>
+                        <forename>Thierry</forename>
+                    </persName>
+                    <affiliation>LATTICE Lab, École Normale Supérieure, France</affiliation>
+                    <email>thierry.poibeau@ens.fr</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2014-12-19T13:50:00Z</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Maciej Eder, Pedagogical University in Krakow</publisher>
+                <publisher>Jan Rybicki, Jagiellonian University</publisher>
+                <address>
+                    <addrLine>Institute of Polish Studies</addrLine>
+                    <addrLine>Pedagogical University</addrLine>
+                    <addrLine>ul. Podchorazych 2</addrLine>
+                    <addrLine>30-084 Krakow, Poland</addrLine>
+                    <addrLine>maciej.eder@ijp-pan.krakow.pl</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from a Word document </p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.21">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Short Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>semantic role labeling</term>
+                    <term>relation extraction</term>
+                    <term>climate negotiations</term>
+                    <term>Earth Negotiations Bulletin</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>information retrieval</term>
+                    <term>natural language processing</term>
+                    <term>semantic analysis</term>
+                    <term>text analysis</term>
+                    <term>content analysis</term>
+                    <term>linking and annotation</term>
+                    <term>data mining / text mining</term>
+                    <term>English</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <div type="div1" rend="DH-Heading1">
+                <head>Introduction</head>
+                <p>Text analysis methods based on word co-occurrence have yielded useful results in humanities and social sciences research. For instance, Venturini et al., (2012) describe the use of concept co-occurrence networks in social sciences. Grimmer and Stewart (2013) survey clustering and topic modeling applied to political science corpora. Whereas these methods provide a useful overview of a corpus, they cannot determine the predicates
+                    <note place="foot" xml:id="ftn1" n="1">
+                        <p rend="footnote text">
+                            <hi rend="italic">Predicate</hi> in the sense of an expression relating a set of arguments.
+                        </p>
+                    </note> relating co-occurring elements with each other. For instance, if 
+                    <hi rend="italic">France</hi> and the phrase 
+                    <hi rend="italic">binding commitments</hi> co-occur within a sentence, how are both elements related? Is France in favour of, or against 
+                    <hi rend="italic">binding commitments</hi>?
+                </p>
+                <p>Different natural language processing (NLP) technologies can identify related elements in text, and the predicates relating them. A recent approach is 
+                    <hi rend="italic">open relation extraction</hi> (Mausam et al., 2012, among others), where relations are derived from the corpus in a data-driven manner, without having to pre-specify a vocabulary of predicates or actors. We are developing a workflow to analyze the Earth Negotiations Bulletin (vol. 12)
+                    <anchor xml:id="Ref434091966"/>
+                    <note place="foot" xml:id="ftn2" n="2">
+                        <p rend="footnote text"> http://www.iisd.ca/vol12</p>
+                    </note>, which summarizes international climate negotiations. A sentence in this corpus can contain several verbal or nominal predicates indicating support and opposition (see Table 1). Results were uneven when applying open relation extraction tools to this corpus. To address these challenges, we developed a workflow with a domain model, and analysis rules that exploit annotations for semantic roles and pronominal anaphora, provided by an NLP pipeline.
+                </p>
+                <p>Our system identifies points supported and opposed by negotiating actors and extracts keyphrases and DBpedia
+                    <note place="foot" xml:id="ftn3" n="3">
+                        <p rend="footnote text"> wiki.dbpedia.org (Auer et al., 2007)</p>
+                    </note> concepts from those points. The results are displayed on an interface, allowing for a comparison of different actors’ positions. The system helps address a current need in digital humanities: tools for the quantitative analysis of textual structures beyond word co-occurrence.
+                </p>
+                <p>The abstract is structured as follows. First, related work and the corpus are presented. Then, our system is described. Finally, evaluation is discussed. </p>
+                <p>Material supplementing the paper and access information to the system will be available on the project’s website.
+                    <anchor xml:id="Ref434095322"/>
+                    <note place="foot" xml:id="ftn4" n="4">
+                        <p rend="footnote text"> https://sites.google.com/site/nlp4climate</p>
+                    </note>
+                </p>
+                <figure>
+                    <graphic url="357/image1.png" rend="inline"/>
+                    <head>Table : 
+                        <hi rend="bold">Typical corpus sentences</hi>. Sentence 1 has predicates 
+                        <hi rend="italic">supported</hi> and 
+                        <hi rend="italic">opposed</hi>, with several actors each. Example 2 shows a nominal predicate (
+                        <hi rend="italic">proposal</hi>). For Sentence 1, five 
+                        <hi rend="italic">‹actor, predicate, negotiation point›</hi> propositions are extracted by the system, and the opposing actors (
+                        <hi rend="italic">China, Malaysia, Bhutan</hi>) are assigned a proposition which is a negated version (with 
+                        <hi rend="italic">~supported</hi> as the predicate) of the proposition for the main verb 
+                        <hi rend="italic">supported</hi>.
+                    </head>
+                </figure>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Related work</head>
+                <p>Venturini et al., (2014) created concept co-occurrence networks for the ENB corpus, using Cortext Manager
+                    <note place="foot" xml:id="ftn5" n="5">
+                        <p rend="footnote text"> http://docs.cortext.net</p>
+                    </note>, a corpus cartography tool. This analysis does not cover which predicates relate concepts and actors. Salway et al., (2014) used 
+                    <hi rend="italic">grammar induction</hi> on ENB to identify recurrent actor/predicate patterns; it could be tested whether results with that approach complement ours. 
+                </p>
+                <p>Some studies have used syntactic and semantic parsing for text-analysis of social sciences and humanities corpora. Diesner (2012, 2014) examines the contribution of NLP to the construction of text-based networks. Van Atteveldt (2015) used dependency parsing to apply co-occurrence based methods within sentence elements related to an actor or a predicate. These studies rely mostly on syntactic dependencies and verbal predicates. We are using semantic role labeling as the basis for relation extraction, and treating nominal predicates besides verbal ones. We also developed an interface to navigate the results.</p>
+                <p>Finally, a relevant resource for text-mining on climate corpora is 
+                    <hi rend="italic">climatetagger</hi> API
+                    <note place="foot" xml:id="ftn6" n="6">
+                        <p rend="footnote text"> API: http://api.climatetagger.net ; Thesaurus: http://www.climatetagger.net/glossary/ </p>
+                    </note>, which links concepts against a domain-specific thesaurus (Bauer et al., 2011). This thesaurus could complement our concept-linking results (based on DBpedia, a general ontology).
+                </p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Corpus</head>
+                <p>Each ENB issue is a 2000 word summary for one day of negotiations. The issues are written by domain experts, who strive for an objective tone and, to avoid biases, use similar expressions when reporting about all participants’ interventions (Venturini et al., 2014). The COP meetings are covered in 255 ENB issues, with ca. 35,000 sentences. The original corpus format is HTML, which we preprocessed into clean text. We dated each issue based on ENB’s table of contents.</p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>System description</head>
+                <p>The system helps analyze patterns of support and opposition between negotiating parties, and the issues about which parties agree or disagree. To achieve this, the system extracts propositions of shape 
+                    <hi rend="italic">‹actor, predicate, negotiation point›</hi>,
+                    <note place="foot" xml:id="ftn7" n="7">
+                        <p rend="footnote text"> Terminology adopted: 
+                            <hi rend="italic">‹Norway, preferred, legally-binding commitments›</hi> is a proposition, with actor 
+                            <hi rend="italic">Norway</hi>, predicate 
+                            <hi rend="italic">preferred</hi> and 
+                            <hi rend="italic">legally-binding commitments </hi>as the negotiation point.
+                        </p>
+                    </note> based on a domain model containing actors and predicates, and applying analysis rules on the outputs of an NLP toolkit. Keyphrases and DBpedia concepts are also extracted from the negotiation points. All extractions, and the corpus itself, are made navigable on a user interface (UI).
+                </p>
+                <div type="div2" rend="DH-Heading2">
+                    <head>NLP toolkit</head>
+                    <p>We used the IXA Pipes library
+                        <note place="foot" xml:id="ftn8" n="8">
+                            <p rend="footnote text"> http://ixa2.si.ehu.es/ixa-pipes/</p>
+                        </note> (Agerri et al., 2014), with default models for 
+                        <hi rend="bold">tokenization</hi> and 
+                        <hi rend="bold">part-of-speech tagging</hi>. We resolved some types of 
+                        <hi rend="bold">pronominal anaphora</hi> based on 
+                        <hi rend="italic">CorefGraph</hi>
+                        <anchor xml:id="Ref434078902"/>
+                        <note place="foot" xml:id="ftn9" n="9">
+                            <p rend="footnote text"> https://bitbucket.org/Josu/corefgraph</p>
+                        </note> coreference chains.
+                    </p>
+                    <p>
+                        <hi rend="bold">Semantic Role Labeling (SRL)</hi> (Surdeanu et al., 2008) identifies a predicate’s arguments and their semantic functions or roles (e.g. 
+                        <hi rend="italic">agent</hi>). SRL was performed with ixa-pipe-srl
+                        <note place="foot" xml:id="ftn10" n="10">
+                            <p rend="footnote text"> https://github.com/newsreader/ixa-pipe-srl ; it provides a wrapper to 
+                                <hi rend="italic">mate-tools</hi> (Björkelund et al., 2010)
+                            </p>
+                        </note>, which tags against the PropBank database (Palmer et al., 2005) for verbal predicates and against NomBank (Meyers et al., 2004) for nominal ones. 
+                    </p>
+                    <p>
+                        <hi rend="bold">Keyphrase Extraction</hi>: YaTeA
+                        <note place="foot" xml:id="ftn11" n="11">
+                            <p rend="footnote text"> http://search.cpan.org/~thhamon/Lingua-YaTeA/lib/Lingua/YaTeA.pm</p>
+                        </note> was used (Aubin and Hamon, 2006). This library performs unsupervised term extraction using syntactic and statistical criteria. 
+                    </p>
+                    <p>
+                        <hi rend="bold">Entity Linking (EL)</hi>: The tool from (Ruiz and Poibeau, 2015) was used. It combines outputs from several public EL services, selecting the best outputs with a weighted vote.
+                    </p>
+                </div>
+                <div type="div2" rend="DH-Heading2">
+                    <head>Domain-specific components</head>
+                    <p>The 
+                        <hi rend="bold">domain model</hi> contains actors (negotiating countries and groups) and verbal or nominal predicates. Verbal predicates (from PropBank) can be neutral reporting verbs (e.g. 
+                        <hi rend="italic">stated</hi>), or verbs related to support and opposition (
+                        <hi rend="italic">recommended</hi>, 
+                        <hi rend="italic">criticized</hi>). The nominal predicates (from NomBank) express similar notions to the verbs (e.g. 
+                        <hi rend="italic">proposal</hi>, 
+                        <hi rend="italic">objection</hi>). The model also specifies a predicate type: 
+                        <hi rend="italic">report</hi>, 
+                        <hi rend="italic">support</hi>, or 
+                        <hi rend="italic">oppose</hi>. 
+                    </p>
+                    <p>
+                        <hi rend="bold">Analysis rules</hi> were implemented to identify propositions based on the semantic roles of predicates’ arguments, previously obtained with SRL. Most domain predicates involve an agent and a message expressed by the agent (who agrees with the message, objects to it, or just reports it). Thus, actor mentions in a predicate’s A0 argument
+                        <anchor xml:id="Ref434078019"/>
+                        <note place="foot" xml:id="ftn12" n="12">
+                            <p rend="footnote text"> In SRL, 
+                                <hi rend="italic">A0</hi> corresponds to a predicate’s agent. 
+                                <hi rend="italic">A1</hi> is the patient or theme. 
+                                <hi rend="italic">AM</hi> roles represent adjuncts (time, location etc.) or negation. See Palmer et al., 2005.
+                            </p>
+                        </note> represent the actor who expresses the message, and the predicate’s A1 argument
+                        <hi rend="footnote_reference">12</hi> often represents the negotiation point addressed by the actor. The generic rule to identify propositions is in Figure 1. 
+                    </p>
+                    <figure>
+                        <graphic url="357/image2.png" rend="inline"/>
+                        <head>Figure : 
+                            <hi rend="bold">General rule to create a proposition</hi>
+                        </head>
+                    </figure>
+                    <p>Sentences with 
+                        <hi rend="italic">opposed by</hi> constructions require a different analysis (e.g. 
+                        <hi rend="italic">China, opposed by the EU, recommended…</hi>) In such sentences, a different rule creates, for the opposing actors, propositions where the predicate contradicts the main clause’s predicate (see Table 1 for an example). Proposition-creation rules for more specific cases have also been implemented.
+                    </p>
+                    <p>The treatment of 
+                        <hi rend="bold">negation</hi> relies on finding 
+                        <hi rend="italic">AM-NEG</hi> roles (see footnote 12) attached to a predicate, or negative items (
+                        <hi rend="italic">not</hi>, 
+                        <hi rend="italic">lack</hi>) in a window of two tokens preceding a predicate.
+                    </p>
+                    <p>
+                        <hi rend="bold">Pronominal anaphora</hi> was treated via custom rules operating on the output of a coreference resolver (see footnote 9). We created custom rules since, in the corpus, 
+                        <hi rend="italic">he</hi> and 
+                        <hi rend="italic">she</hi> (besides 
+                        <hi rend="italic">it</hi>) can refer back to a country (pronoun gender depends on the country’s delegate).
+                    </p>
+                    <p>To facilitate searches by date-range, propositions are assigned their documents’ date.</p>
+                    <figure>
+                        <graphic url="357/image3.png" rend="inline"/>
+                        <head>Figure : 
+                            <hi rend="bold">Main view of the interface.</hi> The left panel gives access to the search workflows (Actors, Actions, Points). It also shows propositions for a query (e.g. the actor 
+                            <hi rend="italic">Canada</hi>), and gives access to the 
+                            <hi rend="italic">AgreeDisagree</hi> view. The right panel shows the documents in the Docs tab, as well as aggregated keyphrases and DBpedia concepts for the query or for selected propositions, in the other tabs.
+                        </head>
+                    </figure>
+                </div>
+                <div type="div2" rend="DH-Heading2">
+                    <head>User interface</head>
+                    <p>The UI (Figure 2) helps analyze actors’ negotiation positions. It allows searching for documents matching a text query (
+                        <hi rend="italic bold">Text</hi> search box), and for propositions matching a given actor (
+                        <hi rend="italic bold">Actors</hi> box) or a given predicate (
+                        <hi rend="italic bold">Actions</hi> box). Propositions matching a query are displayed on the left panel, documents for a query on the right. Aggregated 
+                        <hi rend="italic bold">keyphrases</hi> and 
+                        <hi rend="italic bold">DBpedia</hi> concepts for the content matching a query (documents or propositions) are displayed in tabs on the right panel. The 
+                        <hi rend="italic bold">AgreeDisagree</hi> view provides an overview of keyphrases and concepts from propositions where selected actors agree or disagree. Simultaneous access on the UI to the corpus and the annotations helps researchers validate results.
+                    </p>
+                    <p>The implementation framework is Django
+                        <note place="foot" xml:id="ftn13" n="13">
+                            <p rend="footnote text"> https://www.djangoproject.com/</p>
+                        </note>, with Solr search. 
+                        <note place="foot" xml:id="ftn14" n="14">
+                            <p rend="footnote text"> https://lucene.apache.org/solr/</p>
+                        </note> We’re working on allowing the user export results and edit the model’s actors and predicates.
+                    </p>
+                    <figure>
+                        <graphic url="357/image4.png" rend="inline"/>
+                        <head>Figure : 
+                            <hi rend="bold">AgreeDisagree</hi> View displays keyphrases and DBpedia concepts from propositions where actors (here the EU and China) agree or (as here) disagree.
+                        </head>
+                    </figure>
+                </div>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Evaluation</head>
+                <p>It is important to assess whether the system can help domain-experts gain insights they would not have otherwise obtained, e.g. detect previously unnoticed generalizations (see e.g. Berry, 2012). This type of evaluation is ongoing; we are collaborating with political scientists, whose initial feedback on the tool has been positive. User validation of the interface is also ongoing.</p>
+                <p>The system’s NLP components were evaluated in literature cited above. Results are state-of-the-art or competitive, and available on our project’s website (sites.google.com/site/nlp4climate).</p>
+                <p>To evaluate the model and analysis rules that create domain-relevant propositions, we have manually annotated a set of corpus sentences with propositions. Details about the test-set, evaluation metrics and results are on the website. We consider the results satisfactory. </p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Outlook</head>
+                <p>A useful feature would be an annotation confidence score, that users could employ to establish priorities in manual result revision. A useful application of the propositions extracted would be creating network graphs with different types of edges representing support and opposition among parties, and between parties and issues. </p>
+                <div type="div2" rend="DH-Heading2">
+                    <head>Acknowledgements</head>
+                    <p>We thank Tommaso Venturini, Audrey Baneyx, Kari de Pryck and Diégo Antolinos-Basso from the Sciences Po médialab in Paris for domain-expert feedback on the system. Pablo Ruiz is supported by a PhD grant from Région Ile-de-France. </p>
+                </div>
+            </div>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl>
+                        <hi rend="bold">Agerri, R., Bermudez, J. and Rigau, G</hi>. (2014). IXA Pipeline: Efficient and ready to use multilingual NLP tools. In 
+                        <hi rend="italic">Proceedings of LREC 2014, the 9th Language Resources and Evaluation Conference</hi>. Reykjavik, Iceland. 
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Aubin, S. and Hamon, T.</hi> (2006). Improving Term Extraction with Terminological Resources. In 
+                        <hi rend="italic">Advances in Natural Language Processing: 5th International Conference on NLP, FinTAL 2006</hi>, LNAI 4139. Springer, pp. 380-87. 
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Auer, S., Bizer, C., Kobilarov, G., Lehman, J., Cyganiak, R., and Ives, Z.</hi> (2007). DBpedia: A nucleus for a web of open data. In 
+                        <hi rend="italic">The Semantic Web</hi>, Springer, pp. 722–35. 
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Bauer, F., Recheis, D. and Kaltenböck, M.</hi> (2011). Data. reegle. info–A new key portal for Open Energy Data. In 
+                        <hi rend="italic">Environmental Software Systems. Frameworks of eEnvironment</hi>, Springer Berlin Heidelberg, pp. 189-94.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Berry, D. M.</hi> (2012). 
+                        <hi rend="italic">Understanding Digital Humanities, </hi>pp. 1–20. Palgrave Macmillan. 
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Björkelund, A., Bohnet, B., Hafdell, L. and Nugues, P.</hi> (2010). A high-performance syntactic and semantic dependency parser. In 
+                        <hi rend="italic">Coling 2010, 23</hi>
+                        <hi rend="italic superscript">rd</hi>
+                        <hi rend="italic"> International Conference on Computational Linguistics: Demonstration Volume</hi>, Beijing, pp. 33–36,
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Diesner, J.</hi> (2012). 
+                        <hi rend="italic">Uncovering and managing the impact of methodological choices for the computational construction of socio-technical networks from texts</hi>. PhD Thesis. Carnegie Mellon University. 
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Diesner, J.</hi> (2014). ConText: Software for the Integrated Analysis of Text Data and Network Data. In 
+                        <hi rend="italic">Social and Semantic Networks in Communication Research, </hi>at 
+                        <hi rend="italic">ICA</hi>, 
+                        <hi rend="italic">Conference of International Communication Association</hi>.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Grimmer, J. and Stewart, B. M.</hi> (2013). Text as data: The promise and pitfalls of automatic content analysis methods for political texts. 
+                        <hi rend="italic">Political Analysis</hi>, OUP, pp. 1–31.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Mausam, Schmitz, M., Bart, R., Soderland, S. and Etzioni, O.</hi> (2012). Open language learning for information extraction. In 
+                        <hi rend="italic">Proceedings of the 2012 Joint Conference on Empirical Methods in Natural Language Processing and Computational Natural Language Learning</hi>, pp. 523–34. 
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Meyers, A., Reeves, R., Macleod, C., Szekely, R., Zielinska, V., Young, V. and Grishman. R.</hi> (2004). The NomBank project: An interim report. In 
+                        <hi rend="italic">HLT-NAACL 2004 workshop: Frontiers in corpus annotation</hi>, pp. 24–31.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Palmer, M., Gildea, D. and Kingsbury, P.</hi> (2005). The Proposition Bank: A Corpus Annotated with Semantic Roles. 
+                        <hi rend="italic">Computational Linguistics Journal</hi>, <hi rend="bold">31</hi>: 1.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Ruiz, P. and Poibeau, T.</hi> (2015). Combining Open Source Annotators for Entity Linking through Weighted Voting. In 
+                        <hi rend="italic">Proceedings of *SEM. Fourth Joint Conference on Lexical and Computational Semantics,</hi> Denver, U.S., pp. 211–15.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Salway, A., Toulieb, S. and Tvinnereim, E.</hi> (2014). Inducing information structures for data-driven text-analysis. 
+                        <hi rend="italic">Proceedings of the ACL Workshop on Language Technologies and Computational Social Science</hi>, pp. 28–32.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Surdeanu, M., Johansson, R., Meyers, A., Màrquez, L., and Nivre, J.</hi> (2008). The CoNLL-2008 shared task on joint parsing of syntactic and semantic dependencies. In 
+                        <hi rend="italic">Proceedings of the Twelfth Conference on Computational Natural Language Learning</hi>, Association for Computational Linguistics, pp. 159–77. 
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Van Atteveldt, W., Sheaferm, T., Shenhav, S., and Fogel-Dror, Y.</hi> (2015). Clause analysis: using syntactic information to enrich frequency-based automatic content analysis. In 
+                        <hi rend="italic">Symposium New Frontiers of Automated Content Analysis in the Social Sciences</hi>, at the University of Zurich.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Venturini, T. and Guido, D.</hi> 2012. Once upon a text: an ANT tale in Text Analytics. 
+                        <hi rend="italic">Sociologica, </hi><hi rend="bold">3</hi>: 1–17. Il Mulino, Bologna.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Venturini T., Baya Laffite, N., Cointet, J-P., Gray, I., Zabban, V., and De Pryck, K.</hi> (2014). Three maps and three misunderstandings: A digital mapping of climate diplomacy. 
+                        <hi rend="italic">Big Data and Society</hi>,<hi rend="bold">1</hi>(2): 1–19.
+                    </bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

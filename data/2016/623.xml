@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>A Workflow for Encoding and Publishing Inscriptions</title>
+                <author>
+                    <persName>
+                        <surname>Mylonas</surname>
+                        <forename>Elli</forename>
+                    </persName>
+                    <affiliation>Brown University, United States of America</affiliation>
+                    <email>elli_mylonas@brown.edu</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>DiGiulio</surname>
+                        <forename>Scott</forename>
+                    </persName>
+                    <affiliation>Brown University, United States of America</affiliation>
+                    <email>scott_digiulio@brown.edu</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2016-03-06T21:17:00Z</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Maciej Eder, Pedagogical University in Krakow</publisher>
+                <publisher>Jan Rybicki, Jagiellonian University</publisher>
+                <address>
+                    <addrLine>Institute of Polish Studies</addrLine>
+                    <addrLine>Pedagogical University</addrLine>
+                    <addrLine>ul. Podchorazych 2</addrLine>
+                    <addrLine>30-084 Krakow, Poland</addrLine>
+                    <addrLine>maciej.eder@ijp-pan.krakow.pl</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from a Word document </p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.21">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Poster</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>epigraphy</term>
+                    <term>project management</term>
+                    <term>encoding</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>classical studies</term>
+                    <term>encoding - theory and practice</term>
+                    <term>project design, organization, management</term>
+                    <term>xml</term>
+                    <term>English</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <p>US Epigraphy (USEP)(Bodel, 2015), directed by John Bodel at Brown University, is a venerable project – its roots are in a printed handbook, which was instantiated as an HTML based website at Rutgers in 1997 (Bodel et al., 1997). In 2003, Prof. Bodel moved to Brown and USEP was converted to a more automated, data-driven site. It has gone through several implementations since that time, following the state of the art in humanities computing/DH and conforming to the practices of our library development team. </p>
+            <p>The project’s goal is to identify, document and create new editions of classical inscriptions in American collections, as well as to teach digital epigraphy. The inscriptions are organized geographically by collection. The project collaborates with international epigraphic consortia such as Eagle (EAGLE, 2015) and will remain conformant with their encoding schemas and vocabularies. In addition, it is one of the active contributors to the Epidoc schema for epigraphy (Elliott et al., 2015)</p>
+            <p>The current USEP front end is written in Django, and is powered by a SOLR index. XML transformations occur at two points: when the inscriptions are ingested into SOLR, and when they are displayed - the latter transformation takes advantage of SaxonCE and therefore takes place in the user’s browser. </p>
+            <p>Our choice of Django for a front-end framework was driven by the environments used by our library developers – it means that we need a developer to work on the project, either library staff or a skilled student programmer. Our choice of Saxon CE to generate our display was driven by our need to modify the display easily outside of the development environment and is easily replaced.</p>
+            <p>Inscriptions are added to the collection as they are identified, with minimal information (location and a bibliographic reference or “unpublished”) and iteratively enriched. Although major collections are represented, new inscriptions are always being found in small collections or in storerooms. Gradually, all inscriptions in USEP are edited to have detailed metadata, a full transcription, more complete bibliographic information and images. </p>
+            <p>The project has received some funding over the years, but has functioned continuously with basic university support. Staff include </p>
+            <list type="unordered">
+                <item>a faculty director</item>
+                <item>technical management and consulting, as well as programming support provided by the library</item>
+                <item>a graduate student/postdoc manager in charge of the encoding workflow and proofreading (along with the director) and other improvements</item>
+                <item>graduate student encoders and collaborators outside Brown, who either contribute editions or whose students contribute editions.</item>
+            </list>
+            <p>Almost all USEP encoding is done by newly minted encoders or colleagues who aren’t working on it consistently, it is important to make the process easy and as error-free as possible. The project is also used in digital epigraphy seminars, and the Oxygen forms allow graduate students to focus on their epigraphic work while also engaging with the decisions and activities of text encoding. We also want to make it easy for the manager to add inscriptions to the website and to modify the display and controlled vocabularies. </p>
+            <p>The components we have developed to satisfy these criteria are </p>
+            <list type="unordered">
+                <item>Forms in Oxygen Author mode with controlled vocabularies and proofreading transformations to assist encoders. USEP uses the Epidoc schema and a modified version of its XSL/CSS files.</item>
+                <item>An Oxygen framework configured as an add-on to disseminate the forms, to propagate updates automatically, and to be accessible beyond Brown.</item>
+                <item>Controlled vocabularies and shared bibliography are stored on the web, so encoders are always using the latest version.</item>
+                <item>GitHub to store our working corpus, images, XSLT stylesheets, bibliography and controlled vocabularies. Currently, GitHub functions as our public repository, but we intend to store all USEP sources in the Brown Digital Repository when the editions are more stable. The USEP data repository on github also hosts XSL for our display transformation. </item>
+                <item>Server side Git scripts to automatically initiate the SOLR process when any changes are committed. </item>
+            </list>
+            <p>Currently, encoders are trained by the encoding manager and technical manager. Their work is proofread for epigraphic accuracy by the project director and encoding manager and screened for XML validity by the encoding manager and the technical manager. Once initial encoding is done, any further corrections or editing are handled by project members. The encoding manager pushes the finalized inscriptions to GitHub, triggering the SOLR indexing process, which then makes the new inscriptions live on the Usepigraphy website. These last few steps are an iterative process, as it is important to publish inscriptions quickly, and our process makes it easy to correct mistakes. Because the XSLT and CSS are also treated as data, the encoding manager can modify the inscription display as well which makes changes to the display much more nimble than if the project had to rely on the developers.</p>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl>
+                        <hi rend="bold">Bodel, J. and Tracy, S.</hi> (1997). 
+                        <hi rend="italic">Greek and Latin Inscriptions in the USA. A Checklist.</hi> NY.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Bodel, J. (ed).</hi> (2015). 
+                        <hi rend="italic">US Epigraphy Project Website</hi>. 
+                        <ref target="http://usepigraphy.brown.edu">http://usepigraphy.brown.edu</ref>
+                        <hi rend="Hyperlink"> </hi>(accessed 6 March 2016).
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Elliott, T, Bodard, G., Mylonas, E., Stoyanova, S., Tupman, C., Vanderbilt, S., et al. </hi>(2007-2015). 
+                        <hi rend="italic">EpiDoc Guidelines: Ancient documents in TEI XML (Version 8). </hi>
+                        <ref target="http://www.stoa.org/epidoc/gl/latest/">http://www.stoa.org/epidoc/gl/latest/</ref>. (accessed 6 March 2016).
+                    </bibl>
+                    <bibl>
+                        <hi rend="italic">Europeana Network of Ancient Greek and Latin Epigrapy (EAGLE)</hi>. 
+                        <ref target="http://eagle-network.eu">http://eagle-network.eu</ref>
+                        <hi rend="underline">(accessed 6 March 2016)</hi>.
+                    </bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

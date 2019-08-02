@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>Complex Networks-Based Approach to Russian Rhyme History Description: Linguostatistics and Database</title>
+                <author>
+                    <persName>
+                        <surname>Sozinova</surname>
+                        <forename>Olga</forename>
+                    </persName>
+                    <affiliation>Higher School of Economics, Moscow, Russian Federation</affiliation>
+                    <email>oa.sozinova@gmail.com</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2016-03-02T19:25:00Z</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Maciej Eder, Pedagogical University in Krakow</publisher>
+                <publisher>Jan Rybicki, Jagiellonian University</publisher>
+                <address>
+                    <addrLine>Institute of Polish Studies</addrLine>
+                    <addrLine>Pedagogical University</addrLine>
+                    <addrLine>ul. Podchorazych 2</addrLine>
+                    <addrLine>30-084 Krakow, Poland</addrLine>
+                    <addrLine>maciej.eder@ijp-pan.krakow.pl</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from a Word document </p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.20">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Poster</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>metrics</term>
+                    <term>graph</term>
+                    <term>database</term>
+                    <term>Russian poetry</term>
+                    <term>rhyme</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>corpora and corpus activities</term>
+                    <term>databases &amp; dbms</term>
+                    <term>linguistics</term>
+                    <term>genre-specific studies: prose, poetry, drama</term>
+                    <term>visualisation</term>
+                    <term>networks, relationships, graphs</term>
+                    <term>English</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <div type="div1" rend="DH-Heading1">
+                <head>Introduction</head>
+                <p>Russian rhyme was described thoroughly in the 20th century, especially by M. Gasparov (Gasparov, 2000). Though we now have a powerful tool to analyze rhymes further in the form of the poetic corpus of the Russian National Corpus (henceforth RNC), not much recent research has been carried out in this area (Orekhov, 2015). As I am particularly interested in visualizing corpus data, I applied graphs to rhyme analysis. </p>
+                <p>Rhymes are convenient entities to be described in graph terms. In a rhyming pair, words are nodes, and rhyme relationship between them is an edge between nodes. Certain properties can be assigned to the nodes and to the edges. For example, word nodes may contain grammatical information and rhyme edges may bear all the rhyme classification (meter, position, etc.). </p>
+                <p>Furthermore, nowadays, there are tools available for storing graph information in a database. Information from such databases can be retrieved easily and in several formats. </p>
+                <p>My aim was to build a graph database using the data from the poetic corpus of the RNC. I want to show that the manual research done previously can be supported and extended in a vivid graphic way.</p>
+                <p>Graphs can provide us with much information about rhyme diachrony:</p>
+                <list type="unordered">
+                    <item>Degree of connectivity in different periods (different rhyming tendencies); </item>
+                    <item>The longest path (chain of rhymes) and clusterization (popular rhymes in different periods);</item>
+                    <item>Tendency flow from exact rhymes to inexact (requested by parameter of exactness in the different periods);</item>
+                    <item>Appearance of the dissonance rhymes;</item>
+                    <item>Tendency flow in rhyming types, position;</item>
+                    <item>Domination of a certain rhyming type within the rhymes of one poet.</item>
+                </list>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Data</head>
+                <p>The whole poetic corpus of the RNC was used for analysis. The data covers 775 Russian authors, born between 1658—1939. Overall, the corpus contains 85,996 documents, 229,968,798 words.</p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Analysis</head>
+                <p>Technical work included the following steps:</p>
+                <list type="unordered">
+                    <item>Transcribing words in a rhyme position; </item>
+                    <item>Retrieving rhymes from poems according to the phonetic transcription;</item>
+                    <item>Rhyme classification;</item>
+                    <item>Building new nodes and edges in the graph database.</item>
+                </list>
+                <p>I used Python for rhyme extraction and classification and a Neo4j database for storing the data. </p>
+                <p>As I could not find any available modules for Russian transcription, I made this module myself using the transcribing rules from [http://www.philol.msu.ru/~fonetica/index.htm]. The module takes into account almost every rule, but the exception word lists are quite small. </p>
+                <p>The rhyme extraction algorithm I used was the following. The Python program finds all the tags &lt;rhyme-zone&gt; (tagged everywhere except blank verse) in the XML documents with poems (last words in lines). Then the program tries to find a possible rhyming pair within 4 lines before and after the current rhyme-zone word. Afterwards comes the transcriptions comparison; if stressed vowels are the same, then the process of classification begins. If the stressed vowels are different, then the dissonance rhyming type is checked.</p>
+                <p>The classification of the rhymes was based on (Surkov, 1962), (Kvjatkovskij, 1966) and (Timofeev, 1935). I took 8 parameters into account:</p>
+                <list type="unordered">
+                    <item>Exactness (exact or inexact); </item>
+                    <item>Richness (rich or poor);</item>
+                    <item>Depth (deep or not);</item>
+                    <item>Ending (open or closed);</item>
+                    <item>Position of the stressed vowel (male, female, dactyl, hyperdactyl);</item>
+                    <item>Rhyming type (paired, crossed, encircling);</item>
+                    <item>Assonance;</item>
+                    <item>Dissonance.</item>
+                </list>
+                <p>As soon as a new rhyming pair is found and classified, new nodes and edges are automatically created in the graph database. If any of the words existed in the database before, then an edge is created to the existing node; otherwise, a new node is created.</p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Results</head>
+                <p>For now, I have rendered several graph images for certain poets with approximately 30% of their rhymes. In Figure 1 there are 2570 rhymes from the poems of P. Vjazemskij. Figure 2 shows 3866 rhymes from the poetry of A. Pushkin. </p>
+                <figure>
+                    <graphic url="342/image1.png" rend="inline"/>
+                    <head>Figure 1. Graph of the 2570 P. Vjazemskij's rhymes</head>
+                </figure>
+                <figure>
+                    <graphic url="342/image2.png" rend="inline"/>
+                    <head>Figure 2. Graph of the 3866 A. Pushkin's rhymes</head>
+                </figure>
+                <p>From the figures, we can see that connectivity in Pushkin's graph is much higher than in Vjazemskij's graph. Furthermore, the graph of Vjazemskij's rhymes demonstrates certain clusters which can be analyzed in detail.</p>
+                <p>I plan to continue my research and obtain other graphs for the whole epoch. I hope that further work will provide the information I listed in the introductory part, especially regarding connectivity and clusterization over different time periods. Quantitative analysis remains to be done as well. Firstly, I would like to look at the graph patterns, and then go deeper into calculations of graph characteristics and their interpretations.</p>
+            </div>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl>
+                        <hi rend="bold">Gasparov, M.</hi> (2000). 
+                        <hi rend="italic">Očerk istorii russkogo stikha</hi> [Studies of the Russian verse history]. Fortuna limited.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Kvjatkovskij, A.</hi> (1966). 
+                        <hi rend="italic">Poetičeskij slovar'</hi> [Poetic dictionary]. Sovetskaja Enciklopedija.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Orekhov, B.</hi> (2015). 
+                        <hi rend="italic">Ešče raz ob issledovatel'skom potenciale poetičeskogo korpusa: metr, leksika, formula</hi> [One more time about the research potential of the poetic corpus: meter, lexicon, formula]. Russian National Corpus, in print.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Surkov, A.</hi> (1962). 
+                        <hi rend="italic">Kratkaja literaturnaja enciklopedija</hi> [Short literary encyclopedia], 1. Sovetskaja enciklopedija.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Timofeev, L.</hi> (1935). 
+                        <hi rend="italic">Literaturnaja enciklopedija</hi> [Literary encyclopedia], 9. Sovetskaja enciklopedija.
+                    </bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

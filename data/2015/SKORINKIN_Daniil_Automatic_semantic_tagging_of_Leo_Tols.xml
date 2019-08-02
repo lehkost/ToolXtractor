@@ -1,0 +1,363 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>Automatic semantic tagging of Leo Tolstoy’s works</title>
+                <author>
+                    <persName>
+                        <surname>Skorinkin</surname>
+                        <forename>Daniil</forename>
+                    </persName>
+                    <affiliation>National research university 'Higher school of economics'; ABBYY software company</affiliation>
+                    <email>skorinkin.danil@gmail.com</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Bonch-Osmolovskaya</surname>
+                        <forename>Anastasia</forename>
+                    </persName>
+                    <affiliation>National research university 'Higher school of economics'</affiliation>
+                    <email>abonch@gmail.com</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2014-12-19T13:50:00Z</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Paul Arthur, University of Western Sidney</publisher>
+                <address>
+                    <addrLine>Locked Bag 1797</addrLine>
+                    <addrLine>Penrith NSW 2751</addrLine>
+                    <addrLine>Australia</addrLine>
+                    <addrLine>Paul Arthur</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from a Word document </p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.9">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Short Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>text mining</term>
+                    <term>nlp</term>
+                    <term>information extraction</term>
+                    <term>named entity recognition</term>
+                    <term>fact extraction</term>
+                    <term>RDF</term>
+                    <term>ontology engineering</term>
+                    <term>TEI</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>literary studies</term>
+                    <term>natural language processing</term>
+                    <term>ontologies</term>
+                    <term>digitisation</term>
+                    <term>resource creation</term>
+                    <term>and discovery</term>
+                    <term>semantic analysis</term>
+                    <term>text analysis</term>
+                    <term>xml</term>
+                    <term>linking and annotation</term>
+                    <term>data mining / text mining</term>
+                    <term>English</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <p>This paper presents an attempt to apply state-of-the-art text mining techniques currently employed by business to the task of literary research. The research in question is the preparatory part of a project called Tolstoy Digital. The main goal of this project is to convert the recently digitized 90-volume collected works of Leo Tolstoy into a novel digital humanities resource. We intend to create the so-called semantic edition of Tolstoy’s works by providing it with a complete semantic markup consistent with TEI schema
+                <hi rend="superscript">1</hi>—a common standard of digital text encoding. The markup is supposed to include a wide spectrum of tags, from exact named entities and events to things like ‘editor’s note’, ‘author’s correction’, ‘draft version of the same text’, and so on. Named entities are also expected to be interlinked (co-reference resolution) and have external links to standard knowledge bases like DBpedia or Freebase.
+            </p>
+            <p>With more than 46,000 pages of text that collectively contain 14.5 million words, Tolstoy is famed as one of the most productive writers ever. The sheer size of the material suggests that some automation of the markup is not only desirable but inevitable. In this paper we demonstrate how the use of an advanced language analyzer helps us extract named entities, various relations between them, and certain facts/events mentioned in Tolstoy’s texts. </p>
+            <p>The technology we apply to this task is called Compreno. It is a powerful text analysis platform being developed by ABBYY—a software company specializing in OCR, text analytics, and computational lexicography. Compreno converts text into a forest of syntactic-semantic trees that comprise dependency links and constituency structure. The analysis is based on the universal semantic hierarchy—a complex WordNet-like
+                <hi rend="superscript">2</hi> ontological structure that stores meanings rather than words. 
+            </p>
+            <p>The resulting trees contain nodes with all sorts of linguistic information attached to them: semantic classes from the said hierarchy, surface syntax slots, deep syntax slots, as well as sets of grammemes. Here is an example of a tree that the Compreno parser yields for the phrase ‘
+                <hi rend="italic">28-го октября Кутузов с армией перешел на левый берег Дуная и в первый раз остановился, положив Дунай между собой и главными силами французов’ </hi>(
+                <hi rend="italic">On the twenty-eighth of October Kutuzov with his army crossed to the left bank of the Danube and took up a position for the first time with the river between himself and the main body of the French</hi>) from Tolstoy’s 
+                <hi rend="italic">War and Peace</hi>: 
+            </p>
+            <figure>
+                <graphic n="1001" width="16.263055555555557cm" height="13.864166666666666cm" url="Pictures/image1.png" rend="block"/>
+            </figure>
+            <p>Figure 1. Sample Compreno tree (automatically generated, no manual corrections).</p>
+            <p>Semantic classes from the hierarchy are green and capitalized, surface syntax slots are blue, deep semantic slots (they can be compared to Charles Fillmore’s [1968] deep cases) are dark red. Note that just like in English, in Russian there are several meanings for the word ‘силы’ (forces), but the parser performed disambiguation correctly, choosing the ‘FORCES_AS_PEOPLE’ semantic class. The parser is also capable of anaphora resolution (for more information on that, see Bogdanov et al. [2014]).</p>
+            <p>We realize that the example above is but a glimpse of the employed technology. Unfortunately, a thorough description of Compreno is well beyond the scope of this proposal. More details on that technology can be found in Anisimovich et al. (2012). So for now we will just note that for our research we used the information extraction system built upon and powered by Compreno.</p>
+            <p>The system in question allows writing sets of production rules to extract facts and entities from unstructured texts. The main advantage is that deep semantic representation of text provided by Compreno enables us to describe a whole range of different variants of a phrase in a very concise manner. For instance, we do not need to care about the word order (which is flexible in Russian), since the syntactic roles of different words remain the same. And even in case of voice transformation (
+                <hi rend="italic">He loved her</hi> → 
+                <hi rend="italic">she was loved by him</hi>), only surface syntax slots change, while deep slots remain unchanged. Here is an example of a simple production:
+            </p>
+            <p>"VERBS_OF_COMMUNICATION"</p>
+            <p> [Agent: active_side 
+                <hi rend="color(FF00FF)">"HUMAN"</hi>]
+            </p>
+            <p> [Addressee: passive_side 
+                <hi rend="color(FF00FF)">"HUMAN"</hi>]
+            </p>
+            <p>=&gt;;</p>
+            <p>In this case we demand the system to find any Compreno subtree that has a node with a semantic class ‘VERBS_OF_COMMUNICATION’ or any of its descendant classes (since ‘VERBS_OF_COMMUNICATION’ is a very high-level class within our hierarchy and there are many lower classes that inherit from it) and at least two children nodes—one (or more) with ‘Agent’ deep syntax slot and another with ‘Addressee’ slot. Both children must also belong to / be inherited from a semantic class ‘HUMAN’ (which contains all sorts of subclasses that define people—names of occupations, social roles, relation terms, known proper names, etc.). Despite its obvious simplicity, this rule will extract many examples of communication between people (or, in our case, characters) like the ones below: </p>
+            <p>
+                <hi rend="italic">Дмитрий, — обратился Ростов к лакею на облучке. — Ведь это у нас огонь? </hi>(
+                <hi rend="italic">‘Dmitri’, </hi>
+                <hi rend="italic bold">addressed Rostov</hi>
+                <hi rend="italic">to his</hi>
+                <hi rend="italic bold">valet</hi>
+                <hi rend="italic">on the box, ‘those lights are in our house, aren’t they?’</hi>)
+            </p>
+            <p>
+                <hi rend="italic">Ну же пошел, — кричал он ямщику. </hi>(
+                <hi rend="italic">‘Now then, get on’, </hi>
+                <hi rend="italic bold">he shouted</hi>
+                <hi rend="italic">to the</hi>
+                <hi rend="italic bold">driver</hi>).
+            </p>
+            <p>
+                <hi rend="italic">Никаких извинений, ничего решительно, — говорил Долохов Денисову</hi> (
+                <hi rend="italic">‘No apologies, none whatever’, </hi>
+                <hi rend="italic bold">said Dolokhov</hi>
+                <hi rend="italic">to</hi>
+                <hi rend="italic bold">Denisov</hi>)
+            </p>
+            <p>Formal representation of entities and facts being extracted is performed by means of ontology engineering. We develop ontologies using OWL language
+                <hi rend="superscript">3</hi> developed by the W3C. In the executable right-hand side of a production we can either create a new information object of a certain class of an ontology or modify the existing ones (add a surname attribute to a Person-class object, for instance). After the implementation of the rules, we receive the result of the information extraction process in the form of an XML document consistent with the RDF schema.
+                <hi rend="superscript">4</hi> Facts and entities also have links to their annotation—i.e., exact fragments within text. Here is a description of a ‘SpeechActivity’ fact, one of the many that were extracted from the second volume of 
+                <hi rend="italic">War and Peace</hi>: 
+            </p>
+            <p>
+                <hi rend="color(548DD4)">&lt;BasicFact:SpeechActivity</hi>
+                <hi rend="color(C00000)">rdf:nodeID</hi>=
+                <hi rend="color(7030A0)">"bnode53D90FDA-F8F1-4DCB-8E8B-353456BEA164"</hi>
+                <hi rend="color(548DD4)">&gt;</hi>
+            </p>
+            <p>
+                <hi rend="color(548DD4)">&lt;BasicFact:theme</hi>
+                <hi rend="color(C00000)">rdf:nodeID</hi>=
+                <hi rend="color(7030A0)">"bnode261C3F83-0E71-4D4A-B60B-9268129D59F6"</hi>
+                <hi rend="color(548DD4)">/&gt;</hi>
+            </p>
+            <p>
+                <hi rend="color(548DD4)">&lt;BasicFact:text</hi>
+                <hi rend="color(C00000)">rdf:datatype</hi>=
+                <hi rend="color(7030A0)">"http://www.w3.org/2001/XMLSchema#string" </hi>
+                <hi rend="color(C00000)">xml:lang</hi>
+                <hi rend="color(7030A0)">="ru"</hi>&gt;Однако я тебя стесняю,
+                <hi rend="color(548DD4)">&lt;/BasicFact:text&gt;</hi>
+            </p>
+            <p>
+                <hi rend="color(548DD4)">&lt;BasicFact:listener</hi>
+                <hi rend="color(C00000)">rdf:nodeID</hi>
+                <hi rend="color(7030A0)">="bnode99CCE0DA-BDF2-4ECB-8CA1-8222D19F5641"</hi>
+                <hi rend="color(548DD4)">/&gt;</hi>
+            </p>
+            <p>
+                <hi rend="color(548DD4)">&lt;BasicFact:type</hi>
+                <hi rend="color(C00000)">rdf:resource</hi>="
+                <hi rend="color(7030A0)">http://www.abbyy.com/ns/BasicFact#TOS_Quotation"</hi>
+                <hi rend="color(548DD4)">/&gt;</hi>
+            </p>
+            <p>
+                <hi rend="color(548DD4)">&lt;BasicFact:speaker</hi> rdf:nodeID=
+                <hi rend="color(7030A0)">"bnodeF9F72F9B-9C30-43DD-B4F2-9E2EE3BE10DD"</hi>
+                <hi rend="color(548DD4)">/&gt;</hi>
+            </p>
+            <p>
+                <hi rend="color(548DD4)">&lt;/BasicFact:SpeechActivity&gt;</hi>
+            </p>
+            <p>‘Listener’ and ‘speaker’ attributes contain links to information objects of the Person class. In this case they point to Boris Drubetskoy (Person with surname ‘Друбецкой’ and name ‘Борис’) and Nicholas Rostov (Person with surname ‘Ростов’ and name ‘Николай’), respectively. Text attribute contains a string with the exact text of the speech. Below is the piece of text upon which the fact was extracted: </p>
+            <p>
+                <hi rend="italic">Ростов сделался не в духе &lt;. . .&gt; Он встал и подошел к Борису. </hi>
+            </p>
+            <p>
+                <hi rend="italic">— Однако я тебя стесняю, — сказал он ему тихо, — пойдем, поговорим о деле, и я уйду.</hi>
+            </p>
+            <p>(
+                <hi rend="italic">Rostov became sullen &lt;. . .&gt; He got up and approached Boris. </hi>
+            </p>
+            <p>
+                <hi rend="italic">‘I’ve come at a bad time I think,’ he said to him in a low voice. ‘Let us talk business, and then I’ll leave’.</hi>)
+            </p>
+            <p>So with the help of this system we can easily research the speech characteristics of each hero. Note also that this particular example clearly demonstrates the importance of correct anaphora resolution for the tasks of our in-depth text research. </p>
+            <p>The information extraction system used for this research has been in development for several years. It contains dozens of rule libraries with hundreds of extraction and identification (i.e., object merging) rules. Therefore, the first stage of our research consisted of applying these already existing rules to Tolstoy’s works (we limited ourselves to 
+                <hi rend="italic">War and Peace</hi> at this point) with further analysis of the results. 
+            </p>
+            <p>Even the initial results seem very promising. For instance, the system correctly extracted the age of certain heroes, the parent-child relations between prince Vasili and Helene and many other family relations, the ‘illness’ of Dolokhov when he was wounded in a duel and the ‘Termination’ of the said illness when he was finally cured, the ‘Friendship’ between Dolokhov and Helene, the making of bast shoes by a servant of the Rostov family named Prokofy, and many more facts that to some extent represent the plot of the book. The co-reference relations between Person-class objects were also established with great accuracy: ‘Vasili Kuragin’, ‘prince’, and ‘Vasili’ are recognized as one individual; the same is true for ‘Andrew Bolkonski’, ‘prince Andrew’, ‘Andrew Nikolaevich’, and the diminutive ‘Andrysha’. </p>
+            <p>We were also able to find out quite a lot about the characters by exploring the positions they occupy in the predicate-argument structure. For instance, our data shows that prince Vasili Kuragin occurs more often in Agent and Possessor positions, while Bolkonskaya demonstrates inclination towards the roles of Experiencer, Object, and Addressee. This might be a reflection of character traits—the cunning and intrigue of profit-seeking prince Vasili versus the sensitivity and timidity of the shy and awkward princess Mariya. </p>
+            <table rend="rules">
+                <row>
+                    <cell rend="DH-Default background-color(FFFF00)">Character</cell>
+                    <cell rend="DH-Default background-color(FFFF00)">Agent</cell>
+                    <cell rend="DH-Default background-color(FFFF00)">Object</cell>
+                    <cell rend="DH-Default background-color(FFFF00)">Experiencer</cell>
+                    <cell rend="DH-Default background-color(FFFF00)">Addressee</cell>
+                    <cell rend="DH-Default background-color(FFFF00)">Possessor</cell>
+                </row>
+                <row>
+                    <cell rend="DH-Default">Andrey Bolkonsky</cell>
+                    <cell rend="DH-Default">705</cell>
+                    <cell rend="DH-Default">183</cell>
+                    <cell rend="DH-Default">225</cell>
+                    <cell rend="DH-Default">59</cell>
+                    <cell rend="DH-Default">83</cell>
+                </row>
+                <row>
+                    <cell rend="DH-Default">Pierre Bezukhov</cell>
+                    <cell rend="DH-Default">387</cell>
+                    <cell rend="DH-Default">101</cell>
+                    <cell rend="DH-Default">103</cell>
+                    <cell rend="DH-Default">28</cell>
+                    <cell rend="DH-Default">50</cell>
+                </row>
+                <row>
+                    <cell rend="DH-Default">Nikolai Rostov</cell>
+                    <cell rend="DH-Default">330</cell>
+                    <cell rend="DH-Default">102</cell>
+                    <cell rend="DH-Default">128</cell>
+                    <cell rend="DH-Default">19</cell>
+                    <cell rend="DH-Default">56</cell>
+                </row>
+                <row>
+                    <cell rend="DH-Default">Vasili Kuragin</cell>
+                    <cell rend="DH-Default">284</cell>
+                    <cell rend="DH-Default">72</cell>
+                    <cell rend="DH-Default">68</cell>
+                    <cell rend="DH-Default">16</cell>
+                    <cell rend="DH-Default">46</cell>
+                </row>
+                <row>
+                    <cell rend="DH-Default">Mariya Bolkonskaya</cell>
+                    <cell rend="DH-Default">225</cell>
+                    <cell rend="DH-Default">92</cell>
+                    <cell rend="DH-Default">132</cell>
+                    <cell rend="DH-Default">24</cell>
+                    <cell rend="DH-Default">39</cell>
+                </row>
+                <row>
+                    <cell rend="DH-Default">Anna Drubetskaya</cell>
+                    <cell rend="DH-Default">224</cell>
+                    <cell rend="DH-Default">39</cell>
+                    <cell rend="DH-Default">29</cell>
+                    <cell rend="DH-Default">3</cell>
+                    <cell rend="DH-Default">15</cell>
+                </row>
+                <row>
+                    <cell rend="DH-Default">Mikhail Kutuzov</cell>
+                    <cell rend="DH-Default">217</cell>
+                    <cell rend="DH-Default">49</cell>
+                    <cell rend="DH-Default">49</cell>
+                    <cell rend="DH-Default">15</cell>
+                    <cell rend="DH-Default">42</cell>
+                </row>
+                <row>
+                    <cell rend="DH-Default">Nikolay Bolkonsky (the old count)</cell>
+                    <cell rend="DH-Default">164</cell>
+                    <cell rend="DH-Default">34</cell>
+                    <cell rend="DH-Default">36</cell>
+                    <cell rend="DH-Default">8</cell>
+                    <cell rend="DH-Default">18</cell>
+                </row>
+                <row>
+                    <cell rend="DH-Default">Boris Drubetskoy</cell>
+                    <cell rend="DH-Default">157</cell>
+                    <cell rend="DH-Default">77</cell>
+                    <cell rend="DH-Default">55</cell>
+                    <cell rend="DH-Default">15</cell>
+                    <cell rend="DH-Default">22</cell>
+                </row>
+                <row>
+                    <cell rend="DH-Default">Elisabeth Bolkonskaya (the little princess)</cell>
+                    <cell rend="DH-Default">147</cell>
+                    <cell rend="DH-Default">55</cell>
+                    <cell rend="DH-Default">48</cell>
+                    <cell rend="DH-Default">15</cell>
+                    <cell rend="DH-Default">27</cell>
+                </row>
+                <row>
+                    <cell rend="DH-Default">Anna Scherer</cell>
+                    <cell rend="DH-Default">142</cell>
+                    <cell rend="DH-Default">24</cell>
+                    <cell rend="DH-Default">38</cell>
+                    <cell rend="DH-Default">9</cell>
+                    <cell rend="DH-Default">26</cell>
+                </row>
+                <row>
+                    <cell rend="DH-Default">Natasha Rostova</cell>
+                    <cell rend="DH-Default">142</cell>
+                    <cell rend="DH-Default">33</cell>
+                    <cell rend="DH-Default">25</cell>
+                    <cell rend="DH-Default">10</cell>
+                    <cell rend="DH-Default">22</cell>
+                </row>
+                <row>
+                    <cell rend="DH-Default">Pyotr Bagration</cell>
+                    <cell rend="DH-Default">136</cell>
+                    <cell rend="DH-Default">27</cell>
+                    <cell rend="DH-Default">33</cell>
+                    <cell rend="DH-Default">13</cell>
+                    <cell rend="DH-Default">16</cell>
+                </row>
+                <row>
+                    <cell rend="DH-Default">Anatole Kuragin</cell>
+                    <cell rend="DH-Default">113</cell>
+                    <cell rend="DH-Default">32</cell>
+                    <cell rend="DH-Default">26</cell>
+                    <cell rend="DH-Default">8</cell>
+                    <cell rend="DH-Default">14</cell>
+                </row>
+            </table>
+            <p>Table 1. Most frequent occupants of different syntax deep slots (first volume only).</p>
+            <p>The resulting table also shows that in the first volume of the epic, princess Anna Mikhailovna Drubetskaya is a much more active character than her son Boris, although he is mentioned no less often than her. This is also clearly the reflection of the plot, where a determined, businesslike mother takes care of the career of her still-shy son (who’d become just as pragmatic later on).</p>
+            <p>Speech activity statistics also promises to be quite informative, though we have not analyzed it enough to come to conclusions yet. Below is some data we have obtained so far:</p>
+            <figure>
+                <graphic n="1002" width="16.058444444444444cm" height="10.018888888888888cm" url="Pictures/image2.png" rend="block"/>
+            </figure>
+            <p>Figure 2. Speech activity frequency of different characters.</p>
+            <figure/>
+            <p>Figure 3. Listening frequency of different characters.</p>
+            <p>The next step of the research is the creation of our own extraction model within the existing system. This model, already in the making, is going to be designed and adjusted specifically to meet the needs of our research and is expected to help us extract much more information about Tolstoy’s characters, their description by the author, and their relations between each other. </p>
+            <p>Notes</p>
+            <p>1. TEI: Text Encoding Initiative, http://www.tei-c.org.</p>
+            <p>2. WordNet, http://wordnet.princeton.edu/.</p>
+            <p>3. OWL Web Ontology Language Overview, http://www.w3.org/TR/2004/REC-owl-features-20040210.</p>
+            <p>4. 
+                <hi rend="Hyperlink">Resource Description Framework, </hi>http://www.w3.org/RDF. 
+            </p>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl>
+                        <hi rend="bold">Anisimovich K. V., Druzhkin K. Ju., Minlos F. R., Petrova, M. A., Selegey, V. P. and Zuev, K. A.</hi> (2012). Syntactic and Semantic Parser Based on ABBYY Compreno Linguistic Technologies, Computational Linguistics and Intellectual Technologies. 
+                        <hi rend="italic">Proceedings of the International Conference ‘Dialog’,</hi> Bekasovo, Russia, http://www.dialog-21.ru/digests/dialog2012/materials/pdf/anisimovich.pdf, pp. 90–103.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Bogdanov A. V., Dzhumaev, S. S., Skorinkin, D. A. and Starostin, A. S.</hi> (2014). Anaphora Analysis Based on ABBYY Compreno Linguistic Technologies, Computational Linguistics and Intellectual Technologies. 
+                        <hi rend="italic">Proceedings of the International Conference ‘Dialog’,</hi> Bekasovo, Russia, http://www.dialog-21.ru/digests/dialog2014/materials/pdf/BogdanovAV.pdf, pp. 89–102.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Fillmore, C. J.</hi> (1968). The Case for Case. In Bach, E. and Harms, R. T. (eds), 
+                        <hi rend="italic">Universals in Linguistic Theory</hi>. New York: Holt, Rinehart and Winston, pp. 1–88.
+                    </bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

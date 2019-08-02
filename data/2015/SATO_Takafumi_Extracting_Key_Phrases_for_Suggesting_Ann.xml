@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>Extracting Key Phrases for Suggesting Annotation Candidates from Japanese Historical Document</title>
+                <author>
+                    <persName>
+                        <surname>Sato</surname>
+                        <forename>Takafumi</forename>
+                    </persName>
+                    <affiliation>Ritsumeikan University、Japan</affiliation>
+                    <email>is0069kh@ed.ritsumei.ac.jp</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Goto</surname>
+                        <forename>Makoto</forename>
+                    </persName>
+                    <affiliation>The National Institutes for the Humanities, Japan</affiliation>
+                    <email>m-goto@digitalhistory.jp</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Kimura</surname>
+                        <forename>Fuminori</forename>
+                    </persName>
+                    <affiliation>Ritsumeikan University、Japan</affiliation>
+                    <email>fkimura@is.ritsumei.ac.jp</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Maeda</surname>
+                        <forename>Akira</forename>
+                    </persName>
+                    <affiliation>Ritsumeikan University、Japan</affiliation>
+                    <email>amaeda@is.ritsumei.ac.jp</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2014-12-19T13:50:00Z</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Paul Arthur, University of Western Sidney</publisher>
+                <address>
+                    <addrLine>Locked Bag 1797</addrLine>
+                    <addrLine>Penrith NSW 2751</addrLine>
+                    <addrLine>Australia</addrLine>
+                    <addrLine>Paul Arthur</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from a Word document </p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.9">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Poster</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>Annotation Suggestion</term>
+                    <term>Historical Documents</term>
+                    <term>Web-based System</term>
+                    <term>Machine Learning</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>natural language processing</term>
+                    <term>text analysis</term>
+                    <term>linking and annotation</term>
+                    <term>data mining / text mining</term>
+                    <term>English</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <p>Recent progress in digitizing historical documents has made it easier to work with the documents by enabling use of annotations and text analysis (Nagasaki et al., 2011). Di Donato et al. developed a system for annotating digitized historical documents (2013). Systems for analyzing historical documents focus on annotating not only text but also various kinds of objects such as images and figures and constructing an interface to facilitate annotating. </p>
+            <p>In the field of history and humanities, thorough annotation for a target document is carried out as research. However, efficiently annotating text in historical documents is not an easy task. Moreover, deciding which text should be annotated is challenging. Therefore, automatically suggesting annotations would be an invaluable resource for researchers. </p>
+            <p>We have been developing a system in which researchers can collaboratively annotate digitized Japanese historical documents. A team of Japanese historical researchers are currently annotating ‘Todaiji Yoroku’, a Japanese historical document written in the 12th century. However, progress has been slow because annotating requires specialized knowledge, and collaborative annotating involves a time-consuming process of face-to-face discussions and consensus among researchers. We aim to facilitate collaborative annotating through a web-based interface that enables annotation of the same document by multiple users simultaneously (Sato at al., 2014).</p>
+            <p>We developed a method for extracting key phrases from Japanese historical documents, and it will be used in our system for automatically suggesting annotations. We define a key phrase as a personal name, the name of a temple, or a Buddhist term.</p>
+            <figure>
+                <graphic n="1001" width="14.989527777777777cm" height="11.248319444444444cm" url="Pictures/image1.png" rend="block"/>
+            </figure>
+            <p>Figure 1. Outline of proposed method.</p>
+            <figure>
+                <graphic n="1002" width="13.453180555555555cm" height="10.103555555555555cm" url="Pictures/image2.png" rend="block"/>
+            </figure>
+            <p>Figure 2. Flow of proposed method.</p>
+            <p>
+                <hi rend="bold">Proposed Method</hi>
+            </p>
+            <p>Figure 1 shows the outline of our proposed method, and Figure 2 illustrates the flow of the proposed method. Patterns of characters surrounding existing annotations are found in an annotated text by using support vector machine (SVM), and key phrases are extracted from a non-annotated text by utilizing these patterns. One of the unique characteristics of the proposed method is that the estimated word segmentation is used as a feature during the learning process. The ability to segment words is particularly important for analyzing ancient Japanese because the Japanese writing system does not use spaces between words, and automatic extraction of words from text in ancient Japanese is especially challenging.</p>
+            <p>
+                <hi rend="italic">Word Segmentation</hi>
+            </p>
+            <p>In the word segmentation process, sentences are divided into words. In Japanese, there are three kinds of scripts: cursive Japanese syllabary (hiragana), angular Japanese syllabary (katakana), and Chinese characters (kanji). ‘Todaiji Yoroku’ was written as a transcription of classical Chinese into classical Japanese. In the transcriptions from classical Chinese into classical Japanese, hiragana characters were inserted into original sentence written in classical Chinese in order to adapt to Japanese syntax. The cursive Japanese syllabary is often used, particularly for postpositional particle of auxiliary verbs. Therefore, we can assume that most nouns consist of only Chinese characters. The boundary between Chinese characters and hiragana characters can possibly be regarded as segmentation. </p>
+            <p>
+                <hi rend="italic">Key Phrase Extraction</hi>
+            </p>
+            <p>In the key phrase extraction process, patterns of characters surrounding key phrases are found by using SVM. SVM is applied to words that are found by the word segmentation process to learn where patterns of characters appear around key phrases and to attach tags to them. Key phrases are extracted by utilizing the results of SVM by referring to the attached tags and presented as suggested annotations.</p>
+            <p>Experiment</p>
+            <p>We conducted an experiment to evaluate the effectiveness of the proposed method for extracting key phrases from the text of ‘Todaiji Yoroku’ by using existing annotations as the training data. We used 5-fold cross-validation. We achieved a 75% precision rate. Even though we have not yet closely examined whether the obtained results are appropriate as annotation suggestions, many of the extracted key phrases that were not judged as relevant were actually good annotation suggestions. This means that the proposed method should be an effective tool for suggesting annotations. </p>
+            <p>Conclusion</p>
+            <p>We developed a method for extracting key phrases from digitized Japanese historical documents. We believe that automatically suggesting annotations will be an effective tool for annotating historical documents. We are planning to evaluate the appropriateness of key phrases extracted by the researchers using our method who are actually studying and annotating ‘Todaiji Yoroku’.</p>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl>
+                        <hi rend="bold">Di Donato, F., Morbidoni, C. and Fonda, S.</hi> (2013). Semantic Annotation with Pundit: A Case Study and a Practical Demonstration. In 
+                        <hi rend="italic">Proceedings of the 1st International Workshop on Collaborative Annotations in Shared Environment: Metadata, Vocabularies, and Techniques in the Digital Humanities </hi>(
+                        <hi rend="italic">DH-CASE’13</hi>), Florence, Italy, 10 September 2013.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Nagasaki, K., Tomabechi, T. and Shimoda, M.</hi> (2011). Toward a Digital Research Environment for Buddhist Studies. In 
+                        <hi rend="italic">Book of Abstracts of Digital Humanities 2011</hi>, Stanford, CA, 19–22 June 2011, pp. 342–43.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Sato, T., Goto, M., Kimura, F. and Maeda, A.</hi> (2014). Developing a Collaborative Annotation System for Historical Documents by Multiple Humanities Researchers. 
+                        <hi rend="italic">Proceedings of the International Conference on Computer Science and Information Technology 2014 (ICCSIT2014)</hi>, Barcelona, Spain, 22–24 December 2014. 
+                    </bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

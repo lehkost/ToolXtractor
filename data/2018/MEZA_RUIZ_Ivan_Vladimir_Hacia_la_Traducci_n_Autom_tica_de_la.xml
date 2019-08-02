@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title type="full">
+                    <title type="main">Hacia la Traducción Automática de las Lenguas Indígenas de México</title>
+                    <title type="sub"/>
+                </title>
+                <author>
+                    <persName>
+                        <surname>Mager Hois</surname>
+                        <forename>Jesús Manuel</forename>
+                    </persName>
+                    <affiliation>Instituto de Investigaciones en Matemáticas Aplicadas y en Sistemas, Mexico</affiliation>
+                    <email>mmager@turing.iimas.unam.mx</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Meza Ruiz</surname>
+                        <forename>Ivan Vladimir</forename>
+                    </persName>
+                    <affiliation>Instituto de Investigaciones en Matemáticas Aplicadas y en Sistemas, Mexico</affiliation>
+                    <email>ivanvladimir@turing.iimas.unam.mx</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2018-04-29T00:29:00.438909118</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Name, Institution</publisher>
+                <address>
+                    <addrLine>Street</addrLine>
+                    <addrLine>City</addrLine>
+                    <addrLine>Country</addrLine>
+                    <addrLine>Name</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from an OASIS Open Document</p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.22">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Poster</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>morphology</term>
+                    <term>neural machine translation</term>
+                    <term>statistical machine translation</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>corpora and corpus activities</term>
+                    <term>machine translation</term>
+                    <term>morphology</term>
+                    <term>translation studies</term>
+                    <term>Spanish</term>
+                    <term>computer science</term>
+                    <term>artificial intelligence and machine learning</term>
+                    <term>indigenous studies</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <div type="div1" rend="DH-Heading1">
+                <head>
+                    <anchor xml:id="id_docs-internal-guid-a10cc1bb-0fe2-10ad-7e2c-392b44127e7a"/>Introducción
+                </head>
+                <p>En México existen 68 lenguas indígenas oficialmente reconocidas (Diario oficial, 2013). Esta riqueza lingüística forma parte del mosaico multicultural que define la identidad de nuestro país. Sin embargo, la predominancia cultural del español y el rezago generalizado del acceso a las tecnologías de información (Sandoval-Forero, 2013) por parte de los hablantes de estas lenguas crea barreras culturales que dificultan la transferencia del conocimiento entre los pueblos indígenas.</p>
+                <p>En los últimos años se ha consolidado el campo de traducción automática. Parte de la consolidación de la traducción automática se debe a la traducción estadística (SMT) (Koehn, 2009; Lopez, 2008). Ésta metodología usa ejemplos de oraciones en ambas lenguas (corpus paralelos) para determinar los parámetros de un modelo estadístico que permite tal traducción. Adicionalmente, en los últimos años se han abierto paso a los modelos de traducción automática basados en redes neuronales (NMT) (LeCun 
+                    <hi rend="italic">et al.</hi>, 2015), los cuales permiten traducción multilingüe, en donde se crea un modelo de traducción común entre múltiple lenguas, el cual se utiliza posteriormente para mejorar la traducción entre pares de lenguas (Cho 
+                    <hi rend="italic">et al., 2014</hi>).
+                </p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Metodología y resultados</head>
+                <p>En este proyecto presentamos nuestros avances en la creación de traductores automáticos para cinco lenguas indígenas al español: wixarika, náhuatl, yorem nokki, purépecha y mexicanero. Para obtener una visión completa sobre el campo decidimos hacer una comparación entre SMT y NMT. En ambos casos entrenamos los modelos usando segmentación morfológica que ha mostrado mejores resultados para lenguas polisintéticas (Mager, et. Al, 2016).</p>
+                <p>Para SMT fue utilizado el traductor por frases MOSES (Kohen, 
+                    <hi rend="italic">et. al</hi>., 2007) junto con el alineador GIZA++ (Och y Ney, 2003). Para los experimentos de NMT fue utilizado el modelo neuronal Codificador-Decodificador (Seq2Seq) con Redes Neuronales Recurrentes Bidireccionales (BiRNN) y con celdas de Unidades Recurrentes con Compuertas (GRU) (Cho., 
+                    <hi rend="italic">et. al.</hi>, 2014). Las pruebas fueron llevadas a cabo con OpenNMT (Klein, 
+                    <hi rend="italic">et. al.</hi>, 2017) con un corpus que consta de 985 frases traducidas a los 5 idiomas y que incluyen notación morfológica (Gómez y López, 1999; Chamoreau, 2003; Freeze, 1989; Lastra, 1980)
+                    <hi rend="bold">. </hi>Cada modelo ha sido evaluado de manera automática usando Bilingual Evaluation Understudy (BLEU) (Papineni, 
+                    <hi rend="italic">et. al.</hi>, 2002), y su salida fue valorada de manera manual, de tal manera que ha sido posible identificar los retos y limitaciones de las propuestas.
+                </p>
+                <table rend="frame" xml:id="Table1">
+                    <row>
+                        <cell/>
+                        <cell rend="center color(#000000)bold">NMT</cell>
+                        <cell rend="center color(#000000)bold">SMT</cell>
+                    </row>
+                    <row>
+                        <cell rend="color(#000000)">Mexicanero-Español</cell>
+                        <cell rend="center color(#000000)">2.95</cell>
+                        <cell rend="center color(#000000)">23.47</cell>
+                    </row>
+                    <row>
+                        <cell rend="color(#000000)">Náhuatl-Español</cell>
+                        <cell rend="center color(#000000)">3.04</cell>
+                        <cell rend="center color(#000000)">10.14</cell>
+                    </row>
+                    <row>
+                        <cell rend="color(#000000)">Purépecha-Español</cell>
+                        <cell rend="center color(#000000)">0</cell>
+                        <cell rend="center color(#000000)">5.38</cell>
+                    </row>
+                    <row>
+                        <cell rend="color(#000000)">Wixarika-Español</cell>
+                        <cell rend="center color(#000000)">0</cell>
+                        <cell rend="center color(#000000)">0</cell>
+                    </row>
+                    <row>
+                        <cell rend="color(#000000)">Yorem Nokki-Español</cell>
+                        <cell rend="center color(#000000)">0</cell>
+                        <cell rend="center color(#000000)">2.44</cell>
+                    </row>
+                </table>
+                <p>Tabla 1: BLEU de los resultados experimentales de traducción de los cinco pares de idiomas con NMT y SMT</p>
+                <p>Como podemos ver en la tabla 1, los resultados de SMT superan los de NMT debido al corpus tan reducido con que se entrenaron. Mexicanero y náhuatl tuvieron un mejor desempeño que el wixarika, dado que el wixarika es una lengua con morfología con mayor cantidad de morfemas por palabra que el náhuatl (Kann, et. al. 2018). </p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Discusión</head>
+                <p>Si bien, se lograron mejorar las traducciones de manera importante, estos no son suficientes para ser usadas en la práctica cotidiana de manera autónoma o para asistencia humana. A través del desarrollo de estos traductores que hemos identificado los siguientes retos:</p>
+                <list type="unordered">
+                    <item>
+                        <hi rend="bold">Escasez de los recursos.</hi> Para poder generar un traductor automático es necesario contar con cientos de miles de pares de oraciones entre las dos lenguas; sin embargo, el poco uso de tecnologías de las comunidades nativo hablantes hace difícil la construcción de este corpus. 
+                    </item>
+                    <item>
+                        <hi rend="bold">Complejidad morfológica</hi>. Dada la naturaleza polisintética de estas lenguas, se necesita mejorar la segmentación morfológica automática para evitar la dispersión de datos (Kann, et. al. 2018).
+                    </item>
+                    <item>
+                        <hi rend="bold">El español es una lengua distante a los idiomas indígenas</hi> que, en su gran mayoría tienen una topología morfológica polisintética, a diferencia del español que es fusionante y con orden Sujeto-Verbo-Objeto. 
+                    </item>
+                    <item>La 
+                        <hi rend="bold">falta de estandarización de la ortografía de las lenguas y el amplio espectro dialectal interno en las lenguas</hi>. 
+                    </item>
+                </list>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Conclusiones</head>
+                <p>El presente trabajo expone primeros avances en traducción automática de cinco lenguas indígenas al español con SMT y NMT, identificando retos y limitaciones. Para trabajos futuros planteamos; mejorar el análisis y la segmentación morfológica de las lenguas indígenas, dada la fuerte correlación entre traducción y calidad de segmentación; la generación de corpus paralelos sintéticos a partir de modelos de aumento de datos; y la recopilación de más datos paralelos escritos para todos los idiomas indígenas trabajados, además de incorporar más idiomas. </p>
+            </div>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl>
+                        <anchor xml:id="id_docs-internal-guid-a10cc1bb-0fea-0341-8669-9338d38ee70b"/>
+                        <hi rend="bold">Bahdanau, D., Cho, K., y Bengio, Y</hi>. (2014). ‘Neural machine translation by jointly learning to align and translate’. 
+                        <hi rend="italic">arXiv preprint arXiv:1409.0473.</hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Canger, U.</hi> (2001). 
+                        <hi rend="italic">Mexicanero de la sierra madre occidental</hi>. El Colegio de México.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Chamoreau, C. </hi>(2003). 
+                        <hi rend="italic">Purépecha de Jarácuaro</hi> (p. 162). El Colegio de México.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Cho, K., van Merrienboer, B., Gulcehre, C., Bahdanau, D., Bougares, F., Schwenk, H., y Bengio, Y.</hi> (2014). Learning Phrase Representations using RNN Encoder–Decoder for Statistical Machine Translation. 
+                        <hi rend="italic">In Proceedings of the 2014 Conference on Empirical Methods in Natural Language Processing (EMNLP),</hi> pp. 1724-1734.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Diario Oficial.</hi> (2014) Programa Especial de los Pueblos Indígenas 2014-2018, 
+                        <hi rend="italic">Diario Oficial de la Federación</hi>, México, Distrito Federal, 20 de abril.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Freeze, R. A. </hi>(1989). 
+                        <hi rend="italic">Mayo de Los Capomos, Sinaloa (Mayo of Los Capomos, Sinaloa)</hi>.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Gómez, P., &amp; López, P. G.</hi> (1999). 
+                        <hi rend="italic">Huichol de San Andrés Cohamiata, Jalisco</hi> (Vol. 22). El Colegio de México.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Kann, K., Mager, M., Meza, I. Schütze, H.</hi> (2018) Fortification of Neural Morphological Segmentation Models for Polysynthetic Minimal-Resource Languages 
+                        <hi rend="italic">16th Annual Conference of NAACL-HLT 2018</hi>, New Orleans, Louisiana, US.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Klein, G., Kim, Y., Deng, Y., Senellart, J., y Rush, A.</hi> (2017). OpenNMT: Open-Source Toolkit for Neural Machine Translation.
+                        <hi rend="italic">En Proceedings of ACL 2017, System Demonstrations</hi>, pp. 67-72.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Koehn, P.</hi> (2009). 
+                        <hi rend="italic">Statistical machine translation</hi>. Cambridge: Cambridge University Press.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Koehn, P., Hoang, H., Birch, A., Callison-Burch, C., Federico, M., Bertoldi, N., …, y Dyer, C. </hi>(2007) Moses: Open source toolkit for statistical machine translation. 
+                        <hi rend="italic">En Proceedings of the 45th annual meeting of the ACL</hi>. Association for Computational Linguistics, pp. 177-180.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Lastra de Suárez, Y.</hi> (1980). Náhuatl de Acaxochitlán (Hidalgo). 
+                        <hi rend="italic">Archivos de lenguas indígenas de México. DF: Colegio de México</hi>.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">LeCun, Y., Bengio, Y., y Hinton, G</hi>. (2015). Deep learning. 
+                        <hi rend="italic">Nature</hi>, 521(7553): 436.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Lopez, A.</hi> (2008). Statistical machine translation. 
+                        <hi rend="italic">ACM Computing Surveys (CSUR)</hi>, 40(3): 8.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Mager Hois, J. M., Barrón Romero, C., y Meza Ruiz, I. V.</hi> (2016). Traductor estadístico wixarika-español usando descomposición morfológica. 
+                        <hi rend="italic">Memorias de COMTEL. </hi>Lima, Perú,
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Och, F. J., y Ney, H.</hi> (2003). A systematic comparison of various statistical alignment models. 
+                        <hi rend="italic">Computational linguistics</hi>, 29(1): 19-51.
+                    </bibl>
+                    <bibl>
+                        <hi rend="background-color(#ffffff)bold">Papineni, K., Roukos, S., Ward, T., y Zhu, W. J.</hi>
+                        <hi rend="background-color(#ffffff)"> </hi>
+                        <hi rend="background-color(#ffffff)">(2002). BLEU: a method for automatic evaluation of machine translation. In </hi>
+                        <hi rend="background-color(#ffffff)italic">Proceedings of </hi>
+                        <hi rend="background-color(#ffffff)italic">the 40th annual meeting on association for computational linguistics,</hi>
+                        <hi rend="background-color(#ffffff)"> </hi>
+                        <hi rend="background-color(#ffffff)">pp. 311-318. </hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Sandoval-Forero, E. A.</hi> (2013). Los indígenas en el ciberespacio. 
+                        <hi rend="italic">Agricultura, sociedad y desarrollo</hi>, 10(2): 235-256.
+                    </bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

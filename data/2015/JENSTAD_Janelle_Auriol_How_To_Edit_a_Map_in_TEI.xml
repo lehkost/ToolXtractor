@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>How To Edit a Map in TEI</title>
+                <author>
+                    <persName>
+                        <surname>Jenstad</surname>
+                        <forename>Janelle Auriol</forename>
+                    </persName>
+                    <affiliation>University of Victoria, Canada</affiliation>
+                    <email>jenstad@uvic.ca</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>McLean-Fiander</surname>
+                        <forename>Kim</forename>
+                    </persName>
+                    <affiliation>University of Victoria, Canada</affiliation>
+                    <email>krdmf@uvic.ca</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Newton</surname>
+                        <forename>Greg</forename>
+                    </persName>
+                    <affiliation>University of Victoria, Canada</affiliation>
+                    <email>gregster@uvic.ca</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Holmes</surname>
+                        <forename>Martin</forename>
+                    </persName>
+                    <affiliation>University of Victoria, Canada</affiliation>
+                    <email>mholmes@uvic.ca</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2014-12-19T13:50:00Z</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Paul Arthur, University of Western Sidney</publisher>
+                <address>
+                    <addrLine>Locked Bag 1797</addrLine>
+                    <addrLine>Penrith NSW 2751</addrLine>
+                    <addrLine>Australia</addrLine>
+                    <addrLine>Paul Arthur</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from a Word document </p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.9">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Long Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>TEI</term>
+                    <term>editing</term>
+                    <term>maps</term>
+                    <term>graphics</term>
+                    <term>collation</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>encoding - theory and practice</term>
+                    <term>geospatial analysis</term>
+                    <term>interfaces and technology</term>
+                    <term>scholarly editing</term>
+                    <term>bibliographic methods / textual studies</term>
+                    <term>renaissance studies</term>
+                    <term>maps and mapping</term>
+                    <term>English</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <p>To document unprecedented editorial interventions to a map, we adapted for graphical editing the existing TEI mechanisms for handling textual-critical apparatus. The historical map underlying The Map of Early Modern London was originally printed in seven sheets that cannot be cleanly joined because of differences of scale and missing information. To create a coherent and navigable graphical user interface for georeferenced data, we skewed, resized, and shifted the sheets, and interpolated new conjectural material. To document our emendations and interpolations, we treat each graphic witness and reconstruction as a TEI &lt;surface&gt; element linked to a &lt;witness&gt; in &lt;listWit&gt;. We use the &lt;zone&gt; element to identify areas, then create an apparatus based on these definitions, treating the idealized map as the lemma, and the other related &lt;surface&gt;s and &lt;zone&gt;s as readings. We use custom values for the intervention @type, @resp for persons/roles responsible, and @source to document supporting evidence. </p>
+            <p>Background</p>
+            <p>Most GIS projects use maps to display georeferenced data. Theoretically, any georeferenced surface will suffice, with the latitude and longitude coordinates serving to pin the data to the surface, but historical GIS projects sometimes wrestle with a historical map or map-like object. Locating London’s Past
+                <hi rend="superscript">1</hi> has georeferenced and georectified
+                <hi rend="superscript">2</hi> the Rocque map of London to display data from 1660 to 1800. The Map of Early Modern London (MoEML)
+                <hi rend="superscript">3</hi> is a literary GIS project that takes an even earlier map-like object as the site’s main interface.
+                <hi rend="superscript">4</hi> The Agas Map of 1560s London, a hybrid genre combining plan, bird’s-eye view, and landscape, does not lend itself well to georeferencing and georectification and is in many ways an inconvenient surface for displaying data, historical or literary. However, when MoEML took shape in 1999 as an early experiment in digital humanities, the goal was to mark up a digital surface and identify all its features—a procedure very much like annotating a text. As the project has matured, we have come to conceive of the Agas Map not just as one of a number of graphical user interfaces (GUI) that permit exploration and visualization of MoEML gazetteer data but also as an editable text in its own right. 
+            </p>
+            <p>These two treatments of the map demand the coherence and navigability that make a GUI an effective skin for data,
+                <hi rend="superscript">5</hi> and the application of the rigorous editorial principles and practices that inform MoEML diplomatic transcriptions and editions. We conceive of our structured composite of map witnesses as an ‘edition’. This edition includes our ‘copytext’ in the form of the 2013 digital scans we took as our starting point, as well as a reconstructed ‘reading text’ that meets the criteria of coherence and navigability. Users can compare the two ‘texts’ to see where they differ, but we also plan to document all emendations to the copytext, which include skewing, resizing, shifting, and most importantly, interpolating new material drawn by a graphic artist based on our historical research. In textual critical terms, we aim to produce a thorough textual apparatus documenting our editorial process. As a Text Encoding Initiative project, MoEML records editorial emendations using TEI markup. The TEI Guidelines provide mechanisms for handling critical apparatus in textual work.
+                <hi rend="superscript">6</hi> We have repurposed those mechanisms for graphical editing in order to document our textual interventions to a map. 
+            </p>
+            <p>The Map</p>
+            <p>Creating a single unified Agas Map ‘surface’ for MoEML was a multi-step process. For copytexts, we had imperfect textual witnesses and surrogates (print and digital) of those witnesses. First printed in ca. 1561, the Agas Map of Tudor London survives in three 1633 copies of an altered Jacobean version: one in the London Metropolitan Archives (LMA); one at the National Archives, Kew; and one at the Pepys Library, Cambridge. We gain a possible glimpse of the earlier Tudor map through an unreliable 18th-century witness, George Vertue’s 1737 pewter-plate version that shows houses where the 1633 witnesses depict the Royal Exchange (opened in 1571), and the Elizabethan arms instead of the later Stuart arms. In 1905 the London Topographical Society (LTS) used the LMA witness to create new lithographs of seven true-to-size sheets. Around 1981, in association with the Guildhall Library, publisher Harry Margary reproduced facsimiles of the LTS sheets.</p>
+            <p>Because the LTS and LMA maps were originally printed in seven sheets, any attempt to produce a single map requires stitching. We have stitched together freshly scanned (in 2013) hi-res images of the Margary sheets. These sheets, like their LTS and LMA predecessors, do not match along their edges. Previous attempts to stitch the sheets together, including our own 2006 stitching, have normally involved simply joining sheets along their edges. This practice produces a number of jarring and confusing areas on the map where streets do not line up, buildings are chopped off in the middle, or whole strips appear to be missing, as in this image of the join running through the Smithfield area (Figure 1). </p>
+            <figure>
+                <graphic n="1001" width="15.24cm" height="19.27225cm" url="Pictures/image1.png" rend="block"/>
+            </figure>
+            <p>Figure 1. Infelicities along the sheet boundaries.</p>
+            <p>The gap makes it difficult to ‘read’ the map in this area. Furthermore, when a site belongs properly in the gap between sheets where data appears to be missing, there is no zone on the surface to which we can point in order to locate the site in London’s topographical space.
+                <hi rend="superscript">7</hi>
+            </p>
+            <p>We therefore decided to create an ‘idealized text’ of the map. We allowed ourselves to make changes both minor (skewing, stretching, and redrawing sections and lines) and major (adding in significant missing buildings, and filling empty space with plausible content based on historical evidence) to create a new artifact that satisfies the need for a continuously legible surface. This lengthy process involved careful historical research, consultations of other maps, contributions by a graphic artist, and many hours of altering lines on the computer. The result is shown in Figure 2 below.</p>
+            <figure>
+                <graphic n="1002" width="15.24cm" height="6.4311388888888885cm" url="Pictures/image2.png" rend="block"/>
+            </figure>
+            <p>Figure 2. Idealized reconstruction of the Agas Map showing repaired join in the Smithfield area.</p>
+            <p>
+                <hi rend="bold">Documenting Our Editorial Interventions</hi>
+            </p>
+            <p>Such substantive interventions must be carefully documented. First, we must be able to identify source documents (witnesses). TEI P5 provides straightforward mechanisms for identification of witnesses. Each distinct object (each Margary sheet, each historical map, each fragment created by the graphic artist, and our complete idealized reconstruction) can be encoded as a TEI &lt;surface&gt; element, as in TEI Example 1, where each &lt;surface&gt; is identified by a unique @xml:id, given Cartesian coordinates (where the x,y coordinates of the upper-left corner are always 0,0), and associated with a graphic object (a .jpg in these cases).</p>
+            <figure>
+                <graphic n="1003" width="15.24cm" height="16.282458333333334cm" url="Pictures/image3.png" rend="block"/>
+            </figure>
+            <p>TEI Example 1. TEI elements for a Margary sheet and for the constructed ideal map.</p>
+            <p>In one case, a single Margary sheet contains two ‘pages’, the top left piece and the bottom left piece (although they are arranged horizontally). We can deal with this sheet by creating a single &lt;surface&gt; with two &lt;zone&gt;s, as in TEI Example 2, where each &lt;zone&gt; is given a unique @xml:id and defined by its four pairs of x,y coordinates on the &lt;surface&gt;:</p>
+            <figure>
+                <graphic n="1004" width="15.24cm" height="8.60425cm" url="Pictures/image4.png" rend="block"/>
+            </figure>
+            <p>TEI Example 2. A single Margary sheet containing two segments of the map.</p>
+            <p>Each of these primary &lt;surface&gt;s and &lt;zone&gt;s can be linked to &lt;witness&gt; elements in a witness list. TEI Example 3 shows that each &lt;witness&gt; has a unique @xml:id and a prose description.</p>
+            <figure>
+                <graphic n="1005" width="15.24cm" height="20.81388888888889cm" url="Pictures/image5.png" rend="block"/>
+            </figure>
+            <p>TEI Example 3. Witness information is linked to &lt;surface&gt;s and &lt;zone&gt;s through the @facs attribute.</p>
+            <p>Second, we need to define ‘areas of interest’ on these surfaces, also using &lt;zone&gt; elements in the &lt;surface&gt; element. For each of the other witnesses, we can define a &lt;zone&gt; on the &lt;surface&gt; of the idealized map to which the witness attests, as in TEI Example 4, where we indicate which part of the ideal map corresponds to the witness with the @xml:id of ‘w_margary_top_2’:</p>
+            <figure>
+                <graphic n="1006" width="15.24cm" height="8.563680555555555cm" url="Pictures/image6.png" rend="block"/>
+            </figure>
+            <p>TEI Example 4. A &lt;zone&gt; on the idealized map corresponding to a cleaned-up version of one of the Margary sheets.</p>
+            <p>We can now create an apparatus based on these definitions, treating the constructed idealized map as the lemma, and the other related surfaces and zones as readings. In TEI Example 5, we use the &lt;lem&gt; and &lt;rdg&gt; elements to link one of the Margary sheets to a &lt;zone&gt; on the idealized map. The @type attribute allows us to declare the relationship between stemma and lemma:</p>
+            <figure>
+                <graphic n="1007" width="15.24cm" height="7.930444444444444cm" url="Pictures/image7.png" rend="block"/>
+            </figure>
+            <p>TEI Example 5. An apparatus entry linking one of the Margary sheets to its corresponding &lt;zone&gt; on the idealized map.</p>
+            <p>We can now document the interpolation of missing material. In Figure 3, we see that, because of a bad join, much of a significant building, Durham House, is missing.</p>
+            <figure>
+                <graphic n="1008" width="15.24cm" height="22.714022222222223cm" url="Pictures/image8.png" rend="inline"/>
+            </figure>
+            <p>Figure 3. Durham House is missing along this join.</p>
+            <p>Figure 4, including TEI code, shows the supplied image of Durham House in the idealized map; the people responsible are identified through pointers to &lt;respStmt&gt; elements that identify them and their role in this work (editor, researcher, artist), and several sources supporting the emendation are listed, including a 17th-century floor plan for the building and another map. </p>
+            <figure>
+                <graphic n="1009" width="8.6106cm" height="22.9616cm" url="Pictures/image9.png" rend="block"/>
+            </figure>
+            <p>Figure 4. The insertion of Durham House, with (simplified) TEI encoding that documents it.</p>
+            <p>Conclusion</p>
+            <p>In a literary forum, taking a textual-critical approach to a graphical text is unprecedented. Normally, one would expect to see a lag between developments in textual theory and a Text Encoding Initiative response, since new conceptions of textuality stretch the capacities of the TEI. However, our new model for editing graphical texts uses existing TEI markup to document textual interventions. Our innovative use of the TEI textual apparatus captures in great detail the nature of an editorial change, the person(s) responsible, and the supporting evidence. Our next challenge is to generate the apparatus for collating emendations to this map-like text.</p>
+            <p>Notes</p>
+            <p>1. 
+                <hi rend="italic">Locating London’s Past: A Geo-Referencing Tool for Mapping Historical and Archaeological Evidence, 1660–1800</hi>. See http://www.history.ac.uk/projects/research/locating-london, and the project itself at
+            </p>
+            <p>http://www.locatinglondon.org/.</p>
+            <p rend="footnote text">2. See ‘Mapping Methodology’, http://www.locatinglondon.org/static/MappingMethodology.html.</p>
+            <p rend="footnote text">3. Janelle Jenstad, ed., The Map of Early Modern London, mapoflondon.uvic.ca, 2006–present.</p>
+            <p>4. See MoEML’s description of the Agas Map at http://mapoflondon.uvic.ca/map.htm.</p>
+            <p>5. See JISC Digital Media’s Graphical User Interface Design: Developing Usable and Accessible Collections, at</p>
+            <p rend="footnote text">http://www.jiscdigitalmedia.ac.uk/guide/graphical-user-interface-design-developing-usable-and-accessible-collection.</p>
+            <p rend="footnote text">6. See chapter 12 of the TEI Guidelines, ‘Critical Apparatus’, at 
+                <hi rend="Internet_Link">http://www.tei-c.org/release/doc/tei-p5-doc/en/html/TC.html</hi>.
+            </p>
+            <p>7. The scope of this paper does not allow for detailed discussion of how we encode our location files in order to point locations to specific zones on the Agas Map. We record the correct point, line, or polygon on the Agas Map using facsimile, surface, graphic, and zone elements. See ‘The Facsimile Element’ in Landels et al., ‘Understand MoEML’s Website and Document Structure’, http://mapoflondon.uvic.ca/website_structure.htm#website_structure_location_docs.</p>
+        </body>
+    </text>
+</TEI>

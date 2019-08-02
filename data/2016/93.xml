@@ -1,0 +1,419 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>Toccata : Text-Oriented Computational Classifier Applicable To Authorship</title>
+                <author>
+                    <persName>
+                        <surname>Forsyth</surname>
+                        <forename>Richard Sandes</forename>
+                    </persName>
+                    <affiliation>independent, United Kingdom</affiliation>
+                    <email>forsyth_rich@hotmail.com</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2016-03-03T20:12:00Z</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Maciej Eder, Pedagogical University in Krakow</publisher>
+                <publisher>Jan Rybicki, Jagiellonian University</publisher>
+                <address>
+                    <addrLine>Institute of Polish Studies</addrLine>
+                    <addrLine>Pedagogical University</addrLine>
+                    <addrLine>ul. Podchorazych 2</addrLine>
+                    <addrLine>30-084 Krakow, Poland</addrLine>
+                    <addrLine>maciej.eder@ijp-pan.krakow.pl</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from a Word document </p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.21">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Short Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>authorship</term>
+                    <term>classification</term>
+                    <term>cross-validation</term>
+                    <term>stylometry.</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>natural language processing</term>
+                    <term>stylistics and stylometry</term>
+                    <term>text analysis</term>
+                    <term>authorship attribution / authority</term>
+                    <term>programming</term>
+                    <term>English</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <div type="div1" rend="DH-Heading1">
+                <head>Introduction</head>
+                <p>Many text-classification techniques have been proposed and used for authorship attribution (Holmes, 1994; Grieve, 2007; Juola, 2008; Koppel et al., 2011), genre categorization (Biber, 1988; Argamon et al., 2003), stylochronometry (Forsyth, 1999) and other tasks within computational stylistics. However, until quite recently, it has been extremely difficult to assess novel and existing techniques on comparable benchmark problems within a common framework using statistically robust methods.</p>
+                <p>Toccata is a resource for computational stylometry which aims to address that lack, freely available at</p>
+                <p>
+                    <ref target="http://www.richardsandesforsyth.net/software.html">http://www.richardsandesforsyth.net/software.html</ref>
+                </p>
+                <p>under the GNU public licence.</p>
+                <p>The main program is a test harness in which a variety of text-classification algorithms can be evaluated on unproblematic cases and, if required, applied to disputed cases. The package supplies four pre-existing classification methods as modules (including Delta (Burrows, 2002), widely regarded as a standard in this area) as well as five sample corpora (including the famous 
+                    <hi rend="italic">Federalist Papers</hi>) so that users who don't wish to write Python code can use it simply as an off-the-shelf classifier and those who do can familiarize themselves with the system before implementing their own algorithms.
+                </p>
+                <p>Noteworthy features of the system include:</p>
+                <list type="ordered">
+                    <item>sample corpora provided for familiarization;</item>
+                    <item>test phase using random subsampling to give robust error-rate estimation;</item>
+                    <item>ability to plug in new techniques or to employ existing standards;</item>
+                    <item>option of post-hoc phase applying trained model(s) to unseen holdout data;</item>
+                    <item>empirically grounded computation of post-hoc confidence weights to deal with 'open' problems where the unseen cases may not belong to any of the training-set categories;</item>
+                    <item>accompanying export file readable by R or similar statistical packages for optional further processing.</item>
+                </list>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Sketch of the System's Operation</head>
+                <p>Toccata performs three main functions, in sequence:</p>
+                <p>(a) testmode: leave-n-out random resampling test of the classifier on the training corpus to provide statistics by which the classifier can be evaluated;</p>
+                <p>(b) holdout: application of the classifier to an unseen holdout sample of texts, if given;</p>
+                <p>(c) posthoc: re-application to the holdout sample of texts (if given) using the results from phase (a) to estimate empirical probabilities.</p>
+                <p>Steps (b) and (c) are optional.</p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Sample corpora</head>
+                <p>Toccata is a document-oriented system. Thus a training corpus consists of a number of text files, in UTF8 encoding, without markup such as HTML tags. Each file is treated as an individual document, belonging to a particular category. Example corpora are supplied to enable users to start using the system, prior to collecting or reformatting their own corpora.</p>
+                <p>
+                    <hi rend="bold">ajps</hi>: ninety poems by 2 eminent 19th-century Hungarian poets, Arany József and Petőfi Sándor. Arany was godfather to Petőfi's child, so we might expect their writing styles to be relatively similar.
+                </p>
+                <p>
+                    <hi rend="bold">cics</hi>: Latin texts relevant to the authorship of the 
+                    <hi rend="italic">Consolatio</hi> which Cicero wrote in 45 BC. This was thought to have been lost until in 1583 AD when Sigonio claimed to have rediscovered it. Background information can be found in Forsyth et al. (1999).
+                </p>
+                <p>
+                    <hi rend="bold">feds</hi>: writings by Alexander Hamilton and James Madison, as well as some contemporaries of theirs. This corpus is related to another notable authorship dispute, concerning the 
+                    <hi rend="italic">Federalist Papers</hi>, which were published in New York in 1788. See Holmes and Forsyth (1995).
+                </p>
+                <p>
+                    <hi rend="bold">mags</hi>: 144 texts from 2 different learned journals, namely 
+                    <hi rend="italic">Literary and Linguistic Computing</hi> and 
+                    <hi rend="italic">Machine Learning</hi>. Each text is an excerpt consisting of the Abstract plus initial paragraph of an article in one of those journals, written during the period 1987-1995.
+                </p>
+                <p>
+                    <hi rend="bold">sonnets</hi>: 196 English sonnets, 14 each by 14 different authors, with an additional holdout sample of 24 texts, half of which are by authors absent from the main sample.
+                </p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Validation by Random Subsampling</head>
+                <p>A major objective of the system is to assess the effectiveness of text-classification methods by a form of cross validation. For this purpose the training corpus of undisputed texts is repeatedly divided into two portions, one used to form a classification model and the other used to test the accuracy of this model. After this cycle a number of quality statistics are computed and printed, along with a confusion matrix. This helps to establish a relatively honest estimate of the likely future error rate of the classifier. After subsampling, the program will construct a model on the full training set. This may then be applied to a genuine holdout sample, if provided.</p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Classifier Modules</head>
+                <p>A classifier module is expected to develop trained models of each text category and deliver matching scores of a text to each model, with more positive scores indicating stronger matching. The category with the highest match-score relative to the average of all scores for the text, is the assigned class. Four library modules are supplied "off the shelf".</p>
+                <p>Module 
+                    <hi rend="bold">docalib_deltoid.py</hi> is an implementation of Burrows's delta (Burrows, 2002) which has become a standard technique in authorship attribution studies. Module 
+                    <hi rend="bold">docalib_keytoks.py</hi> works by first finding the 1024 most common word tokens in the corpus, then keeping from these the most distinctive. For classification, relative word frequencies in the text being classified are correlated with relative frequencies in each class. Module 
+                    <hi rend="bold">docalib_maws.py</hi> is a version of what Mosteller and Wallace in their classic work (1964/1984) on the 
+                    <hi rend="italic">Federalist Papers</hi> call their "robust Bayesian analysis", as implemented by Forsyth (1995). Module 
+                    <hi rend="bold">docalib_topvocs.py</hi> implements another classifier inspired by the approach of Burrows (1992), which uses the most frequent tokens in the training corpus as features.
+                </p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>The Holdout and Posthoc Phases</head>
+                <p>The subsampling test phase (above) is primarily concerned with assessing the quality of a classification method. The holdout and posthoc phases are when that method is applied in earnest.</p>
+                <p>If a holdout sample is given, the model developed on the training set is applied to that sample. The holdout texts may belong to categories that were not present in the training set, so each decision is categorized as correct (+), incorrect (-) or undetermined (?) and the success rate statistics computed accordingly.</p>
+                <p>This is illustrated in Table 1, below, from an application of the MAWS (Mosteller and Wallace) method to a collection of sonnets. Here the training set consists of 196 short English poems -- 14 sonnets by 14 different authors. This is a challenging problem firstly because the median length of each text in the training corpus is 116 words, secondly because 14 is a relatively large number of candidates.</p>
+                <p>Table 1 shows the ranking produced on a holdout sample of 24 texts, absent from the training set. Note that 12 of these 24 items are 'distractors', i.e. texts by authors not present in the training set. The program assigns these a question mark (?) in assessing its own decision.</p>
+                <p>The listing ranks the program's decisions from most to least credible. The upper third include 6 correct assignments, 1 clear mistake and a distractor. The middle third contains 1 correct classification, 3 mistakes and 4 distractors. The last third contains no correct answers, 1 mistake and 7 distractors. (Incidentally, the distractor poem by the Earl of Oxford, ranked twentieth, is more congruent with Wordsworth than any other author, including Shakespeare, and not confidently assigned to any of the training categories.)</p>
+                <p>This output addresses the very real problem of documents from outside the known training categories. The listing is ordered by a quantity labelled 'credit'. This is the geometric mean of the last two numbers in each line, labelled 'confidence' and 'congruity'. Confidence is derived from the preceding subsampling phase. It is computed from the differential matching score of the text under consideration as W / (W+L), where W is the number of correct answers which received a lower differential score during the subsampling phase and L is the number of wrong answers with a higher score. Congruity is simply the proportion of matching scores of the chosen category that were lower, in the subsampling phase, than the score for the case in question. It is an empirically based index of compatibility between the assigned category of the text and the training examples of that category.</p>
+                <p>In all kinds of classification, the problem of never-before-seen categories can loom large. (See, for instance, Eder, 2013.) Like most trainable classifiers, Toccata always picks the most likely category from those it has encountered in training, but the most likely may not be very likely. The confidence and congruity scores give useful information in this regard. For example, if we only consider the classifications which obtain a score of at least 0.5 on both confidence and congruity, we find 6 correct decisions, 1 incorrect and 1 distractor. Treating the distractor (assigning a sonnet by Dylan Thomas to Edna Millay) as incorrect still represents a 75% success rate in an "open" authorship problem on texts only slightly more than a hundred word tokens in length, where the training sample for each known category consists of approximately 1600 words, with a chance expectation of 7% success. In other words, three crucial parameters -- training corpus size, text length and number of categories -- are all well "outside the envelope" of most previously reported authorship studies.</p>
+                <p>Table 1 -- Posthoc ranking of 24 decisions on unseen texts, including 12 'distractors'</p>
+                <table rend="rules">
+                    <row>
+                        <cell rend="Plain_Text">rank</cell>
+                        <cell rend="Plain_Text">credit</cell>
+                        <cell rend="Plain_Text">filename</cell>
+                        <cell rend="Plain_Text">pred:true</cell>
+                        <cell rend="Plain_Text">conf.</cell>
+                        <cell rend="Plain_Text">congruity</cell>
+                    </row>
+                    <row>
+                        <cell rend="Plain_Text"> 1</cell>
+                        <cell rend="Plain_Text">0.9163</cell>
+                        <cell rend="Plain_Text"> ChrRoss_WinterSecret.t</cell>
+                        <cell rend="Plain_Text"> ChrRoss + ChrRoss</cell>
+                        <cell rend="Plain_Text"> 0.9530</cell>
+                        <cell rend="Plain_Text"> 0.8810</cell>
+                    </row>
+                    <row>
+                        <cell rend="Plain_Text"> 2</cell>
+                        <cell rend="Plain_Text">0.8768</cell>
+                        <cell rend="Plain_Text"> WilShak_6.txt </cell>
+                        <cell rend="Plain_Text"> WilShak + WilShak</cell>
+                        <cell rend="Plain_Text"> 0.9425</cell>
+                        <cell rend="Plain_Text"> 0.8158</cell>
+                    </row>
+                    <row>
+                        <cell rend="Plain_Text"> 3</cell>
+                        <cell rend="Plain_Text">0.8142</cell>
+                        <cell rend="Plain_Text"> DylThom_Altar09.txt </cell>
+                        <cell rend="Plain_Text"> EdnMill ? DylThom</cell>
+                        <cell rend="Plain_Text"> 0.8838</cell>
+                        <cell rend="Plain_Text"> 0.7500</cell>
+                    </row>
+                    <row>
+                        <cell rend="Plain_Text"> 4</cell>
+                        <cell rend="Plain_Text">0.7664</cell>
+                        <cell rend="Plain_Text"> MicDray_Idea000.txt </cell>
+                        <cell rend="Plain_Text"> MicDray + MicDray</cell>
+                        <cell rend="Plain_Text"> 0.6378</cell>
+                        <cell rend="Plain_Text"> 0.9211</cell>
+                    </row>
+                    <row>
+                        <cell rend="Plain_Text"> 5</cell>
+                        <cell rend="Plain_Text">0.7595</cell>
+                        <cell rend="Plain_Text"> WilShak_137.txt </cell>
+                        <cell rend="Plain_Text"> WilShak + WilShak</cell>
+                        <cell rend="Plain_Text"> 0.8118</cell>
+                        <cell rend="Plain_Text"> 0.7105</cell>
+                    </row>
+                    <row>
+                        <cell rend="Plain_Text"> 6</cell>
+                        <cell rend="Plain_Text">0.6950</cell>
+                        <cell rend="Plain_Text"> JohDonn_Nativity.txt </cell>
+                        <cell rend="Plain_Text"> JohDonn + JohDonn</cell>
+                        <cell rend="Plain_Text"> 0.6720</cell>
+                        <cell rend="Plain_Text"> 0.7188</cell>
+                    </row>
+                    <row>
+                        <cell rend="Plain_Text"> 7</cell>
+                        <cell rend="Plain_Text">0.6247</cell>
+                        <cell rend="Plain_Text"> MicDray_Idea048.txt </cell>
+                        <cell rend="Plain_Text"> JohDonn - MicDray</cell>
+                        <cell rend="Plain_Text"> 0.5430</cell>
+                        <cell rend="Plain_Text"> 0.7188</cell>
+                    </row>
+                    <row>
+                        <cell rend="Plain_Text"> 8</cell>
+                        <cell rend="Plain_Text">0.5356</cell>
+                        <cell rend="Plain_Text"> WilShak_109.txt </cell>
+                        <cell rend="Plain_Text"> WilShak + WilShak</cell>
+                        <cell rend="Plain_Text"> 0.5737</cell>
+                        <cell rend="Plain_Text"> 0.5000</cell>
+                    </row>
+                    <row>
+                        <cell rend="Plain_Text"> 9</cell>
+                        <cell rend="Plain_Text">0.5225</cell>
+                        <cell rend="Plain_Text"> DylThom_Altar05.txt </cell>
+                        <cell rend="Plain_Text"> RupBroo ? DylThom</cell>
+                        <cell rend="Plain_Text"> 0.4150</cell>
+                        <cell rend="Plain_Text"> 0.6579</cell>
+                    </row>
+                    <row>
+                        <cell rend="Plain_Text"> 10</cell>
+                        <cell rend="Plain_Text">0.4684</cell>
+                        <cell rend="Plain_Text"> TomWyat_THEY_FLEE_FROM</cell>
+                        <cell rend="Plain_Text"> EdmSpen ? ThoWyat</cell>
+                        <cell rend="Plain_Text"> 0.4596</cell>
+                        <cell rend="Plain_Text"> 0.4773</cell>
+                    </row>
+                    <row>
+                        <cell rend="Plain_Text"> 11</cell>
+                        <cell rend="Plain_Text">0.4226</cell>
+                        <cell rend="Plain_Text"> PerShel_Ozymandias.txt</cell>
+                        <cell rend="Plain_Text"> EliBrow ? PerShel</cell>
+                        <cell rend="Plain_Text"> 0.2217</cell>
+                        <cell rend="Plain_Text"> 0.8056</cell>
+                    </row>
+                    <row>
+                        <cell rend="Plain_Text"> 12</cell>
+                        <cell rend="Plain_Text">0.4027</cell>
+                        <cell rend="Plain_Text"> EliBrow_SP23.txt </cell>
+                        <cell rend="Plain_Text"> DanRoss - EliBrow</cell>
+                        <cell rend="Plain_Text"> 0.2237</cell>
+                        <cell rend="Plain_Text"> 0.7250</cell>
+                    </row>
+                    <row>
+                        <cell rend="Plain_Text"> 13</cell>
+                        <cell rend="Plain_Text">0.3061</cell>
+                        <cell rend="Plain_Text"> WilShak_RomeoJuliet.tx</cell>
+                        <cell rend="Plain_Text"> WilShak + WilShak</cell>
+                        <cell rend="Plain_Text"> 0.2094</cell>
+                        <cell rend="Plain_Text"> 0.4474</cell>
+                    </row>
+                    <row>
+                        <cell rend="Plain_Text"> 14</cell>
+                        <cell rend="Plain_Text">0.2739</cell>
+                        <cell rend="Plain_Text"> PhiSidn_astel108.txt </cell>
+                        <cell rend="Plain_Text"> EliBrow - PhiSidn</cell>
+                        <cell rend="Plain_Text"> 0.1080</cell>
+                        <cell rend="Plain_Text"> 0.6944</cell>
+                    </row>
+                    <row>
+                        <cell rend="Plain_Text"> 15</cell>
+                        <cell rend="Plain_Text">0.2625</cell>
+                        <cell rend="Plain_Text"> DylThom_Altar06.txt </cell>
+                        <cell rend="Plain_Text"> EliBrow ? DylThom</cell>
+                        <cell rend="Plain_Text"> 0.0992</cell>
+                        <cell rend="Plain_Text"> 0.6944</cell>
+                    </row>
+                    <row>
+                        <cell rend="Plain_Text"> 16</cell>
+                        <cell rend="Plain_Text">0.2283</cell>
+                        <cell rend="Plain_Text"> JohDonn_Temple.txt </cell>
+                        <cell rend="Plain_Text"> EdnMill - JohDonn</cell>
+                        <cell rend="Plain_Text"> 0.1179</cell>
+                        <cell rend="Plain_Text"> 0.4423</cell>
+                    </row>
+                    <row>
+                        <cell rend="Plain_Text"> 17</cell>
+                        <cell rend="Plain_Text">0.2014</cell>
+                        <cell rend="Plain_Text"> Lincoln1863Gettysburg.</cell>
+                        <cell rend="Plain_Text"> SamDani ? AbeLinc</cell>
+                        <cell rend="Plain_Text"> 0.0649</cell>
+                        <cell rend="Plain_Text"> 0.6250</cell>
+                    </row>
+                    <row>
+                        <cell rend="Plain_Text"> 18</cell>
+                        <cell rend="Plain_Text">0.1894</cell>
+                        <cell rend="Plain_Text"> RicFors_LaBocca.txt </cell>
+                        <cell rend="Plain_Text"> RupBroo ? RicFors</cell>
+                        <cell rend="Plain_Text"> 0.0649</cell>
+                        <cell rend="Plain_Text"> 0.5526</cell>
+                    </row>
+                    <row>
+                        <cell rend="Plain_Text"> 19</cell>
+                        <cell rend="Plain_Text">0.1352</cell>
+                        <cell rend="Plain_Text"> HelFors_1958.txt </cell>
+                        <cell rend="Plain_Text"> EliBrow ? HelFors</cell>
+                        <cell rend="Plain_Text"> 0.0263</cell>
+                        <cell rend="Plain_Text"> 0.6944</cell>
+                    </row>
+                    <row>
+                        <cell rend="Plain_Text"> 20</cell>
+                        <cell rend="Plain_Text">0.1089</cell>
+                        <cell rend="Plain_Text"> oxford_13.txt </cell>
+                        <cell rend="Plain_Text"> WilWord ? Oxford </cell>
+                        <cell rend="Plain_Text"> 0.0265</cell>
+                        <cell rend="Plain_Text"> 0.4474</cell>
+                    </row>
+                    <row>
+                        <cell rend="Plain_Text"> 21</cell>
+                        <cell rend="Plain_Text">0.0977</cell>
+                        <cell rend="Plain_Text"> RicFors_Underworld.txt</cell>
+                        <cell rend="Plain_Text"> EdnMill ? RicFors</cell>
+                        <cell rend="Plain_Text"> 0.0261</cell>
+                        <cell rend="Plain_Text"> 0.3654</cell>
+                    </row>
+                    <row>
+                        <cell rend="Plain_Text"> 22</cell>
+                        <cell rend="Plain_Text">0.0755</cell>
+                        <cell rend="Plain_Text"> HelFors_1982.txt </cell>
+                        <cell rend="Plain_Text"> DanRoss ? HelFors</cell>
+                        <cell rend="Plain_Text"> 0.0109</cell>
+                        <cell rend="Plain_Text"> 0.5250</cell>
+                    </row>
+                    <row>
+                        <cell rend="Plain_Text"> 23</cell>
+                        <cell rend="Plain_Text">0.0690</cell>
+                        <cell rend="Plain_Text"> DylThom_Altar03.txt </cell>
+                        <cell rend="Plain_Text"> RupBroo ? DylThom</cell>
+                        <cell rend="Plain_Text"> 0.0106</cell>
+                        <cell rend="Plain_Text"> 0.4474</cell>
+                    </row>
+                    <row>
+                        <cell rend="Plain_Text"> 24</cell>
+                        <cell rend="Plain_Text">0.0411</cell>
+                        <cell rend="Plain_Text"> PhiSidn_astel030.txt </cell>
+                        <cell rend="Plain_Text"> EdmSpen - PhiSidn</cell>
+                        <cell rend="Plain_Text"> 0.0106</cell>
+                        <cell rend="Plain_Text"> 0.1591</cell>
+                    </row>
+                </table>
+                <p>++?+++-+???-+-?-???????-</p>
+            </div>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl>
+                        <hi rend="bold">Argamon, S., et al.</hi> (2003). Gender, genre, and writing style in formal written texts. 
+                        <hi rend="italic">Text</hi>, <hi rend="bold">23</hi>(3): 321-46.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Biber, D.</hi> (1988). 
+                        <hi rend="italic">Variation across speech and writing</hi>. Cambridge: Cambridge University Press.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Burrows, J.F.</hi> (1992). Not unless you ask nicely: the interpretive nexus between analysis and information. 
+                        <hi rend="italic">Literary and Linguistic Computing</hi>, <hi rend="bold">7</hi>(2): 91-109.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Burrows, J.F.</hi> (2002). 'Delta': a measure of stylistic difference and a guide to likely authorship. 
+                        <hi rend="italic">Literary and Linguistic Computing</hi>, <hi rend="bold">17</hi>(3): 267-87.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Eder, M.</hi> (2013). Bootstrapping Delta: a safety net in open-set authorship attribution. 
+                        <ref target="http://dh2013.unl.edu/abstracts/">
+                            <hi rend="italic">Digital Humanities 2013: Conference Abstracts</hi>
+                        </ref>. Lincoln: University of Nebraska-Lincoln, pp. 169-72.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Forsyth, R.S.</hi> (1995). 
+                        <hi rend="italic">Stylistic Structures: a Computational Approach to Text Classification</hi>. Unpublished Doctoral Thesis, Faculty of Science, University of Nottingham. 
+                        <ref target="http://www.richardsandesforsyth.net/doctoral.html">http://www.richardsandesforsyth.net/doctoral.html</ref>
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Forsyth, R.S.</hi> (1999). Stylochronometry with substrings, or: a poet young and old. 
+                        <hi rend="italic">Literary and Linguistic Computing</hi>, <hi rend="bold">14</hi>(4): 467-77.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Forsyth, R.S., Holmes, D.I. and Tse, E.K</hi>. (1999). Cicero, Sigonio, and Burrows: investigating the authenticity of the 'Consolatio'. 
+                        <hi rend="italic">Literary and Linguistic Computing, </hi><hi rend="bold">14</hi>(3): 1-26.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Grieve, J.</hi> (2007). Quantitative authorship attribution: an evaluation of techniques. 
+                        <hi rend="italic">Literary and Linguistic Computing</hi>, <hi rend="bold">22</hi>(3): 251-70.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Holmes, D.</hi> (1994). Authorship attribution. 
+                        <hi rend="italic">Computers and the Humanities</hi>, <hi rend="bold">28</hi>: 1-20.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Holmes, D.I. and Forsyth, R.S.</hi> (1995). The 'Federalist' revisited: new directions in authorship attribution. 
+                        <hi rend="italic">Literary and Linguistic Computing</hi>, <hi rend="bold">10</hi>(2): 111-27.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Juola, P.</hi> (2006). Authorship attribution. 
+                        <hi rend="italic">Foundations and Trends in Information Retrieval</hi>, <hi rend="bold">1</hi>(3): 233-334.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Koppel, M., Schler, J. and Argamon, S.</hi> (2011). Authorship attribution in the wild. 
+                        <hi rend="italic">Language Resources and Evaluation</hi>, <hi rend="bold">45</hi>, pp. 83-94. DOI 10.1007/s10579-009-9111-2.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Mosteller, F. and Wallace, D.L.</hi> (1984). 
+                        <hi rend="italic">Applied Bayesian and Classical Inference: the Case of the Federalist Papers</hi>. New York: Springer. [First edition, 1964.]
+                    </bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

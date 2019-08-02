@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>Progressive philology with TXM: from 'raw text' to 'TEI encoded text' analysis and mining</title>
+                <author>
+                    <persName>
+                        <surname>Heiden</surname>
+                        <forename>Serge</forename>
+                    </persName>
+                    <affiliation>ENS de Lyon, France</affiliation>
+                    <email>slh@ens-lyon.fr</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2014-12-19T13:50:00Z</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Paul Arthur, University of Western Sidney</publisher>
+                <address>
+                    <addrLine>Locked Bag 1797</addrLine>
+                    <addrLine>Penrith NSW 2751</addrLine>
+                    <addrLine>Australia</addrLine>
+                    <addrLine>Paul Arthur</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from a Word document </p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.9">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Long Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>xml</term>
+                    <term>tei</term>
+                    <term>txm</term>
+                    <term>open-source</term>
+                    <term>text analysis</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>encoding - theory and practice</term>
+                    <term>natural language processing</term>
+                    <term>scholarly editing</term>
+                    <term>software design and development</term>
+                    <term>text analysis</term>
+                    <term>xml</term>
+                    <term>standards and interoperability</term>
+                    <term>data mining / text mining</term>
+                    <term>English</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <p>A typical text analysis workflow combines the following two stages:</p>
+            <p> • Preparing data. Philological methodology establishes the base text, critical apparatus, and some analytical information like text metadata (author, date, domain, etc.) to be able to compare domains, authors, etc. with respect to the text’s content (word forms or word lemma frequency, n-gram frequency, etc.).</p>
+            <p> • Processing. Analytic methodology provides the framework to analyze a corpus or sub-corpus of texts with the help of word patterns search and display (concordances) or count (frequency lists) and comparison tools (factorial analysis, clustering).</p>
+            <p>It is convenient to characterize the relation between the data and the processing stages as contractual. That contract is based on the encoding conventions of the digital representation of texts interpreted by the software to manipulate and display them through interfaces.</p>
+            <p>Simple conventions (like Unicode character encoding of raw text) can correspond to file formats directly interpreted by the software; more elaborate ones (like XML-TEI encoded text) correspond to guidelines that need tuning to be processable by software. This article presents a text analysis workflow implemented in the TXM analysis software in which the data/processing philological contract complexity can be progressively adapted to the needs of the user, balancing costs of encoding with interests in processing and analysis. It will also introduce the delegation model to call external tools (like ‘natural language processing’ [NLP] software as lemmatizers) to automatically enrich encoded texts on the fly while importing them into the platform for analysis.</p>
+            <p>The TXM Analysis Software</p>
+            <p>The open-source GPL-licensed TXM software implements an analytic methodology articulating those stages. It provides an import framework that allows reading of corpus sources at various levels of encoding and a classic toolbox for text analysis and mining, composed of a versatile and efficient full text search engine, text reading and browsing, sub-corpus and partition building, co-occurrence analysis, factorial analysis, and clustering. It is available as a desktop application for Windows, Mac, or Linux, as well as a web portal software for a server accessed through a web browser (Heiden, 2010). The TXM platform can be downloaded for free at http://sf.net/projects/txm.</p>
+            <p>Importing Corpora into TXM at Progressive Levels of Encoding</p>
+            <p>Starting from raw text corpora, the first level of contract is simple and has a low encoding cost barrier: texts may have properties (called metadata) that can be used to compare them or their properties, and words are defined by their character constituents. The text format provides all information needed explicitly to the software.</p>
+            <p>To analyze a corpus at such a level of encoding, TXM provides the Unicode ‘TXT+CSV’ import module. The CSV in the name expresses the possibility to associate metadata to each text through an external CSV table file. That table encodes the metadata of each text on a separate line, as in the following excerpt of the Brown corpus metadata table defining the ‘type’ and ‘reference’ metadata (Francis and Kucera, 1964):
+                <hi rend="superscript">1</hi>
+            </p>
+            <table rend="rules">
+                <row>
+                    <cell>id</cell>
+                    <cell>type</cell>
+                    <cell>reference</cell>
+                </row>
+                <row>
+                    <cell>a01</cell>
+                    <cell>PRESS: REPORTAGE</cell>
+                    <cell>Sample A01 from The Atlanta Constitution</cell>
+                </row>
+                <row>
+                    <cell>a02</cell>
+                    <cell>PRESS: REPORTAGE</cell>
+                    <cell>Sample A02 from The Dallas Morning News, February 17, 1961, sec. 1</cell>
+                </row>
+                <row>
+                    <cell>a03</cell>
+                    <cell>PRESS: REPORTAGE</cell>
+                    <cell>Sample A03 from Chicago Daily Tribune</cell>
+                </row>
+                <row>
+                    <cell>a04</cell>
+                    <cell>PRESS: REPORTAGE</cell>
+                    <cell>Sample A04 from The Christian Science Monitor, May 11, 1961, p. 1</cell>
+                </row>
+                <row>
+                    <cell>a05</cell>
+                    <cell>PRESS: REPORTAGE</cell>
+                    <cell>Sample A05 from The Providence Journal</cell>
+                </row>
+            </table>
+            <p rend="Tableau">
+                <hi rend="italic">Table 1. Brown corpus metadata (the ‘id’ column encodes text identifiers, ‘type’ the genre, and ‘reference’ the source).</hi>
+            </p>
+            <p>When it comes to TEI encoded texts, the contract is more complex and fuzzy, especially because the TEI provides guidelines for encoding but not as prescriptive as a format can do. One can typically use several different ways to encode a particular text component. This is needed for scholars to adopt the technology: it provides ways to encode texts we haven’t read yet, for which we haven’t established the base text or the critical apparatus yet. For a given project, the TEI encoding practice should be much more specific and documented because scholars need to share the same conventions to cross-validate their philological work. In such a context, it is possible to tune the software based on the conventions documentation to import the specific TEI sources and build the necessary corpus model to process it.</p>
+            <p>To analyze a corpus at such a level of encoding, TXM provides pre-tuned TEI import modules for each documented TEI practice—for example, the ‘XML-TEI BFM’ import module for texts encoded according to the BFM corpus TEI encoding practice (Heiden et al., 2010).</p>
+            <p>To analyze a corpus encoded with an unknown TEI practice, TXM provides the generic ‘XML/w+CSV’ import module. That module provides a simple way to adapt any XML or TEI encoding through an XSLT transformation stylesheet into the ‘XML-TEI TXM’ format designed for the TXM corpus model.</p>
+            <p>TXM is available with a library of several XML and TEI adaptation stylesheets: https://sourceforge.net/projects/txm/files/library/xsl.</p>
+            <p>The ‘XML/w+CSV’ import module is part of the progressive TXM import framework, which is built on a concentric format model (every format is based on the format of lower-outer level): Unicode TXT &lt; XML &lt; TEI &lt; XML-TEI TXM:</p>
+            <p>Figure 1. TXM progressive import framework workflow. </p>
+            <p>In that framework, import modules can take a corpus at any level of encoding passing through the final TXM pivot ‘XML-TEI TXM’ format before compilation by the software (search engine indexes, text edition, etc.).</p>
+            <p>The corpus model of TXM is composed of the following:</p>
+            <p>• Each corpus consists of a set of 
+                <hi rend="bold">texts</hi> with properties called ‘metadata’ (author, title, date, genre . . .).
+            </p>
+            <p>• Each text is composed of nested optional internal 
+                <hi rend="bold">structures</hi> that have properties.
+            </p>
+            <p> • Each text is composed of a sequence of 
+                <hi rend="bold">words</hi> that can have properties. Words can be embedded in any textual structure.
+            </p>
+            <p>Each text has an HTML edition built during the import process. Some 
+                <hi rend="bold">textual planes</hi> can be built on demand, such as separating comments or notes from content body, etc.
+            </p>
+            <p>For each import encoding level, some corpus model elements can be built, or not:</p>
+            <table rend="rules">
+                <row>
+                    <cell rend="Contenu_de_tableau"/>
+                    <cell rend="Contenu_de_tableau">TXT</cell>
+                    <cell rend="Contenu_de_tableau">XML</cell>
+                    <cell rend="Contenu_de_tableau">TEI</cell>
+                </row>
+                <row>
+                    <cell rend="Contenu_de_tableau">Text units</cell>
+                    <cell rend="Contenu_de_tableau">files</cell>
+                    <cell rend="Contenu_de_tableau">files</cell>
+                    <cell rend="Contenu_de_tableau">files</cell>
+                </row>
+                <row>
+                    <cell rend="Contenu_de_tableau">Metadata</cell>
+                    <cell rend="Contenu_de_tableau">CSV</cell>
+                    <cell rend="Contenu_de_tableau">CSV</cell>
+                    <cell rend="Contenu_de_tableau">teiHeader</cell>
+                </row>
+                <row>
+                    <cell rend="Contenu_de_tableau">Structures</cell>
+                    <cell rend="Contenu_de_tableau">n/a</cell>
+                    <cell rend="Contenu_de_tableau">all</cell>
+                    <cell rend="Contenu_de_tableau">TEI specific</cell>
+                </row>
+                <row>
+                    <cell rend="Contenu_de_tableau">Words</cell>
+                    <cell rend="Contenu_de_tableau">raw</cell>
+                    <cell rend="Contenu_de_tableau">&lt;w&gt;?</cell>
+                    <cell rend="Contenu_de_tableau">&lt;w&gt;?</cell>
+                </row>
+                <row>
+                    <cell rend="Contenu_de_tableau">Textual planes</cell>
+                    <cell rend="Contenu_de_tableau">n/a</cell>
+                    <cell rend="Contenu_de_tableau">front XSL</cell>
+                    <cell rend="Contenu_de_tableau">TEI specific</cell>
+                </row>
+            </table>
+            <p>For each import level, a file corresponds to a text unit. TXT level cannot provide either internal structures encoding for texts or planes and tokenizes words from their ‘raw’ character constituents. XML level provides TXT level processing and can optionally encode some or all words with a &lt;w&gt; tag; all other tags are interpreted as text structures, and a front XSL can filter out some elements on the fly. TEI level provides XML level processing, text metadata are taken from the TEI header, and every tag has specific semantics related to structures or planes.</p>
+            <p>Within such an import framework, the scholar can adapt the encoding effort to the level best suited for the elements she wants to be able to manipulate in the analysis software. A typical progression is to start with raw text (TXT) and progressively encode more information (sometimes based on findings made with the analysis tools). When entering the XML level, the first elements encoded are very often some specific structures (e.g., sentence, paragraph, or section) or words (e.g., compounds or entities) and page breaks to control text edition pagination with respect to the sources and concordance references (e.g., page number).</p>
+            <p>NLP Annotation at Word Level</p>
+            <p>As any level of encoding supposes the processing of words (implicitly or explicitly encoded), TXM integrates the possibility to call external NLP tools working on words to automatically enrich the sources through a delegation model. In that model, tools and their parameters are first declared once. Then, for each import module, they can be automatically called as many times as needed on a representation of the texts compatible with their processing (texts are converted to the format needed by each tool), and the result of their processing is reinjected back into the sources. As an example, TXM automatically annotates words with their lemma and morphosyntactic category with the TreeTagger software. In that model, the quality of the automatic encoding is delegated to external tools.</p>
+            <p>In the case of XML type sources, if a word is already encoded with some properties (typically by using a &lt;w&gt; element), the NLP annotation is just added to the initial encoding.</p>
+            <p>Adding systematic word level annotation can be difficult to keep compatible with original XML encoding. This is why TXM provides stand-off and inline ways to store word annotations into a TXM-specific TEI extension scheme called ‘XML-TEI TXM’. That representation can be exported to other tools or re-imported in any TXM.</p>
+            <p>Conclusion</p>
+            <p>We presented the TXM progressive import framework allowing the scholar to choose the right level—and effort—of encoding needed for the analysis of its sources. TEI level encoding is not mandatory to use the tool, simple raw text can be analyzed, and XML encoded sources provide a lot of useful services for analysis, but TEI provides the best reference target level of encoding as a language to establish a contract between philological and analytic work.</p>
+            <p>Note</p>
+            <p>1. The sample BROWN corpus can be downloaded from the TXM software website, http://sourceforge.net/projects/txm/files/corpora/brown.</p>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl>
+                        <hi rend="bold">Francis, W. N. and Kucera, H.</hi> (1964). A Standard Corpus of Present-Day Edited American English, for Use with Digital Computers. Department of Linguistics, Brown University, Providence, RI. Revised, 1971; revised and amplified, 1979. See also https://sourceforge.net/projects/txm/files/corpora/brown.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Heiden, S.</hi> (2010). The TXM Platform: Building Open-Source Textual Analysis Software Compatible with the TEI Encoding Scheme. In Otoguro, R., Ishikawa, K., Umemoto, H., Yoshimoto, K. and Harada, Y. (eds), 
+                        <hi rend="italic">24th Pacific Asia Conference on Language, Information and Computation</hi>, November 2010, Sendai, Japan, Institute for Digital Enhancement of Cognitive Development, Waseda University, pp. 389–98.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Heiden, S., Guillot, C., Lavrentiev, A. and Bertrand, L.</hi> (2010). Manuel d’encodage BFM / XML-TEI, Version 4.0, BFM–Base de Français Médiéval [En ligne]. Lyon: ENS de Lyon, Laboratoire ICAR, http://bfm.ens-lyon.fr/IMG/pdf/Manuel_Encodage_TEI.pdf.
+                    </bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xsi:schemaLocation="http://www.tei-c.org/ns/1.0 /Users/yoann/Work/Grobid/grobid-home/schemas/xsd/Grobid.xsd"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+	<teiHeader xml:lang="en">
+		<encodingDesc>
+			<appInfo>
+				<application version="0.5.4-SNAPSHOT" ident="GROBID" when="2019-06-05T06:27+0000">
+					<ref target="https://github.com/kermitt2/grobid">GROBID - A machine learning software for extracting information from scholarly documents</ref>
+				</application>
+			</appInfo>
+		</encodingDesc>
+		<fileDesc>
+			<titleStmt>
+				<title level="a" type="main">A Stylometric Study of Nicholas of Montiéramey&apos;s Authorship in Bernard of Clairvaux&apos;s Sermones de Diversis</title>
+			</titleStmt>
+			<publicationStmt>
+				<publisher/>
+				<availability status="unknown"><licence/></availability>
+			</publicationStmt>
+			<sourceDesc>
+				<biblStruct>
+					<analytic>
+						<author role="corresp">
+							<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">Jeroen</forename><surname>De Gussem</surname></persName>
+							<email>jedgusse.degussem@ugent.be</email>
+							<affiliation key="aff0">
+								<orgName type="institution">Universiteit Gent</orgName>
+								<address>
+									<country key="BE">Belgium</country>
+								</address>
+							</affiliation>
+						</author>
+						<title level="a" type="main">A Stylometric Study of Nicholas of Montiéramey&apos;s Authorship in Bernard of Clairvaux&apos;s Sermones de Diversis</title>
+					</analytic>
+					<monogr>
+						<imprint>
+							<date/>
+						</imprint>
+					</monogr>
+				</biblStruct>
+			</sourceDesc>
+		</fileDesc>
+		<profileDesc>
+			<abstract/>
+		</profileDesc>
+	</teiHeader>
+	<text xml:lang="en">
+		<body>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Stylometry</head><p>The texts of Bernard of Clairvaux are edited in the Sancti Bernardi Opera (SBO), Jean Leclercq's edition published in 8 volumes. Nicholas' letters and sermons, on the other hand, still lack a modern edition, and can only be found in Migne's Patrologia Latina (see <ref type="table">table 4</ref>). Although experiments and debates as to which textual features best capture stylistic difference are still ongoing, many state-ofthe-art studies employ function words, which still prove to be the most robust discriminators for writing styles <ref type="bibr">(Burrows, 2002</ref>). Function words are usually short and insignificant words that pass unnoticed, such as pronouns, auxiliary verbs, articles, conjunctions and particles, whose main advantage is their frequent occurrence, less conscious use by authors and content-or genreindependent character. Their benefit and success for stylometry in Latin prose have been convincingly demonstrated before, although the methodology still raises acute questions which keep stylometrists on the lookout for alternatives.</p><p>Because medieval Latin is a synthetic language with a high degree of inflection, the texts required some preprocessing <ref type="bibr" target="#b6">(Mantello and Rigg, 1996)</ref>. For instance, enclitica such as -que and -ve had to be separated from the token in order to be recognized as a feature. Secondly, texts are more easily mined for information when the lexemes are lemmatized (which means that the instance of the word is referred to its headword) and when its words (tokens) are classified according to grammatical categories (parts of speech). For this purpose we applied the Pandora lemmatizer-tagger on the texts, a piece of software developed by Kestemont and De Gussem that is equipped to achieve specifically this (Kestemont and De Gussem, forthcoming). The third column, the part-of-speech-tag (PoS), allowed to immediately restrict the culling of most frequent words to those word categories that make up the collection of function words: conjunctions (CON), prepositions (AP), pronouns (PRO) and adverbs (ADV). This likewise filtered out some noise caused by ambiguities or homonyms like secundum. Once procedures of this sort were carried out in full, we arrived at a list of the 150 most frequent function words (MFFW) of the corpus <ref type="figure" target="#fig_1">(Figure 2</ref>) Each of the corpora was segmented into samples. This yields the advantage of "effectively <ref type="bibr">[assessing]</ref> the internal stylistic coherence of works," <ref type="bibr">(Eder et al., 2016</ref>) which answers directly to the primary goal of the present study. The sermons were segmented into 1500 word-samples <ref type="figure" target="#fig_2">(Figures 3-4</ref> present aexcerpts from tables describing the texts contained in each sample).  It should be noted that 1500 word-samples run the risk of increased imprecision, a consideration which should nuance any interpretation of the results ( <ref type="bibr" target="#b0">Kestemont et al., 2013)</ref>. Once the corpus was divided, each of the text samples was vectorized to document vectors. The raw counts were TF-IDFnormalized (Term frequency inverse document frequency), a procedure which divides the function word frequencies by the amount of text samples that respective function word appears in <ref type="bibr">(Manning, 2008;</ref><ref type="bibr" target="#b3">Kestemont et al., 2016)</ref>. As a consequence, less common function words received a higher weight which prevents them from sinking away (and losing statistical significance) in between very common function words. Once the data was preprocessed and regulated, two statistical techniques were applied to visualize its dynamics.</p><p>The first is a k Nearest Neighbors network in GEPHI (hereafter abbreviated to k-NN) <ref type="bibr">(Jockers, 2013;</ref><ref type="bibr">Eder, 2015;</ref><ref type="bibr">Jacomy et al., 2014</ref>), the second is principal components analysis (hereafter PCA) ( <ref type="bibr">Binongo et al., 1999</ref>). Their respective results will prove to be similar in a general sense, yet crucially different in the details. We argue that such an additional statistical validation provides for a more accurate, nuanced interpretation and a better intuition of the data. In the first visualization, the k-NN networks, we first calculated the 5 closest text samples to each text sample by applying k-NN on the frequency vectors. Accordingly for each text the 5 most similar or closest texts were calculated, weighted in rank of smallest pairwise distance (Minkowski metric, a Eucledian metric) and consequently mapped in space through forcedirected graph drawing (algorithm Force Atlas 2). The weights were directly calculated from the distances. The intuition is then that the distances should be normalized to a (1,0) range (as a higher distance responds to a lower weight). Secondly, PCA is a technique that allows to reduce a multivariate or multidimensional dataset of many features, such as our function word frequencies, to merely 2 or 3 principal components which disregard inconsequential information or noise in the dataset and reveal its important dynamics. The assumption is that the main principal components, our axes in the plot, point in the direction of the most significant change in our data, so that clustering and outliers become clearly visible. Each word in our feature vector is assigned a weighting or loading, which reflects whether or not a word correlates highly with a PC and therefore gains importance as a discriminator in writing style. In a plot, the loadings or function words which overlap with the clustered texts of a particular author are the preferred function words of that author (see <ref type="figure">Figure 7</ref> under "Results").  Firstly, when examining the visualizations, it is striking how -indeed -the diversity of Bernard's De diversis is captured. Especially PCA demonstrates the discernible stylistic incoherence as the samples burst open all over the plot (especially along the vertical axis of the second principal component), at times suggesting the interference of other writers than Nicholas or Bernard in their composition. Other samples gravitate in between Nicholas and Bernard, and in some cases Nicholas' influence on the style is undeniable. De diversis 6, 7, 21, 62, 83, 100 and 104, which Nicholas included in the letter to count Henry the Liberal (they are split up in two red samples labeled with le_ of Leclercq), do not betray an obvious affinity to Nicholas' style (although le_1 is not far off). Neither are they unambiguously Bernard's. Both samples diverge strongly and seem too hybrid in nature to be restrained. The case rather ostensifies how difficult it is to defend concepts such as "single authorship" or "text theft" in a medieval context: the le_ samples are clearly not of a "singular" style (nor of Nicholas's style, nor of Bernard's), but defy classification. In fact, if we compare both k-NN and PCA, Nicholas' influence in sample le_1 seems considerably larger than Bernard's.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Results</head></div><figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_0"><head>Figure 1 .</head><label>1</label><figDesc>Figure 1. Excerpt from table showing tags applied to the texts</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_1"><head>Figure 2 .</head><label>2</label><figDesc>Figure 2. Excerpt from contents of a table showing most frequently occurring function words.</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_2"><head>Figure 3 .</head><label>3</label><figDesc>Figure 3. Excerpt from a table describing the sample contents (1500 words) for Bernard's Sermones de Diversis as shown in figures 5-7.</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_3"><head>Figure 4 .</head><label>4</label><figDesc>Figure 4. Excerpt from a table describing the sample contents (1500 words) for Nicholas' sermons and letters as shown in figures 5-7.</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_4"><head>Figure 5 (</head><label>5</label><figDesc>Figure 5 (k-NN) and Figure 6 (PCA) feature the results of matching up Bernard's Sermones de Diversis benchmarked against the latter's Sermones Super Cantica Canticorum (his literary masterpiece) and the sermons and letters of his secretary Nicholas of Montiéramey.</figDesc><graphic url="image-7.png" coords="3,38.97,559.70,258.19,194.45" type="bitmap" /></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_5"><head>Figure 5 :</head><label>5</label><figDesc>Figure 5: k-NN Networks</figDesc></figure>
+		</body>
+		<back>
+			<div type="references">
+
+				<listBibl>
+
+<biblStruct xml:id="b0">
+	<monogr>
+		<title/>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">M</forename><surname>Kestemont</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">S</forename><surname>Moens</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">J</forename><surname>Deploige</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="2013" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b1">
+	<monogr>
+		<title level="m" type="main">Collaborative Authorship in the Twelfth Century: A Stylometric Study of Hildegard of Bingen and Guibert of Gembloux, Digital Scholarship in the Humanities</title>
+		<imprint>
+			<biblScope unit="volume">30</biblScope>
+			<biblScope unit="page" from="199" to="224" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b2">
+	<analytic>
+		<title level="a" type="main">Integrated Sequence Tagging for Medieval Latin Using Deep Representation Learning</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">M</forename><surname>Kestemont</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">J</forename><surname>De Gussem</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Journal of Data Mining and Digital Humanities</title>
+		<imprint/>
+	</monogr>
+	<note>forthcoming</note>
+</biblStruct>
+
+<biblStruct xml:id="b3">
+	<analytic>
+		<title level="a" type="main">Authenticating the writings of Julius Caesar</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">M</forename><surname>Kestemont</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">J</forename><surname>Stover</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">M</forename><surname>Koppel</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">F</forename><surname>Karsdorp</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">W</forename><surname>Daelemans</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Expert Systems with Applications</title>
+		<imprint>
+			<biblScope unit="volume">63</biblScope>
+			<biblScope unit="page" from="86" to="96" />
+			<date type="published" when="2016" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b4">
+	<analytic>
+		<title level="a" type="main">Les collections de sermons de Nicolas de Clairvaux</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">J</forename><surname>Leclercq</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Recueil d&apos;études sur saint Bernard et ses écrits (4 vols.). Rome: Edizioni di storia e letterature</title>
+		<imprint>
+			<biblScope unit="page" from="47" to="82" />
+		</imprint>
+	</monogr>
+	<note>)1962)</note>
+</biblStruct>
+
+<biblStruct xml:id="b5">
+	<analytic>
+		<title level="a" type="main">Notes sur la tradition des épitres de S. Bernard Recueil d&apos;études sur saint Bernard et ses écrits (4 vols</title>
+	</analytic>
+	<monogr>
+		<title level="m">Recueil d&apos;études sur saint Bernard et ses écrits (4 vols</title>
+		<imprint>
+			<date type="published" when="1962" />
+			<biblScope unit="volume">1</biblScope>
+			<biblScope unit="page" from="307" to="329" />
+		</imprint>
+	</monogr>
+	<note>Rome: Edizioni di storia e letterature</note>
+</biblStruct>
+
+<biblStruct xml:id="b6">
+	<monogr>
+		<title level="m" type="main">Medieval Latin: An Introduction and Bibliographical Guide</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">F</forename><forename type="middle">A C</forename><surname>Mantello</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">Rigg</forename></persName>
+		</author>
+		<editor>A. G.</editor>
+		<imprint>
+			<date type="published" when="1996" />
+			<publisher>Catholic University of America Press</publisher>
+			<pubPlace>Washington (D.C.</pubPlace>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b7">
+	<analytic>
+		<title level="a" type="main">Introduction: Philology in a Manuscript Culture</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">S</forename><forename type="middle">G</forename><surname>Nichols</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Speculum</title>
+		<imprint>
+			<biblScope unit="volume">65</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="1" to="10" />
+			<date type="published" when="1990" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b8">
+	<monogr>
+		<title level="m" type="main">Die Kanzlei St. Bernhards von Clairvaux. Studien und Mitteilungen zur Geschichte des Benediktiner-Ordens 34</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">P</forename><surname>Rassow</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="1913" />
+			<publisher>FB&amp;c Ltd</publisher>
+			<pubPlace>London</pubPlace>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b9">
+	<analytic>
+		<title level="a" type="main">Saint Bernard est-il l&apos;auteur des sermons 40, 41 et 42 «De diversis»?</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">H</forename><forename type="middle">M</forename><surname>Rochais</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Revue Bénédictine</title>
+		<imprint>
+			<biblScope unit="volume">72</biblScope>
+			<biblScope unit="issue">3-4</biblScope>
+			<biblScope unit="page" from="324" to="345" />
+			<date type="published" when="1962" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b10">
+	<analytic>
+		<title level="a" type="main">L&apos;introduction de l&apos;ars dictaminis en France: Nicholas de Montiéramey, un professionel du dictamen entre 1140 et 1158</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">A.-M</forename><surname>Turcan-Verkerk</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Le dictamen dans tous ses états: perspectives de recherche sur la théorie et la pratique de l&apos;ars dictaminis (xie-xve siècles). Turnhout: Brepols</title>
+		<editor>Turcan-Verkerk A.-M. and Grévin B.</editor>
+		<imprint>
+			<date type="published" when="2015" />
+			<biblScope unit="page" from="63" to="98" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+				</listBibl>
+			</div>
+		</back>
+	</text>
+</TEI>

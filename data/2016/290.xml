@@ -1,0 +1,328 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title type="full">
+                    <title type="main">Outliers or Key Profiles? Understanding Distance Measures for Authorship Attribution</title>
+                    <title type="sub"/>
+                </title>
+                <author>
+                    <persName>
+                        <surname>Evert</surname>
+                        <forename>Stefan</forename>
+                    </persName>
+                    <affiliation>Universität Erlangen-Nürnberg, Germany</affiliation>
+                    <email>stefan.evert@fau.de</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Jannidis</surname>
+                        <forename>Fotis</forename>
+                    </persName>
+                    <affiliation>University of Würzburg, Germany</affiliation>
+                    <email>fotis.jannidis@uni-wuerzburg.de</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Proisl</surname>
+                        <forename>Thomas</forename>
+                    </persName>
+                    <affiliation>Universität Erlangen-Nürnberg, Germany</affiliation>
+                    <email>thomas.proisl@fau.de</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Vitt</surname>
+                        <forename>Thorsten</forename>
+                    </persName>
+                    <affiliation>University of Würzburg, Germany</affiliation>
+                    <email>thorsten.vitt@uni-wuerzburg.de</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Schöch</surname>
+                        <forename>Christof</forename>
+                    </persName>
+                    <affiliation>University of Würzburg, Germany</affiliation>
+                    <email>christof.schoech@uni-wuerzburg.de</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Pielström</surname>
+                        <forename>Steffen</forename>
+                    </persName>
+                    <affiliation>University of Würzburg, Germany</affiliation>
+                    <email>pielstroem@biozentrum.uni-wuerzburg.de</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Reger</surname>
+                        <forename>Isabella</forename>
+                    </persName>
+                    <affiliation>University of Würzburg, Germany</affiliation>
+                    <email>isabella.reger@uni-wuerzburg.de</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2016-03-06T20:55:58.190932652</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Maciej Eder, Pedagogical University in Krakow</publisher>
+                <publisher>Jan Rybicki, Jagiellonian University</publisher>
+                <address>
+                    <addrLine>Institute of Polish Studies</addrLine>
+                    <addrLine>Pedagogical University</addrLine>
+                    <addrLine>ul. Podchorazych 2</addrLine>
+                    <addrLine>30-084 Krakow, Poland</addrLine>
+                    <addrLine>maciej.eder@ijp-pan.krakow.pl</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from an OASIS Open Document</p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.21">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Long Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>Delta</term>
+                    <term>distance measures</term>
+                    <term>normalization</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>literary studies</term>
+                    <term>stylistics and stylometry</term>
+                    <term>text analysis</term>
+                    <term>french studies</term>
+                    <term>authorship attribution / authority</term>
+                    <term>english studies</term>
+                    <term>german studies</term>
+                    <term>data mining / text mining</term>
+                    <term>English</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <div type="div1" rend="DH-Heading1">
+                <head>The state of the art</head>
+                <p>
+                    <hi rend="color(#000000)">Burrows’ Delta is one of the most successful algorithms in computational stylistics (Burrows 2002). A series of studies have proven its usefulness (e.g. Hoover 2004, Rybicki &amp; Eder 2011). There are two essential steps in Burrows’ Delta. The first is to standardize the relative frequencies of words in a document-term-matrix through a </hi>
+                    <hi rend="color(#000000)italic">z-score</hi>
+                    <hi rend="color(#000000)"> </hi>
+                    <hi rend="color(#000000)">transformation. In the second step, the distances between all texts are calculated. For each word, the difference between the </hi>
+                    <hi rend="color(#000000)italic">z-score</hi>
+                    <hi rend="color(#000000)"> </hi>
+                    <hi rend="color(#000000)">of the word in one and the other text are calculated. The absolute values of the differences are added for all words taken into account. The usual interpretation is that the smaller the sum, the more similar two texts are stylistically, and the more likely it is that they have been written by the same author. </hi>
+                </p>
+                <p>Despite the fact that Burrows’ Delta is as simple as it is useful, there is still a lack of a good explanation why the algorithm works so well. Argamon (2002) has shown that the second step in Burrows’ Delta is equivalent to taking the Manhattan distance between two points in a multi-dimensional space. He suggests, among other things, using the Euclidean distance instead. An empirical test of his proposals has shown, however, that none of them lead to an improvement in performance (Jannidis et al. 2015).</p>
+                <p>
+                    <figure>
+                        <graphic url="290/10000201000007AF000007CFCCC81279FE2EA7FD.png"/>
+                        <head>Figure 1: Illustration of the distance between two texts made up of just two words</head>
+                    </figure>
+                </p>
+                <p>Smith and Aldrige (2011) have suggested to use the cosine of the angle between the document vectors for the second step, as is customary in Information Retrieval (Baeza-Yates &amp; Ribeiro-Neto 1999:27). The Cosine variant of Delta (Delta
+                    <hi rend="italic">Cos</hi>) outperforms Burrows’ Delta (Delta
+                    <hi rend="italic">Bur</hi>) in many different settings and has the advantage of not showing the drop in performance typical ofother Delta variants when large numbers of MFW are used (Jannidis et al. 2015). The question now is why Delta
+                    <hi rend="italic">Cos</hi> is so much better than Delta
+                    <hi rend="italic">Bur</hi> and other variants, that is, in what way Delta
+                    <hi rend="italic">Cos</hi> captures the authorship signal more clearly than other variants of Delta. 
+                </p>
+                <p>Of decisive importance for our further analyses was the insight that using the Cosine Distance is equivalent to a vector normalization in the sense that (in contrast to Manhattan and Euclidean Distance) the length of the vector does not play a role for the calculation of the distance (see figure 1). Previous experiments have shown that an explicit, additional vector normalization also substantially improves performance of the other Delta measures (Evert et al. 2015).</p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Hypotheses</head>
+                <p>Having discovered that impact of the normalization effect, we have developed two empirically testable hypotheses:</p>
+                <list type="unordered">
+                    <item>(H1) Performance differences are caused by single extreme values, so-called outliers. These are particularly large positive or negative 
+                        <hi rend="italic">z-scores</hi> specific to single texts rather than all texts of a single author. As the Euclidean distance should be more sensitive to single extreme values than the Manhattan distance, this hypothesis would explain the comparatively bad performance of Argamon’s “Quadratic Delta” Delta
+                        <hi rend="italic">Q</hi>. The positive effect of vector normalization originates from the reduction of outlier amplitudes (“outlier hypothesis”).
+                    </item>
+                    <item>(H2) The author specific “style profile” manifests itself more in the qualitative combination of word preferences, i.e. in the pattern of over- and under utilization of vocabulary, rather than in the actual amplitude of 
+                        <hi rend="italic">z-scores</hi>. A text distance measure is particularly successful in authorship attribution if emphasizing structural differences of author style profiles without being too much influenced by actual amplitudes (“key-profile hypothesis”). This hypothesis explains directly why vector normalization results in such impressive improvements: it standardizes the amplitudes of author profiles in different texts.
+                    </item>
+                </list>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>New insights</head>
+                <div type="div2" rend="DH-Heading2">
+                    <head>Corpora</head>
+                    <p>For the experiments in this paper, we use three similarly composed corpora in German, English and French. Each corpus contains 25 different authors with 3 novels each, thus 75 texts in total. The corpora have been described in Jannidis et al. (2015). Due to space issues, the following section will only present our observations on the German corpus. The results for the corpora in both other languages show only small deviations and also support our findings.</p>
+                </div>
+                <div type="div2" rend="DH-Heading2">
+                    <head>Experiments</head>
+                    <p>To further investigate the role of outliers and thus the plausibility of H1, we complement Delta
+                        <hi rend="italic">Bur</hi> and Delta
+                        <hi rend="italic">Q</hi> with additional variants based on the general Minkowski distance (for 
+                        <hi rend="italic">p </hi>≥ 1):
+                    </p>
+                    <p>
+                        <figure>
+                            <graphic url="290/1000020100000107000000361C04104BBC97A252.png"/>
+                        </figure>
+                    </p>
+                    <p>We generally name these distance measures L
+                        <hi rend="italic">p</hi>-Delta. The specific case 
+                        <hi rend="italic">p</hi> = 1 equals the Manhattan distance (L
+                        <hi rend="italic">1</hi>-Delta = Delta
+                        <hi rend="italic">Bur</hi>), 
+                        <hi rend="italic">p</hi> = 2 the Euclidean distance (L
+                        <hi rend="italic">2</hi>-Delta = Delta
+                        <hi rend="italic">Q</hi>). The higher the value for 
+                        <hi rend="italic">p</hi>, the larger the influence of single outliers on L
+                        <hi rend="italic">p</hi>-Delta.
+                    </p>
+                    <p>Fig. 2 compares four different L
+                        <hi rend="italic">p</hi> distance measures (for p=1, √2, 2, 4) with Delta
+                        <hi rend="italic">Cos</hi>. The method of comparison is the same as in Evert et al. (2015): 75 text are automatically clustered in 25 groups according to Delta distances; clustering quality is estimated with the adjusted rand index (ARI). An ARI of 100% signifies perfect author recognition whereas a value of 0% shows that the clustering is entirely random. The performance of L
+                        <hi rend="italic">p</hi> Delta obviously decreases with increasing 
+                        <hi rend="italic">p</hi>. Additionally, the robustness of the measures also decreases with an increasing number of MWF used. As already reported in Jannidis et al. (2015) and Evert et al. (2015), Delta
+                        <hi rend="sub">Bur</hi> (L
+                        <hi rend="sub">1</hi>) consistently outperforms Argamon’s Delta
+                        <hi rend="italic">Q</hi> (L
+                        <hi rend="italic">2</hi>). Especially if many features, i.e. a large number of MFW is considered, high p values result in low performance. Delta
+                        <hi rend="italic">Cos</hi> is more robust than other variants and achieves almost perfect attribution success (ARI &gt; 90%) over a wide range of the MFW.
+                    </p>
+                    <p>
+                        <figure>
+                            <graphic url="290/10000201000007CF0000039D7A13BB39B37D0A44.png"/>
+                            <head>Figure 2: Clustering quality of different Delta measures as a function of the number of the MFW considered</head>
+                        </figure>
+                    </p>
+                    <p>Normalizing the feature vectors to length 1 improves the quality of all Delta measures significantly (fig. 3). In this case, Argamon’s Delta
+                        <hi rend="italic">Q</hi> is identical to Delta
+                        <hi rend="italic">Cos</hi>: the red line is completely covered by the green one. The other Delta measures (Delta
+                        <hi rend="italic">Bur</hi>, L
+                        <hi rend="italic">1.4</hi>-Delta) now reach about the same quality as Delta
+                        <hi rend="italic">Cos</hi>. Only L
+                        <hi rend="italic">4</hi> Delta, which is especially prone to outliers, falls short considerably. These results seem to support H1.
+                    </p>
+                    <p>
+                        <figure>
+                            <graphic url="290/10000201000007CF0000039D4B5D688B276087C2.png"/>
+                            <head>Figure 3: Cluster quality of various Delta measures with length-normalized vectors</head>
+                        </figure>
+                    </p>
+                    <p>A different approach to limit the influence of outliers is to truncate extreme 
+                        <hi rend="italic">z-scores</hi>. To do so, we set all |
+                        <hi rend="italic">z</hi>| &gt; 2 to +2 or –2, depending on the original 
+                        <hi rend="italic">z-scores</hi>’s sign. Fig. 4 shows the effects of various normalizations on the distribution of the feature values. Vector length normalization (lower left) produces only slight changes and practically does not reduce the number of outliers at all. Pruning large 
+                        <hi rend="italic">z-score</hi> values only affects words with above-average frequencies (upper right). 
+                    </p>
+                    <p>
+                        <figure>
+                            <graphic url="290/10000201000007CF0000051AA61625924867E17C.png"/>
+                            <head>Figure 4: Distributions of feature vectors for all 75 texts, using vectors of 5000 most frequent words. The table shows the distribution of the original 
+                                <hi rend="italic">z-scores</hi> (upper left), the distribution after length-normalizing the vectors (lower left), the distribution after clamping outliers with |
+                                <hi rend="italic">z</hi>| &gt; 2 (upper right) and a ternary quantization to the values –1, 0 and +1 (lower right). The red curve in the lower left graph shows the 
+                                <hi rend="italic">z-scores</hi> before normalization; the direct comparison shows the normalization has only minimal effect and almost does not reduce outliers. The thresholds for the ternary quantization, 
+                                <hi rend="italic">z</hi> &lt; –0.43 (–1), –0.43 ≤ 
+                                <hi rend="italic">z</hi> ≤ 0.43 (0) and 
+                                <hi rend="italic">z</hi> &gt; 0.43 (+1), have been selected such that in an ideal normal distribution, a third of all feature values would fall into each of the classes –1, 0, and +1.</head>
+                        </figure>
+                    </p>
+                    <p>
+                    </p>
+                    <p>As Fig. 5 shows, this manipulation improves the performance of all L
+                        <hi rend="italic">p</hi> Deltas considerably. However, its positive effect is noticeably smaller than that of vector normalization.
+                    </p>
+                    <p>
+                        <figure>
+                            <graphic url="290/10000201000007CF0000039D8C2EE8D70E074D6B.png"/>
+                            <head>Figure 5: Cluster quality after clamping outliers, i.e. feature values with |
+                                <hi rend="italic">z</hi>| &gt; 2 have been replaced with the fixed values –2 or +2, depending on 
+                                <hi rend="italic">z-score</hi>’s sign</head>
+                        </figure>
+                    </p>
+
+                    <p>With these differing effects of the normalizations on outlier distributions and Delta results, H1 cannot be upheld. H2 is supported by the good results of vector length normalization. However, on its own, it cannot explain why clamping outliers leads to a considerable improvement as well. To examine this hypothesis further, we created pure “key profile” vectors that only discriminate between word frequencies that are above average (+1), unremarkable (0), and below average (–1; cf. Fig. 4, lower right).</p>
+                    <p>
+                        <figure>
+                            <graphic url="290/10000201000007CF0000039DBF7F231C631CC80A.png"/>
+                            <head>Figure 6: Cluster quality with ternary quantization of the vectors in frequencies that are above average (+1, 
+                                <hi rend="italic">z</hi> &gt; 0.43), unremarkable (0, –0.43 ≤ 
+                                <hi rend="italic">z</hi> ≤ 0.43), and below average (
+                                <hi rend="italic">z</hi> &lt; –0.43)</head>
+                        </figure>
+                    </p>
+                    <p>Fig. 6 shows that these key profile vectors perform remarkably well, almost on par with vector normalization. Even the especially outlier-prone L
+                        <hi rend="italic">4</hi> Delta reaches a quite robust clustering quality of more than 90%. We interpret this observation as giving considerable support to hypothesis H2.
+                    </p>
+                </div>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Discussion and perspectives</head>
+                <p>H1, the outlier hypothesis, has been disproven as the vector normalisation hardly reduces the number of extreme values and the quality of all L
+                    <hi rend="italic">p</hi> measures is still considerably improved. On the other hand, H2, the key profile hypothesis, has been confirmed. The ternary quantification of the vectors shows clearly that it is not the extent of deviation resp. the size of the amplitude, but the profile of deviation across the MFW which is important. Remarkably, the measures behave differently if more than 2000 MFW are used. Almost all variant show a decline for a very large number of features, but they differ in when this decline starts. We suppose that the vocabulary in those parts is less specific for an author than for topics and content. Clarifying such questions will require further experiments.
+                </p>
+            </div>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl>
+                        <hi rend="bold">Argamon, S.</hi> (2008). Interpreting Burrows’s Delta: Geometric and Probabilistic Foundations. 
+                        <hi rend="italic">Literary and Linguistic Computing</hi>, 
+                        <hi rend="bold">23</hi>(2): 131–47 doi:10.1093/llc/fqn003. 
+                        <ptr target="http://llc.oxfordjournals.org/content/23/2/131.abstract"/>.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Baeza-Yates, R. and Ribeiro Neto, B.</hi> (1999). 
+                        <hi rend="italic">Baeza-Yates, Ricardo; Ribeiro Neto, Berthier (1999): Modern Information Retrieval. Harlow.</hi> Harlow.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Burrows, J.</hi> (2002). ‘Delta’: a Measure of Stylistic Difference and a Guide to Likely Authorship. 
+                        <hi rend="italic">Literary and Linguistic Computing</hi>, 
+                        <hi rend="bold">17</hi>(3): 267–87 doi:10.1093/llc/17.3.267. 
+                        <ptr target="http://llc.oxfordjournals.org/content/17/3/267.abstract"/>.
+                    </bibl>
+                    <bibl>
+                   		<hi rend="bold">Eder, M. and Rybicki, J.</hi> (2011). Deeper Delta across genres and languages: do we really need the most frequent words?. 
+                        <hi rend="italic">Literary and Linguistic Computing</hi>, 
+                        <hi rend="bold">26</hi>(3): 315–21 doi:10.1093/llc/fqr031. 
+                        <ptr target="http://llc.oxfordjournals.org/content/early/2011/07/14/llc.fqr031.abstract"/> .
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Evert, S., Proisl, T., Pielström, S., Schöch, C. and Vitt, T.</hi> (2015). Towards a better understanding of Burrows’s Delta in literary authorship attribution. 
+                        <hi rend="italic">Proceedings of the Fourth Workshop on Computational Linguistics for Literature</hi>. Denver CO.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Hoover, D. L.</hi> (2004). Testing Burrows’s Delta. 
+                        <hi rend="italic">Literary and Linguistic Computing</hi>, 
+                        <hi rend="bold">19</hi>(4): 453–75 doi:10.1093/llc/19.4.453. 
+                        <ptr target="http://llc.oxfordjournals.org/content/19/4/453.abstract"/>.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Jannidis, F., Pielström, S., Schöch, C. and Vitt, T.</hi> (2015). Improving Burrows’ Delta – An empirical evaluation of text distance measures. 
+                        <hi rend="italic">Digital Humanities 2015 Conference Abstracts</hi>. Sydney: ADHO 
+                        <ptr target="http://dh2015.org/abstracts/xml/JANNIDIS_Fotis_Improving_Burrows__Delta___An_empi/JANNIDIS_Fotis_Improving_Burrows__Delta___An_empirical_.html"/>.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Smith, P. W. H. and Aldridge, W.</hi> (2011). Improving Authorship Attribution: Optimizing Burrows’ Delta Method. 
+                        <hi rend="italic">Journal of Quantitative Linguistics</hi>, 
+                        <hi rend="bold">18</hi>(1): 63–88 doi:10.1080/09296174.2011.533591. 
+                        <ptr target="http://www.tandfonline.com/doi/abs/10.1080/09296174.2011.533591"/>.
+                    </bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

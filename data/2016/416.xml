@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title type="full">
+                    <title type="main">Assessing a Shape Descriptor for Analysis of Mesoamerican Hieroglyphics: A View Towards Practice in Digital Humanities</title>
+                    <title type="sub"/>
+                </title>
+                <author>
+                    <persName>
+                        <surname>Hu</surname>
+                        <forename>Rui</forename>
+                    </persName>
+                    <affiliation>Idiap Research Institute, Switzerland</affiliation>
+                    <email>rhu@idiap.ch</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Odobez</surname>
+                        <forename>Jean-Marc</forename>
+                    </persName>
+                    <affiliation>Idiap Research Institute, Switzerland; Ecole Polytechnique Federale de Lausanne (EPFL)</affiliation>
+                    <email>odobez@idiap.ch</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Gatica-Perez</surname>
+                        <forename>Daniel</forename>
+                    </persName>
+                    <affiliation>Idiap Research Institute, Switzerland; Ecole Polytechnique Federale de Lausanne (EPFL)</affiliation>
+                    <email>gatica@idiap.ch</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2016-03-04T21:14:27</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Maciej Eder, Pedagogical University in Krakow</publisher>
+                <publisher>Jan Rybicki, Jagiellonian University</publisher>
+                <address>
+                    <addrLine>Institute of Polish Studies</addrLine>
+                    <addrLine>Pedagogical University</addrLine>
+                    <addrLine>ul. Podchorazych 2</addrLine>
+                    <addrLine>30-084 Krakow, Poland</addrLine>
+                    <addrLine>maciej.eder@ijp-pan.krakow.pl</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from an OASIS Open Document</p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.21">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Long Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>Shape descriptor</term>
+                    <term>image retrieval</term>
+                    <term>Maya hieroglyph</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>archaeology</term>
+                    <term>image processing</term>
+                    <term>information retrieval</term>
+                    <term>content analysis</term>
+                    <term>interdisciplinary collaboration</term>
+                    <term>cultural studies</term>
+                    <term>English</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <div type="div1" rend="DH-Heading1">
+                <head>Introduction</head>
+                <p>Technological advances in digitization, automatic image analysis and information management are enabling the possibility to analyze, organize and visualize large cultural datasets. As one of the key visual cues, shape feature has been used in various image analysis tasks such as handwritten character recognition (Fischer, 2012; Franken, 2013), sketch analysis (Eitz, 2012), etc. We assess a shape descriptor, within the application domain of Maya hieroglyphic analysis. Our aim is to introduce this descriptor to the wider Digital Humanities (DH) community, as a shape analysis tool for DH-related applications.</p>
+                <p>The Maya civilization is one of the major cultural developments in ancient Mesoamerica. The ancient Maya language infused art with uniquely pictorial forms of hieroglyphic writing, which represents an exceptionally rich legacy (Stone, 2011). Most Maya texts were written during the Classic period (AD 250-900) of the Maya civilization on various media types, including stone monuments. A special class of Maya texts was written on bark cloths as folding books from the Post-Classic period (AD 1000-1519). Only three such books (namely the Dresden, Madrid and Paris codices) are known to have survived the Spanish Conquest. A typical Maya codex page contains icons, main sign glyph blocks, captions, calendric signs, etc. Fig. 1 illustrates an example page segmented into main elements (Gatica-Perez, 2014). In this paper, we are interested in the main signs.</p>
+                <p>
+                    <figure>
+                        <graphic url="416/100000000000089800000647989F2083.jpg"/>
+                        <head>Figure 1. Page 6b of the Dresden Codex, showing individual constituting elements framed by blue rectangles (Hu, 2015), Green arrows indicate reading order of the main sign blocks, generated by Carlos Pallan based on SLUB (
+                            <ptr target="http://digital.slub-dresden.de/werkansicht/dlf/2967/1/"/> ) online open source image.
+                        </head>
+                    </figure>
+                </p>
+                <p>Maya hieroglyphic analysis requires epigraphers to spend a significant amount of time browsing existing catalogs to identify individual glyphs. Automatic Maya glyph analysis has been addressed as a shape matching problem, and a robust shape descriptor called Histogram of Orientation Shape Context (HOOSC) was developed in (Roman-Rangel, 2011). Since then, HOOSC has been successfully applied for automatic analysis of other cultural heritage data, such as Oracle-Bones Inscriptions of ancient Chinese characters (Roman-Rangel, 2012), and ancient Egyptian hieroglyphs (Franken, 2013). It has also been applied for generic sketch and shape image retrieval (Roman-Rangel, 2012). Our recent work extracted statistic Maya language model and incorporated it for glyph retrieval (Hu, 2015).</p>
+                <p>The goal of this paper is two-fold:</p>
+                <list type="ordered">
+                    <item>Introduce the HOOSC descriptor to be used in DH-related shape analysis tasks (code available at: 
+                        <ptr target="http://www.idiap.ch/paper/maaya/hoosc/"/>);
+                    </item>
+                    <item>Discuss key issues for practitioners, namely the effect that certain parameters have on the performance of the descriptor. We describe the impact of such choices on different data types, specially for 'noisy' data as it is often the case with DH image sources.</item>
+                </list>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Automatic Maya Hieroglyph Recognition</head>
+                <p>We conduct glyph recognition with a retrieval system proposed in (Hu, 2015). Unknown glyphs are considered as queries to match with a database of known glyphs (retrieval database). Shape and context information are considered. Fig.2 illustrates a schema of our approach. We study the effect of different HOOSC parameter choices on the retrieval results.</p>
+                <p>
+                    <figure>
+                        <graphic url="416/100002010000032300000180AC2EF00A.png"/>
+                        <head>Figure 2. Retrieval system pipeline.</head>
+                    </figure>
+                </p>
+                <div type="div2" rend="DH-Heading2">
+                    <head>Datasets</head>
+                    <p>We use three datasets, namely the 'Codex', 'Monument' and 'Thompson'. The first two are used as queries to search within the retrieval database ('Thompson').</p>
+                    <p>
+                        <figure>
+                            <graphic url="416/10000000000005F1000003A997F1124F.jpg"/>
+                            <head>Figure 3. Digitization quality: (left) raw glyph blocks cropped from Dresden codex; (middle) clean raster images produced by removing the background noise; (right) reconstructed high-quality vectorial images.</head>
+                        </figure>
+                        </p>
+                    <p>The 'Codex' dataset contains glyph blocks from the three surviving Maya codices. See Fig.3 for examples. Glyph blocks are typically composed of combinations of individual signs. Fig.4 shows individual glyphs segmented from blocks in Fig.3. Note the different degradation levels across samples. We use two sub-datasets: 'codex-small', composed of 156 glyphs segmented from 66 blocks, for which we have both clean raster and high-quality reconstructed vectorial representations (see Fig.4) to study the impact of the different data qualities on the descriptor; and a 'codex-large' dataset, which is more extensive, comprising only the raster representation of 600 glyphs from 229 blocks.
+                    </p>
+                    <p>
+                        <figure>
+                            <graphic url="416/100000000000057A000002D254172A9F.jpg"/>
+                            <head>Figure 4. Example glyph strings generated from blocks shown in Figure 3.</head>
+                        </figure>
+                        </p>
+                    <p>The 'Monument' dataset is an adapted version of the Syllabic Maya dataset used in (Roman-Rangel, 2011), which contains 127 glyphs of 40 blocks extracted from stone monuments. It is a quite different data source to the codex data, in terms of historical period, media type, and data generation process. Samples are shown in Fig.5.
+                    </p>
+                    <p>
+                        <figure>
+                            <graphic url="416/10000000000007670000025128EFE4C1.jpg"/>
+                            <head>Figure 5. Example blocks and segmented glyph strings form the 'Monument' dataset.</head>
+                        </figure>
+                        </p>
+                    <p>To form the retrieval database ('Thompson'), we scanned and segmented all the glyphs from the Thompson catalog (Thompson, 1962). The database contains 1487 glyph examples of 892 different sign categories. Each category is usually represented by a single example image. Sometimes multiple examples are included; each illustrates a different visual instance or a rotation variant. Fig.6 shows glyph examples.
+                    </p>
+                    <p>
+                        <figure>
+                            <graphic url="416/100000000000074C0000016D4A6642BE.jpg"/>
+                            <head>Figure 6. Thompson numbers, visual examples, and the syllabic values of glyph pairs. Each pair contains two different signs with similar visual features (Hu, 2015). All examples are taken from (Thompson, 1962).</head>
+                        </figure>
+                    </p>
+                </div>
+                <div type="div2" rend="DH-Heading2">
+                    <head>Shape-based retrieval</head>
+                    <p>Feature extraction and similarity matching are the two main steps for our shape-based glyph retrieval framework. </p>
+                    <p>
+                        <figure>
+                            <graphic url="416/1000000000000881000004C3545452A8.jpg"/>
+                            <head>Figure 7. Extracting HOOSC descriptor: (a) input clean raster image; (b) binary image; (c) thinned edge of (b); (d) reconstructed vector representation of (a); (e) thinned edge of (d); (f) corresponding groundtruth image in the catalog; (g)-(k) spatial partition of a same pivot point with five different ring sizes (1, ½, ¼, 1/8, 1/16, all defined as a proportion to the mean of the pairwise distance between pivot points) on the local orientation field of the thinned edge image (c). Note that we zoomed in to show the spatial context of 1/16 in (k).</head>
+                        </figure>
+                        </p>
+                    <p>Glyphs are first pre-processed into thin lines. To do so, an input glyph (Fig.7(a)) is first converted into a binary shape (Fig.7 (b)). Thin lines (Fig.7(c)) are then extracted through mathematical morphology operations. Fig.7(c)-(d) show the high-quality reconstructed binary image, and the extracted thin lines.
+                    </p>
+                    <p>HOOSC descriptors are then computed at a subset of uniformly sampled pivot points along the thin lines. HOOSC combines the strength of Histogram of Orientation Gradient (Dalal, 2005) with circular split binning from the shape context descriptor (Belongie, 2002). Given a pivot point, the HOOSC is computed on a local circular space centred at the pivot's location, partitioned into rings and evenly distributed angles. Fig.7 (g)-(k) show different sizes of the circular space (referred to as spatial context) partitioned into 2 rings and 8 orientations. A Histogram-of-orientation-gradient is calculated within each region. The HOOSC descriptor for a given pivot is the concatenation of histograms of all partitioned regions.</p>
+                    <p>We then follow the Bag-of-Words (BoW) approach, where descriptors are quantized as visual words based on the vocabulary obtained through K-means clustering on the set of descriptors extracted from the retrieval database. A histogram representing the count of each visual word is then computed as a global descriptor for each glyph. In all experiments, we use vocabulary size k=5000.</p>
+                    <p>Each query is matched with glyphs in the retrieval database, by computing shape feature similarity using the L1 norm distance.</p>
+                    <p>
+                        <figure>
+                            <graphic url="416/100000000000074D0000020A8E000B05.png"/>
+                            <head>Figure 8. Six pairs of glyph signs (Hu, 2015). Each pair contains a query glyph from the 'Codex' dataset (right), and their corresponding groundtruth in the catalog (left).</head>
+                        </figure>
+                    </p>
+                </div>
+                <div type="div2" rend="DH-Heading2">
+                    <head>Incorporating context information</head>
+                    <p>Shape alone is often ambiguous to represent and distinguish between images. In the case of our data, different signs often share similar visual features (see Fig.6); glyphs of the same sign category vary with time, location, and the different artists who produced them (see Fig.8); additionally, surviving historical scripts often lose visual quality over time. Context information can be used to complement the visual features.</p>
+                    <p>Glyph co-occurrence within single blocks encodes valuable context information. To utilize this information, we arrange glyphs within a single block into a linear string according to the reading order (see Fig.4 and Fig.5), and consider the co-occurrence of neighbouring glyphs using an analogy to a statistical language model. For each unknown glyph in the string, we compute its probability to be labelled as a given category by considering not only the shape similarity, but also the compatibility to the rest of the string.</p>
+                    <p>We apply the two language models extracted in (Hu, 2015), namely the ones derived from the Maya Codices Database (Vail, 2013) and the Thompson catalog (Thompson, 1962), which we refer to as the 'Vail' and the 'Thompson' models. We use Vail model with smoothing factor α=0 for the 'Codex' data, and the Thompson model with α=0.2 for the 'Monument' data.</p>
+                </div>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Experiments and Results</head>
+                <p>Our aim is to demonstrate the effect of various HOOSC parameters on retrieval results.</p>
+                <div type="div2" rend="DH-Heading2">
+                    <head>Experimental setting</head>
+                    <p>We illustrate the effect of 3 key parameters:</p>
+                    <list type="unordered">
+                        <item>Size of the spatial context region within which HOOSC is computed</item>
+                    </list>
+                    <p>A larger region encodes more context information and therefore captures more global structure of the shape. However, in the case of image degradation, a larger region could contain more noise. We evaluate five different spatial contexts as shown in Fig.7(g)-(k). The circular space is distributed over 8 angular intervals. </p>
+                    <list type="unordered">
+                        <item>Number of rings to partition the local circular region</item>
+                    </list>
+                    <p>This parameter represents different partition details. We evaluate either 1 or 2 rings, the inner ring covers half the distance to the outer ring. Each region is further characterized by a 8-bin histogram of the local orientations.</p>
+                    <list type="unordered">
+                        <item>Position information</item>
+                    </list>
+                    <p>Relative position (i, j) of a pivot in the 2-D image plane can be concatenated to the corresponding HOOSC feature.</p>
+                </div>
+                <div type="div2" rend="DH-Heading2">
+                    <head>Results and discussion</head>
+                    <p>Fig.9 shows the average groundtruth ranking in the retrieval results with different parameter settings, on three query sets, 
+                        <hi rend="italic">e.g.</hi> 'Codex-large', 'Codex-small' and 'Monument'. Each query image usually has only one correct match (groundtruth) in the retrieval database. The smaller the average ranking value, the better the result. From Fig.9 we can see the following:
+                    </p>
+                    <list type="unordered">
+                        <item>In most cases, the best results are achieved by using the largest spatial context, with finer partitioning details (2 rings in our case);</item>
+                        <item>When the location information is not considered, results show a general trend of improving with increasing ring sizes. However, the results are more stable when the position information is encoded, 
+                            <hi rend="italic">e.g.</hi> a smaller ring size can also achieve promising results when the location information is incorporated. This is particularly useful when dealing with noisy data, where a smaller ring size is preferred to avoid extra noise been introduced by a larger spatial context;
+                        </item>
+                        <item>The results do not benefit from a finer partition, when a small spatial context is considered. However, results improve with finer partitions, when the spatial context becomes larger. </item>
+                        <item>Position information is more helpful when a small spatial context is considered.</item>
+                    </list>
+                    <p>Fig.10 shows example query glyphs and their top returned results.</p>
+                </div>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Conclusion</head>
+                <p>We have introduced the HOOSC descriptor to be used in DH-related shape analysis tasks. We discuss the effect of parameters on the performance of the descriptor. Experimental results on ancient Maya hieroglyph data from two different sources (codex and monument) suggest that a larger spatial context with finer partitioning detail usually leads to better results, while a smaller spatial context with location information is a good choice for noisy/damaged data. The code for HOOSC is available so DH researchers can test the descriptor for their own tasks.</p>
+            </div>
+            <div type="div1" rend="DH-Heading">
+                <head>Acknowledgement</head>
+                <p>We thank Edgar Roman-Rangel for co-inventing the HOOSC algorithm and providing the original code. We also thank Carlos Pallán Gayol, Guido Krempel, and Jakub Spotak for producing the data used in this paper. Finally, we thank the Swiss National Science Foundation (SNSF) and the German Research Foundation (DFG) for their support, through the MAAYA project.</p>
+                <p>
+                    <figure>
+                        <graphic url="416/10000000000007EA0000093853776226.jpg"/>
+                        <head>Figure 9. Retrieval results on each dataset, with various feature representation choices. (left) shape-base results; (right) incorporating glyph co-occurrence information.</head>
+                    </figure>
+                </p>
+                <p>
+                    <figure>
+                        <graphic url="416/1000000000000790000009C9BCD3C226.jpg"/>
+                    </figure>Figure 10. Example queries (first column) and their top returned retrieval results, ranked from left to right in each row. Groundtruth images are highlighted in green bounding boxes.
+                </p>
+            </div>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl>
+                        <hi rend="bold">Belongie, S., Malik, J., and Puzicha, J.</hi> (2002). Shape Matching and Object Recognition using Shape Contexts. 
+                        <hi rend="italic">PAMI.</hi> pp. 509-22.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Dalal, N., and Triggs, B.</hi> (2005). Histogram of Oriented Gradients for Human Detection.
+                        <hi rend="italic"> In CVPR</hi>. pp. 886-93.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Eitz, M., et al.</hi> (2012). Sketch-based shape retrieval. 
+                        <hi rend="italic">ACM Transactions on Graphics</hi>. <hi rend="bold"> 31</hi>: 1-10.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Fischer, A., et al.</hi> (2012). The HisDoc Project. Automatic Analysis, Recognition, and Retrieval of Handwritten Historical Documents for Digital Libraries. 
+                        <hi rend="italic">InterNational and InterDisciplinary Aspects of Scholarly Editing.</hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Franken, M., and Gemert, J. C.</hi> (2013). Automatic Egyptian Hieroglyph Recognition by Retrieving Images as Texts. 
+                        <hi rend="italic">ACM MM</hi>, pp. 765-68. 
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Gatica-Perez, D., et al.</hi> (2014). The MAAYA Project: Multimedia Analysis and Access for Documentation and Decipherment of Maya Epigraphy. 
+                        <hi rend="italic">Digital Humanities Conference.</hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Hu, R., et al.</hi> (2015). Multimedia Analysis and Access of Ancient Maya Epigraphy: Tools to support scholars on Maya hieroglyphics. 
+                        <hi rend="italic">IEEE Signal Processing Magazine</hi>, pp. 75-84.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Roman-Rangel, E.</hi> (2012). <hi rend="italic">Statistical Shape Descriptors for Ancient Maya Hieroglyphs Analysis.</hi>
+                        PhD thesis, École Polytechnique Fédérale de Lausanne.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Roman-Rangel, E., et al.</hi> (2011). Analyzing Ancient Maya Glyph Collections with Contextual Shape Descriptors. 
+                        <hi rend="italic">IJCV</hi>, pp. 101-17.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Stone, A.J. and Zender, M.</hi> (2011). <hi rend="italic">Reading Maya Art: A Hieroglyphic Guide to Ancient Maya Painting and Sculpture</hi>. 
+                        Thames and Hudson Limited Publisher.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Thompson, J. E. S.</hi> (1962). <hi rend="italic">A Catalog of Maya Hieroglyphs</hi>. 
+                        University of Oklahoma Press.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Vail, G., and Hernández, C.</hi> (2013). <hi rend="italic">The Maya Codices Database</hi>, Version 4.1. A website and database available at 
+                        http://www.mayacodices.org/.
+                    </bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

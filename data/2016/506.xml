@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title type="full">
+                    <title type="main">Project COLEM for CREATE (University of Amsterdam)</title>
+                    <title type="sub">Adapting NPL-Tools for Creating an Orthographic Layer for Early Modern Dutch Texts</title>
+                </title>
+                <author>
+                    <persName>
+                        <surname>van Elburg</surname>
+                        <forename>Wouter</forename>
+                    </persName>
+                    <affiliation>University of Amsterdam, Netherlands, The</affiliation>
+                    <email>w.m.vanelburg@uva.nl</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Wijckmans</surname>
+                        <forename>Tessa</forename>
+                    </persName>
+                    <affiliation>University of Amsterdam, Netherlands, The</affiliation>
+                    <email>t.m.wijckmans@uva.nl</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2016-03-03T16:32:00Z</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Maciej Eder, Pedagogical University in Krakow</publisher>
+                <publisher>Jan Rybicki, Jagiellonian University</publisher>
+                <address>
+                    <addrLine>Institute of Polish Studies</addrLine>
+                    <addrLine>Pedagogical University</addrLine>
+                    <addrLine>ul. Podchorazych 2</addrLine>
+                    <addrLine>30-084 Krakow, Poland</addrLine>
+                    <addrLine>maciej.eder@ijp-pan.krakow.pl</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from a Word document </p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.20">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Poster</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>spelling standardisation</term>
+                    <term>VARD2</term>
+                    <term>spelling normalisation</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>information retrieval</term>
+                    <term>literary studies</term>
+                    <term>content analysis</term>
+                    <term>bibliographic methods / textual studies</term>
+                    <term>linguistics</term>
+                    <term>machine translation</term>
+                    <term>translation studies</term>
+                    <term>linking and annotation</term>
+                    <term>English</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <p>The seventeenth century Dutch language did not know a standardized spelling. Because of this, many different spelling variants of the same word (i.e. 
+                <hi rend="italic">ik</hi> and 
+                <hi rend="italic">ick</hi>, both meaning 
+                <hi rend="italic">I</hi>) coexist. This may largely be the result of an author’s own preferences, background or the book printer he used.
+                <hi rend="endnote_reference">
+                    <note place="end">
+                        <p rend="endnote text"> It is not known who exactly was responsible for the spelling as it was printed. But due to there being examples of texts printed by the same printer that use radically different spelling forms it is plausible that the author of the text was responsible for the spelling.</p>
+                    </note>
+                </hi> Software to standardize, analyze or process texts is mostly developed for modern Dutch, so processing historical texts with natural language processing (NPL) tools or analysing such texts on stylometric aspects is problematic. Due to the orthographic variation of historical texts, software will not always recognize words that have the same meaning, but different spelling.
+            </p>
+            <p> For project COLEM we want to normalize spelling differences by having digital re-speller tools form a standardized spelling variant, that could help software better understand the texts. We investigate the possibilities to provide the original text with an orthographic layer containing the normalized words. In this way, the original texts and its morfo-syntactic information are still accessible and it will be possible to search both the original text and the layer. This, for instance, will ease research to language evolution. </p>
+            <p>The Java software VARD2 (Baron 2011; Baron and Rayson, 2008) seems to be a useful tool for this purpose.
+                <hi rend="endnote_reference">
+                    <note place="end">
+                        <p rend="endnote text"> VARD is an acronym for Variant Detector.</p>
+                    </note>
+                </hi> This tool was originally created to normalize old English texts, but can be adjusted to other languages. VARD2 will compare the words in the input text with an incorporated, but easily adaptable wordlist (a .txt-file). We replaced the default wordlist with a Dutch lexicon and we trained VARD2 on texts of two different seventeenth century Dutch authors: Simon de Vries and Gotfried van Broekhuizen. Texts of these authors are characterized by a significant different orthography and this could therefore help us to train normalizers and test them on different spelling forms existing within the Early Modern Dutch language. 
+            </p>
+            <p>We trained VARD2 by replacing the variants in the historical texts with a normalization. VARD2 will present suggestions for normalization by using four methods of which just one is language dependent (a modified version of the Soundex phonetic matching algorithm that is based on English phonemes). Two other methods, that of letter rules and that of known variants, we adapted by replacing the default .txt-files ‘letter rules’ and ‘known variants’. The last method, a normalized Levenshtein Distance, does not need to be adapted, since it is language independent. </p>
+            <p> In this presentation we will show the performances of our trained VARD2 tool. We will focus on a specific amount of problems the tools run into, like uncommon words, clitics and combined words. We will also investigate the possibilities of the Norma
+                <hi rend="endnote_reference">
+                    <note place="end">
+                        <p rend="endnote text"> Norma is written in C++11, though bindings for Python are provided as well. </p>
+                    </note>
+                </hi> tool (Bollman, 2012) and TICCLops
+                <hi rend="endnote_reference">
+                    <note place="end">
+                        <p> TICCLops v.0.2(Text Induced Corpus Clean-up online processing system) is a web application (offered in a JavaScript interface) that is intended to detect and correct typographical errors and OCR (optical character recognition) errors in text. It is usable for every language, since it bases its replacements on the input corpus by making Most Frequent Words-list. However, TICCLops is probably less usable for providing a text with an annotation layer, because the replacements take place in the texts itself, without preserving an original version of the text. 
+                            <lb/>
+                        </p>
+                    </note>
+                </hi> (Reynaert, 2014). By comparing the results that various tools offer, we will decide what tool(s) is/are most successful in dealing with these problems. This could give us ideas for follow-up research or the development of tools for normalizing Early Modern Dutch, but probably also for normalizing other languages with unstable orthographies.
+            </p>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl>
+                        <hi rend="bold">Baron, A.</hi> (2011). 
+                        <hi rend="italic">Dealing with spelling variation in Early Modern English texts.</hi> Ph.D. thesis, University of Lancaster. 
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Baron, A. and Rayson, P.</hi> (2008). VARD2: A tool for dealing with spelling variation in historical corpora. 
+                        <hi rend="italic">Proceedings of Postgraduate Conference in Corpus Linguistics</hi>. Birmingham: Aston University, May 2008.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Bollmann, M.</hi> (2012). (Semi-)automatic normalization of historical texts using distance measures and the Norma tool. In Mambrini, F., Passarotti M. and Sporleder C. (eds), 
+                        <hi rend="italic">Proceedings of the Second Workshop on Annotation of Corpora for Research in the Humanities (ARCH-2)</hi>. Lisbon, Portugal, pp. 3-14.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Reynaert, M.W.C.</hi> (2014). Synergy of Nederlab and PhilosTEI: diachronic and multilingual Text-Induced Corpus Clean-up. In 
+                        <hi rend="italic">Proceedings of the Sixth International Language Resources and Evaluation (LREC'14)</hi>. Reykjavik, Iceland, 2014. 
+                    </bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

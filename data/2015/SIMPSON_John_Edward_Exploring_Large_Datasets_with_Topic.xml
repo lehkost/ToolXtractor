@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>Exploring Large Datasets with Topic Model Visualizations</title>
+                <author>
+                    <persName>
+                        <surname>Montague</surname>
+                        <forename>John</forename>
+                    </persName>
+                    <affiliation>University of Alberta, Canada</affiliation>
+                    <email>jmontagu@ualberta.ca</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Simpson</surname>
+                        <forename>John</forename>
+                    </persName>
+                    <affiliation>University of Alberta, Canada</affiliation>
+                    <email>john.simpson@ualberta.ca</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Rockwell</surname>
+                        <forename>Geoffrey</forename>
+                    </persName>
+                    <affiliation>University of Alberta, Canada</affiliation>
+                    <email>geoffrey.rockwell@ualberta.ca</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Ruecker</surname>
+                        <forename>Stan</forename>
+                    </persName>
+                    <affiliation>Illinois Institute of Technology, USA</affiliation>
+                    <email>sruecker@id.iit.edu</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Brown</surname>
+                        <forename>Susan</forename>
+                    </persName>
+                    <affiliation>University of Alberta, Canada; University of Guelph, Canada</affiliation>
+                    <email>sibrown@ualberta.ca</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2014-12-19T13:50:00Z</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Paul Arthur, University of Western Sidney</publisher>
+                <address>
+                    <addrLine>Locked Bag 1797</addrLine>
+                    <addrLine>Penrith NSW 2751</addrLine>
+                    <addrLine>Australia</addrLine>
+                    <addrLine>Paul Arthur</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from a Word document </p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.9">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Long Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>Topic Models</term>
+                    <term>Graphs</term>
+                    <term>Big Data</term>
+                    <term>Visualization</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>philosophy</term>
+                    <term>text analysis</term>
+                    <term>visualisation</term>
+                    <term>networks</term>
+                    <term>relationships</term>
+                    <term>graphs</term>
+                    <term>English</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <p>How can topic model visualizations aid in the exploration of large datasets? The standard method for visualizing topic models involves a two-stage process that begins with the use of a tool specifically designed to construct topic models on a specified corpus. MALLET (McCallum, 2002), a command line tool that implements the Latent Dirichlet Allocation (LDA) algorithm described by Blei et al. (2003), provides output in the form of text files that can be shared directly with other tools and seems to be the default tool of choice for the first stage. Regardless of the topic modeller used, its output is then passed to a separate tool for the second stage in the production of the visualization. These separate tools are either general visualization tools or topic model specific visualization tools. The use of general visualization tools is attractive because it typically requires a lower technical competency and allows the user to leverage skills they already have, but general tools provide fewer targeted affordances for exploration. Still, despite the existence of at least a dozen tools that have been used to visualize topic models, it remains the case that none of them are particularly well suited to exploring large datasets comprising thousands or millions of entries in a corpus distributed over a wide range of time and with a correspondingly large set of candidate topics produced by topic modelling. </p>
+            <p>This paper provides a solution to this problem by describing a tool that has been designed specifically to address this problem and that is now entering production. Before describing the tool and providing a short demonstration of its functionality, we summarize the current landscape of topic model visualizations and provide recommendations based on various use-cases. </p>
+            <p>
+                <hi rend="bold">Topic Modelling Visualizations</hi>
+            </p>
+            <p>The visualization methods used across these tools can be fruitfully categorized using a set of modified categories drawn from work done by Katifori et al. (2007) on ontology visualizations: </p>
+            <p> • 
+                <hi rend="bold">Traditional charts </hi>(Bar, line, pie, scatterplot, etc.): D-VITA (Gunnemann et al., 2013); Tableau (Sharkey and Ansari, 2014); ParallelTopics (Dou et al., 2011); NIPS (Iwata et al., 2008); MetaToMATo (Snyder et al., 2013).
+            </p>
+            <p> • 
+                <hi rend="bold">Network graphs</hi>: Gephi (Chen et al., 2013); Topicnet (Gretarsson et al., 2012). 
+            </p>
+            <p> • 
+                <hi rend="bold">Zoomable tools</hi>: an unnamed tool by Chaney and Blei (2012). 
+            </p>
+            <p> • 
+                <hi rend="bold">2D matrix</hi>: Serendip (Alexander et al., 2014); Termite (Chuang et al., 2012).
+            </p>
+            <p>The variety of visualization techniques being pursued are evidence of the difficulties related to displaying relevant information from topic modelling, as each visualization method has been developed or chosen with a particular application in mind. The tools that particularly focus on exploring the underlying data and revealing connections are Serendip and MetaToMATo, neither of which is a graph-based visualization, and both of which become overwhelmed by large datasets. Gephi is a general-purpose graph-based visualization tool that has been used to visualize large datasets (Munster, Jockers), but the images it produces are static and it does not easily lend itself to sharing information derived from topic models. Drawing on lessons from a review of all these tools, but Serendip, MetaToMATo, and Gephi in particular, the tool we report on constructing is targeted at exploration using graph-based visualizations of topic models on large corpuses. </p>
+            <p>
+                <hi rend="bold">Topic Modelling Philosophy Journals</hi>
+            </p>
+            <p>Motivation for this project has been brought about in part by work done over the past year with a corpus of philosophy journals acquired from JSTOR (Simpson et al., 2014). While investigating this corpus we made use of chart-based visualizations with R after preprocessing with MALLET. While there was much to be learned from the changing prevalence of particular topics over time, there were also a number of things that the visualizations were not able to tell us. In particular, our first visualizations made it difficult to easily see connections between the different topics, to see relations between the different journals, and to have this information present itself with increasing detail as required for the investigation. This challenge arose in large part because the dataset covered 27,536 journal articles from 10 different journals published between 1876 and 2008. Datasets of this size and diversity are becoming increasingly common, and so we moved to pursue a tool capable of visualizing the results of topic modelling. Not finding a suitable one for the exploration of large datasets, we set about designing a new one. </p>
+            <p>
+                <hi rend="bold">Visualizations in 3D</hi>
+            </p>
+            <p>MacEachren et al. (1994) suggest that all visualizations are meant to principally perform one of the following tasks: clearly present previously discovered information, analyze a particular dataset, combine multiple datasets, or explore data for knowledge discovery. It is the last category on which our visualization research team has been particularly focused: visualizations that allow the user to not simply understand or analyze a dataset, but to explore it in hopes of uncovering new information. </p>
+            <p>As Lauren Frederica-Klein says in her 2013 digital humanities start-up grant application for the Interactive TOpic Model and MEtadata Visualization (TOME) project
+                <hi rend="italic">, </hi>regarding Wise et al.’s Galaxies visualization, ‘By forcing all thematic differences into a single two-dimensional presentation, information is inevitably lost’. In an effort to minimize this information loss, we are now creating an exploration tool for the purpose of experiencing a topic-modeled corpus in 3D space, using the free, open-source JavaScript framework 
+                <hi rend="italic">Famo.us</hi>. 
+            </p>
+            <p>The 
+                <hi rend="italic">Famo.us </hi>framework is designed to help ‘create smooth, complex UIs for any screen’, and will provide us some substantial benefits, first and foremost being that its CSS-like styling code is relatively straightforward to learn and implement. Additionally, using physics-based animations, three orientation axes, and opacity control, it is capable of rendering a touch-screen manipulable, three-dimensional environment, the interactivity afforded by which is something we believe will help greatly foster user exploration. As explained by Card et al. (1999), ‘This additional [3rd] dimension projects from the viewpoint toward infinity, creating a large visible workspace’, a decidedly beneficial quality when visually exploring a large dataset. 
+            </p>
+            <p>Chuang et al. (2012) describe the illegible results of experimenting with topic modelling visualizations where text is displayed directly in the visualization matrix. To reduce the volume of unwanted information, our design implements Healey’s (1996) notion of ‘knowledge discovery’, allowing the user to 
+                <hi rend="italic">filter </hi>unwanted data, and what Petre and Green (1992) describe as ‘secondary notation; the use of layout and perceptual cues which are not formally part of the notation (elements such as adjacency, clustering, whitespace, labeling and so on)’. Like Healey, we believe this will help ease any display or perception bottleneck and afford the user a unique opportunity to discover and explore unknown trends and relationships in the data. The user will customize the visibility of elements of the dataset and secondary notation by adjusting a series of controls to make alterations to the sensitivity of, for instance, clustering algorithms, labeling, or the visibility of edges in a network. 
+            </p>
+            <p>Since any single visualization is fundamentally limited in its ability to communicate very complex relationships, like Andrew Goldstone’s DfR browser (2013), and Snyder et al.’s Metadata and Topic Model Analysis Toolkit (MetaToMATo) (2013), our concept merges multiple visualizations into what Snyder et al. term ‘a single faceted browsing paradigm for exploration and analysis of document collections’. Word clouds generated via topic modelling, histograms, line graphs, and network diagramming are all experienced via a zoomable user interface (ZUI). Snyder et al. (2013) explain that ‘effectively exploring and analyzing large text corpora requires visualizations that provide a high level summary’. Figure 1 shows how the viewer will be able to move from that high-level summary, ‘flying’ deeper and deeper into the data, simultaneously experiencing multiple visualizations from unique vantage points, and, as espoused by Chuang et al. (2012), ‘drilling down’ into additional layers of information as desired. </p>
+            <figure>
+                <graphic n="1001" width="16.002cm" height="9.539111111111112cm" url="Pictures/image1.png" rend="inline"/>
+            </figure>
+            <p>Figure 1. As the user navigates deeper into the dataset, more and different relationships are revealed. </p>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl>
+                        <hi rend="bold">Alexander, E., Kohlmann, J., Valenza, R., Witmore, M. and Gleicher, M.</hi> (2014). Serendip: Topic Model-Driven Visual Exploration of Text Corpora, https://graphics.cs.wisc.edu/Papers/2014/AKVWG14/Preprint.pdf. 
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Blei, D. M., Ng, A. Y. and Jordan, M. I.</hi> (2003). Latent Dirichlet Allocation. 
+                        <hi rend="italic">Journal of Machine Learning Research, </hi>
+                        <hi rend="bold">3</hi>: 993–1022. 
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Card, S. K., Mackinlay, J. D. and Shneiderman, B.</hi> (1999). 
+                        <hi rend="italic">Readings in Information Visualization: Using Vision to Think</hi>. Morgan Kaufmann, San Francisco.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Chaney, A. J.-B. and Blei, D. M. </hi>(2012). Visualizing Topic Models. 
+                        <hi rend="italic">Proceedings of the Sixth International AAAI Conference on Weblogs and Social Media</hi>, Dublin, Ireland, 4–7 June 2012, http://www.aaai.org/ocs/index.php/ICWSM/ICWSM12/paper/download/4645%26lt%3B/5021. 
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Chen, A. T., Sheble, L. and Eichler, G.</hi> (2013). Topic Modeling and Network Visualization to Explore Patient Experiences. 
+                        <hi rend="italic">Visual Analytics in Health Care</hi>, Washington, DC, 16 November 2013, http://ruby.ils.unc.edu/~atchen/pubs/Chen_Sheble_Eichler_VAHC2013.pdf.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Chuang, J., Manning, C. D. and Heer, J.</hi> (2012). Termite: Visualization Techniques for Assessing Textual Topic Models. Capri Islands, Italy, http://vis.stanford.edu/files/2012TermiteAVI.pdf. 
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Dou, W., Wang, X., Kraft, T. and Ribarsky, W</hi>. (2011). Identifying Topical Trends in Social Media with Topic Modeling. University of North Carolina, Charlotte. http://vialab.science.uoit.ca/textvis2011/papers/textvis%202011-dou.pdf.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Frederica-Klein, L.</hi> (2013). TOpic Model and MEtadata Visualization Project (TOME), digital humanities startup grant application. 
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Goldstone, A.</hi> (2013). drfbrowser: Take a MALLET to Literary History, http://agoldst.github.io/dfrbrowser/web. 
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Gretarsson, B., O’Donovan, J., Bostandjiev, S., Höllerer, T., Asuncion, A., Newman, D. and Smyth, P.</hi> (2012). Topicnets: Visual Analysis of Large Text Corpora with Topic Modeling. 
+                        <hi rend="italic">ACM Transactions on Intelligent Systems and Technology</hi> (TIST), 
+                        <hi rend="bold">3</hi>(2): 23. 
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Günnemann, N., Derntl, M., Klamma, R. and Jarke, M.</hi> (2013). An Interactive System for Visual Analytics of Dynamic Topic Models. 
+                        <hi rend="italic">Datenbank-Spektrum, </hi>
+                        <hi rend="bold">13</hi>(3): 213–23. 
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Healey, C.</hi> (1996). Effective Visualization of Large Multidimensional Datasets. Department of Computer Science Thesis, University of British Columbia. 
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Iwata, T., Yamada, T. and Ueda, N.</hi> (2008). Probabilistic Latent Semantic Visualization: Topic Model for Visualizing Documents. In 
+                        <hi rend="italic">Proceedings of the 14th ACM SIGKDD International Conference on Knowledge Discovery and Data Mining</hi>, Las Vegas, 24–27 August 2008, pp. 363–71, http://dl.acm.org/citation.cfm?id=1401937. 
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Jiao, Z. L., Liu, Q., Li, Y.-F., Marriott, K. and Wybrow, M.</hi> (2013). Visualization of Large Ontologies with Landmarks. In 
+                        <hi rend="italic color(333333)">Proceedings of the International Conference on Computer Graphics Theory and Applications and International Conference on Information Visualization Theory and Applications</hi>, Barcelona, pp. 461–70, http://www.csse.monash.edu.au/~mwybrow/papers/jiaoivapp2013.pdf. 
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Katifori, A., Halatsis, C., Lepouras, G., Vassilakis, C. and Giannopoulou, E.</hi> (2007). Ontology Visualization Methods Survey. 
+                        <hi rend="italic">ACM Computing Surveys,</hi>
+                        <hi rend="bold">39</hi>(4) (2 November): 10–es, doi:10.1145/1287620.1287621. 
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">MacEachren, A. M., Bishop, I., Dykes, J., Dorling, D. and Gatrell, A.</hi> (1994). Introduction to Advances in Visualizing Spatial Data. In 
+                        <hi rend="italic">Visualization in Geographical Information Systems.</hi> London: John Wiley &amp; Sons, pp. 51–59.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">McCallum, A. K.</hi> (2002). MALLET: A Machine Learning for Language Toolkit. http://mallet.cs.umass.edu. 
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Petre, M. and Green, T. R. G.</hi> (1992). Learning to Read Graphics: Some Evidence That ‘Seeing’ an Information Display Is an Acquired Skill. 
+                        <hi rend="italic">Journal of Visual Languages and Computing, </hi>
+                        <hi rend="bold">4</hi>: 55–70. 
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Sharkey, M. and Ansari, M.</hi> (2014). Deconstruct and Reconstruct: Using Topic Modeling on an Analytics Corpus. In 
+                        <hi rend="italic">LAK Workshops</hi>, http://ceurws. org/Vol1137/ lakdatachallenge2014_submission_1.pdf. 
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Simpson, J., Rockwell, G. and Sinclair, S.</hi> (2014). The Epidemiology of Ideas. 
+                        <hi rend="italic">Canadian Society for Digital Humanities Annual Conference</hi>, Brock University, May 2014. 
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Snyder, J., Knowles, R., Dredze, M., Gormley, M. and Wolfe, T.</hi> (2013). Topic Models and Metadata for Visualizing Text Corpora. 
+                        <hi rend="italic">Proceedings of the NAACL HLT 2013 Demonstration Session</hi>, Atlanta, 10–12 June 2013, pp. 5–9.
+                    </bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

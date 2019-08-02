@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>correspSearch - A Web Service to Connect Diverse Scholarly Editions of Letters</title>
+                <author>
+                    <persName>
+                        <surname>Dumont</surname>
+                        <forename>Stefan</forename>
+                    </persName>
+                    <affiliation>Berlin-Brandenburg Academy of Sciences and Humanities, Germany</affiliation>
+                    <email>dumont@bbaw.de</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2016-03-05T17:19:00Z</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Maciej Eder, Pedagogical University in Krakow</publisher>
+                <publisher>Jan Rybicki, Jagiellonian University</publisher>
+                <address>
+                    <addrLine>Institute of Polish Studies</addrLine>
+                    <addrLine>Pedagogical University</addrLine>
+                    <addrLine>ul. Podchorazych 2</addrLine>
+                    <addrLine>30-084 Krakow, Poland</addrLine>
+                    <addrLine>maciej.eder@ijp-pan.krakow.pl</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from a Word document </p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.21">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Long Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>interchange</term>
+                    <term>correspondence</term>
+                    <term>scholarly edition</term>
+                    <term>TEI</term>
+                    <term>authority files</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>metadata</term>
+                    <term>scholarly editing</term>
+                    <term>linking and annotation</term>
+                    <term>standards and interoperability</term>
+                    <term>English</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <p>Letters are an important historical source: First, they may contain comments from contemporaries about the most different events, persons, publications, and issues. Second, letters allow insights about connections and networks between correspondence partners. So, questions occur which can only be answered across the borders of scholarly letter editions due to the fact that these editions are usually focussed on partial correspondences (of a certain person or between two specific persons). But this requires time-consuming searches across various letter editions. This has been a well-known problem for quite some time, now (Bunzel, 2013: 117) and has already evoked work on a few databases dedicated to correspondence, like e.g. “Early Modern Letters Online”.
+                <note place="foot" xml:id="ftn1" n="1">
+                    <p> Early Modern Letters Online (EMLO), 
+                        <ref target="http://emlo.bodleian.ox.ac.uk/">http://emlo.bodleian.ox.ac.uk/</ref>, is the one with the largest databases, but also includes data from other databases like “Circulation of Knowledge and Learned Practices in the 17th-century Dutch Republic”, 
+                        <ref target="http://ckcc.huygens.knaw.nl/">http://ckcc.huygens.knaw.nl/</ref>. Besides this, there also exist more focused databases like “Exilnetz33”, 
+                        <ref target="http://exilnetz33.de">http://exilnetz33.de</ref>.
+                    </p>
+                </note> But these databases have some limitations: firstly, they focus on specific research questions, time periods, geographic areas, or certain material.  Secondly, they don’t provide an open, standard-based and well-documented way to provide and update data. Furthermore, the data can be searched and displayed, but only on a simple website. In none of the existing databases dedicated to edited letters it is possible to query and retrieve the data via an Application Programming Interface (API) and under a free license for subsequent use.
+            </p>
+            <p>The mentioned methodic problem has lead Wolfgang Bunzel, who works in the field of research about the Romanticism, to request:</p>
+            <quote>‘the creation of a decentralized, preferably open digital platform, based on HTML/XML and operating with minimal TEI standards, which is extensible in different directions and allows for existing web portals and websites to contribute at the lowest possible cost. This doesn’t request some kind of super structure which covers the entire amount of letters from the Romantic era (which could not be estimated exactly, anyway) but rather an intelligent linking system, which associates existing documents with one another. The creation of such nexus will naturally lead to research options reaching from searches for persons and places to specific keyword-based searches [...]’ (Bunzel, 2013: 123)
+                <note place="foot" xml:id="ftn2" n="2">
+                    <p> Please note, that this is my own translation into English.</p>
+                </note>
+            </quote>
+            <p>With “correspSearch” (
+                <ref target="http://correspsearch.bbaw.de">http://correspSearch.bbaw.de</ref>) this paper will present a web service, which takes a step in this direction by aggregating metadata of letters from various (digital or printed) scholarly editions and providing them collectively via open interfaces (Fig. 1). In doing so, it is independent from specific research questions as well as from temporal, geographic, or thematic limits.
+            </p>
+            <p>The basis of the web service are digital indexes of letters provided by the editions in the “Correspondence Metadata Interchange Format” (CMIF), that has been (and will further be) developed by the Correspondence Special Interest Group of the Text Encoding Initiative (TEI).
+                <note place="foot" xml:id="ftn3" n="3">
+                    <p> The CMIF is maintained in a GitHub repository: 
+                        <ref target="https://github.com/TEI-Correspondence-SIG/CMIF">https://github.com/TEI-Correspondence-SIG/CMIF</ref>
+                    </p>
+                </note> The CMI format is based on the TEI Guidelines and allows to interchange metadata of letters, postcards etc. between scholarly editions by restricting and normalizing the essential elements of a communication act, namely sender, addressee, dates and places of writing and receiving. Besides the consistent TEI XML encoding, interchange will be enabled by usage of ISO dates and authority controlled identifiers. Sender, addressee, sender’s place as well addressee’s place are identified unambiguously using authority IDs, as e.g. provided by the Library of Congress.
+                <note place="foot" xml:id="ftn4" n="4">
+                    <p> For using authority files in scholarly editions, cf. Stadler 2012</p>
+                </note> When reading the indexes of letters the web service retrieves the most common authority controlled IDs from the Virtual International Authority File (VIAF). This way, IDs from different authority files are mapped onto one another. Up till now, the web service supports VIAF, GND (“Gemeinsame Normdatei” from the Deutsche Nationalbibliothek) as well as the authority files of the Bibliothèque nationale de France (BNF), the Library of Congress (LC), and the National Diet Library (NDL) in Japan. As for place names the web service uses “GeoNames”.
+            </p>
+            <p>The scholarly editions themselves provide such digital indexes of letters in CMI format, online and under a free license (CC-BY 4.0). For this purpose the CMI format and its creation process is extensively documented on the correspSearch website including a FAQ section.
+                <note place="foot" xml:id="ftn5" n="5">
+                    <p> See 
+                        <ref target="http://correspsearch.bbaw.de/index.xql?id=participate">http://correspsearch.bbaw.de/index.xql?id=participate</ref>
+                    </p>
+                </note> After providing a CMI file online, it is only necessary to register its URL for the web service. After that the file is automatically retrieved by correspSearch periodically (and in that way updated, if necessary). 
+            </p>
+            <p>The aggregated letter indexes are searchable on the correspSearch website by correspondent, location, and date. Correspondent and location can be specified according to their role in the communication process. Search results are displayed based on the metadata of the individual letter, together with biographical details. Letters from digital editions are directly linked.</p>
+            <p>Apart from the website an API has been implemented which allows for automatic requests to the web service.
+                <note place="foot" xml:id="ftn6" n="6">
+                    <p> See 
+                        <ref target="http://correspsearch.bbaw.de/index.xql?id=api">http://correspsearch.bbaw.de/index.xql?id=api</ref>
+                    </p>
+                </note> In this scenario, the results are provided in TEI-XML in the described CMIF under a CC-BY 4.0 license, thus ensuring and facilitating further use and processing of the search results. Furthermore, the web service offers BEACON files as well as an experimental TEI-JSON output.  
+            </p>
+            <p>Thanks to the API it is possible to automatically refer or even link from one digital letter edition to related letters provided by other editions. This function was already implemented in a prototype for the digital scholarly edition “Schleiermacher in Berlin 1808-1834” (Fig. 2).
+                <note place="foot" xml:id="ftn7" n="7">
+                    <p> The first version of the scholarly digital edition “Schleiermacher in Berlin” will be published in the next months by the Berlin-Brandenburg Academy of Sciences and Humanities.</p>
+                </note> This feature helps researchers avoid methodological problems when interpreting a piece of correspondence: When analyzing a letter they usually consider the preceding and following letters in the correspondence between the sender and addressee, as well. However, their interpretation often does not include the letters which the correspondents send to or receive from 
+                <hi rend="italic">other</hi> persons. With this feature the background of historical correspondences can be easily explored.
+            </p>
+            <p>Via the API scholars can also exploit the data basis by usage of their own innovative technologies as well as of technologies which the web service itself does not yet support technically. Therefore, with a sufficiently extended data basis and the suitable software it will be possible to perform research on e.g. social or correspondence networks based on correspSearch.
+                <note place="foot" xml:id="ftn8" n="8">
+                    <p>For example: the developers of the visualisation tool “nodegoat” imported the data in their application to visualize a correspondence network: 
+                        <ref target="http://correspsearch-test.nodegoat.net/viewer.p/4/136/scenario/1/geo/fullscreen">http://correspsearch-test.nodegoat.net/viewer.p/4/136/scenario/1/geo/fullscreen</ref>
+                    </p>
+                </note> Furthermore, the correspSearch API was connected with the web service “XTriples”, developed by the Academy of Sciences, Humanities and Literature in Mainz (Germany). Thus the results can be converted into RDF and provided for further analyses with the help of semantic web technologies.
+                <note place="foot" xml:id="ftn9" n="9">
+                    <p>
+                        <ref target="http://xtriples.spatialhumanities.de">http://xtriples.spatialhumanities.de</ref>. One prototype configuration is available under 
+                        <ref target="http://xtriples.spatialhumanities.de/examples.html">http://xtriples.spatialhumanities.de/examples.html</ref>  
+                    </p>
+                </note>
+            </p>
+            <p>The web service correspSearch and the CMIF are still under development. In the future it should be possible to search also for mentioned persons, events, publications etc. For this purpose the enhancement of the CMI file is currently discussed (Dumont, 2015). Also additional authority files will be supported, e.g. the Getty Thesaurus of Geographic Names.
+                <note place="foot" xml:id="ftn10" n="10">
+                    <p>
+                        <ref target="http://www.getty.edu/research/tools/vocabularies/tgn/">http://www.getty.edu/research/tools/vocabularies/tgn/</ref>
+                    </p>
+                </note>
+            </p>
+            <p>The web service correspSearch was granted the “Berlin Digital Humanities Award 2015” (First Prize, endowed with 1.200 €).</p>
+            <figure>
+                <graphic url="526/image1.png" rend="inline"/>
+                <head>Fig 1: Operating principle of the web service correspSearch</head>
+            </figure>
+            <figure>
+                <graphic url="526/image2.png" rend="inline"/>
+                <head>Fig 2: Screenshot of the digital scholarly edition “Schleiermacher in Berlin 1808-1834” (published soon), which presents letters to and from the theologian Friedrich Schleiermacher</head>
+            </figure>
+            <p>The digital scholarly edition queries the correspSearch API for other letters from and to August Boeckh around the date of the letter displayed (10 september 1810). If there is a result, the edition provides links to these letters.</p>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl>
+                        <hi rend="bold">Bunzel, W.</hi> (2013). Briefnetzwerke der Romantik. Theorie – Praxis – Edition. In Bohnenkamp, A. and Richter, E. (eds.), 
+                        <hi rend="italic">Brief-Edition im digitalen Zeitalter</hi> (=Beihefte zu editio Bd. 34). Berlin/Boston: de Gruyter 2013. pp. 109-31.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Dumont, S.</hi> (2015). Perspectives of the further development of the Correspondence Metadata Interchange Format (CMIF). 
+                        <hi rend="italic">digiversity — Webmagazin für Informationstechnologie in den Geisteswissenschaften.</hi>
+                        <ref target="http://digiversity.net/2015/perspectives-of-the-further-development-of-the-correspondence-metadata-interchange-format-cmif/">http://digiversity.net/2015/perspectives-of-the-further-development-of-the-correspondence-metadata-interchange-format-cmif/</ref> (accessed 27 February 2016)
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Stadler, P.</hi> (2012). Normdateien in der Edition. <hi rend="italic">Editio</hi>, <hi rend="bold">26</hi>: 174-83.
+                    </bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

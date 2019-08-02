@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xsi:schemaLocation="http://www.tei-c.org/ns/1.0 /Users/yoann/Work/Grobid/grobid-home/schemas/xsd/Grobid.xsd"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+	<teiHeader xml:lang="en">
+		<encodingDesc>
+			<appInfo>
+				<application version="0.5.4-SNAPSHOT" ident="GROBID" when="2019-06-05T06:25+0000">
+					<ref target="https://github.com/kermitt2/grobid">GROBID - A machine learning software for extracting information from scholarly documents</ref>
+				</application>
+			</appInfo>
+		</encodingDesc>
+		<fileDesc>
+			<titleStmt>
+				<title level="a" type="main">Regional Classification of Traditional Japanese Folk Songs from Southwest Regions</title>
+			</titleStmt>
+			<publicationStmt>
+				<publisher/>
+				<availability status="unknown"><licence/></availability>
+			</publicationStmt>
+			<sourceDesc>
+				<biblStruct>
+					<analytic>
+						<author role="corresp">
+							<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">Akihiro</forename><surname>Kawase</surname></persName>
+							<email>akawase@mail.doshisha.ac.jp</email>
+							<affiliation key="aff0">
+								<orgName type="institution">Doshisha University</orgName>
+								<address>
+									<country key="JP">Japan</country>
+								</address>
+							</affiliation>
+						</author>
+						<title level="a" type="main">Regional Classification of Traditional Japanese Folk Songs from Southwest Regions</title>
+					</analytic>
+					<monogr>
+						<imprint>
+							<date/>
+						</imprint>
+					</monogr>
+				</biblStruct>
+			</sourceDesc>
+		</fileDesc>
+		<profileDesc>
+			<abstract/>
+		</profileDesc>
+	</teiHeader>
+	<text xml:lang="en">
+		<body>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Introduction</head><p>The main purpose of this study is to grasp the pitch transition patterns from pieces of traditional Japanese folk songs among southern three regions of Honshu (the Main Island of Japan), and by making comparisons with Koizumi's tetrachord theory in order to make the regional classification by the tendency in pitch information.</p><p>A tetrachord is a unit consisting of two stable outlining tones called kaku-on (nuclear tones), and one unstable intermediate tone located between the nuclear tone. Influenced by the methods of Western comparative musicology, the Japanese musicologist Fumio Koizumi conceived of a scale based not on the octave unit but rather on the interval of a perfect fourth, and has developed his tetrachord theory to account traditional Japanese music <ref type="bibr">(Koizumi, 1958)</ref>. Depending on the position of the intermediate tone, four different tetrachords can be formed (see <ref type="table" target="#tab_0">Table 1</ref> and <ref type="figure" target="#fig_0">Figure 1</ref>). In the previous study, we have sampled and digitized the five largest song genres within the music corpora of the Nihon Min'yo Taikan (Anthology of Japanese Folk <ref type="bibr">Songs, 1944</ref><ref type="bibr">Songs, -1993</ref>) from 45 Japanese prefectures, and have clarified the following three points by extracting and comparing their respective musical patterns (Kawase and Tokosumi 2011): (1) the most important characteristics in the melody of Japanese folk songs is the transition pattern, which is based on an interval of perfect fourth pitch that constructs Koizumi's four basic tetrachords; (2) regionally adjacent areas tend to have similar musical characteristics; and (3) the differences in the musical characteristics almost match the East-West division in the geolinguistics or in the folkloristics from a broader perspective. However, to conduct more detailed analysis in order to empirically clarify the structures by which music has spread and changed in traditional settlements, it is necessary to expand the data and make comparisons based on the old Japanese provinces (ancient administrative units that were used under the ritsuryo system before the modern prefecture system was established). </p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Overview of data</head><p>We extracted the musical notes for works included in the "Nihon Min'yo Taikan", and digitized the entire scores from each province in the Kyushu district (geographically located in the southern part of Japan), Chugoku district (the westernmost region of Japan's largest island of Honshu), and Shikoku district (literally meaning four provinces, located south of Honshu and east of Kyushu district). In total, there were 474,191 tones in the sample of 2,383 songs for the 25 provinces (see <ref type="figure">Figure 2</ref>). 񮽙񮽙񮽙񮽙񮽙񮽙񮽙񮽙񮽙 " # """"""""""""""""""""""" * *  <ref type="figure">Figure 2</ref>. Geographical divisions of the three districts under the old provinces</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Procedure</head><p>The procedures are as follows: <ref type="formula">(1)</ref> we digitized all the songs from each district and generated sequences that contain interval information from the song melodies; (2) extracted four transition probabilities of tetrachords for every province separately, and create a 24-dimensional data with 25 samples (provinces); and (3) applied principal components analysis (PCA) to identify patterns in the data, and to highlight their similarities and differences.</p><p>In order to digitize the Japanese folk song pieces, we generate a sequence of notes by converting the music score into MusicXML file format. We devised a method of digitizing each note in terms of its relative pitch by subtracting the next pitch height for a given MusicXML. It is possible to generate a sequence T that carries information about the pitch to the next note: T = (t1, t2, … , ti, …, tn). An example of the corresponding pitch intervals for ti can be written as shown in <ref type="table" target="#tab_2">Table  2</ref>. We treat sequence T as a categorical time series, and execute N-gram to capture transitions and their trends.</p><p>Using a bigram model representing pitch transitions, all four types of tetrachords from <ref type="table" target="#tab_0">Table 1</ref> can be expressed as follows in ascending order: min'yo (+3, +2), miyako bushi (+1, +4), ritsu (+2, +3), and ryukyu (+4, +1). Depending on the positions of the three initial pitches in a tetrachord, six transition patterns can be considered in perceiving a tetrachord in two steps (bigram). Therefore, the amount of tetrachords within two steps can be obtained by counting the pairs of 24 transition patterns in sequence T. </p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Results and discussions</head><p>The relative frequency of the first transition (unigram), is maintained between "-5" and "+5"; the interval of a perfect fourth pitch (see <ref type="figure" target="#fig_1">Figure 3</ref>). As the graph forms a symmetric shape with respect to "0", the pitch transitions occur almost equally in both descending and ascending order.</p><p>The implementation of the PCA is summarized as follows. As shown in <ref type="table" target="#tab_3">Table 3</ref>, the component loadings for the first three principal components of each province explain more than 85.88% of the variability. In the first column, the values of all 24 variables represent a positive quantity, and have almost the same weight. This result indicates that the profile of the first PCA axis is the persuasiveness of the tetrachord. Thus, as the value increases, the inclination of a pitch transition enhances its persuasiveness, and the value decreases, it loses its persuasiveness. In the second column, all variables for the min'yo and the ritsu represent a negative quantity, while 11 variables for the miyako-bushi and the ryukyu represent a positive quantity. According to ethnomusicological research, the min'yo and ritsu tetrachords appear frequently in Japanese folk songs. In contrast, the miyako-bushi and ryukyu tetrachords, steadily shifted from the ritsu and min-yo tetrachords respectively, and then increased in popularity as an emotional crutch <ref type="bibr">(Koizumi, 1977)</ref>. This result indicates that the profile of the second PCA axis is the relative pitch intervals between the nuclear tone and its intermediate tone, or in other words, the differences in patterns of transition from the nuclear tone. Thus, as the value increases, the adjacent intermediate tone forming the tetrachord tends to form a minor second interval (sort of a minor key progression), and as the value decreases, it tends to form a major second interval (sort of a major key progression).</p><p>The corresponding scores for each sample are plotted in a two-dimensional space to complete the PCA <ref type="figure" target="#fig_3">(Figure 4)</ref>. We see that there is a strong contrast between min'yo, ritsu, miyako-bushi, and ryukyu. It is possible to clarify the structural commonalities and differences between areas. <ref type="figure">Figure 5</ref> is the result of applying the hierarchical cluster analysis (Euclid distance, Ward method) to the corresponding scores. In addition, if we look for a height where there are three vertical lines and trace the lines down to the individuals, the partition corresponding to three clusters. If we plot this result on a map, we see that provinces are clearly classified according to geographical factors and cultural backgrounds ( <ref type="figure">Figure  6</ref>).  Individuals factor map (PCA) </p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Conclusion</head><p>In this study, we digitized the melodies of endangered traditional Japanese folk songs from three regions, and quantitatively classified them according to the old province by executing principal components analysis and hierarchical cluster analysis in terms of pitch transitions based on a unit of Koizumi's tetrachord theory. As a result, compared to our previous studies on the small amount of data (e.g. <ref type="bibr">Kawase 2016a</ref><ref type="bibr">Kawase , 2016b</ref><ref type="bibr">Kawase , 2016c</ref>, regions were successively classified according to both geographical factors and cultural backgrounds in detail, and classified the melodies into two basic groups according to the behavior of the intermediate tone. We firmly assured that the melodic structures of tetrachords in each province are shared by land and sea routes based on actual music data analysis.</p></div><figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_0"><head>Figure 1 .</head><label>1</label><figDesc>Figure 1. Example of four different types of Koizumi's tetrachord when taking A-D as kaku-on (nuclear tones).</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_1"><head>Figure 3 .</head><label>3</label><figDesc>Figure 3. First transition frequencies for three regions</figDesc><graphic url="image-5.png" coords="2,558.30,365.83,241.44,181.32" type="bitmap" /></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_3"><head>Figure 4 .</head><label>4</label><figDesc>Figure 4. Plot of the first two component scores</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" type="table" xml:id="tab_0" validated="false"><head>Table 1 .</head><label>1</label><figDesc>Koizumi's four basic tetrachords.</figDesc><table></table></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" type="table" xml:id="tab_1" validated="false"><head>tetrachord Ritsu tetrachord Ryukyu tetrachord</head><label></label><figDesc></figDesc><table>* 
+* 
+* 
+* 
+* 
+* 
+* 
+* 
+* 
+* 
++ 
+% 
+
+񮽙񮽙񮽙񮽙񮽙񮽙񮽙񮽙񮽙 
+񮽙񮽙񮽙񮽙񮽙񮽙񮽙񮽙 
+񮽙񮽙񮽙񮽙񮽙񮽙񮽙񮽙񮽙 
+
+񮽙񮽙񮽙񮽙 
+񮽙񮽙񮽙񮽙 
+񮽙񮽙񮽙񮽙 
+񮽙񮽙񮽙񮽙 
+
+񮽙񮽙񮽙 񮽙񮽙񮽙 
+񮽙񮽙񮽙 񮽙񮽙񮽙 
+񮽙񮽙񮽙 񮽙񮽙񮽙 
+񮽙񮽙񮽙 
+񮽙񮽙񮽙 
+
+perfect 
+fourth 
+perfect 
+fourth 
+perfect 
+fourth 
+perfect 
+fourth 
+
+񮽙񮽙񮽙! 
+minor 
+third 
+major 
+second 
+major 
+second 
+minor 
+second 
+minor 
+third 
+major 
+third 
+major 
+third 
+minor 
+second 
+
+Min'yo 
+tetrachord 
+Miyako-bushiyo 
+</table></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" type="table" xml:id="tab_2" validated="false"><head>Table 2 . Corresponding pitch intervals</head><label>2</label><figDesc></figDesc><table></table></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" type="table" xml:id="tab_3" validated="false"><head>Table 3 .</head><label>3</label><figDesc>Component loadings for 24 transition patterns for tetrachords</figDesc><table></table></figure>
+		</body>
+		<back>
+
+			<div type="acknowledgement">
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Acknowledgments</head><p>This work was mainly supported by the Japanese Society for the Promotion of Science (JSPS) Grants-inAid for Scientific Research (15K21601). </p></div>
+			</div>
+
+			<div type="references">
+
+				<listBibl/>
+			</div>
+		</back>
+	</text>
+</TEI>

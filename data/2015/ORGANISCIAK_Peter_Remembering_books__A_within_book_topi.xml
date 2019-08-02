@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>Remembering books: A within-book topic mapping technique</title>
+                <author>
+                    <persName>
+                        <surname>Organisciak</surname>
+                        <forename>Peter</forename>
+                    </persName>
+                    <affiliation>University of Illinois at Urbana-Champaign, United States of America</affiliation>
+                    <email>organis2@illinois.edu</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Auvil</surname>
+                        <forename>Loretta</forename>
+                    </persName>
+                    <affiliation>University of Illinois at Urbana-Champaign, United States of America</affiliation>
+                    <email>lauvil@illinois.edu</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Downie</surname>
+                        <forename>J.Stephen</forename>
+                    </persName>
+                    <affiliation>University of Illinois at Urbana-Champaign, United States of America</affiliation>
+                    <email>jdownie@illinois.edu</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2014-12-19T13:50:00Z</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Paul Arthur, University of Western Sidney</publisher>
+                <address>
+                    <addrLine>Locked Bag 1797</addrLine>
+                    <addrLine>Penrith NSW 2751</addrLine>
+                    <addrLine>Australia</addrLine>
+                    <addrLine>Paul Arthur</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from a Word document </p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.9">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Short Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>text analysis</term>
+                    <term>topic modeling</term>
+                    <term>visualisation</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>text analysis</term>
+                    <term>visualisation</term>
+                    <term>English</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <p>Applying clustering techniques in modeling text collections is effective for surfacing high-level themes at scales that humans cannot match with close reading. Within-book topic modeling is more difficult to perform, due to noise inherent to small frame sizes and the expectation that a single book can simply be read. In this work, we argue that this form of text analysis is effective as a research aid, presenting a method and tools to visualize the progression of topics through the course of a long text. </p>
+            <p>This approach focuses on improving human readability of machine-modeled topics and is notable for (a) a sliding-frame topic inference technique that smooths noise and (b) a visualization approach that uses sorting and filtering to help focus attention on clearer topics and their narrative order. </p>
+            <p>The goal is to use topic modeling as an aid to a reader’s understanding of a work as well as the ability to communicate that understanding. In particular, it appears to have promise as a mnemonic tool, helping past readers recollect plot points and progression. As this work progresses, it will explore better ways of surfacing important topics and measuring the quality of its visualizations. To this end, a tutorial and scripts have been released, enabling researchers and instructors to evaluate this technique for their own uses. </p>
+            <p>Data </p>
+            <p>This study was performed using the extracted features dataset from the HathiTrust Research Center (HTRC). HTRC is the research arm of the HathiTrust, developing tools for research access—and particularly large-scale access—to the holdings in the HathiTrust Digital Library. For our purposes, the HTRC’s feature extraction dataset is used less for its breadth than its features. The extracted features dataset includes page-level feature information, including part-of-speech tagged token counts with headers and footers removed. Our approach will work similarly on any clean text documents with page-level information or comparably sized sections—for example, blocks of TEI marked-up sections or paragraphs. </p>
+            <p>Approach </p>
+            <p>This study’s method for within-book topic modeling is notable for its approach to training and inference: where the training data is composed of individual page texts, the data it is inferred against is a sliding frame of pages. This lends a coherence to the resulting topic models by offering clean input data while assuming that actual occurrences of topics in a book occur in broader spans of text. We take a conservative view of what a theme in the text is when training, and a liberal view when inferring. </p>
+            <p>While pages are succinct for training, most of the time they are a physical artifact, disconnected from the content of the book. Language also deviates from page to page: inferring their topics in groups of pages allows for themes at that point in the book to emerge more clearly. Since we do not know where topics start and end, nor can we reliably assume that any particular part of a book is about any one topic, we use a sliding frame of groups of pages. </p>
+            <p>Latent Dirichlet Allocation (LDA) is used in this approach (Blei et al., 2003). LDA is a generative mixture modeling approach used to estimate probability distributions over correlated data. When used with text unigrams as features, these distributions are often interpreted as ‘topics’. One can think of a topic distribution as a word generator, outputting different words with varying frequencies. A topic about ‘Valentine's Day’, for example, is more likely to generate the terms ‘love’ and ‘February’ than one would normally see in the English language; to guess how likely a document is to be about Valentine’s Day, we can look at the likelihood of the Valentine’s Day topic generating the particular words in the document. </p>
+            <p>In training a generative model, it is ideal to have each input document represent a minimal number of concepts. While LDA is robust at differentiating different components of a training document, a clearer input improves the possibility of coherent clusters. For this reason, training a classifier on a large chunk of text such as a book can lose the nuance of the various themes within that text. For this study, we train on individual pages of a work. This page-level information is offered in the HTRC Feature Extraction dataset, and modeled using the LDA functionality of the MALLET toolkit (McCallum, 2002). </p>
+            <p>After a work is modeled against its pages, the resulting topic distributions are then applied to infer the most probable topics of sliding frames of pages in the same work. For example, for a frame size of 5, the work is processed into sections representing pages 1–5, pages 2–6, 3–7, and so on. Figure 1 demonstrates the difference in readability that the sliding frame allows. </p>
+            <figure>
+                <graphic n="1001" width="16.002cm" height="1.9349444444444444cm" url="Pictures/image1.png" rend="inline"/>
+                <graphic n="1002" width="16.002cm" height="1.7919361111111112cm" url="Pictures/image2.png" rend="inline"/>
+            </figure>
+            <p>Figure 1. Example of topic for 
+                <hi rend="italic">Anne of Green Gables </hi>inferred without (top) and with (bottom) sliding page frame. 
+            </p>
+            <figure>
+                <graphic n="1003" width="16.002cm" height="21.979819444444445cm" url="Pictures/image3.png" rend="inline"/>
+            </figure>
+            <p>In pursuing a technique for aiding an individual’s understanding and recall of a work, inferring coherent within-book themes is only as important as their presentation. For this reason, this study pursued visualization of within-book topic models with sorting and filtering. </p>
+            <p>Figure 2. Topics in 
+                <hi rend="italic">Tess of the D’Ubervilles</hi>, shown with a sliding frame of 10 pages. Every third of 30 topics shown, to demonstrate topic sorting with brevity. 
+            </p>
+            <p>For sorting, topics are tagged by their most representative page, and subsequently visualized in chronological order of these pages. This sorting technique has proven to be effective at showing their progression through a work.</p>
+            <p>Not all topics are equally insightful. Particularly, there are usually a few topics that serve as catch-alls: attracting probability mass for difficult-to-assign terms. These ‘noise topics’ serve a useful function, but not for an individual’s analysis or understanding. We attempted to identify these topics and filter them through a number of methods, so that they could be ignored in visualization. This included looking at high-variance distributions, distributions with high peakedness, and topics with disproportionately large pieces of the overall probability mass. Unfortunately, each of these techniques would filter out some useful topics, so we thus far have not found a filtering approach that is worth performing. Instead, the sorting performed at visualization leads with the most likely ‘noise topics’, making them easy for a person to visually assess and ignore if necessary. </p>
+            <p>Figure 2 demonstrates topic visualization for topics seen in 
+                <hi rend="italic">Tess of the D’Ubervilles </hi>by Thomas Hardy. For brevity, only every third topic is shown, showing the sorting progression and the grouping of potential but not necessarily noisy topics at the start. In addition, vertical lines are included to denote the ‘phases’ in the book, allowing a comparison of topics to parts of the book. For example, Phase the Second clearly contains most of the discussion around the protagonist’s birth and subsequent loss of her child, and the language representative of this topic does not recur again in the book. 
+            </p>
+            <p>Next Steps </p>
+            <p>The code for this project is available online.
+                <hi rend="superscript">1</hi> As this is a work-in-progress, we hope this tool encourages others to use it and provide feedback. Thus far, this study has pursued qualitative improvements based on the judgments of the authors. As we move forward, we hope to evaluate this approach against the satisfaction of domain experts, compared to previous techniques. 
+            </p>
+            <p>Additionally, the goal of filtering uninteresting or noisy topics is still interesting, even if our given approach was not tractable. A more deliberate approach might be more effective in the future; specifically, human judges will be asked for their opinions on the most insightful topic distributions. This will allow us to compare their responses to a number of statistical metrics about the distribution, potentially building a classifier for useful topics. </p>
+            <p>Note</p>
+            <p>1. 
+                <hi rend="italic">HTRC-Book-Models</hi>, Github, https://github.com/organisciak/htrc-book-models.
+            </p>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl>
+                        <hi rend="bold">Blei, D. M., Ng, A. Y. and Jordan, M. I.</hi> (2003). Latent Dirichlet Allocation. 
+                        <hi rend="italic">Journal of Machine Learning Research, </hi>
+                        <hi rend="bold">3</hi> (2003): 993–1022. 
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">McCallum, A. K.</hi> (2002). MALLET: A Machine Learning for Language Toolkit. http://mallet.cs.umass.edu.
+                    </bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

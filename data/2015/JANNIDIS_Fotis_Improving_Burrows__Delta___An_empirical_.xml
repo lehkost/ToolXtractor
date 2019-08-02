@@ -1,0 +1,925 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>Improving Burrows’ Delta – An empirical evaluation of text distance measures</title>
+                <author>
+                    <persName>
+                        <surname>Jannidis</surname>
+                        <forename>Fotis</forename>
+                    </persName>
+                    <affiliation>Universität Würzburg, Germany</affiliation>
+                    <email>fotis.jannidis@uni-wuerzburg.de</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Pielström</surname>
+                        <forename>Steffen</forename>
+                    </persName>
+                    <affiliation>Universität Würzburg, Germany</affiliation>
+                    <email>pielstroem@biozentrum.uni-wuerzburg.de</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Schöch</surname>
+                        <forename>Christof</forename>
+                    </persName>
+                    <affiliation>Universität Würzburg, Germany</affiliation>
+                    <email>christof.schoech@uni-wuerzburg.de</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Vitt</surname>
+                        <forename>Thorsten</forename>
+                    </persName>
+                    <affiliation>Universität Würzburg, Germany</affiliation>
+                    <email>thorsten.vitt@uni-wuerzburg.de</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2014-12-19T13:50:00Z</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Paul Arthur, University of Western Sidney</publisher>
+                <address>
+                    <addrLine>Locked Bag 1797</addrLine>
+                    <addrLine>Penrith NSW 2751</addrLine>
+                    <addrLine>Australia</addrLine>
+                    <addrLine>Paul Arthur</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from a Word document </p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.9">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Long Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>Burrows' Delta</term>
+                    <term>Argamon</term>
+                    <term>stylo</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>stylistics and stylometry</term>
+                    <term>authorship attribution / authority</term>
+                    <term>English</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <p>Since John Burrows first proposed Delta as a new stylometric measure (Burrows, 2002), it has become one of the most robust distance measures for authorship attribution (Juola, 2006; Stamatatos, 2009; Koppel et al., 2009). It has been shown to render very useful results in different text genres (Hoover, 2004a) and languages (Eder and Rybicki, 2013). Nowadays, Delta is widely used not the least because there is the free 
+                <hi rend="italic">stylo</hi> package in R (Eder et al., 2013). There have been several proposals to improve Delta (Hoover, 2004b; Argamon, 2008; Eder et al., 2013; Smith and Aldridge, 2011; Kestemont and Rybicki, 2013). In the following, we report on a series of experiments to test these proposals using collections of novels in three languages. Our results will show that one of Hoover’s and one of Argamon’s measures show good results, but are outperformed in general by Burrows’ Delta and by Eder’s Delta. Most notably, the modification of Delta proposed by Smith and Aldridge shows a remarkable improvement of the results in all languages and has the advantage of providing a stable increase of performance up to a specific point, unlike the other measures, which are very sensitive to the amount of most frequent words (mfw) used. These results also allow discussion of some of the theoretical assumptions for the success of these measures, even if we are still far away from providing a ‘compelling theoretical justification’ (Hoover, 2005) for their success.
+            </p>
+            <p>Material and Methods</p>
+            <p>Text Collections</p>
+            <p>We built three collections of novels (English, French, German), each consisting of 75 texts: 25 authors, each represented with three novels. The collection of British novels contains texts published between 1838 and 1921 coming from Project Gutenberg (www.gutenberg.org). The collection of French novels contains texts published between 1827 and 1934 originating mainly from Ebooks libres et gratuits (www.ebooksgratuits.com). The collection of German novels consists of texts from the 19th and the first half of the 20th centuries, which come from the TextGrid collection (http://www.textgrid.de/Digitale-Bibliothek).</p>
+            <p>Text Distance Measures</p>
+            <p>Argamon (2008) proposed three variants of Delta, each one improving on one aspect of Burrows’ Delta. </p>
+            <p>He argues that Burrows’ Delta inherently assumes that the distribution of a particular word across multiple texts follows the multivariate Laplace distribution, but it uses the standard deviation as a normalization factor, which only makes sense for a Gaussian distribution. Quadratic Delta assumes a multivariate Gaussian distribution of the words. Linear Delta, on the other hand, adjusts the normalization to take into account the calculation of spread for a Laplace distribution. Like Burrows’ Delta, both variants are based on the (implausible) assumption that the frequencies of the words are independent. The third variant, Rotated Delta, rotates the frequency differences into a space where they are maximally independent. It also assumes a Gaussian distribution. An analysis of the word frequency distribution in our English test set shows indeed that the normal distribution represents the data much better than the Laplace distribution (Figure 1a). The same is true for German high-frequency words (Figure 1b). We should therefore expect Rotated Delta to perform best, and Quadratic Delta to yield better results than Linear Delta or Burrows’ Delta. Eder’s Delta slightly increases the weights of frequent words and is meant to perform better with highly inflected languages. It should perform better for German and French than for English. Smith and Aldridge replace the Manhattan distance used by Burrows with cosine based on findings in text mining that the latter shows greater reliability with large word vectors (Smith and Aldridge, 2011). Their experiments show an impressive improvement for English texts.</p>
+            <p>We implemented these measures in Python, using the output of 
+                <hi rend="italic">stylo</hi>, where a parallel implementation existed, as a benchmark (see the appendix for the formulas).
+            </p>
+            <p>Evaluating Distance Measures</p>
+            <p>In order to provide useful performance indicators for these measures for authorship attribution, we concentrated on the question of how well a particular distance measure allows distinguishing between a situation where two compared texts are written by the same author from a situation where two texts are from different authors. Besides relying on the Adjusted Rand Index as a well-known but rather abstract measure for clustering quality (Everitt et al., 2011, 264f.), we also established a simple algorithm to count clustering errors representing the researcher’s intuition of correct clustering. In order to obtain another more subtle performance indicator independent of any clustering algorithm, we grouped the calculated distance scores into two sets: ingroup comparisons containing distances between texts actually written by the same author, and outgroup comparisons. The larger the difference between the ingroup distances and the outgroup distances, the better a distance measure is assumed to perform. After evaluating several potential performance indicators (for example, t-values, or using proportions of distribution overlap) in terms of how well they correlate with the number of clustering errors, we settled on the simple difference of z-transformed means because it showed the best correlation with the clustering error measure.</p>
+            <p>Results and Discussion</p>
+            <p>Most interestingly, we could not only confirm the findings of Smith and Aldridge on our English texts, but also show that Cosine Delta outperforms all other measures on our three collections (Figures 2–4). Equally important, it proves to be more stable with increasing mfw size. While Burrows’ and Eder’s Delta usually show a peak around 1,000–1,500 mfw, and then behave a bit erratically on longer word vectors, Cosine Delta reaches a plateau at 2,000 and stays there (Figure 5). As Smith and Aldridge argue, based on their very different data, that using word vectors longer than 500 words doesn’t improve the performance, we assume that this number is a function of the corpus size.</p>
+            <p>Our empirical tests did not substantiate Argamon’s theoretical arguments. Eder’s variant didn’t show consistently better results with more highly inflected languages like German and French and performed similarly to Burrows’ Delta. Both Quadratic Delta and Rotated Delta perform much worse than should be expected on theoretical grounds. And Linear Delta, although being among the top-five distance measures, seems to be an improvement over Burrows’ Delta only under special circumstances. Argamon’s modifications were based on correct assumptions about the kind of distributions Delta is working on, but nevertheless those algorithms did not perform better, something that points to the operation of factors not yet understood. The fact that those algorithms consistently perform differently in different languages and that these differences cannot, or at least only partially, be explained by the degree of inflection (Eder and Rybicki, 2013), adds to this enigma at the moment. There is almost no other algorithm in stylometry we know as much about as Delta, and yet there is still no theoretical framework that can explain its success.</p>
+            <p>Future Work</p>
+            <p>We tried to assemble corpora similar in genre, time, etc., but there is the real possibility that the variation we attribute to the languages is really only one between the specifics of the corpora. So it is important to test the robustness of our findings using different corpora. Another line of future investigations is the testing of more variations of Delta, using Cosine Delta as a starting point. Also, a systematic study of how the length of the mfw list determines Cosine Delta’s performance in relation to the size of the texts and the corpora could allow the automatic choice of the best parameters. And last but not least we have to analyze the connection between the performances of some variants of Delta and specifics of different languages in order to gain a deeper theoretical insight into the working of Delta in general.</p>
+            <p>_____</p>
+            <p>The python script implementing these distance measures can be found at </p>
+            <p>https://github.com/fotis007/pydelta.</p>
+            <figure>
+                <graphic n="1001" width="16.430625cm" height="12.7cm" url="Pictures/image1.png" rend="block"/>
+            </figure>
+            <p>Figure 1. Empirical distribution of word frequencies compared to idealised Gauss and Laplace distributions. Indicated for the three most frequent words in the English (a) and German (b) dataset.</p>
+            <figure>
+                <graphic n="1002" width="16.271875cm" height="14.075833333333334cm" url="Pictures/image2.png" rend="block"/>
+            </figure>
+            <p>Figure 2. Performance of distance measures on English texts. Indicated in terms of both the difference between z-transformed means of ingroup (same author) and outgroup distances, as Adjusted Rand Index (higher values indicate better differentiation), and in terms of clustering errors (lower values indicate better differentiation). Distance measures are sorted according to their maximum performance in all test conditions.</p>
+            <figure>
+                <graphic n="1003" width="16.271875cm" height="14.075833333333334cm" url="Pictures/image3.png" rend="inline"/>
+            </figure>
+            <p>Figure 3. Performance of distance measures on French texts. For a detailed explanation, see Figure 2. </p>
+            <figure>
+                <graphic n="1004" width="16.271875cm" height="14.075833333333334cm" url="Pictures/image4.png" rend="block"/>
+            </figure>
+            <p>Figure 4. Performance of distance measures on German texts. For a detailed explanation, see Figure 2. </p>
+            <figure>
+                <graphic n="1005" width="16.430625cm" height="11.377083333333333cm" url="Pictures/image5.png" rend="block"/>
+            </figure>
+            <p>Figure 5. Difference between z-transformed means of ingroup and outgroup distances as a function of word list length. Indicated for selected delta measures on the German text collection.</p>
+            <p>Appendix: Text Distance Measures</p>
+            <p>Most delta measures normalize features first and then apply a basic distance function.</p>
+            <table rend="rules">
+                <row>
+                    <cell rend="Compact">Distance Measure</cell>
+                    <cell rend="Compact">Basic Distance Function </cell>
+                    <cell rend="Compact">Feature Normalisation</cell>
+                    <cell rend="Compact"/>
+                </row>
+                <row>
+                    <cell rend="Compact">Burrows’ Delta</cell>
+                    <cell rend="Compact">Manhattan Distance</cell>
+                    <cell rend="Compact">z-score</cell>
+                </row>
+                <row>
+                    <cell rend="Compact">Argamon’s Linear Delta</cell>
+                    <cell rend="Compact">Manhattan Distance</cell>
+                    <cell rend="Compact">diversity</cell>
+                </row>
+                <row>
+                    <cell rend="Compact">Eder's Delta</cell>
+                    <cell rend="Compact">Manhattan Distance</cell>
+                    <cell rend="Compact">z-score · Eder's Ranking Factor: 
+                        <formula>
+                            <mml:math xmlns:mml="http://www.w3.org/1998/Math/MathML">
+                                <mfrac xmlns="http://www.w3.org/1998/Math/MathML">
+                                    <mrow>
+                                        <mi>n</mi>
+                                        <mo>-</mo>
+                                        <msub>
+                                            <mrow>
+                                                <mi>n</mi>
+                                            </mrow>
+                                            <mrow>
+                                                <mi>i</mi>
+                                            </mrow>
+                                        </msub>
+                                        <mo>+</mo>
+                                        <mn>1</mn>
+                                    </mrow>
+                                    <mrow>
+                                        <mi>n</mi>
+                                    </mrow>
+                                </mfrac>
+                            </mml:math>
+                        </formula>
+                    </cell>
+                </row>
+                <row>
+                    <cell rend="Compact">Eder’s Simple Delta</cell>
+                    <cell rend="Compact">Manhattan Distance</cell>
+                    <cell rend="Compact">square root</cell>
+                </row>
+                <row>
+                    <cell rend="Compact">Manhattan Distance</cell>
+                    <cell rend="Compact">Manhattan Distance</cell>
+                    <cell rend="Compact">–</cell>
+                </row>
+                <row>
+                    <cell rend="Compact">Argamon’s Quadratic Delta</cell>
+                    <cell rend="Compact">Euclidean Distance</cell>
+                    <cell rend="Compact">z-score</cell>
+                </row>
+                <row>
+                    <cell rend="Compact">Argamon’s Rotated Delta</cell>
+                    <cell rend="Compact">Euclidean Distance</cell>
+                    <cell rend="Compact">Stripped-down eigenvectors of covariance matrix</cell>
+                </row>
+                <row>
+                    <cell rend="Compact">Euclidean Distance</cell>
+                    <cell rend="Compact">Euclidean Distance</cell>
+                    <cell rend="Compact">–</cell>
+                </row>
+                <row>
+                    <cell rend="Compact">Cosine Delta</cell>
+                    <cell rend="Compact">Cosine Distance</cell>
+                    <cell rend="Compact">z-score</cell>
+                </row>
+                <row>
+                    <cell rend="Compact">Cosine Distance</cell>
+                    <cell rend="Compact">Cosine Distance</cell>
+                    <cell rend="Compact">–</cell>
+                </row>
+                <row>
+                    <cell rend="Compact">Correlation Distance</cell>
+                    <cell rend="Compact">Cosine Distance</cell>
+                    <cell rend="Compact">center</cell>
+                </row>
+                <row>
+                    <cell rend="Compact">Hoover's Delta-P1</cell>
+                    <cell rend="Compact">(own measure)</cell>
+                    <cell rend="Compact">z-score</cell>
+                </row>
+                <row>
+                    <cell rend="Compact">Canberra distance</cell>
+                    <cell rend="Compact">Canberra Distance</cell>
+                    <cell rend="Compact">–</cell>
+                </row>
+                <row>
+                    <cell rend="Compact">Bray-Curtis distance</cell>
+                    <cell rend="Compact">Bray-Curtis Distance</cell>
+                    <cell rend="Compact">–</cell>
+                </row>
+                <row>
+                    <cell rend="Compact">Chebishev Distance</cell>
+                    <cell rend="Compact">max abs. distance</cell>
+                    <cell rend="Compact">–</cell>
+                </row>
+                <row>
+                    <cell rend="Compact">Basic Distance Function</cell>
+                    <cell cols="2" rend="Compact">Definition</cell>
+                </row>
+                <row>
+                    <cell rend="Compact">Manhattan Distance</cell>
+                    <cell cols="2" rend="Compact">
+                        <formula>
+                            <mml:math xmlns:mml="http://www.w3.org/1998/Math/MathML">
+                                <msubsup xmlns="http://www.w3.org/1998/Math/MathML">
+                                    <mo>∑</mo>
+                                    <mrow>
+                                        <mi>i</mi>
+                                        <mo>=</mo>
+                                        <mn>1</mn>
+                                    </mrow>
+                                    <mrow>
+                                        <mi>n</mi>
+                                    </mrow>
+                                </msubsup>
+                                <mrow xmlns="http://www.w3.org/1998/Math/MathML">
+                                    <mo>∣</mo>
+                                </mrow>
+                                <msub xmlns="http://www.w3.org/1998/Math/MathML">
+                                    <mrow>
+                                        <mi>f</mi>
+                                    </mrow>
+                                    <mrow>
+                                        <mi>i</mi>
+                                    </mrow>
+                                </msub>
+                                <mo xmlns="http://www.w3.org/1998/Math/MathML">(</mo>
+                                <mi xmlns="http://www.w3.org/1998/Math/MathML">D</mi>
+                                <mo xmlns="http://www.w3.org/1998/Math/MathML">)</mo>
+                                <mo xmlns="http://www.w3.org/1998/Math/MathML">-</mo>
+                                <msub xmlns="http://www.w3.org/1998/Math/MathML">
+                                    <mrow>
+                                        <mi>f</mi>
+                                    </mrow>
+                                    <mrow>
+                                        <mi>i</mi>
+                                    </mrow>
+                                </msub>
+                                <mo xmlns="http://www.w3.org/1998/Math/MathML">(</mo>
+                                <mi xmlns="http://www.w3.org/1998/Math/MathML">D</mi>
+                                <mi xmlns="http://www.w3.org/1998/Math/MathML">ʹ</mi>
+                                <mo xmlns="http://www.w3.org/1998/Math/MathML">)</mo>
+                                <mo xmlns="http://www.w3.org/1998/Math/MathML">∣</mo>
+                            </mml:math>
+                        </formula>
+                    </cell>
+                </row>
+                <row>
+                    <cell rend="Compact">Euclidean Distance</cell>
+                    <cell cols="2" rend="Compact">
+                        <formula>
+                            <mml:math xmlns:mml="http://www.w3.org/1998/Math/MathML">
+                                <mroot xmlns="http://www.w3.org/1998/Math/MathML">
+                                    <mrow>
+                                        <msubsup>
+                                            <mo>∑</mo>
+                                            <mrow>
+                                                <mi>i</mi>
+                                                <mo>=</mo>
+                                                <mn>1</mn>
+                                            </mrow>
+                                            <mrow>
+                                                <mi>n</mi>
+                                            </mrow>
+                                        </msubsup>
+                                        <mrow>
+                                            <mo>∣</mo>
+                                        </mrow>
+                                        <msub>
+                                            <mrow>
+                                                <mi>f</mi>
+                                            </mrow>
+                                            <mrow>
+                                                <mi>i</mi>
+                                            </mrow>
+                                        </msub>
+                                        <mo>(</mo>
+                                        <mi>D</mi>
+                                        <msup>
+                                            <mrow>
+                                                <mo>)</mo>
+                                            </mrow>
+                                            <mrow>
+                                                <mn>2</mn>
+                                            </mrow>
+                                        </msup>
+                                        <mo>-</mo>
+                                        <msub>
+                                            <mrow>
+                                                <mi>f</mi>
+                                            </mrow>
+                                            <mrow>
+                                                <mi>i</mi>
+                                            </mrow>
+                                        </msub>
+                                        <mo>(</mo>
+                                        <mi>D</mi>
+                                        <mi>ʹ</mi>
+                                        <msup>
+                                            <mrow>
+                                                <mo>)</mo>
+                                            </mrow>
+                                            <mrow>
+                                                <mn>2</mn>
+                                            </mrow>
+                                        </msup>
+                                    </mrow>
+                                    <mrow/>
+                                </mroot>
+                            </mml:math>
+                        </formula>
+                    </cell>
+                </row>
+                <row>
+                    <cell rend="Compact">Cosine Distance</cell>
+                    <cell cols="2" rend="Compact">
+                        <formula>
+                            <mml:math xmlns:mml="http://www.w3.org/1998/Math/MathML">
+                                <mn xmlns="http://www.w3.org/1998/Math/MathML">1</mn>
+                                <mo xmlns="http://www.w3.org/1998/Math/MathML">-</mo>
+                                <mfrac xmlns="http://www.w3.org/1998/Math/MathML">
+                                    <mrow>
+                                        <mover accent="true">
+                                            <mrow>
+                                                <mi>f</mi>
+                                            </mrow>
+                                            <mo>⃗</mo>
+                                        </mover>
+                                        <mo>(</mo>
+                                        <mi>D</mi>
+                                        <mo>)</mo>
+                                        <mo>⋅</mo>
+                                        <mover accent="true">
+                                            <mrow>
+                                                <mi>f</mi>
+                                            </mrow>
+                                            <mo>⃗</mo>
+                                        </mover>
+                                        <mo>(</mo>
+                                        <mi>D</mi>
+                                        <mi>ʹ</mi>
+                                        <mo>)</mo>
+                                    </mrow>
+                                    <mrow>
+                                        <mo>∥</mo>
+                                        <mover accent="true">
+                                            <mrow>
+                                                <mi>f</mi>
+                                            </mrow>
+                                            <mo>⃗</mo>
+                                        </mover>
+                                        <mo>(</mo>
+                                        <mi>D</mi>
+                                        <mo>)</mo>
+                                        <msub>
+                                            <mrow>
+                                                <mo>∥</mo>
+                                            </mrow>
+                                            <mrow>
+                                                <mn>2</mn>
+                                            </mrow>
+                                        </msub>
+                                        <mo>∥</mo>
+                                        <mover accent="true">
+                                            <mrow>
+                                                <mi>f</mi>
+                                            </mrow>
+                                            <mo>⃗</mo>
+                                        </mover>
+                                        <mo>(</mo>
+                                        <mi>D</mi>
+                                        <mi>ʹ</mi>
+                                        <mo>)</mo>
+                                        <msub>
+                                            <mrow>
+                                                <mo>∥</mo>
+                                            </mrow>
+                                            <mrow>
+                                                <mn>2</mn>
+                                            </mrow>
+                                        </msub>
+                                    </mrow>
+                                </mfrac>
+                            </mml:math>
+                        </formula>
+                    </cell>
+                </row>
+                <row>
+                    <cell rend="Compact">Canberra Distance</cell>
+                    <cell cols="2" rend="Compact">
+                        <formula>
+                            <mml:math xmlns:mml="http://www.w3.org/1998/Math/MathML">
+                                <msubsup xmlns="http://www.w3.org/1998/Math/MathML">
+                                    <mo>∑</mo>
+                                    <mrow>
+                                        <mi>i</mi>
+                                        <mo>=</mo>
+                                        <mn>1</mn>
+                                    </mrow>
+                                    <mrow>
+                                        <mi>n</mi>
+                                    </mrow>
+                                </msubsup>
+                                <mrow xmlns="http://www.w3.org/1998/Math/MathML">
+                                    <mfrac>
+                                        <mrow>
+                                            <mo>∣</mo>
+                                            <msub>
+                                                <mrow>
+                                                    <mi>f</mi>
+                                                </mrow>
+                                                <mrow>
+                                                    <mi>i</mi>
+                                                </mrow>
+                                            </msub>
+                                            <mo>(</mo>
+                                            <mi>D</mi>
+                                            <mo>)</mo>
+                                            <mo>-</mo>
+                                            <msub>
+                                                <mrow>
+                                                    <mi>f</mi>
+                                                </mrow>
+                                                <mrow>
+                                                    <mi>i</mi>
+                                                </mrow>
+                                            </msub>
+                                            <mo>(</mo>
+                                            <mi>D</mi>
+                                            <mi>ʹ</mi>
+                                            <mo>)</mo>
+                                            <mo>∣</mo>
+                                        </mrow>
+                                        <mrow>
+                                            <mo>∣</mo>
+                                            <msub>
+                                                <mrow>
+                                                    <mi>f</mi>
+                                                </mrow>
+                                                <mrow>
+                                                    <mi>i</mi>
+                                                </mrow>
+                                            </msub>
+                                            <mo>(</mo>
+                                            <mi>D</mi>
+                                            <mo>)</mo>
+                                            <mo>∣</mo>
+                                            <mo>∣</mo>
+                                            <msub>
+                                                <mrow>
+                                                    <mi>f</mi>
+                                                </mrow>
+                                                <mrow>
+                                                    <mi>i</mi>
+                                                </mrow>
+                                            </msub>
+                                            <mo>(</mo>
+                                            <mi>D</mi>
+                                            <mi>ʹ</mi>
+                                            <mo>)</mo>
+                                        </mrow>
+                                    </mfrac>
+                                </mrow>
+                            </mml:math>
+                        </formula>
+                    </cell>
+                </row>
+                <row>
+                    <cell rend="Compact">Bray-Curtis Distance</cell>
+                    <cell cols="2" rend="Compact">
+                        <formula>
+                            <mml:math xmlns:mml="http://www.w3.org/1998/Math/MathML">
+                                <mfrac xmlns="http://www.w3.org/1998/Math/MathML">
+                                    <mrow>
+                                        <mo>∑</mo>
+                                        <mo>∣</mo>
+                                        <msub>
+                                            <mrow>
+                                                <mi>f</mi>
+                                            </mrow>
+                                            <mrow>
+                                                <mi>i</mi>
+                                            </mrow>
+                                        </msub>
+                                        <mo>(</mo>
+                                        <mi>D</mi>
+                                        <mo>)</mo>
+                                        <mo>-</mo>
+                                        <msub>
+                                            <mrow>
+                                                <mi>f</mi>
+                                            </mrow>
+                                            <mrow>
+                                                <mi>i</mi>
+                                            </mrow>
+                                        </msub>
+                                        <mo>(</mo>
+                                        <mi>D</mi>
+                                        <mi>ʹ</mi>
+                                        <mo>)</mo>
+                                        <mo>∣</mo>
+                                    </mrow>
+                                    <mrow>
+                                        <mo>∑</mo>
+                                        <msub>
+                                            <mrow>
+                                                <mi>f</mi>
+                                            </mrow>
+                                            <mrow>
+                                                <mi>i</mi>
+                                            </mrow>
+                                        </msub>
+                                        <mo>(</mo>
+                                        <mi>D</mi>
+                                        <mo>)</mo>
+                                        <mo>+</mo>
+                                        <msub>
+                                            <mrow>
+                                                <mi>f</mi>
+                                            </mrow>
+                                            <mrow>
+                                                <mi>i</mi>
+                                            </mrow>
+                                        </msub>
+                                        <mo>(</mo>
+                                        <mi>D</mi>
+                                        <mi>ʹ</mi>
+                                        <mo>)</mo>
+                                    </mrow>
+                                </mfrac>
+                            </mml:math>
+                        </formula>
+                    </cell>
+                </row>
+                <row>
+                    <cell rend="Compact">Hoover’s Delta-P1</cell>
+                    <cell cols="2" rend="Compact">
+                        <formula>
+                            <mml:math xmlns:mml="http://www.w3.org/1998/Math/MathML">
+                                <mo xmlns="http://www.w3.org/1998/Math/MathML">(</mo>
+                                <mover xmlns="http://www.w3.org/1998/Math/MathML">
+                                    <mrow>
+                                        <mi>P</mi>
+                                    </mrow>
+                                    <mo>¯</mo>
+                                </mover>
+                                <mo xmlns="http://www.w3.org/1998/Math/MathML">+</mo>
+                                <mn xmlns="http://www.w3.org/1998/Math/MathML">1</mn>
+                                <msup xmlns="http://www.w3.org/1998/Math/MathML">
+                                    <mrow>
+                                        <mo>)</mo>
+                                    </mrow>
+                                    <mrow>
+                                        <mn>2</mn>
+                                    </mrow>
+                                </msup>
+                                <mo xmlns="http://www.w3.org/1998/Math/MathML">-</mo>
+                                <mover xmlns="http://www.w3.org/1998/Math/MathML">
+                                    <mrow>
+                                        <mi>N</mi>
+                                    </mrow>
+                                    <mo>¯</mo>
+                                </mover>
+                                <mo xmlns="http://www.w3.org/1998/Math/MathML"> </mo>
+                                <mo xmlns="http://www.w3.org/1998/Math/MathML">,</mo>
+                                <mi xmlns="http://www.w3.org/1998/Math/MathML">P</mi>
+                                <mo xmlns="http://www.w3.org/1998/Math/MathML">=</mo>
+                                <mo xmlns="http://www.w3.org/1998/Math/MathML">{</mo>
+                                <msub xmlns="http://www.w3.org/1998/Math/MathML">
+                                    <mrow>
+                                        <mi>z</mi>
+                                    </mrow>
+                                    <mrow>
+                                        <mi>i</mi>
+                                    </mrow>
+                                </msub>
+                                <mo xmlns="http://www.w3.org/1998/Math/MathML">∣</mo>
+                                <msub xmlns="http://www.w3.org/1998/Math/MathML">
+                                    <mrow>
+                                        <mi>z</mi>
+                                    </mrow>
+                                    <mrow>
+                                        <mi>i</mi>
+                                    </mrow>
+                                </msub>
+                                <mo xmlns="http://www.w3.org/1998/Math/MathML">≥</mo>
+                                <mn xmlns="http://www.w3.org/1998/Math/MathML">0</mn>
+                                <mo xmlns="http://www.w3.org/1998/Math/MathML">}</mo>
+                                <mo xmlns="http://www.w3.org/1998/Math/MathML">,</mo>
+                                <mi xmlns="http://www.w3.org/1998/Math/MathML">N</mi>
+                                <mo xmlns="http://www.w3.org/1998/Math/MathML">=</mo>
+                                <mo xmlns="http://www.w3.org/1998/Math/MathML">{</mo>
+                                <msub xmlns="http://www.w3.org/1998/Math/MathML">
+                                    <mrow>
+                                        <mi>z</mi>
+                                    </mrow>
+                                    <mrow>
+                                        <mi>i</mi>
+                                    </mrow>
+                                </msub>
+                                <mo xmlns="http://www.w3.org/1998/Math/MathML">∣</mo>
+                                <msub xmlns="http://www.w3.org/1998/Math/MathML">
+                                    <mrow>
+                                        <mi>z</mi>
+                                    </mrow>
+                                    <mrow>
+                                        <mi>i</mi>
+                                    </mrow>
+                                </msub>
+                                <mo xmlns="http://www.w3.org/1998/Math/MathML">&lt;</mo>
+                                <mn xmlns="http://www.w3.org/1998/Math/MathML">0</mn>
+                                <mo xmlns="http://www.w3.org/1998/Math/MathML">}</mo>
+                            </mml:math>
+                        </formula>
+                    </cell>
+                </row>
+                <row>
+                    <cell rend="Compact">z-score</cell>
+                    <cell cols="2" rend="Compact">
+                        <formula>
+                            <mml:math xmlns:mml="http://www.w3.org/1998/Math/MathML">
+                                <mfrac xmlns="http://www.w3.org/1998/Math/MathML">
+                                    <mrow>
+                                        <msub>
+                                            <mrow>
+                                                <mi>f</mi>
+                                            </mrow>
+                                            <mrow>
+                                                <mi>i</mi>
+                                            </mrow>
+                                        </msub>
+                                        <mo>(</mo>
+                                        <mi>D</mi>
+                                        <mo>)</mo>
+                                        <mo>-</mo>
+                                        <msub>
+                                            <mrow>
+                                                <mi>μ</mi>
+                                            </mrow>
+                                            <mrow>
+                                                <mi>i</mi>
+                                            </mrow>
+                                        </msub>
+                                    </mrow>
+                                    <mrow>
+                                        <msub>
+                                            <mrow>
+                                                <mi>σ</mi>
+                                            </mrow>
+                                            <mrow>
+                                                <mi>i</mi>
+                                            </mrow>
+                                        </msub>
+                                    </mrow>
+                                </mfrac>
+                            </mml:math>
+                        </formula>
+                    </cell>
+                </row>
+                <row>
+                    <cell rend="Compact">Diversity</cell>
+                    <cell cols="2" rend="Compact">
+                        <formula>
+                            <mml:math xmlns:mml="http://www.w3.org/1998/Math/MathML">
+                                <mfrac xmlns="http://www.w3.org/1998/Math/MathML">
+                                    <mrow>
+                                        <mn>1</mn>
+                                    </mrow>
+                                    <mrow>
+                                        <mi>n</mi>
+                                    </mrow>
+                                </mfrac>
+                                <msubsup xmlns="http://www.w3.org/1998/Math/MathML">
+                                    <mo>∑</mo>
+                                    <mrow>
+                                        <mi>j</mi>
+                                        <mo>=</mo>
+                                        <mn>1</mn>
+                                    </mrow>
+                                    <mrow>
+                                        <mi>m</mi>
+                                    </mrow>
+                                </msubsup>
+                                <mrow xmlns="http://www.w3.org/1998/Math/MathML">
+                                    <mfenced open="∣" close="∣" separators="|">
+                                        <mrow>
+                                            <msub>
+                                                <mrow>
+                                                    <mi>f</mi>
+                                                </mrow>
+                                                <mrow>
+                                                    <mi>i</mi>
+                                                </mrow>
+                                            </msub>
+                                            <mo>(</mo>
+                                            <msub>
+                                                <mrow>
+                                                    <mi>D</mi>
+                                                </mrow>
+                                                <mrow>
+                                                    <mi>j</mi>
+                                                </mrow>
+                                            </msub>
+                                            <mo>)</mo>
+                                            <mo>-</mo>
+                                            <msub>
+                                                <mrow>
+                                                    <mi>a</mi>
+                                                </mrow>
+                                                <mrow>
+                                                    <mi>i</mi>
+                                                </mrow>
+                                            </msub>
+                                        </mrow>
+                                    </mfenced>
+                                </mrow>
+                                <mo xmlns="http://www.w3.org/1998/Math/MathML"> </mo>
+                                <mo xmlns="http://www.w3.org/1998/Math/MathML">,</mo>
+                                <mo xmlns="http://www.w3.org/1998/Math/MathML"> </mo>
+                                <msub xmlns="http://www.w3.org/1998/Math/MathML">
+                                    <mrow>
+                                        <mi>a</mi>
+                                    </mrow>
+                                    <mrow>
+                                        <mi>i</mi>
+                                    </mrow>
+                                </msub>
+                                <mo xmlns="http://www.w3.org/1998/Math/MathML">=</mo>
+                                <mi mathvariant="normal" xmlns="http://www.w3.org/1998/Math/MathML">m</mi>
+                                <mi mathvariant="normal" xmlns="http://www.w3.org/1998/Math/MathML">e</mi>
+                                <mi mathvariant="normal" xmlns="http://www.w3.org/1998/Math/MathML">d</mi>
+                                <mi mathvariant="normal" xmlns="http://www.w3.org/1998/Math/MathML">i</mi>
+                                <mi mathvariant="normal" xmlns="http://www.w3.org/1998/Math/MathML">a</mi>
+                                <mi mathvariant="normal" xmlns="http://www.w3.org/1998/Math/MathML">n</mi>
+                                <mo xmlns="http://www.w3.org/1998/Math/MathML">(</mo>
+                                <mo xmlns="http://www.w3.org/1998/Math/MathML">⟨</mo>
+                                <msub xmlns="http://www.w3.org/1998/Math/MathML">
+                                    <mrow>
+                                        <mi>f</mi>
+                                    </mrow>
+                                    <mrow>
+                                        <mi>i</mi>
+                                    </mrow>
+                                </msub>
+                                <mo xmlns="http://www.w3.org/1998/Math/MathML">(</mo>
+                                <msub xmlns="http://www.w3.org/1998/Math/MathML">
+                                    <mrow>
+                                        <mi>D</mi>
+                                    </mrow>
+                                    <mrow>
+                                        <mn>1</mn>
+                                    </mrow>
+                                </msub>
+                                <mo xmlns="http://www.w3.org/1998/Math/MathML">)</mo>
+                                <mo xmlns="http://www.w3.org/1998/Math/MathML">,</mo>
+                                <mo xmlns="http://www.w3.org/1998/Math/MathML">⋯</mo>
+                                <mo xmlns="http://www.w3.org/1998/Math/MathML">,</mo>
+                                <msub xmlns="http://www.w3.org/1998/Math/MathML">
+                                    <mrow>
+                                        <mi>f</mi>
+                                    </mrow>
+                                    <mrow>
+                                        <mi>i</mi>
+                                    </mrow>
+                                </msub>
+                                <mo xmlns="http://www.w3.org/1998/Math/MathML">(</mo>
+                                <msub xmlns="http://www.w3.org/1998/Math/MathML">
+                                    <mrow>
+                                        <mi>D</mi>
+                                    </mrow>
+                                    <mrow>
+                                        <mi>m</mi>
+                                    </mrow>
+                                </msub>
+                                <mo xmlns="http://www.w3.org/1998/Math/MathML">)</mo>
+                                <mo xmlns="http://www.w3.org/1998/Math/MathML">⟩</mo>
+                                <mo xmlns="http://www.w3.org/1998/Math/MathML">)</mo>
+                            </mml:math>
+                        </formula>
+                    </cell>
+                </row>
+                <row>
+                    <cell rend="Compact">Eder’s Ranking Factor</cell>
+                    <cell cols="2" rend="Compact">
+                        <formula>
+                            <mml:math xmlns:mml="http://www.w3.org/1998/Math/MathML">
+                                <mfrac xmlns="http://www.w3.org/1998/Math/MathML">
+                                    <mrow>
+                                        <mi>n</mi>
+                                        <mo>-</mo>
+                                        <msub>
+                                            <mrow>
+                                                <mi>n</mi>
+                                            </mrow>
+                                            <mrow>
+                                                <mi>i</mi>
+                                            </mrow>
+                                        </msub>
+                                        <mo>+</mo>
+                                        <mn>1</mn>
+                                    </mrow>
+                                    <mrow>
+                                        <mi>n</mi>
+                                    </mrow>
+                                </mfrac>
+                            </mml:math>
+                        </formula>
+                    </cell>
+                </row>
+            </table>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl>
+                        <hi rend="bold">Argamon, S.</hi> (2008). Interpreting Burrows’ Delta: Geometric and Probabilistic Foundations. 
+                        <hi rend="italic">Literary and Linguistic Computing,</hi>
+                        <hi rend="bold">23</hi>(2): 131–47.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Burrows, J.</hi> (2002). ‘Delta’—A Measure of Stylistic Difference and a Guide to Likely Authorship. 
+                        <hi rend="italic">Literary and Linguistic Computing, </hi>
+                        <hi rend="bold">17</hi>(3): 267–87.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Eder, M., Kestemont, M. and Rybicki, J. </hi>(2013). Stylometry with R. 
+                        <hi rend="italic">Digital Humanities 2013: Conference Abstracts</hi>. Lincoln: University of Nebraska-Lincoln, pp. 487–89.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Eder, M. and Rybicki, J.</hi> (2013). Do Birds of a Feather Really Flock Together, Or How to Choose Training Samples for Authorship Attribution. 
+                        <hi rend="italic">Literary and Linguistic Computing,</hi>
+                        <hi rend="bold">28</hi>(2): 229–36.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Everitt, B., et al. </hi>(2011). 
+                        <hi rend="italic">Cluster Analysis</hi>. 5th ed. Chichester.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Hoover, D.</hi> (2004a). Testing Burrows’ Delta. 
+                        <hi rend="italic">Literary and Linguistic Computing,</hi>
+                        <hi rend="bold"> 19</hi>(4): 453–75.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Hoover, D.</hi> (2004b). Delta Prime? 
+                        <hi rend="italic">Literary and Linguistic Computing, </hi>
+                        <hi rend="bold">19</hi>(4): 477–95.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Hoover, D. </hi>(2005). Delta, Delta Prime, and Modern American Poetry: Authorship Attribution Theory and Method. 
+                        <hi rend="italic">Proceedings of the 2005 ALLC/ACH Conference, </hi>http://tomcat-stable.hcmc.uvic.ca:8080/ach/site/xhtml.xq?id=73.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Juola, P.</hi> (2006). Authorship Attribution. 
+                        <hi rend="italic">Foundations and Trends in Information Retrieval</hi>
+                        <hi rend="italic bold">,</hi>
+                        <hi rend="bold">1</hi>(3): 233–334.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Koppel, M., Schler, J. and Argamon, S.</hi> (2009). Computational Methods in Authorship Attribution. 
+                        <hi rend="italic">Journal of the American Society for Information Science and Technology, </hi>
+                        <hi rend="bold">60</hi>(1): 9–26.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Rybicki, J. and Eder, M. </hi>(2011). Deeper Delta across Genres and Languages: Do We Really Need the Most Frequent Words? 
+                        <hi rend="italic">Literary and Linguistic Computing,</hi>
+                        <hi rend="bold">26</hi>(3): 315–21.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Smith, P. and Aldridge, W.</hi> (2011). Improving Authorship Attribution: Optimizing Burrows’ Delta Method. 
+                        <hi rend="italic">Journal of Quantitative Linguistics, </hi>
+                        <hi rend="bold">18</hi>(1): 63–88.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Stamatatos, E.</hi> (2009). A Survey of Modern Authorship Attribution Methods. 
+                        <hi rend="italic">Journal of the American Society for Information Science and Technology,</hi>
+                        <hi rend="bold">60</hi>(3): 538–56.
+                    </bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

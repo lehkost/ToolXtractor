@@ -1,0 +1,440 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xsi:schemaLocation="http://www.tei-c.org/ns/1.0 /Users/yoann/Work/Grobid/grobid-home/schemas/xsd/Grobid.xsd"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+	<teiHeader xml:lang="en">
+		<encodingDesc>
+			<appInfo>
+				<application version="0.5.4-SNAPSHOT" ident="GROBID" when="2019-06-05T06:30+0000">
+					<ref target="https://github.com/kermitt2/grobid">GROBID - A machine learning software for extracting information from scholarly documents</ref>
+				</application>
+			</appInfo>
+		</encodingDesc>
+		<fileDesc>
+			<titleStmt>
+				<title level="a" type="main">Distant Rhythm: Automatic Enjambment Detection on Four Centuries of Spanish Sonnets</title>
+			</titleStmt>
+			<publicationStmt>
+				<publisher/>
+				<availability status="unknown"><licence/></availability>
+			</publicationStmt>
+			<sourceDesc>
+				<biblStruct>
+					<analytic>
+						<author>
+							<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">Pablo</forename><forename type="middle">Ruiz</forename><surname>Fabo</surname></persName>
+							<email>pabloruizfabo@gmail.com</email>
+						</author>
+						<author>
+							<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">Clara</forename><forename type="middle">Martínez</forename><surname>Cantón</surname></persName>
+						</author>
+						<author>
+							<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">Universidad</forename><surname>Nacional De Educación</surname></persName>
+						</author>
+						<author>
+							<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">Spain</forename><surname>Distancia</surname></persName>
+						</author>
+						<author>
+							<persName xmlns="http://www.tei-c.org/ns/1.0"><surname>Thierry Poibeau</surname></persName>
+							<email>thierry.poibeau@ens.fr</email>
+						</author>
+						<author>
+							<affiliation key="aff0">
+								<orgName type="laboratory">Lattice Lab</orgName>
+								<orgName type="institution">CNRS</orgName>
+								<address>
+									<country key="FR">France</country>
+								</address>
+							</affiliation>
+						</author>
+						<author>
+							<affiliation key="aff1">
+								<orgName type="laboratory">Lattice Lab, CNRS</orgName>
+								<address>
+									<country key="FR">France</country>
+								</address>
+							</affiliation>
+						</author>
+						<title level="a" type="main">Distant Rhythm: Automatic Enjambment Detection on Four Centuries of Spanish Sonnets</title>
+					</analytic>
+					<monogr>
+						<imprint>
+							<date/>
+						</imprint>
+					</monogr>
+				</biblStruct>
+			</sourceDesc>
+		</fileDesc>
+		<profileDesc>
+			<abstract/>
+		</profileDesc>
+	</teiHeader>
+	<text xml:lang="en">
+		<body>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Introduction</head><p>Enjambment takes place when a syntactic unit is broken up across two lines of poetry ( <ref type="bibr">Domínguez Ca- parrós, 2000: 103)</ref>, giving rise to different stylistic effects (e.g. increased emphasis on elements of the broken-up phrase, or contrast between those elements), or creating double interpretations for the enjambed lines ( <ref type="bibr">García-Paje, 1991)</ref>.</p><p>In Spanish poetry, the syntactic configurations under which enjambment takes place have been described extensively, and detailed studies on the use of enjambment by individual authors exist (see <ref type="bibr">Martínez Cantón, 2011</ref> for an overview) including, among others <ref type="bibr" target="#b15">Quilis (1964)</ref>, <ref type="bibr" target="#b5">Domínguez Caparrós, (2000)</ref>, Paraíso, <ref type="bibr">(2000)</ref>, <ref type="bibr" target="#b18">Spang (1983)</ref> for a description of enjambment, and <ref type="bibr" target="#b2">Alarcos (1966)</ref>, <ref type="bibr">Senabre (1982)</ref>, <ref type="bibr" target="#b10">Luján (2006)</ref>, Martínez <ref type="bibr" target="#b11">Fernández (2010)</ref> for case-studies on a single author. However, a larger-scale study to identify enjambment across hundreds of authors spanning several centuries, enabling distant reading <ref type="bibr" target="#b13">(Moretti, 2013)</ref>, was not previously available.</p><p>Given that need, we have developed software, based on Natural Language Processing, that automatically identifies enjambment in Spanish, and applied it to a corpus of approx. 3750 sonnets by ca. 1000 authors, from the 15th to the 19th century. What is the interest of such large-scale automatic analyses of enjambment? First, the literature shows a debate about which specific syntactic units can be considered to trigger enjambment, if split across two lines, and whether lexical and syntactic criteria are sufficient to identify enjambment. Second, the stylistic effects that enjambment permits are also an object of current research <ref type="bibr" target="#b11">(Martínez Fernández, 2010)</ref>. Systematically collecting large amounts of enjambment examples provides helpful evidence to assess scholars' current claims, and may stimulate novel analyses. Finally, our study complements <ref type="bibr" target="#b13">Navarro's (2016)</ref> automatic metrical analyses of Spanish Golden Age sonnets, by covering a wider period and focusing on enjambment.</p><p>The abstract is structured thus: First we provide the definition of enjambment adopted. Then, our corpus and system are described, followed by an evaluation of the system. Finally, findings on enjambment in our diachronic sonnet corpus are discussed. The project's website provides details omitted here for space reasons, including samples for the corpus, results, and other details.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Enjambment in Spanish</head><p>Syntactic and metrical units often match in poetry. However, this trend has been broken since antiquity for various reasons <ref type="bibr" target="#b14">(Parry (1929)</ref> on Homer, or Flores Gómez (1988) on early classical poetry).</p><p>In Spanish tradition, enjambment (in Spanish, "encabalgamiento") is considered to take place when a pause suggested by poetic form (e.g. at the end of a line or across hemistichs) occurs between strongly connected lexical or syntactic units, triggering an unnatural cut between those units. Quilis (1964) performed poetry reading experiments, proposing that the following strongly connected elements give rise to enjambment, should a poetic-form pause break them up:</p><p>• Lexical enjambment: Breaking up a word.</p><p>We translated "lexical enjambment" from Quilis's terms "encabalgamiento léxico" or "tmesis".</p><p>• Phrase-bounded enjambment: Within a phrase, breaking up sequences like "noun + adjective", "verb + adverb", "auxiliary verb + main verb", among others. We translated "phrase-bounded enjambment" from "encabalgamiento sirremático".</p><p>• Cross-clause enjambment: Between a noun antecedent and the pronoun heading the relative clause that complements the antecedent. We translated "cross-clause enjambment" from Quilis's "encabalgamiento oracional".</p><p>The project site includes Quilis's complete list of syntactic environments that can trigger enjambment, as well as the types identified by our system. Besides the enjambment types above, <ref type="bibr" target="#b18">Spang (1983)</ref> noted that if a subject or direct object and their related verbs occur in two different lines of poetry, this can also feel unusual for a reader, even if the effect is less pronounced than in the environments identified by Quilis. To differentiate these cases from enjambment proper, Spang calls these cases "enlace", translated here as "expansion".</p><p>Quilis (1964) was the only author so far to gather recitation-based experimental evidence on enjambment. His typology is still considered current, and was adopted by later authors, although complementary enjambment typologies have been proposed, as Martínez Cantón (2011) reviews. Our system identifies Quilis' types, besides Spang's expansion cases.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Corpus</head><p>The corpus is based on two public online collections from Biblioteca Virtual Cervantes (García Gonzá-lez, R. (ed.), 2006a, 2006b). The first one covers 1088 sonnets by 477 authors from the 15th-17th centuries. The second one contains 2673 sonnets by 685 authors from the 19th century. We created scripts to download the poems, remove HTML and extract dates of birth and death for the authors (About 30% of the 15th to 17th century authors had exact dates of birth and death, for the rest only the centuries were available. Among the 19th century authors, ca. 45% had exact dates of birth and death). <ref type="table" target="#tab_0">Table 1</ref> shows the distribution of authors and poems by century. The corpus covers canonical as well as minor authors, inspired in distant reading approaches <ref type="bibr" target="#b12">(Moretti, 2007</ref><ref type="bibr" target="#b13">(Moretti, , 2013</ref>. * Exact dates of birth and death are available for a minority of authors; often only the century was provided in the corpus sources. Periods ending in ".5" cover authors who lived in two centuries. E.g. period "15.5" covers authors born in the 15th and deceased in the 16th century</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>System description</head><p>The system has three components: a preprocessing module to format input poems uniformly, an NLP pipeline, and the enjambment-detection module itself.</p><p>The NLP pipeline is IXA Pipes ( <ref type="bibr" target="#b0">Agerri et al., 2014</ref>). Its results for contemporary Spanish are competitive. Our system uses it to obtain part-of-speech tags, syntactic constituency (e.g. verb-phrase, noun-phrase) and syntactic dependencies (e.g. direct object).</p><p>The enjambment detection module is rule and dictionary-based, and exploits the information provided by the NLP pipeline. Rules (30 in total) of different characteristics identify enjambed lines, assigning them a type among a list of 12 types, based on the typology in Section 2 (the full list of types identified by the system is available on the project site).</p><p>• Some rules are very shallow and only take parts of speech into account.</p><p>• Some rules additionally exploit constituency info.</p><p>• Some rules use dependency information, e.g. to detect "subject / object / verb" relations.</p><p>• For any type of rule, custom dictionaries can restrict rule application to a set of terms. E.g. certain verbs govern arguments introduced by one specific preposition; we itemized these verbs and their prepositions in a dictionary, to complement information provided by the NLP pipeline or correct parsing errors.</p><p>Enjambment annotations are output in standoff format. Further details can be found on the project's site.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>System evaluation and discussion</head></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Test-corpus</head><p>To evaluate the system, we created two referencesets (SonnetEvol and Cantos20th), manually annotating enjambment in them.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="1.">SonnetEvol: 100 sonnets (1400 lines) from</head><p>our diachronic sonnet corpus of ca. 3750 sonnets <ref type="table">(Table Table)</ref>. This test-set contains 260 pairs of enjambed lines (in other words, if there is an enjambment between lines 1 and 2, we consider that as "pair of enjambed lines" in the reference corpus). 2. Cantos20th: 1000 lines of 20 th century poetry <ref type="bibr" target="#b4">(Colinas, 1983)</ref>, showing natural contemporary syntax. We identified 277 pairs of enjambed lines.</p><p>The distribution of enjambment types in the testcorpora is balanced ( <ref type="table">Table 2</ref>). The SonnetEvol diachronic test-corpus is balanced across periods (Table 3). It should be noted that balancing across periods does not apply to the Cantos20th test-corpus: it covers the 20 th century only.</p><p>We annotated the Cantos20th corpus in order to assess the system's performance on contemporary Spanish with natural diction, compared to its behaviour with the SonnetEvol corpus, which includes some archaic constructions and often shows an elevated register.</p><p>For the evaluation reported here, each sonnet was annotated by a single annotator. Obtaining multiple annotators' input on the same sonnet to assess interannotator agreement <ref type="bibr" target="#b3">(Artstein and Poesio, 2008</ref>) is part of our ongoing work. <ref type="table">Table 2</ref>: Distribution of enjambment types in the manually annotated reference corpora, providing counts and each type's percentage of the total enjambments per corpus.</p><p>Counts refer to pairs of enjambed lines. *The project site includes a description of each enjambment type. <ref type="table">Table 3</ref>: Distribution of sonnets by period in the manually annotated SonnetEvol corpus. The 16th, 17th and 19th centuries cover ca. 30% of the corpus each, and the 15th century covers ca. 10% of the sonnets **Exact dates of birth and death are available for a minority of authors; often only the century was provided in the corpus sources. Periods ending in ".5" cover sonnets for authors who lived in two centuries. E.g. period "15.5" covers sonnets for authors born in the 15th and deceased in the 16th century</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Enjambment-detection tasks evaluated</head><p>We defined two enjambment-detection tasks:</p><p>• Span-match: the positions of enjambed lines proposed by the system must match the positions in the reference corpus for a correct result to be counted.</p><p>• Typed span-match: for a correct result, both the positions and the enjambment type assigned by the system to those positions must match the reference.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>System results and discussion</head><p>Precision, recall and F1 were obtained. The definitions for Precision (P), Recall (R) and F1 were the usual: <ref type="table">Table 4</ref> provides overall results for both corpora. <ref type="table">Table 5</ref> provides the per-type results on the diachronic test-corpus (SonnetEvol). The project's site contains more detailed results (e.g. per-type results for the Cantos20th corpus, or breakdowns for SonnetEvol per period). <ref type="table">Table 4</ref>: Overall enjambment detection results. Number of test-items, Precision (P), Recall (R) and F1 in our two testcorpora, for the span-match and typed span-match enjambment detection tasks <ref type="table">Table 5</ref>: Enjambment detection results per type. On the SonnetEvol corpus. Number of items per type, Precision (P), Recall (R) and F1 on the typed span-match enjambment detection task. * The types are described on our site: http://sites.google.com/site/spanishenjambment/enjambmen t-types</p><p>For untyped detection (span-match), F1 reaches 80% in the SonnetEvol corpus, whereas F1 for typed detection is 66.31%. For the contemporary Spanish corpus (Cantos20th), F1 is higher: 80.63% typed detection, 86.51% span-match. This reflects additional difficulties posed by archaic language and historical varieties for the NLP system whose outputs our enjambment detection relies on. Expansions get lower F1 than phrase-bounded types overall. But we do not think that the F1 difference between SonnetEvol and Cantos20th is due to the higher proportion of expansions in SonnetEvol <ref type="table">(Table 2)</ref>: Results per-type (see the evaluation page of the project's site) show that phrase-bounded enjambment detection is 10 points of F1 lower in SonnetEvol than in Cantos20th. Also, phrase-bounded enjambment results for the 15 th -17 th period (with more archaic language) are 10 points of F1 lower than in the 19 th century.</p><p>A common source of error was hyperbaton: the displacement of phrases triggers constituency and dependency parsing errors. Prepositional phrase (PP) attachment also posed challenges: Verbal adjuncts get mistaken for PPs complementing nouns or adjectives. This is a common problem in syntactic parsing, even for contemporary languages (see <ref type="bibr" target="#b1">Agirre et al, 2008</ref>, for English). For historical varieties, Stein's (2016) results for verbal adjuncts and prepositional complements in Old French also suggest the difficulties posed by prepositional phrases.</p><p>Creating a reparsing module to manage hyperbaton and improve PP attachment results may be fruitful future work.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Scholarly results and discussion</head><p>The system's goal is detecting enjambment to help literary research on the phenomenon, via providing systematic evidence for its analysis.</p><p>We consider our untyped enjambed-line detection results helpful, given an F1 of ca. 80% on the diachronic test-set. As an example application, we examined the distribution of enjambment according to position in the poem, particularly in positions across a verse-boundary (lines 4-5, 8-9 and 11-12). Comparing the results for the 15 th -to-17 th centuries vs. the 19 th century <ref type="table">(Table 6</ref> and <ref type="figure">Figure 1)</ref>, we see that enjambment across the tercets increases clearly in the 19 th century, with a small increase of enjambment across the quatrains (lines 4-5) and across the octave-sestet divide (lines 8-9). Given the manageable data volume, we validated the counts for enjambment across a verse boundary <ref type="table">(Table 6</ref>) manually (but not the more voluminous data for all other positions).</p><p>The value of the tool is helping perform such analyses on a large corpus. This opens the door for scholars to assess the literary relevance of the findings, and search for the best interpretation.  with a small increase in the 19 th century. The division between the tercets blurs in the 19 th century, in the sense that enjambment across them is clearly higher than in the previous period</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Outlook</head><p>The characterization of enjambment in Spanish literary theory has unclear points. Systematically obtaining enjambment examples is helping us find additional evidence to analyze these unclear points. Moreover, we are not aware of a systematic large-sample study of enjambment across periods, literary movements, or versification types in Spanish, or other languages. Automatic detection can help answer interesting questions in verse theory, which would benefit from a quantitative approach, complementing small-sample analyses. e.g.: To what an extent is enjambment used differently in free verse vs. traditional versification? Students in our metrics classes are currently annotating enjambment for 450 sonnets. These annotations will permit inter-annotator agreement computation. We will also examine the possibility of using supervised machine learning to train a sequence labeling and classification model to complement our current detection rules.</p></div><figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_0"><head>6 :</head><label>6</label><figDesc>Figure 1: Percentage of enjambments per position in the 15 th -17 th centuries vs. the 19 th . The y-axis represents line-positions; the x-axis is the percentage of enjambed line-pairs for a position over all enjambed line-pairs in the period. Enjambment across quatrains and across the octave-sestet divide is very rare, with a small increase in the 19 th century. The division between the tercets blurs in the 19 th century, in the sense that enjambment across them is clearly higher than in the previous period</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" type="table" xml:id="tab_0" validated="false"><head>Table 1 :</head><label>1</label><figDesc>Distribution of sonnets and authors per period.</figDesc><table></table></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" type="table" xml:id="tab_1" validated="false"><head>Table</head><label></label><figDesc></figDesc><table></table></figure>
+		</body>
+		<back>
+
+			<div type="acknowledgement">
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Acknowledgements</head><p>Pablo Ruiz Fabo was supported by a PhD scholarship from Région Île-de-France. We also thank Clara Martínez Cantón's and Borja Navarro's metrics students for their ongoing sonnet annotation work, and Borja Navarro for introducing his students to the annotations required.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Bibliography</head></div>
+			</div>
+
+			<div type="annex">
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Ipsum, L. (2017) "Lorem ipsum dolor sit amet, consectetur</head><p>adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua". Lorem Ipsum Quarterly.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>13.1: 27-45</head><p>Lorem, I. (2014) "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua". Lorem Ipsum Quarterly. 7.1: 46-55 Amet, C. (1887) "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua". Lorem Ipsum Quarterly. 3.1: 56-71</p></div>			</div>
+			<div type="references">
+
+				<listBibl>
+
+<biblStruct xml:id="b0">
+	<analytic>
+		<title level="a" type="main">IXA Pipeline: Efficient and ready to use multilingual NLP tools</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">R</forename><surname>Agerri</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">J</forename><surname>Bermudez</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">G</forename><surname>Rigau</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Proceedings of LREC 2014, the 9 th International Language Resources and Evaluation Conference</title>
+		<meeting>LREC 2014, the 9 th International Language Resources and Evaluation Conference<address><addrLine>Reykjavik, Iceland</addrLine></address></meeting>
+		<imprint>
+			<date type="published" when="2014" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b1">
+	<analytic>
+		<title level="a" type="main">Improving Parsing and PP Attachment Performance with Sense Information</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">E</forename><surname>Agirre</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">T</forename><surname>Baldwin</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">D</forename><surname>Martinez</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Proceedings of ACL 2008, Conference of the Association for Computational Linguistics</title>
+		<meeting>ACL 2008, Conference of the Association for Computational Linguistics<address><addrLine>Ohio, US</addrLine></address></meeting>
+		<imprint>
+			<date type="published" when="2008" />
+			<biblScope unit="page" from="317" to="325" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b2">
+	<monogr>
+		<title level="m" type="main">La Poesía de Blas de Otero [por] E. Alarcos Llorach</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">Alarcos</forename><surname>Llorach</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">E</forename></persName>
+		</author>
+		<imprint>
+			<date type="published" when="1966" />
+			<pubPlace>Madrid, Anaya</pubPlace>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b3">
+	<analytic>
+		<title level="a" type="main">Inter-coder agreement for computational linguistics</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">R</forename><surname>Artstein</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">M</forename><surname>Poesio</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Computational Linguistics</title>
+		<imprint>
+			<biblScope unit="volume">34</biblScope>
+			<biblScope unit="page" from="555" to="596" />
+			<date type="published" when="2008" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b4">
+	<monogr>
+		<title level="m" type="main">Noche más allá de la noche</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">A</forename><surname>Colinas</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="1983" />
+			<pubPlace>Madrid, Visor Libros</pubPlace>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b5">
+	<monogr>
+		<title level="m" type="main">Métrica española</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">J</forename><surname>Domínguez Caparrós</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="2000" />
+			<pubPlace>UNED, Spain</pubPlace>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b6">
+	<monogr>
+		<title level="m" type="main">Sonetos del siglo XV al XVII. Alicante, Biblioteca Virtual Miguel de Cervantes</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">R</forename><surname>García González</surname></persName>
+		</author>
+		<ptr target="http://www.cervan-tesvirtual.com/nd/ark:/59851/bmc2r439" />
+		<imprint>
+			<date type="published" when="2006" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b7">
+	<monogr>
+		<title level="m" type="main">Sonetos del siglo XIX. Alicante, Biblioteca Virtual Miguel de Cervantes</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">R</forename><surname>García González</surname></persName>
+		</author>
+		<ptr target="http://www.cervan-tesvirtual.com/nd/ark:/59851/bmc4q861" />
+		<imprint>
+			<date type="published" when="2006" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b8">
+	<analytic>
+		<title level="a" type="main">En torno al encabalgamiento. Pausa virtual y duplicidad de lecturas</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">M</forename><surname>García-Page</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Revista de literatura</title>
+		<imprint>
+			<biblScope unit="volume">53</biblScope>
+			<biblScope unit="page" from="595" to="618" />
+			<date type="published" when="1991" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b9">
+	<analytic>
+		<title level="a" type="main">Coincidencia y distorsión (encabalgamiento) de la unidad rítmica verso y las unidades sintácticas</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">M</forename><forename type="middle">E</forename><surname>Flores Gómez</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Estudios clásicos</title>
+		<imprint>
+			<biblScope unit="volume">30</biblScope>
+			<biblScope unit="issue">94</biblScope>
+			<biblScope unit="page" from="23" to="42" />
+			<date type="published" when="1988" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b10">
+	<analytic>
+		<title level="a" type="main">Desde las márgenes de un río: la poesía coral de Diego Jesús Jiménez</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">Á</forename><forename type="middle">L</forename><surname>Luján Atienza</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Métrica y poética de Antonio Colinas</title>
+		<meeting><address><addrLine>Córdoba, Litopress. Martínez Cantón, C.; Sevilla, Padilla Libros</addrLine></address></meeting>
+		<imprint>
+			<date type="published" when="2006" />
+		</imprint>
+	</monogr>
+	<note>PhD Dissertation from UNED, Spain</note>
+</biblStruct>
+
+<biblStruct xml:id="b11">
+	<monogr>
+				<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">J</forename><forename type="middle">E</forename><surname>Martínez Fernández</surname></persName>
+		</author>
+		<title level="m">La voz entrecortada de los versos</title>
+		<meeting><address><addrLine>Barcelona, Davinci Continental</addrLine></address></meeting>
+		<imprint>
+			<date type="published" when="2010" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b12">
+	<monogr>
+		<title level="m" type="main">Graphs, Maps, Trees. Abstract Models for Literary History</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">F</forename><surname>Moretti</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="2007" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b13">
+	<analytic>
+		<title level="a" type="main">Metrical Annotation of a Large Corpus of Spanish Sonnets: Representation, Scansion and Evaluation. Proceedings of LREC</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">F</forename><surname>Moretti</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><surname>Verso</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><surname>Navarro-Colorado</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><surname>Borja</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">M</forename><forename type="middle">R</forename><surname>Lafoz</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">N</forename><surname>Sánchez</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Tenth International Conference on Language Resources and Evaluation</title>
+		<meeting><address><addrLine>Portorož, Slovenia. Paraíso, I; Madrid, Arco Libros</addrLine></address></meeting>
+		<imprint>
+			<date type="published" when="2000" />
+			<biblScope unit="page" from="4630" to="4634" />
+		</imprint>
+	</monogr>
+	<note>La métrica española en su contexto románico</note>
+</biblStruct>
+
+<biblStruct xml:id="b14">
+	<analytic>
+		<title level="a" type="main">The distinctive character of enjambement in Homeric verse</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">M</forename><surname>Parry</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Transactions and Proceedings of the American Philological Association</title>
+		<imprint>
+			<publisher>Johns Hopkins University Press</publisher>
+			<date type="published" when="1929" />
+			<biblScope unit="volume">60</biblScope>
+			<biblScope unit="page" from="200" to="220" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b15">
+	<analytic>
+		<title level="a" type="main">La estructura del encabalgamiento en la métrica española: Contribución a su estudio experimental</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">A</forename><surname>Quilis</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Consejo Superior de Investigaciones Científicas</title>
+		<imprint>
+			<date type="published" when="1964" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b16">
+	<analytic>
+		<title level="a" type="main">El encabalgamiento en la poesía de Fray Luis de León</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">R</forename><surname>Senabre</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Revista de Filología Española</title>
+		<imprint>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page">62</biblScope>
+			<date type="published" when="1992" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b17">
+	<monogr>
+				<title level="m">Consejo Superior de Investigaciones Científicas</title>
+		<imprint/>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b18">
+	<monogr>
+		<title level="m" type="main">Ritmo y versificación. Teoría y práctica del análisis métrico</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">K</forename><surname>Spang</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="1983" />
+			<pubPlace>Spain</pubPlace>
+		</imprint>
+		<respStmt>
+			<orgName>Universidad de Murcia</orgName>
+		</respStmt>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b19">
+	<analytic>
+		<title level="a" type="main">Old French dependency parsing: Results of two parsers analyzed from a linguistic point of view</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">A</forename><surname>Stein</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Proceedings of LREC the 11th International Language Resources and Evaluation Conference</title>
+		<meeting>LREC the 11th International Language Resources and Evaluation Conference<address><addrLine>Portorož, Slovenia</addrLine></address></meeting>
+		<imprint>
+			<date type="published" when="2016" />
+			<biblScope unit="page" from="707" to="713" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+				</listBibl>
+			</div>
+		</back>
+	</text>
+</TEI>

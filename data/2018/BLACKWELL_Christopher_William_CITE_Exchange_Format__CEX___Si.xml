@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>CITE Exchange Format (CEX): Simple, plain-text interchange of heterogenous datasets</title>
+                <author>
+                    <persName>
+                        <surname>Blackwell</surname>
+                        <forename>Christopher William</forename>
+                    </persName>
+                    <affiliation>Furman University, United States of America</affiliation>
+                    <email>christopher.blackwell@furman.edu</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Köntges</surname>
+                        <forename>Thomas</forename>
+                    </persName>
+                    <affiliation>University of Leipzig</affiliation>
+                    <email>thomas.koentges@gmail.com</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Smith</surname>
+                        <forename>Neel</forename>
+                    </persName>
+                    <affiliation>The College of the Holy Cross, United States of America</affiliation>
+                    <email>nsmith@holycross.edu</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2014-12-19T13:50:00Z</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Name, Institution</publisher>
+                <address>
+                    <addrLine>Street</addrLine>
+                    <addrLine>City</addrLine>
+                    <addrLine>Country</addrLine>
+                    <addrLine>Name</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from a Word document</p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.22">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Poster (was submitted as Short Paper)</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>cts</term>
+                    <term>cite</term>
+                    <term>topic-modeling</term>
+                    <term>corpus</term>
+                    <term>database</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>classical studies</term>
+                    <term>corpora and corpus activities</term>
+                    <term>databases &amp; dbms</term>
+                    <term>information retrieval</term>
+                    <term>standards and interoperability</term>
+                    <term>English</term>
+                    <term>computer science</term>
+                    <term>library &amp; information science</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <div>
+                <div>
+                    <head>Introduction: Sharing text libraries and data collections for teaching and research in the humanities</head>
+                    <p rend="First Paragraph">Source text collections and other complex datasets can be very difficult to share and reuse, and especially difficult to aggregate and disaggregate. CEX, CITE Exchange is a plain-text, self-documenting, technology-agnostic format for capturing citable texts, data collections, and arbitrary relationships among citable data at any level of granularity. CEX is based on the CITE/CTS architecture
+                        <note place="foot" xml:id="ftn1" n="1">
+                            <p rend="footnote text">
+                                <ref target="http://cite-architecture.github.io">http://cite-architecture.github.io</ref>.
+                            </p>
+                        </note> and it positions itself as an alternative and complement to TEI XML and relational database schemas. TEI XML is a great archival format for storing textual information and metadata of individual editions. Managing and sharing text collections, however, can be cumbersome, especially if you only want to share a collection of excerpts based on hundreds of individual TEI XML files. When teaching text-heavy humanities disciplines, such as history, literature or classics, scholars are constantly faced with the problem of creating a source-text collections (that is, a corpus of excerpts of a bigger corpus that is deemed a representative sample able to answer a scholarly investigation), and the challenge of easily sharing this newly generated collection with students and colleagues. Based on current forms of data exchange, scholars and their students facing this task needed to have intimate knowledge of either database solutions like eXistDB
+                        <note place="foot" xml:id="ftn2" n="2">
+                            <p rend="footnote text">
+                                <ref target="http://exist-db.org/exist/apps/homepage/index.html">http://exist-db.org/exist/apps/homepage/index.html</ref>.
+                            </p>
+                        </note> or of API-calls
+                        <note place="foot" xml:id="ftn3" n="3">
+                            <p rend="footnote text">
+                                <ref target="http://capitains.org">http://capitains.org</ref>.
+                            </p>
+                        </note>. CEX circumvents this problem by simplifying the format of exchanging texts and related objects following the OCHO2 principles laid out in the CITE/CTS architecture
+                        <note place="foot" xml:id="ftn4" n="4">
+                            <p rend="footnote text">
+                                <ref target="http://cite-architecture.github.io">http://cite-architecture.github.io</ref>.
+                            </p>
+                        </note>.
+                    </p>
+                    <p>Likewise, data collections (coins, geo-spatial data, manuscript folios, etc.) are efficiently served intact by relational databases. Extracting subsets, sharing datasets in whole or in part, and aggregating disparate collections with schemas can be very difficult. CEX, as an exchange format, simplifies this.</p>
+                    <p>This paper is directed to two types of scholars: technology-savvy colleagues who want to discuss simple interchange formats for data-sets and colleagues who want to build, analyze, and exchange soure text collections with fellow researchers and students. The paper will introduce CEX, its design, utilities, and code libraries for creating, validating, and manipulating it, and examples of two types of end-user applications: applications that help to build CEX collections and applications that enable students and scholars to perform natural language processing on exchanged CEX collections. In the first part of the paper we will describe the format and structure of CEX, while the second part showcases sample applications.</p>
+                </div>
+                <div xml:id="the-cex-format">
+                    <head>The CEX format</head>
+                    <p rend="First Paragraph">CEX is based on clearly defined data models for texts and data collections. These data models define semantics of scholarly primitives. CITE and CTS URN citations capture the semantics of the objects they identify. CEX defines catalogs documenting repositories of texts and collections, and blocks of data capturing the data of the texts and collections themselves.</p>
+                    <p>A CEX file is a plain text, UTF-8 file, containing blocks for distinct types of data. The CEX specification provides blocks for:</p>
+                    <list type="unordered">
+                        <item>Text Catalogs</item>
+                        <item>Textual Data</item>
+                        <item>Collection Catalogs
+                            <list type="unordered">
+                                <item>Collection Property Definitions</item>
+                                <item>Collection Data</item>
+                            </list>
+                        </item>
+                        <item>Extensions to Collections, e.g. "Image Collections"</item>
+                        <item>Relations among citable objects</item>
+                        <item>Data models formally specifying further aggregation of primitives</item>
+                    </list>
+                    <p rend="First Paragraph">Each text-block consists of a header line, followed by data records. Each line is a record, and fields within the lines are separated by a delimiting character ("#" is the default, but this is configurable).</p>
+                    <p>Blocks are optional. A CEX file may contain only textual data, only collection data, or a combination of these. We will demonstrate using CEX files that contain millions of words of textual data and hundreds of thousands of data-records for collections.</p>
+                    <p>In this paper, we will present these blocks, and the clearly defined abstract generic data models that they implement. ## Sample applications</p>
+                    <p>We will demonstrate a sampling of utilities, services, and applications for creating, valdating, browsing, and analyzing scholarly data from CEX-formatted text files. All of these are openly licensed, with source code freely available on GitHub.</p>
+                    <div xml:id="corpus-building-software-brucheion-and-t">
+                        <head>Corpus building software: Brucheion and TEItoCEX</head>
+                        <p rend="First Paragraph">TEItoCEX
+                            <note place="foot" xml:id="ftn5" n="5">
+                                <p rend="footnote text">
+                                    <ref target="https://github.com/ThomasK81/TEItoCEX">https://github.com/ThomasK81/TEItoCEX</ref>.
+                                </p>
+                            </note> is a CTS TEI XML parser. It is written in Go and can be compiled to any operating system, including OS for Raspberry Pi 
+                            <note place="foot" xml:id="ftn6" n="6">
+                                <p rend="footnote text">
+                                    <ref target="https://www.thepolyglotdeveloper.com/2017/04/cross-compiling-golang-applications-raspberry-pi/">https://www.thepolyglotdeveloper.com/2017/04/cross-compiling-golang-applications-raspberry-pi/</ref>.
+                                </p>
+                            </note>. It can be copied to the parent folder of multiple TEI CTS XML files. Once executed it will produce a valid CEX collection from all the XML files. 
+                            <hi rend="bold">screenshot1</hi>
+                        </p>
+                        <p>Brucheion is a browser-based transcription desk written in Go and based on ICT2. 
+                            <hi rend="bold">screenshot2</hi> While the backend is based on the fast BoltDB, users can export and import CEX files to share transcriptions or feed them into analytical applications, such as (Meletē)ToPān v.0.3. 
+                            <hi rend="bold">screenshot3 and screenshot4</hi>
+                        </p>
+                    </div>
+                    <div xml:id="microservices-based-on-cex-citemicroserv">
+                        <head>Microservices based on CEX: Citemicroservices written in Go and Scala</head>
+                        <p rend="First Paragraph">There are currently two implementations of CEX-based microservices. The first implementation we created is a prototype that helps the end-user retrieve textual nodes from CEX files via an HTTP API by simply using the barebone file system of the server as a backend.
+                            <note place="foot" xml:id="ftn7" n="7">
+                                <p rend="footnote text">
+                                    <ref target="https://github.com/cite-architecture/citemicroservices">https://github.com/cite-architecture/citemicroservices</ref>.
+                                </p>
+                            </note> It is written in Go and can be compiled to any operating system. The gitHub repository also includes executables for all major operating systems and documentation for usage.
+                            <note place="foot" xml:id="ftn8" n="8">
+                                <p rend="footnote text">
+                                    <ref target="https://github.com/cite-architecture/citemicroservices">https://github.com/cite-architecture/citemicroservices</ref>.
+                                </p>
+                            </note> A useful feature is that one can also retrieve textual nodes from remote CEX repositories by modifying 
+                            <hi rend="Verbatim_Char">config.json</hi>. Simplicity of implementation and usage was the driving force in developing this prototype. The work on this prototype spawned another implementation in Scala that could make use of all the features of the already existing Scala CTS/CITE library.
+                            <note place="foot" xml:id="ftn9" n="9">
+                                <p rend="footnote text">
+                                    <ref target="https://github.com/cite-architecture/scs-akka">https://github.com/cite-architecture/scs-akka</ref>.
+                                </p>
+                            </note>
+                        </p>
+                        <p>Another implementation written in Go is currently under development. This implementation includes features of the Scala library and some additional natural language processing capabilities and that make use of BoltDB in its backend.
+                            <note place="foot" xml:id="ftn10" n="10">
+                                <p rend="footnote text">
+                                    <ref target="https://github.com/ThomasK81/Nucleus">https://github.com/ThomasK81/Nucleus</ref>.
+                                </p>
+                            </note>
+                        </p>
+                    </div>
+                    <div xml:id="exploring-cex-collections-through-topic-">
+                        <head>Exploring CEX collections through Topic Modelling: (Meletē)ToPān v.0.3 and Metallō</head>
+                        <p rend="First Paragraph">(Meletē)ToPān is a GUI for topic modelling introduced at DH2016 in Krakow. It was written in R and is published on Zenodo
+                            <note place="foot" xml:id="ftn11" n="11">
+                                <p rend="footnote text">
+                                    <ref target=".WhhosLbMwlI">https://zenodo.org/record/556708#.WhhosLbMwlI</ref>.
+                                </p>
+                            </note> and Github
+                            <note place="foot" xml:id="ftn12" n="12">
+                                <p rend="footnote text">
+                                    <ref target="https://github.com/ThomasK81/ToPan">https://github.com/ThomasK81/ToPan</ref>.
+                                </p>
+                            </note>. Initially ToPān supported the predecessor of CEX, 82XF, which was developed in discussion at DH2016.
+                            <note place="foot" xml:id="ftn13" n="13">
+                                <p rend="footnote text">
+                                    <ref target="http://neelsmith.github.io/2016/07/13/82xf_v2/">http://neelsmith.github.io/2016/07/13/82xf_v2/</ref>.
+                                </p>
+                            </note> Since v.0.3, it also supports CEX. Using the CEX files for topic modelling gives users easy but precise control over which documents should be included in the analysis. It has become possible for any scholar to build a source text corpus with TEItoCEX and then feed it into ToPān. The researchers can then use Metallō
+                            <note place="foot" xml:id="ftn14" n="14">
+                                <p rend="footnote text">
+                                    <ref target="https://github.com/ThomasK81/TopanTerminalBrowser">https://github.com/ThomasK81/TopanTerminalBrowser</ref>.
+                                </p>
+                            </note>, a commandline based topic model exploration tool, to have a closer look at the created result.
+                        </p>
+                        <p>The paper will include a live demonstration of TEItoCEX, ToPān, and Metallō. Scholars visiting this talk will be able to use and build CEX collection for analysis, teaching, and research.</p>
+                    </div>
+                    <div xml:id="browsing-integrated-text-data-libraries-">
+                        <head>Browsing Integrated Text &amp; Data Libraries with the CiteApp</head>
+                        <p rend="First Paragraph">CiteApp is a "zero-config" web application written in ScalaJS that allows browsing and searching of libraries of text, collection data, and images. CiteApp itself consists of a single HTML file and can run locally or on a server. CiteApp reads data in the form of CEX files (with, optionally, an accompanying directory of image files). CiteApp allows browsing texts in a library, browsing parallel texts and translations, querying texts for strings, tokens, and NGrams, browsing data-collections and querying their records, and browsing collections of images, querying metadata, and interacting with zoomable views of high resolution images. Images may be local or hosted remotely.
+                            <note place="foot" xml:id="ftn15" n="15">
+                                <p rend="footnote text">
+                                    <ref target="https://github.com/cite-architecture/CITE-App">https://github.com/cite-architecture/CITE-App</ref>.
+                                </p>
+                            </note>
+                        </p>
+                        <p>The audience for this talk will be able to take home a copy of CiteApp with sample libraries in CEX format of byzantine manuscript images and editions of the texts they contain.</p>
+                    </div>
+                </div>
+                <div xml:id="screenshots-of-cex-capable-applications">
+                    <head>Screenshots of CEX-Capable Applications</head>
+                    <p rend="First Paragraph">TEItoCEX: Converting libraries of TEI documents to easily shared CEX files</p>
+                    <figure>
+                        <graphic n="1001" width="14.816666666666666cm" height="5.104580555555556cm" url="Pictures/49162fb032c1b930be05630caf54d813.png" rend="inline"/>
+                        <p rend="Image Caption">TEItoCEX</p>
+                    </figure>
+                    <p>(Meletē)ToPān: Topic Modeling files in CEX format</p>
+                    <p>
+                        <graphic n="1002" width="14.816666666666666cm" height="8.796891666666667cm" url="Pictures/1727c9d951891b3fc73f31e7eb648d58.png" rend="inline"/>
+                        <graphic n="1003" width="14.816666666666666cm" height="10.125247222222223cm" url="Pictures/48055ad8c03b6cd7c86d127c53ed89fb.png" rend="inline"/>
+                    </p>
+                    <p>Brucheion: Integrated Image and Textual data</p>
+                    <figure>
+                        <graphic n="1004" width="14.816666666666666cm" height="7.975033333333333cm" url="Pictures/63745fbcf696a5aa1f990c559db5b988.png" rend="inline"/>
+                        <p rend="Image Caption">Brucheion</p>
+                    </figure>
+                    <p>CiteApp: Browsing a multilingual text library</p>
+                    <figure>
+                        <graphic n="1005" width="14.816666666666666cm" height="9.841225cm" url="Pictures/49a91b597195168956b003edbec52212.png" rend="inline"/>
+                        <p rend="Image Caption">CiteApp</p>
+                    </figure>
+                    <p>CiteApp: Searching for NGramsTEItoCEX</p>
+                    <figure>
+                        <graphic n="1006" width="14.816666666666666cm" height="9.841427777777778cm" url="Pictures/e0b4aa39342e7a3135eb49686263c5f3.png" rend="inline"/>
+                        <p rend="Image Caption">CiteApp</p>
+                    </figure>
+                </div>
+            </div>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl>Smith, D. Neel, and Gabriel Weaver. “Applying Domain Knowledge from Structured Citation Formats to Text and Data Mining: Examples Using the CITE Architecture.” Text Mining Services, 2009, 129.</bibl>
+                    <bibl>Blackwell, C., and D.N. Smith. “A Gentle Introduction to CTS &amp; CITE URNs.” Homer Multitext Project Documentation, November 2012. 
+                        <ref target="http://www.homermultitext.org/hmt-doc/guides/urn-gentle-intro.html">http://www.homermultitext.org/hmt-doc/guides/urn-gentle-intro.html</ref>.
+                    </bibl>
+                    <bibl>DeRose, Steven J., David G. Durand, Elli Mylonas, and Allen H. Renear. “What Is Text, Really?” ACM SIGDOC Asterisk Journal of Computer Documentation 21, no. 3 (August 1997): 1–24. https://doi.org/10.1145/264842.264843.</bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

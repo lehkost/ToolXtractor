@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>Cross-Institutional Music Document Search</title>
+                <author>
+                    <persName>
+                        <surname>Hankinson</surname>
+                        <forename>Andrew</forename>
+                    </persName>
+                    <affiliation>University of Oxford, United Kingdom</affiliation>
+                    <email>andrew.hankinson@mail.mcgill.ca</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Krämer</surname>
+                        <forename>Reiner</forename>
+                    </persName>
+                    <affiliation>McGill University, Montreal, Canada</affiliation>
+                    <email>reiner.kramer@mcgill.ca</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Cumming</surname>
+                        <forename>Julie</forename>
+                    </persName>
+                    <affiliation>McGill University, Montreal, Canada</affiliation>
+                    <email>julie.cumming@mcgill.ca</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Fujinaga</surname>
+                        <forename>Ichiro</forename>
+                    </persName>
+                    <affiliation>McGill University, Montreal, Canada</affiliation>
+                    <email>ich@music.mcgill.ca</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2016-03-06T15:51:00Z</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Maciej Eder, Pedagogical University in Krakow</publisher>
+                <publisher>Jan Rybicki, Jagiellonian University</publisher>
+                <address>
+                    <addrLine>Institute of Polish Studies</addrLine>
+                    <addrLine>Pedagogical University</addrLine>
+                    <addrLine>ul. Podchorazych 2</addrLine>
+                    <addrLine>30-084 Krakow, Poland</addrLine>
+                    <addrLine>maciej.eder@ijp-pan.krakow.pl</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from a Word document </p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.21">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Long Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>search</term>
+                    <term>retrieval</term>
+                    <term>music</term>
+                    <term>IIIF</term>
+                    <term>indexing</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>archives, repositories, sustainability and preservation</term>
+                    <term>image processing</term>
+                    <term>information retrieval</term>
+                    <term>metadata</term>
+                    <term>music</term>
+                    <term>information architecture</term>
+                    <term>content analysis</term>
+                    <term>GLAM: galleries, libraries, archives, museums</term>
+                    <term>standards and interoperability</term>
+                    <term>English</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <p>The Single Interface for Music Score Searching and Analysis (SIMSSA) project is building tools and best-practices for performing large-scale document image recognition, analysis, and search on music documents. In this paper, we will describe a novel technique for providing cross-institutional music document image search, allowing for the creation of a search engine for the contents of the world’s music collections through a single search interface. </p>
+            <p>This paper will describe our methodology for building large-scale search systems that operate across institutions. We will describe the optical music recognition (OMR) process, which, like optical character recognition (OCR) for text, extracts symbolic representations from document images and places them in a structural representation for further processing. We will then describe our techniques for music analysis, extracting patterns for indexing the musical contents of these images into searchable representations. Finally, we present our efforts at building a system that will allow users to search musical documents from many institutions and retrieve the digitized document image. </p>
+            <div type="div1" rend="DH-Heading1">
+                <head>Challenges</head>
+                <p>Perhaps the most significant challenge to building a global document image search system is how to retrieve, store, process, and serve document page images. These images have been produced through mass digitization efforts by individual institutions. Aggregating document images to provide cross-institutional document search has traditionally been provided through centralized efforts, where a single organization collects digital images and performs document recognition (i.e., OCR) on them. </p>
+                <p>While this approach provides a central tool for users to search and retrieve document images, it has several disadvantages. It often requires significant storage capabilities, as the central organization must store and manage all the images from its partner institutions. There are logistical challenges, integrating cataloguing data from multiple document collections and maintaining up-to-date information and error-fixes from the partner organizations. There are also legal implications over the ownership and copyrights of document image surrogates, even on out-of-copyright documents (Allan, 2007). This typically requires negotiations and embargoes on who can access certain types of content which differ across partner institutions, and which must be applied at the central organization level (HathiTrust, 2015). </p>
+                <p>These technical, legal, and logistical challenges may be mitigated if the partner organizations were able to host and control access to their images directly. Until recently, however, direct access to the document images hosted by an institution was difficult as it required interacting with a wide variety of digital repository software, each with their own particular ways of storing and serving images. There were no standardized methods to specify how a document image could be accessed directly in these repository systems.</p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Interoperable Image Collections</head>
+                <p>The International Image Interoperability Framework (IIIF) (Snydman et al., 2015) is a new initiative that attempts to standardize methods for retrieving digital images from an institution’s digital image collection. The IIIF specifies two mechanisms for this, the Image API and the Presentation API. The Image API sets out a standard URI-based request format to which IIIF-compatible systems must conform. Using this URI format one may specify the size, region, rotation, quality, and format of the requested image, as well as basic information about the image. The Presentation API is used to describe structural and presentation information about an image, or a sequence of images. The Presentation API is structured using JavaScript Object Notation (JSON), which may then be parsed by other software, and within which pointers to images using the Image API are stored. </p>
+                <p>To give an illustration, a digitized book may be represented as a IIIF Presentation API manifest file. Each page image within the book would be retrievable by a URI to the page image stored on a remote server. To view the book, the manifest would be loaded into a IIIF-compatible image viewer, which would then fetch and load each of the document images and present them in sequence. </p>
+                <p>The typical use case for a IIIF manifest is for the purposes of retrieving and viewing document page images. However, we are proporsing a novel application of IIIF as a standard interface to perform document image recognition tasks on digital collections from many different institutions. </p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Distributed Document Image Recognition</head>
+                <p>We are building a web-based document recognition system, named Rodan, for performing optical music recognition (OMR) on large quantities of page images (Hankinson, 2014). Rodan is a workflow system, where different image processing, shape recognition, and document processing tools can be chained together to produce the sequence of discrete steps through which an image must proceed to extract the symbolic music representation of the content. Crucially, the exact cartesian positions of every musical symbol on the image are stored, providing a way to correlate the musical content with its physical position on the page image (Hankinson et al., 2012). </p>
+                <p>By providing Rodan with a IIIF Presentation API manifest, the document page images may be downloaded and the symbolic music notation extracted. However, rather than storing the image, we store just the IIIF Image API-formatted URI back to the original image. This allows us to discard the downloaded image file but point back to the image hosted by the originating institution. This approach eliminates the need to store and serve the images on our own systems, while still providing content-level access to document images hosted in different institutional repositories.</p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Music Analysis</head>
+                <p>Within music notation there are several levels of representation. The most basic level is that of the symbol–the graphical element printed on the page. Structures such as melodies, phrases, and cadential patterns are built from these symbols, and exist in multiple overlapping hierarchies; a phrase might contain a number of cadential patterns. A music search system must understand the different levels and structures in a musical work, beyond simply understanding the individual notes, as these structures may form structural objects that a user may wish to retrieve. Within the SIMSSA project we are developing tools and techniques for extracting patterns from symbolic music representations using the Music Encoding Initiative (MEI) and other structured music representations (Schubert and Cumming, 2015; Sigler et al, 2015).</p>
+                <p>The Vertical Interval Successions (VIS) (Antiilla and Cumming, 2014) tool we are developing provides a platform on which pattern analysis and extraction methods may be built. Like the document recognition process, VIS operates on the principle that computational music analysis is a sequence of tasks, where each task is responsible for extracting specific types of information that may then be passed on to subsequent tasks. In this way, the underlying symbolic representation of music notation may be used to build higher-level representations, which may then be sent to an indexing service for use in query and retrieval tasks.</p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Cross-Institution Indexing and Retrieval</head>
+                <p>After analysis, the symbolic representations and the structures of the music documents are indexed for retrieval in a search engine. The IIIF Image URI associated with the page image, stored in the document recognition stage and carried along in the analysis stage, provides the mechanism through which the page image may be retrieved from host institutions in response to a query on the symbolic music contents. Through this system, musical full-text (or “full-music”) search can be performed on document images hosted and served from IIIF-compatible digital collections. Additionally, metadata and cataloguing data may be embedded in the IIIF Manifest, or linked to other machine-readable representations. This data may also be centrally indexed, allowing users to retrieve documents across institutions with useful textual searches such as titles, composers, or dates. </p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Impact and Future Work</head>
+                <p>With cross-institutional music document image search, institutions may make their collections available to a broader audience without the need to host their images with a third-party service. With IIIF-compatible image and manifest services, the barriers to entry for these institutions to provide these capabilities is relatively low; the metadata and images are already part of their digital infrastructure. Furthermore, by serving the images and metadata directly from their own infrastructure, institutions can track collection usage patterns through their own server analytics.</p>
+                <p>More general applications of this methodology will have significant impacts on libraries, archives, and other institutions’ document image collections. By providing machine-readable access to document images directly, third-party services for document analysis, including distributed optical character recognition (OCR) may be built and deployed. This will have implications on large-scale computational re-use of digital resources, and will open up document image collections to distributed analysis by a global audience. </p>
+                <p>We are currently in the process of building a prototype system that incorporates all elements of the process described in this paper. Our existing tools, Rodan and VIS, are currently being used in research and production, with a third system in development that will provide a platform for developing search and retrieval tools.</p>
+                <p>One of our biggest unanswered questions concerns the human side of retrieval. With large quantities of recognized musical content, what sorts of tools and interfaces will people use to query the symbolic content of music documents? How will they conceptualize their symbolic music information needs, and what types of interfaces will they use to express these needs to a search system? What types of musical patterns will we need to extract from our musical documents to provide a useful symbolic search system? All of these questions we hope to investigate with a completed system. </p>
+            </div>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl>
+                        <hi rend="bold">Allan, R.</hi> (2007). After Bridgeman: Copyright, museums, and public domain works of art. 
+                        <hi rend="italic">University of Pennsylvania Law Review</hi>, <hi rend="bold">155</hi>(4): 961–89. 
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Antilla, C. and Cumming, J.</hi> (2014). The VIS Framework: Analyzing counterpoint in large datasets. In 
+                        <hi rend="italic">Proceedings of the Conference of the International Society for Music Information Retrieval</hi>. Taipei, pp. 71–6. 
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Hankinson, A.</hi> (2014). “Optical music recognition infrastructure for large-scale music document analysis.” PhD diss., Schulich School of Music, McGill University.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Hankinson, A., et al.</hi> (2012). Digital Document Image Retrieval Using Optical Music Recognition. In 
+                        <hi rend="italic">Proceedings of the Conference of the International Society for Music Information Retrieval</hi>. Porto, Portugal. 
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">HathiTrust.</hi> (2015). Copyright. https://www.hathitrust.org/copyright (accessed 31 October 2015). 
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Schubert, P. and Cumming, J.</hi> (2015). “Another Lesson from Lassus: Quantifying Contrapuntal Repetition in the Duos of 1577.” 
+                        <hi rend="italic">Early Music</hi> 43, no. 4 (September 2015). 
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Sigler, A., Wild, J. and Handelman, E.</hi> (2015). Schematizing the Treatment of Dissonance in 16th-Century Counterpoint. In 
+                        <hi rend="italic">Proceedings of the Conference of the International Society for Music Information Retrieval</hi>. Taipei, pp. 645–51.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Snydman, S., Sanderson, R., and Cramer, T</hi>. (2015). The International Image Interoperability Framework (IIIF): A community and technology approach for web-based images. In 
+                        <hi rend="italic">Proceedings of the Archiving Conference</hi>. Los Angeles, CA, 19–22 May. 
+                    </bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

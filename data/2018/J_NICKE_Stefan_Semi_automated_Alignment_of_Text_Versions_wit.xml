@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title type="full">
+                    <title type="main">Semi-automated Alignment of Text Versions with iteal</title>
+                    <title type="sub"/>
+                </title>
+                <author>
+                    <persName>
+                        <surname>Jänicke</surname>
+                        <forename>Stefan</forename>
+                    </persName>
+                    <affiliation>Leipzig University, Germany</affiliation>
+                    <email>stjaenicke@informatik.uni-leipzig.de</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Wrisley</surname>
+                        <forename>David Joseph</forename>
+                    </persName>
+                    <affiliation>New York University Abu Dhabi</affiliation>
+                    <email>djw12@nyu.edu</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2018-05-02T15:08:53.599247041</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Name, Institution</publisher>
+                <address>
+                    <addrLine>Street</addrLine>
+                    <addrLine>City</addrLine>
+                    <addrLine>Country</addrLine>
+                    <addrLine>Name</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from an OASIS Open Document</p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.22">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Pre-Conference Workshop and Tutorial</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>text editions</term>
+                    <term>text alignment</term>
+                    <term>alignment visualization</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>literary studies</term>
+                    <term>text analysis</term>
+                    <term>visualisation</term>
+                    <term>English</term>
+                    <term>computer science</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <div type="div1" rend="DH-Heading">
+                <head>Overview</head>
+                <p>Our half-day tutorial proposed for DH2018 concerns the semi-automatic alignment of different witnesses in complex textual traditions, with demonstration of specific use cases, a discussion of the relevance of the implemented system to particular textual problems relevant to the participants as well as a hands on discovery of the system. Alignment is a relatively simple task for modern languages with orthographic stability and relatively similar texts, but when there is a degree of instability of textual transmission as in oral literatures, popular music or poetry, or other complex texts with partial repetition the task becomes more difficult. Whereas methods of hand aligning and visualizing texts exists in TEI, we focus on the possibility of computational alignment for the purpose of exploratory textual visualization. Scholars who are interested in visualizing scaled forms of reading will be interested in this tutorial. </p>
+                <p>Our visual analytics environment 
+                    <hi rend="italic">iteal</hi> supports the computational alignment of textual similarities and is not English-specific. It was originally implemented using orally inflected medieval French poetic texts (with test cases of the fabliaux and epic) and so is known to work on texts in Latin alphabets with inconsistent orthography.
+                </p>
+                <p>This half-day tutorial aims at introducing 
+                    <hi rend="italic">iteal</hi> to the DH community for which the questions of multi-text problems, spelling variance and debates about distant forms of reading are currently quite salient. Many language processing and visualization tools do not work well with languages beyond English. Our environment is known to work with languages beyond English will be of interest those interested in expanding innovative techniques in the textual humanities across the North/South divide. Participants of the tutorial will be led in a step-by-step, hands-on approach through the full cycle of an 
+                    <hi rend="italic">iteal</hi>-based text alignment workflow, and they will finally have the opportunity of testing the tool with their own data. Although proven to be effectively useful for text variants of medieval poetry, we will not focus only on this type of text as 
+                    <hi rend="italic">iteal</hi> can be used to determine alignments among texts of a different kind in any language and in multiple genres. Currently, 
+                    <hi rend="italic">iteal</hi> works with plain text in utf8.
+                </p>
+                <p>
+                    <hi rend="italic">iteal</hi> consists of two major modules:
+                </p>
+                <p>
+                    <hi rend="bold">First</hi>, it automatically determines line-to-line alignments pairwise between all given text editions based on user-configurable parameters including:
+                </p>
+                <list type="unordered">
+                    <item>
+                        <hi rend="bold">Edit distance:</hi> Variant spellings are taken into account by this function. We define two words as spelling variants if they have the same first letter, and if the string similarity of the remaining substrings is higher than a user-configurable threshold. 
+                    </item>
+                    <item>
+                        <hi rend="bold">Coverage:</hi> In order to ensure that a specific proportion of words of both lines are aligned, the user can configure a minimum coverage value of the line. 
+                    </item>
+                    <item>
+                        <hi rend="bold">N-grams:</hi> The user can configure the minimum required n-gram size n that is the largest number of subsequent word matches of both lines. 
+                    </item>
+                    <item>
+                        <hi rend="bold">Broken n-grams:</hi> Quite often, the only difference between two lines is a single word in the middle of a line that is either inserted, synonymous, or a transposed stopword. Large n-grams, from this perspective are not achieved. Thus, we allow the user for considering broken n-grams, which is the total number of word matches among both lines. 
+                    </item>
+                </list>
+                <p>
+                    <hi rend="bold">Second,</hi> for the purpose of analyzing the determined alignment we provide interactive visualizations for different text hierarchy levels (examples for all three views can be found in Figures 1, 2 and 3, and a teaser outlining a brief workflow with 
+                    <hi rend="italic">iteal</hi> can be found at 
+                    <ptr target="https://vimeo.com/230829975"/>):
+                </p>
+                <list type="unordered">
+                    <item>
+                        <hi rend="bold">Distant Reading:</hi> In order to get a rough overview of alignment patterns throughout the observed text versions, we draw a miniature representation for each version in the form of a vertical bar reflecting its number of verse lines in contrast to the other shown versions. For us, this is the most distant form of reading, where the text itself is not visualized, but rather abstract depictions of textual similarity point to patterns worth discovering.
+                    </item>
+                    <item>
+                        <hi rend="bold">Meso Reading:</hi> Since multiple texts are displayed in synoptic views, the visualization is able to convey more complex patterns of textual relationship. We call this a meso reading that might be said to connect multiple close readings all the while transmitting information that lies beyond the scope of a close reading. Here, we use the intuitivity of stream graphs to connect aligned verse lines among different versions. For a more detailed inspection of an individual alignment, clicking on a stream opens a popup window for line-level close reading. 
+                    </item>
+                    <item>
+                        <hi rend="bold">Close Reading:</hi> Next to plain text, the close reading view provides word level alignments for the corresponding verse lines in the form of two Variant Graph visualizations. Within the close reading view, individual alignments can be confirmed with user input, so that it gets persistently stored in the backend. 
+                    </item>
+                </list>
+                <p>
+                    <hi rend="bold">Target audience:</hi> Anyone studying variance in the textual digital humanities and its visualization would be interested in our tutorial. It will be offered in English, but can accommodate data in a variety of languages. Potential participants in the tutorial are encouraged to be in touch with the presenters in advance of DH2018 to provide some sample data that can used to provide a mashup. Required for this step is a version of at least two documents sharing some text in common, of at least 20 lines.
+                </p>
+            </div>
+            <div type="div1" rend="DH-Heading">
+                <head>Tutorial Schedule</head>
+                <p>
+                    <anchor xml:id="id_docs-internal-guid-e399e5c5-212d-e62c-37bb-2b8e7a21734e"/>Part I (1 hour + break time)
+                </p>
+                <p>
+                    <hi rend="color(#1a1a1a) background-color(#ffffff)">– </hi>
+                    <hi rend="color(#000000)italic">iteal</hi>
+                    <hi rend="color(#000000)"> </hi>
+                    <hi rend="color(#000000)">introduction</hi>
+                    <hi rend="color(#1a1a1a) background-color(#ffffff)">: purpose, functionality, configuration, visualization (Stefan Jänicke)</hi>
+                </p>
+                <p>
+                    <hi rend="color(#000000)">– </hi>
+                    <hi rend="color(#000000)">Medieval French poetry as an </hi>
+                    <hi rend="color(#000000)italic">iteal</hi>
+                    <hi rend="color(#000000)"> </hi>
+                    <hi rend="color(#000000)">use case </hi>
+                    <hi rend="color(#1a1a1a) background-color(#ffffff)">(David J. Wrisley)</hi>
+                </p>
+                <p>
+                    <hi rend="color(#000000)">– </hi>
+                    <hi rend="color(#000000)">Further use cases, future work, questions </hi>
+                    <hi rend="color(#1a1a1a) background-color(#ffffff)">(Stefan Jänicke &amp; David J. Wrisley)</hi>
+                </p>
+                <p>Break</p>
+                <p>Part II (2 hours - break time)</p>
+                <p>
+                    <hi rend="color(#1a1a1a) background-color(#ffffff)">– </hi>
+                    <hi rend="color(#1a1a1a) background-color(#ffffff)">Step-by-step hands-on session with texts brought by tutorial participants</hi>
+                </p>
+                <p>
+                    <hi rend="color(#1a1a1a) background-color(#ffffff)">– </hi>
+                    <hi rend="color(#1a1a1a) background-color(#ffffff)">wrap up, feedback and steps forward</hi>
+                </p>
+            </div>
+            <div type="div1" rend="DH-Heading">
+                <head>
+                    <anchor xml:id="id_docs-internal-guid-e399e5c5-211b-37f6-2c7e-b557d2adc0c8"/>
+                    <hi rend="color(#000000)bold">Sample images from </hi>
+                    <hi rend="color(#000000)bold italic">iteal</hi>
+                </head>
+                <p>
+                    <figure>
+                        <graphic url="Pictures/d435e271c92909f4cfc85b4cd2385764.png"/>
+                        <head>Aligning two editions of the Chanson de Roland with iteal</head>
+                    </figure>
+                </p>
+                <p>
+                    <figure>
+                        <graphic url="Pictures/af928893f8d8d015e0d5aee777cb21d8.png"/>
+                        <head>Aligning two editions of La vie de saint Marie l’Egyptienne with iteal</head>
+                    </figure>
+                </p>
+                <p>
+                    <figure>
+                        <graphic url="Pictures/619aebf0f9f14add14be74447085aeea.png"/>
+                        <head>Aligning two editions of Perceval with iteal</head>
+                    </figure>
+                </p>
+            </div>
+            <div type="div1" rend="DH-Heading">
+                <head>Biographies of the Tutorial Organizers</head>
+                <p>
+                    <hi rend="color(#000000)bold italic">Stefan Jänicke (</hi>
+                    <ref target="mailto:stjaenicke@informatik.uni-leipzig.de">
+                        <hi rend="color(#1155cc)bold underline italic">stjaenicke@informatik.uni-leipzig.de</hi>
+                    </ref>
+                    <hi rend="color(#000000)bold italic">):</hi>
+                    <hi rend="color(#000000)bold"> </hi>
+                    <hi rend="color(#000000)">Dr. Stefan Jänicke is a post-doctoral researcher at the Image and Signal Processing Group at Leipzig University, Germany, where he leads a text visualization group focusing on applications in the digital humanities. Over the last years, he has gained experience in developing information visualization and visual analytics techniques within a number of digital humanities projects. His PhD thesis investigates the utility of visualization techniques to support the comparative analysis of digital humanities data, and his current research relates to information visualization with a focus on applications for text- and geovisualization in digital humanities. </hi>
+                    <hi rend="color(#000000)italic">Homepage: </hi>
+                    <ref target="http://stjaenicke.vizcovery.de/">
+                        <hi rend="color(#1155cc)underline">http://stjaenicke.vizcovery.de</hi>
+                    </ref>
+                </p>
+                <p>
+                    <hi rend="color(#000000)bold italic">David Joseph Wrisley</hi>
+                    <hi rend="color(#000000)bold italic"> </hi>
+                    <hi rend="color(#000000)bold italic">(</hi>
+                    <ref target="mailto:djw12@nyu.edu">
+                        <hi rend="color(#1155cc)bold underline italic">djw12@nyu.edu</hi>
+                    </ref>
+                    <hi rend="color(#000000)bold italic">):</hi>
+                    <hi rend="color(#000000)"> Dr. David Joseph Wrisley is Associate Professor of Digital Humanities at New York University Abu Dhabi. His research interests include the creation of open, inclusive corpora in medieval studies, corpus-based geovisualization as well as visual exploration of variance in poetic traditions. Furthermore, he is interested in the challenges in humanities data stemming from </hi>
+                    <hi rend="color(#000000)">both multilingual environments and social data creation. </hi>
+                    <hi rend="color(#000000)italic">Homepage: </hi>
+                    <ref target="http://djwrisley.com/">
+                        <hi rend="color(#1155cc)underline">http://djwrisley.com</hi>
+                    </ref>
+                </p>
+            </div>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl>
+                        <anchor xml:id="id_docs-internal-guid-e399e5c5-2137-3a07-a2e4-0067982f2bb2"/>
+                        <hi rend="bold">S. Jänicke, A. Geßner, G. Franzini, M. Terras, S. Mahony and G. Scheuermann</hi> (2015). TRAViz: A Visualization for Variant Graphs. In: Digital Scholarship in the Humanities 30, suppl 1, pp i83–i99.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">S. Jänicke, G. Franzini, M. F. Cheema and G. Scheuermann</hi> (2015). On Close and Distant Reading in Digital Humanities: A Survey and Future Challenges. In: Eurographics Conference on Visualization (EuroVis) - STARs. The Eurographics Association.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">S. Jänicke and D. J. Wrisley</hi> (2017). Visualizing Mouvance: Towards a Visual Analysis of Variant Medieval Text Traditions. In: Digital Scholarship in the Humanities 32, suppl 2, pp ii106–ii123.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">S. Jänicke, A. Geßner, M. Büchler and G. Scheuermann</hi> (2014). Visualizations for Text Re-use. In: Proceedings of the 5th International Conference on Information Visualization Theory and Applications (VISIGRAPP 2014), pp 59–70.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">S. Jänicke and D. J. Wrisley</hi> (2017). Interactive Visual Alignment of Medieval Text Versions. In: IEEE Conference on Visual Analytics Science and Technology, IEEE VAST 2017.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">S. Jänicke, A. Geßner, M. Büchler and G. Scheuermann</hi> (2014). 5 Design Rules for Visualizing Text Variant Graphs. In: Conference Abstracts of the Digital Humanities 2014.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">S. Jänicke and D. J. Wrisley</hi> (2016). Visualizing Mouvance: Towards an Alignment of Medieval Vernacular Text Traditions. In: Conference Abstracts of the Digital Humanities 2016.
+                    </bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

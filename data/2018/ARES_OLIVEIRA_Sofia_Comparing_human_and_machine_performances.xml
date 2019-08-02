@@ -1,0 +1,414 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>Comparing human and machine performances in transcribing 18th century handwritten Venetian script</title>
+                <author>
+                    <persName>
+                        <surname>Ares Oliveira</surname>
+                        <forename>Sofia</forename>
+                    </persName>
+                    <affiliation>EPFL, Switzerland</affiliation>
+                    <email>sofia.oliveiraares@epfl.ch</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Kaplan</surname>
+                        <forename>Frederic</forename>
+                    </persName>
+                    <affiliation>EPFL, Switzerland</affiliation>
+                    <email>frederic.kaplan@epfl.ch</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2018-04-24T14:58:00Z</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Name, Institution</publisher>
+                <address>
+                    <addrLine>Street</addrLine>
+                    <addrLine>City</addrLine>
+                    <addrLine>Country</addrLine>
+                    <addrLine>Name</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from a Word document</p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.22">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Long Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>handwritten</term>
+                    <term>text</term>
+                    <term>recognition</term>
+                    <term>transcription</term>
+                    <term>search</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>image processing</term>
+                    <term>digitisation</term>
+                    <term>resource creation</term>
+                    <term>and discovery</term>
+                    <term>English</term>
+                    <term>computer science</term>
+                    <term>artificial intelligence and machine learning</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <div type="div1" rend="DH-Heading1">
+                <head>Introduction</head>
+                <p>Automatic transcription of handwritten texts has made important progress in the recent years (Sanchez et al., 2014; Sanchez et al., 2015, Sanchez et al., 2016). This increase in performance, essentially due to new architectures combining convolutional neural networks with recurrent neutral networks, opens new avenues for searching in large databases of archival and library records. This paper reports on our recent progress in making million digitized Venetian documents searchable, focusing on a first subset of 18th century fiscal documents from the Venetian State Archives (Condizione di Decima, Quaderni dei Trasporti, Catastici). For this study, about 23'000 image segments containing 55'000 Venetian names of persons and places were manually transcribed by archivists, trained to read such kind of handwritten script, during an annotation phase that lasted 2 years. This annotated dataset was used to train and test a deep learning architecture, with the objective of making the entire set of more than 2 million pages searchable. As described in the following paragraphs, performance levels (about 10% character error rate) are satisfactory for search use cases, which demonstrates that such kinds of approaches are viable at least for this typology of handwritten scripts. This paper compares this level of reading performance with the reading capabilities of Italian-speaking transcribers, preselected with a test based on 100 transcriptions. More than 8500 new human transcriptions were produced, confirming that the amateur transcribers were not as good as the expert. However, on average, the machine outperforms the amateur transcribers in this transcription tasks.</p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Machine performance</head>
+                <p rend="No Spacing">We developed a transcription system based on the combination of convolutional and recurrent neural networks as described in 
+                    <ref target="page7" xml:space="preserve">(Shi et al., 2017) </ref>for handwritten text (Fig.1a) (The code is implemented in python and is available at 
+                    <ref target="https://github.com/solivr/tf-crnn">https://github.com/solivr/tf-crnn</ref>). On the one hand, convolutional neural networks (CNN) capture hierarchical spatial information, with the first layers capturing low level features and later ones capturing high level ones. On the other hand, recurrent neural networks (RNN) capture temporal data, with the ability to grab contextual information within a sequence of arbitrary length. Convolutional recurrent neural networks (CRNN) combine the best of both worlds to handle multi-dimensional data as sequences.
+                </p>
+                <p>From an input image, the convolutional layers extract a sequence of compact representations which corresponds to the columns of the feature map. They are processed from the left to the right of the image to form a sequence of local image descriptors (Fig.1b).</p>
+                <figure>
+                    <graphic n="1001" width="9.098138888888888cm" height="10.46338888888889cm" url="Pictures/16e8d5027b0151cc2637a05c7fed943b.png" rend="block"/>
+                </figure>
+                <p>Fig 1 (a) Network architecture. The architecture consists of three parts: 1) convolutional layers, which extract a feature sequence from the input image; 2) recurrent layers, which predict a label distribution for each frame; 3) transcription layer, which translates the per-frame predictions into the final label sequence. 
+                    <ref target="page7" xml:space="preserve">(Shi et al., 2017) </ref>
+                </p>
+                <figure>
+                    <graphic n="1002" width="5.549194444444445cm" height="4.693708333333333cm" url="Pictures/d94493816650c280921e20ba02d0f094.png" rend="block"/>
+                </figure>
+                <p>
+                    <hi style="color:red; font-size: 14pt; font-weight:bold;" rend="ERROR">�</hi>
+                    <note place="margin" type="conversion" resp="#teitodocx">
+                        <hi rend="docxError">unable to handle picture here, no embed or link</hi>
+                    </note>Fig 1 (b) Feature sequence 
+                    <ref target="page7" xml:space="preserve">(Shi et al., 2017) </ref>
+                </p>
+                <p>The sequence is then input to the recurrent layers which consist of stacked bidirectional long short-term memory (LSTM) cells 
+                    <ref target="page7" xml:space="preserve">(Hochreiter et al., 1997). </ref>LSTM cells have the ability to capture long-range dependencies but are directional, and thus only use past contexts. Since in image-based sequences context from both directions are useful and complementary, one forward and one backward LSTM cells are combined to form bidirectional LSTMs which are then stacked to have several recurrent layers. The recurrent network outputs per-frame predictions (probabilities) that need to be converted into a label sequence.
+                </p>
+                <p>In the transcription layer, the connectionist temporal classification (CTC) (Graves et al., 2006) is used in order to obtain the “sequence with the highest probability conditioned on the per-frame predictions". The sequence label is found by taking the most probable label at each time step and mapping the separated labels to the correct sequence label (see (Graves et al., 2006) to have the detailed explanation on how the repeated and 'blanks' labels are dealt with).</p>
+                <p>The CRNN was trained on data coming from various types of Venetian handwritten documents. The dataset is composed of image segments of mainly names and places that have been transcribed by archivists in Venice. Image segments are used in order to reflect only the performance of the transcriber system, without introducing possible errors from the segmentation process. Thus, the segmentation step is not part of the proposed experiment. The set was randomly split into training and testing set and the content of the image segments ranges from one to several words (Tab.1).</p>
+                <table rend="rules">
+                    <row>
+                        <cell>Set</cell>
+                        <cell># images segments</cell>
+                        <cell># total words</cell>
+                        <cell>size of vocabulary</cell>
+                    </row>
+                    <row>
+                        <cell/>
+                        <cell/>
+                        <cell/>
+                        <cell/>
+                    </row>
+                    <row>
+                        <cell>Training set</cell>
+                        <cell>20712</cell>
+                        <cell>48628</cell>
+                        <cell>8848</cell>
+                    </row>
+                    <row>
+                        <cell>Testing set</cell>
+                        <cell>2317</cell>
+                        <cell>5559</cell>
+                        <cell>2157</cell>
+                    </row>
+                    <row>
+                        <cell/>
+                        <cell/>
+                        <cell/>
+                        <cell/>
+                    </row>
+                    <row>
+                        <cell>Full set</cell>
+                        <cell>23029</cell>
+                        <cell>54187</cell>
+                        <cell>9429</cell>
+                    </row>
+                    <row>
+                        <cell/>
+                        <cell/>
+                        <cell/>
+                        <cell/>
+                    </row>
+                </table>
+                <p>Table 1: Datasets used</p>
+                <p>We show in Fig.2a and 
+                    <ref target="page4" xml:space="preserve">3a </ref>how words are distributed in the dataset. We de ne the vocabulary to be the set of different words. The impact factor IF is a measure of the words' distribution in the dataset and is defined as IF (i) = 
+                    <hi rend="superscript">c(</hi>
+                    <hi rend="subscript">n</hi>
+                    <hi rend="superscript">i)</hi>
+                    <hi rend="italic">hist</hi>(i; c), with c the vector of counts of each vocabulary word, n the total number of words, 
+                    <hi rend="italic">hist</hi> the histogram operation and 
+                    <hi rend="italic">hist</hi>(i; c) the number of vocabulary words that occur i times. The left part of these plots shows that most of the words do not appear commonly but a few are very present in the dataset as it can be seen on the right of the figures (those are mainly prepositions such as `di', `de', `in', etc). The cumulative sums (Fig.2b and Fig.3b) show that common words have limited impact, but also that the system does not suffer from overfitting to the vocabulary since most of the words used for training are 'rare' in the dataset.
+                </p>
+                <figure>
+                    <graphic n="1004" width="16.002cm" height="3.663597222222222cm" url="Pictures/ebf6bd9ea5e20c461fcf677a4a6fb6be.png" rend="inline"/>
+                </figure>
+                <p>(a)</p>
+                <figure>
+                    <graphic n="1005" width="16.002cm" height="3.8029444444444445cm" url="Pictures/0d6ed6d9fa3db3a020dd7c9ee9ac235a.png" rend="inline"/>
+                </figure>
+                <p>(b)</p>
+                <p>Figure 2: Word distribution and impact factor in full dataset. We observe that 70% of the dataset is represented by words appearing less than 250 times (out of 54187 words)</p>
+                <p>To evaluate the performance of the system we use the Character Error Rate (CER) measure on the test set defined as CER = (i + s + d)=n with i, s, d, n the number of character insertions, substitutions, deletions and total characters respectively. The numerical results are shown in Tab. 
+                    <ref target="page4">2.</ref> Several experiments were performed using different sets of characters (called 'Alphabet' hereafter) and resulted in one model per Alphabet. A few randomly selected examples can be seen in Appendix 
+                    <ref target="page8">A.</ref>
+                </p>
+                <p>On this dataset, our transcription system is below 10% CER, which is sufficiently good to be able to search for entities in documents using regular expressions and fuzzy matching. Moreover, we believe this performance is better than the human average and in order to verify our hypothesis, we conducted an experiment described in the following section.</p>
+                <figure>
+                    <graphic n="1006" width="16.002cm" height="3.6759444444444442cm" url="Pictures/563bd140e54c94a859de606c43ec567c.png" rend="inline"/>
+                </figure>
+                <p>(a)</p>
+                <figure>
+                    <graphic n="1007" width="16.002cm" height="3.8029444444444445cm" url="Pictures/cf8dc62373b079eb1218e444f8db00b3.png" rend="inline"/>
+                </figure>
+                <p>(b)</p>
+                <p>Figure 3: Word distribution and impact factor in the testing dataset</p>
+                <table rend="rules">
+                    <row>
+                        <cell>Alphabet</cell>
+                        <cell cols="3">Set of characters</cell>
+                        <cell># image segments</cell>
+                        <cell>CER</cell>
+                    </row>
+                    <row>
+                        <cell/>
+                        <cell/>
+                        <cell/>
+                        <cell/>
+                        <cell/>
+                        <cell/>
+                    </row>
+                    <row>
+                        <cell>Capital-lowercase-symbols</cell>
+                        <cell cols="3">A-Za-z'.,: -=</cell>
+                        <cell>24035</cell>
+                        <cell>0.089</cell>
+                    </row>
+                    <row>
+                        <cell>Capitals-lowercase-digits-symbols</cell>
+                        <cell>A-Za-z0-9'.,:; -</cell>
+                        <cell/>
+                        <cell>=()[]/</cell>
+                        <cell>96198</cell>
+                        <cell>0.045</cell>
+                    </row>
+                    <row>
+                        <cell>Digits</cell>
+                        <cell>0-9</cell>
+                        <cell/>
+                        <cell/>
+                        <cell>72326</cell>
+                        <cell>0.013</cell>
+                    </row>
+                    <row>
+                        <cell/>
+                        <cell/>
+                        <cell/>
+                        <cell/>
+                        <cell/>
+                        <cell/>
+                    </row>
+                </table>
+                <p>Table 2: The Character Error Rate (CER) for each Alphabet</p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Human performance</head>
+                <p>In order to quantify the human average error rates on our dataset, we conducted an experiment on Crowdflower's platform, where Italian speaking persons were paid to transcribe image segments of the testing set (see examples in App. 
+                    <ref target="page8">A)</ref>. The contributors had to decipher a few units before being able to start the survey and during the experiment some of their transcriptions were evaluated. There were 103 evaluation questions that allowed to separate low accuracy contributors' answers from reliable ones. Each image segment was transcribed at least three times, and in total 11'727 units were transcribed. Only the answers of contributors maintaining at least 60% accuracy throughout the experiment and who transcribed at least 50 units were taken into account for the analysis. This resulted in a total of 8'674 valid transcriptions to analyze. The number of transcriptions (judgments) per contributor and its location can be seen in Fig.6.
+                </p>
+                <p>We compare the performance of the system and the amateur transcribers in Tab.3 and 
+                    <ref target="page5">Fig.4,5</ref> (onesample t-test, p &lt; 0:005). It is clear from the graphs that the CRNN system has a better CER and WER than the human average on this dataset, and only a few contributors have lower or comparable performance to the system but is not yet as good as the expert. It is interesting to notice that the performance of the best amateur transcriber almost doubles when capital letters and punctuation are not considered (case 3) whereas the CRNN makes little improvement. Indeed, although the system has inferred some sort of weak language model, we have seen it producing unlikely transcriptions whereas the best contributor uses its knowledge of Italian proper nouns to deduce the correct transcription when some characters are di cult to read. Thus, the system's CER and WER could be reduced by using a lexicon-based transcription, where the output of the neural network would be compared to a dictionary and the closest element would be chosen.
+                </p>
+                <table rend="rules">
+                    <row>
+                        <cell cols="2">Case</cell>
+                        <cell/>
+                        <cell/>
+                        <cell cols="2">CER</cell>
+                        <cell/>
+                        <cell cols="2">WER</cell>
+                    </row>
+                    <row>
+                        <cell cols="2"/>
+                        <cell>CRNN</cell>
+                        <cell/>
+                        <cell>contributors</cell>
+                        <cell/>
+                        <cell>CRNN</cell>
+                        <cell/>
+                        <cell>contributors</cell>
+                    </row>
+                    <row>
+                        <cell cols="2"/>
+                        <cell/>
+                        <cell/>
+                        <cell/>
+                        <cell/>
+                        <cell/>
+                        <cell/>
+                        <cell/>
+                    </row>
+                    <row>
+                        <cell/>
+                        <cell/>
+                        <cell/>
+                        <cell/>
+                        <cell/>
+                        <cell/>
+                        <cell/>
+                        <cell/>
+                        <cell/>
+                    </row>
+                    <row>
+                        <cell/>
+                        <cell/>
+                        <cell/>
+                        <cell/>
+                        <cell/>
+                        <cell/>
+                        <cell/>
+                        <cell/>
+                        <cell/>
+                    </row>
+                    <row>
+                        <cell>0</cell>
+                        <cell>: No modifications (Fig.4a)</cell>
+                        <cell>0.0804</cell>
+                        <cell/>
+                        <cell>0.1328</cell>
+                        <cell/>
+                        <cell>-</cell>
+                        <cell/>
+                        <cell>-</cell>
+                    </row>
+                    <row>
+                        <cell>1</cell>
+                        <cell>: Capital letters replaced by lowercase (Fig.4b)</cell>
+                        <cell>0.0768</cell>
+                        <cell/>
+                        <cell>0.1137</cell>
+                        <cell/>
+                        <cell>-</cell>
+                        <cell/>
+                        <cell>-</cell>
+                    </row>
+                    <row>
+                        <cell>2</cell>
+                        <cell>: All punctuation removed (Fig.4c, 
+                            <ref target="page6">5a)</ref>
+                        </cell>
+                        <cell>0.0766</cell>
+                        <cell/>
+                        <cell>0.1241</cell>
+                        <cell/>
+                        <cell>0.2709</cell>
+                        <cell/>
+                        <cell>0.4318</cell>
+                    </row>
+                    <row>
+                        <cell>3</cell>
+                        <cell>: Combination of Case 1 and Case 2 (Fig.4d, 
+                            <ref target="page6">5b)</ref>
+                        </cell>
+                        <cell>0.0718</cell>
+                        <cell/>
+                        <cell>0.1047</cell>
+                        <cell/>
+                        <cell>0.2551</cell>
+                        <cell/>
+                        <cell>0.3507</cell>
+                    </row>
+                    <row>
+                        <cell/>
+                        <cell/>
+                        <cell/>
+                        <cell/>
+                        <cell/>
+                        <cell/>
+                        <cell/>
+                        <cell/>
+                        <cell/>
+                    </row>
+                </table>
+                <p>Table 3: Comparison of Character Error Rates (CER) and Word Error Rates (WER) considering different formatting cases of the transcriptions for our system and the mean of the contributors (ground-truth and predictions are formatted in the same way)</p>
+                <figure>
+                    <graphic n="1008" width="15.510622222222223cm" height="10.148925cm" url="Pictures/9bd8970248fce9dcb1db53f97c43ee18.png" rend="block"/>
+                </figure>
+                <p>Figure 4: Character Error Rate per contributor for different cases (refer to Tab.3).</p>
+                <figure>
+                    <graphic n="1009" width="7.697611111111111cm" height="4.997097222222222cm" url="Pictures/13ad4c9cda41a66c8bbfa452f82a40af.png" rend="block"/>
+                    <graphic n="10010" width="7.698572222222222cm" height="4.998061111111111cm" url="Pictures/92d9411470314ca9c4321cb502c0f5ff.png" rend="block"/>
+                </figure>
+                <p>(a) (b)</p>
+                <p>Figure 5: Word Error Rate per contributor for different cases (refer to Tab.3).</p>
+                <figure>
+                    <graphic n="10011" width="8.460055555555556cm" height="6cm" url="Pictures/c6db1fb8e19e25c28aada40b5e9896ad.png" rend="block"/>
+                </figure>
+                <p>Figure 6: Number of judgements made (image segments transcriptions) by each contributor and its location. The contributors' ordering is the same as Fig.4a (by increasing CER)</p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Perspectives</head>
+                <p>The developed system shows promising results to make possible the textual search on digitized handwritten documents. These results open up new prospects for massive indexing, analyze and study of historical documents. We showed that the system had lower Character and Word Error Rates than the human average, thus being sufficiently reliable to use for searching purposes. Further work will focus on improving the architecture of the model, especially the CNN. We will also explore the possibility of lexicon- or rule-based transcription to decrease error rates.</p>
+                <p>More generally, it seems that the automatic transcription is currently passing a threshold in terms of performance, now giving better results than good amateur transcribers. Future research will show how far this level of performance depends on the expert initial training set or whether, after some exposition with dozens of different scripts, the automatic transcriber may be able to generalize by itself without further specific training.</p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Appendix A : Transcription examples</head>
+                <figure>
+                    <graphic n="10012" width="12.590466666666666cm" height="20cm" url="Pictures/a1fe97aef96e57e3e0af26615e39acd9.png" rend="inline"/>
+                </figure>
+            </div>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl>
+                        <hi rend="bold">A. Graves, S. Fernandez, F. Gomez, and J. Schmidhuber</hi> (2006) Connectionist temporal classification: labelling unsegmented sequence data with recurrent neural networks, 
+                        <hi rend="italic">Proceedings of the 23rd international conference on Machine learning</hi>, pp. 369-376, ACM
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">S. Hochreiter and J. Schmidhuber</hi> (1997) Long short-term memory, 
+                        <hi rend="italic">Neural computation</hi>, vol. 9, no. 8, pp. 1735-1780, 1997.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">J. A. Sanchez, V. Romero, A. H. Toselli, and E. Vidal</hi> (2104). Icfhr2014 competition on handwritten text recognition on transcriptorium datasets (htrts)
+                        <hi rend="italic">, Frontiers in Handwriting Recognition (ICFHR)</hi>, 2014 14th International Conference on, pp. 785-790, IEEE
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">J. A. Sanchez, A. H. Toselli, V. Romero, and E. Vidal</hi> (2015). Icdar 2015 competition htrts: Hand-written text recognition on the transcriptorium dataset, 
+                        <hi rend="italic">Document Analysis and Recognition (ICDAR)</hi>, 2015 13th International Conference on, pp. 1166-1170, IEEE
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">J. A. Sanchez, V. Romero, A. H. Toselli, and E. Vidal</hi>, (2016). Icfhr2016 competition on handwritten text recognition on the read dataset, 
+                        <hi rend="italic">Frontiers in Handwriting Recognition (ICFHR)</hi>, 2016 15th International Conference on, pp. 630-635, IEEE
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">B. Shi, X. Bai, and C. Yao</hi> (2017) An end-to-end trainable neural network for image-based sequence recognition and its application to scene text recognition, 
+                        <hi rend="italic">IEEE transactions on pattern analysis and machine intelligence</hi>, vol. 39, no. 11, pp. 2298-2304
+                    </bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

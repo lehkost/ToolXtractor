@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>Crossed Semantic Analysis of Literary Texts with DeSeRT</title>
+                <author>
+                    <persName>
+                        <surname>Ganascia</surname>
+                        <forename>Jean-Gabriel</forename>
+                    </persName>
+                    <affiliation>Sorbonne Universités, Université Pierre and Marie Curie (Paris 6); Laboratoire d'Informatique de Paris 6 (LIP6), CNRS UMR 7606; Labex OBVIL (Observatoire de la vie littéraire)</affiliation>
+                    <email>jean-gabriel.ganascia@lip6.fr</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Mainardi</surname>
+                        <forename>Chiara</forename>
+                    </persName>
+                    <affiliation>Sorbonne Universités, Université Paris-Sorbonne (Paris 4); Labex OBVIL (Observatoire de la vie littéraire)</affiliation>
+                    <email>chiara85.mc@gmail.com</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2016-03-02T18:05:00Z</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Maciej Eder, Pedagogical University in Krakow</publisher>
+                <publisher>Jan Rybicki, Jagiellonian University</publisher>
+                <address>
+                    <addrLine>Institute of Polish Studies</addrLine>
+                    <addrLine>Pedagogical University</addrLine>
+                    <addrLine>ul. Podchorazych 2</addrLine>
+                    <addrLine>30-084 Krakow, Poland</addrLine>
+                    <addrLine>maciej.eder@ijp-pan.krakow.pl</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from a Word document </p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.20">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Long Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>reformulation</term>
+                    <term>paraphrases</term>
+                    <term>topics detection</term>
+                    <term>textual reuses</term>
+                    <term>semantic search</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>corpora and corpus activities</term>
+                    <term>literary studies</term>
+                    <term>natural language processing</term>
+                    <term>semantic analysis</term>
+                    <term>french studies</term>
+                    <term>content analysis</term>
+                    <term>data mining / text mining</term>
+                    <term>English</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <div type="div1" rend="DH-Heading1">
+                <head>Introduction</head>
+                <p>Doing comparative researches on a large literary corpus is often lengthy and demanding. With the digitization of contents, scholars have started using computers. Semantic information is essential for an appropriate understanding of texts and is an extremely important factor in cross-textual analysis. This is why we have developed a new semantic engine built especially for Digital Humanities, called DeSeRT
+                    <note place="foot" xml:id="ftn1" n="1">
+                        <p> A French version of DeSeRT is freely available online at http://obvil-dev.paris-sorbonne.fr/desert/ </p>
+                    </note>. This paper presents some of the results that were obtained from a corpus of the 17
+                    <hi rend="superscript">th</hi> and 18
+                    <hi rend="superscript">th</hi> century texts characteristic of the debates about theater in the classical age. The following paper is divided into four parts: after a first section that briefly describes the search engine used and the different investigations it allows, a second section introduces the corpus used. Then, the third section shows some of the results obtained.
+                </p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>The DeSeRT Search Engine</head>
+                <p>DeSeRT has been designed to identify and compare rewriting, paraphrasing or reformulation. It is based on an idea, already developed (Barron-Cedeño et al., 2013; Ferrero and Simac-Lejeune, 2015), according to which, even if the reformulations cannot be reduced to paraphrases, they retain the meaning of original texts by using either the same words or words of similar meaning. As a consequence, the detection of co-occurrences of a few semantically equivalent lemmas in small blocks of texts is sufficient to capture the equivalent meaning and, therefore, to identify the reformulation of the same ideas.</p>
+                <p>This is implemented in four steps: </p>
+                <list type="ordered">
+                    <item>Dividing texts into small blocks of words that are partially overlapping. Typically each block may contain 300 words and two consecutive blocks overlap by one-half, but both the block size and the proportion of overlap can vary.</item>
+                    <item>Extracting the meaningful lemmas using a POS tagger. This step enables the exclusion of some syntactical categories, such as prepositions or articles, and to get the lemma associated to each word. The current implementation makes use of TreeTagger
+                        <note place="foot" xml:id="ftn2" n="2">
+                            <p> http://www.cis.uni-muenchen.de/~schmid/tools/TreeTagger/</p>
+                        </note>, but this could easily be changed.
+                    </item>
+                    <item>Indexing each block with the lemmas obtained at step 3. Without going into implementation details, let us remark that the index is stored using the SQLite
+                        <note place="foot" xml:id="ftn3" n="3">
+                            <p> http://sqlite.org/</p>
+                        </note> database management system.
+                    </item>
+                    <item>Retrieving blocks that contain many identical or semantically equivalent lemmas. This fourth module exploits a dictionary of synonyms to recover blocks that have similar meanings. It is also possible to use a thesaurus to restrict the search to a set of predefined terms, but this is not a necessity. The proximity between two blocks of text is based on an Okapi similarity measurement (Spärk-Jones et al, 2000), of which evaluation is greatly simplified by the fact that all blocks have the same size. </item>
+                </list>
+                <p>More precisely, the Okapi similarity measure of a block B with a set of terms T = 
+                    <hi rend="italic">t</hi>
+                    <hi rend="italic subscript">1</hi>
+                    <hi rend="italic">, … t</hi>
+                    <hi rend="italic subscript">n</hi> is given by the following formula:
+                    <lb/>
+                    <graphic url="477/image1.png" rend="inline"/>
+                    <lb/>where 
+                    <hi rend="italic">f(t</hi>
+                    <hi rend="italic subscript">i</hi>
+                    <hi rend="italic">, B)</hi> is the frequency of the term 
+                    <hi rend="italic">t</hi>
+                    <hi rend="italic subscript">i</hi> in the block 
+                    <hi rend="italic">B</hi>, |
+                    <hi rend="italic">B</hi>| is the size of block 
+                    <hi rend="italic">B, k</hi> and 
+                    <hi rend="italic">b</hi> are two free parameters chosen in advance (usually chosen as k∈[1.2, 2] and b=0.75), 
+                    <hi rend="italic">avdl</hi> is the average document description length in the collection and 
+                    <hi rend="italic">IDF(t</hi>
+                    <hi rend="italic subscript">i</hi>
+                    <hi rend="italic">)</hi> is the 
+                    <hi rend="italic">Inverse Document Frequency</hi> of term 
+                    <hi rend="italic">t</hi>
+                    <hi rend="italic subscript">i</hi> is given by: 
+                    <graphic url="477/image2.png" rend="inline"/>
+                </p>
+                <p>It appears that, when the size of each block is the same and when the frequency of terms in blocks is supposed to be at max 1 (this approximation is justified since the blocks are small), this formula can be simplified. It then becomes equivalent to the information theoretic measure of the terms in blocks, i.e. 
+                    <lb/>
+                    <graphic url="477/image3.png" rend="inline"/>
+                    <lb/>where 
+                    <hi rend="italic">Pr(t</hi>
+                    <hi rend="italic subscript">i</hi>
+                    <hi rend="italic">)</hi> is the probability of the term 
+                    <hi rend="italic">t</hi>
+                    <hi rend="italic subscript">i</hi> in the overall corpus.
+                </p>
+                <p>Using this score, it is possible to measure the similarity between blocks or between a block and a set 
+                    <hi rend="italic">T</hi> of terms 
+                    <hi rend="italic">t</hi>
+                    <hi rend="italic subscript">i</hi>. As a consequence, DeSeRT can be used in different ways. The research queries may be done through words or concepts, i.e. words that are expanded using the dictionary of synonyms. It is also possible to compare any text (or file) to a corpus: then, DeSeRT detects corpus blocks where the meaning is similar to blocks of the given text, which allows, for instance, the arguments in a dispute or the anecdotes and the common places that are reused to be followed. Lastly, it is also possible (but not mandatory) to add a thesaurus or ontology to focus the search on a given semantic field.
+                </p>
+                <p>Note that, based on techniques developed to detect plagiarism, many tools already exist that are designed to identify paraphrases, reuses and borrowings, i.e. sequences of words that are approximately identical, e.g. (Ganascia et al. 2014; Horson et al. 2010). However, these techniques are unable to spot reformulations of the same ideas or allusions to previous texts. DeSeRT has been designed to overcome these limitations.</p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>The Hate of Theater </head>
+                <p>The project 
+                    <hi rend="italic">Haine du Théâtre</hi>
+                    <note place="foot" xml:id="ftn4" n="4">
+                        <p>
+                            <ref target="http://obvil.paris-sorbonne.fr/projets/la-haine-du-theatre">
+                                <hi rend="Hyperlink.0">http://obvil.paris-sorbonne.fr/projets/la-haine-du-theatre</hi>
+                            </ref>
+                        </p>
+                    </note> (“The Hatred of Theater” in French) aims to analyze theater disputes in Europe using scientific approaches and critical editions of polemical texts. The team’s reflections are mainly focused around the discovery of the circumstances and the arguments used in theater controversies all across Europe, not limited to France, but also in England, Spain, Italy, and the Germanic area, from the last decades of the 16
+                    <hi rend="superscript">th</hi> century up to the beginning of the 19
+                    <hi rend="superscript">th</hi> century.
+                </p>
+                <p>The corpus of the project collects many texts written in French during the 17
+                    <hi rend="superscript">th</hi> and the 18
+                    <hi rend="superscript">th</hi> centuries. The purpose of this project is to explore the gray areas of theater controversies in order to outline a global overview and to discover where and how the polemics began, their chronological discrepancies and the links between them and their contemporary resurgences. The total collection of the 
+                    <hi rend="italic">Haine du Théâtre</hi> texts is, by now, made up of 27 texts. 
+                </p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Exploitation of DeSeRT on the Hate of Theatre Corpus</head>
+                <div type="div2" rend="DH-Heading2">
+                    <head>Discovery of reuses</head>
+                    <p>Querying the 27 texts of the 
+                        <hi rend="italic">Haine du Théâtre</hi> corpus, we found much reuse of similar passages and texts. DeSeRT is not only useful for detecting those parts of text that deal with the same concept, but is also a very good tool to find borrowings. 
+                    </p>
+                    <p>For example, comparing two texts, the 
+                        <hi rend="italic">Défense</hi> of Voisin (1666) and 
+                        <hi rend="italic">Traité de la Comédie</hi> of Nicole (1667), we discover immediately that the 
+                        <hi rend="italic">Traité</hi> has been included in the 
+                        <hi rend="italic">Défense</hi> by Voisin, which is a very long text, not only once, but twice. The first time, Voisin presents it as a re-publication, then he re-uses phrases similar to those employed by Nicole in different passages and he sprinkles them in his 
+                        <hi rend="italic">Défense</hi>.
+                    </p>
+                    <p>The keywords of this correspondence are very well detected by DeSeRT, as can be seen in the example below. </p>
+                    <figure>
+                        <graphic url="477/image4.png" rend="inline"/>
+                    </figure>
+                    <p>Furthermore, continuing the analysis of the text we discover that in these two texts the actor is frequently associated with the idea of purity in religion.</p>
+                    <figure>
+                        <graphic url="477/image5.png" rend="inline"/>
+                    </figure>
+                </div>
+                <div type="div2" rend="DH-Heading2">
+                    <head>Reformulations of Ideas</head>
+                    <p>DeSeRT also shows in detail the parts of the corpus that are similar or that develop the same ideas. This may either be done on demand, according user requests, i.e. to given texts, or to the overall corpus, which automates the process.</p>
+                    <p>For instance, we have found many topics common not only to the texts by Nicole and Voisin, but also to two others e.g. the theme of the idolatry as the “mother of all spectacles” in (Aubignac, 1666) and (Conti, 1666).</p>
+                    <p>Note that, in the following figures, we have greyed the identical passages with the MEDITE system, which only spots strict homologies, without considering many words that appear identical to DeSeRT because they correspond to the same lemma or to two synonymous lemmas. As a consequence, the number of gray zones considerably underestimates the semantic proximity detected by DeSeRT.</p>
+                    <figure>
+                        <graphic url="477/image6.png" rend="inline"/>
+                    </figure>
+                    <p>Secondly, as shown in the following figures, the topic “renouncing the Devil” (
+                        <hi rend="italic">Renoncer au Diable</hi> in French) is regularly present in the texts written by Aubignac, Conti and Voisin,
+                        <note place="foot" xml:id="ftn5" n="5">
+                            <p> D’Aubignac, 1666 : 59, 62, 65, 72, 73, 74, 79, 217. Conti, 1666 : 88, 105, 120, 144, 173, 182, 184. Voisin, 1671 : 59, 86, 88, 97, 113, 114, 124, 165, 205, 212, 228, 407, 427, 433, 451, 463, 481.</p>
+                        </note> while it appears only once in (Nicole, 1667: 477).
+                    </p>
+                    <figure>
+                        <graphic url="477/image7.png" rend="inline"/>
+                    </figure>
+                    <figure>
+                        <graphic url="477/image8.png" rend="inline"/>
+                    </figure>
+                    <p>Further results of DeSeRT lead us to understand that many others expressions are common to the four authors, such as the description of the theatre as a “flesh of pestilence” (
+                        <hi rend="italic">chair de pestilence</hi>) or as a “school of the debauchery”. 
+                    </p>
+                    <figure>
+                        <graphic url="477/image9.png" rend="inline"/>
+                    </figure>
+                    <figure>
+                        <graphic url="477/image10.png" rend="inline"/>
+                    </figure>
+                </div>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Conclusion</head>
+                <p>To conclude, DeSeRT allows the discovery of reformulations and similar phrases, as well as related topics and passages in a corpus. It is usable on any kind of corpus that is made up by files in the txt format. As we have briefly shown in this paper, this search engine enables users to identify crucial passages of a specific corpus according to two types of detection: the discovery of reuses, such as plagiarism or hidden rewritings, and the reformulation of ideas, which can be manually given by the user (as words or concepts) or automatically extracted by the DeSeRT search engine.</p>
+            </div>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl>
+                        <hi rend="bold">Barron-Cedeño, A., et al. </hi> (2013). Plagiarism meets paraphrasing : Insights for the next generation in automatic plagiarism detection. In 
+                        <hi rend="italic">Association for Computational Linguistics</hi>, vol. <hi rend="bold">39</hi>: 917–47.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Conti, Prince de, A. de B.</hi> (1666). 
+                        <hi rend="italic">Traité de la Comédie et des spectacles</hi>, Louis Billaine, Paris.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">D'Aubignac, Abbé, F.H. </hi>(1666). 
+                        <hi rend="italic">Dissertation sur la condemnation des théâtres</hi>, N. Pépingué, Paris.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Ferrero, J. and Simac-Lejeune, A.</hi> (2015). Détection automatique de reformulations - Correspondance de concepts appliquée à la détection du plagiat, <hi rend="italic">15ème conférence internationale sur l'extraction et la gestion des connaissances (EGC 2015)</hi>, Luxembourg.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Ganascia, J.G., Glaudes, P. and Del Lungo, A.</hi> (2014). Automatic detection of reuses and citations in literary texts, 
+                        <hi rend="italic">Literary and Linguistic Computing</hi>, 2014, doi: 10.1093/llc/fqu020
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Horton, R., Olsen, M., and Roe, G.</hi> (2010). Something Borrowed: Sequence Alignment and the Identification of Similar Passages in Large Text Collections, 
+                        <hi rend="italic">Digital Studies/ Le champ numérique </hi><hi rend="bold">2</hi>(1), Available at: http://www.digitalstudies.org/ojs/index.php/ digital_studies/article/view/190/235. (last access 7 November 2013). 
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Nicole, P.</hi> (1667). 
+                        <hi rend="italic">De la Comédie</hi>, Adolphe Beyers, Liege.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Spärck Jones, K., Walker, S. and Robertson, S. E. </hi>(2000). 
+                        <hi rend="italic">A probabilistic model of information retrieval: Development and comparative experiments: Part 1</hi>. Information Processing and Management 
+                        <hi rend="bold">36</hi> (6): 779–808.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Voisin, Abbé, J.</hi> (1671). 
+                        <hi rend="italic">Défense du traité de Mgr le Prince de Conti touchant la comédie et les spectacles ou la réfutation d'un livre intitulé Dissertation sur la condamnation des théâtres</hi>, Coignard, Paris.
+                    </bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

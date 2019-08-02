@@ -1,0 +1,651 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>Automated Comparison of Narrative and Character Function Similarity Using Graph Theory</title>
+                <author>
+                    <persName>
+                        <surname>Miller</surname>
+                        <forename>Ben</forename>
+                    </persName>
+                    <affiliation>Georgia State University, United States of America</affiliation>
+                    <email>miller@gsu.edu</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Shrestha</surname>
+                        <forename>Ayush</forename>
+                    </persName>
+                    <affiliation>Georgia State University, United States of America</affiliation>
+                    <email>ashrestha2@student.gsu.edu</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Olive</surname>
+                        <forename>Jennifer</forename>
+                    </persName>
+                    <affiliation>Georgia State University, United States of America</affiliation>
+                    <email>jolive1@gsu.edu</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Gopavaram</surname>
+                        <forename>Shakthidhar</forename>
+                    </persName>
+                    <affiliation>Georgia State University, United States of America</affiliation>
+                    <email>sgopavaram1@student.gsu.edu</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2014-12-19T13:50:00Z</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Paul Arthur, University of Western Sidney</publisher>
+                <address>
+                    <addrLine>Locked Bag 1797</addrLine>
+                    <addrLine>Penrith NSW 2751</addrLine>
+                    <addrLine>Australia</addrLine>
+                    <addrLine>Paul Arthur</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from a Word document </p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.9">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Long Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>computational narrative</term>
+                    <term>natural language processing</term>
+                    <term>graph theory</term>
+                    <term>text mining</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>information retrieval</term>
+                    <term>literary studies</term>
+                    <term>natural language processing</term>
+                    <term>stylistics and stylometry</term>
+                    <term>text analysis</term>
+                    <term>linguistics</term>
+                    <term>data mining / text mining</term>
+                    <term>English</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <p>Automated comparison of narrative structure facilitates narrative stylometry, cross-document co-reference, and the alignment of events in the retellings of stories from different perspectives. With attention to the second and third outcomes, we introduce a method for the unsupervised population and comparison of graph representations of narrative texts. Populated with extracted story elements drawn from documents, graph substructure similarity analysis techniques are used to measure the similarity of narrative order across stories and for the similarity of character function across those stories. Designed to scale, our first application of this method is against a test corpus of 10 variations of the Aarne-Thompson type 333 story, ‘Little Red Riding Hood’. Preliminary experiments correctly coreferenced differently named entities from story variations and indicated the relative similarity of events in different iterations of the tale despite their appearing in differing order. Next steps include heterogeneous corpora, non-fiction corpora, and more precise comparison.</p>
+            <p>* * *</p>
+            <p>Navigating graphs of sentence-level grammars has been an achieved goal of natural language processing (NLP), at least in English, since the development of the Penn Treebank and the success of statistical parsers in the mid-1990s (Magerman, 1995). Adapting sentence-level approaches to the problem of higher-level analysis such as cross-document correlations of narrative remains an open challenge. The goal of this research is to advance our prior work in narrative information extraction (Miller et al., 2013) and visualization (Shrestha et al., 2013) for narrative similarity assessment, event alignment, and cross-document coreference.</p>
+            <p>Analytical problems of core interest to humanities scholars are not bound to sentential units. They focus on semantics, representation, ideology, influence, pragmatics, narrative—problematics that frequently bridge, fracture, and co-referentially scatter throughout documents and corpora. Discourse analysis (Jørgensen and Phillips, 2002) and textTiling (Hearst, 1997) are two methods used to circumvent sentential boundaries by segmenting documents into logical blocks. As with latent semantic analysis (Dumais, 2004), these blocks can then be characterized in ways that facilitate comparison, extending sentential navigation to macro-level structures. Our position builds on tree-based textual analysis to argue that comparison of the graph representations of narrative documents using techniques from graph theory advances both NLP and humanistic inquiry. This work scales as extraction, lookup, and comparison operate unsupervised. Identifying events described in a document, producing a graph of actors and locations implicated in those events, and comparing the underlying matrices facilitate various types of cross-document narrative analysis. Graph similarity measures provide our primary comparison method to highlight similarities, as exemplified in Figure1.</p>
+            <p>Additionally, condensing narrative texts in a manner consistent with narratological theory enables testing of narratological schema. Formal analysis of narrative has been a relatively successful aim of many.</p>
+            <figure>
+                <graphic n="1001" width="16.204847222222224cm" height="10.269361111111111cm" url="Pictures/image1.jpeg" rend="block"/>
+            </figure>
+            <p>Figure 1. Side-by-side comparison of two simplified iterations of the ‘Little Red Riding Hood’ fairy tale. Linked location, time, and agent units are shown, with red edges indicating change between tellings.</p>
+            <p>Structuralist topologies developed by the Russian formalists such as Propp (1968), and later work by Genette (Genette and Lewin, 1983), Bal (1997), and others, yielded many complementary top-down models for organizing narrative. These schema distinguish between fabula and discourse, or events to be retold and the manner in which retelling takes place. Narrative, broadly defined, is the ordering of fabula by discourse. Discourse order is the relationship between the temporality of events and their representation as part of a narrative (Genette and Lewin, 1983). This structural perspective serves humanists well when analyzing single narratives or small corpora.</p>
+            <p>Computational models developed from formalist approaches have been the subject of compelling experiments. Like work by Finlayson (2012) on analogical story merging and Fisseni on story comparison (Fisseni and Löwe, 2014), our work presents a bottom-up method to help test formalist top-down narratological schema. Unlike theirs, our work implements unsupervised comparison of narrative graphs, a proxy of narrative structure, across a corpus.</p>
+            <p>Narrative graphs facilitate (1) stylometric comparison, (2) clustering of documents according to their event-relationship characteristics, (3) cross-document co-reference, and (4) alignment of event descriptions across narratives. To test three and four, we implemented a method as described below.</p>
+            <p>Method</p>
+            <p>Computation of similarity between the substructure of the graphs required extraction of entities, creation of the graph, and finally comparison.</p>
+            <table rend="rules">
+                <row>
+                    <cell rend="DH-Default"/>
+                    <cell rend="DH-Default">lrrh</cell>
+                    <cell rend="DH-Default">wolf</cell>
+                    <cell rend="DH-Default">grandmother</cell>
+                    <cell rend="DH-Default">woodcutters</cell>
+                    <cell rend="DH-Default">forest</cell>
+                    <cell rend="DH-Default">gm house</cell>
+                </row>
+                <row>
+                    <cell rend="DH-Default">lrrh</cell>
+                    <cell rend="DH-Default">1</cell>
+                    <cell rend="DH-Default">0</cell>
+                    <cell rend="DH-Default">0</cell>
+                    <cell rend="DH-Default">1</cell>
+                    <cell rend="DH-Default">1</cell>
+                    <cell rend="DH-Default">0</cell>
+                </row>
+                <row>
+                    <cell rend="DH-Default">wolf</cell>
+                    <cell rend="DH-Default">0</cell>
+                    <cell rend="DH-Default">1</cell>
+                    <cell rend="DH-Default">0</cell>
+                    <cell rend="DH-Default">0</cell>
+                    <cell rend="DH-Default">1</cell>
+                    <cell rend="DH-Default">0</cell>
+                </row>
+                <row>
+                    <cell rend="DH-Default">grandmother</cell>
+                    <cell rend="DH-Default">0</cell>
+                    <cell rend="DH-Default">0</cell>
+                    <cell rend="DH-Default">1</cell>
+                    <cell rend="DH-Default">0</cell>
+                    <cell rend="DH-Default">0</cell>
+                    <cell rend="DH-Default">0</cell>
+                </row>
+                <row>
+                    <cell rend="DH-Default">woodcutter</cell>
+                    <cell rend="DH-Default">1</cell>
+                    <cell rend="DH-Default">0</cell>
+                    <cell rend="DH-Default">0</cell>
+                    <cell rend="DH-Default">0</cell>
+                    <cell rend="DH-Default">1</cell>
+                    <cell rend="DH-Default">0</cell>
+                </row>
+                <row>
+                    <cell rend="DH-Default">forest</cell>
+                    <cell rend="DH-Default">1</cell>
+                    <cell rend="DH-Default">1</cell>
+                    <cell rend="DH-Default">0</cell>
+                    <cell rend="DH-Default">1</cell>
+                    <cell rend="DH-Default">0</cell>
+                    <cell rend="DH-Default">0</cell>
+                </row>
+                <row>
+                    <cell rend="DH-Default">gm house</cell>
+                    <cell rend="DH-Default">0</cell>
+                    <cell rend="DH-Default">0</cell>
+                    <cell rend="DH-Default">0</cell>
+                    <cell rend="DH-Default">0</cell>
+                    <cell rend="DH-Default">0</cell>
+                    <cell rend="DH-Default">1</cell>
+                </row>
+            </table>
+            <p>Table 1. Adjacency matrix created from one version of ‘Little Red Riding Hood’. An edge in the graph or 1 (in the adjacency matrix) between two entities signifies that these entities interacted within the given set of events.</p>
+            <p>1. 
+                <hi rend="italic">Extraction. </hi>Events were automatically marked in the narratives using the NLP tool, EVITA (Saurí et al., 2005). EVITA increments event tag ID numbers; that sequence proxies discourse order. Sequential narrative discourse order generated from EVITA was used since fiction frequently lacks dates and timestamps—necessary features for temporal taggers like SUTime and GUTime. Entity extraction and classification were accomplished using the Stanford Named Entity Recognizer (NER). Each graph includes elements corresponding to event name, event type, actor, location, and discourse order. Extracted events from a given story contain the following information: document 
+                <hi rend="italic">ID</hi>, event 
+                <hi rend="italic">verb</hi>, event 
+                <hi rend="italic">verblemma</hi>, event 
+                <hi rend="italic">verbhypergram</hi>, event 
+                <hi rend="italic">type</hi>, entity 1, entity 
+                <hi rend="italic">n</hi>, entity 1 type, entity 
+                <hi rend="italic">n </hi>type, event 
+                <hi rend="italic">number</hi>.
+            </p>
+            <p>2. 
+                <hi rend="italic">Graph creation.</hi> Based on changes in topic, the set of events 
+                <hi rend="italic">E </hi>was divided into 
+                <hi rend="italic">k </hi>parts. A sub-graph 
+                <hi rend="italic">G </hi>was created for each event set, 
+                <hi rend="italic">e</hi>
+                <hi rend="subscript">0 </hi>
+                <hi rend="italic">&lt; e</hi>
+                <hi rend="italic subscript">x </hi>
+                <hi rend="italic">&lt; e</hi>
+                <hi rend="italic subscript">k </hi>and was represented as an adjacency matrix as shown in Table 1. An adjacency matrix is a common way of internally representing graphs for computation such that an element 
+                <hi rend="italic">a</hi>
+                <hi rend="italic subscript">ij </hi>in the matrix equals 1 if there is an edge between 
+                <hi rend="italic">i</hi>
+                <hi rend="italic superscript">th </hi>and 
+                <hi rend="italic">j</hi>
+                <hi rend="italic superscript">th </hi>nodes in the graph and 0 otherwise. In our case, the adjacency matrix represents the entity::entity relation as mentioned in the narrative for the set of events 
+                <hi rend="italic">e</hi>
+                <hi rend="italic subscript">x</hi>.
+            </p>
+            <p>3. 
+                <hi rend="italic">Similarity analysis.</hi> Many domain-specific algorithms to compute similarity have been developed. Most are based on neighborhood analysis. In this paper, we propose our own similarity analysis method inspired by the work of Blondel et al. (2004).
+            </p>
+            <p>We begin by modeling each narrative as a 3
+                <hi rend="italic">D </hi>matrix where the first two dimensions represent the adjacency matrix and the third dimension represents the discourse order of the sets of events. Following this model, given two matrices, 
+                <hi rend="italic">A</hi>
+                <hi rend="italic subscript">i,j,k </hi>and 
+                <hi rend="italic">B</hi>
+                <hi rend="italic subscript">p,q,r</hi> , for comparison, we construct a 3
+                <hi rend="italic">D </hi>matrix, 
+                <hi rend="italic">X</hi>, of dimensions 
+                <hi rend="italic">p</hi>×
+                <hi rend="italic">q </hi>×
+                <hi rend="italic">φ </hi>where 
+                <hi rend="italic">φ </hi>is the smallest of 
+                <hi rend="italic">k </hi>and 
+                <hi rend="italic">r</hi>, initialized to all 1s. We then proportionally shrink the larger timeline to match the smaller one so that 
+                <hi rend="italic">k </hi>= 
+                <hi rend="italic">r</hi>.
+            </p>
+            <p>For each 
+                <hi rend="italic">φ</hi>, as in the HIT-inspired algorithm (Fackler, 2005) proposed by Kollias et al., we compute
+            </p>
+            <p>
+                <hi rend="italic">X </hi>← 
+                <hi rend="italic">BXA</hi>
+                <hi rend="italic superscript">T </hi>+ 
+                <hi rend="italic">B</hi>
+                <hi rend="italic superscript">T </hi>
+                <hi rend="italic">XA</hi> (1)
+            </p>
+            <p>and normalize 
+                <hi rend="italic">X </hi>after each iteration. The even iterations converge to a final similarity matrix. To simplify and speed this process, we use the Kronecker product and the vec(.) operator. This results in
+            </p>
+            <p>
+                <hi rend="italic">x </hi>← (
+                <hi rend="italic">A</hi>
+                <hi rend="color(252525)">⊗</hi>
+                <hi rend="italic">B </hi>+ 
+                <hi rend="italic">A</hi>
+                <hi rend="italic superscript">T </hi>
+                <hi rend="color(252525)">⊗</hi>
+                <hi rend="italic">B</hi>
+                <hi rend="italic superscript">T </hi>)
+                <hi rend="italic">x</hi> (2)
+            </p>
+            <p>where 
+                <hi rend="italic">x </hi>= 
+                <hi rend="italic">vec</hi>(
+                <hi rend="italic">X</hi>). These sets of equations give a similarity score frame per scene, which is then aggregated to produce a final similarity score.
+            </p>
+            <p>Discussion</p>
+            <p>For the purposes of testing our methodology, we used 10 of the 58 known iterations of the Aarne-Thompson type 333 story (ATU333), ‘Little Red Riding Hood’ (Lang, 1891; Grimm and Grimm, 1812; Wratislaw, 1889; Schneller, 1867; Ashliman, 2007; Marelles, 1895; Potter, 1908; Bates, 1883; Thurber, 1983; Carter, 1993; Tehrani, 2013). The purpose of using this corpus was to strengthen the possibility of narrative overlap and focus the method on fine-grain distinctions between re-tellings. The primary purpose of the current work is to test our method’s detection of event and character similarities and differences across a given corpus; however, we do not anticipate that our method is dependent on such homogeneous data. By utilizing categories of variables associated with elements of the fabulaic and discourse levels of narrative, we anticipate our method will function similarly with larger, more heterogeneous corpora.</p>
+            <p>Via this method, 1,384 events were extracted across 10 story iterations. Numbering 8,450 tokens, including titles and authorship information, the overall density of extracted events to tokens is high. Contrasted to event detection methods reliant on temporal expressions (SUTime identified two events), this density of event detection provides a good basis on which to compare narrative structure. Generalizing event types from specific verb tokens to hypergrams of those verbs (e.g., event 41 from Carter, 1993): ‘armed’ lemmatized to ‘arm’ hypergrammed to ‘supply’) generally retains the function of each event within the story, but abstracts sufficiently to allow for variation such as is introduced by translation to not prevent the recognition of correspondences. The automatically produced matrices for this work are exemplified by Table 2.</p>
+            <table rend="rules">
+                <row>
+                    <cell rend="DH-Default">undergo,EVENT104</cell>
+                    <cell rend="DH-Default">grandmother</cell>
+                    <cell rend="DH-Default">wolf</cell>
+                    <cell rend="DH-Default">lrrh</cell>
+                </row>
+                <row>
+                    <cell rend="DH-Default">bed</cell>
+                    <cell rend="DH-Default">1</cell>
+                    <cell rend="DH-Default">1</cell>
+                    <cell rend="DH-Default">1</cell>
+                </row>
+                <row>
+                    <cell rend="DH-Default">perceive,EVENT105</cell>
+                    <cell rend="DH-Default">grandmother</cell>
+                    <cell rend="DH-Default">wolf</cell>
+                    <cell rend="DH-Default">lrrh</cell>
+                </row>
+                <row>
+                    <cell rend="DH-Default">bed</cell>
+                    <cell rend="DH-Default">1</cell>
+                    <cell rend="DH-Default">1</cell>
+                    <cell rend="DH-Default">1</cell>
+                </row>
+                <row>
+                    <cell rend="DH-Default">undergo,EVENT106</cell>
+                    <cell rend="DH-Default">grandmother</cell>
+                    <cell rend="DH-Default">wolf</cell>
+                    <cell rend="DH-Default">lrrh</cell>
+                </row>
+                <row>
+                    <cell rend="DH-Default">bed</cell>
+                    <cell rend="DH-Default">1</cell>
+                    <cell rend="DH-Default">1</cell>
+                    <cell rend="DH-Default">1</cell>
+                </row>
+                <row>
+                    <cell rend="DH-Default">perceive,EVENT107</cell>
+                    <cell rend="DH-Default">grandmother</cell>
+                    <cell rend="DH-Default">wolf</cell>
+                    <cell rend="DH-Default">lrrh</cell>
+                </row>
+                <row>
+                    <cell rend="DH-Default">bed</cell>
+                    <cell rend="DH-Default">1</cell>
+                    <cell rend="DH-Default">1</cell>
+                    <cell rend="DH-Default">1</cell>
+                </row>
+                <row>
+                    <cell rend="DH-Default">undergo,EVENT108</cell>
+                    <cell rend="DH-Default">grandmother</cell>
+                    <cell rend="DH-Default">wolf</cell>
+                    <cell rend="DH-Default">lrrh</cell>
+                </row>
+                <row>
+                    <cell rend="DH-Default">bed</cell>
+                    <cell rend="DH-Default">1</cell>
+                    <cell rend="DH-Default">1</cell>
+                    <cell rend="DH-Default">1</cell>
+                </row>
+                <row>
+                    <cell rend="DH-Default">seize,EVENT109</cell>
+                    <cell rend="DH-Default">grandmother</cell>
+                    <cell rend="DH-Default">wolf</cell>
+                    <cell rend="DH-Default">lrrh</cell>
+                </row>
+                <row>
+                    <cell rend="DH-Default">bed</cell>
+                    <cell rend="DH-Default">1</cell>
+                    <cell rend="DH-Default">1</cell>
+                    <cell rend="DH-Default">1</cell>
+                </row>
+                <row>
+                    <cell rend="DH-Default">undergo,EVENT110</cell>
+                    <cell rend="DH-Default">grandmother</cell>
+                    <cell rend="DH-Default">wolf</cell>
+                    <cell rend="DH-Default">lrrh</cell>
+                </row>
+                <row>
+                    <cell rend="DH-Default">bed</cell>
+                    <cell rend="DH-Default">1</cell>
+                    <cell rend="DH-Default">1</cell>
+                    <cell rend="DH-Default">1</cell>
+                </row>
+                <row>
+                    <cell rend="DH-Default">consume,EVENT111</cell>
+                    <cell rend="DH-Default">grandmother</cell>
+                    <cell rend="DH-Default">wolf</cell>
+                    <cell rend="DH-Default">lrrh</cell>
+                </row>
+                <row>
+                    <cell rend="DH-Default">bed</cell>
+                    <cell rend="DH-Default">1</cell>
+                    <cell rend="DH-Default">1</cell>
+                    <cell rend="DH-Default">1</cell>
+                </row>
+            </table>
+            <p>Table 2. Eight matrix layers from 3
+                <hi rend="italic">D</hi> stack of event matrices.
+            </p>
+            <p>Table 2 shows eight layers from the 3
+                <hi rend="italic">D </hi>event matrix stack. It, and the following list, a one-line extract, highlight the generalized form and granular detail of the events this method extracts: 10; prospered; prosper; change state; OCCURRENCE; child, grandmother’s house; person, location; 45. The stack and list correspond to the ‘Oh, grandmother, what big ears you have!’ to ‘[a]nd with that he jumped out of bed, jumped on top of poor Little Red Cap, and ate her up’ sequence from Lang (1891).
+            </p>
+            <p>Results of functions (1) and (2) on the adjacency matrices are exemplified below in Table 3. Column headings correspond to entities from Grimm and Grimm (1812) for event 3, and row headers correspond to entities from Lang (1891) for event 4. Table 3 shows that the measure of similarity between Little Red Riding Hood (‘lrrh’) and Little Red Cap (‘lrc’), is 0
+                <hi rend="italic">.</hi>32. Although low, that score was calculated only based on entity-entity connections, the sequence of those connections, and event hypergrams. These preliminary results are encouraging, as the correlation between those characters is high relative to all correlations found. More importantly, as shown by the diagonal symmetry of the measures, the correlation between events is high relative to correlations between that event and others within the stories. Overall correlation between event 3 from one variation and event 4 from another variation suggests that this method can align scenes across variations of the same ATU. Table 4 shows the potential for this method to align characters from different versions based upon their position within the story.
+            </p>
+            <table rend="rules">
+                <row>
+                    <cell rend="DH-Default"/>
+                    <cell rend="DH-Default">lrc</cell>
+                    <cell rend="DH-Default">wolf</cell>
+                    <cell rend="DH-Default">grandmother</cell>
+                    <cell rend="DH-Default">huntsman</cell>
+                    <cell rend="DH-Default">home</cell>
+                    <cell rend="DH-Default">woods</cell>
+                    <cell rend="DH-Default">gm house</cell>
+                </row>
+                <row>
+                    <cell rend="DH-Default">lrrh</cell>
+                    <cell rend="DH-Default">.32</cell>
+                    <cell rend="DH-Default">.25</cell>
+                    <cell rend="DH-Default">0</cell>
+                    <cell rend="DH-Default">.25</cell>
+                    <cell rend="DH-Default">0</cell>
+                    <cell rend="DH-Default">.32</cell>
+                    <cell rend="DH-Default">0</cell>
+                </row>
+                <row>
+                    <cell rend="DH-Default">wolf</cell>
+                    <cell rend="DH-Default">.32</cell>
+                    <cell rend="DH-Default">.25</cell>
+                    <cell rend="DH-Default">0</cell>
+                    <cell rend="DH-Default">.25</cell>
+                    <cell rend="DH-Default">0</cell>
+                    <cell rend="DH-Default">.32</cell>
+                    <cell rend="DH-Default">0</cell>
+                </row>
+                <row>
+                    <cell rend="DH-Default">grandmother</cell>
+                    <cell rend="DH-Default">0</cell>
+                    <cell rend="DH-Default">0</cell>
+                    <cell rend="DH-Default">0</cell>
+                    <cell rend="DH-Default">0</cell>
+                    <cell rend="DH-Default">0</cell>
+                    <cell rend="DH-Default">0</cell>
+                    <cell rend="DH-Default">0</cell>
+                </row>
+                <row>
+                    <cell rend="DH-Default">woodcutters</cell>
+                    <cell rend="DH-Default">0</cell>
+                    <cell rend="DH-Default">0</cell>
+                    <cell rend="DH-Default">0</cell>
+                    <cell rend="DH-Default">0</cell>
+                    <cell rend="DH-Default">0</cell>
+                    <cell rend="DH-Default">0</cell>
+                    <cell rend="DH-Default">0</cell>
+                </row>
+                <row>
+                    <cell rend="DH-Default">home</cell>
+                    <cell rend="DH-Default">0</cell>
+                    <cell rend="DH-Default">0</cell>
+                    <cell rend="DH-Default">0</cell>
+                    <cell rend="DH-Default">0</cell>
+                    <cell rend="DH-Default">0</cell>
+                    <cell rend="DH-Default">0</cell>
+                    <cell rend="DH-Default">0</cell>
+                </row>
+                <row>
+                    <cell rend="DH-Default">forest</cell>
+                    <cell rend="DH-Default">.32</cell>
+                    <cell rend="DH-Default">.25</cell>
+                    <cell rend="DH-Default">0</cell>
+                    <cell rend="DH-Default">.25</cell>
+                    <cell rend="DH-Default">0</cell>
+                    <cell rend="DH-Default">.32</cell>
+                    <cell rend="DH-Default">0</cell>
+                </row>
+                <row>
+                    <cell rend="DH-Default">old woman’s house</cell>
+                    <cell rend="DH-Default">0</cell>
+                    <cell rend="DH-Default">0</cell>
+                    <cell rend="DH-Default">0</cell>
+                    <cell rend="DH-Default">0</cell>
+                    <cell rend="DH-Default">0</cell>
+                    <cell rend="DH-Default">0</cell>
+                    <cell rend="DH-Default">0</cell>
+                </row>
+            </table>
+            <p>Table 3. Character similarity across ‘Little Red Riding Hood’ and ‘Rothkppchen’.</p>
+            <table rend="rules">
+                <row>
+                    <cell rend="DH-Default"/>
+                    <cell rend="DH-Default">lrrh</cell>
+                    <cell rend="DH-Default">wolf</cell>
+                    <cell rend="DH-Default">gm</cell>
+                    <cell rend="DH-Default">wc</cell>
+                    <cell rend="DH-Default">home</cell>
+                    <cell rend="DH-Default">forest</cell>
+                    <cell rend="DH-Default">owh</cell>
+                </row>
+                <row>
+                    <cell rend="DH-Default">lrc</cell>
+                    <cell rend="DH-Default">.67</cell>
+                    <cell rend="DH-Default">.76</cell>
+                    <cell rend="DH-Default">.31</cell>
+                    <cell rend="DH-Default">.14</cell>
+                    <cell rend="DH-Default">.14</cell>
+                    <cell rend="DH-Default">.48</cell>
+                    <cell rend="DH-Default">.37</cell>
+                </row>
+                <row>
+                    <cell rend="DH-Default">wolf</cell>
+                    <cell rend="DH-Default">.79</cell>
+                    <cell rend="DH-Default">.94</cell>
+                    <cell rend="DH-Default">.42</cell>
+                    <cell rend="DH-Default">.14</cell>
+                    <cell rend="DH-Default">.14</cell>
+                    <cell rend="DH-Default">.56</cell>
+                    <cell rend="DH-Default">.5</cell>
+                </row>
+                <row>
+                    <cell rend="DH-Default">gm</cell>
+                    <cell rend="DH-Default">.35</cell>
+                    <cell rend="DH-Default">.47</cell>
+                    <cell rend="DH-Default">.31</cell>
+                    <cell rend="DH-Default">0</cell>
+                    <cell rend="DH-Default">0</cell>
+                    <cell rend="DH-Default">.16</cell>
+                    <cell rend="DH-Default">.37</cell>
+                </row>
+                <row>
+                    <cell rend="DH-Default">hunts</cell>
+                    <cell rend="DH-Default">.23</cell>
+                    <cell rend="DH-Default">.28</cell>
+                    <cell rend="DH-Default">.18</cell>
+                    <cell rend="DH-Default">0</cell>
+                    <cell rend="DH-Default">0</cell>
+                    <cell rend="DH-Default">0</cell>
+                    <cell rend="DH-Default">.26</cell>
+                </row>
+                <row>
+                    <cell rend="DH-Default">home</cell>
+                    <cell rend="DH-Default">0</cell>
+                    <cell rend="DH-Default">0</cell>
+                    <cell rend="DH-Default">0</cell>
+                    <cell rend="DH-Default">0</cell>
+                    <cell rend="DH-Default">0</cell>
+                    <cell rend="DH-Default">0</cell>
+                    <cell rend="DH-Default">0</cell>
+                </row>
+                <row>
+                    <cell rend="DH-Default">woods</cell>
+                    <cell rend="DH-Default">.48</cell>
+                    <cell rend="DH-Default">.53</cell>
+                    <cell rend="DH-Default">.16</cell>
+                    <cell rend="DH-Default">.14</cell>
+                    <cell rend="DH-Default">.14</cell>
+                    <cell rend="DH-Default">.48</cell>
+                    <cell rend="DH-Default">.16</cell>
+                </row>
+                <row>
+                    <cell rend="DH-Default">gmh</cell>
+                    <cell rend="DH-Default">.39</cell>
+                    <cell rend="DH-Default">.52</cell>
+                    <cell rend="DH-Default">.34</cell>
+                    <cell rend="DH-Default">0</cell>
+                    <cell rend="DH-Default">0</cell>
+                    <cell rend="DH-Default">.16</cell>
+                    <cell rend="DH-Default">.42</cell>
+                </row>
+            </table>
+            <p>Table 4. Character alignment across all events for iterations Lang (1891) and Grimm and Grimm (1812) of ATU 333.</p>
+            <p>Table 4 sums all event matrices for two variations of the tale. Version 1 occupies the columns (Little Red Riding Hood, Wolf, Grandmother, Woodcutters, Home, Forest, and Old Woman’s House) and version 2 the rows (Little Red Cap, Wolf, Grandmother, Huntsman, Home, Woods, Grandmother’s House). Name-independent character alignment is demonstrated by the 0
+                <hi rend="italic">.</hi>96 correspondence between the two wolves. Interestingly, the event matrix suggests that certain characters function dissimilarly between variations: most notably, Grandmother. The corresponding value between the Grandmother characters is only 0
+                <hi rend="italic">.</hi>31, suggesting that they share some event associations but not as many as are held by other cross-document pairings. That assessment is accurate as, in version 1, the story concludes upon the wolf’s consumption of both Little Red Riding Hood and Grandmother. In story version 2, both survive to boil a second hungry wolf.
+            </p>
+            <p>Conclusion and Further Work</p>
+            <p>This preliminary work resulted in a viable method for automated narrative stylometrics across iterations of stories, for narrative alignment, and for the cross-document coreference of characters bearing different names but similar story functions. The extraction and matrix comparison methods are implemented and tested. Our next stage of this research is to refine the comparison algorithm, apply it to a corpus of dissimilar narratives, explore the fit of structuralist models of narrative to non-fiction, and assess the method’s ability to cluster stories by narrative similarity.</p>
+            <p>Acknowledgements</p>
+            <p>This work is supported in part by NSF award 1209172.</p>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl>
+                        <hi rend="bold">Ashliman, D. L.</hi> (2007). Conte de la mre-grand. Website of Bibliothque nationale de France.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Bal, M.</hi> (1997). Narratology: Introduction to the Theory of Narrative. University of Toronto Press.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Bates, C. D.</hi> (1883). 
+                        <hi rend="italic">Little Red Riding-Hood.</hi> D. Lothrop and Co.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Blondel, V. D., Gajardo, A., Heymans, M., Senellart, P. and Van Dooren, P. </hi>(2004). A Measure of Similarity between Graph Vertices: Applications to Synonym Extraction and Web Searching. 
+                        <hi rend="italic">SIAM Review,</hi>
+                        <hi rend="bold">46 </hi>(4): 647–66.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Carter, A.</hi> (1993). The Werewolf. In 
+                        <hi rend="italic">The Bloody Chamber</hi>. Penguin Books, pp. 108–10.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Dumais, S. T.</hi> (2004). Latent Semantic Analysis. 
+                        <hi rend="italic">Annual Review of Information Science and Technology,</hi>
+                        <hi rend="bold">38</hi>(1): 188–230.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Fackler, P. L.</hi> (2005). 
+                        <hi rend="italic">Notes on Matrix Calculus.</hi> North Carolina State University.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Finlayson, M. M. A.</hi> (2012). 
+                        <hi rend="italic">Learning Narrative Structure from Annotated Folktales.</hi> PhD dissertation, Massachusetts Institute of Technology.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Fisseni, B. and Löwe, B.</hi> (2014). What Makes Stories Similar? Report on a Research Project, 2011–2014 (Invited Report). In Finlayson, M. A., Meister, J. C. and Bruneau, E. G. (eds), 
+                        <hi rend="italic">2014 Workshop on Computational Models of Narrative</hi>, OpenAccess Series in Informatics (OASIcs) no. 41. Dagstuhl, Germany: Schloss Dagstuhl–Leibniz-Zentrum fuer Informatik, pp. 9–12, http://drops.dagstuhl.de/opus/volltexte/2014/4640.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Genette, G. and Lewin, J. E.</hi> (1983). 
+                        <hi rend="italic">Narrative Discourse: An Essay in Method.</hi> Cornell University Press, Ithaca, NY.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Grimm, J. and Grimm, W.</hi> (1812). Rothkppchen. In Realschulbuchhandlung (ed.), Ashliman, D. L. (trans.), 
+                        <hi rend="italic">Kinder-und Hausmrchen</hi>, vol. 1, no. 26, pp. 113–18.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Hearst, M. A.</hi> (1997). Texttiling: Segmenting Text into Multi-Paragraph Subtopic Passages. 
+                        <hi rend="italic">Computational Linguistics,</hi>
+                        <hi rend="bold">23</hi>(1): 33–64.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Jørgensen, M. W. and Phillips, L. J.</hi> (2002). 
+                        <hi rend="italic">Discourse Analysis as Theory and Method</hi>. Sage.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Lang, A.</hi> (1891). None Given. In 
+                        <hi rend="italic">The Blue Fairy Book</hi>, 5th ed. Longmans, Green, and Company, pp. 51–53.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Magerman, D. M.</hi> (1995). Statistical Decision-Tree Models for Parsing. In 
+                        <hi rend="italic">Proceedings of the 33rd Annual Meeting on Association for Computational Linguistics</hi>. Association for Computational Linguistics, 1995, pp. 276–83.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Marelles, C.</hi> (1895). The True History of Little Golden-Hood. In 
+                        <hi rend="italic">The Red Fairy Book</hi>. Longmans, Green, and Company, pp. 215–19.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Miller, B., Shrestha, A., Derby, J., Olive, J., Umapathy, K., Li, F. and Zhao, Y.</hi> (2013). Digging into Human Rights Violations: Data Modelling and Collective Memory. In 
+                        <hi rend="italic">Big Data, 2013 IEEE International Conference on Big Data</hi>, IEEE, pp. 37–45.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Potter, B.</hi> (1908). 
+                        <hi rend="italic">The Tale of Jemima Puddle-Duck</hi>. Frederick Warne and Company.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Propp, V. I.</hi> (1968). 
+                        <hi rend="italic">Morphology of the Folktale.</hi> Vol. 9. University of Texas Press.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Saurí, R., Knippen, R., Verhagen, M. and Pustejovsky, J.</hi> (2005). Evita: A Robust Event Recognizer for QA Systems. In 
+                        <hi rend="italic">Proceedings of the Conference on Human Language Technology and Empirical Methods in Natural Language Processing</hi>. Association for Computational Linguistics, pp. 700–707.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Schneller, C.</hi> (1867). Mrchen und Sagen aus Wlschtirol: Ein Beitrag zur deutschen Sagenkunde. In Ashliman, D. L. (trans.), 
+                        <hi rend="italic">Verlag der Wagner’schen Universitts-Buchhandlung</hi>, ch. Das Rothhtchen, pp. 9–10.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Shrestha, A., Zhu, Y., Miller, B., and Zhao, Y.</hi> (2013). Storygraph: Telling Stories from Spatio-Temporal Data. In 
+                        <hi rend="italic">Advances in Visual Computing</hi>. Springer, pp. 693–702.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Tehrani, J. J.</hi> (2013). The Phylogeny of Little Red Riding Hood. 
+                        <hi rend="italic">PloS One,</hi>
+                        <hi rend="bold">8</hi>(11): e78871.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Thurber, J. </hi>(1983). The Little Girl and the Wolf. In 
+                        <hi rend="italic">Fables for Our Time and Famous Poems Illustrated</hi>. Harper Collins, p. 3.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Wratislaw, A.</hi> (1889). Little Red Hood. In Stock, E. (ed.), 
+                        <hi rend="italic">Sixty Folk-Tales from Exclusively Slavonic Sources</hi>, no. 15, pp. 97–100.
+                    </bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

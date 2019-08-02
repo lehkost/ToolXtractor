@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>SMTP: Stedelijk Museum Text Mining Project</title>
+                <author>
+                    <persName>
+                        <surname>Smeets</surname>
+                        <forename>Jeroen</forename>
+                    </persName>
+                    <affiliation>Maastricht University, Netherlands, The</affiliation>
+                    <email>smeetsjeroen@hotmail.com</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Scholtes</surname>
+                        <forename>Johannes C.</forename>
+                    </persName>
+                    <affiliation>Maastricht University, Netherlands, The</affiliation>
+                    <email>j.scholtes@maastrichtuniversity.nl</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Rasterhoff</surname>
+                        <forename>Claartje</forename>
+                    </persName>
+                    <affiliation>CREATE, University of Amsterdam, Netherlands, The</affiliation>
+                    <email>C.Rasterhoff@uva.nl</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Schavemaker</surname>
+                        <forename>Margriet</forename>
+                    </persName>
+                    <affiliation>Stedelijk Museum Amsterdam, Netherlands, The</affiliation>
+                    <email>M.Schavemaker@stedelijk.nl</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2016-03-04T15:21:00Z</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Maciej Eder, Pedagogical University in Krakow</publisher>
+                <publisher>Jan Rybicki, Jagiellonian University</publisher>
+                <address>
+                    <addrLine>Institute of Polish Studies</addrLine>
+                    <addrLine>Pedagogical University</addrLine>
+                    <addrLine>ul. Podchorazych 2</addrLine>
+                    <addrLine>30-084 Krakow, Poland</addrLine>
+                    <addrLine>maciej.eder@ijp-pan.krakow.pl</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from a Word document </p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.21">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Short Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>Name Extraction</term>
+                    <term>Relation Networks</term>
+                    <term>Community Detection</term>
+                    <term>Topic Models</term>
+                    <term>(Art-) Historical Research</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>archives, repositories, sustainability and preservation</term>
+                    <term>art history</term>
+                    <term>historical studies</term>
+                    <term>information retrieval</term>
+                    <term>GLAM: galleries, libraries, archives, museums</term>
+                    <term>networks, relationships, graphs</term>
+                    <term>data mining / text mining</term>
+                    <term>English</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <div type="div1" rend="DH-Heading1">
+                <head>Introduction</head>
+                <p>This paper addresses how text-mining, machine-learning and information retrieval algorithms from the field of artificial intelligence can be used to analyze Art-Research archives and conduct (art-) historical research. To gain quick insight into the archive, two aspects are focused on: relations between groups of people using community detection, and global content changes over time using topic modeling. For such archives pre-tagged ground-truth collections are generally not available, and the archives are often too large, geographically distributed, and not always available in digital formats to build such a ground-truth at reasonable costs. To develop and test the validity and relevance of existing tools, close collaboration was established between the AI researchers, museum staff, and researchers in CREATE, a digital humanities project that investigates the development of cultural industries in Amsterdam over the course of the last five centuries.</p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Data</head>
+                <p>The research draws on two datasets. The principal dataset is the digitized archive of the Stedelijk Museum Amsterdam, a renowned international museum dedicated to modern and contemporary art and design. The archive of the Stedelijk Museum Amsterdam contains documents from the period 1930-1980. The corpus is a static collection of approximately 160.000 text documents that were digitized using OCR. The second dataset is drawn from Delpher, developed by (Koninklijke Bibliotheek Nederland, 2015). Delpher provides a collection of digitized newspapers, books and magazines that is available for research. A selection of newspapers was made that is used as an additional dataset for this project. Only articles from 1930-1980 that resulted from the query ”Stedelijk Museum” AND ”Amsterdam” were used, forming a set of 18.290 articles.</p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Methodology</head>
+                <p>The following methodology uses two approaches to obtain a quick and detailed overview of the content of a digitized archive that contains unstructured information. The first one focuses on the relations between named entities and aims at finding communities in the relation network. The second approach uses time based topic-modeling to get an overview of content changes over time. Finally, a name extraction method is presented that is able to handle multiple causes of name variations.</p>
+                <div type="div2" rend="DH-Heading2">
+                    <head>Relation networks and community detection</head>
+                    <p>In its most basic form, a relation between two named entities can be said to exist when they occur together in the same document. The strength of a relation can be characterized by the number of documents in which both named entities occur. When all the co-occurrences are found, a relation network can be constructed.</p>
+                    <p>In addition, sentiment analysis can be done to further characterize a relation. A sentiment score is assigned to each document, indicating the sentiment content of the document. No distinction is made between positive and negative sentiment polarity. The hypothesis is that relations between individuals with a high sentiment are more interesting than relations with a low sentiment. This is because sentiments around trigger-events are often higher than around common-day events. A lexicon based approach is used with lists of language specific sentiment words. The sentiment score of a document is then given by the sigmoid of the count of the sentiment words in the document, normalized by the number of words in the document.</p>
+                    <p>Finally, community detection algorithms can be applied to the relation network. These types of algorithms aim at finding clusters of groups of entities that have dense connections between members of the clusters and sparse connections with members of other clusters (Fortunato, 2010). The relation weight measure that is used to calculate the communities, is taken as the product of the strength of the relation, i.e. the number of documents where both entities occur in, and the average sentiment score of the documents of a relation. It was found that combining these two measures, resulted in more meaningful communities.</p>
+                </div>
+                <div type="div2" rend="DH-Heading2">
+                    <head>Time based Topic Modeling</head>
+                    <p>In the next approach, topic modeling algorithms are applied to analyze the information content and their evolution over time. Topic modeling tries to discover the underlying thematic structure in a collection of documents. Non-Negative Matrix Factorization (NMF) is being used as a tool for topic modeling (Arora et al., 2012). NMF is an unsupervised method where a matrix is approximated by two low rank non-negative matrices. The extracted semantic feature vectors have only non-negative values and are sparse so they are easily interpretable. Furthermore, NMF is shown to generate more consistent results over multiple runs (Choo et al., 2013), compared to other tools used for topic modeling such as LDA (Blei et al., 2003). </p>
+                    <p>The approach suggested in (Vaca et al., 2014) uses a time-based collective matrix factorization based on NMF and is used in this project. It extends NMF by introducing a topic transition matrix that allows to track topics as they emerge, evolve and fade over time.</p>
+                </div>
+                <div type="div2" rend="DH-Heading2">
+                    <head>Name Extraction</head>
+                    <p>The following method was used to extract named entities from a collection of documents in order to build the relation network. It handles different causes of name variations such as OCR induced errors commonly found in digitized document collections, spelling mistakes, name abbreviations and first and last name combinations. </p>
+                    <p>The method makes use of lists of name variations. Starting from a set of names extracted from a name database, such as RKDArtists and (RKD, 2015), the document collection is searched for possible name variations. These variations are found by searching for the last name using a fuzzy search. The similarity between the group of tokens around the found last name, and the original name is then calculated as a similarity score. The similarity score calculation is based on the idea described in (Song and Chen, 2007), which uses a n-gram set matching technique. The lists of name variations can then be evaluated manually or a threshold on the similarity score can be used to identify name variations that correspond to the original name. The method using a threshold of 0.9 on the similarity score was tested on 50 randomly chosen names. The average precision was found to be 81 percent.</p>
+                </div>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Results</head>
+                <p>A relation network was constructed for the document collection of the archive of the Stedelijk Museum Amsterdam. Only artists with the graphic artist qualification in the RKDArtists and database were used. The methods were implemented using available open source software libraries such as the Apache Lucene text search engine library (The Apache Software Foundation, 2015) and the Gephi platform (Bastian et al., 2009). The standard community detection feature in Gephi was used, which is based on the Louvain method (Blondel et al., 2008). The result is shown in Figure 1. The color of the relation between the nodes indicates the average sentiment score of the relation, starting from blue (neutral) to red (high sentiment content). Communities such as group exhibitions, art movements or a group of artists closely related to the museum director, could be identified with the help of a museum expert.</p>
+                <figure>
+                    <graphic url="539/image1.jpg" rend="inline"/>
+                    <head>Figure 1: Found communities for graphic artists in the archive of the Stedelijk Museum</head>
+                </figure>
+                <p>The time based topic modeling algorithm suggested in (Vaca et al., 2014) was implemented in MATLAB and Java. The algorithm was applied to both the archive of the Stedelijk Museum Amsterdam and newspaper articles from the Delpher database. The results are visualized over time in the form of stacked topic rivers (Wei et al., 2010), shown in Figure 2 and Figure 3. Several exhibitions and events could be identified and are annotated on the chart.</p>
+                <figure>
+                    <graphic url="539/image2.jpg" rend="inline"/>
+                    <head>Figure 2: Time based topic modeling for the archive of the Stedelijk Museum Amsterdam</head>
+                </figure>
+                <figure>
+                    <graphic url="539/image3.jpg" rend="inline"/>
+                    <head>Figure 3: Time based topic modeling for Delpher newspaper articles</head>
+                </figure>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Conclusion</head>
+                <p>This paper discusses two approaches to gain insight into a digitized archive. Relation networks of persons with community detection are considered, relying on a robust name extraction method. Furthermore, the evolution of content over time can be explored using time based topic modeling.</p>
+                <p>For the humanities researchers in this project, the main aim was to asses the research potential of computational analysis of digitized art archives in general, and the Stedelijk Museum in particular. Two types of preliminary research questions were developed to do so. The first type had to do with identifying patterns of change and continuity, across time and place. These include for instance tracing the position of the Stedelijk Museum as an intermediary in Dutch design industries, or the development of the Stedelijk Museum as an increasingly international player. The second type of question is less concerned with general historical patterns, and more with specific art-historical research questions, regarding for instance (networks of) particular artists, artworks or exhibitions. But before we could start asking such questions to digitized art-historical archives, the quality and accessibility of the texts needed to be established. Secondly, specific methods needed to be explored and adapted in order to clean, identify, retrieve, extract, and structure the texts. The first results presented in this paper demonstrate that even though they may not be clean at the first try or capture all historical nuance, they do help archives to open up and show unexpected relationships and patterns, to answer specific questions, and to get connected with other relevant sources, such RKDartists and Delpher. The community detection in relation with sentiment mining, the topic modeling and name extraction method developed in this project therefore provide a solid basis for the next step in assessing the research potential of art-historical archives: developing in-depth case studies, again in close collaboration with art-historians and historians, allowing the archive to speak up in unprecedented ways, offering access to hidden story lines that subvert and augment prevailing historical narratives.</p>
+            </div>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl rend="Bibliography">
+                        <hi rend="bold">Arora, S., Ge, R. and Moitra, A.</hi> (2012). Learning topic models - going beyond SVD. 
+                        <hi rend="italic">Foundations of Computer Science (FOCS), 2012 IEEE 53rd Annual Symposium on</hi>. IEEE, pp. 1–10.
+                    </bibl>
+                    <bibl rend="Bibliography">
+                        <hi rend="bold">Bastian, M., Heymann, S. and Jacomy, M.</hi> (2009). Gephi: an open source software for exploring and manipulating networks. 
+                        <hi rend="italic">ICWSM</hi>, 
+                        <hi rend="bold">8</hi>: 361–62.
+                    </bibl>
+                    <bibl rend="Bibliography">
+                        <hi rend="bold">Blei, D. M., Ng, A. Y. and Jordan, M. I.</hi> (2003). Latent dirichlet allocation. 
+                        <hi rend="italic">The Journal of Machine Learning Research</hi>, 
+                        <hi rend="bold">3</hi>: 993–1022.
+                    </bibl>
+                    <bibl rend="Bibliography">
+                        <hi rend="bold">Blondel, V. D., Guillaume, J.-L., Lambiotte, R. and Lefebvre, E.</hi> (2008). Fast unfolding of communities in large networks. 
+                        <hi rend="italic">Journal of Statistical Mechanics: Theory and Experiment</hi>, 
+                        <hi rend="bold">2008</hi>(10): P10008.
+                    </bibl>
+                    <bibl rend="Bibliography">
+                        <hi rend="bold">Choo, J., Lee, C., Reddy, C. K. and Park, H.</hi> (2013). Utopian: User-driven topic modeling based on interactive nonnegative matrix factorization. 
+                        <hi rend="italic">Visualization and Computer Graphics, IEEE Transactions on</hi>, 
+                        <hi rend="bold">19</hi>(12): 1992–2001.
+                    </bibl>
+                    <bibl rend="Bibliography">
+                        <hi rend="bold">Fortunato, S.</hi> (2010). Community detection in graphs. 
+                        <hi rend="italic">Physics Reports</hi>, 
+                        <hi rend="bold">486</hi>(3): 75–174.
+                    </bibl>
+                    <bibl rend="Bibliography">
+                        <hi rend="bold">Koninklijke Bibliotheek Nederland</hi> (2015). Delpher - Boeken Kranten Tijdschriften http://www.delpher.nl/ (accessed 1 November 2015).
+                    </bibl>
+                    <bibl rend="Bibliography">
+                        <hi rend="bold">RKD</hi> (2015). Netherlands Institute for Art History https://rkd.nl/en/ (accessed 1 November 2015).
+                    </bibl>
+                    <bibl rend="Bibliography">
+                        <hi rend="bold">Song, S. and Chen, L.</hi> (2007). Similarity joins of text with incomplete information formats. 
+                        <hi rend="italic">Advances in Databases: Concepts, Systems and Applications</hi>. Springer, pp. 313–24.
+                    </bibl>
+                    <bibl rend="Bibliography">
+                        <hi rend="bold">The Apache Software Foundation</hi> (2015). Apache Lucene - Welcome to Apache Lucene http://lucene.apache.org/ (accessed 1 November 2015).
+                    </bibl>
+                    <bibl rend="Bibliography">
+                        <hi rend="bold">Vaca, C. K., Mantrach, A., Jaimes, A. and Saerens, M.</hi> (2014). A time-based collective factorization for topic discovery and monitoring in news. 
+                        <hi rend="italic">Proceedings of the 23rd International Conference on World Wide Web</hi>. ACM, pp. 527–38.
+                    </bibl>
+                    <bibl rend="Bibliography">
+                        <hi rend="bold">Wei, F., Liu, S., Song, Y., Pan, S., Zhou, M. X., Qian, W., Shi, L., Tan, L. and Zhang, Q.</hi> (2010). Tiara: a visual exploratory text analytic system. 
+                        <hi rend="italic">Proceedings of the 16th ACM SIGKDD International Conference on Knowledge Discovery and Data Mining</hi>. ACM, pp. 153–62.
+                    </bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

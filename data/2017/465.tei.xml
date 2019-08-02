@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xsi:schemaLocation="http://www.tei-c.org/ns/1.0 /Users/yoann/Work/Grobid/grobid-home/schemas/xsd/Grobid.xsd"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+	<teiHeader xml:lang="en">
+		<encodingDesc>
+			<appInfo>
+				<application version="0.5.4-SNAPSHOT" ident="GROBID" when="2019-06-05T06:26+0000">
+					<ref target="https://github.com/kermitt2/grobid">GROBID - A machine learning software for extracting information from scholarly documents</ref>
+				</application>
+			</appInfo>
+		</encodingDesc>
+		<fileDesc>
+			<titleStmt>
+				<title level="a" type="main">Towards a Linked Data Access to Folktales classified by Thompson&apos;s Motifs and Aarne-Thompson-Uther&apos;s Types</title>
+			</titleStmt>
+			<publicationStmt>
+				<publisher/>
+				<availability status="unknown"><licence/></availability>
+			</publicationStmt>
+			<sourceDesc>
+				<biblStruct>
+					<analytic>
+						<author>
+							<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">Thierry</forename><surname>Declerk</surname></persName>
+							<email>declerck@dfki.de</email>
+							<affiliation key="aff0">
+								<orgName type="department">German Research Center for Artificial Intelligence</orgName>
+								<orgName type="institution">Saarland University</orgName>
+								<address>
+									<country>Germany Antónia Koštová, Germany</country>
+								</address>
+							</affiliation>
+						</author>
+						<author>
+							<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">Lisa</forename><surname>Schäfer</surname></persName>
+							<email>lisas@coli.uni-saarland.de</email>
+							<affiliation key="aff1">
+								<orgName type="institution">Saarland University</orgName>
+								<address>
+									<country key="DE">Germany</country>
+								</address>
+							</affiliation>
+						</author>
+						<title level="a" type="main">Towards a Linked Data Access to Folktales classified by Thompson&apos;s Motifs and Aarne-Thompson-Uther&apos;s Types</title>
+					</analytic>
+					<monogr>
+						<imprint>
+							<date/>
+						</imprint>
+					</monogr>
+				</biblStruct>
+			</sourceDesc>
+		</fileDesc>
+		<profileDesc>
+			<abstract/>
+		</profileDesc>
+	</teiHeader>
+	<text xml:lang="en">
+		<body>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Introduction</head><p>We present in this paper work consisting in porting to an integrated ontology two central resources for the classification of folktales: The "Motif-index of folkliterature" <ref type="bibr" target="#b3">(Thompson, 1977)</ref> and the "Types of International Folktales" <ref type="bibr" target="#b4">(Uther, 2004</ref>). The first resource, often called Thompson Motif Index (abbreviated as TMI) is available as an online resource. The second resource is a classification system for folktale types, which was published by Hans-Jörg Uther (2004), extending former work by Antti Aarne <ref type="bibr">(1961)</ref> and Stith <ref type="bibr" target="#b3">Thompson (1977)</ref>. In the following we are using the acronym ATU for referring to this classification system. Recently, a large amount of the ATU data has been made available online, offering also annotation facilities for tales in multilingual versions.</p><p>Our work consisted in extracting from those resources, which are stored in different formats, classification relevant information and re-organizing them in two interrelated ontologies, using for this the W3C standards OWL (which stands for "Web Ontology Language" , RDF(s)-see the W3C recommendations for more details- and RDF. The aim is to make those classification resources machine readable, interoperable and to support by this formal representation of the metadata access to folktales annotated by those classification systems in the context of the Linked Open Data framework.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Thompson Motif Index</head><p>A folktale motif can be defined as a "repeated story element, e.g., a character, an object, an action, or an event that can be found in several stories". In TMI motifs are organized in a tree structure, providing for a parent-child relation between the listed elements. One motif entry consists of a motif-id and a motif name. Optionally, a motif description and references are provided. <ref type="table" target="#tab_0">Table 1</ref> provides for an example of few motifs illustrating the tree structure and hierarchy of TMI. A folktale type can be described as a main story line that can be found in several cultures. The parts of this story line can refer to specific story elements also known as motifs. A folktale type is therefore a bigger unit than a motif. As can be seen in example 1, an entry in the ATU system consists of a type id ("6*"), a title ("Animal Captor Talks with Booty in his Mouth (previously The Wolf Catches a Goose).") and a text summarizing the typical "storyline" of this type of folktale. Within or at the end of this "script", links to corresponding Thompson Motif-Indices can be provided ("[K561.1]"). Finally (and optionally), similar or related types can be indicated.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Generation of the Ontology</head><p>The OWL and RDF(s) representation for the ontology was generated semi-automatically from the html code of both TMI and ATU, responding to few design decisions we had to take. For TMI we went for a double representation: the hierarchy structure of the IDs is represented as an OWL subclass hierarchy, but all terminal nodes (leaves of the tree) are represented as both an instance of a class we call "Motif" and as an instance of the pre-terminal node in the taxonomy. This reflects our intuition that what Thompson called a motif is in most of the cases the content of the terminal nodes of the classification system, while the non-terminal nodes are more to be considered as abstraction helping in the taxonomic structures.</p><p>We compared the automatically created ATU part of the ontology to the printed version of Hans-Jörg Uther's "The Types of International Folktales". Using the ontology editor "Protégé", we manually added missing subclasses and individuals, rearranged generated classes and corrected errors such as typos in the electronic version of ATU or splitting errors because of inconsistent punctuation. By this step we obtained 2802 ATU classes organized in seven main subclasses, which have also subclasses, in accordance with the hierarchical structure of types proposed in <ref type="bibr" target="#b4">(Uther, 2004</ref>). Below we display examples of the encoding of ATU data in our ontology. We first show a main class (we use the Turtle syntax for serializing the RDF code) of our ATU model ":Type": A subclass of "Type", for example the type "6*", has the following syntax:</p><p>In this example, the reader can see how the type 6* is linked to a motif occurring typically in its storyline: we introduced for this a property called "linkToTMI". Additionally, the subclass relation is expressed, using the rdfs:subClassOf property. The "rdfs:label" property stores the original short title of the ATU type in English ("@en"). We encode the original description of the type as a value to the property "rdfs:isDefinedBy". A main aspect of the ontologisation of ATU (and TMI) is that each folktale type (or motif) is now represented by a Unique Resource Identifier (URI), and thus accessible in the Linked Data framework, once our data set has been published in its cloud.</p><p>An example of a motif ("K561.1") is given just below. We focused for the time being only on motif-ids and names. This current limitation is due to the inconsistent format of the motif descriptions and references used in the html code of the online resource, which made it difficult to be automatically extracted. We will include this information in a next version of the ontology. As pointed out earlier, elements of the TMI are encoded in a dual fashion: as belonging to the class "Motif" but also to its immediate non-terminal node (here "K561"). The rdfs annotation property "rdfs:label" is used for encoding the name of the motif (here in English, marked by "@en"). Multilingual correspondences can also be included as values of this property.</p><p>In this example, we also see the property "linkFromTMIToATU", which is the inverse property of the one pointing between ATU elements and motifs. Additionally, we have introduced a third "linking" property, called "linkFromAaThToATU", which ensures that types of former versions of ATU are linked to the new names in the final version of ATU. By this final step of expanding our TMI-ATU ontology we ended up with the number of 14,937 classes and the number of 49,752 individuals that are interconnected by 3 object properties: "linkFromTMIToATU", "linkToTMI" and "linkFromAaThToATU". We managed thus to convert two valuable, handcrafted resources of literary knowledge consisting of more than 4000 pages into a 15.4 MB in size ontology file that can be easily accessed and searched.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Conclusions</head><p>We presented our work on the ontology generation for two widely used folktale classification systems. This ontology can be visualised and processed by standard OWL tools such as Protégé. The integrated ontology will be made openly available soon, after last quality controls. Current work is on adding as instances of the ontologies URLs of folktales that are</p></div><figure xmlns="http://www.tei-c.org/ns/1.0" type="table" xml:id="tab_0" validated="false"><head>Table 1 :</head><label>1</label><figDesc></figDesc><table>A few motifs from Motif-index of folk-literature and 
+their hierarchical organisation 
+
+Aarne-Thompson-Uther Folktales Types 
+(ATU) 
+
+</table></figure>
+		</body>
+		<back>
+			<div type="references">
+
+				<listBibl>
+
+<biblStruct xml:id="b0">
+	<analytic>
+		<title level="a" type="main">The Types of the Folktale: A Classification and Bibliography</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">A</forename><surname>Aarne</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">The Finnish Academy of Science and Letters</title>
+		<imprint>
+			<date type="published" when="1961" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b1">
+	<monogr>
+		<title level="m" type="main">A Guide to Folktales in the English Language: Based on the Aarne-Thompson Classification System</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">D</forename><forename type="middle">L</forename><surname>Ashliman</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="1987" />
+			<publisher>Greenwood Press</publisher>
+			<pubPlace>New York</pubPlace>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b2">
+	<analytic>
+		<title level="a" type="main">Linking Motif Sequences to Tale Types by Machine Learning</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">N</forename><surname>Ofek</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">S</forename><surname>Darányi</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">Rokach</forename></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">L</forename></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Workshop on Computational Models of Narrative</title>
+		<imprint>
+			<date type="published" when="2013" />
+			<biblScope unit="page" from="166" to="182" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b3">
+	<monogr>
+		<title level="m" type="main">The Folktale</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">S</forename><surname>Thompson</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="1977" />
+			<publisher>University of California Press</publisher>
+			<pubPlace>Berkeley</pubPlace>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b4">
+	<analytic>
+		<title level="a" type="main">The Types of International Folktales: A Classification and Bibliography. Based on the system of Antti Aarne and Stith Thompson</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">H-J</forename><surname>Uther</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">FF Communications</title>
+		<imprint>
+			<biblScope unit="page" from="284" to="286" />
+			<date type="published" when="2004" />
+			<publisher>Suomalainen Tiedeakatemia</publisher>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+				</listBibl>
+			</div>
+		</back>
+	</text>
+</TEI>

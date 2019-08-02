@@ -1,0 +1,495 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xsi:schemaLocation="http://www.tei-c.org/ns/1.0 /Users/yoann/Work/Grobid/grobid-home/schemas/xsd/Grobid.xsd"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+	<teiHeader xml:lang="en">
+		<encodingDesc>
+			<appInfo>
+				<application version="0.5.4-SNAPSHOT" ident="GROBID" when="2019-06-05T06:33+0000">
+					<ref target="https://github.com/kermitt2/grobid">GROBID - A machine learning software for extracting information from scholarly documents</ref>
+				</application>
+			</appInfo>
+		</encodingDesc>
+		<fileDesc>
+			<titleStmt>
+				<title level="a" type="main">Don&apos;t Get Fooled by Word Embeddings- Better Watch their Neighborhood</title>
+			</titleStmt>
+			<publicationStmt>
+				<publisher/>
+				<availability status="unknown"><licence/></availability>
+			</publicationStmt>
+			<sourceDesc>
+				<biblStruct>
+					<analytic>
+						<author role="corresp">
+							<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">Johannes</forename><surname>Hellrich</surname></persName>
+							<email>johannes.hellrich@uni-jena.de</email>
+							<affiliation key="aff0">
+								<orgName type="institution">Friedrich Schiller University Jena</orgName>
+								<address>
+									<country key="DE">Germany</country>
+								</address>
+							</affiliation>
+						</author>
+						<author>
+							<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">Friedrich</forename><surname>Schiller</surname></persName>
+							<affiliation key="aff0">
+								<orgName type="institution">Friedrich Schiller University Jena</orgName>
+								<address>
+									<country key="DE">Germany</country>
+								</address>
+							</affiliation>
+						</author>
+						<author>
+							<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">University</forename><surname>Jena</surname></persName>
+							<affiliation key="aff0">
+								<orgName type="institution">Friedrich Schiller University Jena</orgName>
+								<address>
+									<country key="DE">Germany</country>
+								</address>
+							</affiliation>
+						</author>
+						<author>
+							<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">Udo</forename><surname>Germany</surname></persName>
+							<affiliation key="aff0">
+								<orgName type="institution">Friedrich Schiller University Jena</orgName>
+								<address>
+									<country key="DE">Germany</country>
+								</address>
+							</affiliation>
+						</author>
+						<author>
+							<persName xmlns="http://www.tei-c.org/ns/1.0"><surname>Hahn</surname></persName>
+							<affiliation key="aff0">
+								<orgName type="institution">Friedrich Schiller University Jena</orgName>
+								<address>
+									<country key="DE">Germany</country>
+								</address>
+							</affiliation>
+						</author>
+						<title level="a" type="main">Don&apos;t Get Fooled by Word Embeddings- Better Watch their Neighborhood</title>
+					</analytic>
+					<monogr>
+						<imprint>
+							<date/>
+						</imprint>
+					</monogr>
+				</biblStruct>
+			</sourceDesc>
+		</fileDesc>
+		<profileDesc>
+			<abstract>
+				<p>Word embeddings, such as those created by the word2vec family of algorithms (Mikolov et al., 2013), are the current state of the art for modeling lexical semantics in Computational Linguistics. They are also getting more and more popular in the Digital Humanities , especially for diachronic language research (see below). Yet the most common methods for creating word embeddings are ill-suited for deriving qualitative conclusions since they typically involve random processes that severely limit the reliability of results-repeated experiments differ in which words are deemed most similar with each other (Hellrich and Hahn, 2016a,b). We provide a short overview of different embedding methods and demonstrate how this lack of reliability might affect the outcome of experiments. We also recommend a more recent embedding method, SVDPPMI (Levy et al., 2015), which seems immune to these reliability problems and, thus, much better suited (not only) for the Digital Humanities (Hamilton et al., 2016). Word embeddings are a form of computational dis-tributional semantics for determining a word&apos;s meaning &quot;from the company it keeps&quot; (Firth, 1957, p. 11), i.e., the words it co-occurs with. The word2vec algorithms have their origin in heavily trimmed artificial neural networks. Their skip-gram negative sampling (SGNS) variant is widely used because of its high performance and robustness (Mikolov et al., 2013; Levy et al., 2015). Two other word embedding methods were inspired by word2vec: GloVe (Pennington et al., 2014) tries to avoid the opaqueness stemming from word2vec&apos;s neural network heritage through an explicit word co-occurrence table, while the more recent SVDPPMI (Levy et al., 2015) is built upon the classical pointwise mutual information co-occurrence metric (Church and Hanks, 1990) enhanced with pre-processing steps and hyper-parameters from the two aforementioned algorithms. There are two sources of randomness affecting the training of SGNS and GloVe embeddings: First, the random initialization of all word embedding vectors before any examples are processed. Second, the order in which these examples are processed. Both can be replaced by deterministic alternatives, yet this would simply replace a random distortion with a fixed one, thus providing faux reliability only useful for testing purposes. In contrast, SVDPPMI is conceptually not affected by such reliability problems, as neither random initialization takes place nor is a relevant processing order established. Word embeddings can be compared with each other to measure the similarity of words (typically by cosine)-an ability by which they are often assessed (see e.g., Baroni et al. (2014) for more details on their evaluation). In the Digital Humanities, they have already been used to directly track diachronic changes in word meaning by comparing representations of the same word at different points in time (Kim et al., 2014; Kulkarni et al., 2015; Hellrich and Hahn, 2016c; Ham-ilton et al., 2016). They can also be used to track clusters of similar words over time and, thus, model the evolution of topics (Kenter et al., 2015) or compare neighborhoods in embedding spaces for preselected words (Jo, 2016). Besides temporal variations, word embeddings are also suited for analyzing geographic ones, e.g., the distinction between US American and British English variants (Kulkarni et al., 2016). In most of these approaches, the local neighborhood of selected words in the resulting embedding spaces, i.e., words deemed to be most similar with a word in question , are used to approximate their meaning at a given point in time or in a specific domain. Yet the aforemen-tioned randomness leads to a lack of replicability, since repeated experiments using the same data set and algorithms result in different neighborhoods and might thus mislead researchers. To investigate this problem, we trained three models each with three embedding methods, i.e., GloVe and SVDPPMI, on the same data set and measured how they differ in their outcomes on word neighborhoods. Our data set consists of 645 German texts from the 19 th century that are part of the Deutsches Textarchiv Kern-korpus (DTA) [German text archive core corpus] (Gey-ken, 2013; Jurish, 2013). The DTA contains manually transcribed texts selected for their representativeness and cultural importance; we use the orthographically normalized and lemmatized version, with casefolding. We evaluate the word embedding methods by calculating the percentage of neighbors for the most frequent nouns in the DTA on which all three models of each method agree. Overall, SVDPPMI provides perfect reliability, while the other two embedding methods lack reliability, SGNS dramatically so, which is consistent with our prior studies on word2vec (Hellrich and Hahn, 2016a,b). Figure 1 shows the reliability for each model evaluated against the 1000 most frequent nouns in the DTA when their first ten closest neighbors (from one up to ten) are compared. Larger neighborhood size had a small positive effect on the reliability of SGNS and GloVe, yet is clearly unable to mitigate the inherent un-reliability of these methods. A small inverse effect can be observed when the number of the most frequent nouns is modified while keeping a constant neighborhood size of five, as displayed in Figure 2. Finally, Table 1 provides differing neighborhoods for Herz [heart] as a qualitative example. In this case, though not necessarily in general, SGNS models featured a more anatomical view (e.g., bluten [to bleed]), whereas GloVe models uncovered metaphorical meaning (e.g., gemüt [mind]) and SVDPPMI came out with a mix thereof. Using SGNS or GloVe models to assess a word&apos;s meaning can be strongly misleading, as evi-denced by e.g., three SGNS models representing three different runs under the same experimental setup. They lead to completely different semantic characterizations of Herz [heart], since two provide negatively connotated words (e.g., schmerzen [pain]) as closest neighbors, whereas the third provides a more positive impression (e.g., herzen [to caress]).</p>
+			</abstract>
+		</profileDesc>
+	</teiHeader>
+	<text xml:lang="en">
+		<body>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_0"><head>Figure 1 :</head><label>1</label><figDesc>Figure 1: Reliability of different word embeddings as percentage of identical neighbors among the one to ten closest neighbor(s) to the 1000 most frequent nouns.</figDesc><graphic url="image-1.png" coords="2,54.30,503.10,241.44,143.52" type="bitmap" /></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_1"><head>Figure 2 :</head><label>2</label><figDesc>Figure 2: Reliability of different word embeddings as percentage of identical neighbors among the five closest ones for the 100 to 1000 most frequent nouns.</figDesc><graphic url="image-3.png" coords="2,316.86,258.06,241.44,162.24" type="bitmap" /></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" type="table" xml:id="tab_0" validated="false"><head>Table 1 :</head><label>1</label><figDesc></figDesc><table>Neighborhoods for Herz [heart] as provided by 
+different word embedding models. 
+
+</table></figure>
+		</body>
+		<back>
+
+			<div type="acknowledgement">
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Acknowledgements</head><p>This research was conducted within the Graduate School "The Romantic Model" supported by grant GRK 2041/1 from the Deutsche Forschungsgemeinschaft (DFG).</p></div>
+			</div>
+
+			<div type="references">
+
+				<listBibl>
+
+<biblStruct xml:id="b0">
+	<analytic>
+		<title level="a" type="main">Don&apos;t count, predict! A systematic comparison of contextcounting vs. context-predicting semantic vectors</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">M</forename><surname>Baroni</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">G</forename><surname>Dinu</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">G</forename><surname>Kruszewski</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Proceedings of the 52nd Annual Meeting of the Association for Computational Linguistics</title>
+		<meeting>the 52nd Annual Meeting of the Association for Computational Linguistics</meeting>
+		<imprint>
+			<publisher>Long Papers</publisher>
+			<date type="published" when="2014" />
+			<biblScope unit="volume">1</biblScope>
+			<biblScope unit="page" from="238" to="285" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b1">
+	<analytic>
+		<title level="a" type="main">Word association norms, mutual information, and lexicography</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">K</forename><forename type="middle">W</forename><surname>Church</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">P</forename><surname>Hanks</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Computational Linguistics</title>
+		<imprint>
+			<biblScope unit="volume">16</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="22" to="29" />
+			<date type="published" when="1990" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b2">
+	<analytic>
+		<title level="a" type="main">A synopsis of linguistic theory</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">J</forename><forename type="middle">R</forename><surname>Firth</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Studies in Linguistic Analysis</title>
+		<imprint>
+			<date type="published" when="1957" />
+			<biblScope unit="page" from="1" to="32" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b3">
+	<monogr>
+		<title level="m" type="main">Wege zu einem historischen Referenzkorpus des Deutschen: das Pro- jekt Deutsches Textarchiv. Perspektiven einer corpusbasierten historischen Linguistik und Philologie</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">A</forename><surname>Geyken</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="2013" />
+			<biblScope unit="page" from="221" to="255" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b4">
+	<analytic>
+		<title level="a" type="main">Diachronic word embeddings reveal statistical laws of semantic change</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">W</forename><forename type="middle">L</forename><surname>Hamilton</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">J</forename><surname>Leskovec</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">D</forename><surname>Jurafsky</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Proceedings of the 54th Annual Meeting of the Association for Computational Linguistics</title>
+		<meeting>the 54th Annual Meeting of the Association for Computational Linguistics</meeting>
+		<imprint>
+			<publisher>Long Papers</publisher>
+			<date type="published" when="2016" />
+			<biblScope unit="volume">1</biblScope>
+			<biblScope unit="page" from="1489" to="501" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b5">
+	<analytic>
+		<title level="a" type="main">An assessment of experimental protocols for tracing changes in word semantics relative to accuracy and reliability</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">J</forename><surname>Hellrich</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">U</forename><surname>Hahn</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Proceedings of the 10th SIGHUM Workshop on Language Technology for Cultural Heritage, Social Sciences, and Humanities @ ACL 2016</title>
+		<meeting>the 10th SIGHUM Workshop on Language Technology for Cultural Heritage, Social Sciences, and Humanities @ ACL 2016</meeting>
+		<imprint>
+			<date type="published" when="2016" />
+			<biblScope unit="page" from="111" to="118" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b6">
+	<analytic>
+		<title level="a" type="main">Bad company-Neighborhoods in neural embedding spaces considered harmful</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">J</forename><surname>Hellrich</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">U</forename><surname>Hahn</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Proceedings of the 26th International Conference on Computational Linguistics</title>
+		<meeting>the 26th International Conference on Computational Linguistics</meeting>
+		<imprint>
+			<date type="published" when="2016" />
+			<biblScope unit="page" from="2785" to="96" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b7">
+	<monogr>
+		<title level="m" type="main">Measuring the dynamics of lexico-semantic change since the German Romantic period. Digital Humanities</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">J</forename><surname>Hellrich</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">U</forename><surname>Hahn</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="2016" />
+			<biblScope unit="page" from="545" to="552" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b8">
+	<analytic>
+		<title level="a" type="main">Exploring Diachronic Lexical Semantics with JeSemE</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">J</forename><surname>Hellrich</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">U</forename><surname>Hahn</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Proceedings of the 55th Annual Meeting of the Association for Computational Linguistics: System Demonstrations</title>
+		<meeting>the 55th Annual Meeting of the Association for Computational Linguistics: System Demonstrations</meeting>
+		<imprint>
+			<date type="published" when="2017" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b9">
+	<monogr>
+		<title level="m" type="main">Understanding Cold War foreign policy ideology using networks and NLP. Digital Humanities</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">E</forename><forename type="middle">S</forename><surname>Jo</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="2016" />
+			<biblScope unit="page" from="582" to="587" />
+		</imprint>
+	</monogr>
+	<note>Diplomatic history by data</note>
+</biblStruct>
+
+<biblStruct xml:id="b10">
+	<analytic>
+		<title level="a" type="main">Canonicalizing the Deutsches Textarchiv</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">B</forename><surname>Jurish</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Perspektiven einer corpusbasierten historischen Linguistik und Philologie</title>
+		<editor>Hafemann, I.</editor>
+		<imprint>
+			<date type="published" when="2013" />
+			<biblScope unit="page" from="235" to="279" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b11">
+	<analytic>
+		<title level="a" type="main">Ad hoc monitoring of vocabulary shifts over time</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">T</forename><surname>Kenter</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">M</forename><surname>Wevers</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">P</forename><surname>Huijnen</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">M</forename><surname>De Rijke</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Proceedings of the 24th ACM International Conference on Information and Knowledge Management</title>
+		<meeting>the 24th ACM International Conference on Information and Knowledge Management</meeting>
+		<imprint>
+			<date type="published" when="2015" />
+			<biblScope unit="page" from="1191" to="200" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b12">
+	<analytic>
+		<title level="a" type="main">Temporal analysis of language through neural language models</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">Y</forename><surname>Kim</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">Y</forename><surname>Chiu</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">K</forename><surname>Hanaki</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">D</forename><surname>Hegde</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">S</forename><surname>Petrov</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Proceedings of the ACL 2014 Workshop on Language Technologies and Computational Social Science</title>
+		<meeting>the ACL 2014 Workshop on Language Technologies and Computational Social Science</meeting>
+		<imprint>
+			<date type="published" when="2014" />
+			<biblScope unit="page" from="61" to="66" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b13">
+	<analytic>
+		<title level="a" type="main">Statistically significant detection of linguistic change</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">V</forename><surname>Kulkarni</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">R</forename><surname>Al-Rfou</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">B</forename><surname>Perozzi</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">S</forename><surname>Skiena</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Proceedings of the 24th International Conference on World Wide Web</title>
+		<meeting>the 24th International Conference on World Wide Web</meeting>
+		<imprint>
+			<date type="published" when="2015" />
+			<biblScope unit="page" from="625" to="660" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b14">
+	<analytic>
+		<title level="a" type="main">Freshman or fresher? Quantifying the geographic variation of language in online social media</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">V</forename><surname>Kulkarni</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">B</forename><surname>Perozzi</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">S</forename><surname>Skiena</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Proceedings of the 10th International AAAI Conference on Web and Social Media</title>
+		<meeting>the 10th International AAAI Conference on Web and Social Media</meeting>
+		<imprint>
+			<date type="published" when="2016" />
+			<biblScope unit="page" from="615" to="623" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b15">
+	<analytic>
+		<title level="a" type="main">Improving distributional similarity with lessons learned from word embeddings</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">O</forename><surname>Levy</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">Y</forename><surname>Goldberg</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">I</forename><surname>Dagan</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Transactions of the Association for Computational Linguistics</title>
+		<imprint>
+			<biblScope unit="volume">3</biblScope>
+			<biblScope unit="page" from="211" to="236" />
+			<date type="published" when="2015" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b16">
+	<analytic>
+		<title level="a" type="main">Distributed representations of words and phrases and their compositionality</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">T</forename><surname>Mikolov</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">I</forename><surname>Sutskever</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">K</forename><surname>Chen</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">G</forename><forename type="middle">S</forename><surname>Corrado</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">J</forename><surname>Dean</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Advances in Neural Information Processing Systems</title>
+		<imprint>
+			<date type="published" when="2013" />
+			<biblScope unit="volume">26</biblScope>
+			<biblScope unit="page" from="3111" to="3120" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b17">
+	<analytic>
+		<title level="a" type="main">GloVe: Global vectors for word representation</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">J</forename><surname>Pennington</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">R</forename><surname>Socher</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">C</forename><forename type="middle">D</forename><surname>Manning</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Proceedings of the 2014 Conference on Empirical Methods in Natural Language Processing</title>
+		<meeting>the 2014 Conference on Empirical Methods in Natural Language Processing</meeting>
+		<imprint>
+			<date type="published" when="2014" />
+			<biblScope unit="page" from="1532" to="1575" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+				</listBibl>
+			</div>
+		</back>
+	</text>
+</TEI>

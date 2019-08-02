@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>Mapping the Bentham Corpus</title>
+                <author>
+                    <persName>
+                        <surname>Tieberghien</surname>
+                        <forename>Estelle</forename>
+                    </persName>
+                    <affiliation>LATTICE-CNRS, France</affiliation>
+                    <email>estelle.tieberghien@gmail.com</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Ruiz Fabo</surname>
+                        <forename>Pablo</forename>
+                    </persName>
+                    <affiliation>LATTICE-CNRS, France</affiliation>
+                    <email>pablo.ruiz.fabo@ens.fr</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Mélanie-Bécquet</surname>
+                        <forename>Frédérique</forename>
+                    </persName>
+                    <affiliation>LATTICE-CNRS, France</affiliation>
+                    <email>frederique.melanie@ens.fr</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Poibeau</surname>
+                        <forename>Thierry</forename>
+                    </persName>
+                    <affiliation>LATTICE-CNRS, France</affiliation>
+                    <email>thierry.poibeau@ens.fr</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Causer</surname>
+                        <forename>Tim</forename>
+                    </persName>
+                    <affiliation>University College London, UK</affiliation>
+                    <email>t.causer@ucl.ac.uk</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Terras</surname>
+                        <forename>Melissa</forename>
+                    </persName>
+                    <affiliation>University College London, UK</affiliation>
+                    <email>m.terras@ucl.ac.uk</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2016-03-03T11:17:00Z</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Maciej Eder, Pedagogical University in Krakow</publisher>
+                <publisher>Jan Rybicki, Jagiellonian University</publisher>
+                <address>
+                    <addrLine>Institute of Polish Studies</addrLine>
+                    <addrLine>Pedagogical University</addrLine>
+                    <addrLine>ul. Podchorazych 2</addrLine>
+                    <addrLine>30-084 Krakow, Poland</addrLine>
+                    <addrLine>maciej.eder@ijp-pan.krakow.pl</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from a Word document </p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.21">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Long Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>Betham</term>
+                    <term>corpus visualization</term>
+                    <term>knowledge discovery</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>corpora and corpus activities</term>
+                    <term>natural language processing</term>
+                    <term>semantic analysis</term>
+                    <term>text analysis</term>
+                    <term>knowledge representation</term>
+                    <term>content analysis</term>
+                    <term>visualisation</term>
+                    <term>data mining / text mining</term>
+                    <term>English</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <div type="div1" rend="DH-Heading1">
+                <head>Introduction</head>
+                <p>University College London (UCL) owns a large corpus of the philosopher and social reformer Jeremy Bentham (1748-1832). Until recently, these papers were for the most part untranscribed, so that very few people had access to the corpus to evaluate its content and its value. The corpus is now being digitized and transcribed thanks to a large number of volunteers recruited through a crowd-sourcing initiative called Transcribe Bentham (Causer and Terras, 2014a, 2014b). </p>
+                <p>The problem researchers are facing with such a corpus is clear: how to access the content, how to structure these 30,000 files, and how to get relevant access to this mass of data? Our goal has thus been to produce an automatic analysis procedure aiming at providing a general characterization of the content of the corpus. We are more specifically interested in identifying the main topics and their structure so as to provide meaningful static and dynamic representations of their evolution over time. </p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Comparison with other works</head>
+                <p>The exploration of large corpora in the Humanities is a known problem for today’s scholars. For example, the recent PoliInformatics challenge addressed the issue by promoting a framework to develop new and original research in text-rich domains (the project focused on political science but can be extended to any sub-field within the Humanities). </p>
+                <p>Specific experiments have recently been done in the field of philosophy, but they mainly concern the analysis of metadata, like indexes or references (Lamarra and Tardella, 2014; Sula and Dean, 2014). Different experiments have nevertheless involved an exploration of large amounts of textual data (see e.g. Diesner and Carley, 2005 on the Enron corpus) with relevant visualization interfaces (Yanhua et al., 2009). </p>
+                <p>In this paper, we propose to explore more advanced natural language processing techniques to extract keywords and filter them according to an external ontology, so as to obtain a more relevant indexing of the documents before visualization. We also explore dynamic representations, which were not addressed in the above-mentioned studies. </p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Corpus exploration strategy</head>
+                <div type="div2" rend="DH-Heading2">
+                    <head>The Text analysis module</head>
+                    <p>Different scripts have been developed to filter the corpus
+                        <note place="foot" xml:id="ftn1" n="1">
+                            <p> For example, Bentham sometimes used French in his correspondence and these texts are eliminated via automatic language detection, since we focus on English in this experiment. </p>
+                        </note>. Then documents are assigned a date whenever possible: Since the corpus mostly contains notes and letters, the first date mentioned in the document often refers to the date of the document’s composition (even if this assumption is of course not always true). A large number of documents cannot be assigned a date and are thus not used for the dynamic analysis of the corpus. 
+                    </p>
+                    <p>To index the corpus and identify meaningful concepts, we first tried to directly extract relevant keywords from the texts. However, traditional techniques like the use of tf-idf (Salton et al., 1983) and c-value (Frantzi et al., 2000) do not seem very efficient in our case. This is not too surprising: it is well known that texts are too ambiguous to provide a sound basis for a direct semantic extraction. Surface variations, the use of synonyms and hyponyms, linguistic ambiguity and other factors constitute strong obstacles for the task. We thus decided to use natural language processing techniques that provide relevant tools to overcome some of these limitations. The tools we employed are either web-based or possible to execute on a personal computer with average specs. </p>
+                    <p>We tried to refine concept extraction by confronting the text with an external, structured database. We used DBpedia (Auer et al., 2007) as a source of structured knowledge (DBpedia is a database made of information extracted from Wikipedia). DBpedia is not a specialized source of information but this guarantees that the approach is not domain or author specific and could be easily used for other corpora. We then used the DBpedia Spotlight Web Service (Mendes et al., 2012; Daiber et al., 2013) to make the connexion between the corpus and DBpedia concepts. This leads to a much more fine grained and relevant analysis than possible with an entirely data-driven keyword extraction. </p>
+                    <p>Based on the outputs of Spotlight, only concepts that occurred at least 100 times, and with a confidence value of at least 0.1 were kept. Spotlight outputs a confidence value between 0 and 1 for each annotation; a 0.1 threshold removes clearly unreliable annotations while maintaining good coverage. Tagging the full corpus with Spotlight (ca. 30,000 documents) took over 24 hours. We called the Spotlight service one document at a time; parallelizing the process can decrease processing time.</p>
+                </div>
+                <div type="div2" rend="DH-Heading2">
+                    <head>The visualization module</head>
+                    <p>Once relevant concepts are identified, one wants to produce relevant text representations so as to provide a usable interface to end users. We present here three different kinds of interfaces that show the possible exploitation of the analysis described above. </p>
+                    <p>The corpus is first indexed in a Solr search index
+                        <note place="foot" xml:id="ftn2" n="2">
+                            <p> https://lucene.apache.org/solr/</p>
+                        </note> and accessible through a graphical end-user interface. It is possible to query the corpus by date, using Solr’s faceted search functions
+                        <note place="foot" xml:id="ftn3" n="3">
+                            <p> https://wiki.apache.org/solr/SolrFacetingOverview</p>
+                        </note> (see figure 1).
+                    </p>
+                    <p>
+                    <figure>
+                        <graphic url="242/image1.png" rend="block"/>
+                        <head>Figure 1: Search interface: users can search via year extracted from the text, which in most cases is the year of writing, allowing users to see texts (especially correspondence) in chronological order.</head>
+                    </figure>
+                    </p>
+                    <p>It is also possible to cluster together related keywords, so as to get access to homogeneous sub-parts of the corpora representing specific subfields of Bentham’s activity (see figure 2). </p>
+                    <figure>
+                        <graphic url="242/image3.png" rend="inline"/>
+                        <head>Figure 2: the main topics addressed in the corpus, based on clusters of concepts, showing the main concerns of Bentham's writings, which map closely onto established research areas in Bentham studies. The network was produced by Cortext; colours and fonts were reformatted in Gephi based on Cortext’s gexf-format export
+                            <note place="foot" xml:id="ftn4" n="4">
+                                <p> https://gephi.github.io/</p>
+                            </note>
+                        </head>
+                    </figure>
+                    <p>Dynamic maps are also possible, to see for example the evolution of the different topics addressed in the corpus over time (see figure 3). </p>
+                    <figure>
+                        <graphic url="242/image4.png" rend="inline"/>
+                        <head>Figure 3: A dynamic view of the corpus, computed with the Cortext plarform 
+                            <hi rend="italic">(tubes layout)</hi>, with the evolution of the main topics addressed over time
+                        </head>
+                    </figure>
+                </div>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Scholarly benefits of these tools for the Transcribe Bentham project</head>
+                <p>Since 1958, UCL's Bentham Project has been producing the new, critical edition of the “Collected Works of Jeremy Bentham”. The edition is expected to run to some eighty volumes, the thirty-third of which has recently been sent to the press. The “Collected Works” is based upon texts, which Bentham published during his lifetime, and unpublished texts, which exist in manuscript. It is a major task: UCL's Bentham Papers runs to some 75,000 manuscript pages, while the British Library's has a further 25,000 or so pages. About 40,000 pages have been transcribed to date and, while UCL's award-winning 'Transcribe Bentham' initiative has helped to significantly increase the pace of transcription, a great deal more work needs to be done.</p>
+                <p>The first task in producing a volume of the “Collected Works” based upon texts in manuscript is to identify all the relevant pages. Bentham Project editorial staff use the Bentham Papers Database Catalogue, which indexes the manuscript collection by sixteen headings, including date, main heading, subject heading(s), author(s), and so forth. It is, however, entirely possible to miss relevant manuscripts using this method. The subject maps produced for this research promise to complement traditional Bentham Project methods; for instance, Bentham's work on political economy encompasses topics as varied as income tax to colonisation, and the subject maps will make it more straightforward to investigate the nexus between these, and other, subjects.</p>
+                <p>The dynamic corpus view, showing the evolution of topics addressed over time, could also prove useful in editorial work as can be shown in two examples. First, an editor at the Bentham Project is currently working on Bentham's writings on convict transportation, though there is some confusion over when exactly Bentham first broached the topic. The dynamic corpus view could help to clear up whether it was only around 1802 when Bentham wrote about transportation, or if he had investigated the subject in any great detail during the 1790s. Second, Bentham became more radical as he aged, and several Bentham scholars have sought to identify the point at which Bentham abandoned his earlier conservatism and 'converted' to political radicalism, and representative democracy; an analysis of Bentham's language at the turn of the century would be instructive in helping clarify this matter.</p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Conclusion</head>
+                <p>In this paper, we have presented a first attempt to give a relevant access to a large interdisciplinary corpus in the domain of philosophy, law and history. We have shown that using tools in concept clustering and visualization can provide an alternative way to navigate large-scale corpora, and confirm and visualise scholarly approaches to large scale textual corpora. Exploring how these tools can be effectively used with a corpus such as Bentham's indicates these methods are applicable to other sources as well.</p>
+                <p>In the near future, we are planning to refine the linguistic analysis in order to give better representations of the textual content of the corpus. We are also planning experiments with end-user to evaluate in more details the solution and the visualisation techniques used so far in this project. </p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Acknowledgements</head>
+                <p>We want to thank IDEX PSL (Paris Sciences et Lettres, ref. ANR-10-IDEX-0001-02 PSL) as well as the labex TransferS (laboratoire d’excellence, ANR-10-LABX-0099) for supporting this research. Lastly, we would like to thank the reviewers for their insightful comments on the paper. </p>
+            </div>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl>
+                        <hi rend="bold">Auer, S.</hi> (2007). DBpedia: A nucleus for a web of open data. 
+                        <hi rend="italic">The Semantic Web</hi>. Berlin Heidelberg: Springer. 
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Causer, T. and Terras, M. </hi>(2014a). Many hands make light work. Many hands together make merry work: 
+                        <hi rend="italic">Transcribe Bentham </hi>and crowdsourcing manuscript collections. In Ridge, M. 
+                        <hi rend="italic"> Crowdsourcing Our Cultural Heritage</hi>, Farnham: Ashgate.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Causer, T. and Terras, M.</hi> (2014b). Crowdsourcing Bentham: Beyond the Traditional Boundaries of Academic History, 
+                        <hi rend="italic">International Journal of Humanities and Arts Computing</hi>, <hi rend="bold">8</hi>(1): 46-64. 
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Daiber, J., Jakob, M., Hokamp, C. and Mendes, P.</hi> (2013). Improving Efficiency and Accuracy in Multilingual Entity Extraction. <hi rend="italic">Proceedings of the 9th International Conference on Semantic Systems (I-Semantics)</hi>, Graz. 
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Diesner, J. and Carley, K. </hi>(2005). Exploration of Communication Networks from the Enron Email Corpus. <hi rend="italic">Proceedings of SIAM International Conference on Data Mining, Newport Beach: Workshop on Link Analysis, Counterterrorism and Security</hi>, pp. 3- 14,.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Frantzi, K., Ananiadou, S. and Mima H.</hi> (2000). Automatic recognition of multi-word terms:. the C-value/NC-value method. 
+                        <hi rend="italic">International Journal on Digital Libraries</hi>, <hi rend="bold">3</hi>(2): 115. 
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Lamarra, A. and Tardella, M.</hi> (2014). Theophilo. A prootype for a thesaurus of philosophy. Lausanne: <hi rend="italic">Digital Humanities 2014</hi>. 
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Mendes, P., Daiber, J., Rajapakse, R., Sasaki, F. and Bizer, C.</hi> (2012). Evaluating the Impact of Phrase Recognition on Concept Tagging. Istanbul: <hi rend="italic">Proceedings of the International Conference on Language Resources and Evaluation (LREC 2012)</hi>.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Salton, G., Fox, E. and Wu, H. </hi>(1983). Extended Boolean information retrieval. 
+                        <hi rend="italic">Communications of the ACM 26.11</hi>, pp. 1022-36.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Sula, C. and Dean, W.</hi> (2014). Visualization of Historical Knowledge structures: an Analysis of the Bibliography of Philosophy. Lausanne: <hi rend="italic">Digital Humanities 2014</hi>. 
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Yanhua, C., Lijun, W., Ming, D. and Jing, H.</hi> (2009). Exemplar-based Visualization of Large Document Corpus.<hi rend="italic"> IEEE Transactions on Visualization and Computer Graphics</hi> (InfoVis2009), <hi rend="bold">15</hi>(6): 1161-68.
+                    </bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

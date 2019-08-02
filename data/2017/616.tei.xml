@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xsi:schemaLocation="http://www.tei-c.org/ns/1.0 /Users/yoann/Work/Grobid/grobid-home/schemas/xsd/Grobid.xsd"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+	<teiHeader xml:lang="en">
+		<encodingDesc>
+			<appInfo>
+				<application version="0.5.4-SNAPSHOT" ident="GROBID" when="2019-06-05T06:24+0000">
+					<ref target="https://github.com/kermitt2/grobid">GROBID - A machine learning software for extracting information from scholarly documents</ref>
+				</application>
+			</appInfo>
+		</encodingDesc>
+		<fileDesc>
+			<titleStmt>
+				<title level="a" type="main">Puns and Intertextuality: A Digital Approach to Greek Wordplay in Latin Literature</title>
+			</titleStmt>
+			<publicationStmt>
+				<publisher/>
+				<availability status="unknown"><licence/></availability>
+			</publicationStmt>
+			<sourceDesc>
+				<biblStruct>
+					<analytic>
+						<author>
+							<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">Evan</forename><surname>Brubaker</surname></persName>
+							<affiliation key="aff0">
+								<orgName type="institution">Tulane University</orgName>
+								<address>
+									<country>United States of America</country>
+								</address>
+							</affiliation>
+						</author>
+						<author>
+							<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">Brandon</forename><surname>Lafreniere</surname></persName>
+							<affiliation key="aff1">
+								<orgName type="institution">Tulane University</orgName>
+								<address>
+									<country>United States of America</country>
+								</address>
+							</affiliation>
+						</author>
+						<title level="a" type="main">Puns and Intertextuality: A Digital Approach to Greek Wordplay in Latin Literature</title>
+					</analytic>
+					<monogr>
+						<imprint>
+							<date/>
+						</imprint>
+					</monogr>
+				</biblStruct>
+			</sourceDesc>
+		</fileDesc>
+		<profileDesc>
+			<abstract/>
+		</profileDesc>
+	</teiHeader>
+	<text xml:lang="en">
+		<body>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Background</head><p>As one of the defining features of Latin literature, the influence exerted by the Greek linguistic and textual traditions has remained a key focus of the Classics. One of the manifestations of this intersection of cultures is in the topic of wordplay, or puns. Authors such as Vergil and Lucretius have been shown to utilize the metrical rules of pronunciation to embed Greek word forms in their poetry, and in the process, reference others works of literature and convey ideas beyond the superficial level of the text. While the influence of Greek writings upon Latin literature has received considerable scrutiny, the use of Greek puns has received only limited inquiry. Previous studies on puns, notably those of <ref type="bibr" target="#b4">Snyder (1980) and</ref><ref type="bibr">Ahl (1985)</ref> are limited in scope and focus mainly on the relationship of Latin puns to Latin literature. Furthermore, studies which focus on Greek puns within Latin are limited primarily to writing about specific examples or a specific Latin author, such as O' <ref type="bibr">Hara (1996)</ref> and his discussion of Greek word use in Vergil. Similarly, the recent (2013) compilation of studies edited by Kwapisz, Szymanski, and Petrain examining Greek and Latin wordplay does not look at the intersection of the two. Building upon previous strategies for data mining including the Tesserae Project, this paper seeks to offer a digital means to cross-reference Latin literature with Greek texts in order to find puns.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>The program</head><p>Since the formation of our collaboration, we have produced software capable of detecting potential candidates for Greek puns. To achieve this end, we first set out to account for the rules of pronunciation within Latin poetry by referencing works such as <ref type="bibr" target="#b0">Halporn et al. (1980)</ref>, with issues such as elision and the lack of pronunciation of certain syllables addressed within the software. We then looked to set equivalence of pronunciation between Greek and Latin letters and groups of syllables, such as diphthongs. This was accomplished through examining transliterated Greek names and words which appear in Latin literature and using grammars including <ref type="bibr" target="#b3">Smyth (1920)</ref>. Additionally, certain Greek vowels and consonants which could correspond to multiple vowels, consonants, or syllables in Latin were also considered.</p><p>Accounting for these rules, we developed a processing system whereby Greek pronunciation equivalence is run through strands of Latin text. The software begins by reading one chosen Latin text in .txt format and then reading one or more Greek texts in .txt format, with all texts requiring UNICODE encoding for proper registration within the identification system. Once a Latin and Greek text(s) have been selected, the file paths are passed asynchronously into the model for processing. Both texts are then processed at the same time on different threads and the calling method waits for the completion of both methods.</p><p>The Greek text string is first processed by stripping off any accent or breathing mark and returning the base letter to lower case. While iterating through all characters in the text, when a space or new line character is reached, the previous word captured is added to a list. A word is not added to the list if it has previously been added to the list or the length of the word is less than a number for which the program allows specification. The result of this method is a list of those unique Greek words which appear in a chosen Greek text.</p><p>The Latin text string is first processed by converting all letters to lower case and taking account of the rules of elision and pronunciation. Similar to the Greek processing, the processed Latin text is converted into words. Each Latin word in the list is processed to determine if part of the word should be elided, based on the starting letter of the next word. The final step is to condense all the Latin words together into one text string without spaces, while keeping a list of the starting position of each word in the text string.</p><p>Once the two processing methods reach completion, the model has the list of unique Greek words and a string of Latin words, including the starting position in the original text of each word. The final processing method compares the Greek words to the Latin text string to find matches and returns a list of matches, which include the starting position of the match, ending position of the match, and the Greek word that matched. First, each letter of every Greek word is converted to a list of possible Latin characters or pairs of characters. A dictionary exists that for each base Greek lower case letter there corresponds a list of Latin letters or pairs of letters. Similarly, the existence of a diphthong is determined by referencing the values of a Greek-Latin diphthong dictionary. Both dictionaries were developed by examining those grammars and references noted earlier. By iterating though every Greek letter in a Greek word the possible Latin letters can be looked up in the dictionary, and, if the current letter and next letter in the Greek word are in the diphthong dictionary, this will override the regular dictionary lookup function. Once a list of every possible Latin correspondence for every letter in a Greek word exists, all permutations of letters are returned in a list of strings. This list is the list of every possible Latin series of characters that could match a Greek word. Using a regular expression every match in the Latin text string is found based on the previous list. These results are returned as a list of Greek words, including the starting and ending position in the original Latin text of the match.</p><p>The unique list of Latin-to-Greek results is returned to the view and is displayed in a grid, which can be sorted alphabetically, wherein the left column contains the uncompressed Latin character matches and the right column the Greek word equivalent in Greek characters. Also, a flow document is created which contains the original text with the matches highlighted in yellow and the matching Greek words to the right for each line. The Greek words in brackets are words that correspond to the same Latin text location, thus assisting the program user in contextualizing and applying significance to the results.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Results and applications</head><p>Through operation of the software, possible candidates for Greek puns within various Latin authors have been identified. By cross-referencing opensource texts of Vergil's Aeneid and the Carmina of Catullus with the Homeric epics and Argonautica, we have discovered hereto unnoticed Greek words, the meanings of which often correspond to the thematic concerns of the passage. Considering the limited extent of the search, both in duration and in those texts analyzed, these results seem to suggest that there are a considerable number of Greek puns remaining to be found within the corpus of Latin literature. While we are currently still in the process of refining the software and in consideration of more comprehensive ways to cross-reference Greek texts, we are still looking to expand the search both towards those texts already analyzed and to other Latin authors. With a view to the future, it is our hope that this software will eventually become available for public use and that it can lead to a more nuanced view of the role which Greek culture and language plays in Latin literature.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Program diagram</head></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Bibliography</head></div><figure xmlns="http://www.tei-c.org/ns/1.0"><head></head><label></label><figDesc></figDesc><graphic url="image-1.png" coords="2,316.86,207.42,241.44,210.00" type="bitmap" /></figure>
+		</body>
+		<back>
+			<div type="references">
+
+				<listBibl>
+
+<biblStruct xml:id="b0">
+	<monogr>
+		<title level="m" type="main">The Meters of Greek and Latin Poetry</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">J</forename><surname>Halporn</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="1980" />
+			<publisher>University of Oklahoma Press</publisher>
+			<pubPlace>Norman</pubPlace>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b1">
+	<monogr>
+		<title level="m" type="main">The Muse at Play: Riddles and Wordplay in Greek and Latin Poetry</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">J</forename><surname>Kwapisz</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="2013" />
+			<publisher>De Gruyter</publisher>
+			<pubPlace>Berlin</pubPlace>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b2">
+	<monogr>
+		<title level="m" type="main">True Names: Vergil and the Alexandrian Tradition of Etymological Wordplay</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">J</forename><surname>O&amp;apos;hara</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="1996" />
+			<publisher>University of Michigan Press</publisher>
+			<pubPlace>Ann Arbor</pubPlace>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b3">
+	<monogr>
+		<title level="m" type="main">A Greek Grammar for Colleges</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">H</forename><surname>Smyth</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="1920" />
+			<publisher>American Book Company</publisher>
+			<pubPlace>New York</pubPlace>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b4">
+	<monogr>
+		<title level="m" type="main">Puns and Poetry in Lucretius&apos; De Rerum Natura</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">J</forename><surname>Snyder</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="1980" />
+			<publisher>GruÌner</publisher>
+			<pubPlace>Amsterdam</pubPlace>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+				</listBibl>
+			</div>
+		</back>
+	</text>
+</TEI>

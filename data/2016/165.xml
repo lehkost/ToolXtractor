@@ -1,0 +1,414 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>A Method for Record Linkage with Sparse Historical Data</title>
+                <author>
+                    <persName>
+                        <surname>Colavizza</surname>
+                        <forename>Giovanni</forename>
+                    </persName>
+                    <affiliation>EPFL, Switzerland</affiliation>
+                    <email>giovanni.colavizza@epfl.ch</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Ehrmann</surname>
+                        <forename>Maud</forename>
+                    </persName>
+                    <affiliation>EPFL, Switzerland</affiliation>
+                    <email>maud.ehrmann@epfl.ch</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Rochat</surname>
+                        <forename>Yannick</forename>
+                    </persName>
+                    <affiliation>EPFL, Switzerland</affiliation>
+                    <email>yannick.rochat@epfl.ch</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2016-03-03T20:44:00Z</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Maciej Eder, Pedagogical University in Krakow</publisher>
+                <publisher>Jan Rybicki, Jagiellonian University</publisher>
+                <address>
+                    <addrLine>Institute of Polish Studies</addrLine>
+                    <addrLine>Pedagogical University</addrLine>
+                    <addrLine>ul. Podchorazych 2</addrLine>
+                    <addrLine>30-084 Krakow, Poland</addrLine>
+                    <addrLine>maciej.eder@ijp-pan.krakow.pl</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from a Word document </p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.21">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Short Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>record linkage</term>
+                    <term>entity disambiguation</term>
+                    <term>historical data</term>
+                    <term>social networks</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>archives, repositories, sustainability and preservation</term>
+                    <term>natural language processing</term>
+                    <term>digitisation, resource creation, and discovery</term>
+                    <term>content analysis</term>
+                    <term>networks, relationships, graphs</term>
+                    <term>linking and annotation</term>
+                    <term>data mining / text mining</term>
+                    <term>English</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <div type="div1" rend="DH-Heading1">
+                <head>Introduction</head>
+                <p>Massive digitization of archival material, coupled with automatic document processing techniques and data visualisation tools offers great opportunities for reconstructing and exploring the past. Unprecedented wealth of historical data (e.g. names of persons, places, transaction records) can indeed be gathered through the transcription and annotation of digitized documents and thereby foster large-scale studies of past societies. Yet, the transformation of hand-written documents into well-represented, structured and connected data is not straightforward and requires several processing steps. In this regard, a key issue is entity record linkage, a process aiming at linking different mentions in texts which refer to the same entity. Also known as entity disambiguation, record linkage is essential in that it allows to identify genuine individuals, to aggregate multi-source information about single entities, and to reconstruct networks across documents and document series.</p>
+                <p>In this paper we present an approach to automatically identify coreferential entity mentions of type 
+                    <hi rend="italic">Person</hi> in a data set derived from Venetian apprenticeship contracts from the early modern period (16th-18th c.). Taking advantage of a manually annotated sub-part of the document series, we compute distances between pairs of mentions, combining various similarity measures based on (sparse) context information and person attributes.
+                </p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Task Definition</head>
+                <p>Major challenges when dealing with people-related data are homographic person names referring to different persons as well as the existence of name variants referring to the same person. These are well-known issues in the field of Natural Language Processing for which various approaches have been devised, first via mention clustering (Mann and Yarowsky 2003; Artiles et al. 2008), more recently via linking to a knowledge base (Ji and Grishman 2011; Shen et al 2015).</p>
+                <p>In the context of historical data, dealing with person name ambiguity is all the more difficult since data is inherently sparse and uncertain (resulting in poor mention context) and since knowledge bases such as DBpedia (Lehmann et al 2013) contain very little about past average laypersons (resulting in poor entity context). It is however an essential step prior to any historical data analysis (Bloothooft et al 2015), which we address as part of the 
+                    <hi rend="italic">Garzoni</hi> project. This project aims at studying apprenticeship in early modern Venice by extracting information from archival material. Part of this material have been manually annotated, including mention links towards unique entities. Starting from a subset of the current data, we present a method for person record linkage, with the objective to complement its disambiguation coverage and to bootstrap a system to better automate entity disambiguation during annotation, in an active learning fashion.
+                </p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>The <hi rend="italic">Accordi dei Garzoni</hi></head>
+                <p>The 
+                    <hi rend="italic">Accordi dei Garzoni</hi> is a document series from the State Archives of Venice which originates from the activity of the 
+                    <hi rend="italic">Giustizia Vecchia</hi> magistracy. This judicial authority was in charge of registering apprenticeship contracts in order to protect young people while they were trained and/or providing domestic services (Bellavitis 2006). As a result of this regulation, information for much of apprenticeship arrangements got centralized, today reflected in a dense archival series.
+                </p>
+                <p>The 
+                    <hi rend="italic">Accordi</hi> consists of about 55,000 contracts registered from 1575 until 1772. Each contract features an apprentice, a master and often a guarantor, sometimes two. A sample of 11,000 contracts have been manually annotated and the resulting data is stored in an RDF triple store. For each person mentioned in a contract, annotators created a 
+                    <hi rend="italic">person mention</hi> and, importantly, linked it to a 
+                    <hi rend="italic">person entity</hi>. They did so either by selecting an already existing entity in the database or by creating a new one. Given the difficulty of this task, only a limited number of entities have been disambiguated; the annotated dataset can therefore be considered as correct but not exhaustive.
+                </p>
+                <p>The present work considers annotated documents from the period 1586-1600, for which statistics about contracts and entity/mention ratio are shown in Table 1. We use a subset of this dataset (bolded line in the table) as a 
+                    <hi rend="italic">golden</hi> set for our experiments.
+                </p>
+                <table rend="rules">
+                    <head>Table 1. 
+                        <hi rend="italic">Entity-Mention stastistical profile for the whole vs. selected period</hi>
+                    </head>
+                    <row>
+                        <cell rend="DH-Default">count</cell>
+                        <cell rend="DH-Default">whole period</cell>
+                        <cell rend="DH-Default">1586-1600</cell>
+                    </row>
+                    <row>
+                        <cell rend="DH-Default"># annotated contracts</cell>
+                        <cell rend="DH-Default">11,525</cell>
+                        <cell rend="DH-Default">2,687</cell>
+                    </row>
+                    <row>
+                        <cell rend="DH-Default"># mentions</cell>
+                        <cell rend="DH-Default">31,952 </cell>
+                        <cell rend="DH-Default">7,589</cell>
+                    </row>
+                    <row>
+                        <cell rend="DH-Default"># entities</cell>
+                        <cell rend="DH-Default">26,641 </cell>
+                        <cell rend="DH-Default">6,599</cell>
+                    </row>
+                    <row>
+                        <cell rend="DH-Default">
+                            <hi rend="bold"># entities with # mention  &gt; 1</hi>
+                        </cell>
+                        <cell rend="DH-Default">1793</cell>
+                        <cell rend="DH-Default">382</cell>
+                    </row>
+                    <row>
+                        <cell rend="DH-Default">
+                            <hi rend="smallcaps">avg</hi> mention per entity
+                        </cell>
+                        <cell rend="DH-Default">1.09</cell>
+                        <cell rend="DH-Default">1.08</cell>
+                    </row>
+                    <row>
+                        <cell rend="DH-Default">
+                            <hi rend="smallcaps">avg</hi> mention per entity with # mention  &gt; 1
+                        </cell>
+                        <cell rend="DH-Default">2.44 </cell>
+                        <cell rend="DH-Default">2.38</cell>
+                    </row>
+                </table>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Approach</head>
+                <p>Given a set of mentions, our objective is to estimate the likelihood that two mentions refer to the same entity. We represent each mention by a vector of features and compare them pairwise using various similarity measures. The list of selected features at mention and contract levels are presented in Table 2 and 3 respectively.</p>
+                <table rend="rules">
+                    <head>Table 2. 
+                        <hi rend="italic">Mention-level features</hi>
+                    </head>
+                    <row>
+                        <cell rend="DH-Default">Feature</cell>
+                        <cell rend="DH-Default">Variable Type</cell>
+                    </row>
+                    <row>
+                        <cell rend="DH-Default">first name</cell>
+                        <cell rend="DH-Default">string</cell>
+                    </row>
+                    <row>
+                        <cell rend="DH-Default">surname</cell>
+                        <cell rend="DH-Default">string</cell>
+                    </row>
+                    <row>
+                        <cell rend="DH-Default">patronymic</cell>
+                        <cell rend="DH-Default">string</cell>
+                    </row>
+                    <row>
+                        <cell rend="DH-Default">gender</cell>
+                        <cell rend="DH-Default">categorical</cell>
+                    </row>
+                    <row>
+                        <cell rend="DH-Default">age</cell>
+                        <cell rend="DH-Default">integer</cell>
+                    </row>
+                    <row>
+                        <cell rend="DH-Default">profession</cell>
+                        <cell rend="DH-Default">categorical</cell>
+                    </row>
+                    <row>
+                        <cell rend="DH-Default">geographical origins</cell>
+                        <cell rend="DH-Default">string</cell>
+                    </row>
+                </table>
+                <table rend="rules">
+                    <head>Table 3. 
+                        <hi rend="italic">Contract-level features</hi>
+                    </head>
+                    <row>
+                        <cell rend="DH-Default">Feature</cell>
+                        <cell rend="DH-Default">Variable Type</cell>
+                    </row>
+                    <row>
+                        <cell rend="DH-Default">workshop toponym</cell>
+                        <cell rend="DH-Default">string</cell>
+                    </row>
+                    <row>
+                        <cell rend="DH-Default">workshop parish</cell>
+                        <cell rend="DH-Default">string</cell>
+                    </row>
+                    <row>
+                        <cell rend="DH-Default">workshop sestriere
+                            <note place="foot" xml:id="ftn1" n="1">
+                                <p rend="footnote text">There are 6 sestrieri in Venice, i.e. groups of contiguous parishes.</p>
+                            </note>
+                        </cell>
+                        <cell rend="DH-Default">string</cell>
+                    </row>
+                    <row>
+                        <cell rend="DH-Default">workshop insigna</cell>
+                        <cell rend="DH-Default">string</cell>
+                    </row>
+                    <row>
+                        <cell rend="DH-Default">contract year</cell>
+                        <cell rend="DH-Default">integer</cell>
+                    </row>
+                    <row>
+                        <cell rend="DH-Default">contract duration</cell>
+                        <cell rend="DH-Default">string</cell>
+                    </row>
+                    <row>
+                        <cell rend="DH-Default">master profession</cell>
+                        <cell rend="DH-Default">categorical</cell>
+                    </row>
+                </table>
+                <p>With respect to our dataset and features, several points should be emphasized. First, data sparsity: it is common for a mention to have just a few features. Second, features are not evenly sparse (cf. Figure 1) and do not contribute equally to a possible linkage. Core features such as 
+                    <hi rend="italic">name</hi>, 
+                    <hi rend="italic">surname</hi>, 
+                    <hi rend="italic">patronymic</hi>, 
+                    <hi rend="italic">gender</hi> and 
+                    <hi rend="italic">profession</hi> must strongly correspond in order to consider a link as reliable. On the other hand, rare features such as 
+                    <hi rend="italic">workshop insigna</hi> can be very informative when shared by two mentions and should also be valued by the linkage algorithm. Finally, features are dependent, particularly on the role of the person (e.g. age indicated only for apprentices).
+                </p>
+                <figure>
+                    <graphic url="165/image1.png" rend="inline"/>
+                    <head>Figure 1. Distribution of features by role</head>
+                </figure>
+                <p>We construct three matrices of size 
+                    <hi rend="italic">N</hi> × <hi rend="italic">N</hi>, where 
+                    <hi rend="italic">N</hi> is the number of mentions in the dataset. The first matrix Φ, the 
+                    <hi rend="italic">feature matrix</hi>, stores similarity scores of mentions pairwise. Scores are computed using measures over features as follows:
+                </p>
+                <list type="unordered">
+                    <item>
+                        <hi rend="italic">year of contract</hi>: the feature-score is measured via distance and diminishing returns. Each year of distance between 1 and 15 and between 15 and 30 decreases an initial score of 1 by 0.01 and 0.025 respectively, with a definitive cut-off after 30. For example, two contracts from 1590 and 1594 have a score of 0.96.
+                    </item>
+                    <item>
+                        <hi rend="italic">age</hi>: similarly as per year, each year of distance of the difference between two ages decreases an initial score.
+                    </item>
+                    <item>
+                        <hi rend="italic">gender</hi> and 
+                        <hi rend="italic">profession</hi>: the feature-scores are based on exact matches.
+                    </item>
+                    <item>
+                        <hi rend="italic">name</hi>, 
+                        <hi rend="italic">surname</hi>, 
+                        <hi rend="italic">patronymic</hi> and 
+                        <hi rend="italic">workshop toponym</hi>: the feature-score is based on the Deverau-Levenshtein string metric (Cohen et al, 2003). For example, 
+                        <hi rend="italic">Polo</hi> and 
+                        <hi rend="italic">Pollo</hi> have a similarity measure of 0.95.
+                    </item>
+                    <item>
+                        <hi rend="italic">geographical origins</hi> and 
+                        <hi rend="italic">insigna</hi>: the feature-score is based on a token-based variant of the Jaro-Winkler metric. For example, 
+                        <hi rend="italic">Friulano</hi> and 
+                        <hi rend="italic">del Friuli</hi> have a similarity measure of 0.82.
+                    </item>
+                </list>
+                <p>The score of each pair is stored in Φ: it is the L2 norm of the resulting feature-score vector.</p>
+                <p>The second matrix Γ, the 
+                    <hi rend="italic">combination matrix</hi>, stores values that indicate whether a pair of mentions shares similar feature combinations or not. To build such matrix, we leverage the 
+                    <hi rend="italic">golden</hi> set and identify combinations of features which produced a linkage on a role-by-role basis (e.g. master-master or guarantor-master). Features are considered activated when their feature-score is equal or above 0.84<note place="foot" xml:id="ftn2" n="2"> It has been shown in comparable settings that edit distance with cut-off at distance 3 (which for us is distance &gt; 0.85) provides good results (Kleanthi et al. 2015).</note> and we filter out combinations occurring once. The score of a mention pair in Γ is 1.0 if the combination of activated features is valid for the given role pair; 0.5 if the role pair does not match but the combination is valid; 0.0 otherwise. This matrix accounts for feature dependencies and the different ways to name a person with respect to his/her role.
+                </p>
+                <p>The third matrix Δ, the 
+                    <hi rend="italic">filtering matrix</hi>, scores mention pairs according to the number of activated core features (1.0 if 3 +  features – out of 5 – are activated, 0.0 otherwise
+                    <note place="foot" xml:id="ftn3" n="3">Features are activated when their similarity is above 0.84.</note>).
+                </p>
+                <p>Given the three matrices, we normalize them and consider the following function to compute the similarity score of a mention pair <hi rend="italic">p</hi>:</p>
+                <figure>
+                    <graphic url="165/image2.png" rend="inline"/>
+                </figure>
+                <p>where δ
+                    <hi rend="italic subscript">p</hi> is a boolean parameter taken from Δ which activates the filter over core features for pair 
+                    <hi rend="italic">p</hi>; 
+                    <hi rend="italic">π</hi>
+                    <hi rend="italic subscript">p</hi> is the feature score taken from Φ; γ
+                    <hi rend="italic subscript">p</hi> is the combination score from Γ; and λ is a parameter giving priority over vector features or combinations of features. δ ∈ {0, 1} and 0 ≤ λ, π, γ ≤ 1. This function allows us to adjust the different parameters: core vs sparse features (δ), feature scores (π) and feature combinations (γ).
+                </p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Evaluation</head>
+                <p>We evaluate our approach in terms of coverage and precision. With respect to coverage, we verify our method over 100 thresholds from 0.99 to 0.0. For each threshold, we compare linkage curves as the percentage of links obtained over the total possible against the coverage of the 
+                    <hi rend="italic">golden</hi> set. Precision is based on manual annotation of 50 randomly selected linkages.
+                </p>
+                <p>Both procedures are repeated with λ ∈ {0.1, 0.5, 0.9} and δ activated or not, for a total of 6 configurations. The objective is to understand the individual contributions of the three components to our function.</p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Results and Discussion</head>
+                <p>Results for the first and second evaluation procedure are presented in Figure 2 and Table 4 (resp.). Highest precision (0.61 and 0.3 in Table 4) is obtained with a balance between feature combinations and feature scores (λ = 0.5). δ proves very useful for filtering the input space (from 28,7M possible pairs to 44,2K), and lowers the number of false positives, especially for links between apprentices (cf. line ‘w-o AA’ in Table 4). The combination of the two (filtered input space and equal weights) provides the best results, especially for masters and guarantors. Linkage curves can be explained similarly: low λ entails a step-like curve (three steps at 0.0, 0.5 and 1.0), while high λ creates a Gaussian over the disambiguation space.</p>
+                <table rend="rules">
+                    <head>Table 4. 
+                        <hi rend="italic">Precision with threshold </hi>&gt;=
+                        <hi rend="italic"> 0.9 (* means not-significant statistics)</hi>
+                    </head>
+                    <row>
+                        <cell rend="DH-Default"/>
+                        <cell cols="3" rend="DH-Default">δ active</cell>
+                        <cell cols="3" rend="DH-Default">δ not active</cell>
+                    </row>
+                    <row>
+                        <cell rend="DH-Default"/>
+                        <cell rend="DH-Default"> λ = 0.1</cell>
+                        <cell rend="DH-Default">λ = 0.5</cell>
+                        <cell rend="DH-Default">λ = 0.9</cell>
+                        <cell rend="DH-Default">λ = 0.1</cell>
+                        <cell rend="DH-Default">λ = 0.5</cell>
+                        <cell rend="DH-Default">λ = 0.9</cell>
+                    </row>
+                    <row>
+                        <cell rend="DH-Default">all</cell>
+                        <cell rend="DH-Default"> 0.21</cell>
+                        <cell rend="DH-Default">0.3</cell>
+                        <cell rend="DH-Default">0.21</cell>
+                        <cell rend="DH-Default">0.0</cell>
+                        <cell rend="DH-Default">0.26</cell>
+                        <cell rend="DH-Default">0.15</cell>
+                    </row>
+                    <row>
+                        <cell rend="DH-Default">without A-A</cell>
+                        <cell rend="DH-Default"> 0.22</cell>
+                        <cell rend="DH-Default">0.61</cell>
+                        <cell rend="DH-Default">0.22</cell>
+                        <cell rend="DH-Default">0.0</cell>
+                        <cell rend="DH-Default">0.48</cell>
+                        <cell rend="DH-Default">0.67</cell>
+                    </row>
+                </table>
+                <p>This confirms that a balanced approach might be the best solution in a setting where data is sparse (high λ), the 
+                    <hi rend="italic">golden</hi> set is present but of limited coverage (low λ), and some prior assumptions on the required features can be made (δ). As shown in Figure 3, the graphs with λ = 0.5 and δ = 1.0 collapse more gradually, providing the widest effective linkage space to explore. Eventually, results also suggest to proceed in an active learning fashion, where the system learns iteratively with new data as part of the 
+                    <hi rend="italic">golden</hi> set.
+                </p>
+                <figure>
+                    <graphic url="165/image3.png" rend="inline"/>
+                    <head>Figure 2. Linkage curves for the 6 parameters settings, over thresholds</head>
+                </figure>
+                <figure>
+                    <graphic url="165/image4.png" rend="inline"/>
+                    <head>Figure 3. Graph properties for the 6 parameter settings, over thresholds</head>
+                </figure>
+                <p>Finally, in order to further motivate our work, Figure 4 shows the largest components of the deduced social network with and without automatic disambiguation. The linkage method has the nice property of enlarging small components before gradually connecting them.</p>
+                <figure>
+                    <graphic url="165/image5.png" rend="inline"/>
+                    <head>Figure 4. Largest components of social networks from golden set (left-most) and from disambiguated datasets (center and right-most)</head>
+                </figure>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Conclusion and Future Work</head>
+                <p>This paper presented a system to perform record linkage over mentions of persons from sparse historical data. It deals with different constraints such as data sparsity and limited prior knowledge. We plan to apply the system to different datasets and to integrate it into a transcription and annotation interface, in order to use it for live, aided record linkage.</p>
+            </div>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl>
+                        <hi rend="bold">Artiles, J., Sekine, S. and Gonzalo, J.</hi> (2008). Web people search: results of the first evaluation and the plan for the second. <hi rend="italic">Proceedings of the 17th international conference on World Wide Web</hi> pp. 1071–72. ACM.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Bellavitis, A.</hi> (2006). Apprentissages masculins, apprentissages fminins venise au XVIe siècle. <hi rend="italic">Histoire Urbaine</hi>, pp. 49–73.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Bloothooft, G., et al.</hi>, (2015). <hi rend="italic">Population Reconstruction</hi>. Springer.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Cohen, W., Ravikumar, P. and Fienberg, S. </hi>(2003). A comparison of string metrics for matching names and records. <hi rend="italic"> KDD workshop on data cleaning and object consolidation</hi>, <hi rend="bold">3</hi>: 73–78.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Ji, H. and Grishman, R.</hi> (2011). Knowledge base population: Successful approaches and challenges. <hi rend="italic">Proceedings of the 49th Annual Meeting of the Association for Computational Linguistics: Human Language Technologies-Volume</hi> <hi rend="bold">1</hi>: 1148–58. Association for Computational Linguistics.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Kleanthi, G., et al.</hi> (2015). Record linkage in medieval and early modern text.  <hi rend="italic"> Population Reconstruction</hi>, pp. 173–95. Springer.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Lehmann, J., et al. </hi> (2013). DBpedia – A Large-scale, Multilingual Knowledge Base Extracted from Wikipedia.<hi rend="italic"> Semantic Web Journal</hi>.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Mann, G. S. and Yarowsky, D.</hi> (2003). Unsupervised personal name disambiguation. <hi rend="italic">  Proceedings of the 7th Conference on Natural Language Learning at HLT-NAACL 2003</hi>, vol. <hi rend="bold">4</hi>(3): 33–40.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Shen, W., Wang, J. and Han, J.</hi> (2015). Entity linking with a knowledge base: Issues, techniques, and solutions. <hi rend="italic">Knowledge and Data Engineering</hi>, <hi rend="bold">27</hi>(2): 443–60.
+                    </bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>Language, Cultural Influences and Intelligence in Historical Gazetteers of the Great War</title>
+                <author>
+                    <persName>
+                        <surname>Warren</surname>
+                        <forename>Robert</forename>
+                    </persName>
+                    <affiliation>Dalhousie University, Canada</affiliation>
+                    <email>rwarren@math.carleton.ca</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2014-12-19T13:50:00Z</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Paul Arthur, University of Western Sidney</publisher>
+                <address>
+                    <addrLine>Locked Bag 1797</addrLine>
+                    <addrLine>Penrith NSW 2751</addrLine>
+                    <addrLine>Australia</addrLine>
+                    <addrLine>Paul Arthur</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from a Word document </p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.9">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Long Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>Linked geo data</term>
+                    <term>war mapping</term>
+                    <term>Great War</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>archives</term>
+                    <term>repositories</term>
+                    <term>sustainability and preservation</term>
+                    <term>encoding - theory and practice</term>
+                    <term>geospatial analysis</term>
+                    <term>interfaces and technology</term>
+                    <term>data modeling and architecture including hypothesis-driven modeling</term>
+                    <term>semantic web</term>
+                    <term>maps and mapping</term>
+                    <term>data mining / text mining</term>
+                    <term>English</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <p>This talk concerns itself with the binarization of British and German Western Front maps during the Great War and their modelling using Linked Open Data (LOD) ontologies. Through the use of image processing algorithms, the scanned images of British and German trench maps were binarized into vector representations that allow us to compare each actor’s perception of the other as well as infer military intelligence activities by tracking the provenance of toponyms. </p>
+            <p>* * *</p>
+            <p>As with many armed conflicts, the initial intentions and plans of the belligerents were quickly changed when the outcomes of their actions were unsatisfactory. All sides expected a war of maneuver using the classical arms of previous conflicts: infantry, cavalry, and artillery. Commanders from the previous centuries would have been comfortable with the pre-war planning of both sides. However, terrain and innovations in artillery and small arms rate of accurate fire constrained the parties to a war of attrition where movement was no longer possible. Military thinking moved from planning large strategic maneuvers to limited tactical engagements that required local planning.</p>
+            <p>Having to deal for the first time with large numbers of tactical situations requiring good maps, the different groups of belligerents began looking for mapping solutions. The British Expeditionary Forces fighting on Belgian and French soil benefited from Belgian cartographic knowledge from the onset that was then augmented from other French sources (Jack, 1920). The Germans were faced with the problem of invading a hostile country with uncooperative officials and having to build a mapping system from the ground up using opportunistically captured material (Boelcke, 1920; Hinks, 1919; Great Britain War Office, 1917) as well as previous large-scale maps.</p>
+            <p>This talk will cover the geometry and cartography of the 
+                <hi rend="Internet_Link">Battle of Vimy Ridge</hi> in 1917 as a case study using both British and German cartographic material. 
+            </p>
+            <p>Merging Geometries</p>
+            <p>The military maps were created from an amalgam of Belgian and French sources augmented by field surveys and aerial photography. Overlaying these maps allows us to determine what each belligerent believed about his opponent at that point in time. In some cases, friendly trench details were omitted from maps to avoid leaking information in case of capture. However, what trenches are shown represent an armies’ ability to keep track of its own operational activities.</p>
+            <p>Several editions of each map exist, and some instances of these dated editions survive and have been scanned in digital form. We binarize trench representations by separating the colour of the trench from the image while using Thiessen polygons. Registration of the digitized map is done using OpenCV’s implementation of 
+                <hi rend="Internet_Link">Hough Line</hi> Transform driving a web service implementation previously described in Warren and Evans (2014). 
+            </p>
+            <p>Multiple Linked Open Data vocabularies were used to record this information, including GeoSparql (OGC, 2012), 
+                <hi rend="Internet_Link">NeoGeo,</hi> and W3C geo:Points. By recording the individual points within the polygon in a manner similar to that of Linked Geo Data (Stadler et al., 2012), we are able to annotate individual locations within the polygon. This effectively creates polygons formed by a series of geo:Points that can each record not only the shape of the trenches but also calculated positional errors, linkages to other trenches, and trench width.
+            </p>
+            <p>Depending on the specific type of trench, its width could be anywhere from two feet, six inches to one foot, six inches, depending on the application, and the depth about five feet, six inches (Great Britain War Office, 1914). The depth information is not recorded in the maps, but the width of the trench is sometimes traced from aerial photography, which allows for the measurement of high-traffic trenches. When the scaled trench trace exceeds the minimum one-foot, six-inch width, the width calculated from the pen trace on the map is used instead.</p>
+            <p>A recent improvement brought about by GeoSPARQL is the differentiation between Feature and Geometry. The Geometry is the materialized physical location of the Feature (thing), and the separation between thing and location allows for greater flexibility, for example, in stating the existence of a place without necessarily defining where it is. It also allows us to link different representations of the same trench across maps by assigning the same trench (Feature) multiple Geometries as represented in multiple source documents at different times.</p>
+            <p>This also allows us to reduce redundant information by merging similar geometries across maps where no change has occurred. Small variations in locations (due to wear and tear as well as minor survey errors) occur, and these are taken into account by the merging process by calculating the theoretical accuracy of both map scales against each other. For large variations of friendly trenches, the change can be assumed to be a change in the layout of the trench, while for large variation in the observed enemy trench, the change is assumed to be done through a better intelligence estimate. Comparing both these sets of trench geometries over time is a means of obtaining a quantitative measure of the quality of both military operation and intelligence activities.</p>
+            <p>Toponyms and Intelligence</p>
+            <p>The toponyms used on the maps varied greatly, and translated Belgian and French town names were generally used when known. Other visually prominent features such as farms, woods, or isolated trees (e.g., 
+                <hi rend="Internet_Link">The Lone Tree</hi>) were named on an ad-hoc basis based on local events or the cultural baggage of the unit involved in the survey work (e.g., 
+                <hi rend="Internet_Link">Regina Trench</hi>).
+            </p>
+            <p>A common practice for all sides was to re-use their opponent’s toponyms when these were known for printing on maps issued to frontline officers. For example, 
+                <hi rend="Internet_Link">Prinz Arnolf Graben</hi>, a trench near modern-day 
+                <hi rend="Internet_Link">Beaumont-Hamel, France,</hi> is shown on 
+                <hi rend="Internet_Link">British maps</hi> using the 
+                <hi rend="Internet_Link">German Army name</hi> and spelling. This was done for both frontline tactical purposes and making the navigation of enemy trenches easier during an attack or raid. The re-use of names also marks a turning point in British and German attitudes to military intelligence. Intelligence is no longer seen as a cloak-and-dagger craft involving shady individuals but as a core component of military operations. At the onset of the war, cavalrymen still carried a sketch board onto which they were supposed to draw enemy dispositions for a commander’s review. By 1916, the information flowed from frontline operations back to the printing sections that created maps on an as-needed basis for local tactical use.
+            </p>
+            <p>Through the use of algorithmic methods the language of trench names is isolated and their source identified across different maps. Within this specific application, this allows us to cross-reference the same trench across the maps of multiple belligerents while establishing the source, or earliest known use, of the toponyms. Previous recording of the name of things, or gazetteers, tended to record objects as a single name, occasionally with a localization (Chasseaud, 2006). Through the use of the SKOS eXtension for Labels (
+                <hi rend="Internet_Link">SKOS-XL</hi>) vocabulary, we improved on this by adding label-specific provenance, which allows the tracking of the original owner of the name. This recording of the nomenclature provenance can be used as a proxy that identifies the intelligence processes of the belligerents.
+            </p>
+            <p>Conclusion</p>
+            <p>These military maps are an important source of historical locations that have been long forgotten or whose importance has changed over time. Through the binarization of scanned trench maps, the locations of smaller engagements can be extracted and the location of named features can be placed in a modern context. Some of these features, such as the location of former ammunition dumps, remain important to this day.</p>
+            <p>In closing this presentation, the use of the semantic web will be reviewed in managing a historical gazetteer of geometries, features, and names during the Great War on the Western Front. The careful tracking of provenance information will be explained, and the novel use of existing semantic web standards allows for the discovery of both the quality of the cartographic work done by both sides and the cultural influences between belligerents.</p>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl rend="bibitem">
+                        <hi rend="bold">Boelcke, S.</hi> (1920). Die engländer und das deutsche kriegsvermessungswesen. 
+                        <hi rend="italic">Petermanns Geographische Mitteilungen,</hi>
+                        <hi rend="bold">66</hi>(6–9).
+                    </bibl>
+                    <bibl rend="bibitem">
+                        <hi rend="bold">Chasseaud, P.</hi> (2006). 
+                        <hi rend="italic">Rats Alley: Trench Names of the Western Front, 1914–1918</hi>. Spellmount.
+                    </bibl>
+                    <bibl rend="bibitem">
+                        <hi rend="bold">Great Britain War Office.</hi> General Staff. (1914). 
+                        <hi rend="italic">Notes on Field Defenses</hi>. His Majesty’s Stationery Office.
+                    </bibl>
+                    <bibl rend="bibitem">
+                        <hi rend="bold">Great Britain War Office.</hi> General Staff. (1917). 
+                        <hi rend="italic">Handbook of the German Army in War, January, 1917</hi>. n.p.
+                    </bibl>
+                    <bibl rend="bibitem">
+                        <hi rend="bold">Hinks, A. R.</hi> (1919). German War Maps and Survey. 
+                        <hi rend="italic">Geographical Journal,</hi>
+                        <hi rend="bold">53</hi>(1): 30–40.
+                    </bibl>
+                    <bibl rend="bibitem">
+                        <hi rend="bold">Jack, E. M.</hi> (1920). 
+                        <hi rend="italic">Report on Survey on the Western Front, 1914–1918</hi>. His Majesty’s Stationery Office, London.
+                    </bibl>
+                    <bibl rend="bibitem">
+                        <hi rend="bold">OGC.</hi> (2012). OGC GeoSPARQL—A Geographic Query Language for rdf Data. 
+                        <hi rend="italic">Open Geospatial Consortium</hi>, Technical Report OGC 11-052r4, September.
+                    </bibl>
+                    <bibl rend="bibitem">
+                        <hi rend="bold">Stadler, C., Lehmann, J., Höffner, K. and Auer, S.</hi> (2012). Linkedgeodata: A Core for a Web of Spatial Open Data. 
+                        <hi rend="italic">Semantic Web Journal,</hi>
+                        <hi rend="bold">3</hi>(4): 333–54.
+                    </bibl>
+                    <bibl rend="bibitem">
+                        <hi rend="bold">Warren, R. and Evans, D.</hi> (2014). Translating Maps and Coordinates from the Great War. In 
+                        <hi rend="italic">Proceedings of the Terra Cognita Workshop at ISWC 2014</hi>, Riva Del Garda, Italy, October 2014. 
+                    </bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

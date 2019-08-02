@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title type="full">
+                    <title type="main">Does "Late Style" Exist? New Stylometric Approaches to Variation in Single-Author Corpora</title>
+                    <title type="sub"/>
+                </title>
+                <author>
+                    <persName>
+                        <surname>Reeve</surname>
+                        <forename>Jonathan Pearce</forename>
+                    </persName>
+                    <affiliation>Columbia University, United States of America</affiliation>
+                    <email>jon.reeve@gmail.com</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2018-04-27T19:31:44.452137171</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Name, Institution</publisher>
+                <address>
+                    <addrLine>Street</addrLine>
+                    <addrLine>City</addrLine>
+                    <addrLine>Country</addrLine>
+                    <addrLine>Name</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from an OASIS Open Document</p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.22">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Short Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>style</term>
+                    <term>corpora</term>
+                    <term>stylometry</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>corpora and corpus activities</term>
+                    <term>literary studies</term>
+                    <term>stylistics and stylometry</term>
+                    <term>text analysis</term>
+                    <term>english studies</term>
+                    <term>data mining / text mining</term>
+                    <term>English</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <p>Does “late style” exist? That is, do novelists exhibit a well-defined and distinctive stylistic shift as they reach old age, artistic maturity, or both? Edward Said’s 
+                <hi rend="italic">On Late Style: Music and Literature Against the Grain</hi> argues not only that such a style does exist, but that it has well-defined characteristics. Said describes late style as, somewhat paradoxically, involving “a nonharmonious, nonserene tension, and above all, a sort of deliberately unproductive productiveness going 
+                <hi rend="italic">against</hi>” (Said 22). The term “late style,” derived from Thodor Adorno’s concept of Beethoven’s 
+                <hi rend="italic">Spästil</hi>, is one which Adorno conceives of as “catastrophic” (Adorno 567). As Adorno puts it, “the maturity of the late works of significant artists does not resemble the kind one finds in fruit. They are, for the most part, not round, but furrowed, even ravaged. Devoid of sweetness, bitter and spiny, they do not surrender themselves to mere delectation” (564). To determine whether this claim is more than just anecdotally true, it deserves to be experimentally tested. Using new techniques of computational stylometric analysis, I test whether a writer’s late works are statistically dissimilar to the rest of their corpus. I find that late style is not a statistically quantifiable phenomenon. Instead, the opposite is true: the novelists tested exhibit very distinctive early styles.
+            </p>
+            <p>Twelve single-author corpora were prepared for this study. These include three novelists Said cites at length: Marcel Proust, Thomas Mann, and Jean Genet, as well as nine novelists from the 19th and 20th centuries, chosen for their prolificacy and electronic availability: Charles Dickens, Joseph Conrad, Ernest Hemingway, Henry James, Walter Scott, George Meredith, Willa Cather, Arnold Bennett, and Mary Augusta Ward. Two samples were taken from each novel in these corpora, so that the internal stylistic similarity of the samples serve as a metric check for the validity of the method. These samples were randomly chosen, to ensure that no text is longer than the shortest text in each corpus, and that that the analysis will compare equal amounts of text.</p>
+            <p>Each of these samples was then vectorized to 500-dimensional vectors, according to their top 500 word frequencies. These samples were then reduced to five dimensions using principal component analysis (PCA). Five dimensions were used here, instead of the usual two, since a cross-validated grid search in a previous study determined this value to be the most effective at clustering documents according to voice and style. This study also introduces two new metrics for stylistic difference. First, the “distinctiveness score” of a novel sample is calculated by determining the distance of the vector from the mean in five-dimensional space, using the Pythogorean theorem. A late novel that shows a high distinctiveness score, therefore, could correctly be called an instance of “late style.”</p>
+            <p>Second, I introduce a metric representing the “periodicity” of the writer’s style. This is calculated by first inferring pri­or category labels of early, middle, and late using publication years. Then, the novel’s reduced vectors are clustered using a Baysian Gaussian mixture model, which probabilistically infers three or fewer clusters. These assignments are finally compared using a mutual information score, which calculates the similarity of these clusters with the prior inferences, regardless of label. A high periodicity score indicates that a novelist exhibits distinct stylistic periods, whereas a low score indicates that a novelist has a relatively unchanging or unpredictable stylistic progression.</p>
+            <p>
+                <figure>
+                    <graphic url="Pictures/84cdd4d13649e3d1ce7ccba34610ada0.png"/>
+                </figure>
+            </p>
+            <p>Figure 1: Thomas Mann</p>
+            <p>Figure 1 shows a projection of the first two dimensions of the vectors generated from Thomas Mann novels. The sizes of the points represent their relative publication years: small circles are early works, and large circles are late works. The colors represent the clusters predicted from the Bayesian Gaussian mixture model. The samples with the highest distinctiveness scores are from his first work 
+                <hi rend="italic">Der Kleine Herr Friedemann</hi> and his early work 
+                <hi rend="italic">Tristan</hi>. The samples showing the least distinctiveness, are from 
+                <hi rend="italic">Doktor Faustus</hi>, the very work Said cites as an example of a distinctive late style.
+            </p>
+            <p>
+                <figure>
+                    <graphic url="Pictures/a2127debb43eb9fad00755e4da7281a0.png"/>
+                </figure>
+            </p>
+            <p>Figure 2: Marcel Proust</p>
+            <p>Figure 2 shows the same projection for samples from the works of Marcel Proust. Proust’s first work, 
+                <hi rend="italic">Du côté du chez Swann</hi>, is the most distinctive. Proust’s last published work, 
+                <hi rend="italic">Le temps retrouvé</hi>, which Said cites as an example of late style, is in fact very non-distinctive. Proust’s middle works, however, 
+                <hi rend="italic">La prisonnière</hi> and 
+                <hi rend="italic">Albertine disparue</hi>, are only intermediary with respect to publication dates, since they were the final novels he wrote. Here, Said is somewhat correct that Proust has a late style, but misidentifies the works that exemplify it. Again, however, Proust’s early style shows a stronger signal than his late.
+            </p>
+            <p>
+                <figure>
+                    <graphic url="Pictures/92037bd573e2a32698dc95fbd499ec23.png"/>
+                </figure>
+            </p>
+            <p>Figure 3: Charles Dickens</p>
+            <p>Figure 3 shows vectors generated from Charles Dickens novels. Here again, the early work 
+                <hi rend="italic">The Pickwick Papers</hi> has the highest distinctiveness score, followed by 
+                <hi rend="italic">David Copperfield</hi>. Late works like 
+                <hi rend="italic">Our Mutual Friend</hi> are among the least distinctive. As the alignment of the point colors and sizes here suggests, Dickens shows a strong periodicity. At 0.469, his is the second-highest periodicity score.
+            </p>
+            <table rend="frame" xml:id="Table1">
+                <row role="label">
+                    <cell>Author</cell>
+                    <cell>Periodicity Score</cell>
+                </row>
+                <row>
+                    <cell>Proust</cell>
+                    <cell>0.023</cell>
+                </row>
+                <row>
+                    <cell>Meredith</cell>
+                    <cell>0.028</cell>
+                </row>
+                <row>
+                    <cell>Ward</cell>
+                    <cell>0.166</cell>
+                </row>
+                <row>
+                    <cell>Cather</cell>
+                    <cell>0.177</cell>
+                </row>
+                <row>
+                    <cell>Conrad</cell>
+                    <cell>0.177</cell>
+                </row>
+                <row>
+                    <cell>Bennett</cell>
+                    <cell>0.220</cell>
+                </row>
+                <row>
+                    <cell>Hemingway</cell>
+                    <cell>0.326</cell>
+                </row>
+                <row>
+                    <cell>Scott</cell>
+                    <cell>0.360</cell>
+                </row>
+                <row>
+                    <cell>Mann</cell>
+                    <cell>0.367</cell>
+                </row>
+                <row>
+                    <cell>Genet</cell>
+                    <cell>0.457</cell>
+                </row>
+                <row>
+                    <cell>Dickens</cell>
+                    <cell>0.469</cell>
+                </row>
+                <row>
+                    <cell>James</cell>
+                    <cell>0.472</cell>
+                </row>
+            </table>
+            <p>Table 1</p>
+            <p>Table 1 shows the periodicity scores of all the novelists studied here. Those novelists with well-known early and late styles, such as James and Dickens, have high periodicity scores. Writers like Proust, on the other hand, whose novels all form part of the series 
+                <hi rend="italic">À la recherche du temps perdu</hi>, and were all published within about a decade, show the lowest periodicity scores.
+            </p>
+            <p>This study, beyond simply testing and ultimately disproving the claims of Said and Adorno, provides a framework for stylometric analysis of textual difference, one which could be used to enhance authorship detection techniques and the techniques of forensic text analysis more generally. More experiments are needed, of course, to test the validity of these techniques beyond the domain of literature.</p>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl>Adorno, T. (2002). Late Style in Beethoven. In: 
+                        <hi rend="italic">Essays on Music</hi>. Berkeley: University of California Press, 2002. pp. 564–568.
+                    </bibl>
+                    <bibl>Said, E. (2006). 
+                        <hi rend="italic">On Late Style: Music and Literature Against the Grain</hi>. New York: Pantheon Books.
+                    </bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

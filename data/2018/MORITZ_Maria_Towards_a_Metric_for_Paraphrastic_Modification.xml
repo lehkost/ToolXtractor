@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>Towards a Metric for Paraphrastic Modification</title>
+                <author>
+                    <persName>
+                        <surname>Moritz</surname>
+                        <forename>Maria</forename>
+                    </persName>
+                    <affiliation>University of Goettingen, Germany</affiliation>
+                    <email>mmoritz@gcdh.de</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Hellrich</surname>
+                        <forename>Johannes</forename>
+                    </persName>
+                    <affiliation>Graduate School “The Romantic Model”, Friedrich-Schiller-Universität Jena, Germany</affiliation>
+                    <email>johannes.hellrich@uni-jena.de</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Buechel</surname>
+                        <forename>Sven</forename>
+                    </persName>
+                    <affiliation>JULIE Lab, Friedrich-Schiller-Universität Jena, Germany</affiliation>
+                    <email>sven.buechel@uni-jena.de</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2018-04-23T16:08:00Z</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Name, Institution</publisher>
+                <address>
+                    <addrLine>Street</addrLine>
+                    <addrLine>City</addrLine>
+                    <addrLine>Country</addrLine>
+                    <addrLine>Name</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from a Word document</p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.22">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Short Paper (was submitted as Long Paper)</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>textual distance metric</term>
+                    <term>paraphrase</term>
+                    <term>parallel Bible corpus</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>natural language processing</term>
+                    <term>stylistics and stylometry</term>
+                    <term>linguistics</term>
+                    <term>machine translation</term>
+                    <term>translation studies</term>
+                    <term>English</term>
+                    <term>computer science</term>
+                    <term>artificial intelligence and machine learning</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <div type="div1" rend="DH-Heading1">
+                <head>Introduction</head>
+                <p>Clarifying the genesis of a passed down text is of outmost importance for many scholarly disciplines within the humanities such as history, literary studies, and Bible studies. Often, historical text sources have been copied over and over for hundreds or even thousands of years, thus being subjected to paraphrasing and other kinds of modifications, repeatedly. Despite the significance of source criticism for the humanities as a whole, algorithmic support in this matter is still limited. While current approaches are able to tell 
+                    <hi rend="bold">if</hi> and 
+                    <hi rend="bold">how frequent</hi> a text has been modified—to the best of our knowledge—there has been no work on determining the 
+                    <hi rend="bold">degree</hi> of paraphrastic modification. To a human reader, the introduction of, say, spelling variations is indubitably a minor modification compared to substituting entire words. Yet, how can the different “degrees” of alterations, which are intuitively clear to scholars, be captured in an algorithmic way? 
+                </p>
+                <p>To this end, we present a first approach for designing a metric for paraphrastic modification in text (henceforth paraphrasticality). Based on an English Bible corpus (three literal Hebrew and Greek translations and three standard translations) we measure the frequency of different classes of textual variations between each pair of Bibles. We then use the probability of these variations in a machine learning experiment to derive weights for these classes of modifications. Ultimately, this allows us to define a metric for paraphrasticality which we validated with promising results.</p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Related work</head>
+                <p>Measuring the 
+                    <hi rend="bold">similarity</hi> or 
+                    <hi rend="bold">distance</hi> between two spans of text is relevant to many areas in and related to natural language processing (NLP). One of the earliest approaches is Levenshtein’s (Jurafsky and Martin, 2009) edit distance which is based on character-level removal, insertion, and replacement operations. BLEU (Papineni, 2002) is the most common evaluation metric in machine translation, capturing the difference between gold and automatic translations based on (word-level) n-gram overlap. In 
+                    <hi rend="bold">stylometry</hi>, different kinds of delta metrics are used to compute the difference between the writing style of authors or texts (Jannidis et al., 2015). These are typically based on the frequency distribution of the most frequent words. These first three approaches have in common that they rely on surface features (token and character-level) alone and do not incorporate semantic proximity. In contrast to that, computing the 
+                    <hi rend="bold">semantic similarity</hi> between two sentences is a popular task within NLP (Xu et al., 2015). However, approaches in this field are typically not indented for manual inspection and are thus less suited for applications in the humanities. Lastly, Moritz et al. (2016) quantify modification operations on a parallel Bible corpus yet do not present a way to aggregate these counts into a distance metric. In contrast to these related contribution, here, we aim to develop a metric which is both semantically informed as well as human interpretable.
+                </p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Data </head>
+                <p>We use a parallel corpus of the Old Testaments of six English Bible translations
+                    <note place="foot" xml:id="ftn1" n="1">
+                        <p rend="footnote text"> Note that our approach is not limited to applications on historical text and that our choice of textual material is based on technical reasons only. In fact, any paraphrastic, parallel corpus would work equally well for our proposed method.</p>
+                    </note> from the 19
+                    <hi rend="superscript">th</hi> century, half of them being literal translations that closely follow the primary source texts’ language and syntax while the other half are standard translations (see Table 1).
+                </p>
+                <figure>
+                    <graphic n="1001" width="16.002cm" height="4.684888888888889cm" url="Pictures/364d30b80cb487a07a1cf6ed3cd5161e.png" rend="inline"/>
+                </figure>
+                <p>
+                    <hi rend="bold">Table 1:</hi> Bible editions used for investigation. Sources: bst: 
+                    <ref target="https://www.biblestudytools.com/">https://www.biblestudytools.com/</ref>; mys: 
+                    <ref target="https://www.mysword.info">https://www.mysword.info</ref>; ptp: Parallel Text Project (Mayer and Cysouw, 2014)
+                </p>
+                <p>
+                    <hi rend="bold">Literal translations:</hi> Robert Young, the translator of 
+                    <hi rend="bold">YLT,</hi> created a highly literal translation of the original Hebrew and Greek texts. Thus, Young tried to be as consistent as possible in representing Greek tenses with English ones, e.g., he used present tense where other translations used past tense (see Young, 
+                    <hi rend="HTML_Cite">1898a; Young, 1898b</hi>) as in: ‘In the beginning of God's preparing the heavens and the earth —’ (Genesis 1:1). 
+                    <hi rend="bold">SLT</hi>: Upon publication, Julia Smith’s Bible translation was considered the only one directly translating the historical source texts to contemporary English. She aimed at complete literalness and tried to translate each original word with the same English word, consistently, and tended to translate the Hebrew imperfect to English future tense (Malone, 2010). 
+                    <hi rend="bold" xml:space="preserve">LXXE </hi>by Sir Lancelot Charles Lee Brenton is an English translation from the Codex Vaticanus version of the Greek Old Testament, which itself is a translation of the Hebrew Old Testament (Roger, 1958).
+                </p>
+                <p>
+                    <hi rend="bold">Standard translations: WBT</hi> by Noah Webster is a revision of the King James Bible mainly eliminating archaic words and simplifying Grammar (Marlowe,
+                    <hi rend="HTML_Cite">
+                        <hi rend="italic">2005</hi>
+                    </hi>). 
+                    <hi rend="bold">ERV</hi> is today’s only officially authorized revised version of the King James Bible in Britain (no author
+                    <hi rend="reference-text" xml:space="preserve">, </hi>1989). The most recent edition in our study is 
+                    <hi rend="bold">DBY</hi>, Darby’s translation of the Bible. The Old Testament was published by his students in 
+                    <hi rend="reference-text" xml:space="preserve">1890 and is based on Darby’s German and French versions (Marlowe, 2017). </hi>
+                </p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Methods</head>
+                <p>
+                    <hi rend="bold" xml:space="preserve">Preprocessing and alignment: </hi>We use MorphAdorner (Burns, 2013), a specialized toolkit for early modern and modern English, to tokenize and lemmatize the Bibles. After removing punctuation and verse identifiers, we pair up our six Bibles in every possible combination (15 in total). Since the different Bible versions are inherently aligned on the verse-level (by their verse identifier), our next step builds up a statistical alignment at the token level for each pair of bibles using the Berkeley Word Aligner (De Nero and Klein, 2007), a tool originally designed for machine translation. 
+                </p>
+                <p>
+                    <hi rend="bold">Counting modification operations:</hi> Building on these word-aligned pairs of Bibles, we can describe the divergence between a pair of verses in terms of the 
+                    <hi rend="bold">modification operations</hi>—such as replacing a word by its synonym—which would be necessary to convert one version into another. We automatically apply and count the modification classes introduced by Moritz et al. (2016) for each verse and Bible pair (see Table 2). Synonyms, hypernyms, hyponyms and co-hyponyms, are identified based on BabelNet (Navigli and Ponzetto, 2012).
+                </p>
+                <figure>
+                    <graphic n="1002" width="16.002cm" height="6.496402777777778cm" url="Pictures/cbca074fa00c3408c38bff9b30ec73c0.png" rend="inline"/>
+                </figure>
+                <p>
+                    <hi rend="bold">Table 2</hi>: Operations used as features together with normalized estimated weights (coefficients) of the fitted model
+                </p>
+                <p>
+                    <hi rend="bold">Weight identification:</hi> By counting modification operations, we gain a fine-grained description of the 
+                    <hi rend="italic">exact</hi> differences between two spans of text. However, to construct a metric, we had to find a way to condense these modification frequencies down to a single number. For that we exploit the fact that we deal with two classes of Bible translations, literal and standard ones. Thus, to estimate a human judgment of deviation, we assume that standard translations are more homogenous to each other than literal translations (since the latter demand for more creative language use; see Section 3). Hence, we can train a classifier to distinguish whether a pair of Bible verses is from the same class (both Bibles being standard or literal translations, respectively) or from different classes. For this task, we train a maximum entropy classifier
+                    <note place="foot" xml:id="ftn2" n="2">
+                        <p rend="footnote text"> Using the scikit-learn.org implementation. Training for this binary classification task was done using 10-fold cross-validation achieving an accuracy of .68.</p>
+                    </note> where we use the relative frequencies of the modification operations as features. Now, the key part of our contribution is that we can exploit the coefficients of our fitted model as the first ever presented empirical estimate of the relative importance of these modification operations for paraphrasticality.
+                </p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Results </head>
+                <p>
+                    <hi rend="bold">Feature weights:</hi> Table 2 lists the final, normalized (summing up to 1) feature weights of our fitted model. Lemmatization, hyponym and synonym relations turn out to be especially important for the classification task.
+                </p>
+                <p>
+                    <hi rend="bold">Metric:</hi> Based on these coefficients, we define the paraphrasticality metric 
+                    <hi rend="italic" xml:space="preserve">par </hi>between two word-aligned text spans 
+                    <hi rend="italic">a</hi> and 
+                    <hi rend="italic" xml:space="preserve">b </hi>as 
+                </p>
+                <figure>
+                    <graphic n="1003" width="16.002cm" height="2.3142222222222224cm" url="Pictures/4ad4f44d4bd482413da9c4b81ef61729.png" rend="inline"/>
+                </figure>
+                <p>where 𝑛 is the total number of features (or classes of operations), 𝜃
+                    <hi rend="subscript">𝑖</hi> is the absolute weight for feature 𝑖 determined via the classifcation experiment and 𝒳
+                    <hi rend="subscript">𝑖</hi>
+                    <hi rend="superscript">a,b</hi> is the relative frequency of the respective operation. In order to gain face validity for this newly defined metric, we compute the paraphrasticality score for each one of the 15 Bible pairs in our corpus (as average of their verse paraphrasticality). The results are presented in Table 3.
+                </p>
+                <figure>
+                    <graphic n="1004" width="16.002cm" height="8.713611111111112cm" url="Pictures/9db204a5e35a27d68109cdf2f0c76f69.png" rend="inline"/>
+                </figure>
+                <p>
+                    <hi rend="bold">Table 3</hi>: Deviation between each pair of Bibles in terms of our newly developed paraphrasticality metric; higher values indicate higher distance 
+                </p>
+                <figure>
+                    <graphic n="1005" width="16.002cm" height="9.630833333333333cm" url="Pictures/3f66d6eadc8a7e6c765d5f23ec81b274.png" rend="inline"/>
+                </figure>
+                <p>
+                    <hi rend="bold">Table 4:</hi> Top 3 most frequent operations (without fallback) per Bible pair
+                </p>
+                <p>
+                    <hi rend="bold">Qualitative validation:</hi> We can identify three regions in the plot. The upper left triangle shows that our standard translations do not differ much from each other (as expected), especially since WBT and ERV are revisions of the same Bible. The 3x3 rectangle in the upper right corner represents pairs of one literal and one standard translation, respectively. We can see that the distance between those is about 0.3 thus displaying increasing paraphrasticality compared to pairs of 
+                    <hi rend="italic">only</hi> standard translations. The highest deviation however is between the literal translations by Smith (SLT) and Young (YLT) compared to the English Septuagint (LXXE). This can be explained by the choice of vocabulary by each translator and by the purpose they follow in their translations. For example, SLT and LXXE use “firmament” when YLT uses “expanse”, SLT and YLT use “rule” when LXXE uses “regulating”. We thus conclude that our metric yields valid and—perhaps even more important for applications in the humanities—interpretable results.
+                </p>
+                <p>Our approach also enables to judge distance on a fine-grained level based on pure operation counts. In Table 4 we show the top 3 operations for each Bible pair. As we can see, most of the top 3 operations per Bible pair relate to semantic relations between the aligned word pairs (matching lemma, synonymy, or co-hyponomy) underscoring the advantage that our metric has as opposed to more surface feature-dependent approaches (to textual similarity) such as Levenshtein distance or delta measures.</p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Conclusion</head>
+                <p>We presented the first study on designing a metric for paraphrasticality. Different from existing approaches on measuring distance or similarity between texts, we describe paraphrasticality as frequency of specific modification operations for which we tried to find empirically adequate weights via a machine learning experiment. As demonstrated, our approach is specifically useful for applications in the humanities as operation frequencies, and feature weights, as well as paraphrasticality scores are open to manual inspection. A more comprehensive comparison against existing similarity metrics and a human judgment is left for future work.</p>
+            </div>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl rend="HTML Preformatted">
+                        <hi rend="bold">Burns, P. R.</hi> (2013). Morphadorner v2: A java library for the morphological adornment of English language texts. 
+                        <hi rend="italic">Northwestern University, Evanston,</hi> IL, no page numbers.
+                    </bibl>
+                    <bibl rend="HTML Preformatted">
+                        <hi rend="bold">De Nero, J. and Klein, D.</hi> (2007). Tailoring word alignments to syntactic machine translation. 
+                        <hi rend="italic">Proceedings of the 45th Annual Meeting of the Association of Computational Linguistics.</hi> Prague, pp. 17–24.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Jannidis, F., Pielström, S., Schöch, C. Vitt, T.</hi> (2015). Improving Burrows’ Delta—An empirical evaluation of text distance measures. 
+                        <hi rend="italic">Digital Humanities Conference 2015.</hi> Sydney, no page numbers.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold" xml:space="preserve">Jurafsky, D. and Martin, J. H. </hi>(2009). 
+                        <hi rend="italic">Speech and language processing: An introduction to natural language processing, speech recognition, and computational linguistics.</hi> Englewood Cliffs: Prentice-Hall.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Malone, D.</hi> (2010). 
+                        <hi rend="Hyperlink.0">Julia Smith bible translation (1876),</hi> https://recollections.wheaton.edu/2010/12/julia-smith-bible-translation-1876/ 
+                        <hi rend="HTML_Cite">
+                            <hi rend="italic">(accessed November</hi>
+                            <hi rend="italic">2017</hi>
+                            <hi rend="italic">).</hi>
+                        </hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Marlowe, M</hi>
+                        <hi rend="HTML_Cite">
+                            <hi rend="italic bold">.</hi>
+                            <hi rend="italic" xml:space="preserve"> (2005)</hi>. 
+                        </hi>Webster’s Revision of the KJV (1833)
+                        <hi rend="HTML_Cite">
+                            <hi rend="italic" xml:space="preserve">, </hi>
+                        </hi>
+                        <ref target="http://www.bible-researcher.com/webster.html">http://www.bible-researcher.com/webster.html</ref>
+                        <hi rend="HTML_Cite">
+                            <hi rend="italic">(accessed November</hi> 2017
+                            <hi rend="italic">).</hi>
+                        </hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Marlowe, M.</hi> (2017). John Nelson Darby’s Version, 
+                        <ref target="http://www.bible-researcher.com/darby.html">http://www.bible-researcher.com/darby.html</ref>
+                        <hi rend="HTML_Cite">
+                            <hi rend="italic">(accessed November</hi> 2017
+                            <hi rend="italic">).</hi>
+                        </hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Mayer, T. and Cysouw, M.</hi> (2014). Creating a massively parallel bible corpus. 
+                        <hi rend="italic">Proceedings of the Ninth International Conference on Language Resources and Evaluation.</hi> Reykjavik, pp. 3158–61.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Moritz, M., Wiederhold, A., Pavlek, B., Bizzoni, Y. and Büchler, M.</hi> (2016). Non-literal text reuse in historical texts: An approach to identify reuse transformations and its application to bible reuse. 
+                        <hi rend="italic">Empirical Methods in Natural Language Processing.</hi> Austin, pp. 1849–59.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Navigli, R. and Ponzetto, S. P.</hi> (2012). Babelnet: The automatic construction, evaluation and application of a wide-coverage multilingual semantic network. 
+                        <hi rend="italic">Artificial Intelligence</hi>, 193(2012): 217–50.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold" xml:space="preserve">Papineni, K., Roukos, S., Ward, T. and Zhu, W. J. </hi>(2002). BLEU: a method for automatic evaluation of machine translation. 
+                        <hi rend="italic">Proceedings of the 40th Annual Meeting of the Association for Computational Linguistics</hi>. Philadelphia, pp. 311–18.
+                    </bibl>
+                    <bibl>
+                        <hi rend="reference-text">
+                            <hi rend="bold">Roger, N</hi>. (1958, 1959). New Testament Use of the Old Testament. In 
+                        </hi>Henry, C. F.H. (ed.), 
+                        <hi rend="italic">Revelation and the Bible. Contemporary Evangelical Thought.</hi> Grand Rapids: Baker, 1958. London: The Tyndale Press, 1959, pp. 137–51. 
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Xu, W., Callison-Burch, C. and Dolan, B.</hi> (2015). SemEval-2015 Task 1: Paraphrase and Semantic Similarity in Twitter (PIT). 
+                        <hi rend="italic" xml:space="preserve">SemEval@ NAACL-HLT. </hi>Denver
+                        <hi rend="italic" xml:space="preserve">, </hi>pp. 1–11.
+                    </bibl>
+                    <bibl>
+                        <hi rend="HTML_Cite">
+                            <hi rend="italic bold">Young, R.</hi>
+                            <hi rend="italic" xml:space="preserve"> (1898a). Young's Translation: Publisher's Note and Preface, </hi>
+                        </hi>
+                        <ref target="http://www.ccel.org/bible/ylt/ylt.htm">http://www.ccel.org/bible/ylt/ylt.htm</ref>
+                        <hi rend="HTML_Cite">
+                            <hi rend="italic">(accessed November 2017).</hi>
+                        </hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="HTML_Cite">
+                            <hi rend="italic bold">Young, R.</hi>
+                            <hi rend="italic" xml:space="preserve"> (1898b). </hi>
+                        </hi>Young's Literal Translation, 
+                        <ref target="http://www.bible-researcher.com/young.html">http://www.bible-researcher.com/young.html</ref>
+                        <hi rend="HTML_Cite">
+                            <hi rend="italic">(accessed November 2017).</hi>
+                        </hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="reference-text">
+                            <hi rend="bold">No Author</hi>. (
+                        </hi>1989). The Holy Bible. 
+                        <hi rend="reference-text">Revised Version</hi>. London: 
+                        <hi rend="reference-text">Cambridge University Press. Synopsis.</hi>
+                    </bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

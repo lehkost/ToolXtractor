@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title type="full">
+                    <title type="main">Detecting Musical Paratext at Scale</title>
+                    <title type="sub"/>
+                </title>
+                <author>
+                    <persName>
+                        <surname>Boettcher</surname>
+                        <forename>Mark Edward</forename>
+                    </persName>
+                    <affiliation>Dartmouth College, United States of America</affiliation>
+                    <email>mark.e.boettcher@dartmouth.edu</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Wallace</surname>
+                        <forename>John</forename>
+                    </persName>
+                    <affiliation>Dartmouth College, United States of America</affiliation>
+                    <email>john.m.wallace@dartmouth.edu</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2016-06-24T23:45:42.561147000</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Maciej Eder, Pedagogical University in Krakow</publisher>
+                <publisher>Jan Rybicki, Jagiellonian University</publisher>
+                <address>
+                    <addrLine>Institute of Polish Studies</addrLine>
+                    <addrLine>Pedagogical University</addrLine>
+                    <addrLine>ul. Podchorazych 2</addrLine>
+                    <addrLine>30-084 Krakow, Poland</addrLine>
+                    <addrLine>maciej.eder@ijp-pan.krakow.pl</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from an OASIS Open Document</p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.21">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Poster</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>textual analysis</term>
+                    <term>data mining</term>
+                    <term>lexical analysis</term>
+                    <term>optical character recognition</term>
+                    <term>software development</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>information retrieval</term>
+                    <term>lexicography</term>
+                    <term>music</term>
+                    <term>software design and development</term>
+                    <term>text analysis</term>
+                    <term>content analysis</term>
+                    <term>programming</term>
+                    <term>data mining / text mining</term>
+                    <term>English</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <div type="div1" rend="DH-Heading1">
+                <head>Summary</head>
+                <p>In this work we will detail the open source tools, custom code and processing steps that were used to support textual analysis for a Digital Humanities (DH) project. Additionally, a more general genre classification tool will be described which was developed to support a machine learning model. Extensions of this work will be proposed that may allow these tools to identify types of text.</p>
+            </div>
+            <div type="div1" rend="DH-Heading">
+                <head>Background</head>
+                <p>The Multimedia in the Long 18th Century (Wallace et al., 2015) project is an attempt to automate the process of detecting and quantifying music references in French and English manuscripts written in the ‘Long 18th Century’, a period ranging from 1685 to 1815. Hundreds of thousands of volumes have been scanned to digital image format and are readily available from a number of online sources. The process of automatically analyzing these images and identifying music rendered in standard music notation is relatively trivial. However, the vast majority of music in the corpus is represented as text, often with various keywords or key phrases, i.e. ‘sing the following to the tune of…’. Most people can recognize the difference between poetry, lyrics and prose almost immediately. We assimilate and analyze a large number of clues and usually reach the correct conclusion without conscious effort. This is not the case with the current state of the art in computer technology. While many separate pieces of the solution already exist, gaps still exist. To achieve our goals, it was decided that it would be necessary to leverage the existing work of others while adding a few innovations of our own.</p>
+            </div>
+            <div type="div1" rend="DH-Heading">
+                <head>Methods</head>
+                <p>We have developed a number of batch-processing tools to retrieve the relevant scanned PDF files from online sources and split them into individual images, each representing one page. We use the open source ImageMagick image processing tools to clean up the images. These are then fed to a customized version of the Tesseract OCR engine. Tesseract performs the optical character recognition (OCR) to convert the source images to HOCR files containing bounding box, plain text and recognition confidence levels for each individual paragraph, line and word. This is used to produce PDF files that duplicate the page layout of the original image and contain searchable text that is typically &gt;90% accurate. We have developed an in-house tool to create training data for the machine learning (ML) algorithms used later on. The tool has a user interface that displays both the original image and the formatted PDF side by side. This tool allows the user to choose a category such as: lyrics, poetry, key word, key phrase, etc. The user is able to select regions of the page encompassing anywhere from a single word to the entire page. This generates a very fine-grained database, accurate to within a single word. This database is subsequently used to train the ML engine and to perform validation of the automated classification algorithms. Similar solutions typically have the users classify sections by operating on the page after it has been processed by the OCR engine. This can lead to misclassifications when the OCR results have numerous misspellings or imprecise page layout formatting. We have the user perform the manual classification on the original page images. This provides precise control and future proofing against improvements in OCR techniques. We employ a multi-pronged, multi-pass approach in order to differentiate music lyrics from other types of verse or prose. We perform detailed shape analysis to identify sections of text that 'look' like some form of verse. Symmetry, right and left indentation, relative length of alternating lines and other shape factors are examined. We look at letter casing based on the OCR-processed version. As a result we achieve 90-100% correct identification of structured verse for almost every volume with a relatively small number of false positives. Once we have identified sections of verses, we used a number of empirically determined factors such as relative word frequency, occurrence of n-grams, proximity of keywords/key phrases and comparison to databases of known song lyrics.</p>
+            </div>
+            <div type="div1" rend="DH-Heading">
+                <head>Future Development</head>
+                <p>We are continuing to fine-tune our model, especially in our ability to handle poorly scanned or otherwise non-conforming documents. All software and techniques that we have developed will be made publicly available so that we can share the results of our efforts and with the hope that others will feel free to contribute. Beyond music detection, we see a number of potential applications in the Digital Humanities. The training set region selection can be used just as easily to select features in cuneiform script or Norse runes.</p>
+            </div>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl>
+                        <hi rend="bold">Wallace, J., Sanders, S. and Boettcher, M.</hi> (2015). Multi-Media in the Long Eighteenth Century, In 
+                        <hi rend="italic">DLFM’15 Proceedings of the 2nd International Workshop on Digital Libraries for Musicology</hi>, pp. 29-32.
+                    </bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

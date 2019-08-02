@@ -1,0 +1,386 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>From Order to Order Switch. Mediating between Complexity and Reproducibility in the Context of Automated Literary Annotation</title>
+                <author>
+                    <persName>
+                        <surname>Thomas</surname>
+                        <forename>Bögel</forename>
+                    </persName>
+                    <affiliation>University of Heidelberg, Germany</affiliation>
+                    <email>thomas.boegel@informatik.uni-heidelberg.de</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Gius</surname>
+                        <forename>Evelyn</forename>
+                    </persName>
+                    <affiliation>University of Hamburg, Germany</affiliation>
+                    <email>evelyn.gius@uni-hamburg.de</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Jacke</surname>
+                        <forename>Janina</forename>
+                    </persName>
+                    <affiliation>University of Hamburg, Germany</affiliation>
+                    <email>janina.jacke@uni-hamburg.de</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Strötgen</surname>
+                        <forename>Jannik</forename>
+                    </persName>
+                    <affiliation>Max-Planck Institute for Informatics, Germany</affiliation>
+                    <email>jannik.stroetgen@mpi-inf.mpg.de</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2016-02-08T11:17:00Z</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Maciej Eder, Pedagogical University in Krakow</publisher>
+                <publisher>Jan Rybicki, Jagiellonian University</publisher>
+                <address>
+                    <addrLine>Institute of Polish Studies</addrLine>
+                    <addrLine>Pedagogical University</addrLine>
+                    <addrLine>ul. Podchorazych 2</addrLine>
+                    <addrLine>30-084 Krakow, Poland</addrLine>
+                    <addrLine>maciej.eder@ijp-pan.krakow.pl</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from a Word document </p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.21">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Long Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>interdisciplinary collaboration</term>
+                    <term>automated annotation</term>
+                    <term>literary and linguistic concept modeling</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>literary studies</term>
+                    <term>natural language processing</term>
+                    <term>stylistics and stylometry</term>
+                    <term>text analysis</term>
+                    <term>interdisciplinary collaboration</term>
+                    <term>linguistics</term>
+                    <term>crowdsourcing</term>
+                    <term>data mining / text mining</term>
+                    <term>English</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <div type="div1" rend="DH-Heading1">
+                <head>Introduction</head>
+                <p>In the context of literary studies, which are mainly concerned with the hermeneutic interpretation of literary texts, narratological annotation can be helpful in at least two ways. First, the identification of narrative structures can point to peculiarities of the individual texts that are in need of interpretation, thereby advancing the generation of interpretation hypotheses. Second, since narrative structures can often be detected on the surface level of texts and described intersubjectively, narratological analyses may provide a robust and concrete backing for more comprehensive and complex interpretations. </p>
+                <p>Against this backdrop, the project heureCLÉA aims at developing a “digital heuristic”: a functionality that automatically annotates specific narrative features in literary texts. To achieve this, a corpus of short stories is manually and collaboratively annotated based on a narratological tagset (cf. Gius, 2015; Gius/Jacke, 2015a). The automation is subsequently achieved in a combined approach of rule-based NLP methods and machine learning techniques (cf. Bögel et al., 2015a). However, the automation process is complicated by a specific interdisciplinary conflict: the textual phenomena literary scholars are interested in are often very complex and closely interconnected, which seems to significantly hinder the automation process.</p>
+                <p>In this paper, we present our way of addressing this problem by way of example: we introduce the basic narratological concept of 
+                    <hi rend="italic">temporal order</hi> and its theoretical prerequisites/application conditions; we show how the concept’s complexity causes technical issues in the context of automation and how converting 
+                    <hi rend="italic">order</hi> to the stripped-down concept of 
+                    <hi rend="italic">order switch</hi> significantly enhances the automation results; finally, we explain in which way the new concept is still suited for literary analysis.
+                </p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Collaborative manual annotation of 
+                    <hi rend="italic">temporal order</hi>
+                </head>
+                <p>The discipline of narratology mainly deals with analyzing the (textual) features typical for narrative representation (cf. Meister, 2014). Narratological text analysis is based on often widely accepted narratological concepts or categories. The project heureCLÉA focuses on the operationalization of a subset of these categories: categories that describe temporal relations between a story and its representation. These categories are: 
+                    <hi rend="italic">order</hi> (when does an event happen? – when is it told?), 
+                    <hi rend="italic">frequency</hi> (how often does it happen? – how often is it told?), and 
+                    <hi rend="italic">duration</hi> (how long does it take to happen? – how long does it take to tell about it?) (cf. Genette, 1980). While these categories are reckoned comparably simple and straightforward in narratology, collaborative manual annotation revealed that they are not. We would like to illustrate this using the example of 
+                    <hi rend="italic">order</hi> (cf. fig. 1).
+                </p>
+                <figure>
+                    <graphic url="64/image1.png" rend="inline"/>
+                    <head>Fig. 1: Tagset order</head>
+                </figure>
+                <p>Basically, the events of a story can either be presented in chronological order or the chronology can be interrupted by “flashbacks” (
+                    <hi rend="italic">analepses</hi> in narratological terms) or “flashforwards” (
+                    <hi rend="italic">prolepses</hi>). Each analepsis and prolepsis can further be qualified according to their reach and extent. Whenever anachronies occur, the whole text passage constituting the anachrony is annotated as either 
+                    <hi rend="italic">analepsis</hi> or 
+                    <hi rend="italic">prolepsis</hi>. Furthermore, anachronies may be nested: they can contain further anachronies (cf. fig. 2).
+                </p>
+                <figure>
+                    <graphic url="64/image2.png" rend="inline"/>
+                    <head>Fig. 2: Annotation of nested anachronies
+                    <note place="foot" xml:id="ftn1" n="1">“Outside under the high gateway she stopped, breathing deeply. Her heart grew heavy; she had [just] pushed back the helping hand by which she had been guided since her youth; she knew none she could grasp now.” (Theodor Storm: Veronika).</note>
+                    </head>
+                </figure>
+                <p>The complexity of 
+                    <hi rend="italic">order</hi> annotation is significantly increased by the fact that the analysis of 
+                    <hi rend="italic">order</hi> showed to be dependent on a different narrative phenomenon: that of narrative levels. Narrative texts can contain embedded narrations, i.e., narrations within narrations. This occurs whenever a character in the story starts telling a story of their own (“new speaker”) or when counterfactual passages occur in a narration (“new world”) (cf. Ryan, 1991). As should be immediately plausible (at least for ontologically distinct narrative levels), it does not make sense to try and analyze the temporal relation between different narrative levels, i.e., between “actual” and counterfactual events in a story. It thus became necessary to establish an additional round of annotation preceding the annotation of 
+                    <hi rend="italic">order</hi>: we first had to identify the embedded narrations in a story, so that temporal order could subsequently be analysed for each narrative level separately.
+                </p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Automation: from 
+                    <hi rend="italic">order</hi> to 
+                    <hi rend="italic">order switch</hi>
+                </head>
+                <p>From a computational linguistic perspective, modeling order phenomena imposes interesting challenges that can be grouped into two types: aspects inherent to the phenomenon and data-specific issues.</p>
+                <div type="div2" rend="DH-Heading2">
+                    <head>Phenomenon-inherent aspects</head>
+                    <p>Regarding characteristics of order phenomena, the aforementioned aspects of nestedness of order poses interesting challenges. As order phenomena are inherently nested, they yield a tree structure of annotations with multiple parent-child relationships. While there are models to formalize and predict tree structures (e.g., in the area of grammars), the prediction is orders of magnitude more complex than the prediction of linear or independent annotations, where complexity in this sense means the amount of training data required to sufficiently model the problem.</p>
+                    <p>In addition, the span of order annotations is highly heterogeneous comprising few tokens as well as multiple paragraphs. Finally, while a sequence classification approach would be suitable to annotate a sequence of tokens representing a specific order, additional aspects of the data at hand impede sequence classification. There is thus no clear annotation target that should be classified by a classifier.</p>
+                </div>
+                <div type="div2" rend="DH-Heading2">
+                    <head>Investigating the data</head>
+                    <p>To assess the annotation quality and thus feasibility of automation, we investigated the primary annotations of order phenomena. Investigating the number of different annotations for the entire training set (21 documents, see below) where two annotators agree with each other – which was the case for 90% of all annotations – revealed that there is an imbalance of annotations with seven times as many analepses (696) than prolepses (98).</p>
+                    <p>This imbalance poses three major problems for statistical modeling and machine learning: 
+                        <hi rend="italic">sparsity</hi>, 
+                        <hi rend="italic">noise </hi>and class-
+                        <hi rend="italic">imbalance</hi>. Sparsity occurs for annotations that are not well reflected in the data set, such that a classifier cannot find enough evidence to integrate the annotations into its model. This issue is reinforced by noise, meaning inconsistencies in the annotations. One sequence of tokens could either represent a certain order phenomenon or just reflect a change of narrative levels, making it hard for the classifier to learn anything meaningful. Finally, class-imbalance imposes a bias on the classifier, resulting in the phenomenon that the minority class is rarely predicted or even not considered at all.
+                    </p>
+                </div>
+                <div type="div2" rend="DH-Heading2">
+                    <head>From order to order switches</head>
+                    <p>Investigating the annotations revealed that sub-sentences serve as boundaries for order switches. Thus, to solve the issues mentioned above, we do not attempt to classify order phenomena directly but instead predict for each sub-sentence whether it introduces a 
+                        <hi rend="italic">switch</hi> of the order in the previous (sub-)sentence. While this is, of course, a simplification of the task, it allows us to model the task as a binary classification problem with a clear annotation target and alleviates the issue of sparsity because we do not distinguish between different types of order annotations. To generate training and test data from the original manual annotations of order, we determine all sub-sentences where the order annotation changes, and tag them as order switches.
+                    </p>
+                    <p>The resulting annotation statistics are shown in table 1 and indicate that switching from order to order switch increases the number of positive instances in the training set to 1802, meaning that 1802 out of all sub-sentences introduce order changes. Note, however, that the issue of imbalanced data still exists.</p>
+                    <table rend="rules">
+                        <row>
+                            <cell rend="DH-Default">annotation</cell>
+                            <cell rend="DH-Default">count</cell>
+                            <cell rend="DH-Default">percentage</cell>
+                        </row>
+                        <row>
+                            <cell rend="DH-Default">order-switch</cell>
+                            <cell rend="DH-Default">1802</cell>
+                            <cell rend="DH-Default">12.3%</cell>
+                        </row>
+                        <row>
+                            <cell rend="DH-Default">no switch</cell>
+                            <cell rend="DH-Default">12871</cell>
+                            <cell rend="DH-Default">87.7%</cell>
+                        </row>
+                    </table>
+                    <p>tab. 1: New training set based on order switches</p>
+                </div>
+                <div type="div2" rend="DH-Heading2">
+                    <head>Evaluation and experiments</head>
+                    <p>Our training set consists of 21 documents from various authors of the 20th century, comprising about 80,000 tokens in total (cf. Bögel et al., 2014). For evaluation, four additional documents were annotated.</p>
+                    <p>Overall, we use 21 features (presented in the appendix) to model order changes. We investigate different aspects of tense (e.g., whether a sub-sentence and the previous (sub-)sentence use the same tense), direct speech, temporal signals (cf. Bögel et al., 2015b), as well as structural features, e.g., paragraph boundaries. Finally, we add features to capture whether the sub-sentence represents a change of narrative levels rather than order.</p>
+                    <p>As mentioned above, the class-imbalance between positive and negative instances remains problematic. To reflect this during the evaluation, we perform randomized re-sampling (cf. Japkowicz/Shaju, 2002) with replacement on the training data which allows us to artificially adjust the spread between two classes. Table 2 contains the evaluation results for different spreads using Random Forests (Breiman, 2001) for classification. The more uniform the distribution of both classes and thus the lower the spread, the better the results. With the best setting (spread = 1:2), we are able to achieve a balanced result with a high F
+                        <hi rend="subscript">1</hi>-score of 81.4%.
+                    </p>
+                    <table rend="rules">
+                        <row>
+                            <cell rend="DH-Default">setting</cell>
+                            <cell rend="DH-Default">precision</cell>
+                            <cell rend="DH-Default">recall</cell>
+                            <cell rend="DH-Default">F
+                                <hi rend="subscript">1</hi>
+                            </cell>
+                        </row>
+                        <row>
+                            <cell rend="DH-Default">spread=1:6</cell>
+                            <cell rend="DH-Default">20.4</cell>
+                            <cell rend="DH-Default">14.7</cell>
+                            <cell rend="DH-Default">17.1</cell>
+                        </row>
+                        <row>
+                            <cell rend="DH-Default">spread=1:3</cell>
+                            <cell rend="DH-Default">74.9</cell>
+                            <cell rend="DH-Default">77.5</cell>
+                            <cell rend="DH-Default">76.1</cell>
+                        </row>
+                        <row>
+                            <cell rend="DH-Default">spread=1:2</cell>
+                            <cell rend="DH-Default">79.1</cell>
+                            <cell rend="DH-Default">83.9</cell>
+                            <cell rend="DH-Default">81.4</cell>
+                        </row>
+                        <row>
+                            <cell rend="DH-Default">spread=1:1</cell>
+                            <cell rend="DH-Default">76.2</cell>
+                            <cell rend="DH-Default">79.5</cell>
+                            <cell rend="DH-Default">77.8</cell>
+                        </row>
+                    </table>
+                    <p>tab. 2: Evaluation results for different spreads</p>
+                    <p>Overall, the high performance confirms our hypothesis that breaking the complex task of predicting order phenomena into more manageable sub-steps yields promising results. </p>
+                    <p>Nevertheless, we expect that even more complex narrative phenomena can be automatically annotated in the future. As simple narrative concepts have now been tackled successfully, their annotations could be exploited as features to predict more complex phenomena. </p>
+                </div>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Conclusions</head>
+                <p>Our aim to automate the annotation not only of basic and rather straightforward linguistically encoded temporal aspects like tense and temporal signals (cf. Bögel et al., 2014; Bögel et al., 2015b), but also of more complex phenomena like 
+                    <hi rend="italic">order</hi> in heureCLÉA was a long shot. However, by cautiously reducing the concept’s complexity in active dialogue between computer scientists and literary scholars, we were not only able to yield good annotation results, but also to end up with a concept that is still of value for literary scholars: while deviations from the chronological presentation of a story cannot be automatically predicted in as much detail as in manual annotation, the automated functionality still serves as a robust heuristic pointing to temporally interesting passages upon which literary scholars can base their in-depth analyses and interpretations. By finding a way to include consideration of narrative levels in the automation, the original 
+                    <hi rend="italic">order</hi> concept was not compromised with regards to its conceptual key features. The transformation from 
+                    <hi rend="italic">order</hi> to 
+                    <hi rend="italic">order switch</hi> is therefore yet another example of successful collaboration between literary scholars and computer scientists in heureCLÉA (cf. Gius/Jacke, 2015b): only a frequent exchange between the involved parties can yield results satisfactory to both sides. We are optimistic that this kind of collaboration has the potential to achieve a functional automated annotation of even more complex narrative phenomena – provided that the phenomena in question are of the kind that their analysis allows for a certain degree of inter-annotator agreement.
+                    <note place="foot" xml:id="ftn2" n="2">
+                        <p> This precondition may be the critical factor in some automation attempts, e.g., the automated annotation of free indirect discourse that lacks a sufficient amount of reliable indicators (cf. Brunner, 2013). Its determination is rather interpretation-dependent and thus the phenomenon is barely qualified for high inter-annotator agreement.</p>
+                    </note>
+                </p>
+                <p>
+                    <pb/>
+                </p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Appendix: feature set for order switch prediction</head>
+                <table rend="rules">
+                    <row>
+                        <cell rend="DH-Default">tense</cell>
+                        <cell rend="DH-Default">
+                            <p>tense of target</p>
+                            <p>tense of target
+                                <hi rend="subscript">-1</hi>
+                            </p>
+                            <p>same tense for target&amp;target
+                                <hi rend="subscript">-1</hi>?
+                            </p>
+                            <p>target contains imperative?</p>
+                            <p>target
+                                <hi rend="subscript">-1</hi> contains imperative
+                            </p>
+                        </cell>
+                    </row>
+                    <row>
+                        <cell rend="DH-Default">direct speech</cell>
+                        <cell rend="DH-Default">
+                            <p>target starts direct speech?</p>
+                            <p>target
+                                <hi rend="subscript">-1</hi> starts direct speech?
+                            </p>
+                            <p>target within direct speech?</p>
+                            <p>target
+                                <hi rend="subscript">-1</hi> within direct speech?
+                            </p>
+                        </cell>
+                    </row>
+                    <row>
+                        <cell rend="DH-Default">structural</cell>
+                        <cell rend="DH-Default">
+                            <p>target occurs after paragraph boundary?</p>
+                            <p>target is at beginning/end of sentence?</p>
+                            <p>length of target relative to entire sentence</p>
+                        </cell>
+                    </row>
+                    <row>
+                        <cell rend="DH-Default">temporal signals</cell>
+                        <cell rend="DH-Default">
+                            <p>target contains temporal signal?</p>
+                            <p>target starts with temporal signal?</p>
+                            <p>string of temporal signal</p>
+                            <p>first token of temporal signal</p>
+                            <p>preposition of temporal signal</p>
+                            <p>last token of temporal signal</p>
+                        </cell>
+                    </row>
+                    <row>
+                        <cell rend="DH-Default">narrative levels</cell>
+                        <cell rend="DH-Default">
+                            <p>target in conjunctive mood?</p>
+                            <p>target
+                                <hi rend="subscript">-1</hi> contains utterance verb?
+                            </p>
+                        </cell>
+                    </row>
+                </table>
+            </div>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl>
+                        <hi rend="bold">Bögel, Th., Strötgen, J. and Gertz, M.</hi> (2014). Computational Narratology: Extracting Tense Clusters from Narrative Texts. 
+                        <hi rend="italic">Proceedings of the 9th Edition of the Language Resources and Evaluation Conference (LREC’14)</hi>, pp. 950-955, Reykjavik, Iceland. 
+                        <ref target="http://www.lrec-conf.org/proceedings/lrec2014/pdf/849_Paper.pdf">
+                            <hi rend="underline color(1155CC)">http://www.lrec-conf.org/proceedings/lrec2014/pdf/849_Paper.pdf</hi>
+                        </ref> (accessed 02.03.2016).
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Bögel, Th. et al.</hi> (2015a). Collaborative Text Annotation Meets Machine Learning. heureCLÉA, a Digital Heuristic of Narrative. 
+                        <hi rend="italic">DHCommons 1</hi>. 
+                        <ref target="http://dhcommons.org/journal/issue-1/collaborative-text-annotation-meets-machine-learning-heurecl%C3%A9-digital-heuristic">
+                            <hi rend="underline color(1155CC)">http://dhcommons.org/journal/issue-1/collaborative-text-annotation-meets-machine-learning-heurecl%C3%A9-digital-heuristic</hi>
+                        </ref> (accessed 02.03.2016).
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Bögel, Th., Strötgen, J. and Gertz, M.</hi> (2015b). A Hybrid Approach to Extract Temporal Signals from Narratives. 
+                        <hi rend="italic">Proceedings of the International Conference of the German Society for Computational Linguistics and Language Technology (GSCL’15)</hi>, pp. 106-107, September 20-October 2, Duisburg-Essen, Germany. 
+                        <ref target="http://gscl2015.inf.uni-due.de/wp-content/uploads/2015/09/gscl2015-proceedings.pdf">
+                            <hi rend="underline color(1155CC)">http://gscl2015.inf.uni-due.de/wp-content/uploads/2015/09/gscl2015-proceedings.pdf</hi>
+                        </ref> (accessed 02.03.2016)
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Breiman, L.</hi> (2001). Random forests. 
+                        <hi rend="italic">Machine learning</hi>, <hi rend="bold">45</hi> (1): 5-32.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Brunner, A.</hi> (2013). Automatic recognition of speech, thought, and writing representation in German narrative texts. 
+                        <hi rend="italic">Literary and Linguistic Computing</hi> <hi rend="bold">28</hi>(4): 563-75.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Genette, G.</hi> (1980). 
+                        <hi rend="italic">Narrative Discourse</hi>. Oxford: Blackwell.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Gius, E.</hi> (2015). 
+                        <hi rend="italic">Erzählen über Konflikte: Ein Beitrag zur digitalen Narratologie</hi>. Berlin, München, Boston: De Gruyter.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Gius, E. and Jacke, J.</hi> (2015a). Zur Annotation narratologischer Kategorien der Zeit. <hi rend="italic">Guidelines zur Nutzung des CATMA-Tagsets</hi>. 
+                        <ref target="http://www.heureclea.de/guidelines">
+                            <hi rend="underline color(1155CC)">http://www.heureclea.de/guidelines</hi>
+                        </ref> (02.03.2016).
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Gius, E. and Jacke, J.</hi> (2015b). Informatik und Hermeneutik. Zum Mehrwert interdisziplinärer Textanalyse. 
+                        <hi rend="italic">Zeitschrift für digitale Geisteswissenschaften 1</hi>. 
+                        <ref target="http://www.zfdg.de/informatik-und-hermeneutik-zum-mehrwert-interdisziplin%C3%A4rer-textanalyse">
+                            <hi rend="underline color(1155CC)">http://www.zfdg.de/informatik-und-hermeneutik-zum-mehrwert-interdisziplin%C3%A4rer-textanalyse</hi>
+                        </ref> (accessed 02.03.2016).
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Japkowicz, N. and Shaju, S.</hi> (2002). The class imbalance problem: A systematic study. 
+                        <hi rend="italic">Intelligent data analysis </hi><hi rend="bold">6</hi>(5): 429-49.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Meister, J. C.</hi> (2014). Narratology. 
+                        <hi rend="italic">the living handbook of narratology</hi>. 
+                        <ref target="http://www.lhn.uni-hamburg.de/article/narratology">
+                            <hi rend="underline color(1155CC)">http://www.lhn.uni-hamburg.de/article/narratology</hi>
+                        </ref> (accessed 02.03.2016).
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Ryan, M.-L.</hi> (1991). 
+                        <hi rend="italic">Possible Worlds, Artificial Intelligence, and Narrative Theory</hi>. Bloomington: Indiana University Press.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Storm, T.</hi> (1861). <hi rend="italic">Veronika</hi>. 
+                        <ref target="https://textgridrep.de/browse.html?id=textgrid:vtkx.0">
+                            <hi rend="underline color(1155CC)">https://textgridrep.de/browse.html?id=textgrid:vtkx.0</hi>
+                        </ref> (accessed 02.03.2016).
+                    </bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

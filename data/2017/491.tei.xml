@@ -1,0 +1,484 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xsi:schemaLocation="http://www.tei-c.org/ns/1.0 /Users/yoann/Work/Grobid/grobid-home/schemas/xsd/Grobid.xsd"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+	<teiHeader xml:lang="en">
+		<encodingDesc>
+			<appInfo>
+				<application version="0.5.4-SNAPSHOT" ident="GROBID" when="2019-06-05T06:30+0000">
+					<ref target="https://github.com/kermitt2/grobid">GROBID - A machine learning software for extracting information from scholarly documents</ref>
+				</application>
+			</appInfo>
+		</encodingDesc>
+		<fileDesc>
+			<titleStmt>
+				<title level="a" type="main">The Course of Emotion in Three Centuries of German Text-A Methodological Framework</title>
+			</titleStmt>
+			<publicationStmt>
+				<publisher/>
+				<availability status="unknown"><licence/></availability>
+			</publicationStmt>
+			<sourceDesc>
+				<biblStruct>
+					<analytic>
+						<author>
+							<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">Sven</forename><surname>Buechel</surname></persName>
+							<email>sven.buechel@uni-jena.de</email>
+							<affiliation key="aff0">
+								<orgName type="laboratory">JULIE Lab</orgName>
+								<orgName type="institution">Friedrich Schiller University Jena</orgName>
+								<address>
+									<country key="DE">Germany</country>
+								</address>
+							</affiliation>
+						</author>
+						<author>
+							<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">Johannes</forename><surname>Hellrich</surname></persName>
+							<email>johannes.hellrich@uni-jena.de</email>
+							<affiliation key="aff1">
+								<orgName type="laboratory">JULIE Lab</orgName>
+								<orgName type="institution">Friedrich Schiller University Jena</orgName>
+								<address>
+									<country key="DE">Germany</country>
+								</address>
+							</affiliation>
+						</author>
+						<author>
+							<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">Udo</forename><surname>Hahn</surname></persName>
+							<email>udo.hahn@uni-jena.de</email>
+							<affiliation key="aff2">
+								<orgName type="laboratory">JULIE Lab</orgName>
+								<orgName type="institution">Friedrich Schiller University Jena</orgName>
+								<address>
+									<country key="DE">Germany</country>
+								</address>
+							</affiliation>
+						</author>
+						<title level="a" type="main">The Course of Emotion in Three Centuries of German Text-A Methodological Framework</title>
+					</analytic>
+					<monogr>
+						<imprint>
+							<date/>
+						</imprint>
+					</monogr>
+				</biblStruct>
+			</sourceDesc>
+		</fileDesc>
+		<profileDesc>
+			<abstract/>
+		</profileDesc>
+	</teiHeader>
+	<text xml:lang="en">
+		<body>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Introduction</head><p>Texts not only carry factual, but also affective information, such as expressions of joy or grief. In the humanities, especially literary studies, emotion expression and elicitation (often in texts from prior language stages) have been focused on in many contributions (see, e.g., <ref type="bibr" target="#b5">Carroll and Gibson (2011)</ref>, <ref type="bibr" target="#b16">Poppe (2012)</ref>, <ref type="bibr" target="#b12">Hillebrand (2011)</ref>).</p><p>Similarly, in natural language processing (NLP), emotion analytics have developed into an active area of research ( <ref type="bibr" target="#b14">Liu, 2015)</ref>. Nevertheless, there is little previous work explicitly addressing emotion in historical language and the specific methodological problems this raises. <ref type="bibr" target="#b10">Hamilton et al. (2016)</ref> as well as <ref type="bibr" target="#b6">Cook and Stevenson (2010)</ref> presented methods for identifying amelioration and pejoration of words. <ref type="bibr">Acerbi et al. (2013)</ref> and <ref type="bibr">Bentley et al. (2014)</ref> demonstrated the potential of emotion analysis for the Digital Humanities (DH) by linking temporal emotion patterns in texts to major sociopolitical events and trends in the 20 th century.</p><p>Our work goes beyond these studies in two ways: we claim to be more adequate as we combine these two approaches to analyze non-contemporary text based on time-specific lexical resources. We also claim to be more informative as we employ the Valence-Arousal-Dominance (VAD) model of emotion <ref type="bibr" target="#b0">(Bradley and Lang, 1994</ref>) instead of simple polarity (positiveness/negativeness) alone. We have already shown the latter to be beneficial in DH applications ( <ref type="bibr" target="#b3">Buechel et al., 2016a</ref>). We hope that our work will be a step towards a new set of tools especially beneficial for areas such as literary studies (e.g., in distant reading <ref type="bibr" target="#b15">(Moretti, 2013)</ref>) or history of mind.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Methods</head><p>The VAD model of emotion assumes that affective states can be described relative to three emotional dimensions, i.e., Valence (corresponding to the concept of polarity, see above), Arousal (the degree of excitement or calmness) and Dominance (feeling in or out of control of a social situation). The VAD dimensions allow for a more fine-grained modeling than polarity alone, e.g., words like orgasm and relaxed have similar Valence but opposing Arousal values <ref type="bibr" target="#b1">(Bradley and Lang, 1999</ref>). Formally, the VAD model constitutes a three-dimensional vector space illustrated by <ref type="figure" target="#fig_0">Figure 1</ref> ( <ref type="bibr" target="#b2">Buechel and Hahn, 2016)</ref>.</p><p>The association of words with a VAD score is captured in emotion lexicons. These can either be empirically determined by aggregating subjective judgments of several human subjects; or they can be semiautomatically constructed allowing for greater size but reducing accuracy on individual words. For the semi-automatic construction, the typical approach is to expand an existing lexicon (the seed lexicon) based on word similarity (see below). There are several competing expansion algorithms. <ref type="bibr" target="#b6">Cook and Stevenson (2010)</ref> were the first to describe expansion algorithms for the induction of the emotion value of words for non-contemporary language stages by using word similarity values determined from historical corpora. Extending this approach, we compared several emotion induction algorithms, viz., those by <ref type="bibr" target="#b19">Turney and Littman (2003)</ref>, <ref type="bibr" target="#b10">Hamilton et al. (2016), and</ref><ref type="bibr">Best- gen (2008)</ref>. The former two were slightly modified to make them deal with numerical input values (for a more detailed description of these methods, see <ref type="bibr" target="#b4">Buechel et al. (2016b)</ref> and <ref type="bibr" target="#b10">Hamilton et al. (2016)</ref>).</p><p>We used point-wise mutual information with singular value decomposition ( <ref type="bibr" target="#b13">Levy et al, 2015</ref>; SVDPPMI) to measure word similarity, since it turned out to be superior for DH applications in previous work <ref type="bibr">(Hell- rich and Hahn, 2016)</ref>. We used the German ANGST lexicon ( <ref type="bibr" target="#b17">Schmidtke et al., 2014</ref>) as seed. The individual algorithms were evaluated by comparing our induced historical lexicons against judgments of knowledgeable PhD students from the humanities. For this task, we asked them to make their assessments as if they were contemporary readers from the respective time period. The Turney-Littman algorithm performed best in this set-up and was thus employed for all subsequent analyses.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Experiments</head><p>For demonstration purposes, we here apply our methodology to the core corpus of the Deutsches <ref type="bibr">Tex- tarchiv (DTA;</ref><ref type="bibr" target="#b8">Geyken, 2013</ref><ref type="bibr">, TCF version from May 11, 2016</ref> [German Text Archive], a well-curated and balanced collection of historical German texts. We analyzed texts created between 1690 and 1899, splitting the resulting corpus into seven slices (each spanning 30 years) to achieve similarly sized and sufficiently large subcorpora for further processing. We computed word similarities within each of these slices and then applied the Turney-Littman expansion algorithm, thus creating seven distinct emotion lexicons, each describing the emotion of words for its specific period. Given these temporally stratified lexicons, we claim that shifts in emotion association of words can be traced over time by comparing the emotion values a word exhibits in different lexicons. To validate this claim, we selected the words for which we could compute similarity scores in each time step (as these methods are more accurate for high-frequency words, rare words were excluded from our study) and standardized their VAD values for each lexicon and dimension (VAD).  We illustrate this approach with an example from <ref type="figure" target="#fig_1">Figure 2</ref>. It displays an overall amelioration of Sünde [sin] whose onset roughly coincides with the age of enlightenment-often understood as the starting point of secularization <ref type="bibr" target="#b18">(Sheehan, 2003</ref>), although care must be taken when interpreting these word course graphs since noise can be introduced from various sources (such as word similarity and emotion induction algorithms); both strongly depend on the amount of data available for each time step. This observation is in line with well-known findings from descriptive lexicography <ref type="bibr" target="#b9">(Grimm and Grimm, 1942)</ref>. The same semantic shift can also be discovered by a more established method, namely collocation analysis. <ref type="table" target="#tab_0">Table 1</ref> reveals that Sünde, at the end of our examination period, has acquired an additional moral-bourgeois meaning facet (implied, e.g., by Ausschweifung [excess], Ärgernis <ref type="bibr">[nuisance]</ref> and Laster <ref type="bibr">[vice]</ref>) which was not present in the beginning. There, only the religious sense is traceable.</p><p>Going one step further, we then used these lexicons to examine how emotion is distributed over literary texts in the DTA in the course of time. We employed the Jena Emotion Analysis System (JEMAS; <ref type="bibr" target="#b2">Buechel and Hahn, 2016)</ref>, an open-source tool for emotion measurement using a configurable VAD lexicon. We processed each DTA text with the period-aligned lexicon, </p><formula xml:id="formula_0">• • • • • • • • • • • • • • • • • • • • • Valence Arousal Dominance</formula><p>leading to the main methodological contribution of our work: linking the research areas of automatically inducing historical word emotion (e.g., <ref type="bibr" target="#b10">Hamilton et al., 2016</ref>) and emotion prediction in historical text (e.g., <ref type="bibr">Acerbi et al., 2013)</ref>. We scaled the resulting emotion values within each VAD dimension tracing the development of the three principal literary forms-Narrative, Lyric, and Drama-in German literature between 1690 and 1899. For each of the seven 30-year periods (organized in rows), we created three scatterplots (one for each pair of the VAD dimensions; organized in columns) resulting in 21 plots in total <ref type="figure" target="#fig_2">(Figure 3)</ref>. Each data point represents one text-color and shape represent membership to the respective form.</p><p>It is evident from the plots how the distinction of the individual forms increases and decreases in emotional terms in the course of time. This application differs from typical stylometric approaches since we employ emotional features instead of word counts. We find the most distinct emotional patterns between 1780 to 1809 (approximately covering the Weimar Classicism) and between 1870 to 1899 (covering the late German Realism). Drama displays consistently more Arousal than Lyric and Narrative since 1750, whereas Lyric seems to be the most positive class (Valence) expressing the least control (Dominance). Of course, the examination of the DTA offers many more intriguing findings, however, for brevity, we limit ourselves here to presenting examples.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Conclusion</head><p>In this contribution, we described a novel methodological framework for quantifying emotion in noncontemporary text. Applying this approach to a 210-years section of the German DTA corpus, we find clear emotional signals for temporally evolving distinctions between the principal literary forms, viz. Narrative, Lyric, and Drama. All resources and software we developed for this work are publicly available. </p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Acknowledgments</head><p>This research was partially conducted within the Graduate School "The Romantic Model" supported by grant GRK 2041/1 from the Deutsche Forschungsgemeinschaft (DFG).  </p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Bibliography</head></div><figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_0"><head>Figure 1 :</head><label>1</label><figDesc>Figure 1: The VAD vector space. For ease of understanding, the positions of six Basic Emotions (Ekman, 1992) are given.</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_1"><head>Figure 2 :</head><label>2</label><figDesc>Figure 2: Development of the lexical item Sünde [sin] during the study period relative to the VAD dimensions.</figDesc><graphic coords="2,317.14,197.14,241.44,270.72" type="vector_box" /></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_2"><head>Figure 3 :</head><label>3</label><figDesc>Figure 3: Distribution und development of the principal literary forms, Lyric (blue), Drama (green) and Narrative (red), relative to each pair of VAD emotions (in columns) between 1690 and 1899 (each row representing a 30-year slice).</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" type="table" xml:id="tab_0" validated="false"><head>Table 1 : Top ten collocations of the lexical item Sünde [sin</head><label>1</label><figDesc></figDesc><table>] 
+</table></figure>
+		</body>
+		<back>
+			<div type="references">
+
+				<listBibl>
+
+<biblStruct xml:id="b0">
+	<analytic>
+		<title level="a" type="main">Measuring emotion: The self-assessment manikin and the semantic differential</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">M</forename><forename type="middle">M</forename><surname>Bradley</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">P</forename><forename type="middle">J</forename><surname>Lang</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Journal of Behavior Therapy and Experimental Psychiatry</title>
+		<imprint>
+			<biblScope unit="volume">25</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="49" to="59" />
+			<date type="published" when="1994" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b1">
+	<analytic>
+		<title level="a" type="main">Affective norms for English words (ANEW): Stimuli, instruction manual and affective Ratings</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">M</forename><forename type="middle">M</forename><surname>Bradley</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">P</forename><forename type="middle">J</forename><surname>Lang</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Proceedings of the Sixth International Conference on Language Resources and Evaluation</title>
+		<meeting>the Sixth International Conference on Language Resources and Evaluation<address><addrLine>Gainesville. Bestgen, Y.</addrLine></address></meeting>
+		<imprint>
+			<date type="published" when="1999" />
+			<biblScope unit="page" from="496" to="500" />
+		</imprint>
+		<respStmt>
+			<orgName>The Center for Research in Psychophysiology, University of Florida</orgName>
+		</respStmt>
+	</monogr>
+<note type="report_type">Report C-1</note>
+	<note>Building affective lexicons from specific corpora for automatic sentiment analysis</note>
+</biblStruct>
+
+<biblStruct xml:id="b2">
+	<analytic>
+		<title level="a" type="main">Emotion analysis as a regression problem: Dimensional models and their implications on emotion representation and metrical evaluation</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">S</forename><surname>Buechel</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">U</forename><surname>Hahn</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Proceedings of the 22nd European Conference on Artificial Intelligence</title>
+		<meeting>the 22nd European Conference on Artificial Intelligence</meeting>
+		<imprint>
+			<date type="published" when="2016" />
+			<biblScope unit="page" from="1114" to="1136" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b3">
+	<analytic>
+		<title level="a" type="main">Do enterprises have emotions?</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">S</forename><surname>Buechel</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">U</forename><surname>Hahn</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">J</forename><surname>Goldenstein</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">S</forename><forename type="middle">G M</forename><surname>Händschke</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">P</forename><surname>Walgenbach</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Proceedings of the 7th Workshop on Computational Approaches to Subjectivity, Sentiment and Social Media Analysis</title>
+		<meeting>the 7th Workshop on Computational Approaches to Subjectivity, Sentiment and Social Media Analysis</meeting>
+		<imprint>
+			<date type="published" when="2016" />
+			<biblScope unit="page" from="147" to="53" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b4">
+	<analytic>
+		<title level="a" type="main">Feelings from the past-Adapting affective lexicons for historical emotion analysis</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">S</forename><surname>Buechel</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">J</forename><surname>Hellrich</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">U</forename><surname>Hahn</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Proceedings of the Workshop on Language Technology Resources and Tools for Digital Humanities</title>
+		<meeting>the Workshop on Language Technology Resources and Tools for Digital Humanities</meeting>
+		<imprint>
+			<date type="published" when="2016" />
+			<biblScope unit="page" from="54" to="61" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b5">
+	<monogr>
+		<title level="m" type="main">Narrative, Emotion, and Insight</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">N</forename><surname>Carroll</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">J</forename><surname>Gibson</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="2011" />
+		</imprint>
+		<respStmt>
+			<orgName>University Park: Pennsylvania State University Press</orgName>
+		</respStmt>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b6">
+	<analytic>
+		<title level="a" type="main">Automatically identifying changes in the semantic orientation of words</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">P</forename><surname>Cook</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">S</forename><surname>Stevenson</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Proceedings of the 7th International Conference on Language Resources and Evaluation</title>
+		<meeting>the 7th International Conference on Language Resources and Evaluation</meeting>
+		<imprint>
+			<date type="published" when="2010" />
+			<biblScope unit="page" from="28" to="34" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b7">
+	<monogr>
+		<title level="m" type="main">An argument for basic emotions</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">P</forename><surname>Ekman</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="1992" />
+			<biblScope unit="volume">6</biblScope>
+			<biblScope unit="page" from="169" to="200" />
+		</imprint>
+	</monogr>
+	<note>Cognition &amp; Emotion</note>
+</biblStruct>
+
+<biblStruct xml:id="b8">
+	<monogr>
+		<title level="m" type="main">Wege zu einem historischen Referenzkorpus des Deutschen: das Pro- jekt Deutsches Textarchiv. Perspektiven einer corpusbasierten historischen Linguistik und Philologie</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">A</forename><surname>Geyken</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="2013" />
+			<biblScope unit="page" from="221" to="255" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b9">
+	<monogr>
+				<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">J</forename><surname>Grimm</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">W</forename><surname>Grimm</surname></persName>
+		</author>
+		<title level="m">Sünde. In: Deutsches Wörterbuch</title>
+		<imprint>
+			<date type="published" when="1942" />
+			<biblScope unit="volume">20</biblScope>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b10">
+	<analytic>
+		<title level="a" type="main">Inducing domain-specific sentiment lexicons from unlabeled corpora</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">W</forename><forename type="middle">L</forename><surname>Hamilton</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">K</forename><surname>Clark</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">J</forename><surname>Leskovec</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">D</forename><surname>Jurafsky</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Proceedings of the 2016 Conference on Empirical Methods in Natural Language Processing</title>
+		<meeting>the 2016 Conference on Empirical Methods in Natural Language Processing</meeting>
+		<imprint>
+			<date type="published" when="2016" />
+			<biblScope unit="page" from="595" to="605" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b11">
+	<analytic>
+		<title level="a" type="main">Bad company-Neighborhoods in neural embedding spaces considered harmful</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">J</forename><surname>Hellrich</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">U</forename><surname>Hahn</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Proceedings of COLING 2016, the 26th International Conference on Computational Linguistics: Technical Papers</title>
+		<meeting>COLING 2016, the 26th International Conference on Computational Linguistics: Technical Papers</meeting>
+		<imprint>
+			<date type="published" when="2016" />
+			<biblScope unit="page" from="2785" to="96" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b12">
+	<monogr>
+		<title level="m" type="main">Das emotionale Wirkungspotenzial von Erzähltexten: Mit Fallstudien zu Kafka, Perutz und Werfel</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">C</forename><surname>Hillebrand</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="2011" />
+			<publisher>Akademie Verlag</publisher>
+			<pubPlace>Berlin</pubPlace>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b13">
+	<analytic>
+		<title level="a" type="main">Improving distributional similarity with lessons learned from word embeddings</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">O</forename><surname>Levy</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">Y</forename><surname>Goldberg</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">I</forename><surname>Dagan</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Transactions of the Association for Computational Linguistics</title>
+		<imprint>
+			<biblScope unit="volume">3</biblScope>
+			<biblScope unit="page" from="211" to="236" />
+			<date type="published" when="2015" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b14">
+	<monogr>
+		<title level="m" type="main">Sentiment Analysis: Mining Opinion, Sentiments and Emotions</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">B</forename><surname>Liu</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="2015" />
+			<publisher>Cambridge University Press</publisher>
+			<pubPlace>New York</pubPlace>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b15">
+	<monogr>
+		<title level="m" type="main">Distant Reading</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">F</forename><surname>Moretti</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="2013" />
+			<publisher>Verso</publisher>
+			<pubPlace>London</pubPlace>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b16">
+	<monogr>
+				<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">S</forename><surname>Poppe</surname></persName>
+		</author>
+		<title level="m">Emotionen in Literatur und Film. Würz-burg</title>
+		<imprint>
+			<publisher>Königshausen &amp; Neumann</publisher>
+			<date type="published" when="2012" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b17">
+	<analytic>
+		<title level="a" type="main">ANGST: Affective norms for German sentiment terms, derived from the affective norms for English words</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">D</forename><forename type="middle">S</forename><surname>Schmidtke</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">T</forename><surname>Schröder</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">A</forename><forename type="middle">M</forename><surname>Jacobs</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">M</forename><surname>Conrad</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Behavior Research Methods</title>
+		<imprint>
+			<biblScope unit="volume">46</biblScope>
+			<biblScope unit="issue">4</biblScope>
+			<biblScope unit="page" from="1108" to="1126" />
+			<date type="published" when="2014" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b18">
+	<analytic>
+		<title level="a" type="main">Enlightenment, religion, and the enigma of secularization: A review essay</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">J</forename><surname>Sheehan</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">The American Historical Review</title>
+		<imprint>
+			<biblScope unit="volume">108</biblScope>
+			<biblScope unit="issue">4</biblScope>
+			<biblScope unit="page" from="1061" to="80" />
+			<date type="published" when="2003" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b19">
+	<analytic>
+		<title level="a" type="main">Measuring praise and criticism: Inference of semantic orientation from association</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">P</forename><forename type="middle">D</forename><surname>Turney</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">M</forename><forename type="middle">L</forename><surname>Littman</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">ACM Transactions on Information Systems</title>
+		<imprint>
+			<biblScope unit="volume">21</biblScope>
+			<biblScope unit="issue">4</biblScope>
+			<biblScope unit="page" from="315" to="361" />
+			<date type="published" when="2003" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+				</listBibl>
+			</div>
+		</back>
+	</text>
+</TEI>

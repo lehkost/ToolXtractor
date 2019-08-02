@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>Combining String Matching and Cost Minimization Algorithms for Automatically Geocoding Tabular Itineraries</title>
+                <author>
+                    <persName>
+                        <surname>Santos</surname>
+                        <forename>Rui</forename>
+                    </persName>
+                    <affiliation>IST and INESC-ID, University of Lisbon, Portugal</affiliation>
+                    <email>ruipds@gmail.com</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Martins</surname>
+                        <forename>Bruno Emanuel</forename>
+                    </persName>
+                    <affiliation>IST and INESC-ID, University of Lisbon, Portugal</affiliation>
+                    <email>bruno.g.martins@ist.utl.pt</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Murrieta-Flores</surname>
+                        <forename>Patricia</forename>
+                    </persName>
+                    <affiliation>Digital Humanities Research Center, University of Chester, United Kingdom</affiliation>
+                    <email>p.murrietaflores@chester.ac.uk</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2014-12-19T13:50:00Z</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Name, Institution</publisher>
+                <address>
+                    <addrLine>Street</addrLine>
+                    <addrLine>City</addrLine>
+                    <addrLine>Country</addrLine>
+                    <addrLine>Name</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from a Word document</p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.22">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Poster</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>historical itineraries ; automated geocoding ; toponym matching ; dynamic programming ; lest-cost path analysis ; geographic information retrieval</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>geohumanities; spatial &amp; spatio-temporal analysis</term>
+                    <term>modeling</term>
+                    <term>visualization</term>
+                    <term>technologies</term>
+                    <term>linking and annotation</term>
+                    <term>data mining / text mining</term>
+                    <term>English</term>
+                    <term>computer science</term>
+                    <term>geography</term>
+                    <term>artificial intelligence and machine learning</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <p>Historical itineraries, often accessible as tables or as sequential lists of names for the places visited in the context of a particular journey, are abundant resources and also important objects of study for Humanities scholars, providing 'snapshots' of particular socio-cultural events, insights into the development of human mobility, and invaluable information related to the establishment of road networks. Well-known examples include the 3rd century 
+                <hi rend="italic">Itinerarium Antonini Augusti</hi> or the 
+                <hi rend="italic">Itinerarium Burdigalense,</hi> written between the 8th and 10th centuries, among others. Many historical manuscripts and/or transcriptions containing information on itineraries, dating from the medieval period to the 20th century, are nowadays available in digital formats, through initiatives such as Europeana or the Internet Archive, or in the context of Digital Humanities projects like Pelagios.
+            </p>
+            <p>Few historical tabular itineraries are nonetheless directly associated with map-based representations and, in many cases, there is little information on the actual routes taken in between locales. As such, there are many interesting questions related to early traveling routes, in need of further study. We believe that the analysis of historical itineraries (e.g., for consistency checking, or enabling new inquires/inferences about the routes) can be facilitated through the analytical tools of Geographical Information Systems (GIS) and/or through map-based representations. The research reported in this poster concerns with automatically geocoding historical itineraries, leveraging innovative methods that explore the idea that travelers tend to choose the most efficient routes (e.g., itineraries will likely minimize the distance between locations).</p>
+            <p>In brief, we propose an automated method for geocoding tabular itineraries based on a sequence of four stages, combining string similarity search and well-known optimization procedures (Santos et al., 2017b). On the first stage, we use string similarity to look for candidate disambiguations in a large-coverage gazetteer. State-of-the-art string matching methods (Santos et al., 2017a, 2018), leveraging supervised learning, can then optionally be used to further filter/restrict the set of disambiguation candidates. A least-cost path between pairs of candidates, visited in sequence over the itinerary, is afterwards estimated on the third stage. We tested geodesic paths over the Earth's surface, or least-cost path calculations (Douglas, 1994) leveraging terrain slope and land-coverage for estimating movement costs. Finally, Step 4 leverages the distance associated to each of the paths between candidate pairs, computed in Stage 3, to find an overall best path for the entire itinerary, also disambiguating each of the toponyms to the most likely candidate. A dynamic programming algorithm similar to Viterbi decoding (Forney, 1973) is used at this stage to efficiently compute the global path that minimizes the traveled distance.</p>
+            <p>The proposed method was tested with manually geocoded itineraries (e.g., measuring the distance between the estimated disambiguation and ground-truth geo-spatial coordinates for the places in each itinerary). We relied on a dataset of well-known European historical itineraries (see http://www.peterrobins.co.uk/itineraries/list.html), containing 24 instances corresponding to sequences of varied lengths. We also used the GeoNames gazetteer for supporting the disambiguation of toponyms into geo-spatial coordinates, i.e. a resource which focuses on the modern administrative geography that nonetheless lists many historical variants as alternative place names. Our experiments showed that while approximate string matching can already achieve very low median errors (e.g., many of the itinerary toponyms match exactly with entries in GeoNames, and thus the median distance towards the correct disambiguations is quite low), the combination with cost optimization can significantly improve results in terms of the average distance. Moreover, using Least-Cost Paths (LCPs) for reconstructing the most likely routes can enable new inquiries and inferences. Although LCP analysis is commonly used within computational archaeology (Murrieta-Flores, 2012), the application that is reported through this poster is particularly innovative.</p>
+            <p>Our work shows that methods leveraging the intuition that travelers tend to choose the least-costly routes, in combination with approximate string matching for finding gazetteer entries that corresponding to historical toponyms, are indeed effective for automatic geocoding. We focused on the validation of the automated method but we believe that, if implemented within plugins for popular GIS environments, the proposed ideas can effectively help Humanities scholars in the analysis of data pertaining to historical itineraries.</p>
+            <figure>
+                <graphic n="1001" width="16.002cm" height="8.6995cm" url="Pictures/c568d3a6960d80cb1d1f4df89a3f90d0.png" rend="inline"/>
+                <head>Figure - Ground-truth trajectory for the pilgrimage of Jehan de Tournay from Valenciennes to Venice (left), compared to the estimated trajectory for the same itinerary (right).</head>
+            </figure>
+            <p>Acknowledgements</p>
+            <p>This research was supported by the Trans-Atlantic Platform for the Social Sciences and Humanities, through the Digging into Data project with reference HJ-253525. The researchers from INESC-ID also had financial support from Fundação para a Ciência e Tecnologia (FCT), through the INESC-ID multi-annual funding from the PIDDAC program, (UID/CEC/50021/2013).</p>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl>Douglas, D. H. (1994). Least-cost Path in GIS Using an Accumulated Cost Surface and Slopelines. Cartographica: The International Journal for Geographic Information and Geovisualization, 31(3).</bibl>
+                    <bibl>Forney, G. D. (1973). The Viterbi Algorithm. Proceedings of the IEEE, 61(3).</bibl>
+                    <bibl>Murrieta-Flores, P. (2012). Traveling through past landscapes - Analyzing the dynamics of movement during Late Prehistory in Southern Iberia with spatial technologies. Ph.D. Dissertation, University of Southampton.</bibl>
+                    <bibl>Santos, R., Murrieta-Flores, P. and Martins, B. (2017a). Learning to combine multiple string similarity metrics for effective toponym matching. International Journal of Digital Earth.</bibl>
+                    <bibl>Santos, R., Murrieta-Flores, P. and Martins, B. (2017b). An Automated Approach for Geocoding Tabular Itineraries. Proceedings of the ACM Workshop on Geographic Information Retrieval. New York: ACM Press.</bibl>
+                    <bibl>Santos, R., Murrieta-Flores, P., Calado, P. and Martins, M. (2018). Toponym Matching Through Deep Neural Networks. International Journal of Geographical Information Science, 32(2).</bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

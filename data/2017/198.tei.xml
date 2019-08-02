@@ -1,0 +1,451 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xsi:schemaLocation="http://www.tei-c.org/ns/1.0 /Users/yoann/Work/Grobid/grobid-home/schemas/xsd/Grobid.xsd"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+	<teiHeader xml:lang="en">
+		<encodingDesc>
+			<appInfo>
+				<application version="0.5.4-SNAPSHOT" ident="GROBID" when="2019-06-05T06:22+0000">
+					<ref target="https://github.com/kermitt2/grobid">GROBID - A machine learning software for extracting information from scholarly documents</ref>
+				</application>
+			</appInfo>
+		</encodingDesc>
+		<fileDesc>
+			<titleStmt>
+				<title level="a" type="main">Facilitating Fine-grained Open Annotations of Scholarly Sources</title>
+			</titleStmt>
+			<publicationStmt>
+				<publisher/>
+				<availability status="unknown"><licence/></availability>
+			</publicationStmt>
+			<sourceDesc>
+				<biblStruct>
+					<analytic>
+						<author>
+							<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">Peter</forename><surname>Boot</surname></persName>
+							<email>peter.boot@huygens.knaw.nl</email>
+							<affiliation key="aff0">
+								<orgName type="institution">Huygens ING</orgName>
+								<address>
+									<country key="NL">The Netherlands</country>
+								</address>
+							</affiliation>
+						</author>
+						<author>
+							<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">Ronald</forename><forename type="middle">Haentjens</forename><surname>Dekker</surname></persName>
+							<email>ronald.dekker@huygens.knaw.nl</email>
+							<affiliation key="aff1">
+								<orgName type="institution">Huygens ING</orgName>
+								<address>
+									<country key="NL">The Netherlands</country>
+								</address>
+							</affiliation>
+						</author>
+						<author>
+							<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">Marijn</forename><surname>Koolen</surname></persName>
+							<email>marijn.koolen@huygens.knaw.nl</email>
+							<affiliation key="aff2">
+								<orgName type="institution">Huygens ING</orgName>
+								<address>
+									<country key="NL">The Netherlands</country>
+								</address>
+							</affiliation>
+						</author>
+						<author>
+							<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">Liliana</forename><surname>Melgar</surname></persName>
+							<email>melgar@uva.nl</email>
+							<affiliation key="aff3">
+								<orgName type="institution">University of Amsterdam</orgName>
+								<address>
+									<country key="NL">The Netherlands</country>
+								</address>
+							</affiliation>
+						</author>
+						<title level="a" type="main">Facilitating Fine-grained Open Annotations of Scholarly Sources</title>
+					</analytic>
+					<monogr>
+						<imprint>
+							<date/>
+						</imprint>
+					</monogr>
+				</biblStruct>
+			</sourceDesc>
+		</fileDesc>
+		<profileDesc>
+			<abstract/>
+		</profileDesc>
+	</teiHeader>
+	<text xml:lang="en">
+		<body>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Introduction</head><p>In the scholarly domain, annotation is a fundamental activity <ref type="bibr" target="#b14">(Unsworth, 2000</ref>). Current webbased annotation facilities enable a specific way of annotation (via note-taking, highlighting or commenting) which are useful when scholars are exploring or gathering an initial set of resources, but more sophisticated support is needed for detailed analysis, close reading, and data enrichment. At this point, it is important to take into account the structural relations between documents and their parts. For example, when annotating a letter, annotation tools should be aware that a targeted text fragment is the name of the sender, or that the annotation of a film targets the intellectual work instead of the specific version or copy on which the annotation is made.</p><p>In addition, many standalone tools use annotation models with idiosyncratic solutions to enable the relations between different media objects and their parts, which limits the possibilities to exchange those annotations . In general, there is a lack of necessary details for durable access to and interpretation of annotations. For this, detailed information is needed about the annotated object, the annotator and the annotation itself ( <ref type="bibr" target="#b5">Melgar et al. 2016</ref><ref type="bibr">, Walkowski &amp; Barker, 2010</ref>. In this paper we focus on the requirements for the annotated object, in a web-based environment, and propose a method for making necessary details of objects openly available for any annotation tool.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Requirements of scholarly annotation</head><p>In line with (W3C 2017b) we refer to the object that is annotated as the annotation target, the content of the annotation as the annotation body and who or what creates the annotation as the annotation creator. All three are complex entities with aspects that have consequences for interpreting an annotation <ref type="bibr" target="#b5">(Melgar et al., 2016)</ref>.</p><p>Annotation Creator: With respect to the creator it is important to know the intention/motivation for making the annotation <ref type="bibr">(Walkowski &amp; Barker, 2010)</ref> and when sharing and reusing annotations, their level of expertise, both in terms of the scholarly domain and in the nature of the annotation task (e.g. the amount of experience/expertise of the annotator in classifying objects according to a controlled vocabulary).</p><p>Annotation target: of the target it is important to know which part of the object is targeted. This is not merely about addressing media fragments. Media (e.g., html, mp3, jpg) are carriers of abstract information objects (scenes in movies, chapters in books, objects in pictures) with different conceptual levels (e.g. work, expression or manifestation , see <ref type="figure" target="#fig_0">Figure 1</ref>) and it is essential to be able to address those abstract objects and the relationships between them.</p><p>Annotation body: Of the content of the annotation it is important to know its nature (a natural language comment, structural or subject metadata, a link to another resource), in what form it is made (e.g. closed representation or natural language representation), at what level of control (from mostly uncontrolled to strictly controlled and structured) and for what scholarly purpose, e.g. gathering or exploring sources or thematic or stylistic analysis ( <ref type="bibr" target="#b6">Melgar et al., 2017</ref>).</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>State of the Art</head><p>There are various models for capturing digital annotations to make them accessible and interpretable. The Web Annotation Data <ref type="bibr">Model (W3C 2017a</ref><ref type="bibr">Model (W3C , 2017b</ref>) is a generic model that covers aspects of the annotation body, target and creator. This model focuses on annotations in the context of online social interaction (e.g., commenting, sharing), not necessarily on scholarly annotations done during analysis or data enrichment .</p><p>An extended model specifically for scholarly research was proposed by <ref type="bibr">Hunter et al. (2011)</ref>, which includes context aspects for both the annotation body and target. The Annotating All Knowledge Coalition is also directed at scholarly annotation and lists several issues, including:</p><p>1. The lack of support for discovery, sharing and reuse of annotations. 2. Underutilization of collections. 3. The closed and non-standardized nature of current annotation tools. Current annotation support is either part of a suite of functionalities in monolithic applications with their own models for annotation (e.g. TextGrid , Textual Communities , eLaborate , CATMA for text,Elan and Anvil for multimedia materials, and QDA software packages for mixed media qualitative data analysis), or they lack specificity in describing the annotation target, e.g. Hypothes.is <ref type="bibr" target="#b7">(Perkel, 2015)</ref> and Pundit ( <ref type="bibr" target="#b3">Grassi et al., 2012</ref>) and site-specific annotation tools, e.g. in The Diary of Samuel Pepys). Building on earlier work ( <ref type="bibr" target="#b5">Melgar et al., 2016)</ref>, in this paper we argue the need for application support for more specificity of the annotation target (see <ref type="figure" target="#fig_0">Figure 1</ref>). We identify two additional issues with the current state-of-the-art: 4. The W3C annotation protocol lacks support for a potential annotation target identifying and describing itself to the annotation tool. 5. The model also lacks a schema, which would allow scholars or website maintainers to define constraints for a specific class of annotations that is applicable in the context of a specific group of scholarly objects.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Use case: annotation in scholarly digital editions</head><p>These issues are illustrated by a scenario of a digital scholarly edition where scholars have a need for annotation support <ref type="bibr" target="#b1">(Boot, 2009</ref><ref type="bibr" target="#b9">, Robinson, 2004</ref><ref type="bibr" target="#b12">, Siemens et al., 2012</ref>. Consider an edition that wants to incorporate an external annotation tool into its pages ( <ref type="figure">Figure 2</ref>): an edition server shows an edition to a client in a browser. The annotation client runs within that same browser window, but doesn't know about the edition's structure and it talks with its own server. To communicate intelligently with the user, the annotation client needs information about the structure of the edition, which has to be provided by the edition.</p><p>The annotation tool should know about the edition's structure for a number of reasons:</p><p>• The edition often contains multiple representations of the same text fragment. There might be a diplomatic and a critical transcription, one or more translations, audio versions, and who knows what other versions, and annotations made in one of these should be available in others; • Other sites may have other editions of this particular text. It should be possible to exchange annotations between them; • The edition has an internal structure, e.g. a book divided in chapters, or the fragments appearing in modern authors' drafts, or the elaborate structure with multiple apparatuses of some editions of medieval texts. An annotation that refers to a specific component of an edition should be able to address that component and know what sort of component it is.</p><p>• The edition should be able to propose suitable annotation types for its components. For personal names, it might suggest an annotation type that links the person to an authority file. For transcriptions, there might be special annotation types for proposed corrections to the transcription. Edition collaboratories could use the annotation functionality to solicit multiple sorts of specialised information from its collaborators.</p><p>This proposal requires that: (i) the edition describes itself and its structure to the annotation tool, and provides suitable labels for the annotatable objects; (ii) the edition can suggest annotation types for the annotatable objects; (iii) the effort to integrate annotation functionality in existing editions is minimal; (iv) the annotation tool is generic, but able to handle the created annotations with awareness of the structure that they apply to (it can e.g. return aggregated annotations); (v) the annotation targets are durable and not formulated in terms of HTML structure; and (vi) URI's should be treated as opaque (i.e., we shouldn't try to guess the relations between the annotated components based on their URIs); and lastly (vii) URIs should be canonical.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Proposed Solution</head><p>We propose a solution similar to Schema.org (an initiative for adding structural semantics to information on the web) whereby descriptive information about annotatable resources is made accessible to the client by embedding it in the HTML presentation layer through RDFa attributes <ref type="figure" target="#fig_1">(Figure 3)</ref>, using an extensible resource descriptive ontology. <ref type="figure">Figure 4</ref> shows a basic ontology for text objects (left half of <ref type="figure">Figure 4</ref>) with an edition-specific extension for the example edition (right half of <ref type="figure">Figure 4</ref>). This ontology shares concepts with the FRBRoo ontology ( <ref type="bibr" target="#b0">Bekiari et al., 2015</ref>) but starts from specific annotation-related concepts. In future work we will investigate extending the ontology with FRBRoo concepts.</p><p>Although this approach is focused on annotation of resources on the web, the same principle could be applied in offline annotation, if the offline resources are described in a similar way and annotation clients are developed to make use of this. Also, descriptive information for textual sources can be embedded as markup, but for audiovisual documents, this has to be done via a separate representation, for instance using SMIL <ref type="bibr" target="#b2">(Bulterman et al., 2008)</ref>. </p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Methodological impact</head><p>In our proposal annotatable resources describe their own semantic structure, thereby facilitating finegrained annotations. With the RDFa attributes, annotation clients can identify the annotation target in terms of the resource structure (issue 4), which makes annotations less dependent on specific views on the underlying object. Furthermore, this allows development of lightweight open source annotation clients that web services can easily embed to bring annotation to collections of scholarly interest (issue 3).</p><p>This makes it easier for scholars to use and reuse annotations to support the argument made in a scholarly article (issue 1). It allows distinguishing different groups of annotations, so researchers can choose to display certain groups of annotations, thereby avoiding being drowned by irrelevant annotations (issue 5). It facilitates employing annotation functionality to ask for targeted comments on resource parts (what do you think of this translation? What clarification of this material are you missing?). Scholars can also more meaningfully combine and compare them across collections and media types, e.g. analyse the correspondence between book and film versions of an intellectual work (issue 2).</p><p>If the annotations are consistently stored using open protocols, it becomes possible to reference them in scholarly publications. Collateral benefit of floating this form of 'deep web' semantics to the surface is that other external services such as search engines can also use the exposed semantic information to reason about available resources.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Bibliography</head></div><figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_0"><head>Figure 1 .</head><label>1</label><figDesc>Figure 1. Conceptual model of annotated object (details of other parts of the model are left out for clarity)</figDesc><graphic url="image-1.png" coords="2,60.06,404.70,229.20,205.68" type="bitmap" /></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_1"><head>Figure 3 .</head><label>3</label><figDesc>Figure 3. HTML fragments of a letter of Vincent van Gogh (http://vangoghletters.org/orig/let633) described by embedded RDFa. The letter is identified by a URN (urn:vangogh:let633) and defined as a CreativeWork. It is part of a larger CreativeWork, Van Go</figDesc></figure>
+		</body>
+		<back>
+			<div type="references">
+
+				<listBibl>
+
+<biblStruct xml:id="b0">
+	<monogr>
+		<title level="m" type="main">FRBR, object-oriented definition and mapping from FRBRer, FRAD and FRSAD -International Working Group on FRBR and CIDOC CRM Harmonisation, Version 2.4</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">C</forename><surname>Bekiari</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">M</forename><surname>Doerr</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">P</forename><surname>Riva</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">Le</forename><surname>Boeuf</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">P</forename></persName>
+		</author>
+		<imprint>
+			<date type="published" when="2015-11" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b1">
+	<monogr>
+		<title level="m" type="main">Mesotext: digitised emblems, modelled annotations and humanities scholarship</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">P</forename><surname>Boot</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="2009" />
+			<publisher>Amsterdam University Press</publisher>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b2">
+	<monogr>
+		<title level="m" type="main">Synchronized Multimedia Integration Language. W3C Recommendation</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">D</forename><surname>Bulterman</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">J</forename><surname>Hansen</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">P</forename><surname>Cesar</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="2008-12-01" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b3">
+	<monogr>
+		<title level="m" type="main">Pundit: Semantically Structured Annotations for Web Contents and Digital Libraries</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">M</forename><surname>Grassi</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">C</forename><surname>Morbidoni</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">M</forename><surname>Nucci</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">S</forename><surname>Fonda</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">G</forename><surname>Ledda</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="2012" />
+		</imprint>
+	</monogr>
+	<note>SDA</note>
+</biblStruct>
+
+<biblStruct xml:id="b4">
+	<monogr>
+		<title level="m" type="main">The Open Annotation Collaboration: A Data Model to Support Sharing and Interoperability of Scholarly Annotations. Presented at the Digital Humanities</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">J</forename><surname>Hunter</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">T</forename><surname>Cole</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">R</forename><surname>Sanderson</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">H</forename><surname>Van De Sompel</surname></persName>
+		</author>
+		<ptr target="http://dh2010.cch.kcl.ac.uk/academic-programme/abstracts/papers/pdf/ab-860.pdf" />
+		<imprint>
+			<date type="published" when="2010" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b5">
+	<analytic>
+		<title level="a" type="main">A conceptual model for the annotation of audiovisual heritage in a media studies context. Presented at the AudioVisual Material in</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">L</forename><surname>Melgar</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">J</forename><surname>Blom</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">E</forename><surname>Baaren</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">M</forename><surname>Koolen</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">R</forename><surname>Ordelman</surname></persName>
+		</author>
+		<ptr target="https://avindhsig.wordpress.com/workshop-2016-krakow/accepted-abstracts/liliana-melgar-jaap-blom-eva-baaren-marijn-koolen-roeland-ordelman/" />
+	</analytic>
+	<monogr>
+		<title level="m">Digital Humanities 2016 workshop</title>
+		<meeting><address><addrLine>Krakow, Poland</addrLine></address></meeting>
+		<imprint>
+			<date type="published" when="2016" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b6">
+	<analytic>
+		<title level="a" type="main">A Process model of Scholarly Media Annotation</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">L</forename><surname>Melgar</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">M</forename><surname>Koolen</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">H</forename><forename type="middle">C</forename><surname>Huurdeman</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">J</forename><surname>Blom</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Proceedings of the 2017 ACM Conference on Human Information Interaction and Retrieval</title>
+		<meeting>the 2017 ACM Conference on Human Information Interaction and Retrieval<address><addrLine>Oslo, Norway</addrLine></address></meeting>
+		<imprint>
+			<date type="published" when="2017-03-07" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b7">
+	<analytic>
+		<title level="a" type="main">Annotating the scholarly web</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">J</forename><forename type="middle">M</forename><surname>Perkel</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Nature</title>
+		<imprint>
+			<biblScope unit="volume">528</biblScope>
+			<biblScope unit="page" from="153" to="154" />
+			<date type="published" when="2015" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b8">
+	<monogr>
+		<title level="m" type="main">QDA software compatibility: Towards an exchange format with developers for their users. Presented at the Reflecting on the future of QDA software</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">É</forename><surname>Rizkallah</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="2016" />
+			<pubPlace>Rotterdam, The Netherlands</pubPlace>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b9">
+	<analytic>
+		<title level="a" type="main">Where we are with electronic scholarly editions, and where we want to be</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">P</forename><surname>Robinson</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Jahrbuch für Computerphilologie Online</title>
+		<imprint>
+			<biblScope unit="volume">4</biblScope>
+			<biblScope unit="page" from="123" to="143" />
+			<date type="published" when="2004" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b10">
+	<monogr>
+		<title/>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">T</forename><surname>Schmidt</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">S</forename><surname>Duncan</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">O</forename><surname>Ehmer</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">J</forename><surname>Hoyt</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">M</forename><surname>Kipp</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">D</forename><surname>Loehr</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">M</forename><surname>Magnusson</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">T</forename><surname>Rose</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">H</forename><surname>Sloetjes</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="2008" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b11">
+	<analytic>
+		<title level="a" type="main">An Exchange Format for Multimodal Annotations</title>
+	</analytic>
+	<monogr>
+		<title level="m">Proceedings of the 6th International Conference on Language Resources and Evaluation (LREC 2008)</title>
+		<meeting>the 6th International Conference on Language Resources and Evaluation (LREC 2008)<address><addrLine>Marrakech</addrLine></address></meeting>
+		<imprint/>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b12">
+	<analytic>
+		<title level="a" type="main">Toward modeling the social edition: An approach to understanding the electronic scholarly edition in the context of new and emerging social media</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">Ray</forename><surname>Siemens</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">M</forename><surname>Timney</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">C</forename><surname>Leitch</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">C</forename><surname>Koolen</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">A</forename><surname>Garnett</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Literary and Linguistic Computing</title>
+		<imprint>
+			<biblScope unit="volume">27</biblScope>
+			<biblScope unit="page" from="445" to="461" />
+			<date type="published" when="2012" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b13">
+	<analytic>
+		<title level="a" type="main">ELAN: Multimedia Annotation Application</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">H</forename><surname>Sloetjes</surname></persName>
+		</author>
+		<idno type="doi">10.1093/oxfordhb/9780199571932.001.000</idno>
+		<ptr target="http://www.oxfordhandbooks.com.proxy.uba.uva.nl:2048/view/10.1093/oxfordhb/9780199571932.001.000" />
+	</analytic>
+	<monogr>
+		<title level="m">The Oxford Handbook of Corpus Phonology</title>
+		<imprint>
+			<date type="published" when="2014" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b14">
+	<analytic>
+		<title level="a" type="main">Scholarly Primitives: what methods do humanities researchers have in common, and how might our tools reflect this</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">J</forename><surname>Unsworth</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Humanities Computing: formal methods</title>
+		<meeting><address><addrLine>King&apos;s College, London</addrLine></address></meeting>
+		<imprint>
+			<date type="published" when="2000" />
+		</imprint>
+	</monogr>
+	<note>experimental practice symposium</note>
+</biblStruct>
+
+<biblStruct xml:id="b15">
+	<analytic>
+		<title level="a" type="main">Web Annotation Data Model. W3C Recommendation</title>
+	</analytic>
+	<monogr>
+		<title level="j">W3C</title>
+		<imprint>
+			<date type="published" when="2017-02-23" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b16">
+	<monogr>
+		<title level="m" type="main">Web Annotation Vocabulary. W3C Recommendation</title>
+		<ptr target="https://www.w3.org/TR/annotation-model/W3C" />
+		<imprint>
+			<date type="published" when="2017-02-23" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b17">
+	<monogr>
+		<title level="m" type="main">Digital Humanists are Motivated Annotators. Presented at the Digital Humanities</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">N-O</forename><surname>Walkowski</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">E</forename><forename type="middle">T E</forename><surname>Barker</surname></persName>
+		</author>
+		<ptr target="http://dharchive.org/paper/DH2014/Paper-296.xml" />
+		<imprint>
+			<date type="published" when="2014" />
+			<pubPlace>Lausanne, Switzerland</pubPlace>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+				</listBibl>
+			</div>
+		</back>
+	</text>
+</TEI>

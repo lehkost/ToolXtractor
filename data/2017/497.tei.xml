@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xsi:schemaLocation="http://www.tei-c.org/ns/1.0 /Users/yoann/Work/Grobid/grobid-home/schemas/xsd/Grobid.xsd"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+	<teiHeader xml:lang="en">
+		<encodingDesc>
+			<appInfo>
+				<application version="0.5.4-SNAPSHOT" ident="GROBID" when="2019-06-05T06:35+0000">
+					<ref target="https://github.com/kermitt2/grobid">GROBID - A machine learning software for extracting information from scholarly documents</ref>
+				</application>
+			</appInfo>
+		</encodingDesc>
+		<fileDesc>
+			<titleStmt>
+				<title level="a" type="main">Stable Random Projection: Standardized universal dimensionality reduction for library-scale data</title>
+			</titleStmt>
+			<publicationStmt>
+				<publisher/>
+				<availability status="unknown"><licence/></availability>
+			</publicationStmt>
+			<sourceDesc>
+				<biblStruct>
+					<analytic>
+						<author role="corresp">
+							<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">Benjamin</forename><surname>Schmidt</surname></persName>
+							<email>bmschmidt@gmail.com</email>
+							<affiliation key="aff0">
+								<orgName type="institution">Northeastern University</orgName>
+								<address>
+									<country>United States of America</country>
+								</address>
+							</affiliation>
+						</author>
+						<title level="a" type="main">Stable Random Projection: Standardized universal dimensionality reduction for library-scale data</title>
+					</analytic>
+					<monogr>
+						<imprint>
+							<date/>
+						</imprint>
+					</monogr>
+				</biblStruct>
+			</sourceDesc>
+		</fileDesc>
+		<profileDesc>
+			<abstract>
+				<p>This paper describes a new method for dimension-ality reduction, &quot;stable random projection,&quot; (hereafter &quot;SRP&quot;) distinctly suited for large textual corpora like those used in the digital humanities. The method is computationally efficient and easily parallelizable; scales to the largest digital libraries; and creates a standard dimensionality reduction space for all texts so that corpora and models can be easily exchanged. The resulting space makes a wide variety of applications suitable to bag-of-words data, such as nearest neighbor searches, classification, and semantic querying possible with data sets an order of magnitude smaller in size than traditional feature counts. SRP is a minimal, universal dimensionality reduction with two distinctive features: 1. It makes no distinction between in-and out-of-domain vocabularies. In particular, unlike standard di-mensionality reduction it creates a single space that can hold documents of any language. 2. It is trivially parallelizable, both on a local machine and through web-based architectures because it relies only on code that can be easily transferred across servers, rather than requiring large matrices or model parameters. These two features allow dimensionality reduction to be conceived of as a piece of infrastructure for digital humanities work, rather than just an ad-hoc convention used in a particular project. This method is particularly useful for provisioners and users of text data on extremely large and/or multilingual corpora. This creates a number of new applications for dimen-sionality reduction, both in scale and in type. SRP features could usefully be distributed by libraries as a (much smaller and easier to work with) supplement to feature counts. After a description of the method, some novel uses for dimensionality reduction on such libraries are shown using a sharable dataset of approximately 4,500,000 books projected into SRP-space from the Hathi Trust.</p>
+			</abstract>
+		</profileDesc>
+	</teiHeader>
+	<text xml:lang="en">
+		<body>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Summary</head><p>This paper describes a new method for dimensionality reduction, "stable random projection," (hereafter "SRP") distinctly suited for large textual corpora like those used in the digital humanities. The method is computationally efficient and easily parallelizable; scales to the largest digital libraries; and creates a standard dimensionality reduction space for all texts so that corpora and models can be easily exchanged. The resulting space makes a wide variety of applications suitable to bag-of-words data, such as nearest neighbor searches, classification, and semantic querying possible with data sets an order of magnitude smaller in size than traditional feature counts.</p><p>SRP is a minimal, universal dimensionality reduction with two distinctive features:</p><p>1. It makes no distinction between in- and out-ofdomain vocabularies. In particular, unlike standard dimensionality reduction it creates a single space that can hold documents of any language.</p><p>2. It is trivially parallelizable, both on a local machine and through web-based architectures because it relies only on code that can be easily transferred across servers, rather than requiring large matrices or model parameters.</p><p>These two features allow dimensionality reduction to be conceived of as a piece of infrastructure for digital humanities work, rather than just an ad-hoc convention used in a particular project. This method is particularly useful for provisioners and users of text data on extremely large and/or multilingual corpora. This creates a number of new applications for dimensionality reduction, both in scale and in type. SRP features could usefully be distributed by libraries as a (much smaller and easier to work with) supplement to feature counts. After a description of the method, some novel uses for dimensionality reduction on such libraries are shown using a sharable dataset of approximately 4,500,000 books projected into SRP-space from the Hathi Trust.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Description of the method</head><p>The goal of SRP is to reduce of text of uncertain length to a much smaller fixed- length vector to which the many tools of textual analysis, machine learning, and linear algebra can be applied. The core technique used here for dimensionality reduction is random projection. Random matrix theory has emerged in the past few decades as an useful alternative to more computationally complex forms of dimensionality reduction.(Halko, Martinsson, and Tropp 2009) I make use here of the observation that it is possible to project into a space where points as determined purely by sampling randomly from the set [-1,1].(Achlioptas 2003) A true random number generator is not suitable for reproduction. The other core element of SRP, therefore, is a quasi-random projection for every individual word created using cryptographic hashes (specifically, SHA-1).</p><p>This allows the method to be defined algorithmically, making it easy to apply to any text. I have written short code libraries to implement the transformation in the three most important language for DH tool development: Python, R, and Javascript. These include a few necessary additional conventions such as minimal tokenization rules, a method for expanding beyond the 160 dimensions provided by SHA, and the byte-encoding of the Unicode character sets.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Comparison to existing methods</head><p>The gold standard for dimensionality reduction are techniques that make use of co-occurrences in the term-document matrix such as latent semantic indexing and independent components analysis. More recent techniques such as semantic hashing can be even faster and more efficient at optimally organizing documents in various types of vector spaces designed especially for particular documents.(Salakhutdinov and Hinton 2009) Another strategy finding recent use in the digital humanities is using an LDA topic model as dimensionality reduction, which produces neatly interpretable dimensions for analysis <ref type="bibr" target="#b6">(Schöch, 2016;</ref><ref type="bibr">Fitzgerald,2016)</ref>. In both the digital humanities and computer science, scholars frequently use "top-N" words as a good enough approximation of the textual footprint, limiting the dimensions to a few hundred of the most common words in the corpus, producing what Maciej Eder has called "endless discussions of how many frequent words or n-grams should be taken into account" for stylometry.( <ref type="bibr" target="#b7">Underwood 2014</ref><ref type="bibr" target="#b2">, Eder (2015</ref>) These methods suffer two problems that make them problematic as a general-use feature reduction. First, the better ones are computationally complex, and quite difficult to perform on a very large corpus. Second, it is difficult or impossible to project out-of-domain documents into the space from a standard projection if they contain vocabulary different than the training corpus. This out-of-domain problem presents a particularly great problem for multilingual corpora, because texts that are missing or in sparsely-represented languages will behave erratically in the new environment.</p><p>Some other work in the digital humanities and computer science has used hashes, random projection, and other similar methods as an ad-hoc rather than infrastructural technique. SRP can be thought of as a particular species of locality-sensitive hashing, another version of which has been used by Douglas Duhaime to identify reuse in poetic texts based on three-letter phrases.(Duhaime 2016). Also related is the "hashing trick" in computer science( <ref type="bibr" target="#b9">Weinberger et al. 2009</ref>), which is better than SRP in many ways for the short documents computer scientists frequently study, but takes significantly more memory to store for booklength documents (an edge case in the computer science literature, but among the most important for humanists).</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Applications</head><p>This reduced space can be put to many of the same uses as a standard bag-of- words model in considerably less space and with the potential for building web facing tools. Among those to be described are:</p><p>1. Duplicate detection. SRP is quite accurate at identifying duplicate books in a computationally tractable space using cosine similarity, both inside a corpus and across disparate corpora. 2. Similarity Search. A prototype web page allows any user to paste in any text; it will hashed on the client side into the standard space, and a server can return in a few seconds the most similar documents. The top entries can function for duplicate detection; the lower ones presenting interesting opportunities for exploratory analysis. A search for Huckleberry Finn, for example, finds a large number of other American adventure novels about boys in the American west.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="3.">Classification</head><p>• SRP features perform approximately as well as top-n words (~77%) on a pre-existing task described by Ted Underwood, separating high- from low-prestige poetry.(Underwood 2015)</p><p>• A single hidden layer neural network trained with 640-dimensional SRP features can accurately classify a held-out sample of books into one of 225 Library of Congress Classification subclasses (for example, whether a work is PR: British Literature or PS: American Literature) with ~78% accuracy based on about 1 million training examples. A single classifier works in multiple languages simultaneously; its determinations on arbitrary pasted text are accessible for inspection through a web site.</p><p>• A different single hidden layer neural network trained with SRP features and a novel encoding scheme for years using Google's TensorFlow framework can accurately predict the years for withheld books with a median error of four years from the true publication date.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>SRP as Access</head><p>SRP fits in the DH2017's theme of "Access" in two ways.</p><p>First, it makes many forms of text analysis on huge digital libraries far more feasible for scholars without access to high performance computing resources. On large corpora, data storage and dimensionality reduction can be more resource-intensive than the actual analysis. The dimensionality-reduced dataset for the full Hathi Trust corpus can fit into 10 GB, easily storable on most computers; subsets are suitable for use in classroom or workshop settings.</p><p>Second, the ease with which it works with distributed web architectures, and its language agnosticism, can create new routes into neglected portions of large archives, particularly those with insufficient metadata.</p></div>		</body>
+		<back>
+
+			<div type="acknowledgement">
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Bibliography</head><p>Achlioptas, D. <ref type="bibr">(2003)</ref>. "Database-Friendly Random Projections: Johnson- Lindenstrauss with Binary Coins." Journal</p></div>
+			</div>
+
+			<div type="references">
+
+				<listBibl>
+
+<biblStruct xml:id="b0">
+	<analytic>
+		<title/>
+		<idno type="doi">doi:10.1016/S0022-0000(03</idno>
+	</analytic>
+	<monogr>
+		<title level="j">Computer and System Sciences, Special issue on PODS</title>
+		<imprint>
+			<biblScope unit="volume">66</biblScope>
+			<biblScope unit="issue">4</biblScope>
+			<biblScope unit="page" from="25" to="29" />
+			<date type="published" when="2001" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b1">
+	<monogr>
+		<title level="m" type="main">Plagiary Poets. Plagiary Poets</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">D</forename><surname>Duhaime</surname></persName>
+		</author>
+		<ptr target="http://plagiarypoets.io/" />
+		<imprint>
+			<date type="published" when="2016" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b2">
+	<analytic>
+		<title level="a" type="main">Visualization in Stylometry: Cluster Analysis Using Networks</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">M</forename><surname>Eder</surname></persName>
+		</author>
+		<idno type="doi">doi:10.1093/llc/fqv061</idno>
+	</analytic>
+	<monogr>
+		<title level="m">Digital Scholarship in the Humanities</title>
+		<imprint>
+			<date type="published" when="2015-11" />
+			<biblScope unit="page">61</biblScope>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b3">
+	<monogr>
+		<title level="m" type="main">What Made the Front Page in the 19th Century?: Computationally Classifying Genre in &apos;Viral Texts</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">J</forename><forename type="middle">D</forename><surname>Fitzgerald</surname></persName>
+		</author>
+		<ptr target="http://jonathandfitzger-ald.com/blog/2016/07/13/keystone-paper.html" />
+		<imprint>
+			<date type="published" when="2016-07-13" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b4">
+	<monogr>
+				<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">N</forename><surname>Halko</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">P.-G</forename><surname>Martinsson</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">J</forename><forename type="middle">A</forename><surname>Tropp</surname></persName>
+		</author>
+		<idno type="arXiv">arXiv:0909.4061</idno>
+		<ptr target="http://arxiv.org/abs/0909.4061" />
+		<title level="m">Finding Structure with Randomness: Probabilistic Algorithms for Constructing Ap- proximate Matrix Decompositions</title>
+		<imprint>
+			<date type="published" when="2009" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b5">
+	<monogr>
+		<title level="m" type="main">International Journal of Approximate Reasoning, Special section on graphical models and information retrieval</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">R</forename><surname>Salakhutdinov</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">G</forename><surname>Hinton</surname></persName>
+		</author>
+		<idno type="doi">doi:10.1016/j.ijar.2008.11.006</idno>
+		<imprint>
+			<date type="published" when="2009" />
+			<biblScope unit="volume">50</biblScope>
+			<biblScope unit="page" from="969" to="78" />
+		</imprint>
+	</monogr>
+	<note>Semantic Hashing</note>
+</biblStruct>
+
+<biblStruct xml:id="b6">
+	<monogr>
+		<title level="m" type="main">Topic Modeling Genre: An Exploration of French Classical and Enlightenment Drama</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">C</forename><surname>Schöch</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="2016" />
+		</imprint>
+	</monogr>
+	<note>pre-publication). Digital Humanities Quarterly</note>
+</biblStruct>
+
+<biblStruct xml:id="b7">
+	<monogr>
+		<title level="m" type="main">Understanding Genre in a Collection of a Million Volumes</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">T</forename><surname>Underwood</surname></persName>
+		</author>
+		<ptr target="http://figshare.com/articles/Understanding_Genre_in_a_Collection_of_a_Million_Volumes_Interim_Re-port/1281251" />
+		<imprint>
+			<date type="published" when="2014" />
+		</imprint>
+	</monogr>
+<note type="report_type">Interim Report</note>
+</biblStruct>
+
+<biblStruct xml:id="b8">
+	<analytic>
+		<title level="a" type="main">The Literary Uses of High-Dimensional Space</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">T</forename><surname>Underwood</surname></persName>
+		</author>
+		<idno type="doi">doi:10.1177/2053951715602494</idno>
+	</analytic>
+	<monogr>
+		<title level="j">Big Data &amp; Society</title>
+		<imprint>
+			<biblScope unit="volume">2</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<biblScope unit="page">2053951715602494</biblScope>
+			<date type="published" when="2015" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b9">
+	<analytic>
+		<title level="a" type="main">Feature Hashing for Large Scale Multitask Learning</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">K</forename><surname>Weinberger</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">A</forename><surname>Dasgupta</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">J</forename><surname>Langford</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">A</forename><surname>Smola</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">Attenberg</forename></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">J</forename></persName>
+		</author>
+		<idno type="doi">doi:10.1145/1553374.1553516</idno>
+	</analytic>
+	<monogr>
+		<title level="m">Proceedings of the 26th Annual International Conference on Machine Learning</title>
+		<meeting>the 26th Annual International Conference on Machine Learning<address><addrLine>New York, NY, USA</addrLine></address></meeting>
+		<imprint>
+			<publisher>ACM</publisher>
+			<date type="published" when="2009" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+				</listBibl>
+			</div>
+		</back>
+	</text>
+</TEI>

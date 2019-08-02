@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xsi:schemaLocation="http://www.tei-c.org/ns/1.0 /Users/yoann/Work/Grobid/grobid-home/schemas/xsd/Grobid.xsd"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+	<teiHeader xml:lang="en">
+		<encodingDesc>
+			<appInfo>
+				<application version="0.5.4-SNAPSHOT" ident="GROBID" when="2019-06-05T06:29+0000">
+					<ref target="https://github.com/kermitt2/grobid">GROBID - A machine learning software for extracting information from scholarly documents</ref>
+				</application>
+			</appInfo>
+		</encodingDesc>
+		<fileDesc>
+			<titleStmt>
+				<title level="a" type="main">Annotonia: Annotations from Browser to TEI</title>
+			</titleStmt>
+			<publicationStmt>
+				<publisher/>
+				<availability status="unknown"><licence/></availability>
+			</publicationStmt>
+			<sourceDesc>
+				<biblStruct>
+					<analytic>
+						<author>
+							<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">Greg</forename><surname>Tunink</surname></persName>
+							<affiliation key="aff0">
+								<orgName type="laboratory" key="lab1">University of Nebraska-Lincoln Libraries United States of America</orgName>
+								<orgName type="laboratory" key="lab2">University of Nebraska-Lincoln Libraries United States of America</orgName>
+								<orgName type="institution">University of Nebraska-Lincoln Libraries United States of America</orgName>
+							</affiliation>
+						</author>
+						<author>
+							<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">Karin</forename><surname>Dalziel</surname></persName>
+							<email>kdalziel2@unl.edu</email>
+							<affiliation key="aff0">
+								<orgName type="laboratory" key="lab1">University of Nebraska-Lincoln Libraries United States of America</orgName>
+								<orgName type="laboratory" key="lab2">University of Nebraska-Lincoln Libraries United States of America</orgName>
+								<orgName type="institution">University of Nebraska-Lincoln Libraries United States of America</orgName>
+							</affiliation>
+						</author>
+						<author>
+							<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">Jessica</forename><surname>Dussault</surname></persName>
+							<email>jdussault@unl.edu</email>
+							<affiliation key="aff0">
+								<orgName type="laboratory" key="lab1">University of Nebraska-Lincoln Libraries United States of America</orgName>
+								<orgName type="laboratory" key="lab2">University of Nebraska-Lincoln Libraries United States of America</orgName>
+								<orgName type="institution">University of Nebraska-Lincoln Libraries United States of America</orgName>
+							</affiliation>
+						</author>
+						<author>
+							<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">Emily</forename><forename type="middle">J</forename><surname>Rau</surname></persName>
+							<affiliation key="aff0">
+								<orgName type="laboratory" key="lab1">University of Nebraska-Lincoln Libraries United States of America</orgName>
+								<orgName type="laboratory" key="lab2">University of Nebraska-Lincoln Libraries United States of America</orgName>
+								<orgName type="institution">University of Nebraska-Lincoln Libraries United States of America</orgName>
+							</affiliation>
+						</author>
+						<title level="a" type="main">Annotonia: Annotations from Browser to TEI</title>
+					</analytic>
+					<monogr>
+						<imprint>
+							<date/>
+						</imprint>
+					</monogr>
+					<note>University of Nebraska-Lincoln Libraries United States of America</note>
+				</biblStruct>
+			</sourceDesc>
+		</fileDesc>
+		<profileDesc>
+			<abstract/>
+		</profileDesc>
+	</teiHeader>
+	<text xml:lang="en">
+		<body>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Introduction</head><p>The Willa Cather Archive (WCA) at the University of Nebraska-Lincoln (UNL) is currently working on transcription and annotation of 1500 letters to be released in 2018. As editors will write several thousand annotations, the workflow logistics are complicated. Annotonia ( a portmanteau of "annotation" and My Ántonia, a 1918 Willa Cather novel ) is a solution developed within the Center for Digital Research in Humanities (CDRH) that allows editors to write annotations directly on letters in a browser and insert those annotations into Text Encoding Initiative (TEI) XML files. Multiple editors review annotations, track letters' annotation statuses, and generate a new TEI file incorporating the annotations, avoiding having to manually edit each file. Annotonia utilizes both pre-existing, customized open source software and new software developed for this project. This paper describes the difficulties faced, the workflow of Annotonia, and its prospects for future annotation work.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>The challenge</head><p>The Complete Letters of Willa Cather is a National Endowment for the Humanities-funded project to publish a digital, fully annotated edition of the letters of Willa Cather, a 20th century American novelist. The project includes student editorial assistants, staff, and faculty both at UNL and working remotely. Because of differences in locale, technical abilities, and Cather-related expertise, a solution was sought for drafting, revising, and encoding letter-specific annotations that would fit the skillsets of all collaborators.</p><p>The WCA has two types of annotations: authority files and letter-specific information. Editors skilled with TEI XML curate and encode people, places, and works shared across the corpus into authority files. Letter-specific annotations are more challenging to manage as they are written by a wider group of scholars, many unfamiliar with encoding XML. Editors previously used a cumbersome process of pasting documents into Word files, sharing them for annotation, and laboriously copying received annotations back into the XML. This tedious process introduced errors and was deemed unsustainable for the large number of anticipated letter-specific annotations.</p><p>With these difficulties in mind, WCA editors collaborated with CDRH developers to envision tools that would allow viewing the content of letters with all associated materials; writing letter-specific annotations that might include images, links, or other materials; and exporting finalized versions of these annotations as TEI XML. Editors also identified the need to view annotations that had already been written so information contained in them would not be repeated.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Project requirements</head><p>• Display letters via HTML with existing controlled vocabulary annotations for people, places, and works.</p><p>• Provide an interface where editors can browse, edit, approve, and flag annotations.</p><p>• Export annotations to their preservation format, TEI P5 XML.</p><p>• Insert &lt;ref&gt; tags into the TEI XML corresponding to ID's in the annotation file above.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Existing software review</head><p>Before building Annotonia, we looked at existing technologies and methods for annotating HTML. Webbased annotation is not a new concept, by any means. The value of annotating HTML has long been recognized for its collaborative strengths, allowing users to identify errors, review, comment on, and bookmark documents (W3C Digital Publishing Interest <ref type="bibr">Group, 2014</ref>). The W3C currently has a Web Annotation Working Group dedicated to creating specifications for "interoperable, sharable, distributed Web annotation architecture" (W3C Web Annotation Working <ref type="bibr">Group, 2017;</ref><ref type="bibr">Web Annotation Data Model, 2017)</ref>.</p><p>Most annotation software reviewed was not suitable for the project. Many existing solutions (such as Annotation Studio, Recogito2, and Editor's Notes) did not allow in place annotation, instead requiring one to upload documents to their system. This would strip out the existing annotations, making work more difficult for editors. Some (such as PundIT) were not fully open source. Others (Such as Hypothes.is) were developed for public input and would require stripping out many features for our needs. Other problems encountered included installation roadblocks, lack of maintenance, and poor documentation. Importantly, our requirement of exporting annotations and embedding them into TEI documents was not supported by any existing systems.</p><p>With these considerations, programmers chose to work with Annotator and its back end complement, Annotator Store, because the software interacts through an API and uses XPaths for pinpointing annotations' locations <ref type="bibr">(Open Knowledge Foundation, 2016a;</ref><ref type="bibr" target="#b2">2016b)</ref>. Annotator proved to be easy to install and extend with community plugins, such as rich text editing, keyword tagging, and filtering. Annotator Store's use of Elasticsearch reinforced the decision to use it, as Elasticsearch is widely used and receives generous community development and support. Annotator deals only with the annotation part of the requirement and not categorizing or workflow, which had to be developed in-house.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Annotonia: the solution</head><p>The first step was simply to display the letters' TEI XML in a browser in a way that minimally rearranged the structure of the documents. TEI Boilerplate uses browser XSLT capabilities to create an HTML/TEI hybrid representation of TEI documents with small alterations for links, images, and other elements ( <ref type="bibr">Walsh et al. 2013</ref>). Boilerplate was therefore useful for constructing HTML from documents, while allowing for TEI files to be added and removed quickly from the site structure and workflow. In order to be able to annotate the documents displayed using TEI Boilerplate, programmers embedded Annotator in the web page and modified it so it had suitable options for the WCA editors. These included stripping out some of the text editing capabilities and adding workflow-specific options. Annotator does not include an interface for searching, browsing, and editing all of the annotations from the Annotator Store. PHP pages were written to provide these capabilities. The last requirement for Annotonia was a conversion script that inserts annotation references into TEI documents while exporting an authority file containing the annotations. The conversion script takes a subset of XML files, queries the Annotator Store API, adds tags for annotations based on XPaths, and outputs a list of possibly incorrect insertions that require review.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Use and extension</head><p>The collection of new scripts and open source software comprising Annotonia has been able to handle the workflow requirements of the WCA's letter annotations, though there is room for improvement. The areas that require the most attention are the rendering of TEI in HTML and the scripted editing of TEI files. TEI Boilerplate necessarily alters the TEI in order to mimic the behavior of HTML links and images, which means that occasionally the location of an annotation in the HTML view is difficult to match up programmatically due to differing XPaths.</p><p>A new alternative to Boilerplate, CETEIcean, which promises to preserve "the full structure and information from your TEI data model," may be one possibility to address this problem <ref type="bibr" target="#b0">(Cayless and Viglianti, 2016)</ref>. Programmers would need to evaluate how easily it can be incorporated into the Annotonia workflow, as well as the ability to load the Annotator JavaScript libraries in the page.</p><p>Some aspects of the Annotonia code base are tailored for use only with TEI Boilerplate display and WCA file naming conventions. These functions would have to be generalized to make Annotonia easier to integrate with other tools and projects. Meanwhile, the Annotator community continues to improve the software. A new version is forthcoming which includes modifications to enhance the experience of creating, saving, and updating the highlighting of HTML content. When this version of Annotator is released, it may require some reworking of existing customizations, but updating Annotonia to incorporate its new features will support a broader variety of projects.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Reception</head><p>The WCA began using Annotonia in September 2016. Guidelines and instructional videos demonstrating Annotonia's functions have alleviated difficulties from the varying technical skills of editors. Although still in the beginning stages of annotating individual letters, the tool works well for collaborating on, drafting, and revising annotations. Editors have estimated that each annotation automatically handled saves around 5 minutes of time, so the potential time savings is several months of work. Through an iterative process, improvements have been added as users uncover inefficiencies and provide feedback. By 2018, several thousand annotations will be created with Annotonia and published with the complete letters on the WCA.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Further applications</head><p>A frequent difficulty for digital archival projects is efficiently proofreading and annotating texts. In the CDRH, these workflows on other projects resemble the WCA's old process of marking up Word documents, or, worse yet, printing out entire websites and annotating by hand. Designing solutions by combining open source software with well documented, configurable scripts and workflows has proven to be effective in providing flexibility to cover a variety of needs. As we apply this method to extending and generalizing Annotonia for other projects like the Walt Whitman Archive and The William F. Cody Archive, we will further refine deployment and documentation.</p><p>The PHP and conversion components of Annotonia have been published ("Annotonia Status" and "Annotonia Converter", and the customized pieces of existing software will be published soon. Full publication of Annotonia will involve further documentation and testing. It is the hope of the Annotonia team that this tool will not only prove to be useful internally, but will provide inspiration to other text based editions seeking to automate annotation processes.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Bibliography</head></div><figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_0"><head>Figure 1 :</head><label>1</label><figDesc>Figure 1: The Annotonia workflow for a single batch of letters</figDesc><graphic url="image-1.png" coords="2,318.78,74.22,233.04,155.28" type="bitmap" /></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_1"><head>Figure 2 :</head><label>2</label><figDesc>Figure 2: An example of creating and categorizing an annotation with Annotonia</figDesc><graphic url="image-2.png" coords="2,328.62,353.10,217.68,90.24" type="bitmap" /></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_2"><head>Figure 3 :</head><label>3</label><figDesc>Figure 3: Annotation review page including an annotation with an image and a referenced annotation</figDesc><graphic url="image-4.png" coords="3,68.46,72.30,229.44,185.28" type="bitmap" /></figure>
+		</body>
+		<back>
+			<div type="references">
+
+				<listBibl>
+
+<biblStruct xml:id="b0">
+	<monogr>
+		<title level="m" type="main">TEIC/CETEIcean</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">H</forename><forename type="middle">A</forename><surname>Cayless</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">R</forename><surname>Viglianti</surname></persName>
+		</author>
+		<ptr target="https://github.com/TEIC/CETEIcean(accessed19" />
+		<imprint>
+			<date type="published" when="2016-10" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b1">
+	<analytic>
+		<title level="a" type="main">Annotator - Annotating the Web</title>
+		<ptr target="http://annotatorjs.org/" />
+	</analytic>
+	<monogr>
+		<title level="m">Open Knowledge Foundation</title>
+		<imprint>
+			<date type="published" when="2016-10" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b2">
+	<analytic>
+		<title level="a" type="main">Annotator-Store</title>
+		<ptr target="https://github.com/openannotation/annotator-store" />
+	</analytic>
+	<monogr>
+		<title level="m">Open Knowledge Foundation</title>
+		<imprint>
+			<date type="published" when="2016-10" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b3">
+	<monogr>
+		<title level="m" type="main">Annotation Use Cases</title>
+		<ptr target="http://www.openannotation.org/usecases.html" />
+		<imprint>
+			<date type="published" when="2014-03-03" />
+		</imprint>
+		<respStmt>
+			<orgName>W3C Digital Publishing Interest Group and Open Annotation Community Group</orgName>
+		</respStmt>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b4">
+	<monogr>
+		<title level="m" type="main">Web Annotation Data Model</title>
+		<ptr target="https://www.w3.org/TR/annota-tion-model/" />
+		<imprint>
+			<date type="published" when="2017-02-23" />
+		</imprint>
+		<respStmt>
+			<orgName>Web Annotation Working Group</orgName>
+		</respStmt>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b5">
+	<analytic>
+		<title level="a" type="main">W3C Web Annotation Working Group</title>
+		<ptr target="https://www.w3.org/an-notation/(accessedOctober11" />
+	</analytic>
+	<monogr>
+		<title level="j">Web Annotation Working Group</title>
+		<imprint>
+			<date type="published" when="2016" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b6">
+	<monogr>
+		<title level="m" type="main">TEI Boilerplate</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">J</forename><surname>Walsh</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">G</forename><surname>Simpson</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">S</forename><surname>Moaddeli</surname></persName>
+		</author>
+		<ptr target="http://dcl.ils.indiana.edu/teibp/(accessed19" />
+		<imprint>
+			<date type="published" when="2016-10" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b7">
+	<monogr>
+		<title level="m" type="main">Github Organization</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">Willa</forename><surname>Cather Archive</surname></persName>
+		</author>
+		<ptr target="https://github.com/Willa-Cather-Archive" />
+		<imprint>
+			<date type="published" when="2016-10-19" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+				</listBibl>
+			</div>
+		</back>
+	</text>
+</TEI>

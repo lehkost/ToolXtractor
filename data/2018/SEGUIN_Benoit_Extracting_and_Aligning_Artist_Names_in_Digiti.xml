@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>Extracting and Aligning Artist Names in Digitized Art Historical Archives</title>
+                <author>
+                    <persName>
+                        <surname>Seguin</surname>
+                        <forename>Benoit</forename>
+                    </persName>
+                    <affiliation>EPFL, Switzerland</affiliation>
+                    <email>benoit.seguin@epfl.ch</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Costiner</surname>
+                        <forename>Lia</forename>
+                    </persName>
+                    <affiliation>EPFL, Switzerland</affiliation>
+                    <email>lia.costiner@epfl.ch</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>di Lenardo</surname>
+                        <forename>Isabella</forename>
+                    </persName>
+                    <affiliation>EPFL, Switzerland</affiliation>
+                    <email>isabella.dilenardo@epfl.ch</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Kaplan</surname>
+                        <forename>Frédéric</forename>
+                    </persName>
+                    <affiliation>EPFL, Switzerland</affiliation>
+                    <email>frederic.kaplan@epfl.ch</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2018-04-27T13:59:00Z</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Name, Institution</publisher>
+                <address>
+                    <addrLine>Street</addrLine>
+                    <addrLine>City</addrLine>
+                    <addrLine>Country</addrLine>
+                    <addrLine>Name</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from a Word document</p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.22">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Short Paper (was submitted as Long Paper)</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>Large scale digitization</term>
+                    <term>Metadata extraction</term>
+                    <term>Record linkage</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>art and art history</term>
+                    <term>image processing</term>
+                    <term>digitisation</term>
+                    <term>resource creation</term>
+                    <term>and discovery</term>
+                    <term>linking and annotation</term>
+                    <term>English</term>
+                    <term>computer science</term>
+                    <term>library &amp; information science</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <p>The largest collections of art historical images are not found online but are safeguarded by museums and other cultural institutions in photographic libraries. These collections can encompass millions of reproductions of paintings, drawings, engravings and sculptures. The 14 largest institutions hold together an estimated 31 million images (Pharos). Manual digitization and extraction of image metadata undertaken over the years has succeeded in placing less than 100,000 of these items for search online. Given the sheer size of the corpus, it is pressing to devise new ways for the automatic digitization of these art historical archives and the extraction of their descriptive information (metadata which can contain artist names, image titles, and holding collection). This paper focuses on the crucial pre-processing steps that permit the extraction of information directly from scans of a digitized photo collection. Taking the photographic library of the Giorgio Cini Foundation in Venice as a case study, this paper presents a technical pipeline which can be employed in the automatic digitization and information extraction of large collections of art historical images. In particular, it details the automatic extraction and alignment of artist names to known databases, which opens a window into a collection whose contents are unknown. Numbering nearing one million images, the art history library of the Cini Foundation was established in the mid-twentieth century to collect and record the history of Venetian art. The current study examines the corpus of the 330’000+ digitized images.</p>
+            <div type="div1" rend="DH-Heading1">
+                <head>Image Processing Pipeline</head>
+                <div xml:id="photocardboard-extraction" type="div2" rend="DH-Heading2">
+                    <head>Photo/Cardboard Extraction </head>
+                    <p>The records in the Cini Foundation consist of a photographic reproduction mounted on a cardboard card onto which metadata information is recorded. The initial scan of these records is a 300 dpi picture produced on a scanning table, and includes the digitized cardboard and color balance markers. The first task consists in separating the cardboard backing and the photographic reproduction from the raw scanned image.</p>
+                    <p>Despite the apparent simplicity of such a task, it proved challenging on account of the multiple layouts of the metadata information on the cardboard cards, and the variations in the sizes and positions of the attached images. In the end, what proved most effective in the extraction of the image was a Convolutionnal Neural Network (CNN) architecture designed for semantic segmentation (Ronneberger, O. et al 2015). For this, an accurate model was trained on scans which had been annotated in the course of 2 hours. The details oft he approach are part of another study (Ares Oliveira, S. and Seguin, B. 2018).</p>
+                    <figure>
+                        <graphic n="1001" width="16.002cm" height="5.277555555555556cm" url="Pictures/b6356caf824ef6d2bbd7ec5c027b29aa.png" rend="inline"/>
+                        <head>Figure Left: original scan with the extracted areas highlighted with red and blue rectangles.
+                            <lb/>Right: the prediction mask generated by the neural network.
+                        </head>
+                    </figure>
+                </div>
+                <div type="div2" rend="DH-Heading2">
+                    <head>Text Extraction</head>
+                    <p>The second part of the pipeline consists of extracting and reading the metadata. For this task, the open-source Tesseract toolkit and the commercial Google Vision API were tested, with the latter having better performance.</p>
+                    <p>The OCR system provided a list of words and their positions, which were then clustered into blocks of text representing the different metadata fields (authorship, title of painting, location etc.). A layout model was used to represent the expected positions of these different fields. This allowed the assignment of each block of text to its corresponding metadata field.</p>
+                    <p>A precise analysis of the performance of this step is presented in another publication (Seguin, B. 2018).</p>
+                    <figure>
+                        <graphic n="1002" width="16.002cm" height="5.247569444444444cm" url="Pictures/d147e2082087f77d8c5a62fed6283333.png" rend="inline"/>
+                        <head>Figure Illustration of the OCR process. The extracted words (top-left) are clustered into blocks of metadata (top-right) and then assigned to their corresponding label (bottom).</head>
+                    </figure>
+                </div>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Automatic Alignment of Artist Names</head>
+                <p>In order to leverage the extracted metadata to get insights into a collection, it is important to link them to a knowledge database. This can allow, for example, city names to be placed geographically on a map. Here, we focus on aligning artist names with a knowledge database: the Union List of Artist Names (ULAN), managed by the Getty. This opens up a wealth of new information for the contextual understanding of the artwork’s creation.</p>
+                <p>The alignment process is depicted on Figure 3, it is a complex two-pass process that integrates automatic matching with collection specific knowledge in an efficient manner. The first pass tries to perform an exact match with a large name dictionary. For the second pass, a list of candidates are generated from the correctly matched elements of the first pass, and approximate matching is used to correct small OCR errors.</p>
+                <figure>
+                    <graphic n="1003" width="16.002cm" height="12.003263888888888cm" url="Pictures/e21e939ad1ab24247ec9f947e4adc1d9.png" rend="inline"/>
+                    <head>Figure Alignment process. The parts in color correspond to collection-specific knowledge.</head>
+                </figure>
+                <p>There are three challenges that needed to be tackled during this alignment process :</p>
+                <list type="unordered">
+                    <item>
+                        <hi rend="italic">Names variation</hi> : one major issue that arises is that a given artist may be called by different names, depending on regional variations and pseudonyms. Many variations are recorded in ULAN (i.e “
+                        <hi rend="italic">Tiepolo Gianbattista</hi>” and “
+                        <hi rend="italic">Tiepolo Giovanni Battista</hi>” both corresponding to the same artist), although some have to be added to the name dictionary. Furthermore, the naming conventions for elements whose dating or provenance is known but not authorship, which may be specific to a collection, can be added to the dictionary.
+                    </item>
+                    <item>
+                        <hi rend="italic">Implicit knowledge</hi> : one related challenge is linked with the pragmatics of the annotation process. Understanding that if one archivist writes “
+                        <hi rend="italic">Leonardo</hi>” on a file, he or she is referring to 
+                        <hi rend="italic">Leonardo da Vinci</hi> implies modeling a series of implicit assumptions which are changing depending on the evolution of local cataloging practices and that of the art historical field itself. In our case, we tackle this by disambiguating unclear names. For instance “
+                        <hi rend="italic">Tiziano Vecellio</hi>” could technically refer to the well-known “
+                        <hi rend="italic">Tiziano</hi>”, or his relative “
+                        <hi rend="italic">Tizianello</hi>”, but the first is much more prominent than the second.
+                    </item>
+                    <item>
+                        <hi rend="italic">Compositional structure</hi> : the last challenge is linked with the practice of archivists to describe particular unknown authors using specific syntactic process like (“
+                        <hi rend="italic">Tiziano (bottega di-)</hi>”, “
+                        <hi rend="italic">Tintoretto (Maestro di)</hi>” or “
+                        <hi rend="italic">Michelangelo (copia da-)</hi>”), referring to workshop productions or copies. Understanding and modeling this “grammar” permits to generate, in a compositional manner, potential matching strings to be considered when looking for possible alignments. Such strings do not only give a link to an artist but also qualify relationships (how strongly an artist was involved in the creation process of a painting, whether the piece is an original or a copy, etc.).
+                    </item>
+                </list>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Results</head>
+                <figure>
+                    <graphic n="1004" width="16.002cm" height="5.565069444444444cm" url="Pictures/3b055b0d732ed67236638ca7c16b7130.png" rend="inline"/>
+                    <head>Figure Left : Distribution of number of artworks assigned for each artist.</head>
+                    <head>Right : Proportion of images assigned with respect to the most common artists. The 200 most represented artists represent 43% of the collection.</head>
+                </figure>
+                <p>Of the 330,078 scans composing the corpus of study, 14.6% had an empty author field, mostly because the photographs represented architecture or aerial city views. Out of the remaining 85.4% with an authorship field, 73.8% were automatically matched to an author (61.6% after the first pass), with an additional 1.4% representing ambiguous situations which could be resolved. This accounts for 208'510 elements automatically matched. At the end of pre-processing, the potential author names can be divided into three categories :</p>
+                <list type="unordered">
+                    <item>(A) Author names which have been matched with a reference record of another database</item>
+                    <item>(B) Author names which may have been matched if the algorithm were to be improved (e.g. in terms of author name variation or possible compositional structure)</item>
+                    <item>(C) Authors undocumented in standard databases of artists.</item>
+                </list>
+                <p>Figure 5 shows the global matching results for category A. The geographical composition of aligned authors is dominated by Venetian artists (Tiepolo, Tintoretto, Palladio, Tiziano, Veronese, etc.) showing the rationale behind the creation of the collection. In terms of chronology, the collection is focused on the sixteenth century, as shown by the distribution of year of death of the aligned artists. This is in line with the period referred to as the “Venetian Golden Age”. Figure 4 shows the very uneven representation of artists, with only 346 having more than 100 images, representing more than 50% of the whole collection.</p>
+                <figure>
+                    <graphic n="1005" width="16.002cm" height="5.6391527777777775cm" url="Pictures/7d9082b8646789f1869b153e4a3b4df2.png" rend="inline"/>
+                    <head>Figure Spatial (right) and temporal (left) distribution of the 1’746 artists with at least 10 images assigned. </head>
+                </figure>
+                <p>Category B is predominant in the elements that were not matched. Apart from OCR errors, the most typical unmatched string corresponds to collective works in which several authors are named. For instance, the string “
+                    <hi rend="italic">Bassano Jacopo e Francesco</hi>” (his son) corresponds to 134 records. Adding additional parsing capabilities to the system could enable the resolution of such cases in the future.
+                </p>
+                <p>Names in category C, which were not matched with ULAN, are in fact not a product of misalignment but represent new discoveries in the collection. In the present study, a number of artists who do not feature in ULAN were uncovered in the Cini archive. These include, Augusto Caratti, a minor artist from nineteenth-century Padua, who is represented by 65 images in the Cini collection, and Natale Melchiori an early eighteenth-century painter from Castelfranco, Veneto, represented by 39 images. Another artist who does not feature in the ULAN database but nevertheless has a significant presence in the Cini archive with 106 drawing, is Antonio Contestabile, an eighteenth-century draftsman from Piacenza.</p>
+            </div>
+            <div xml:id="conclusion" type="div1" rend="DH-Heading1">
+                <head>Conclusion</head>
+                <p>These early results show the potential of the systematic processing of a large number of art historical records, leading to the mapping of unknown collections, and to new discoveries. It also highlights for the first time the challenges inherent in the process. Such challenges, it is important to note, are not purely technical but rather linked with the complexity of modeling local archiving traditions and the historical practices of art history.</p>
+            </div>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl>
+                        <hi rend="bold">Pharos</hi>. 
+                        <hi rend="italic">PHAROS: The International Consortium of Photo Archives.</hi> http://pharosartresearch.org/
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Ronneberger, O. and Fischer, P. and Brox, T.</hi> (2015) 
+                        <hi rend="italic">U-Net: Convolutional Networks for Biomedical Image Segmentation.</hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold" xml:space="preserve">D. A. Brown, D. A. and Ferino-Pagden, S. and Anderson, J. and Berrie, B. H </hi>(2006) 
+                        <hi rend="italic">Bellini, Giorgione, Titian, and the Renaissance of Venetian painting</hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold" xml:space="preserve">Ares Oliveira, S.* and Seguin, B.* and Kaplan, F. </hi>(2018) 
+                        <hi rend="italic" xml:space="preserve">dhSegment: A generic deep-learning approach for document segmentation. </hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Seguin, B</hi>
+                        <hi rend="italic" xml:space="preserve">. </hi>(2018) 
+                        <hi rend="italic" xml:space="preserve">New Techniques for the Digitization of Art Historical Photographic Archives—the Case of the Cini Foundation in Venice, </hi>Proceedings of Archiving 2018.
+                    </bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title type="full">
+                    <title type="main">Automatic Detection of Characters in Case Insensitive Text in Comics</title>
+                    <title type="sub"/>
+                </title>
+                <author>
+                    <persName>
+                        <surname>Abi Haidar</surname>
+                        <forename>Alaa</forename>
+                    </persName>
+                    <affiliation>LIP6. Univeristy of Pierre and Marie Curie (UPMC), France</affiliation>
+                    <email>alahay@gmail.com</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Ganascia</surname>
+                        <forename>Jean-Gabriel</forename>
+                    </persName>
+                    <affiliation>LIP6. Univeristy of Pierre and Marie Curie (UPMC), France</affiliation>
+                    <email>jean-gabriel.ganascia@lip6.fr</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2016-02-15T10:55:46.714612000</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Maciej Eder, Pedagogical University in Krakow</publisher>
+                <publisher>Jan Rybicki, Jagiellonian University</publisher>
+                <address>
+                    <addrLine>Institute of Polish Studies</addrLine>
+                    <addrLine>Pedagogical University</addrLine>
+                    <addrLine>ul. Podchorazych 2</addrLine>
+                    <addrLine>30-084 Krakow, Poland</addrLine>
+                    <addrLine>maciej.eder@ijp-pan.krakow.pl</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from an OASIS Open Document</p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.17">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Short Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>named entity recognition</term>
+                    <term>information extraction</term>
+                    <term>comics</term>
+                    <term>case insensitive</term>
+                    <term>unstructure text mining</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>information retrieval</term>
+                    <term>text analysis</term>
+                    <term>data mining / text mining</term>
+                    <term>English</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <p>Huge amounts of comics are being published on a daily basis. However, the textual data that are circumscribed in comics’ speech balloons and thought bubbles are highly unstructured, and very hard to automatically extract and digitize. Several automatic techniques have been used to automatically detect the shapes, sizes, and contents of speech balloons and thought bubbles leading to automatic text digitization and localisation in comics (Rigaud et al 2013; Ho et al 2012). Such advances open new horizons for a myriad of text mining applications to comics, namely, automatic indexing, searching, recommendation and visualization.</p>
+            <p>
+                <figure>
+                    <graphic url="554/10000000000002390000029512052689AB1D9D63.jpg"/>
+                </figure>
+            </p>
+            <p>Named Entity Recognition (NER) is a task of information extraction under text mining that aims to identify in-text references to concepts such as people, locations and organizations, mainly in unstructured natural-language text. NER is very useful for text indexing, text summarization, question answering and several other tasks that enhance the experience between humans and literature.</p>
+            <p>In a previous study, we developed a simple and original method of Unsupervised Named Entity Recognition and Disambiguation (UNERD) (Mosallem et al 2014) to automatically extract names of people, locations and organizations from French and English (Abi Haidar et al., 2016) newspapers. We then used the text coordinates in the ALTO XML format to automatically locate and highlight the named entities detected by UNERD on the scanned image of the newspaper (Abi Haidar et al 2014). Last, we used UNERD to detect and visualize named entities from French newspaper during the period of the first world war (Abi Haidar et al 2016).</p>
+            <p>The main challenges encountered in unsupervised NER have been identified and addressed with our original UNERD method when applied on English and French newspapers and French literature. These challenges include but are not limited to named entity disambiguation, named entity boundary detection, and domain-specific dictionary attribution. In comics, in addition to the aforementioned challenges, the case-insensitive text extracted from comics adds the challenge of proper noun detection that we used to handle using POS tagging. We used TreeTagger (Shmid 2005) POS tagger to detect proper nouns, however and like other POS taggers, it works only when applied on case sensitive text.</p>
+            <p>Here, we use a variation of our UNERD method to detect names of fictional characters in a  database of unstructured text from comics that has been recently digitized by our partners at the L3i Labs using an active contour model for speech balloon detection (Rigaud et al 2013). Au lieu of POS tagging for proper noun extraction, we filter stop words that constitute a 5000 word list of most frequent French words. For the dictionary, we use  the freebase dictionaries of fictional characters and characters in fiction novels from Freebase. The comics digitised data amounts to around 8000 case-insensitive words in the French language. We evaluate our method's precision by analysing the predicted character names. </p>
+            <p>Out of 182 predictions of character names made by UNERD, 113 names were correctly predicted. This precision of 62% cannot be compared to that obtained in our previous results with UNERD when tested on case sensitive textual data. We also did not compute the coverage since we do not have any gold standard or any annotated data. In the table below, we see the most frequent characters that were automatically detected. The terms ‘FLIP’ and ‘HUM’ could be discarded by adding a list of onomatopoeic terms to the list of stop words thus improving precision to 68%. Our precision compares well to results presented in Cornolti's meta-study of Named Entity Recognition/Entity Linking resulting in a precision of 69% (Cornolti et al 2013).The extracted character names are then associated with page numbers to help with the automatic indexing of characters that is otherwise very costly in time and human resources. Co-occurrences of character names in the same page are used to detect dialogues or interactions between the characters. Such information, along with the mere occurrences of character names, are used by our partner, Actialuna, in order to enhance digital comics recommendation. Our method can be applied to extract entities from other case-insensitive texts by simply adapting the dictionary to the targeted text. Our results are preliminary and have been tested on a tiny database that is currently being updated.</p>
+            <table rend="frame" xml:id="Table1">
+                <row>
+                    <cell>Frequency</cell>
+                    <cell>Entity</cell>
+                </row>
+                <row>
+                    <cell>2</cell>
+                    <cell>CASTOR</cell>
+                </row>
+                <row>
+                    <cell>2</cell>
+                    <cell>COW-BOY</cell>
+                </row>
+                <row>
+                    <cell>2</cell>
+                    <cell>CYBORG</cell>
+                </row>
+                <row>
+                    <cell>2</cell>
+                    <cell>Doc</cell>
+                </row>
+                <row>
+                    <cell>2</cell>
+                    <cell>FRED</cell>
+                </row>
+                <row>
+                    <cell>2</cell>
+                    <cell>Keuf</cell>
+                </row>
+                <row>
+                    <cell>2</cell>
+                    <cell>Lamisseb</cell>
+                </row>
+                <row>
+                    <cell>2</cell>
+                    <cell>LET</cell>
+                </row>
+                <row>
+                    <cell>2</cell>
+                    <cell>LONGUE-VUE</cell>
+                </row>
+                <row>
+                    <cell>2</cell>
+                    <cell>PHILÉMON</cell>
+                </row>
+                <row>
+                    <cell>2</cell>
+                    <cell>PiLOT-BOAT</cell>
+                </row>
+                <row>
+                    <cell>2</cell>
+                    <cell>PRESIDENT</cell>
+                </row>
+                <row>
+                    <cell>2</cell>
+                    <cell>RAT</cell>
+                </row>
+                <row>
+                    <cell>2</cell>
+                    <cell>Stock</cell>
+                </row>
+                <row>
+                    <cell>3</cell>
+                    <cell>HUM</cell>
+                </row>
+                <row>
+                    <cell>3</cell>
+                    <cell>JEAN-MICHEL</cell>
+                </row>
+                <row>
+                    <cell>3</cell>
+                    <cell>JOHN</cell>
+                </row>
+                <row>
+                    <cell>3</cell>
+                    <cell>KID</cell>
+                </row>
+                <row>
+                    <cell>3</cell>
+                    <cell>LEO</cell>
+                </row>
+                <row>
+                    <cell>3</cell>
+                    <cell>Li</cell>
+                </row>
+                <row>
+                    <cell>3</cell>
+                    <cell>MIN</cell>
+                </row>
+                <row>
+                    <cell>3</cell>
+                    <cell>NEAR</cell>
+                </row>
+                <row>
+                    <cell>3</cell>
+                    <cell>NEW-YORK</cell>
+                </row>
+                <row>
+                    <cell>3</cell>
+                    <cell>PiLOTE</cell>
+                </row>
+                <row>
+                    <cell>3</cell>
+                    <cell>PIRANHA</cell>
+                </row>
+                <row>
+                    <cell>3</cell>
+                    <cell>Traffic</cell>
+                </row>
+                <row>
+                    <cell>4</cell>
+                    <cell>ACHETé</cell>
+                </row>
+                <row>
+                    <cell>4</cell>
+                    <cell>BILL</cell>
+                </row>
+                <row>
+                    <cell>4</cell>
+                    <cell>DEMON</cell>
+                </row>
+                <row>
+                    <cell>4</cell>
+                    <cell>DOC</cell>
+                </row>
+                <row>
+                    <cell>4</cell>
+                    <cell>ZiG</cell>
+                </row>
+                <row>
+                    <cell>5</cell>
+                    <cell>MAN</cell>
+                </row>
+                <row>
+                    <cell>5</cell>
+                    <cell>STEVE</cell>
+                </row>
+                <row>
+                    <cell>8</cell>
+                    <cell>BOY</cell>
+                </row>
+                <row>
+                    <cell>8</cell>
+                    <cell>CINDY</cell>
+                </row>
+                <row>
+                    <cell>8</cell>
+                    <cell>DOLLY</cell>
+                </row>
+                <row>
+                    <cell>8</cell>
+                    <cell>FLIP</cell>
+                </row>
+                <row>
+                    <cell>12</cell>
+                    <cell>NEMO</cell>
+                </row>
+                <row>
+                    <cell>14</cell>
+                    <cell>COCO</cell>
+                </row>
+                <row>
+                    <cell>14</cell>
+                    <cell>SUPER</cell>
+                </row>
+                <row>
+                    <cell>16</cell>
+                    <cell>ALFRED</cell>
+                </row>
+            </table>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl><hi rend="bold">Rigaud, Ch., et al.</hi> (2013). An active contour model for speech balloon detection in comics. <hi rend="italic">Document Analysis and Recognition (ICDAR)</hi>, 2013 12th International Conference on IEEE.</bibl>
+                    <bibl><hi rend="bold">Ho, A. K. N., Burie, J.-Ch. and Ogier, J.-M.</hi> (2012). Panel and speech balloon extraction from comic books. <hi rend="italic">Document Analysis Systems (DAS)</hi>, 2012 10th IAPR International Workshop on IEEE.</bibl>
+                    <bibl><hi rend="bold">Mosallem, Y., Abi-Haidar, A. and Ganascia, J. G.</hi> (2014). Unsupervised Named Entity Recognition and Disambiguation: An Application to Old French Journals. <hi rend="italic">Proceedings of ICDM 2014</hi>. St. Petersburg, Russia.</bibl>
+                    <bibl><hi rend="bold">Alaa ABI HAIDAR, Jean-Gabriel GANASCIA</hi> (2014). Mapping French Press to the Digital Age. at Digital Humanities 2014 Conference. DH 2014: 7-12 July 2014. Lausanne, Switzerland.</bibl>
+                    <bibl><hi rend="bold">Alaa ABI HAIDAR, Oscar ALBERTINI, Jean-Gabriel GANASCIA</hi> (in press). A Simple yet Efficient Unsupervised Named Entity Recognition Model. Wiley’s DMKD (In Press).</bibl>
+                    <bibl><hi rend="bold">Schmid, Helmut</hi> (1995). Treetagger, a language independent part-of-speech tagger. <hi rend="italic">Institut für Maschinelle Sprachverarbeitung, Universität Stuttgart</hi>, <hi rend="bold">43</hi>: 28.</bibl>
+                    <bibl><hi rend="bold">Cornolti, Marco, Paolo Ferragina, and Massimiliano Ciaramita</hi> (2013). A framework for benchmarking entity-annotation systems. <hi rend="italic">Proceedings of the 22nd international conference on World Wide Web. International World Wide Web Conferences Steering Committee</hi>, 2013.</bibl>
+                    <bibl><hi rend="bold">Alaa Abi-Haidar, Bin Yang, Jean-Gabriel Ganascia</hi> (2016). Mapping the First World War Using Interactive Streamgraphs. <hi rend="italic">Sociology and Anthropology</hi>, <hi rend="bold">4</hi>: 12-16.</bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

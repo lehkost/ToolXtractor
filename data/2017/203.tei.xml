@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xsi:schemaLocation="http://www.tei-c.org/ns/1.0 /Users/yoann/Work/Grobid/grobid-home/schemas/xsd/Grobid.xsd"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+	<teiHeader xml:lang="en">
+		<encodingDesc>
+			<appInfo>
+				<application version="0.5.4-SNAPSHOT" ident="GROBID" when="2019-06-05T06:20+0000">
+					<ref target="https://github.com/kermitt2/grobid">GROBID - A machine learning software for extracting information from scholarly documents</ref>
+				</application>
+			</appInfo>
+		</encodingDesc>
+		<fileDesc>
+			<titleStmt>
+				<title level="a" type="main">Prototypical Emotion Developments in Literary Genres</title>
+			</titleStmt>
+			<publicationStmt>
+				<publisher/>
+				<availability status="unknown"><licence/></availability>
+			</publicationStmt>
+			<sourceDesc>
+				<biblStruct>
+					<analytic>
+						<author>
+							<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">Evgeny</forename><surname>Kim</surname></persName>
+							<email>evgeny.kim@ims.uni-stuttgart.de</email>
+							<affiliation key="aff0">
+								<orgName type="institution">Universität Stuttgart</orgName>
+								<address>
+									<country key="DE">Germany</country>
+								</address>
+							</affiliation>
+						</author>
+						<author>
+							<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">Sebastian</forename><surname>Padó</surname></persName>
+							<email>sebastian.pado@ims.uni-stuttgart.de</email>
+							<affiliation key="aff1">
+								<orgName type="institution">Universität Stuttgart</orgName>
+								<address>
+									<country key="DE">Germany</country>
+								</address>
+							</affiliation>
+						</author>
+						<author>
+							<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">Roman</forename><surname>Klinger</surname></persName>
+							<email>roman.klinger@ims.uni-stuttgart.de</email>
+							<affiliation key="aff2">
+								<orgName type="institution">Universität Stuttgart</orgName>
+								<address>
+									<country key="DE">Germany</country>
+								</address>
+							</affiliation>
+						</author>
+						<title level="a" type="main">Prototypical Emotion Developments in Literary Genres</title>
+					</analytic>
+					<monogr>
+						<imprint>
+							<date/>
+						</imprint>
+					</monogr>
+				</biblStruct>
+			</sourceDesc>
+		</fileDesc>
+		<profileDesc>
+			<abstract/>
+		</profileDesc>
+	</teiHeader>
+	<text xml:lang="en">
+		<body>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Introduction</head><p>Storytelling is a central form of human artistic expression. An ingredient of the appeal of stories is their emotional content. Readers of literature form explicit mental representations of fictional characters' emotional states <ref type="bibr">(Gernsbacher, Goldsmith, and Robertson, 1992;</ref><ref type="bibr" target="#b8">Vega, 1996)</ref>. Even more, a gripping " <ref type="bibr">[…]</ref> literary work produces a complex emotional experience in the reader. This experience is inseparable from the depictive content of the narrative" <ref type="bibr" target="#b0">(Hogan, 2011)</ref>. This raises the question of the relationship between the narrative and emotional levels in literature. We explore how computational emotion analysis can contribute to the characterization of story genres, which are difficult to define and for which various criteria have been proposed, including stylistic ones ( <ref type="bibr">Biber and Conrad, 2009)</ref> and narratological ones <ref type="bibr">(Chatman, 1978)</ref>.</p><p>Our hypothesis is that genres can be linked to the development of predominant emotions over the course of the text. To test this, we present a computational model of multi-label emotion analysis of literary genres and apply it to a set of English literary works from the Project Gutenberg for five genres, namely adventure, romance, mystery, science fiction, and humorous fiction. We identify prototypical shapes for each genre and show that this analysis produces results, which can find a place in the computational analysis of literary genres and extend existing stylometric approaches.</p><p>Cuddon (2012) defines adventure as "a form of fiction <ref type="bibr">[...]</ref> in which the hero conventionally undergoes a series of testing and episodic adventures" and mystery as a narrative involving the "detection of crime, with the motives, actions, arraignment, judgement and punishment of a criminal". Baldick (2015) defined Romance as narratives with "improbable adventures of idealized characters". Today, however, the term covers many forms of fiction, including love stories. We use the term romance as a literary genre in this broader sense. Regarding science fiction stories, it is generally agreed that they are " <ref type="bibr">[...]</ref> about an amazing variety of things, topics, ideas. They include trips to other worlds, quests, the exploration of space..." <ref type="bibr">(Cuddon, 2012)</ref>. Humorous fiction is comical literature "written chiefly to amuse its audience" <ref type="bibr">(Cuddon, 2012)</ref>.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Methods</head><p>We calculate emotion scores for eight basic emotions, namely joy, sadness, trust, disgust, fear, anger, surprise, and anticipation <ref type="bibr" target="#b5">(Plutchik, 2001</ref>). We use the NRC Emotion Lexicon <ref type="bibr" target="#b3">(Mohammad and Turney, 2013)</ref>. Since the data in Project Gutenberg is diachronic, this method of emotion recognition might not be appropriate for older texts and, in general, may suffer from low recall. However, it can be considered a high-precision approach suitable for our purpose.</p><p>To obtain an emotion analysis for a story, we start by computing emotion scores for spans of text <ref type="bibr" target="#b1">(Klinger, Suliya, and Reiter, 2016)</ref>. Formally, we compute the score es(e, S) for an emotion e and a span of tokens S=&lt;tn,…,tm&gt; as where De is a dictionary containing words associated with emotion e and 1t∈D is 1 if t ∈ D and 0 otherwise. We do this for each of our eight emotions, obtaining an eight dimensional "emotion vector" for each span. We analyzed the stability of our results across different settings and found that different dictionaries affect the actual values but not the relation between different time steps. These scores are not probabilities, but could be transformed if needed.</p><p>To observe development over time, we could use sliding windows; however, continuous time series are notoriously difficult to interpret. Therefore, we adopt a simpler scheme inspired by the five-act theory of dramatic acts <ref type="bibr">(Freytag, 1863)</ref>, according to which dramas are divided into five acts: exposition, rising action, climax, falling action, and denouement. We consequently divide each text into five successive, equal-sized spans (since different texts have different length, the size of acts varies between texts) that we assume to correspond roughly to dramatic acts in Freytag's theory, with exposition at position 1 and denouement at position 5, and compute an eightelement emotion vector for each Act.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Experimental Evaluation</head><p>We now demonstrate how this emotion aggregation into five acts can contribute to the understanding of different literary genres.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Data</head><p>We collect 2113 books from Project Gutenberg that belong to five genres found in the Brown corpus <ref type="bibr">(Francis and Kucera, 1979)</ref>, namely adventure (585 books), romance (383 books), mystery (380 books), science fiction (562 books), and humorous fiction (203 books). The corpus is available from the authors upon request.</p><p>The selection is based on the Library of Congress Subject Headings in the metadata. We select all books that contain the word "Fiction" in combination with one of the following labels: "Adventure stories", "Love stories", "Romantic fiction", "Detective and mystery stories", "Science fiction" or "Humor". Furthermore, we reject books with the following labels: "Short stories", "Complete works", "Volume", "Chapter", "Collection", "Part". This constraint is aimed at excluding files which contain partial or multiple works.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Qualitative analysis</head><p>Each plot in <ref type="figure" target="#fig_0">Figure 1</ref> depicts the act-by-act development for one emotion with their emotion score es(e,S). Since we interpret shapes rather than values, we omit the legend. The average over all books is shown in a dark-colored line. The area around that line corresponds to confidence intervals at a 95% confidence level.</p><p>For sadness, anger, fear, and disgust, all five genres show a close correspondence, namely a consistent increase of the emotion from Act 1 through Act 5 -corresponding to gripping narratives. Mystery and science fiction lack the drop in anger and tend to end with higher levels of this emotion. Joy is inverse to these emotions, showing a decreasing tendency from Act 1 to Act 5 for all genres with exception of humorous fiction that shows a plateau between Acts 1 and 4.</p><p>In adventures, all emotions increase in the first half of the books, but drop sharply between Act 4 and Act 5. This is consistent with <ref type="bibr" target="#b9">Whetter (2008)</ref>, according to whom adventures are marked by a late drop in emotional tension when the hero's misfortunes come to an end. The only exception is trust that shows increase towards the end for all genres, which is especially noticeable in adventures. A potential reason is that prototypical adventure novels are 'upbeat' in that they cultivate virtues such as courage and loyalty <ref type="bibr">(Baldick, 2015, p. 5)</ref> and depict heroes that do not lose trust even amid unexpected dangers.</p><p>The results for anticipation and surprise show less coherent tendencies which we find difficult to interpret. These two emotions appear less constitutive to the narrative structure of genres, at least those that we currently consider: anticipation and surprise can occur under (almost) any circumstances. Mystery fiction has a slightly different pattern, where anticipation exhibits steady increase from Acts 1 to 4 and its peak coincides with the peak for surprise at Act 4.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Quantitative analysis</head><p>We analyze the genre-specific time course of emotions quantitatively by computing associations between genres and the Act in which an emotion "peaks" in a story. We define a random variable vie for an emotion peak as vie=1 iff the highest value of emotion e is in Act i. The association between each genre and emotion peaks vie follows point-wise mutual information <ref type="bibr">(Church and Hanks, 1990)</ref>, where probabilities are computed as relative frequencies over the dataset. <ref type="figure">Figure 2</ref> gives insight into the genre-specific emotion patterns. For instance, disgust is characteristic of Act 4 for all genres. The only exception is science fiction that does not list disgust or surprise among the top 10 features. Trust is important at the beginning and in the end of adventures and science fiction, but is missing in mystery. Similarly, romance fiction is not characterized by anticipation among top-ranked features, corresponding to its "anticipation" curve that decreases monotone from beginning to end. Interestingly, humor is the only genre that does not contain joy among the top 10 features. </p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Related work</head><p>Sentiment and emotion in fiction have been previously addressed computationally by <ref type="bibr" target="#b2">Mohammad (2012)</ref>, <ref type="bibr" target="#b4">Nalisnick and</ref><ref type="bibr">Baird (2013), Heuser, Moretti, and</ref><ref type="bibr">Steiner (2016)</ref>, among others. <ref type="bibr" target="#b7">Samothrakis and Fasli (2015)</ref> is the only work we are aware of which discusses emotions in context of genres.</p><p>The study most related to ours is <ref type="bibr" target="#b6">Reagan et al. (2016)</ref>. They propose a pipeline that tracks emotions in text. Their main claim is that stories typically follow one out of six "emotional arcs" regarding happiness.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Conclusion, discussion and future work</head><p>We investigated the relationship between emotional development in literature and genre and observe differences among emotions. The genre of adventure stands out, especially concerning the end of the story arc. Our results can provide a novel starting point for characterizing similarities and differences within and between literary genres.</p><p>Our observations require further investigation regarding the underlying factors. For instance, it might be argued that the pattern for mystery stories is dominated by the subgenre of crime fiction. Future work will combine our distant reading approach with close and scalable reading. Furthermore, to improve emotion recognition, we plan to use distributional methods for expanding the existing lexical resources and adapting them to texts from different historical periods (cf. <ref type="bibr">Buechel, Hellrich, and Hahn, 2016</ref>).</p></div><figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_0"><head>Figure 1 :</head><label>1</label><figDesc>Figure 1: Genre-specific emotion curves</figDesc><graphic url="image-3.png" coords="3,54.30,54.41,241.20,305.80" type="bitmap" /></figure>
+		</body>
+		<back>
+
+			<div type="acknowledgement">
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Acknowledgements</head><p>This research has been conducted within the Center for Reflected Text Analytics (CRETA), which is funded by the German Ministry for Education and Research (BMBF). </p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Bibliography</head></div>
+			</div>
+
+			<div type="references">
+
+				<listBibl>
+
+<biblStruct xml:id="b0">
+	<monogr>
+		<title level="m" type="main">What literature teaches us about emotion</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">P</forename><forename type="middle">C</forename><surname>Hogan</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="2011" />
+			<publisher>Cambridge University Press</publisher>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b1">
+	<analytic>
+		<title level="a" type="main">Automatic Emotion Detection for Quantitative Literary Studies: A case study based on Franz Kafka&apos;s &quot;Das Schloss&quot; und &quot;Amerika</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">R</forename><surname>Klinger</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">S</forename><forename type="middle">S</forename><surname>Suliya</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">N</forename><surname>Reiter</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Digital Humanities 2016: Conference Abstracts</title>
+		<meeting><address><addrLine>Krakow, Poland</addrLine></address></meeting>
+		<imprint>
+			<date type="published" when="2016" />
+			<biblScope unit="page" from="826" to="828" />
+		</imprint>
+		<respStmt>
+			<orgName>Jagiellonian University &amp; Pedagogical University</orgName>
+		</respStmt>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b2">
+	<monogr>
+		<title level="m" type="main">From once upon a time to happily ever after: Tracking emotions in mail and books. Decision Support Systems</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">S</forename><forename type="middle">M</forename><surname>Mohammad</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="2012" />
+			<biblScope unit="volume">53</biblScope>
+			<biblScope unit="page" from="730" to="741" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b3">
+	<analytic>
+		<title level="a" type="main">Crowdsourcing a word-emotion association lexicon</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">S</forename><forename type="middle">M</forename><surname>Mohammad</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">P</forename><forename type="middle">D</forename><surname>Turney</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Computational Intelligence</title>
+		<imprint>
+			<biblScope unit="volume">29</biblScope>
+			<biblScope unit="issue">3</biblScope>
+			<biblScope unit="page" from="436" to="465" />
+			<date type="published" when="2013" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b4">
+	<analytic>
+		<title level="a" type="main">Extracting sentiment networks from Shakespeare&apos;s plays</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">E</forename><forename type="middle">T</forename><surname>Nalisnick</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">H</forename><forename type="middle">S</forename><surname>Baird</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Document Analysis and Recognition (ICDAR) 2013 12th International Conference on. IEEE</title>
+		<imprint>
+			<date type="published" when="2013" />
+			<biblScope unit="page" from="758" to="762" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b5">
+	<analytic>
+		<title level="a" type="main">The Nature of Emotions. Human emotions have deep evolutionary roots, a fact that may explain their complexity and provide tools for clinical practice</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">R</forename><surname>Plutchik</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">American Scientist</title>
+		<imprint>
+			<biblScope unit="volume">89</biblScope>
+			<biblScope unit="issue">4</biblScope>
+			<biblScope unit="page" from="344" to="350" />
+			<date type="published" when="2001" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b6">
+	<analytic>
+		<title level="a" type="main">The emotional arcs of stories are dominated by six basic shapes</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">A</forename><forename type="middle">J</forename><surname>Reagan</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">L</forename><surname>Mitchell</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">D</forename><surname>Kiley</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">C</forename><forename type="middle">M</forename><surname>Danforth</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">P</forename><forename type="middle">S</forename><surname>Dodds</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">EPJ Data Science</title>
+		<imprint>
+			<biblScope unit="volume">5</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page">31</biblScope>
+			<date type="published" when="2016" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b7">
+	<analytic>
+		<title level="a" type="main">Emotional sentence annotation helps predict fiction genre</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">S</forename><surname>Samothrakis</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">M</forename><surname>Fasli</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">PloS One</title>
+		<imprint>
+			<biblScope unit="issue">11</biblScope>
+			<biblScope unit="page">10</biblScope>
+			<date type="published" when="2015" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b8">
+	<analytic>
+		<title level="a" type="main">The representation of changing emotions in reading comprehension</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">M</forename><surname>Vega</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Cognition &amp; Emotion</title>
+		<imprint>
+			<biblScope unit="volume">10</biblScope>
+			<biblScope unit="issue">3</biblScope>
+			<biblScope unit="page" from="303" to="322" />
+			<date type="published" when="1996" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b9">
+	<monogr>
+		<title level="m" type="main">Understanding genre and medieval romance</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">K</forename><forename type="middle">S</forename><surname>Whetter</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="2008" />
+			<publisher>Ashgate Publishing, Ltd</publisher>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+				</listBibl>
+			</div>
+		</back>
+	</text>
+</TEI>

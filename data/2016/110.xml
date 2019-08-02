@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title type="full">
+                    <title type="main">Silva Portentosissima - Computer-Assisted Reflections on Bifurcativity in Stemmas</title>
+                    <title type="sub"/>
+                </title>
+                <author>
+                    <persName>
+                        <surname>Hoenen</surname>
+                        <forename>Armin</forename>
+                    </persName>
+                    <affiliation>Goethe Universität Frankfurt, Germany</affiliation>
+                    <email>hoenen@em.uni-frankfurt.de</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2016-02-26T09:46:31.005021849</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Maciej Eder, Pedagogical University in Krakow</publisher>
+                <publisher>Jan Rybicki, Jagiellonian University</publisher>
+                <address>
+                    <addrLine>Institute of Polish Studies</addrLine>
+                    <addrLine>Pedagogical University</addrLine>
+                    <addrLine>ul. Podchorazych 2</addrLine>
+                    <addrLine>30-084 Krakow, Poland</addrLine>
+                    <addrLine>maciej.eder@ijp-pan.krakow.pl</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from an OASIS Open Document</p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.21">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Short Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>Stemmatology</term>
+                    <term>force dichotomique</term>
+                    <term>bifurcations</term>
+                    <term>simulation</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>scholarly editing</term>
+                    <term>philology</term>
+                    <term>English</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <div type="div1" rend="DH-Heading1">
+                <head>Introduction</head>
+                <p>In 1928, the philologue Joseph Bédier explored contemporary stemmas and found them to contain a suspiciously large amount of bifurcations. He gave two potential reasons, one being that the editors constructing a stemma with a bifurcation below the root node, could freely choose the variants for their base text. The second reason termed 
+                    <hi rend="italic">force dichotomique</hi> postulates that constructing a stemma, because editors are always comparing manuscript pairs, they tend to overseparate. This is illustrated in Figure 1. The philologue would postulate a common ancestor for the closer pair and attach the third sibling together with this ancestor to the parent node producing two bifurcations, where there was a multifurcation originally.
+                </p>
+                <p>
+                    <figure>
+                        <graphic url="110/10000201000005E8000002B8162AEE15.png"/>
+                        <head>Figure 1. Force dichotomique, example. Left: true stemma. Right: probable philological reconstruction</head>
+                    </figure>
+                </p>
+                <p>(Maas, 1937) acknowledges a large amount of bifurcations in stemmas for recensions of Greek texts, but points out that this is rather unsurprising taking into account the number of possible stemmas and the proportion of bifurcations therein. (Felsenstein, 1978) computes the amounts of entirely bifurcating trees for 
+                    <hi rend="italic">n</hi> labelled leafs, which is certainly correlated with the number of predominantly bifurcating trees (and of root-bifurcating trees). As one can see, the proportion of bifurcating trees steadily declines, weakening Maas’ argument.
+                </p>
+                <p>(Haugen, 2015) analysed collections of stemmas and found that Bédiers reason number two seems to hold independent of provenience. (Trovato, 2014) found that a realistic estimate of the percentage of lost manuscripts for medieval and earlier traditions ranges realistically above 73%. Related discussions and recent developments are reflected in projects such as 
+                    <ref target="http://stemmaweb.net/">Stemmaweb</ref> and the 
+                    <ref target="https://wiki.hiit.fi/display/stemmatology/Parvum+lexicon+stemmatologicum">Parvum lexicon Stemmatologicum</ref>.
+                </p>
+                <p>In this paper, the argument is introduced and investigated that, with a large amount of lost manuscripts, the amount of bifurcations in the true stemmas could naturally be high because of the transformations stemmas undergo when manuscript loss prunes away whole branches and leafs at a rate higher than 73%.</p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Distributions of outdegrees of manuscripts</head>
+                <p>Two basic distributions are most obviously historically interpretable, a normal distribution and an exponential distribution. In considering the outdegrees to be normally distributed, we assume, that there is one certain number of copies which is most probable, peaking the others; the more the outdegree diverges negatively or positively, the fewer manuscripts with this outdegree will be found. This could translate into a hypothetical historical projection, where many manuscripts of a tradition were copied and wore off at similar rates. Assuming an exponential distribution, things become more hierarchical. For instance, a powerful organization declares some of the manuscripts authoritative which would lead to certain manuscripts being copied many times more than others.</p>
+                <p>(Haugen, 2015) lists a table with the numbers of furcations (though not leafs) in two collections of stemmas for editions of Old Norse texts. Transforming these furcations into vectors, we conduct the Shapiro-Wilk normality test, (Shapiro and Wilk, 1965), and the exponentiality test by Kolmogorov-Smirnov (which are both robust even for smaller sample sizes) using the software 
+                    <ref target="https://www.r-project.org/">R</ref>.
+                    <note xml:id="ftn1" place="foot" n="1"> Packages 
+                        <ref target="https://cran.r-project.org/web/packages/exptest/exptest.pdf">exptest</ref> and 
+                        <ref target="https://stat.ethz.ch/R-manual/R-devel/library/MASS/html/fitdistr.html">fitdistr</ref> have been used.
+                    </note> This results in an estimate on which distribution these stemmas entail for manuscript copying. However, stemmas with only identical values or only 2 furcations are skipped due to not being testable with the above chosen tests. Table 1 reveals a tendency towards exponentiality. Applying other tests for additional distributions, the weibull and log-normal distributions fitted the data best in terms of likelihood, suggesting a similar scenario.
+                    <note xml:id="ftn2" place="foot" n="2"> The average mean of the furcation distributions was 1.95 and the average standard deviation 0.78.</note>
+                </p>
+                <p>
+                    <figure>
+                        <graphic url="110/1000020100000A3A00000232D59B9636.png"/>
+                        <head>Table 1: Tests of distributions of furcations in the collections investigated by (Haugen, 2015). Tests at significance level 0.05</head>
+                    </figure>
+                </p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Experiment</head>
+                <p>In order to assess the above mentioned hypothesis, we need large numbers of underlying stemmas from which loss can be simulated and an appropriate model of manuscript loss. Then, we can simulate a large number of stemmas and manuscript loss, whereafter we count the number of bifurcations. Using simulations especially in large scale scenarios is sometimes the only possibility of assessing historical data, especially considering limits imposed onto empirical studies through data sparsity and other hindances.</p>
+                <div type="div2" rend="DH-Heading2">
+                    <head>Manuscript loss</head>
+                    <p>Historical loss does not affect all manuscipts evenly. (Canfora, 2002) found private exemplars to be less affected whereas since libraries tend to be burnt in wars, public exemplars suffer loss more easily. Many other factors (climate, authoritativity, etc.) excert influence on manuscript loss most of which have never been made subject to generalizable quantifications and it is questionable if this can ever be done. Herein, we elaborate a simple model of loss using only two basic assumptions. We simulate loss of 73-100% where each node gets a probability related to its age (the older the more probably lost) and its outdegree (the more copied, the more probably kept in good conditions, the less probably lost). Since aging is considered to be stronger than preservational effort, we square the age dependent parameter. The probability of loss for each node is thus determined by </p>
+                    <p>
+                        <figure>
+                            <graphic url="110/10000201000001A20000007C36134C8E.png"/>
+                        </figure>
+                    </p>
+                    <p>where l is the height of the current node i incremented by 1 and slow(i) is the outdegree slowdown function: </p>
+                    <p>
+                        <figure>
+                            <graphic url="110/10000201000003EE00000114FC6D481A.png"/>
+                        </figure>
+                    </p>
+                    <p>where o(i) is the outdegree of node i. Note, that there is no distinction for nodes with an outdegree of one and leafs. This model of loss produced rather desirable loss probability distributions as is exemplified in the Appendix. However, we also use pure randomization of loss with equal probabilities among all nodes and randomization for probabilities as described but without squaring.</p>
+                </div>
+                <div type="div2" rend="DH-Heading2">
+                    <head>Simulation</head>
+                    <p>For the simulation, we use R and 
+                        <ref target="https://java.com/en/">Java</ref>.
+                        <note xml:id="ftn3" place="foot" n="3"> We used 
+                            <ref target="http://jgrapht.org/">JgraphT</ref> and RCaller, (Satman, 2014).
+                        </note> First, for simulating normally distributed copying, we generate distributions randmonly drawn from a normal distribution using the R function 
+                        <hi rend="italic">rnorm</hi>. Since 
+                        <hi rend="italic">rnorm</hi> produces real numbers and negative numbers, we round all values and leave negative values and zeros aside. Since this may lead to a distortion of the so-sampled distribution deviating from a normal distribution, we test for the desired shape and only keep distributions which have a p-value above 0.05. This distribution is now our distribution of outdegrees in the to be simulated stemma, each value represents one outdegree. Starting with root, we randomly choose an outdegree (or make the node (not root) a leaf with a probability of 0.2) and add as many children to the actual node as this outdegree. For each of the so-generated children, we draw another outdegree and add as many children, recording them in the next generation. We iterate the process until all outdegrees are applied exactly once.This results in a differing number of leafs and a differing size of the tradition for each simulation. Since medieval traditions were probably not equal in size, the effect of this sampling is not controlled for further.
+                        <note xml:id="ftn4" place="foot" n="4"> One could compare the proportion of surviving to lost nodes in the TRS and stemmas from the literature.</note>
+                    </p>
+                    <p>With each tradition, loss is simulated in the three above described ways. We keep all nodes, which are on the path from root to any survivor but delete all other lost nodes. What remains is the true reconstructible stemma (TRS). Since philologues do not have sufficient information (and probably time) for the reconstruction of entirely lost branches, which would be too spurious an endeavour anyway, the stemma we simulated is the maximally faithful reconstruction given our simulated ground truth.</p>
+                    <p>
+                        <figure>
+                            <graphic url="110/10000201000006E4000003265062D84B.png"/>
+                            <head>Table 2: Percentages of bifurcations and root-bifurcations given the parametricized simulations</head>
+                        </figure>
+                    </p>
+                    <p>
+                        <figure>
+                            <graphic url="110/100002010000095800000350B724A0E3.png"/>
+                            <head>Table3: Furcations (1-6) before and after loss, Loss A</head>
+                        </figure>
+                    </p>
+                </div>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Results and discussion</head>
+                <p>Results can be seen in Tables 2 and 3. The simulated traditions ranged in size from 4 to more than 60 and after loss from 1 to around 20 manuscripts. Percentages of bifurations (even excluding leafs, as in Haugen (2015)) are below the observed values for the collections examined in the previous literature. Under more keeping nodes, which are on the path to root for any survivor as reconstructibles results in a much larger incidence of unifurcations, not bifurcations in the stemmas after loss has applied. Therefore, some model of contraction shall be applied in subsequent research. With a mean of 2 producing large numbers of bifurcations, after loss, their number is reduced sharply in contrast with unifurcations and leafs. Thus,
+                    <hi rend="italic"> loss at high rates generally affects furcations of higher orders much more, leading to a naturally higher incidence of bi- and unifurcations and most of all obscuring an underlying distribution of original copies.</hi> Aditionally, probably there are too few reconstructions of nodes with indegree and outdegree 1. In other words, philologues could tend to view a copy rather as sloppy than as a copies copy, which would contribute to making bifurcations more common in actual stemmas.
+                </p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Conclusion</head>
+                <p>Although the simulation is an approximation, the values suggest, that indeed the proportion of bifurcations is suspiciously large in the collections in the literature. On the other hand, Maas was probably right in expecting a larger amount of lower order furcations. However, not their proportion among all possible stemmas, but the effect of massive loss of manuscripts leads to a large probable proportion of those in a pruned TRS.</p>
+            </div>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl>
+                        <hi rend="bold">Bédier, J.</hi> (1928). La tradition manuscrite du 'Lai de l'Ombre': Réflexions sur l'Art d' Éditer les Anciens Textes. 
+                        <hi rend="italic">Romania</hi>, 394: 161-96, 321-56.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Canfora, L. </hi>(2002). 
+                        <hi rend="italic">Il copista come autore</hi>. Palermo: Sellerio.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Felsenstein, J. </hi>(1978). The number of evolutionary trees. 
+                        <hi rend="italic">Systematic Zoology</hi>, 
+                        <hi rend="bold">27</hi>(1): 27–33.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Haugen, O. E.</hi> (2015). The silva portentosa of stemmatology bifurcation in the recension of old norse manuscripts. 
+                        <hi rend="italic">Digital Scholarship in the Humanities</hi>, 
+                        <hi rend="bold">30</hi>(2).
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Maas, P.</hi> (1937). Leitfehler und Stemmatische Typen. 
+                        <hi rend="italic">Byzantinische Zeitschrift</hi>, 
+                        <hi rend="bold">37</hi>(2): 289–94.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Satman, M. H.</hi> (2014). Rcaller: A software library for calling r from java. 
+                        <hi rend="italic">British Journal of Mathematics &amp; Computer Science</hi>, 
+                        <hi rend="bold">4</hi>(15): 2188–96.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Shapiro, S. S. and Wilk, M. B.</hi> (1965). An analysis of variance test for normality (complete samples). 
+                        <hi rend="italic">Biometrika</hi>, <hi rend="bold">52</hi>: 591–611.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Trovato, P.</hi> (2014).<hi rend="italic"> Everything You Always Wanted to Know about Lachmann’s Method, A Non-Standard Handbook of Genealogical Textual Criticism in the Age of Post-Structuralism, Cladistics, and Copy-Text</hi>. libreriauniversitaria.it.
+                    </bibl>
+                    <bibl>
+                        <figure>
+                            <graphic url="110/1000020100000AA30000111A2449EE2B.png"/>
+                        </figure>
+                    </bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

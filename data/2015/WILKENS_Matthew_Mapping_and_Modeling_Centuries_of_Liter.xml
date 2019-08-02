@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>Mapping and Modeling Centuries of Literary Geography across Millions of Books</title>
+                <author>
+                    <persName>
+                        <surname>Wilkens</surname>
+                        <forename>Matthew</forename>
+                    </persName>
+                    <affiliation>University of Notre Dame, United States of America</affiliation>
+                    <email>mwilkens@nd.edu</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2014-12-19T13:50:00Z</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Paul Arthur, University of Western Sidney</publisher>
+                <address>
+                    <addrLine>Locked Bag 1797</addrLine>
+                    <addrLine>Penrith NSW 2751</addrLine>
+                    <addrLine>Australia</addrLine>
+                    <addrLine>Paul Arthur</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from a Word document </p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.9">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Long Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>GIS</term>
+                    <term>literature</term>
+                    <term>modeling</term>
+                    <term>georeference</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>geospatial analysis</term>
+                    <term>interfaces and technology</term>
+                    <term>literary studies</term>
+                    <term>data modeling and architecture including hypothesis-driven modeling</term>
+                    <term>maps and mapping</term>
+                    <term>data mining / text mining</term>
+                    <term>English</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <p>The ways in which geographic space is used in literature and in other textual materials is a topic of keen interest to researchers in the humanities (Dimock, 2006; Fetterley and Pryse, 2003; Giles, 2011; Heise, 2010; Hsu, 2010; Thacker, 2005). Yet until recently, it has been impossible to study the problem at scales beyond a handful of books or, occasionally, somewhat more broadly via bibliographic metadata and other paratextual information (Ogborn, 2012). The newest work in the field, however, uses natural language processing techniques in combination with geographic information systems to extract and analyze geographic references directly from large textual collections, a development that enables much more comprehensive treatment of historical and contemporary materials (Blevins, 2014; Cooper and Gregory, 2011; Wilkens, 2013). Nevertheless, there remain difficulties in applying such methods to truly large textual corpora (Rupp et al., 2014) and in making sense of the data they generate to answer properly literary, historical, and cultural questions. The present work describes the application of computational georeferencing to the 12 million volumes (approximately 2 trillion words) of the multilingual, international HathiTrust corpus of digitized texts, as well as a preliminary use of the generated data to analyze the relationships between patterns of literary attention and demographic and economic factors in the United States between 1800 and 2010. The findings are novel in the size of the underlying dataset, in their incorporation of modern and contemporary in-copyright texts for large-scale computationally assisted literary analysis, and in their use of statistical modeling to assess the social conditions shaping literary production. </p>
+            <p>Georeferencing of the source material is performed in two steps. First, named entities are identified in each volume of the HathiTrust corpus via the HathiTrust Research Center’s non-consumptive data capsule infrastructure (Borders et al., 2009; Zeng et al., 2014). The capsule infrastructure allows research code to be executed safely against the full corpus, including in-copyright volumes, without the threat of leaking reconstructable texts. The NER algorithm is adapted from Stanford’s linear-chain conditional random field method (Finkel et al., 2005; Lafferty et al., 2001) using language-specific training data for English, French, German, Spanish, and Chinese as appropriate at the page level. For English-language texts, a second, period-specific language model is used for volumes published before 1900. Identified location strings are then associated with detailed geographic information via Google’s geocoding API, tuned to the country of source publication. Disambiguation is performed in limited cases according to co-occurrence patterns in gold-standard texts. Overall accuracy (
+                <hi rend="italic">F</hi>
+                <hi rend="subscript">1</hi>) approaches 0.8, but varies by language, historical period, OCR quality, and other factors. 
+            </p>
+            <p>Locations are then aggregated and mapped at the national and city levels, optionally consolidating by era of publication, source country and language, and/or source genre. This process produces cartograms of the types shown in figures 1 and 2. </p>
+            <figure>
+                <graphic n="1001" width="16.002cm" height="8.408458333333334cm" url="Pictures/image1.png" rend="block"/>
+            </figure>
+            <p>Figure 1. Log-scale nation-level aggregated locations in 19th-century U.S. fiction. </p>
+            <figure>
+                <graphic n="1002" width="16.002cm" height="6.588125cm" url="Pictures/image2.png" rend="inline"/>
+            </figure>
+            <p>Figure 2. City-level locations in the same dataset. </p>
+            <p>These figures are useful because they provide an unprecedented overview of geographic usage in a corpus that, while still subject to limitations, approaches comprehensive representation of formally published literary output in recent centuries. Notable features include a heavy preponderance of locations in Europe, the eastern United States, and the Mediterranean rim, reflecting the composition of the corpus, as well as, more interestingly, a posited undercurrent of historical and cultural conservatism within literature that leads its distribution of geographic attention to lag significantly changes in economic output, population centers, and other social structures. </p>
+            <p>The observation concerning literary-geographic conservatism leads to the second area of investigation, an attempt to assess the viability of predictive modeling of geographic attention as a function of socioeconomic variables in the United States (and, in work not reported here, elsewhere in the world). Historical data are drawn from U.S. Census Bureau records, including state- and county-level measures of population, literacy rates, educational attainment, manufacturing output, agricultural production, racial and ethnic composition, immigration history, newspaper publishing activity, and so on. These data are then used to build a predictive generalized additive model of geographic attention by performing penalized regression analysis against the geolocation results reported above. The results for a limited case are shown in Figure 3, though one is less interested in ‘predicting’ geolocation results already in hand than in identifying outlier cases (geographic locations that are under- or over-represented relative to the model’s expected values) and evaluating the significance of the various socioeconomic factors as predictors of literary attention. A two-dimensional geonormalized plot of the prediction data in the same case is shown in Figure 4. </p>
+            <figure>
+                <graphic n="1003" width="15.135930555555555cm" height="20.268847222222224cm" url="Pictures/image3.png" rend="block"/>
+            </figure>
+            <p>Figure 3. Observed vs. fitted state-level location counts in U.S. fiction. Adjusted 
+                <hi rend="italic">R</hi>
+                <hi rend="superscript">2</hi> = 0.76. 
+            </p>
+            <figure>
+                <graphic n="1004" width="16.002cm" height="12.36486111111111cm" url="Pictures/image4.png" rend="inline"/>
+            </figure>
+            <p>Figure 4. Predicted geographic location intensity in the same dataset. White = high; red = low. </p>
+            <p>In the example shown here, which considers 19th-century U.S. fiction, significant predictors of geographic attention include total population, non-white and immigrant population, and degree of urbanization. Surprisingly insignificant as independent predictors are literacy rates, per capita newspaper publication, and manufacturing output. Three classes of locations are especially prominent in the model: cities, battle sites, and in the second half of the century, far Western locations. These facts may ultimately be assimilable within established critical narratives about the trajectory of American fiction in the 19th century, but note that they align badly with both the regionalist and Puritan hypotheses (Fetterley and Pryse, 2003; Bercovitch, 1975), while being perhaps better suited to hemispheric and transatlantic views. In any case, the results suggest a particular need to revisit issues related to urbanization and westward expansion in the period. </p>
+            <p>For lack of space, I’ve presented here only one brief example. But these methods are straightforwardly extensible to the other periods and national contexts included in the HTRC data. In recent decades, for instance, literary-geographic attention (in all studied languages) has once again lagged urbanization outside the Western world and correlates only weakly with economic growth, facts that align in interestingly imperfect ways with intensifying critical consideration of neoliberal tendencies in contemporary fiction. The French and British cases show striking similarities in the degree to which their domestic attention is allocated to their capital cities, though with different development curves in response to industrialization and with different allocations of foreign attention structured by their lingering colonial investments. </p>
+            <p>The results presented in this paper represent some of the largest-scale computational humanities work carried out to date. It has been made possible in part by the generous support of the American Council of Learned Societies, the Andrew W. Mellon Foundation, the Social Sciences and Humanities Research Council of Canada, the HathiTrust Research Center, and the University of Notre Dame Office of the Vice President for Research. Dr. Michael Clark provided substantial help with the statistical modeling work. Vienna Wagner, Angela Lake, and Jessen Baker performed much of the work to develop period-specific English-language NER training data. </p>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl>
+                        <hi rend="bold">Bercovitch, S.</hi> (1975). 
+                        <hi rend="italic">The Puritan Origins of the American Self</hi>. Yale University Press, New Haven, CT.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Blevins, C.</hi> (2014). Space, Nation, and the Triumph of Region: A View of the World from Houston. 
+                        <hi rend="italic">Journal of American History,</hi>
+                        <hi rend="bold">101</hi>(1): 122–47. 
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Borders, K., Vander Weele, E., Lau, B. and Prakash, A.</hi> (2009). Protecting Confidential Data on Personal Computers with Storage Capsules. In 
+                        <hi rend="italic">Proceedings of the 18th USENIX Security Symposium</hi>. Montreal: USENIX Society, pp. 367–82. 
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Cooper, D. and Gregory, I. N.</hi> (2011). Mapping the English Lake District: A Literary GIS. 
+                        <hi rend="italic">Transactions of the Institute of British Geographers,</hi>
+                        <hi rend="bold">36</hi>(1): 89–108. 
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Dimock, W. C.</hi> (2006). 
+                        <hi rend="italic">Through Other Continents: American Literature across Deep Time</hi>. Princeton University Press, Princeton, NJ.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Fetterley, J. and Pryse, M.</hi> (2003). 
+                        <hi rend="italic">Writing Out of Place: Regionalism, Women, and American Literary Culture</hi>. University of Illinois Press, Urbana. 
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Finkel, J. R., Grenager, T. and Manning, C.</hi> (2005). Incorporating Non-Local Information into Information Extraction Systems by Gibbs Sampling. In 
+                        <hi rend="italic">Proceedings of the 43rd Annual Meeting of the Association for Computational Linguistics (ACL 2005)</hi>, pp. 363–70.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Giles, P.</hi> (2011). 
+                        <hi rend="italic">The Global Remapping of American Literature</hi>. Princeton University Press, Princeton, NJ.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Heise, T.</hi> (2010). 
+                        <hi rend="italic">Urban Underworlds: A Geography of Twentieth-Century American Literature and Culture</hi>. Rutgers University Press, New Brunswick, NJ.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Hsu, H.</hi> (2010). 
+                        <hi rend="italic">Geography and the Production of Space in Nineteenth-Century American Literature</hi>. Cambridge University Press, Cambridge.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Lafferty, J., McCallum, A. and Pereira, F. C. N.</hi> (2001). Conditional Random Fields: Probabilistic Models for Segmenting and Labeling Sequence Data. In 
+                        <hi rend="italic">Proceedings of the 18th International Conference on Machine Learning</hi>. San Francisco: Morgan Kaufmann, pp. 282–89. 
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Ogborn, M.</hi> (2012). 
+                        <hi rend="italic">Geographies of the Book</hi>. Ogborn, M. and Withers, C. W. J. (eds). Ashgate. 
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Rupp, C. J., Rayson, P., Gregory, I., Hardie, A., Joulain, A. and Hartmann, D.</hi> (2014). Dealing with Heterogeneous Big Data When Geoparsing Historical Corpora. In 
+                        <hi rend="italic">Big Humanities Data</hi>. Bethesda, MD: IEEE Computer Society Press. 
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Thacker, A.</hi> (2005). The Idea of a Critical Literary Geography. 
+                        <hi rend="italic">New Formations,</hi>
+                        <hi rend="bold">57</hi>: 56–73. 
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Wilkens, M.</hi> (2013). The Geographic Imagination of Civil War–Era American Fiction. 
+                        <hi rend="italic">American Literary History,</hi>
+                        <hi rend="bold">25</hi>(4): 803–40. 
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Zeng, J., Ruan, G., Crowell, A., Prakash, A. and Plale, B.</hi> (2014). Cloud Computing Data Capsules for Non-Consumptive Use of Texts. In 
+                        <hi rend="italic">Proceedings of the 5th ACM Workshop on Scientific Cloud Computing</hi>. New York: ACM, pp. 9–16. 
+                    </bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

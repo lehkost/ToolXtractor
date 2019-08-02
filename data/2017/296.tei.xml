@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xsi:schemaLocation="http://www.tei-c.org/ns/1.0 /Users/yoann/Work/Grobid/grobid-home/schemas/xsd/Grobid.xsd"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+	<teiHeader xml:lang="en">
+		<encodingDesc>
+			<appInfo>
+				<application version="0.5.4-SNAPSHOT" ident="GROBID" when="2019-06-05T06:31+0000">
+					<ref target="https://github.com/kermitt2/grobid">GROBID - A machine learning software for extracting information from scholarly documents</ref>
+				</application>
+			</appInfo>
+		</encodingDesc>
+		<fileDesc>
+			<titleStmt>
+				<title level="a" type="main">Effective Identification of Citations in the Kanseki Repository</title>
+			</titleStmt>
+			<publicationStmt>
+				<publisher/>
+				<availability status="unknown"><licence/></availability>
+			</publicationStmt>
+			<sourceDesc>
+				<biblStruct>
+					<analytic>
+						<author role="corresp">
+							<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">Christian</forename><surname>Wittern</surname></persName>
+							<email>cwittern@gmail.com</email>
+						</author>
+						<title level="a" type="main">Effective Identification of Citations in the Kanseki Repository</title>
+					</analytic>
+					<monogr>
+						<imprint>
+							<date/>
+						</imprint>
+					</monogr>
+					<idno type="DOI">10.1145/2034691.2034741</idno>
+					<note>Kyoto University, Japan</note>
+				</biblStruct>
+			</sourceDesc>
+		</fileDesc>
+		<profileDesc>
+			<abstract/>
+		</profileDesc>
+	</teiHeader>
+	<text xml:lang="en">
+		<body>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Introduction</head><p>The Kanseki Repository is a large repository of premodern Chinese texts. Currently it holds more than 9000 texts, covering all periods of Chinese history from early antiquity to the beginning of the 20th century. The repository is organized into 6 top-level categories and offers full-text search across all textual variants.</p><p>Since its opening to the public in March 2016, a frequent request from users was to be able to find texts related to a certain text, especially to investigate and evaluate textual dependencies. This poster reports on some experiments to find an effective way to respond to this requests.</p><p>What is needed to solve this problem is an efficient way to identify text passages that are derived from other, earlier texts (based on the assumption that the texts in question can in fact be reliably dated). Such passages will be called citations here, although the usage here is not limited to true citations, but also includes quotations from memory, paraphrases and allusions - cases where the reference does not follow the exact wording of the source. As an additional complication, we need to take into account the possibility that the received text differs from the text available to the author of the text that contains the reference.</p><p>Related work has examined plagiarism detection ( <ref type="bibr" target="#b0">Gipp and</ref><ref type="bibr" target="#b0">Meuschke, 2011 and</ref><ref type="bibr" target="#b2">Schultz, 1999</ref>), but the approach taken here makes direct use of some of the unique features of the repository and the index built for it and seems thus to be more efficient than general purpose algorithms. Admittedly, this has not been verified empirically and thus may be reasonably rejected as not relevant. However, the purpose of this presentation is not to compare algorithms and their efficiency when applied to the material here, but rather to collect some low-hanging fruit that became available due to the way the full-text index is constructed.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Identification of Citations</head></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Index</head><p>Since a complete index has already been built for the full-text search, all experiments make use of this index (Mandoku 2016). The index is constructed by moving an n-gram window over the text and saving entries at appropriate locations. The resulting raw index is then read by a grep-like program to generate the display. The search display is designed to show the keyword in context (KWIC) so some characters are needed in front of the match character; these are appended after a comma character in the index entry. We built the index with a window between 10 and 25, since larger indexes considerable increase the required space and smaller builds will have too little information in the KWIC display. The index also contains information to identify the text, the location of the index excerpt and some information about the context of the match. <ref type="figure" target="#fig_0">Figure 1</ref> shows a typical example of such an index for a 21-gram window. </p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Algorithm</head><p>To find citations in the indexed files, a window of the same size as the index window is moved over the text passage under investigation. A search is initiated for a string of n characters, starting at the first index position. In the example in <ref type="figure" target="#fig_0">Figure 1</ref> this would be starting at position 6, since there are 5 characters after the ","; these characters are preceding the indexed characters in the text and have therefore been moved to the back. A query expansion is used for this search, in order to catch character variants in this initial selection of index lines. A large value of n will increase the probability that citations are not found due to slight positional variations in the text, while a small value of n, such as 1, will select many lines that are not relevant and will thus increase the processing times. Experiments have shown that a value of 2 or 3 for n gives a good optimum for precision and recall. Positional values are also registered to better demarcate the citation boundaries.</p><p>The selected lines have to be post-processed to restore the original sequence as found in the text. The line will then be compared to the window of the text passage, with scores given for each match; high scores are taken to be a citation and are marked for further processing. The best results so far have been achieved for a cumulated score of n-gram matches for values of n from 1 to 3, but additional experiments are planned. Conclusive results will be reported in the poster presentation.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Additional expected results</head><p>With the method introduced here, it becomes feasible to investigate potential citations for whole texts. We plan to build a heat-map of a text with passages that have been cited coloured according to their frequency. This will enable new ways of exploring the intertextuality of texts and will provide new evidence for the history of ideas and flow of intellectual debt in the history of Chinese thought. For the presentation of the poster, we show a preliminary investigation of some key texts of Chinese philosophy as a proof of concept.</p><p>We also hope to identify a set of key phrases and look at their usages over time, and in different schools of thought, to see what kind of trends can be seen there.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Bibliography</head></div><figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_0"><head>Figure 1 .</head><label>1</label><figDesc>Figure 1. Effective Identification of Citations in the Kanseki Repository</figDesc><graphic coords="1,316.86,373.50,241.44,142.00" type="vector_box" /></figure>
+		</body>
+		<back>
+			<div type="references">
+
+				<listBibl>
+
+<biblStruct xml:id="b0">
+	<analytic>
+		<title level="a" type="main">Citation Pattern Matching Algorithms for Citation-based Plagiarism Detection: Greedy Citation Tiling, Citation Chunking and Longest Common Citation Sequence</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">B</forename><surname>Gipp</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">M</forename><surname>Meuschke</surname></persName>
+		</author>
+		<idno type="doi">doi:10.1145/2034691.2034741</idno>
+	</analytic>
+	<monogr>
+		<title level="m">Proceedings of the 11th ACM symposium on Document engineering (DocEng &apos;11)</title>
+		<meeting>the 11th ACM symposium on Document engineering (DocEng &apos;11)<address><addrLine>Mountain, View, CA, USA</addrLine></address></meeting>
+		<imprint>
+			<date type="published" when="2011" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b1">
+	<monogr>
+		<title level="m" type="main">Mandoku project</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><surname>Mandoku</surname></persName>
+		</author>
+		<ptr target="https://github.com/mandoku/mandoku" />
+		<imprint>
+			<date type="published" when="2016" />
+			<biblScope unit="page" from="2016" to="2026" />
+		</imprint>
+	</monogr>
+	<note>Source code</note>
+</biblStruct>
+
+<biblStruct xml:id="b2">
+	<monogr>
+		<title level="m" type="main">The search for quotation : verbal parallels in the prophets</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">R</forename><forename type="middle">L</forename><surname>Schultz</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="1999" />
+			<publisher>Sheffield Academic Press</publisher>
+			<pubPlace>Sheffield</pubPlace>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b3">
+	<analytic>
+		<title level="a" type="main">Kanripo and Mandoku: Tools for gitbased distributed repositories for premodern Chinese texts</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">C</forename><surname>Wittern</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Digital Humanities 2014 Book of Abstracts</title>
+		<imprint>
+			<date type="published" when="2014" />
+			<biblScope unit="page" from="408" to="409" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b4">
+	<analytic>
+		<title level="a" type="main">Special issue Kanseki Repository</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">C</forename><surname>Wittern</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">CIEAS Research Report</title>
+		<imprint>
+			<date type="published" when="2015" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+				</listBibl>
+			</div>
+		</back>
+	</text>
+</TEI>

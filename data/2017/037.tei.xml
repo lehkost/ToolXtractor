@@ -1,0 +1,563 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xsi:schemaLocation="http://www.tei-c.org/ns/1.0 /Users/yoann/Work/Grobid/grobid-home/schemas/xsd/Grobid.xsd"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+	<teiHeader xml:lang="en">
+		<encodingDesc>
+			<appInfo>
+				<application version="0.5.4-SNAPSHOT" ident="GROBID" when="2019-06-05T06:46+0000">
+					<ref target="https://github.com/kermitt2/grobid">GROBID - A machine learning software for extracting information from scholarly documents</ref>
+				</application>
+			</appInfo>
+		</encodingDesc>
+		<fileDesc>
+			<titleStmt>
+				<title level="a" type="main">Neutralising the Authorial Signal in Delta by Penalization: Stylometric Clustering of Genre in Span- ish Novels</title>
+			</titleStmt>
+			<publicationStmt>
+				<publisher/>
+				<availability status="unknown"><licence/></availability>
+			</publicationStmt>
+			<sourceDesc>
+				<biblStruct>
+					<analytic>
+						<author>
+							<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">José</forename><forename type="middle">Calvo</forename><surname>Tello</surname></persName>
+							<affiliation key="aff0">
+								<orgName type="institution" key="instit1">University of Würzburg</orgName>
+								<orgName type="institution" key="instit2">University of Würzburg</orgName>
+								<orgName type="institution" key="instit3">University of Würzburg</orgName>
+								<orgName type="institution" key="instit4">University of Würzburg</orgName>
+							</affiliation>
+						</author>
+						<author>
+							<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">Daniel</forename><surname>Schlör</surname></persName>
+							<affiliation key="aff0">
+								<orgName type="institution" key="instit1">University of Würzburg</orgName>
+								<orgName type="institution" key="instit2">University of Würzburg</orgName>
+								<orgName type="institution" key="instit3">University of Würzburg</orgName>
+								<orgName type="institution" key="instit4">University of Würzburg</orgName>
+							</affiliation>
+						</author>
+						<author>
+							<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">Ulrike</forename><surname>Henny</surname></persName>
+							<email>ulrike.henny@uni-wuerzburg.de</email>
+							<affiliation key="aff0">
+								<orgName type="institution" key="instit1">University of Würzburg</orgName>
+								<orgName type="institution" key="instit2">University of Würzburg</orgName>
+								<orgName type="institution" key="instit3">University of Würzburg</orgName>
+								<orgName type="institution" key="instit4">University of Würzburg</orgName>
+							</affiliation>
+						</author>
+						<author>
+							<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">Christof</forename><surname>Schöch</surname></persName>
+							<email>christof.schoech@uni-wuerzburg.de</email>
+							<affiliation key="aff0">
+								<orgName type="institution" key="instit1">University of Würzburg</orgName>
+								<orgName type="institution" key="instit2">University of Würzburg</orgName>
+								<orgName type="institution" key="instit3">University of Würzburg</orgName>
+								<orgName type="institution" key="instit4">University of Würzburg</orgName>
+							</affiliation>
+						</author>
+						<title level="a" type="main">Neutralising the Authorial Signal in Delta by Penalization: Stylometric Clustering of Genre in Span- ish Novels</title>
+					</analytic>
+					<monogr>
+						<imprint>
+							<date/>
+						</imprint>
+					</monogr>
+				</biblStruct>
+			</sourceDesc>
+		</fileDesc>
+		<profileDesc>
+			<abstract/>
+		</profileDesc>
+	</teiHeader>
+	<text xml:lang="en">
+		<body>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Neutralizing Author Signal in Delta</head><p>Our proposal is to neutralize the author signal directly on the Delta matrix. We use a testing corpus of texts from three Spanish authors and three subgenres. Detailed information about the corpora, files, parameters and scripts is in our GitHub repository. We applied Cosine Delta (5000 MFW) with Stylo (Eder, Rybicki and Kestemont 2016) and visualized the resulting distance matrix with Python:  We see a tendency of lower Delta values for documents of the same author (below 1.0) in comparison to documents of different authors (above 1.0). But what about the closest texts written by a different author? For the historical novel in column E, they are in the rows 14 and 15 and are historical novels, as well. This pattern is found for the majority of the texts. How could we cluster the texts preferring the closest text from other authors? And if we are able to neutralize the author signal, will we see noise or subgenre clusters?</p><p>Our proposal is to penalize the distances between the texts of the same author (cf. Lu and Leen 2007 for penalization in image clustering), making them closer to the average distance of texts of different authors, then cluster the neutralized distance matrix and measure the cluster homogeneity by author and subgenre.</p><p>We define the set of all documents by an author a as Aa, the collection containing all documents by all authors as C and total number of documents in the collection is defined as c:</p><p>Note that each document is in exactly one author-document set Ai.</p><p>First, we calculate the average distance of texts of all pairwise different authors (in <ref type="figure" target="#fig_1">fig. 2</ref>, all the distances in black). We call this value the mean of different authors or M(C) and for this collection its value is 1.16.</p><p>Second, we calculate the mean of the texts of each author a M <ref type="figure" target="#fig_1">(Aa) (in fig. 2, the distances in grey)</ref>.  The values in grey are now in general above 1.0: the texts of the same author have been separated, showing relations between texts independently of authorship. Now the adventure and historical novels of Baroja in columns C and D have their closest text in works of different authors but belonging to the same subgenre. In comparison with <ref type="figure" target="#fig_0">Figure 1</ref>, this dendrogram allows us to see new text relations beyond authorship but within subgenre, showing clusters with different authors but the same subgenre: for example, the cluster of historical novels by Baroja and Valle or the two very close subclusters of erotic novels by Miró and Valle.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Tests and Evaluation</head><p>For the evaluation, the homogeneity of the clusters <ref type="bibr" target="#b19">(Rosenberg and Hirschberg, 2007</ref>) was measured. This measure yields values between 0 and 1. As ground truth, the metadata about author and subgenre have been used. The results for the dummy corpus: The homogeneity of the clusters of Cosine Delta (see <ref type="figure" target="#fig_0">fig. 1</ref>) are perfect for authors and much lower for subgenre, because the author clusters contain subgenre subclusters. The homogeneity of the clusters of Neutralized Delta (see <ref type="figure" target="#fig_4">fig. 5</ref>) is lower for authorship (as expected), but not for subgenre. In this case the neutralization of the author signal only deteriorates the homogeneity for authorship but improves the homogeneity for subgenre. We have analysed different subgenres present in the whole corpus for test the method. We created subcorpora of historical, bildungsroman, erotic and adventure novels: 5</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Figure 7: Homogeneities for Spanish prose subcorpora</head><p>As expected, the neutralization consistently deteriorates the homogeneity for author (between -0.26 and -0.1) while the homogeneity for subgenre is not deteriorated (between -0.08 and 0.06). The homogeneity for subgenre of adventure compared to erotic and bildungsroman get the best results (over 0.9) and they even improved on results with Cosine. Adventure novels are also best recognized in classification tasks <ref type="bibr">(Het- tinger et al. 2016</ref>). Subgenres which are very difficult to differentiate like historical and adventure (Pedraza <ref type="bibr">Rodríguez Cáceres 1983: 672 and</ref><ref type="bibr">1987: 459)</ref> get one of the worst results.</p><p>The results are similar when testing other corpora, such as a corpus of French drama ( <ref type="bibr" target="#b21">Schöch et al. 2015</ref>) and a corpus of Spanish American novels: <ref type="figure">Figure 8</ref>: Homogeneity values for French drama and Spanish American novels</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Conclusion and future work</head><p>Our main goal was to present a method to neutralize the Delta distances of the same author using the difference between the mean of the author and the mean of different authors. Tested on eight subcorpora, this procedure, as we expected, deteriorates the homogeneity of authorship clusters but maintains the subgenre homogeneity, improving it for some cases. That discovers relations between texts (see <ref type="figure" target="#fig_4">fig. 5</ref>) that were hidden by authorship. This procedure brings a new way of working with Delta beyond authorship attribution.</p><p>Both Cosine and Neutralized Delta show very different results for the comparison of different subgenres, something which points to the different internal structure of the subgenres. The comparison of very different subgenres (like adventure against erotic or bildungsroman) gets higher subgenre cluster homogeneity. Neutralized Delta could be used for comparing different corpora of specific subgenres and test the significance of the results to better characterize these subgenres. In an ideal scenario, we would like to test on a perfect balanced corpus where a set of authors are represented in all subgenres of the same period.</p><p>For future work, we will analyse how different parameters like versions of Delta or number of MFW affect the results. We also plan to transfer the approach to an earlier step in the Delta procedure and penalize the word z-score vectors.</p><p>We look forward to the feedback of the international DH community about this new use of the very effective "expression of difference, pure difference" which is Delta.</p></div><figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_0"><head>Figure 1 :</head><label>1</label><figDesc>Figure 1: Dendrogram from Cosine Delta As expected, the texts are clustered by author, with sub-clusters of subgenres. The underlying Delta Matrix contains distances between all texts:</figDesc><graphic url="image-1.png" coords="1,316.86,411.66,241.44,185.04" type="bitmap" /></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_1"><head>Figure 2 :</head><label>2</label><figDesc>Figure 2: Cosine Delta Matrix</figDesc><graphic url="image-2.png" coords="2,54.30,72.30,241.44,54.24" type="bitmap" /></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_2"><head>Figure 3 :</head><label>3</label><figDesc>Figure 3: Means and differences of author Third, we add the difference of the author M(C) - M(Aa) to the Delta values of text of the same author. This gives a Neutralized Delta-function as follows:</figDesc><graphic url="image-11.png" coords="2,316.86,399.18,241.44,52.80" type="bitmap" /></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_3"><head>Figure 4 :</head><label>4</label><figDesc>Figure 4: Author-Neutralized Delta matrix</figDesc><graphic url="image-12.png" coords="2,316.86,491.10,241.44,53.76" type="bitmap" /></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_4"><head>Fig. 5 :</head><label>5</label><figDesc>Fig. 5: Author-neutralized Delta dendrogram</figDesc><graphic url="image-13.png" coords="3,54.30,72.30,241.44,180.24" type="bitmap" /></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_5"><head>Figure 6 :</head><label>6</label><figDesc>Figure 6: Homogeneity of Cosine and Neutralized Delta for author and subgenre</figDesc><graphic url="image-14.png" coords="3,54.30,458.94,241.44,206.88" type="bitmap" /></figure>
+		</body>
+		<back>
+
+			<div type="acknowledgement">
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Acknowledgements</head><p>To avoid confusion regarding intellectual property, we would like to make it clear that the main idea and implementation are the work of the first author. Other authors have brought important remarks, feedback, some of the corpora and have helped with the redaction and the formalisations.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Bibliography</head></div>
+			</div>
+
+			<div type="references">
+
+				<listBibl>
+
+<biblStruct xml:id="b0">
+	<monogr>
+		<title level="m" type="main">Interpreting Burrows&apos;s Delta: Geometric and Probabilistic Foundations. Literary and Linguistic Computing</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">S</forename><surname>Argamon</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="2008" />
+			<biblScope unit="volume">23</biblScope>
+			<biblScope unit="page" from="131" to="178" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b1">
+	<monogr>
+		<title level="m" type="main">Delta&apos;: a Measure of Stylistic Difference and a Guide to Likely Authorship. Literary and Linguistic Computing</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">J</forename><surname>Burrows</surname></persName>
+		</author>
+		<ptr target="http://revistacarac-teres.net/revista/vol5n1mayo2016/entendiendo-delta" />
+		<imprint>
+			<date type="published" when="2002" />
+			<biblScope unit="volume">17</biblScope>
+			<biblScope unit="page" from="267" to="87" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b2">
+	<monogr>
+				<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">A</forename><surname>Büttner</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">T</forename><surname>Proisl</surname></persName>
+		</author>
+		<ptr target="http://www.dhd2016.de/ab-stracts/sektionen-002.html" />
+		<title level="m">Stilometrie interdisziplinär: Merkmalsselektion zur Differenzierung zwischen Übersetzer-und Fachvokabular. DHd 2016: Modellierung, Vernetzung, Visualisierung. Leipzig: Universität Leipzig</title>
+		<imprint>
+			<date type="published" when="2016" />
+			<biblScope unit="page" from="66" to="69" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b3">
+	<monogr>
+		<title level="m" type="main">Entendiendo Delta desde las Humanidades. Caracteres. Estudios culturales y críticos de la esfera digital</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">Calvo</forename><surname>Tello</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">J</forename></persName>
+		</author>
+		<imprint>
+			<date type="published" when="2016" />
+			<biblScope unit="volume">5</biblScope>
+			<biblScope unit="page" from="140" to="76" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b4">
+	<monogr>
+		<title level="m" type="main">Bootstrapping Delta: a safety-net in openset authorship attribution</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">M</forename><surname>Eder</surname></persName>
+		</author>
+		<ptr target="https://sites.google.com/site/computationalstylis-tics/preprints/m-eder_bootstrapping_delta.pdf?attredi-rects=0" />
+		<imprint>
+			<date type="published" when="2013" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b5">
+	<analytic>
+		<title level="a" type="main">Stylometry with R: A package for computational text analysis</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">M</forename><surname>Eder</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">M</forename><surname>Kestemont</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">J</forename><surname>Rybicki</surname></persName>
+		</author>
+		<ptr target="https://journal.r-project.org/ar-chive/accepted/eder-rybicki-kestemont.pdf" />
+	</analytic>
+	<monogr>
+		<title level="j">The R Journal</title>
+		<imprint>
+			<biblScope unit="volume">16</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="1" to="15" />
+			<date type="published" when="2016" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b6">
+	<analytic>
+		<title level="a" type="main">Towards a better understanding of Burrows&apos;s Delta in literary authorship attribution</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">S</forename><surname>Evert</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">T</forename><surname>Proisl</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">F</forename><surname>Jannidis</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">S</forename><surname>Pielström</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">C</forename><surname>Schöch</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">T</forename><surname>Vitt</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Proceedings of the Fourth Workshop on Computational Linguistics for Literature. Denver CO: Association for Computational Linguistics</title>
+		<meeting>the Fourth Workshop on Computational Linguistics for Literature. Denver CO: Association for Computational Linguistics</meeting>
+		<imprint>
+			<date type="published" when="2015" />
+			<biblScope unit="page" from="79" to="88" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b7">
+	<monogr>
+		<title level="m" type="main">Classification of Literary Subgenres</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">L</forename><surname>Hettinger</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">I</forename><surname>Reger</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">F</forename><surname>Jannidis</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">A</forename><surname>Hotho</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="2016" />
+			<biblScope unit="page" from="154" to="58" />
+			<pubPlace>Leipzig</pubPlace>
+		</imprint>
+		<respStmt>
+			<orgName>Universität Leipzig</orgName>
+		</respStmt>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b8">
+	<monogr>
+		<title level="m" type="main">Testing Burrows&apos;s Delta. Literary and Linguistic Computing</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">D</forename><forename type="middle">L</forename><surname>Hoover</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="2004" />
+			<biblScope unit="volume">19</biblScope>
+			<biblScope unit="page" from="453" to="75" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b9">
+	<analytic>
+		<title level="a" type="main">Delta Prime</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">D</forename><forename type="middle">L</forename><surname>Hoover</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Literary and Linguistic Computing</title>
+		<imprint>
+			<date type="published" when="2004" />
+			<biblScope unit="volume">19</biblScope>
+			<biblScope unit="page" from="477" to="95" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b10">
+	<analytic>
+		<title level="a" type="main">A Conversation Among Himselves: Change and the Styles of Henry James</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">D</forename><forename type="middle">L</forename><surname>Hoover</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Digital Literary Studies</title>
+		<editor>Hoover, D. L., Culpeper, J. and O&apos;Halloran, K.</editor>
+		<meeting><address><addrLine>New York &amp; London</addrLine></address></meeting>
+		<imprint>
+			<publisher>Routledge</publisher>
+			<date type="published" when="2014" />
+			<biblScope unit="page" from="90" to="119" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b11">
+	<analytic>
+		<title level="a" type="main">Burrows&apos;s Delta and Its Use in German Literary History</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">F</forename><surname>Jannidis</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">G</forename><surname>Lauer</surname></persName>
+		</author>
+		<ptr target="gerhardlauer.de/index.php/down-load_file/view/335/1/" />
+	</analytic>
+	<monogr>
+		<title level="m">Distant Readings. Topologies of German Culture in the Long Nineteenth Century</title>
+		<editor>Erlin, M. and Tatlock, L.</editor>
+		<meeting><address><addrLine>Rochester</addrLine></address></meeting>
+		<imprint>
+			<publisher>Camden House</publisher>
+			<date type="published" when="2014" />
+			<biblScope unit="page" from="29" to="54" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b12">
+	<monogr>
+		<title level="m" type="main">Improving Burrows&apos; Delta - An empirical evaluation of text distance measures</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">F</forename><surname>Jannidis</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">S</forename><surname>Pielström</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">C</forename><surname>Schöch</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">T</forename><surname>Vitt</surname></persName>
+		</author>
+		<ptr target="http://dh2015.org/abstracts/xml/JANNIDIS_Fotis_Im-proving_Burrows__Delta___An_empi/JANNIDIS_Fo-tis_Improving_Burrows__Delta___An_empirical_.html" />
+		<imprint>
+			<date type="published" when="2015" />
+			<pubPlace>Sydney</pubPlace>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b13">
+	<monogr>
+				<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">M</forename><forename type="middle">L</forename><surname>Jockers</surname></persName>
+		</author>
+		<title level="m">Macroanalysis - Digital Methods and Literary History</title>
+		<meeting><address><addrLine>Champaign, IL</addrLine></address></meeting>
+		<imprint>
+			<publisher>University of Illinois Press</publisher>
+			<date type="published" when="2013" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b14">
+	<analytic>
+		<title level="a" type="main">Penalized Probabilistic Clustering</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">Z</forename><surname>Lu</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">T</forename><forename type="middle">K</forename><surname>Leen</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Neural Computation</title>
+		<imprint>
+			<biblScope unit="volume">19</biblScope>
+			<biblScope unit="issue">6</biblScope>
+			<biblScope unit="page" from="1528" to="67" />
+			<date type="published" when="2007" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b15">
+	<analytic>
+		<title level="a" type="main">Manual de literatura española</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">F</forename><forename type="middle">B</forename><surname>Pedraza Jiménez</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">M</forename><surname>Cáceres</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Época del realismo</title>
+		<meeting><address><addrLine>Pamplona</addrLine></address></meeting>
+		<imprint>
+			<publisher>Cénlit</publisher>
+			<date type="published" when="1983" />
+			<biblScope unit="volume">7</biblScope>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b16">
+	<analytic>
+		<title level="a" type="main">Manual de Literatura Española</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">F</forename><forename type="middle">B</forename><surname>Pedraza Jiménez</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">M</forename><surname>Cáceres</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Generación de Fin de Siglo: Prosistas. Pamplona: Cénlit</title>
+		<imprint>
+			<date type="published" when="1987" />
+			<biblScope unit="volume">9</biblScope>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b17">
+	<monogr>
+				<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">A</forename><surname>Plasek</surname></persName>
+		</author>
+		<ptr target="http://dharchive.org/paper/DH2014/Paper-755.xml" />
+		<title level="m">Incommensurability? Authorship, Style, and the Need for Theory. DH2014: Lausanne: ADHO</title>
+		<imprint>
+			<date type="published" when="2014" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b18">
+	<analytic>
+		<title level="a" type="main">Progress through Regression</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">A</forename><surname>Riddell</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">C</forename><surname>Schöch</surname></persName>
+		</author>
+		<ptr target="http://dharchive.org/paper/DH2014/Paper-60.xml" />
+	</analytic>
+	<monogr>
+		<title level="m">Digital Humanities DH2014:. Lausanne: ADHO</title>
+		<imprint>
+			<date type="published" when="2014" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b19">
+	<monogr>
+		<title level="m" type="main">V-Measure: A conditional entropy-based external cluster evaluation measure. Prague: Association for Computational Linguistics</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">A</forename><surname>Rosenberg</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">J</forename><surname>Hirschberg</surname></persName>
+		</author>
+		<ptr target="https://aclweb.org/anthol-ogy/D/D07/D07-1043.pdf" />
+		<imprint>
+			<date type="published" when="2007" />
+			<biblScope unit="page" from="410" to="430" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b20">
+	<monogr>
+				<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">C</forename><surname>Schöch</surname></persName>
+		</author>
+		<ptr target="http://web.fu-berlin.de/phin/beiheft7/b7t08.pdf" />
+		<title level="m">Corneille, Molière et les autres. Stilometrische Analysen zu Autorschaft und Gattungszugehörigkeit im französischen Theater der Klassik</title>
+		<editor>Schöch, C. and Schneider, L.</editor>
+		<imprint>
+			<date type="published" when="2013" />
+			<biblScope unit="page" from="130" to="57" />
+		</imprint>
+	</monogr>
+	<note>Literaturwissenschaft im digitalen Medienwandel</note>
+</biblStruct>
+
+<biblStruct xml:id="b21">
+	<monogr>
+				<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">C</forename><surname>Schöch</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">U</forename><surname>Henny</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">J</forename><surname>Calvo Tello</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">S</forename><surname>Popp</surname></persName>
+		</author>
+		<ptr target="https://github.com/cligs/textbox" />
+		<title level="m">The CLiGS Textbox</title>
+		<meeting><address><addrLine>Würzburg</addrLine></address></meeting>
+		<imprint>
+			<date type="published" when="2015" />
+		</imprint>
+		<respStmt>
+			<orgName>University of Würzburg</orgName>
+		</respStmt>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b22">
+	<analytic>
+		<title level="a" type="main">Improving Authorship Attribution: Optimizing Burrows&apos; Delta Method</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">P</forename><forename type="middle">W</forename><surname>Smith</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">H</forename><surname>Aldridge</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">W</forename></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Journal of Quantitative Linguistics</title>
+		<imprint>
+			<biblScope unit="volume">18</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="63" to="88" />
+			<date type="published" when="2011" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b23">
+	<monogr>
+		<title level="m" type="main">Understanding Genre in a Collection of a Million Volumes</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">T</forename><surname>Underwood</surname></persName>
+		</author>
+		<ptr target="https://figshare.com/articles/Understand-ing_Genre_in_a_Collection_of_a_Million_Volumes_In-terim_Report/1281251" />
+		<imprint>
+			<date type="published" when="2014" />
+		</imprint>
+	</monogr>
+<note type="report_type">Interim Report</note>
+</biblStruct>
+
+				</listBibl>
+			</div>
+		</back>
+	</text>
+</TEI>

@@ -1,0 +1,458 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>Classical Chinese Sentence Segmentation for Tomb Biographies of Tang Dynasty</title>
+                <author>
+                    <persName>
+                        <surname>Liu</surname>
+                        <forename>Chao-Lin</forename>
+                    </persName>
+                    <affiliation>National Chengchi University, Taiwan</affiliation>
+                    <email>chaolinliu@gmail.com</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Chang</surname>
+                        <forename>Yi</forename>
+                    </persName>
+                    <affiliation>National Chengchi University, Taiwan</affiliation>
+                    <email>black.heptagram@gmail.com</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2018-04-18T23:22:00Z</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Name, Institution</publisher>
+                <address>
+                    <addrLine>Street</addrLine>
+                    <addrLine>City</addrLine>
+                    <addrLine>Country</addrLine>
+                    <addrLine>Name</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from a Word document</p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.22">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Long Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>machine learning</term>
+                    <term>conditional random fields</term>
+                    <term>historical studies</term>
+                    <term>tomb biographies</term>
+                    <term>Chinese studies</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>historical studies</term>
+                    <term>natural language processing</term>
+                    <term>text analysis</term>
+                    <term>asian studies</term>
+                    <term>data mining / text mining</term>
+                    <term>English</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <div type="div1" rend="DH-Heading1">
+                <head>Introduction</head>
+                <p>Figure 1 shows a slab of tomb biography of the Tang dynasty.
+                    <note place="foot" xml:id="ftn1" n="1">
+                        <p rend="footnote text"> This image was downloaded from &lt;http://www.lyqtzz.com/uploadfile/20110817165325665.jpg&gt;. The Tang dynasty existed between 688CE and 907CE. More images of tomb biographies are available at &lt;http://goo.gl/XHCL9P&gt;.</p>
+                    </note> Researchers can copy the words on such slabs to produce a collection of tomb biographies for research. A typical tomb biography contains various types of information about the deceased and their families and, sometimes, a rhyming passage of admiration. Employing software tools to analyze the texts, one can extract useful information from the collections of tomb biographies to enrich databases like the China Biographical Database (CBDB) to support further Chinese studies.
+                    <note place="foot" xml:id="ftn2" n="2">
+                        <p rend="footnote text"> The China Biographical Database (https://projects.iq.harvard.edu/cbdb/home) is a free and open database for Chinese studies.</p>
+                    </note>
+                </p>
+                <figure>
+                    <graphic n="1001" width="9.6774cm" height="8.466666666666667cm" url="Pictures/d62bcaf6d41fdcce7d7a82798561fd12.jpg" rend="inline"/>
+                </figure>
+                <p>
+                    <hi rend="bold">Figure 1. A slab of tomb biography of the Tang dynasty</hi>
+                </p>
+                <p> It is well known that modern Chinese texts do not include delimiters like spaces to separate words. Hence, researchers design algorithms for segmenting Chinese character strings into words (Sun et al., 2004; Shao et al., 2017). </p>
+                <p>In contrast, it is not as well known that, in classical Chinese, there were no markers for the separation of sentences. The characters in Figure 1 simply connect to each other. In modern Chinese, texts are punctuated for pauses in sentences and ends of sentences. The research about algorithmically inserting these syntactic markers into classical Chinese is receiving more attention along with the growth of digital humanities in recent years. The needs of segmenting ancient texts for humanities studies are not unique to Chinese studies, interested readers can find examples for German texts (Petran, 2012) and Swedish texts (Bouma and Adesam, 2013).</p>
+                <p>Huang et al.
+                    <anchor xml:id="Ref499278733"/> (2010) employed the techniques of conditional random fields (CRFs) to segment texts of literature and history. They achieved 0.7899 and 0.9179 in F
+                    <hi rend="subscript">1</hi>
+                    <anchor xml:id="Ref499189299"/>,
+                    <note place="foot" xml:id="ftn3" n="3">
+                        <p rend="footnote text"> The 
+                            <hi rend="bold color(0000FF)">precision</hi> rate, 
+                            <hi rend="bold color(0000FF)">recall</hi> rate, and 
+                            <hi rend="bold color(0000FF)">F measure</hi> are designed for evaluating the effectiveness of information retrieval and extraction. F
+                            <hi rend="subscript">1</hi> is a popular choice of the F measure.
+                        </p>
+                    </note> respectively, for segmenting the texts in Shiji and Zuozhuan.
+                    <note place="foot" xml:id="ftn4" n="4">
+                        <p rend="footnote text"> Shiji (史記) and Zuozhuan (左傳) are two very important sources about Chinese history.</p>
+                    </note> Wang et al. (2016; 2017) applied recurrent neural networks to segment texts in a diverse collection of classical Chinese sources. They achieved F
+                    <hi rend="subscript">1</hi> measures that are close to 0.75, and item accuracies that are near 0.91.
+                    <note place="foot" xml:id="ftn5" n="5">
+                        <p rend="footnote text"> The 
+                            <hi rend="bold color(0000FF)">item accuracy</hi> evaluates the labeling judgments including both punctuated and non-punctuated items. In a typical sentence segmentation task, there are many more non-punctuated items than punctuated items, so it is relatively easier to achieve attractive figures for the item accuracy than for the F measure.
+                        </p>
+                    </note> The researchers achieved different segmentation results for different corpora even when they applied the same techniques and procedures. It is thus inappropriate to just compare the numbers for ranking because the nature of the corpora varies widely.
+                </p>
+                <p>In this proposal, we report our attempts to segment texts in tomb biographies with CRF models (Lafferty, 2001). We studied the effects of considering different types of lexical information in the models, and achieved 0.853 in precision, 0.807 in recall, 0.829 in F
+                    <hi rend="subscript">1</hi>, and 0.940 in item accuracy
+                    <anchor xml:id="Ref499362493"/>.
+                    <note place="foot" xml:id="ftn6" n="6">
+                        <p rend="footnote text"> We interviewed Hongsu Wang (王宏甦), the project manager of the China Biographical Database Project at Harvard University, about his preferences in post-checking the segmentation results that are produced by software. He suggests that higher precision rates are preferred. When seeking higher recall rates (often sacrificing the precision rates), the false-positive recommendations for punctuation are annoying to the researchers.</p>
+                    </note> Better results were accomplished when we employed deep learning techniques, including applicaitons of long short-term memory networks and sequence-to-sequence networks, for segmenting our tomb biographies.
+                </p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Data Sources</head>
+                <p>We obtained digitized texts for three books of tomb biographies of the Tang dynasty (Zhou and Zhao, 1992; 2001). The collection consists of 5119 biographies which contain 423,922 periods, commas, and semicolons. There are 5505 distinct types of characters and a total of more than 2461 thousand of characters in the collection.
+                    <note place="foot" xml:id="ftn7" n="7">
+                        <p rend="footnote text"> In terms of Linguistics, we have 5505 character types and 2,461,000 character tokens.</p>
+                    </note> When counting these statistics, we ignored a very small portion of characters that cannot be shown without special fonts. Hence, these statistics are not perfectly precise, but they are accurate within a reasonable range. On average, a biography has about 480 characters. Some of them are very short and have many missing characters. Hence, we exclude biographies that have no more than 30 characters in our experiments.
+                    <note place="foot" xml:id="ftn8" n="8">
+                        <p rend="footnote text"> 30 is an arbitrary choice, and can be changed easily.</p>
+                    </note>
+                </p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Training and Testing CRF Models</head>
+                <p>We consider the segmentation task as a classification problem. Let C
+                    <hi rend="subscript">i</hi> denote an individual character in the texts. We categorize each character as either 
+                    <hi rend="bold color(0000FF)">M</hi> (for “followed by a punctuation mark”) and 
+                    <hi rend="bold color(0000FF)">O</hi> (for “an ordinary character”). Assume that we should add only a punctuation mark between C
+                    <hi rend="subscript">3</hi> and C
+                    <hi rend="subscript">4</hi> for a string “C
+                    <hi rend="subscript">1</hi> C
+                    <hi rend="subscript">2</hi> C
+                    <hi rend="subscript">3</hi> C
+                    <hi rend="subscript">4</hi> C
+                    <hi rend="subscript">5</hi>”. A correct labeling for this string will be “O O M O O”.
+                    <note place="foot" xml:id="ftn9" n="9">
+                        <p rend="footnote text"> Due to the constraint on the word count in DH 2018 proposals, we can only briefly outline the steps for training and testing CRF models. More details can be provided in the presentation and in an extended report.</p>
+                    </note>
+                </p>
+                <p>We can convert each character in the texts into an 
+                    <hi rend="bold color(0000FF)">instance</hi>, which may be used for training or testing. We provide with each instance a group of contextual 
+                    <hi rend="bold color(0000FF)">features</hi> that may be relevant to the judgment of whether or not a punctuation mark is needed. For instance, we may use one character surrounding a character X and itself as the group of features. The following are two instances that we create for C
+                    <hi rend="subscript">3</hi> and C
+                    <hi rend="subscript">4</hi>. The instance for C
+                    <hi rend="subscript">3</hi> is (1), and the leftmost item is the correct label for C
+                    <hi rend="subscript">3</hi>, and the rest are the features for C
+                    <hi rend="subscript">3</hi>.
+                    <note place="foot" xml:id="ftn10" n="10">
+                        <p rend="footnote text"> Here, we adopt typical notations for CRF-based applications. w[0] is the current word, w[-1] is the neighbor word to the left of the current word, w[1] is the neighbor word to the right of the current word. Two actual instances that are produced from “孝敬天啟，動必以禮” for character-based segmentations will look like the following.</p>
+                        <p rend="footnote text"> O w[-1]=敬,w[0]=天,w[1]=啟</p>
+                        <p rend="footnote text">M w[-1]=天,w[0]=啟,w[1]=動</p>
+                        <p rend="footnote text">Two instances that are produced from “母子 忠孝 ， 天下 榮 之” for the word-based segmentations will look like the following.</p>
+                        <p rend="footnote text">M w[-1]=母子,w[0]=忠孝,w[1]=天下 </p>
+                        <p rend="footnote text">O w[-1]=忠孝,w[0]=天下,w[1]=榮</p>
+                    </note>
+                </p>
+                <p>M w[0]=C
+                    <hi rend="subscript">3</hi>,w[-1]=C
+                    <hi rend="subscript">2</hi>,w[1]=C
+                    <hi rend="subscript">4</hi> (1)
+                </p>
+                <p>O w[0]=C
+                    <hi rend="subscript">4</hi>,w[-1]=C
+                    <hi rend="subscript">3</hi>,w[1]=C
+                    <hi rend="subscript">5</hi> (2)
+                </p>
+                <p>We can train a CRF model with a selected portion of the instances (called 
+                    <hi rend="bold color(0000FF)">training data</hi>), and test the resulting model with the remaining instances (called 
+                    <hi rend="bold color(0000FF)">test data</hi>). The instances in the training and the test data are mutually exclusive. 
+                </p>
+                <p>We employ a machine-learning tool that learns from the training data to build a CRF model.
+                    <note place="foot" xml:id="ftn11" n="11">
+                        <p rend="footnote text"> CRFSuite: &lt;http://www.chokkan.org/software/crfsuite/&gt;</p>
+                    </note> We then apply the learned model to predict the classes of the instances in the test data. The labels of the instances in the test data are temporarily concealed when the learned model makes predictions.
+                    <note place="foot" xml:id="ftn12" n="12">
+                        <p rend="footnote text"> Thus, the instances for testing CRFs look like (1) and (2) that do not carry the correct labels, M and O, respectively..</p>
+                    </note> The precision rate and recall rate of the learned model are calculated with the correct and the predicted labels.
+                </p>
+                <p>We report four sets of basic experiments next, each investigating an important aspect for analyzing Chinese texts. The 5119 biographies were resampled and randomly assigned to the training (70%) and test (30%) sets for every experiment.
+                    <note place="foot" xml:id="ftn13" n="13">
+                        <p rend="footnote text"> Recall that we used only those biographies that have no less than 30 characters.</p>
+                    </note> We repeated every experiment three times, and report the averages of the precision and recall rates.
+                </p>
+                <div type="div2" rend="DH-Heading2">
+                    <head>Changing the Size of the Context</head>
+                    <p>We certainly can and should consider more than one character around the current character as the context. Figure 2 shows the test results of using different sizes of contexts for the instances. The horizontal axis shows the sizes, e.g., when 
+                        <hi rend="italic">k</hi>=2, the feature set includes information about two characters on both sides of the current character. P1 and R1 are the average precision and recall rates, respectively. 
+                    </p>
+                    <figure>
+                        <graphic n="1002" width="14.9cm" height="7cm" url="Pictures/4105c6ba934289941f2453a8d1a1fcb0.jpg" rend="inline"/>
+                    </figure>
+                    <p>
+                        <hi rend="bold">Figure 2. Effects of varying context sizes</hi>
+                    </p>
+                    <p>We expected to improve the precision and recall rates by expanding the width of the context. The margin of improvements gradually decreased, and the curves level off after the window sizes reached six. The recall rises sharply when we add the immediate neighbor word into the features, emphasizing the predicting power of the immediate neighbor character. When 
+                        <hi rend="italic">k</hi>=10, the precision and recall are 0.765 and 0.729, respectively, and the item accuracy exceeds 0.91.
+                    </p>
+                </div>
+                <div type="div2" rend="DH-Heading2">
+                    <head>Adding Bigrams</head>
+                    <p>We added bigrams that were formed by consecutive characters into the features. The following instance shows the result of adding bigrams to the features in (1).
+                        <note place="foot" xml:id="ftn14" n="14">
+                            <p rend="footnote text"> Here, w[-1_0] is the bigram on the left side of the current word, and w[0_1] is the bigram to the right of the current word. When we consider bigrams for a wider context, we may consider bigrams like w[-2_-1] and w[1_2].</p>
+                        </note>
+                    </p>
+                    <p> M w[0]=C
+                        <hi rend="subscript">3</hi>,w[-1]=C
+                        <hi rend="subscript">2</hi>,w[1]=C
+                        <hi rend="subscript">4</hi>,
+                        <hi rend="bold color(0000FF)">w[-1_0]=C</hi>
+                        <hi rend="bold subscript color(0000FF)">2</hi>
+                        <hi rend="bold color(0000FF)">C</hi>
+                        <hi rend="bold subscript color(0000FF)">3</hi>
+                        <hi rend="bold color(0000FF)">,w[0_1]=C</hi>
+                        <hi rend="bold subscript color(0000FF)">3</hi>
+                        <hi rend="bold color(0000FF)">C</hi>
+                        <hi rend="bold subscript color(0000FF)">4</hi> (3)
+                    </p>
+                    <p>Figure 3 shows the test results of adding bigrams while we also tried different sizes of context. The curves named P1 and R1 are from Figure 2, and P2 and R2 are results achieved by adding bigrams to the features. Both rates are improved, and the gains are remarkable. </p>
+                    <figure>
+                        <graphic n="1003" width="14.82cm" height="7cm" url="Pictures/3473fbfc3acf4b4a075c18245db762b1.jpg" rend="inline"/>
+                    </figure>
+                    <p>
+                        <hi rend="bold">Figure 3. Adding bigrams improves the results.</hi>
+                    </p>
+                </div>
+                <div type="div2" rend="DH-Heading2">
+                    <head>Effects of Pronunciation Information</head>
+                    <p>Using the characters and their bigrams in the features is an obvious requirement. Since the tomb biographies may contain rhyming parts, it is also intriguing to investigate whether adding pronunciation information may improve the overall quality of the segmentation task. </p>
+                    <p>We considered two major sources of the pronunciation information for Chinese characters in the Tang dynasty: 
+                        <hi rend="italic">Guangyun</hi> and 
+                        <hi rend="italic">Pingshuiyun</hi>.
+                        <note place="foot" xml:id="ftn15" n="15">
+                            <p rend="footnote text">
+                                <hi rend="italic">Guangyun</hi> and 
+                                <hi rend="italic">Pingshuiyun</hi> are《廣韻》and《平水韻》, respectively
+                            </p>
+                        </note> The statistics in Table 1 show that adding pronunciation information into the features did not improve the overall performance for the segmentation task significantly.
+                        <note place="foot" xml:id="ftn16" n="16">
+                            <p rend="footnote text"> This does not suggest that using the pronunciation information alone was not useful. We have conducted more experiments to evaluate the effectiveness of using the pronunciation information for the segmentation tasks, and will provide more details in the presentation and in an extended report.</p>
+                        </note> The results suggest that, given the characters and their bigrams, adding pronunciation did not contribute much more information. Huang et al. (2010) reported similar observations when they used 
+                        <hi rend="italic">Guangyun</hi> in their work. Relatively, 
+                        <hi rend="italic">Guangyun</hi> is more informative than 
+                        <hi rend="italic">Pingshuiyun</hi> for the segmentation tasks. 
+                    </p>
+                    <table rend="rules">
+                        <row>
+                            <cell>Features</cell>
+                            <cell cols="3">Width of Context = 1</cell>
+                            <cell cols="3">Width of Context = 2</cell>
+                        </row>
+                        <row>
+                            <cell/>
+                            <cell>Precision</cell>
+                            <cell>Recall</cell>
+                            <cell>F
+                                <hi rend="subscript">1</hi>
+                            </cell>
+                            <cell>Precision</cell>
+                            <cell>Recall</cell>
+                            <cell>F
+                                <hi rend="subscript">1</hi>
+                            </cell>
+                        </row>
+                        <row>
+                            <cell>Characters</cell>
+                            <cell>0.652</cell>
+                            <cell>0.535</cell>
+                            <cell>0.588</cell>
+                            <cell>0.695</cell>
+                            <cell>0.620</cell>
+                            <cell>0.655</cell>
+                        </row>
+                        <row>
+                            <cell>Characters+Bigrams</cell>
+                            <cell>0.743</cell>
+                            <cell>0.654</cell>
+                            <cell>0.696</cell>
+                            <cell>0.802</cell>
+                            <cell>0.736</cell>
+                            <cell>0.768</cell>
+                        </row>
+                        <row>
+                            <cell>Characters+Bigrams+Guangyun</cell>
+                            <cell>0.748</cell>
+                            <cell>0.671</cell>
+                            <cell>0.707</cell>
+                            <cell>0.781</cell>
+                            <cell>0.707</cell>
+                            <cell>0.742</cell>
+                        </row>
+                        <row>
+                            <cell>Characters+Bigrams+Pingshuiyun</cell>
+                            <cell>0.737</cell>
+                            <cell>0.659</cell>
+                            <cell>0.696</cell>
+                            <cell>0.763</cell>
+                            <cell>0.698</cell>
+                            <cell>0.729</cell>
+                        </row>
+                    </table>
+                    <p>
+                        <hi rend="bold">Table 1. Contributions of pronunciation information</hi>
+                    </p>
+                </div>
+                <div type="div2" rend="DH-Heading2">
+                    <head>Adding Word-Level Information</head>
+                    <p>We can obtain information about the reign periods, location names, and office names in the Tang dynasty from CBDB. By segmenting characters for these special words and adding appropriate type information, we added word-level information into the features. The statistics in Table 2 show that the word-level information did not raise the performance very much.
+                        <note place="foot" xml:id="ftn17" n="17">
+                            <p rend="footnote text"> In Table 2, WOC stands for “Width of Context”, “P” stands for precision, “R” stands for recall, “C+B” stand for “Characters and Bigrams” and “C+B+W” stands for “Characters, Bigrams, and Words”.</p>
+                        </note>
+                    </p>
+                    <table rend="rules">
+                        <row>
+                            <cell>Features</cell>
+                            <cell cols="2">WOC = 1</cell>
+                            <cell cols="2">WOC = 2</cell>
+                            <cell cols="2">WOC =3</cell>
+                            <cell cols="3">WOC = 4</cell>
+                        </row>
+                        <row>
+                            <cell/>
+                            <cell>P</cell>
+                            <cell>R</cell>
+                            <cell>P</cell>
+                            <cell>R</cell>
+                            <cell>P</cell>
+                            <cell>R</cell>
+                            <cell>P</cell>
+                            <cell>R</cell>
+                            <cell>F
+                                <hi rend="subscript">1</hi>
+                            </cell>
+                        </row>
+                        <row>
+                            <cell>C+B</cell>
+                            <cell>0.743</cell>
+                            <cell>0.654</cell>
+                            <cell>0.802</cell>
+                            <cell>0.736</cell>
+                            <cell>0.823</cell>
+                            <cell>0.766</cell>
+                            <cell>0.839</cell>
+                            <cell>0.790</cell>
+                            <cell>0.814</cell>
+                        </row>
+                        <row>
+                            <cell>C+B+W</cell>
+                            <cell>0.747</cell>
+                            <cell>0.671</cell>
+                            <cell>0.800</cell>
+                            <cell>0.741</cell>
+                            <cell>0.818</cell>
+                            <cell>0.767</cell>
+                            <cell>0.832</cell>
+                            <cell>0.787</cell>
+                            <cell>0.809</cell>
+                        </row>
+                        <row>
+                            <cell>C+B+PMI</cell>
+                            <cell>0.748</cell>
+                            <cell>0.661</cell>
+                            <cell>0.804</cell>
+                            <cell>0.740</cell>
+                            <cell>0.824</cell>
+                            <cell>0.769</cell>
+                            <cell>0.839</cell>
+                            <cell>0.791</cell>
+                            <cell>0.814</cell>
+                        </row>
+                    </table>
+                    <p>
+                        <hi rend="bold">Table 2. Adding word-level information</hi>
+                    </p>
+                    <p>We examined the training and test data, and found that, although we gathered the special terms for the Tang dynasty, those words were not used in the biographies often. As a consequence, we did not add a lot of word-level information in the features in reality. </p>
+                    <p>We have also adopted pointwise mutual information (PMI) of bigrams as features, but the net contributions are not significant. </p>
+                </div>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Discussions</head>
+                <p>We have consulted historians,
+                    <hi rend="superscript">6,</hi>
+                    <note place="foot" xml:id="ftn18" n="18">
+                        <p rend="footnote text"> In addition to Hongsu Wang of Harvard University, we also consulted Professor Zhaoquan He (何兆泉) of the China Jiliang University. They use tomb biographies of the Tang and the Song dynasties in their research. </p>
+                    </note> and learned that our current results are useful in practice. The best precision rates and F measures are better than 0.8 in Figure 3 and Table 2. The best item accuracy is better than 0.94.
+                </p>
+                <p>In fact, we have designed an advanced mechanism to further improve our results.
+                    <note place="foot" xml:id="ftn19" n="19">
+                        <p rend="footnote text"> Again, we could not provide details about more experiments because of the word limit for DH 2018 submissions.</p>
+                    </note> The new approach employs a second level learning step that learns from the errors of the current classifiers.
+                </p>
+                <p>One may plan to consider more linguistic information in the segmentation tasks. If appropriate corpora or sources are available, it is worthwhile to explore the effects of adding part-of-speech information in the task (Chiu, 2015; Lee, 2012). We have applied deep learning techniques for the segmentation tasks, and achieved better results.</p>
+                <p>Although we look for methods to reproduce the segmentations in the given texts, we understand that not all experts will agree upon “the” segmentations for a corpus. Different segmentations may correspond to different interpretations of the texts, especially for the classical Chinese. The results of asking two persons to segment Chinese texts may not match perfectly either (Huang and Chen, 2011).</p>
+            </div>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl rend="footnote text">Bouma, G. and Adesam, Y. (2013). Experiments on sentence segmentation in Old Swedish editions. 
+                        <hi rend="italic">Proceedings of the Workshop on Computational Historical Linguistics at NODALIDA</hi> 2013. NEALT Proceedings Series 18 / Linköping Electronic Conference Proceedings 87:11–26.
+                    </bibl>
+                    <bibl rend="footnote text">Chiu, T.-s., Lu, Q., Xu, J., Xiong, D. and Lo, F. (2015). PoS tagging for classical Chinese text. 
+                        <hi rend="italic">Chinese Lexical Semantics</hi> (
+                        <hi rend="italic">Lecture Notes in Artificial Intelligence</hi> 9332), pp. 448–456.
+                    </bibl>
+                    <bibl rend="footnote text">Huang, H.-H. and Chen, H.-H. (2011). Pause and stop labeling for Chinese sentence boundary detection. 
+                        <hi rend="italic">Proceedings of the 2011 Conference on Recent Advances in Natural Language Processing</hi>, pp. 146‒153.
+                    </bibl>
+                    <bibl rend="footnote text">Huang, H.-H., Sun, C.-T., and Chen, H.-H. (2010). Classical Chinese sentence segmentation. 
+                        <hi rend="italic">Proceedings of CIPS-SIGHAN Joint Conference on Chinese Language Processing</hi>, pp. 15‒22.
+                    </bibl>
+                    <bibl rend="footnote text">Lafferty, J., McCallum, A., and Pereira, F. C.N. (2001). Conditional random fields: Probabilistic models for segmenting and labeling sequence data. 
+                        <hi rend="italic">Proceedings of the Eighteenth International Conference on Machine Learning</hi>, pp. 282–289.
+                    </bibl>
+                    <bibl rend="footnote text">Lee, J. (2012). A classical Chinese corpus with nested part-of-speech tags. 
+                        <hi rend="italic">Proceedings of the Sixth EACL Workshop on Language Technology for Cultural Heritage, Social Sciences, and Humanities</hi>, pp. 75–84.
+                    </bibl>
+                    <bibl rend="footnote text">Petran, F. (2012). Studies for segmentation of historical texts: Sentences or chunks? 
+                        <hi rend="italic">Proceedings of the Second Workshop on Annotation of Corpora for Research in the Humanities</hi>, pp. 75–86.
+                    </bibl>
+                    <bibl rend="footnote text">Shao, Y., Hardmeier, C., Tiedemann, J., and Nivre, J. (2017). Character-based joint segmentation and POS tagging for Chinese using bidirectional RNN-CRF. 
+                        <hi rend="italic">Proceedings of the 2017 International Joint Conference on Natural Language Processing</hi>, pp. 173‒183.
+                    </bibl>
+                    <bibl rend="footnote text">Sun, M.-S., Xiao, M. and Tsou, B. K. (2004). Chinese word segmentation without using dictionary based on unsupervised learning strategy. 
+                        <hi rend="italic">Chinese Journal of Computers</hi>, 27(6):736‒742. (in Chinese)
+                    </bibl>
+                    <bibl rend="footnote text">Wang, B., Shi, X. and Su, J. (2017). A sentence segmentation method for ancient Chinese texts based on recurrent neural network. 
+                        <hi rend="italic">Acta Scientiarum Naturalium Universitatis Pekinensis</hi>, 53(2):255‒261. (in Chinese)
+                    </bibl>
+                    <bibl rend="footnote text">Wang, B., Shi, X., Tan, Z., Chen, Y. and Wang, W. (2016). A sentence segmentation method for ancient Chinese texts based on NNLM. 
+                        <hi rend="italic">Proceedings of the Chinese Lexical Semantics Workshop</hi> 2016, 
+                        <hi rend="italic">Lecture Notes in Computer Science</hi> 10085, pp. 387–396.
+                    </bibl>
+                    <bibl rend="footnote text">Zhou, S. (周紹良) and Zhao, C. (趙超). (1992). 
+                        <hi rend="italic">A Collection of Tomb Biographies of Tang Dynasty</hi> (唐代墓誌彙編). Shanghai Ancient Books Publishing House (上海古籍出版社). (in Chinese)
+                    </bibl>
+                    <bibl rend="footnote text">Zhou, S. (周紹良) and Zhao, C. (趙超). (2001). 
+                        <hi rend="italic">A Collection of Tomb Biographies of Tang Dynasty: An Extension</hi> (唐代墓誌彙編續集). Shanghai Ancient Books Publishing House. (in Chinese),
+                    </bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

@@ -1,0 +1,553 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>Inversed N-gram viewer: Searching the space of word temporal profiles</title>
+                <author>
+                    <persName>
+                        <surname>Buntinx</surname>
+                        <forename>Vincent</forename>
+                    </persName>
+                    <affiliation>EPFL (École polytechnique fédérale de Lausanne), Switzerland</affiliation>
+                    <email>vincent.buntinx@epfl.ch</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Kaplan</surname>
+                        <forename>Frédéric</forename>
+                    </persName>
+                    <affiliation>EPFL (École polytechnique fédérale de Lausanne), Switzerland</affiliation>
+                    <email>frederic.kaplan@epfl.ch</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2014-12-19T13:50:00Z</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Paul Arthur, University of Western Sidney</publisher>
+                <address>
+                    <addrLine>Locked Bag 1797</addrLine>
+                    <addrLine>Penrith NSW 2751</addrLine>
+                    <addrLine>Australia</addrLine>
+                    <addrLine>Paul Arthur</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from a Word document </p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.9">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Long Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>inversed n-gram viewer</term>
+                    <term>n-gram viewer</term>
+                    <term>temporal profiles</term>
+                    <term>words frequencies</term>
+                    <term>curves fitting</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>corpora and corpus activities</term>
+                    <term>information retrieval</term>
+                    <term>natural language processing</term>
+                    <term>semantic analysis</term>
+                    <term>text analysis</term>
+                    <term>linguistics</term>
+                    <term>media studies</term>
+                    <term>data mining / text mining</term>
+                    <term>English</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <p rend="No Spacing">Studies based on the visualization and analysis of temporal profiles of words using a so-called n-gram approach have been popular in recent years (Michel et al., 2011; Delahaye and Gauvrit, 2013). However, most of the studies so far discuss the case of remarkable words that are mainly found due to the researcher’s intuitions for finding ‘interesting’ curves using the n-gram viewer. In this paper, we investigate how we could inverse the problem and automatically explore the space of temporal curves in search for words. For instance, we could be interested in asking the system to retrieve all curves ‘similar’ to a given one. This would entail the definition of a method to describe temporal profiles and classify them according to a predefined distance.</p>
+            <figure>
+                <graphic n="1001" width="15.889111111111111cm" height="9.923638888888888cm" url="Pictures/image1.png" rend="block"/>
+            </figure>
+            <p rend="No Spacing">Figure 1. Four examples of curves: (1) The word ‘1889’ is very popular in the year 1889 but ceases to be as interesting quickly after; (2) the term ‘olympique’ is very popular every four years; (3) the term ‘informatique’ keeps getting more popular over time; (4) the term ‘URSS’ is very popular only between 1950 and 1990.</p>
+            <p rend="No Spacing">The study presented in this paper uses a database of 4 million articles covering a period of 200 years and is composed of digitized facsimiles of ‘Le Journal de Genève’ and ‘La Gazette de Lausanne’. Each article has been OCRed and indexed in an SQL database. For each indexed word, the yearly temporal profile showing the relative number of word occurrences in the corpus has been pre-computed. We designed an n-gram viewer that allows for the simultaneous comparison of up to four words. In order to compare these curves with one another and therefore be able to retrieve ‘similar’ curves automatically in the database, we need to find a simple way of describing them. The problem could be approached in a very general manner (how to describe an unknown curve by approximating it on a given decomposition base) or could take into account the fact that we are dealing with temporal profiles that could be described by a given limited number of archetypical curves. The second option implies having some a priori knowledge about the kind of curves one might encounter but has the advantage of allowing for a very compact description of general curves using a family of possible profiles. We choose this second option in this paper. </p>
+            <p rend="No Spacing">The first step of our curve analyzer is to associate a given curve to a preexisting curve family. This can be done in a hierarchical manner. At this stage of our research, we decompose curves into four basic families: ‘Dirac’ curves (with a single peak), periodic curves (with regular peaks of popularity), monotonic linear curves (either increasing or decreasing) and ‘square’ curves (associated with a predefined period). It is clear that these four families do not cover the entire spectrum of possible curves but they do provide a possible starting point for investigating the space of ‘remarkable’ curves. To determine if a given curve can be reasonably approximated by one of the four families, we carry out a sequence of tests, starting with the periodicity of the curve. To evaluate whether a curve is periodic we simply compute its Fourier transform and automatically check for hidden periodicity. If the curve is detected to be periodic we extract the period and try to fit a ‘comb’ function as defined by the following formula:</p>
+            <p rend="No Spacing">
+                <formula>
+                    <mml:math xmlns:mml="http://www.w3.org/1998/Math/MathML">
+                        <mi xmlns="http://www.w3.org/1998/Math/MathML">f</mi>
+                        <mfenced separators="|" xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mrow>
+                                <mi>x</mi>
+                                <mo>;</mo>
+                                <mi>a</mi>
+                                <mo>,</mo>
+                                <mi>b</mi>
+                                <mo>,</mo>
+                                <mi>m</mi>
+                                <mo>,</mo>
+                                <mi>t</mi>
+                            </mrow>
+                        </mfenced>
+                        <mo xmlns="http://www.w3.org/1998/Math/MathML">=</mo>
+                        <mfenced open="{" close="" separators="|" xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mrow>
+                                <mtable>
+                                    <mtr>
+                                        <mtd>
+                                            <mrow>
+                                                <maligngroup/>
+                                                <mn>0</mn>
+                                                <mo>,</mo>
+                                                <mi> </mi>
+                                                <mi> </mi>
+                                                <mi> </mi>
+                                                <mi> </mi>
+                                                <mi>i</mi>
+                                                <mi>f</mi>
+                                                <mi> </mi>
+                                                <mi>x</mi>
+                                                <mo>&lt;</mo>
+                                                <mi>m</mi>
+                                                <mi> </mi>
+                                                <mi> </mi>
+                                                <mi> </mi>
+                                                <mi> </mi>
+                                                <mi> </mi>
+                                                <mi> </mi>
+                                                <mi> </mi>
+                                                <mi> </mi>
+                                                <mi> </mi>
+                                                <mi> </mi>
+                                                <mi> </mi>
+                                                <mi> </mi>
+                                                <mi> </mi>
+                                                <mi> </mi>
+                                                <mi> </mi>
+                                                <mi> </mi>
+                                                <mi> </mi>
+                                                <mi> </mi>
+                                                <mi> </mi>
+                                                <mi> </mi>
+                                                <mi> </mi>
+                                                <mi> </mi>
+                                                <mi> </mi>
+                                                <mi> </mi>
+                                                <mi> </mi>
+                                                <mi> </mi>
+                                                <mi> </mi>
+                                                <mi> </mi>
+                                                <mi> </mi>
+                                                <mi> </mi>
+                                                <mi> </mi>
+                                                <mi> </mi>
+                                                <mi> </mi>
+                                                <mi> </mi>
+                                                <mi> </mi>
+                                                <mi> </mi>
+                                                <mi> </mi>
+                                                <mi> </mi>
+                                                <mi> </mi>
+                                                <mi> </mi>
+                                                <mi> </mi>
+                                                <mi> </mi>
+                                                <mi> </mi>
+                                                <mi> </mi>
+                                                <mi> </mi>
+                                                <mi> </mi>
+                                                <mi> </mi>
+                                                <mi> </mi>
+                                                <mi> </mi>
+                                                <mi> </mi>
+                                                <mi> </mi>
+                                                <mi> </mi>
+                                                <mi> </mi>
+                                                <mi> </mi>
+                                                <mi> </mi>
+                                            </mrow>
+                                        </mtd>
+                                    </mtr>
+                                    <mtr>
+                                        <mtd>
+                                            <mrow>
+                                                <maligngroup/>
+                                                <mi>a</mi>
+                                                <mo>,</mo>
+                                                <mi> </mi>
+                                                <mi> </mi>
+                                                <mi> </mi>
+                                                <mi> </mi>
+                                                <malignmark/>
+                                                <mi>i</mi>
+                                                <mi>f</mi>
+                                                <mi> </mi>
+                                                <mi>x</mi>
+                                                <mo>≥</mo>
+                                                <mi>m</mi>
+                                                <mi> </mi>
+                                                <mi> </mi>
+                                                <mi>a</mi>
+                                                <mi>n</mi>
+                                                <mi>d</mi>
+                                                <mi> </mi>
+                                                <mi> </mi>
+                                                <mfenced separators="|">
+                                                    <mrow>
+                                                        <mi>x</mi>
+                                                        <mo>-</mo>
+                                                        <mi>m</mi>
+                                                    </mrow>
+                                                </mfenced>
+                                                <mi> </mi>
+                                                <mi>m</mi>
+                                                <mi>o</mi>
+                                                <mi>d</mi>
+                                                <mi>u</mi>
+                                                <mi>l</mi>
+                                                <mi>o</mi>
+                                                <mi> </mi>
+                                                <mi>t</mi>
+                                                <mo>=</mo>
+                                                <mn>0</mn>
+                                            </mrow>
+                                        </mtd>
+                                    </mtr>
+                                    <mtr>
+                                        <mtd>
+                                            <mrow>
+                                                <maligngroup/>
+                                                <mi>b</mi>
+                                                <mo>,</mo>
+                                                <mi> </mi>
+                                                <mi> </mi>
+                                                <mi> </mi>
+                                                <mi> </mi>
+                                                <malignmark/>
+                                                <mi>i</mi>
+                                                <mi>f</mi>
+                                                <mi> </mi>
+                                                <mi>x</mi>
+                                                <mo>≥</mo>
+                                                <mi>m</mi>
+                                                <mi> </mi>
+                                                <mi> </mi>
+                                                <mi>a</mi>
+                                                <mi>n</mi>
+                                                <mi>d</mi>
+                                                <mi> </mi>
+                                                <mi> </mi>
+                                                <mfenced separators="|">
+                                                    <mrow>
+                                                        <mi>x</mi>
+                                                        <mo>-</mo>
+                                                        <mi>m</mi>
+                                                    </mrow>
+                                                </mfenced>
+                                                <mi> </mi>
+                                                <mi>m</mi>
+                                                <mi>o</mi>
+                                                <mi>d</mi>
+                                                <mi>u</mi>
+                                                <mi>l</mi>
+                                                <mi>o</mi>
+                                                <mi> </mi>
+                                                <mi>t</mi>
+                                                <mo>≠</mo>
+                                                <mn>0</mn>
+                                            </mrow>
+                                        </mtd>
+                                    </mtr>
+                                </mtable>
+                            </mrow>
+                        </mfenced>
+                    </mml:math>
+                </formula>The fitting is done using Particle Swarm Optimization method (PSO) (Trelea, 2003), and the quality of the fitting with the theoretical curve is measured using the classical least squares error (minimizes the sum of squared 
+                <ref target="http://en.wikipedia.org/wiki/Errors_and_residuals_in_statistics">residuals</ref>).
+            </p>
+            <figure>
+                <graphic n="1002" width="18.690166666666666cm" height="5.847291666666667cm" url="Pictures/image2.png" rend="block"/>
+            </figure>
+            <p rend="No Spacing">Figure 2. Temporal profile (blue) of the word ‘olympique’ with fitted curve (green) and Fourier transform (right).</p>
+            <p rend="No Spacing">Using the model, the extracted period becomes a way of comparing periodic curves with one another. Figure 3 shows different curves sorted by periodicities.</p>
+            <figure>
+                <graphic n="1003" width="13.821833333333334cm" height="8.623652777777778cm" url="Pictures/image3.png" rend="inline"/>
+            </figure>
+            <p rend="No Spacing">Figure 3. Temporal profile (blue) of the words ‘olympique’, ‘fifa’, ‘recensement’, and ‘halley’ with fitted curve (green).</p>
+            <p rend="No Spacing">For each curve, the sum of the squared 
+                <ref target="http://en.wikipedia.org/wiki/Errors_and_residuals_in_statistics">residuals</ref> between the actual curve and the fitted curve is calculated, which then represents the error of the comparison between them. This measure is used to optimize the fitting and allows for determining the category the actual curve belongs to when the optimization is done for all predefined categories of curves. 
+            </p>
+            <p rend="No Spacing">For ‘peaks’ we try to fit the curve with a classical model used in the analysis of ‘fads’ (e.g., the use of this model in the context of the analysis of Internet Memes [Bauckhage et al., 2013]) by using the Fréchet curve (Alves and Nevers, 2010) as defined by the following formula:</p>
+            <p rend="No Spacing">
+                <formula>
+                    <mml:math xmlns:mml="http://www.w3.org/1998/Math/MathML">
+                        <mi xmlns="http://www.w3.org/1998/Math/MathML">f</mi>
+                        <mfenced separators="|" xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mrow>
+                                <mi>x</mi>
+                                <mo>;</mo>
+                                <mi>a</mi>
+                                <mo>,</mo>
+                                <mi>s</mi>
+                                <mo>,</mo>
+                                <mi>m</mi>
+                            </mrow>
+                        </mfenced>
+                        <mo xmlns="http://www.w3.org/1998/Math/MathML">=</mo>
+                        <mfenced open="{" close="" separators="|" xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mrow>
+                                <mtable>
+                                    <mtr>
+                                        <mtd>
+                                            <mrow>
+                                                <maligngroup/>
+                                                <mfrac>
+                                                    <mrow>
+                                                        <mi>a</mi>
+                                                    </mrow>
+                                                    <mrow>
+                                                        <mi>s</mi>
+                                                    </mrow>
+                                                </mfrac>
+                                                <msup>
+                                                    <mrow>
+                                                        <mfenced separators="|">
+                                                            <mrow>
+                                                                <mfrac>
+                                                                    <mrow>
+                                                                        <mi>x</mi>
+                                                                        <mo>-</mo>
+                                                                        <mi>m</mi>
+                                                                    </mrow>
+                                                                    <mrow>
+                                                                        <mi>s</mi>
+                                                                    </mrow>
+                                                                </mfrac>
+                                                            </mrow>
+                                                        </mfenced>
+                                                    </mrow>
+                                                    <mrow>
+                                                        <mo>-</mo>
+                                                        <mi>a</mi>
+                                                        <mo>-</mo>
+                                                        <mn>1</mn>
+                                                    </mrow>
+                                                </msup>
+                                                <msup>
+                                                    <mrow>
+                                                        <mi>e</mi>
+                                                    </mrow>
+                                                    <mrow>
+                                                        <mo>-</mo>
+                                                        <msup>
+                                                            <mrow>
+                                                                <mfenced separators="|">
+                                                                    <mrow>
+                                                                        <mfrac>
+                                                                            <mrow>
+                                                                                <mi>x</mi>
+                                                                                <mo>-</mo>
+                                                                                <mi>m</mi>
+                                                                            </mrow>
+                                                                            <mrow>
+                                                                                <mi>s</mi>
+                                                                            </mrow>
+                                                                        </mfrac>
+                                                                    </mrow>
+                                                                </mfenced>
+                                                            </mrow>
+                                                            <mrow>
+                                                                <mo>-</mo>
+                                                                <mi>a</mi>
+                                                            </mrow>
+                                                        </msup>
+                                                    </mrow>
+                                                </msup>
+                                                <mo>,</mo>
+                                                <mi> </mi>
+                                                <mi>i</mi>
+                                                <mi>f</mi>
+                                                <mi> </mi>
+                                                <mi>x</mi>
+                                                <mo>&gt;</mo>
+                                                <mi>m</mi>
+                                                <mi> </mi>
+                                                <mi>a</mi>
+                                                <mi>n</mi>
+                                                <mi>d</mi>
+                                                <mi> </mi>
+                                                <mi>s</mi>
+                                                <mo>&gt;</mo>
+                                                <mn>0</mn>
+                                            </mrow>
+                                        </mtd>
+                                    </mtr>
+                                    <mtr>
+                                        <mtd>
+                                            <mrow>
+                                                <maligngroup/>
+                                                <mn>0</mn>
+                                                <mo>,</mo>
+                                                <mi> </mi>
+                                                <mi> </mi>
+                                                <mi> </mi>
+                                                <mi> </mi>
+                                                <mi> </mi>
+                                                <mi> </mi>
+                                                <mi> </mi>
+                                                <mi> </mi>
+                                                <mi> </mi>
+                                                <mi> </mi>
+                                                <mi> </mi>
+                                                <mi> </mi>
+                                                <mi> </mi>
+                                                <mi> </mi>
+                                                <mi> </mi>
+                                                <mi> </mi>
+                                                <mi> </mi>
+                                                <mi> </mi>
+                                                <mi> </mi>
+                                                <mi> </mi>
+                                                <mi> </mi>
+                                                <mi> </mi>
+                                                <mi> </mi>
+                                                <mi> </mi>
+                                                <mi> </mi>
+                                                <mi> </mi>
+                                                <mi> </mi>
+                                                <mi> </mi>
+                                                <mi> </mi>
+                                                <mi> </mi>
+                                                <mi> </mi>
+                                                <mi> </mi>
+                                                <mi> </mi>
+                                                <mi> </mi>
+                                                <mi> </mi>
+                                                <mi> </mi>
+                                                <mi> </mi>
+                                                <mi> </mi>
+                                                <mi> </mi>
+                                                <mi> </mi>
+                                                <mi> </mi>
+                                                <mi> </mi>
+                                                <mi> </mi>
+                                                <mi> </mi>
+                                                <mi> </mi>
+                                                <mi> </mi>
+                                                <mi> </mi>
+                                                <mi> </mi>
+                                                <mi> </mi>
+                                                <mi>e</mi>
+                                                <mi>l</mi>
+                                                <mi>s</mi>
+                                                <mi>e</mi>
+                                                <mi> </mi>
+                                                <mi> </mi>
+                                                <mi> </mi>
+                                                <mi> </mi>
+                                                <mi> </mi>
+                                                <mi> </mi>
+                                                <mi> </mi>
+                                                <mi> </mi>
+                                                <mi> </mi>
+                                                <mi> </mi>
+                                                <mi> </mi>
+                                                <mi> </mi>
+                                                <mi> </mi>
+                                                <mi> </mi>
+                                                <mi> </mi>
+                                                <mi> </mi>
+                                                <mi> </mi>
+                                                <mi> </mi>
+                                                <mi> </mi>
+                                                <mi> </mi>
+                                                <mi> </mi>
+                                                <mi> </mi>
+                                                <mi> </mi>
+                                                <mi> </mi>
+                                                <mi> </mi>
+                                                <mi> </mi>
+                                                <mi> </mi>
+                                                <mi> </mi>
+                                                <mi> </mi>
+                                                <mi> </mi>
+                                                <mi> </mi>
+                                                <mi> </mi>
+                                                <mi> </mi>
+                                            </mrow>
+                                        </mtd>
+                                    </mtr>
+                                </mtable>
+                            </mrow>
+                        </mfenced>
+                    </mml:math>
+                </formula>
+            </p>
+            <p rend="No Spacing">Using this model, fitted curves can be described using the position and value of the peak, allowing optimization with only one degree of freedom. These three parameters can be used to compare curves with one another as shown in Figure 4.</p>
+            <figure>
+                <graphic n="1004" width="12.611805555555556cm" height="11.814527777777778cm" url="Pictures/image4.png" rend="inline"/>
+            </figure>
+            <p rend="No Spacing">Figure 4. The year 1889 is much like 1906 using the fitted Fréchet curves. The years 1848 and 1940, because of their historical significance, have rather different parameters despite the fact that they belong to the same family. For the years 1900 and 1914, the error of fitting is higher, meaning that they might belong to a different category of curves.</p>
+            <p rend="No Spacing">The same approach can be conducted with linear monotonic curves and ‘squared’ curves. </p>
+            <p rend="No Spacing">We believe that inversing the problem of n-gram visualization by enabling automatic search in a space of curves could profoundly transform research in this area, going beyond the intuitive search for remarkable curves. It is likely that many different levels of information, combining semantics and grammatical constraints with historical contexts, are implicitly coded in n-gram temporal profiles.</p>
+            <p rend="No Spacing">Understanding how to classify and study these curves is important for harnessing the power of this set of statistical tools. The solution based on families of simple archetypical curves briefly described in this article is certainly not the only way of approaching this question but constitutes an initial attempt to demonstrate the potential of this overall research goal. </p>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl rend="No Spacing">
+                        <hi rend="italic">
+                            <hi rend="bold">Bauckhage</hi>
+                            <hi rend="bold">, C., </hi>
+                            <hi rend="bold">Kersting</hi>
+                            <hi rend="bold">, </hi>
+                            <hi rend="bold">K. and </hi>
+                            <hi rend="bold">Hadiji</hi>
+                            <hi rend="bold">.</hi>
+                            <hi rend="bold">F.</hi> (2013). Mathematical Models of Fads Explain the Temporal Dynamics of Internet Memes. International AAAI Conference on Weblogs and Social Media, Cambridge, MA, 8–11 July 2013.
+                        </hi>
+                    </bibl>
+                    <bibl rend="No Spacing">
+                        <hi rend="bold">Delahaye, J.-P. and Gauvrit, N.</hi> (2013). 
+                        <hi rend="italic">Culturomics: Le numérique et la culture</hi>. O. Jacob, Paris. 
+                    </bibl>
+                    <bibl rend="No Spacing">
+                        <hi rend="italic">
+                            <hi rend="bold">Fraga</hi>
+                            <hi rend="bold"> Alves, M. I. and </hi>
+                            <hi rend="bold">Neves</hi>
+                            <hi rend="bold">, C.</hi> (2010). Extreme Value Distributions. In Lovric, M. (ed.), International Encyclopedia of Statistical Science. Berlin: Springer-Verlag, pp. 493–96,
+                        </hi>
+                    </bibl>
+                    <bibl rend="No Spacing">doi
+                        <hi rend="italic">:10.1007/978-3-642-04898-2.</hi>
+                    </bibl>
+                    <bibl rend="No Spacing">
+                        <hi rend="bold">Michel, J.-B., et al.</hi> (2011). Quantitative Analysis of Culture Using Millions of Digitized Books. 
+                        <hi rend="italic">Science,</hi>
+                        <hi rend="bold">331</hi>(17), doi:10.1126/science.1199644.
+                    </bibl>
+                    <bibl rend="No Spacing">
+                        <hi rend="italic">
+                            <hi rend="bold">Trelea</hi>
+                            <hi rend="bold">, I. C.</hi> (2003). The Particle Swarm Optimization Algorithm: Convergence Analysis and Parameter Selection. Information Processing Letters, 
+                            <hi rend="bold">85</hi>(6): 317–25, ISSN 0020-0190, http://dx.doi.org/10.1016/S0020-0190(02)00447-7.
+                        </hi>
+                    </bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

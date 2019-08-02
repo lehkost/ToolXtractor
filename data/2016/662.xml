@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>Automatic quotation detection in Russian nonfiction texts</title>
+                <author>
+                    <persName>
+                        <surname>Tyshkevich</surname>
+                        <forename>Nataliya</forename>
+                    </persName>
+                    <affiliation>National Research University Higher School of Economics, Moscow, Russia, Russian Federation</affiliation>
+                    <email>natalie.tysh@gmail.com</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2016-03-06T23:12:00Z</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Maciej Eder, Pedagogical University in Krakow</publisher>
+                <publisher>Jan Rybicki, Jagiellonian University</publisher>
+                <address>
+                    <addrLine>Institute of Polish Studies</addrLine>
+                    <addrLine>Pedagogical University</addrLine>
+                    <addrLine>ul. Podchorazych 2</addrLine>
+                    <addrLine>30-084 Krakow, Poland</addrLine>
+                    <addrLine>maciej.eder@ijp-pan.krakow.pl</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from a Word document </p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.21">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Poster</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>quotations</term>
+                    <term>machine learning</term>
+                    <term>intertextuality</term>
+                    <term>Russian</term>
+                    <term>SVM</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>natural language processing</term>
+                    <term>software design and development</term>
+                    <term>text analysis</term>
+                    <term>content analysis</term>
+                    <term>hypertext</term>
+                    <term>linguistics</term>
+                    <term>programming</term>
+                    <term>genre-specific studies: prose, poetry, drama</term>
+                    <term>data mining / text mining</term>
+                    <term>English</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <p rend="normal">
+                <anchor xml:id="h.gjdgxs"/>Introduction
+            </p>
+            <p rend="normal">We present work in progress to automatically extract quotation constructions. We claim that it is possible to infer markers that introduce quotation even for the languages without grammaticalized reported speech forms. The object of our study is not the quotation itself, but the canonical context of quotation. We rely on the concept of context as 
+                <hi rend="background(white)">a term with a “hole” (Gabbay and Lengrand, 2008)</hi>. The context with a quotation as filling for the 
+                <hi rend="background(white)">“hole”</hi> has formal features, which we consider as parameters of quotation canon in terms of the canonical typology (
+                <hi rend="color(282828) background(white)">Corbett et. al, 2012)</hi>. We specialize in direct written quotations, which can be distinguished by the reader exactly because of its heterogenity.
+            </p>
+            <p rend="normal">We used semi-supervised machine learning techniques to discover contribution of individual predictors to the quotation distribution in Russian nonfiction texts and to build a working prototype of quotation classifier. The classifier does not need any particular text corpora on the final stage, using it only as training data. It predicts probability of sentence to contain a quotation with accuracy of 85%. The objective of the research is to create a machine-learned model that would distinguish between citations and non-citations and arrange the quotation boundaries. The paper presents such a model trained on Russian data. As a result importance of different contextual features can be measured.</p>
+            <p rend="normal">Our model can be used both by scholars and by ordinary readers, unaware of intertextuality issues, and our achievements are undoubtedly useful for a wider class of problems, identifying heterogeneous fragments in the text.</p>
+            <p rend="normal">2 Dataset</p>
+            <p rend="normal">The material for the training sample is based on the dictionary of Russian literary quotations (Dushenko, 2005) and on the corpora of Russian nonfiction texts from the web-project “Zhurnal’ny Zal” (ZZ) (
+                <ref target="http://magazines.russ.ru/">
+                    <hi rend="color(1155CC)">http://magazines.russ.ru/</hi>
+                </ref>). We formed 24761 search queries and extracted approximately 1200 sentences, containing quotations from the dictionary and 1200 sentences without any of them. Semi-automatic filtering of false quotative sentences and correcting of quotations boundaries gave us the training corpora of 1000 quotation sentences with the correct boundaries, 1000 sentences without any quotations and 1000 examples of quotative sentences with false borders. At the machine learning stage we divided it to two complementary sets for training and testing respectively.
+            </p>
+            <p rend="normal">3 Features</p>
+            <p rend="normal">We define overt quotation markers as the most relevant context features for identifying the quote. We examined these features in the tagged corpora and built a logistic regression model, providing us with the most significant markers and their combinations (pic. 1):</p>
+            <figure>
+                <graphic url="662/image1.png" rend="inline"/>
+            </figure>
+            <p rend="normal">(pic. 1)</p>
+            <p rend="normal">That allowed us to exclude the most unimportant features from our final model.</p>
+            <p rend="normal">4 Model</p>
+            <p rend="normal">The main learning property of the Binary Machine was distinguishing between the presence and absence of a particular marker in certain parts of a sentence. Thus, we built two classifiers:</p>
+            <p rend="normal">1) dividing the examples into quotative and non-quotative;</p>
+            <p rend="normal">2) pointing out the quotation boundaries.</p>
+            <p rend="normal">The final response was based on the cumulative response of the two classifiers. The first machine would give a positive response with a probability 0.7 and more, whereas the second classifier would activate choosing the most relevant hypothesis out of the potential set of quotation boundaries. Support Vector Machines method is commonly applied for classification tasks. We used a modification of this method, Support Vector Classification, because it 
+                <hi rend="bold color(6A6A6A) background(white)">gives</hi>
+                <hi rend="color(545454) background(white)"> a </hi>
+                <hi rend="bold color(6A6A6A) background(white)">best fit</hi>
+                <hi rend="color(545454) background(white)"> to our binary data type.</hi>
+            </p>
+            <p rend="normal">5 Results</p>
+            <p rend="normal">The two classifiers have shown positive results with the quotation classifier accuracy of 0.86 and borders classifier accuracy of 0.83. </p>
+            <p rend="normal">The greatest confidence in the quotativeness of the fragment results from the presence of the quotation marks. Without them the precision of the evaluations decreases, but not critically. What is important is that our model is not oriented to the quotation marks, the most obvious marker, it analyses all the relevant features in the sentence. For example, for the quotative sentence with overt quotation marks (pic. 2) probability was estimated as 99%, and the same sentence with cut quotation marks was evaluated as 98% quotative. </p>
+            <p rend="normal">
+                <graphic url="662/image2.png" rend="inline"/>(pic.2)
+            </p>
+            <p rend="normal">The final version of the program allows one to automatically mark quotes in an untagged text with the permissible share of errors. It works best with nonfiction texts and operates either plain text, or group of texts, or one sentence. Also it can be re-learned on the following set of interchangeable input data for 
+                <hi rend="bold color(6A6A6A) background(white)">training</hi>
+                <hi rend="color(545454) background(white)"> sample</hi>: the set of relevant quotation parameters, a list of standard quotations and group of texts for context-mining. We expect this method to be rather flexible and applicable to other text corpora.
+            </p>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl rend="normal">
+                        <hi rend="bold color(282828) background(white)">Corbett et. al</hi>
+                        <hi rend="color(282828) background(white)"> (2012). Canonical morphosyntactic features. In Dunstan Brown, Marina Chumakina and Greville G. Corbett (eds.), </hi>
+                        <hi rend="italic color(282828) background(white)">Canonical morphology and syntax</hi>
+                        <hi rend="color(282828) background(white)">, 48-65. Oxford: Oxford University Press.</hi>
+                    </bibl>
+                    <bibl rend="normal">
+                        <hi rend="bold">Gabbay </hi>(2008). Gabbay M. J., Lengrand S. The λ-context calculus //Electronic Notes in Theoretical Computer Science. – Т. 196. – С. 19-35.
+                    </bibl>
+                    <bibl rend="normal">
+                        <hi rend="bold">Dushenko</hi> (2015). Citaty iz russkoj literatury: 5200 citat ot «Slova o polku.» do nashih dnej.
+                    </bibl>
+                    <bibl rend="normal">
+                        <hi rend="bold">ZZ. </hi>“Zhurnal'nyj zal”, 
+                        <ref target="http://magazines.russ.ru/">
+                            <hi rend="underline color(1155CC)">http://magazines.russ.ru/</hi>
+                        </ref>. (accessed on 2016–03–06).
+                    </bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

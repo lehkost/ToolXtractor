@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>Authorship Attribution Using Different Languages</title>
+                <author>
+                    <persName>
+                        <surname>Juola</surname>
+                        <forename>Patrick</forename>
+                    </persName>
+                    <affiliation>Duquesne University, United States of America</affiliation>
+                    <email>juola@mathcs.duq.edu</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Mikros</surname>
+                        <forename>George</forename>
+                    </persName>
+                    <affiliation>National and Kapodistrian University of Athens, Athens, Greece</affiliation>
+                    <email>gmikros@isll.uoa.gr</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2016-03-03T19:14:00Z</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Maciej Eder, Pedagogical University in Krakow</publisher>
+                <publisher>Jan Rybicki, Jagiellonian University</publisher>
+                <address>
+                    <addrLine>Institute of Polish Studies</addrLine>
+                    <addrLine>Pedagogical University</addrLine>
+                    <addrLine>ul. Podchorazych 2</addrLine>
+                    <addrLine>30-084 Krakow, Poland</addrLine>
+                    <addrLine>maciej.eder@ijp-pan.krakow.pl</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from a Word document </p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.20">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Long Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>stylometry</term>
+                    <term>cross-linguistic</term>
+                    <term>cognitive linguistics</term>
+                    <term>authorship attribution</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>natural language processing</term>
+                    <term>authorship attribution / authority</term>
+                    <term>content analysis</term>
+                    <term>data mining / text mining</term>
+                    <term>English</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <p>For many at this conference, stylometry and authorship attribution need little introduction; the determination of who wrote a document by looking at the writing style is an important problem that has received much research attention. Research has begun to converge on standard methods and procedures (Juola, 2015) and the results are increasingly acceptable in courts of law (Juola, 2013). </p>
+            <p>The most standard experiment looks something like this: collect a training set (aka "known documents," KD) representative of the documents to be analyzed (the testing set, aka "questioned documents," QD) and extract features from these documents such as word choice (Burrows, 1989; Binongo, 2003) or character n-grams (Stamatatos, 2013). On the basis of these features, the QD can be classified -- for example, if Hamilton uses the word "while" and Madison uses the word "whilst" (Mosteller and Wallace, 1963) a QD that doesn't use "while" is probably Madisonian. </p>
+            <p>... unless it's not in English at all, in which case, neither word is likely to appear. The need for the KD to represent the QD fairly closely is one of the major limitations on the use of this experimental methodology. By contrast, the authorial mind remains the same irrespective of the language of writing. In this paper, we report on new methods based on cross-linguistic cognitive traits that enables documents in Spanish to be attributed based on the English writings of the authors and vice versa. Specifically, using a custom corpus scraped from Twitter, we identify a number of features related to the complexity of language and expression, and a number of features related to participation to Twitter-specific social conventions. </p>
+            <p>We first identified (by manual inspection) a set of 14 user names that could be confirmed to have published tweets in both English and Spanish. Once our user list had been collected, we scraped the Twitter history of each user to collect between 90 and 1800 messages ("tweets") from each user and used the detectlanguage.com server to identify automatically the language of each tweet.</p>
+            <p>A key problem is feature identification, as most features (e.g. function words or character n-grams) are not cross-linguistic. For this work, we have identified some potentially universal features. One of the most long-standing (de Morgan, 1851) features proposed for authorship analysis is complexity of expression, as measured variously by word length, distribution of words, type/token ratio, and so forth. We used thirteen different measures of complexity that have been proposed (largely in the quantitative linguistics literature) to create a multivariate measure of complexity that persists across languages. Similarly, we identified three specific social conventions (the use of @mentions, #hashtags, and embedded hyperlinks, all measured as percentage of occurrence) that people may or may not participate in. Our working hypothesis is that people will use language in a way that they feel comfortable with, irrespective of the actual language. Hence, people who use @mentions in English will also do so in Spanish. Similarly, people who send long tweets in English also do so in Spanish, people who use big words in English also do so in Spanish, people who use a varied vocabulary in English also do so in Spanish, and of course vice versa. </p>
+            <p>We were able to show, first, that the proposed regularities do, in fact, hold across languages, as measured by cross-linguistic inter-writer correlations. (Thus, we also showed that our working hypothesis is confirmed, at least for these traits). Second, we showed via cluster analysis that these measures are partially independent from each other, and thus they afford a basis for a stylistic vector space. (Juola and Mikros, under review). This potentially enables ordinary classification methods to apply. The results reported here show that, in fact, they do. </p>
+            <p>To do this, we apply normal classification technology (support vector machines using a polynomial kernel) to the vector space thus constructed. We first broke each individual collection into 200 word sections (thus conjoining multiple tweets). Each section was measured using each complexity feature and then raw values were normalized using z-scores [thus a completely average score would be zero, while a score at the 97th percentile would be approximately 2.0; this is similar to Burrows' Delta (Burrows, 1989)]. For our first experiment, the English sections were used to create a stylometric vector space, then the Spanish sections were (individually) embedded in this space and classified via SVMs. For our second experiment, the languages were reversed, classifying English sections based on Spanish stylometric space. Since SVM with polynomial kernel is a three parameter model, we optimized the classifier's performance using a grid-search parameter tuning and comparing 3 different values for each of the three parameters (totaling 3^3 models). The classifier's performance was evaluated using a 10-fold cross-validation scheme and the best single language model was used for predicting the authorship of the texts written in the other language from the same authors.</p>
+            <p>This resulted in 2652 attempts to predict authorship of individual 200 word sections in Spanish, and another 1922 attempts in English, classified across fourteen potential authors. Baseline (chance) accuracy is therefore 1/14 or 0.0714 [7.14%].</p>
+            <p>Using the English data to establish the stylometric space and the Spanish samples to be attributed yielded an accuracy of 0.095, a result above baseline but not significantly so. By contrast, embedding English data into a Spanish space yielded an accuracy of 0.1603, more than double the baseline. This result clearly establishes the feasibility of cross-linguistic authorship attribution, at least at the proof of concept level. Experiments are continuing, both to establish clearer statistical results, and also to evaluate the additional effectiveness of the Twitter-specific social conventions as features.</p>
+            <p>We believe this result to be the first recorded instance of using training data from one language to attribute test data from another language using a formal, statistical attribution procedure. This is a very difficult dataset using an extremely small set of predictive variables, and the samples (200 words) are very small (Eder, 2013). In light of these issues, the relatively low (in absolute terms) accuracy may still represent a major step forward.</p>
+            <p>Like many research projects, these results pose as many questions as they answer. Why is English-&gt;Spanish easier than Spanish-&gt;English? What other types of language-independent feature sets could be developed, and how would performance compare? Do these results generalize to different language pairs, or to different genres than social media and Twitter in particular? What additional work will be necessary to turn this into a practical and useful tool? Can this generalize to other authorial analysis applications such as profiling (of personality or other attributes)? </p>
+            <p>Further research will obviously be required to address these and other issues. In particular, this study is obviously only a preliminary study. More language pairs are necessary (but finding active bilinguals on Twitter is difficult). Studies of other genres than tweets would be informative, but again corpus collection is problematic. We acknowledge that the current accuracy is not high enough to be useful. For the present, however, the simple fact that cross-linguistic authorship attribution can be done and has been done, remains an important new development in the digital humanities. </p>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl>
+                        <hi rend="bold">Binongo, J. N. G.</hi> (2003). Who wrote the 15th book of Oz? An application of multivariate analysis to authorship attribution. 
+                        <hi rend="italic">Chance</hi>, <hi rend="bold">16</hi>(2): 9–17.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Burrows, J. F. </hi>(1989).`An ocean where each kind...': Statistical analysis and some majordeterminants of literary style. 
+                        <hi rend="italic">Computers and the Humanities</hi>, <hi rend="bold">23</hi>(4-5): 309-21.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Eder, M.</hi> (2013). Does size matter? Authorship attribution, short samples, big problem.
+                        <hi rend="italic">Digital Scholarship in the Humanities</hi>, <hi rend="bold">30</hi>(2): 167–82.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">De Morgan, A.</hi> (1851). Letter to Rev. Heald 18/08/ 1851. In Elizabeth, S. and Morgan, D. (eds), 
+                        <hi rend="italic">Memoirs of Augustus de Morgan by His Wife Sophia Elizabeth de Morgan with Selections from His Letters</hi>. Cambridge: Cambridge University Press.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Juola, P.</hi> (2013). Stylometry and immigration: A case study. 
+                        <hi rend="italic">Journal of Law and Policy</hi>, <hi rend="bold">21</hi>(2): 287–98.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Juola, P.</hi> (2015). The Rowling case: A proposed standard analytic protocol for authorship questions. 
+                        <hi rend="italic">Digital Scholarship in the Humanities</hi>.
+                    </bibl>
+                    <bibl rend="HTML Preformatted">
+                        <hi rend="bold">Juola, P. and Mikros, G.</hi> (under review). Cross-Linguistic Stylometric Features: A Preliminary Investigation. Ms. Submitted to 
+                        <hi rend="italic">JADT 2016</hi>. 
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Mosteller, F. and Wallace, D. L.</hi> (1964). 
+                        <hi rend="italic">Inference and Disputed Authorship: The Federalist. Reading</hi>, MA: Addison-Wesley.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Stamatatos, E.</hi> (2013). On the robustness of authorship attribution based on character n-gram features. 
+                        <hi rend="italic">Journal of Law and Policy</hi>, <hi rend="bold">21</hi>(2): 420-40.
+                    </bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

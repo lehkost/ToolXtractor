@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>Verbal Identity of a Fictional Character: a Quantitative Study with a Machine Learning Experiment</title>
+                <author>
+                    <persName>
+                        <surname>Bonch-Osmolovskaya</surname>
+                        <forename>Anastasia</forename>
+                    </persName>
+                    <affiliation>National research university 'Higher school of economics', Moscow, Russia</affiliation>
+                    <email>abonch@gmail.com</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Sidorova</surname>
+                        <forename>Elena</forename>
+                    </persName>
+                    <affiliation>National research university 'Higher school of economics', Moscow, Russia</affiliation>
+                    <email>sieleny@gmail.com</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Skorinkin</surname>
+                        <forename>Daniil</forename>
+                    </persName>
+                    <affiliation>National research university 'Higher school of economics', Moscow, Russia</affiliation>
+                    <email>skorinkin.danil@gmail.com</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2016-03-06T21:12:00Z</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Maciej Eder, Pedagogical University in Krakow</publisher>
+                <publisher>Jan Rybicki, Jagiellonian University</publisher>
+                <address>
+                    <addrLine>Institute of Polish Studies</addrLine>
+                    <addrLine>Pedagogical University</addrLine>
+                    <addrLine>ul. Podchorazych 2</addrLine>
+                    <addrLine>30-084 Krakow, Poland</addrLine>
+                    <addrLine>maciej.eder@ijp-pan.krakow.pl</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from a Word document </p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.21">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Poster</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>literary studies</term>
+                    <term>narrative</term>
+                    <term>POV structure</term>
+                    <term>machine learning</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>literary studies</term>
+                    <term>text analysis</term>
+                    <term>data mining / text mining</term>
+                    <term>English</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <div type="div1" rend="DH-Heading1">
+                <head>Introduction</head>
+                <p>The idea that narrative literature comprises two distinct types of speech – that of the narrator and that of characters – dates as far back as Plato’s 
+                    <hi rend="italic">Republic</hi>. The philosopher distinguished 
+                    <hi rend="bold">diegesis</hi> (narrative, narration), when the author speaks for himself, from 
+                    <hi rend="bold">mimesis</hi> (imitation, enactment), when the author puts words in the mouths of his or her fictional actors. 
+                </p>
+                <p>Modern narratology places high emphasis on the concepts of 
+                    <hi rend="bold">point of view</hi> (POV) and 
+                    <hi rend="bold">POV structure</hi> of a text (Schmid, 2003), which are often expressed through specific combinations of author’s and character’s speech. Authors may switch between the POV’s by employing character-specific lexica and the use of temporal and spatial references that indicate certain POV (Uspensky, 1983). 
+                </p>
+                <p>Leo Tolstoy was one of the writers known for 
+                    <hi rend="bold">conscious</hi> usage of such means to differentiate between the character POV’s. He was a firm proponent of the idea that each character has to speak his/her 
+                    <hi rend="bold">own</hi> language if the book was to be convincing. Critics confirm that Tolstoy’s characters do have their personal styles of conversation. 
+                </p>
+                <p>In this paper we made an attempt to provide quantitative grounds for these claims. For that purpose we extracted all speech activity instances from 
+                    <hi rend="italic">War and Peace</hi>, attributed them to the speaker characters and used the data to train a classifier. Our hypothesis was that if Tolstoy’s characters actually possessed these unique speech features, the classifier would be able to predict the speaker with some tolerable accuracy. 
+                </p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Data</head>
+                <p>Instances of direct speech were extracted from the text with help of ABBYY Compreno (Starostin et al., 2014). For more details on the extraction procedure see (Bonch-Osmolovskaya A., Skorinkin D., 2015). The total number of extracted speech instances was 6853, of which 4476 had their speakers identified. </p>
+                <p>Apart from the speaker, a number of additional attributes were extracted for each instance: text of the speech, text of the author’s introduction (‘she cried’, ‘he said with a laugh’), normalized speech predicate (‘to say’, ‘to cry’, ‘to whisper’, ‘to burst out’), the number of question and exclamatory phrases within one speech, the number of words in the speech and the number of punctuation marks. </p>
+                <p>Before we carried out the experiment we attempted to analyze the data and detect potentially informative features. It appeared that certain characters (Natasha Rostov, Nikolai Rostov) tend to speak in short intermittent bursts and exclaim a lot, so they were expected to have higher average punctuation marks per word ratio and bigger shares of exclamatory speech. To confirm this intuition we gathered some aggregated statistics (see Fig. 1). </p>
+                <figure>
+                    <graphic url="668/image1.png" rend="inline"/>
+                    <head>Fig. 1 Shares of exclamatory and question sentences in the speech of the main characters</head>
+                </figure>
+                <p>Exclamatory and question phrases together make up the ‘emotional part’ of a character’s speech. Its share (Fig. 2) seems to correlate with age extremities. Prince Nikolay Bolkonsky is probably the oldest of the main characters, and as his age gets the better of him in the course of the novel, he turns more and more emotional and impulsive; Petya Rostov, on the other hand, is an exuberant and emotional boy, the youngest of the Rostov family. </p>
+                <figure>
+                    <graphic url="668/image2.png" rend="inline"/>
+                    <head>Fig. 2 Characters with the highest share of ‘emotional speech’ (exclamatory and question sentences combined)</head>
+                </figure>
+                <p>Fig. 3 reflects character’s overall punctuation marks per word ratios. Seems like the ‘burst speech’ pattern is hereditary within the Rostov family: </p>
+                <figure>
+                    <graphic url="668/image3.png" rend="inline"/>
+                    <head>Fig. 3 Punctuation marks per word ratio in the direct speech text </head>
+                </figure>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Machine learning experiment</head>
+                <p>Next step was to try and use some of these features to train a classifier. We used several standard algorithms, of which Random Forest demonstrated the best results. At the first stage we created a baseline by training the classifier solely on the lemma and word form frequencies of speech. Table 1 shows the results we obtained. </p>
+                <figure>
+                    <graphic url="668/image4.png" rend="inline"/>
+                    <head>Table 1 Baseline results for classifier trained on lemma and word form frequencies</head>
+                </figure>
+                <p>The second stage was to add formal features that we considered informative (number of exclamatory phrases, number of questions and punctuation marks per word ratio) and retrain the classifier. The results we obtained show that the use of these features slightly improved performance. </p>
+                <figure>
+                    <graphic url="668/image5.png" rend="inline"/>
+                    <head>Table 2 Results for classifier trained with additional features</head>
+                </figure>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Results &amp; discussion</head>
+                <p>Our first attempts to automatically classify speaker in Tolstoy’s text did not prove successful. The best F-measure we were able to obtain so far does not exceed 0.385 for an individual character. However, we were able to show that some formal features, such as punctuation marks per word ratio or the number of exclamatory/question sentences, might improve classification quality. This assumption can be confirmed by the figures in the Data section, where the aggregated values of features correspond with certain character traits that are apparent to the human reader.</p>
+            </div>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl>
+                        <hi rend="bold">Bonch-Osmolovskaya A., Skorinkin D.</hi> (2015). Automatic semantic tagging of Leo Tolstoy’s works. In Abstracts of Digital Humanities – 2015 conference, Sydney, Australia. 
+                        <ref target="http://dh2015.org/abstracts/xml/SKORINKIN_Daniil_Automatic_semantic_tagging_of_Le/SKORINKIN_Daniil_Automatic_semantic_tagging_of_Leo_Tols.html">http://dh2015.org/abstracts/xml/SKORINKIN_Daniil_Automatic_semantic_tagging_of_Le/SKORINKIN_Daniil_Automatic_semantic_tagging_of_Leo_Tols.html</ref> (accessed 06 March 2016)
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Eichenbaum, B.</hi> (2009). Works on Leo Tolstoy. Saint-Petersburg. SPBSU Faculty of Philology and Arts.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Schmid, V.</hi> (2003). Narratology. Moscow: LRC Publishing House. 
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Starostin A. , Smurov I., Stepanova M.</hi> (2014). A Production System for Information Extraction Based on Complete Syntactic-Semantic Analysis.  Computational Linguistics and Intellectual Technologies: Proceedings of the International Conference ‘Dialogue’, Bekasovo, pp. 659–667.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Uspensky, B.</hi> (1983). A Poetics of Composition: The Structure of the Artistic Text and Typology of a Compositional Form. Oakland: University of California Press. 
+                    </bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

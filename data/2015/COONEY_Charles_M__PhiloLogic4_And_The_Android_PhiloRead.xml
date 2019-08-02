@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>PhiloLogic4 And The Android PhiloReader Apps: Toward Building A Full-Featured PhiloLogic API</title>
+                <author>
+                    <persName>
+                        <surname>Cooney</surname>
+                        <forename>Charles M.</forename>
+                    </persName>
+                    <affiliation>ARTFL, United States of America</affiliation>
+                    <email>chu.cooney@gmail.com</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Gladstone</surname>
+                        <forename>Clovis</forename>
+                    </persName>
+                    <affiliation>ARTFL, United States of America</affiliation>
+                    <email>clovisgladstone@gmail.com</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Shandruk</surname>
+                        <forename>Walter</forename>
+                    </persName>
+                    <affiliation>ARTFL, United States of America</affiliation>
+                    <email>waltms@gmail.com</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Morrissey</surname>
+                        <forename>Robert</forename>
+                    </persName>
+                    <affiliation>ARTFL, United States of America</affiliation>
+                    <email>rmorriss@uchicago.edu</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Roe</surname>
+                        <forename>Glenn</forename>
+                    </persName>
+                    <affiliation>The Australian National University</affiliation>
+                    <email>glenn.roe@anu.edu.au</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2014-12-19T13:50:00Z</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Paul Arthur, University of Western Sidney</publisher>
+                <address>
+                    <addrLine>Locked Bag 1797</addrLine>
+                    <addrLine>Penrith NSW 2751</addrLine>
+                    <addrLine>Australia</addrLine>
+                    <addrLine>Paul Arthur</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from a Word document </p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.9">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Short Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>PhiloLogic4</term>
+                    <term>API</term>
+                    <term>Android</term>
+                    <term>text databases</term>
+                    <term>search and retrieval interface</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>databases &amp; dbms</term>
+                    <term>interface and user experience design</term>
+                    <term>project design</term>
+                    <term>organization</term>
+                    <term>management</term>
+                    <term>publishing and delivery systems</term>
+                    <term>software design and development</term>
+                    <term>text analysis</term>
+                    <term>programming</term>
+                    <term>mobile applications and mobile design</term>
+                    <term>English</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <p>The ARTFL Project would like to submit a proposal for a short paper on the development of an API for PhiloLogic4, our next-generation corpus query and text retrieval platform for digital humanities databases, and to demonstrate Android PhiloReader Apps that we are building to interact with that API.
+                <hi rend="superscript">1</hi>
+            </p>
+            <p>A primary goal of the PhiloLogic4 project has been to allow ARTFL or any digital humanities group using this software to develop a variety of results display and user interfaces with ease.
+                <hi rend="superscript">2</hi> For example, the databases ARTFL has already released in beta form under PhiloLogic4 for traditional browser access have features such as frequency sidebars for query results, links within those sidebars for faceted browsing, and dynamic Time Series reports.
+                <hi rend="superscript">3</hi> ARTFL’s PhiloReader Apps extend and exemplify this fundamental design goal. They take advantage of PhiloLogic4’s simple set of query parameters and flexible results object formatting to enable text search and retrieval on handheld devices. 
+            </p>
+            <p>ARTFL intends these apps to serve as a lighter-weight alternative to web browser apps for interacting with the PhiloLogic4 installations of text databases on our main production servers. The interface has been designed with a focus on the reading functionality that PhiloLogic4 already offers in its web incarnation. Users can conduct word and/or metadata search from a toggling drawer with the aim of finding and reading text sections.
+                <hi rend="superscript">4</hi> Word search results can be returned in concordance and frequency reports. Any metadata value can serve as a frequency report option, though the most common are word use by title, by date, by author, and even by speaker in collections of plays. More intensive text analysis would require the search form accessible through a web browser. 
+            </p>
+            <p>Functionally, the Android code interacts with PhiloLogic4 databases simply by sending search queries and then displaying the results that PhiloLogic4 sends back over the network. Those results, like all the data the PhiloLogic4 API passes both internally and externally, are formatted as JSON objects. From the search terms the user enters, the app builds a query URI compliant with the PhiloLogic4 API, which includes parameters such as number of results per page and metadata values, as well as a parameter that calls specifically for a JSON object (‘&amp;format=json’). For basic concordance and bibliographic searches, the URI currently points at the main script PhiloLogic4 uses to handle all interaction from web browsers (‘dispatcher.py’).
+                <hi rend="superscript">5</hi> For example, a basic concordance query for ‘sun’ from the Shakespeare app has this URI: 
+            </p>
+            <p>http://artflsrv02.uchicago.edu/philologic4/shakespeare_demo/dispatcher.py?report=concordance&amp;q=sun&amp;method=proxy&amp;title=&amp;start=1&amp;end=25&amp;pagenum=25&amp;format=json </p>
+            <p>For the web version of PhiloLogic4, the dispatcher directs calls for secondary queries, like frequency searches and table of contents requests, to scripts that run behind the scenes. In order to minimize extra coding on the server side, the app calls those CGI scripts directly for these same queries. A frequency by title search for ‘sun’ from the app points to the frequency generation code to get PhiloLogic4’s internal JSON object: </p>
+            <p>http://artflsrv02.uchicago.edu/philologic4/shakespeare_demo/scripts/get_frequency.py?report=concordance &amp;q=sun&amp;method=proxy&amp;title=&amp;frequency_field=title&amp;format=json </p>
+            <p>The JSON object of a concordance result, for example, can contain chunks of the search result, bibliographic metadata, and a PhiloLogic id used for linking into larger sections of the text. The Android code renders the JSON into a string array and displays search results in a listview.
+                <hi rend="superscript">6</hi> The user can then select individual list items to get larger text sections. The Android code submits a second query to the PhiloLogic4 database for that specific text object which is, again, returned as JSON and also contains navigational links to the previous and next sections of the text. This full-text JSON is rendered for the user to read inside a webview.
+                <hi rend="superscript">7</hi> We use a webview to display text objects in order to apply the same CSS formatting rules that we use for web versions. The PhiloReader also allows users to bookmark text objects for easy access in later sessions by retaining its PhiloLogic object pointer. 
+            </p>
+            <p>At the time of writing this proposal, we have succeeded in developing a functional API and Android code to work with it as proof of concept. Going forward, we will continue to work to make the API as generic and simple to use as possible, and fully RESTful compliant. </p>
+            <p>Our ultimate goal is to allow other development teams to pick and choose any subset of PhiloLogic4 functionality through the API to build their own interfaces. For instance, developers could integrate concordance search functionality into a traditional desktop app under Windows or MacOS, or into a web environment like Drupal or Django. Developers could also use the API to plug frequency or collocation reports into modern visualization tools like d3.js. And since the API always returns pointers to original text objects, any new interface will be able to have links from results display into fuller document context. </p>
+            <p>ARTFL chose Android Java as the initial development language for the apps because of existing in-house capability. At the time of the conference, we will make available a skeleton version of our Android code for other groups to adapt or simply examine to see how we interact with the API. In the coming months we intend to have parallel apps developed for iPads, though we are not certain they will be ready in time to present at DH. Nevertheless, ARTFL believes these Android apps demonstrate the ease and flexibility of using the PhiloLogic4 API to develop new ways of interacting with text databases. </p>
+            <p>Screenshots</p>
+            <figure>
+                <graphic n="1001" width="14.2875cm" height="22.86cm" url="Pictures/image1.png" rend="block"/>
+            </figure>
+            <p>Figure 1. Search for term ‘sun’ in 
+                <hi rend="italic">Romeo and Juliet</hi> in the Shakespeare database. 
+            </p>
+            <figure>
+                <graphic n="1002" width="14.2875cm" height="22.86cm" url="Pictures/image2.png" rend="block"/>
+            </figure>
+            <p>Figure 2. Full-text view from 
+                <hi rend="italic">Romeo and Juliet </hi>with search term ‘sun’ highlighted.
+            </p>
+            <figure>
+                <graphic n="1003" width="14.2875cm" height="22.86cm" url="Pictures/image3.png" rend="block"/>
+            </figure>
+            <p>Figure 3. Frequency by title search results for ‘flay’ in ECCOTCP.</p>
+            <p>
+                <graphic n="1004" width="15.24cm" height="12.329583333333334cm" url="Pictures/image4.jpeg" rend="inline"/>
+            </p>
+            <p>Figure 4. JSON object of frequency by title search results for ‘flay’ in ECCOTCP, http://artflsrv02.uchicago.edu/philologic4/ecco_tcp_demo/scripts/get_frequency.py?report=concor dance&amp;q=flay&amp;method=proxy&amp;title=&amp;author=&amp;frequency_field=title&amp;format=json.</p>
+            <p>Notes</p>
+            <p>1. At the time of writing, we have built demonstration apps around the ECCOTCP text collection and the MONK project’s Shakespeare’s Plays data. Versions of these apps can be downloaded from http://artflsrv02.uchicago.edu/downloads/app_download/.</p>
+            <p>2. For general background on PhiloLogic4, see Allen, T., Gladstone, C. and Whaling, R., PhiloLogic4: An Abstract Query TEI System, 
+                <hi rend="italic">Journal of the Text Encoding Initiative, </hi>5 (June 2013). Development is ongoing; code resides at https://github.com/ARTFLProject/ PhiloLogic4.
+            </p>
+            <p>3. See http://artflproject.uchicago.edu/.</p>
+            <p>4. See the ‘Screenshots’ section for images of the interface and an example of a PhiloLogic4 JSON object.</p>
+            <p>5. These calls that the app makes to the dispatcher script are subject to change as we continue to refine the API. Eventually, we might choose to bypass the dispatcher, as we do for frequency and table of contents calls from the app, and instead communicate with CGI scripts exclusively.</p>
+            <p>6. ListView is Android terminology for a layout that displays a vertically scrollable list. See http://developer.android.com/guide/topics/ui/layout/listview.html.</p>
+            <p>7. Again, Android terminology for a view that displays web pages. See http://developer.android.com/reference/android/webkit/WebView.html.</p>
+        </body>
+    </text>
+</TEI>

@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>Modelling the (Inter)National Printmaking Networks of Early Modern Europe</title>
+                <author>
+                    <persName>
+                        <surname>Lincoln</surname>
+                        <forename>Matthew</forename>
+                    </persName>
+                    <affiliation>University of Maryland, United States of America</affiliation>
+                    <email>mlincol1@umd.edu</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2014-12-19T13:50:00Z</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Paul Arthur, University of Western Sidney</publisher>
+                <address>
+                    <addrLine>Locked Bag 1797</addrLine>
+                    <addrLine>Penrith NSW 2751</addrLine>
+                    <addrLine>Australia</addrLine>
+                    <addrLine>Paul Arthur</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from a Word document </p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.9">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Long Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>R</term>
+                    <term>dynamic network analysis</term>
+                    <term>engraving</term>
+                    <term>digital art history</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>art history</term>
+                    <term>data modeling and architecture including hypothesis-driven modeling</term>
+                    <term>GLAM: galleries</term>
+                    <term>libraries</term>
+                    <term>archives</term>
+                    <term>museums</term>
+                    <term>networks</term>
+                    <term>relationships</term>
+                    <term>graphs</term>
+                    <term>English</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <p>Histories of early modern European artistic printmaking have often taken a decidedly nationalistic approach. Giorgio Vasari included an entire chapter contrasting the achievements of Italian, Netherlandish, and German printmakers in the 1568 edition of his 
+                <hi rend="italic">Vite</hi> (Vasari, 1996, 80; Gregory, 2012). In the north, Haarlem-based art theorist Karel van Mander framed printmaking as a quintessentially Dutch medium, using his 1604 biography of the virtuoso engraver Hendrick Goltzius to rhetorically mirror Vasari’s elevation of Michelangelo in the 
+                <hi rend="italic">Vite</hi>, thus arguing that engraving could rival the finest masterpieces of painting and sculpture that Italy had to offer (Miedema, 1994, 385–406; Melion, 1991, 22–23). Modern canonical narratives often focus on the emergence of particular regional or national artistic printmaking communities, such as that in the northern Netherlands around the turn of the 17th century, when Haarlem printmakers Claesz Jansz Visscher, Esaias van de Velde I, and Willem Buytewech began to experiment with new graphic styles that diverged from more conventional international trends, and also turned increasingly towards ‘native’ subject matter, such as views of the Dutch countryside and cityscapes. Scholars have connected this turn in style and content to the coalescing of a Dutch national identity during the course of the revolt against Spain between 1568 and 1648 (Freedberg, 1980; Levesque, 1994)
+            </p>
+            <p>Less well understood is the role that changing production practices, especially international collaboration, may have played in these shifts. Woodcuts and engravings—and, to a lesser extent, etchings—generally required the collaboration of artistic designers, plate cutters, printers, and distributors (Riggs and Silver, 1993). The sheer quantity and variety of prints from this period, and the number of individual printmakers and publishers involved, challenge traditional models of art historical argumentation. Newly available digitized museum databases offer the chance to analyze large-scale changes in the organizational patterns and artistic strategies of reproductive printmakers and publishers in the Netherlands, and of Europe at large, during the 16th and 17th centuries. This paper draws on the British Museum’s large database of European prints between 1550 and 1750 to infer a dynamic network model of European artistic print production in this period. The group-external / group-internal index of the regional/national groups of printmakers constituting this larger network offers a useful metric for describing the shifting balance of regional/national versus international print production in Europe in this period. The results of this study suggest the importance of structural incentives, under-analyzed in the current literature, that guided the development of regional artistic print production.</p>
+            <p>Data and Methodology</p>
+            <p>This study draws on the digital records of the British Museum’s collections, published as Linked Open Data using the CIDOC Conceptual Reference Model (Oldman et al., 2014). The database describes 53,462 dated prints (including woodcuts, etchings, and engravings) produced between 1550 and 1750. The British Museum has classified at least one associated creator for each of these prints, and assigned a production role such as ‘published by’, ‘print made by’, and ‘made after’. From these dated objects and associated production data, it is possible to construct a dynamic network structure, where designers, engravers, and publishers are interconnected based on the prints they produced. Date properties on edges (print production dates) and nodes (artist life dates) make it possible to derive subsets of the network at different points in time. Using the 
+                <hi rend="Verbatim_Char">igraph</hi> package for R, I wrote an analysis script that created 10-year slices of the network using a rolling window (Csardi and Nepusz, 2006).
+            </p>
+            <p>To evaluate the dynamics of domestic vs. international interaction, I implemented an R version of the group-external / group-internal index. The E-I index measures the coefficient of group-external to group-internal ties for 
+                <formula>
+                    <mml:math xmlns:mml="http://www.w3.org/1998/Math/MathML">
+                        <mi mathvariant="normal" xmlns="http://www.w3.org/1998/Math/MathML">N</mi>
+                    </mml:math>
+                </formula>classes of nodes (
+                <formula>
+                    <mml:math xmlns:mml="http://www.w3.org/1998/Math/MathML">
+                        <msub xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mrow>
+                                <mi mathvariant="normal">N</mi>
+                            </mrow>
+                            <mrow>
+                                <mn>1</mn>
+                            </mrow>
+                        </msub>
+                        <mo xmlns="http://www.w3.org/1998/Math/MathML">=</mo>
+                        <mfrac xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mrow>
+                                <msub>
+                                    <mrow>
+                                        <mi mathvariant="normal">n</mi>
+                                    </mrow>
+                                    <mrow>
+                                        <mi mathvariant="normal">e</mi>
+                                    </mrow>
+                                </msub>
+                                <mo>-</mo>
+                                <msub>
+                                    <mrow>
+                                        <mi mathvariant="normal">n</mi>
+                                    </mrow>
+                                    <mrow>
+                                        <mi mathvariant="normal">i</mi>
+                                    </mrow>
+                                </msub>
+                            </mrow>
+                            <mrow>
+                                <msub>
+                                    <mrow>
+                                        <mi mathvariant="normal">n</mi>
+                                    </mrow>
+                                    <mrow>
+                                        <mi mathvariant="normal">e</mi>
+                                    </mrow>
+                                </msub>
+                                <mo>+</mo>
+                                <msub>
+                                    <mrow>
+                                        <mi mathvariant="normal">n</mi>
+                                    </mrow>
+                                    <mrow>
+                                        <mi mathvariant="normal">i</mi>
+                                    </mrow>
+                                </msub>
+                            </mrow>
+                        </mfrac>
+                    </mml:math>
+                </formula>) where 
+                <formula>
+                    <mml:math xmlns:mml="http://www.w3.org/1998/Math/MathML">
+                        <msub xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mrow>
+                                <mi mathvariant="normal">n</mi>
+                            </mrow>
+                            <mrow>
+                                <mi mathvariant="normal">e</mi>
+                            </mrow>
+                        </msub>
+                    </mml:math>
+                </formula> represents all 
+                <hi rend="italic">external</hi> links from one class of node to another in a different class, and 
+                <formula>
+                    <mml:math xmlns:mml="http://www.w3.org/1998/Math/MathML">
+                        <msub xmlns="http://www.w3.org/1998/Math/MathML">
+                            <mrow>
+                                <mi mathvariant="normal">n</mi>
+                            </mrow>
+                            <mrow>
+                                <mi mathvariant="normal">i</mi>
+                            </mrow>
+                        </msub>
+                    </mml:math>
+                </formula> represents all 
+                <hi rend="italic">internal</hi> links between nodes in the same class (Krackhardt and Stern, 1988, 127–29; Hanneman and Riddle, 2005, 128–32; Matos et al., 2014, 15). A positive coefficient thus indicates that members of one nationality made a majority of their connections to artists outside that nationality, while a negative coefficient indicates a majority of domestic connections.
+            </p>
+            <p>Results</p>
+            <p>Figure 2 shows the E-I trend for the six largest regional/national groups of printmakers. The Dutch, French, and English networks all have positive E-I values at 1550, meaning that all these networks were mostly connected to foreign actors. Each of these national networks seems to have experienced their own relatively swift shift towards a majority of domestic connections in the following centuries. While the Netherlands exhibits a sharp inward turn around 1575–1580, the French printmaking network had a more gradual inward turn that was already under way by 1550, but took a particularly sharp negative (i.e., inward) turn between 1600 and 1640. The English network also experienced a sharp turn, but as late as 1650, almost 75 years after the Dutch turn. Conversely, Flemish, German, and Italian printmakers initially connected mostly inwardly, only later shifting towards majority-external connections around the turn of the 17th century.</p>
+            <p>Discussion</p>
+            <p>The recurring pattern of sudden shifts from majority-external connections to majority-internal connections in the Dutch, Flemish, French, and English printmaking networks is striking, and suggests the pivotal effect of historical incidents on print production. For example, the Dutch inward shift around 1570 may have been partly due to the Spanish capture of Antwerp, which precipitated a massive exodus from the city, particularly of Protestants fleeing religious persecution. This migration infused the Dutch provinces with new wealth and talent, and it was recognized even by contemporaries that this wave powered the consumption side of the paintings market, and introduced innovations on the production side of that market. (On the effect of the Flemish migration into the Northern Netherlands, see Montias, 1982, 73; 1987, 459; Vries, 1991, 265; Sluijter, 2009.) However, it also seems to have had an effect on the organization of printmaking. In addition to an influx of new talent and demand generated by a surge in immigration, printmakers may also have adjusted their behavior as conflict made it more difficult to conduct the international business of printmaking, from the early transmission of contracts and drawn designs to the large shipments of finished impressions required for a successful printmaking business. With avenues to international collaboration cut off, and an increasing amount of domestic demand in centers like Haarlem and Amsterdam, the Dutch printmaking network underwent a rapid reorganization in the working relationships among Dutch printmakers to favor more domestic connections than before.</p>
+            <p>However, these shifts did not occur at the same time across Europe. It seems little coincidence that the regional networks that are primarily inward-connecting in the mid-16th century (Flanders, Italy, and Germany) also had some of the longest printmaking traditions, dating back to the late 15th century (Landau and Parshall, 1994). The medium of printing demanded a set of artistic and technical skills, not to mention a set of social connections and financial capital, that presented a barrier to new entrants into the printmaking world. Designers needed to learn what aesthetic effects and compositions would translate well to the printed medium. Printmakers had to learn how to render painted or drawn lighting and color effects with graven lines. Print distribution presented yet another hurdle to new entrants to the market. Publishers needed a large pool of both financial as well as social capital: in addition to purchasing rolling presses and paper, they also had to coordinate with artists as well as with distributors and buyers in domestic markets and at the international book fairs. In the aggregate, these requirements presented a barrier not only to individuals but also to regions and countries. Germany and Italy, the respective origins of woodcut printing in the north and the south in the late 15th century, were able to make mostly internal connections through the 16th century. They would gradually receive an increasing number of foreign connections, as Dutch, French, and English artists sought to connect to expert printmakers. Over time, these externally dependent regions would begin to cultivate more native talent, knowledge, and physical resources, as experienced printmakers trained new students and transitioned from making prints to establishing their own publishing firms. It seems that once a critical mass of designers, printmakers, and publishers had developed within a country, these national networks shifted quickly, rather than gradually, towards increased domestic production. Congruent trends in other countries suggest that it was not the effects of one specific conflict alone that powered the Dutch shift towards more domestic printmaking; it is more accurate to say that war 
+                <hi rend="italic">catalyzed</hi> the organizational transformation that had already been made possible, and indeed inevitable, by longstanding international collaboration. This more rigorous and specific measurement of organizational changes will allow art historians to enrich our current histories of style and genre in printmaking, and more robustly characterize the relationship of artistic trends to historical ones.
+            </p>
+            <p>Figures</p>
+            <figure>
+                <graphic n="1001" width="17.882305555555554cm" height="6.046611111111111cm" url="Pictures/image1.png" rend="block"/>
+            </figure>
+            <p>Figure 1. Visualization of a small affiliation network inferred from four different print impressions.</p>
+            <figure>
+                <graphic n="1002" width="18.566694444444444cm" height="15.712722222222222cm" url="Pictures/image2.png" rend="block"/>
+            </figure>
+            <p>Figure 2. Comparative plot of the group-external / group-internal index of French, English, Dutch, German, Italian, and Flemish artists between 1550 and 1750.</p>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl>
+                        <hi rend="bold">Csardi, G., and T. Nepusz.</hi> (2006). The Igraph Software Package for Complex Network Research. 
+                        <hi rend="italic">InterJournal</hi>, Complex Systems, 
+                        <ref target="http://igraph.org">
+                            <hi rend="Link">http://igraph.org</hi>
+                        </ref>, 1695. 
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Freedberg, D.</hi> (1980). 
+                        <hi rend="italic">Dutch Landscape Prints of the Seventeenth Century</hi>. British Museum Publications, London.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Gregory, S.</hi> (2012). 
+                        <hi rend="italic">Vasari and the Renaissance Print</hi>. Ashgate, Burlington.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Hanneman, R. A. and Riddle, M.</hi> (2005). 
+                        <hi rend="italic">Introduction to Social Network Methods</hi>. University of California, Riverside, 
+                        <ref target="http://faculty.ucr.edu/~hanneman/nettext/">
+                            <hi rend="Link">http://faculty.ucr.edu/~hanneman/nettext/</hi>
+                        </ref>.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Krackhardt, D. and Stern, R. N.</hi> (1988). Informal Networks and Organizational Crises: An Experimental Simulation. 
+                        <hi rend="italic">Social Psychology Quarterly,</hi>
+                        <hi rend="bold">51</hi>(2): 123–40, doi:
+                        <ref target="http://dx.doi.org/10.2307/2786835">
+                            <hi rend="Link">10.2307/2786835</hi>
+                        </ref>.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Landau, D. and Parshall, P. W.</hi> (1994). 
+                        <hi rend="italic">The Renaissance Print, 1470–1550</hi>. Yale University Press, New Haven, CT.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Levesque, C.</hi> (1994). 
+                        <hi rend="italic">Journey through Landscape in Seventeenth-Century Holland: The Haarlem Print Series and Dutch Identity</hi>. Pennsylvania State University Press, University Park.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Matos, G. d., el al. </hi>(2014). 
+                        <hi rend="italic">Peer Influence in the Diffusion of the iPhone 3G over a Large Social Network</hi>. SSRN Scholarly Paper ID 2053420. Rochester, NY: Social Science Research Network, 
+                        <hi rend="Link">http://papers.ssrn.com/abstract=2053420</hi>.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Melion, W. S.</hi> (1991). 
+                        <hi rend="italic">Shaping the Netherlandish Canon: Karel van Mander’s Schilder-Boeck</hi>. University of Chicago Press, Chicago.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Miedema, H.</hi> (ed.). (1994). 
+                        <hi rend="italic">Karel van Mander: The Lives of the Illustrious Netherlandish and German Painters (1604)</hi>. Davaco Publishers, Doornspijk.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Montias, J. M.</hi> (1982). 
+                        <hi rend="italic">Artists and Artisans in Delft: A Socio-Economic Study of the Seventeenth Century</hi>. Princeton University Press, Princeton.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Montias, J. M.</hi> (1987). Cost and Value in Seventeenth-Century Dutch Art. 
+                        <hi rend="italic">Art History,</hi>
+                        <hi rend="bold">10</hi>(4): 455.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Oldman, D., et al. </hi>( 2014). Realizing Lessons of the Last 20 Years: A Manifesto for Data Provisioning and Aggregation Services for the Digital Humanities (a Position Paper). 
+                        <hi rend="italic">D-Lib Magazine,</hi>
+                        <hi rend="bold">20</hi>(7/8), 
+                        <hi rend="Link">http://www.dlib.org/dlib/july14/oldman/07oldman.html</hi>.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Riggs, T. and Silver, L</hi>. (1993). 
+                        <hi rend="italic">Graven Images: The Rise of Professional Printmakers in Antwerp and Haarlem, 1540–1640</hi>. Mary and Leigh Block Gallery, Northwestern University, Chicago.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Sluijter, E. J.</hi> (2009). On Brabant Rubbish, Economic Competition, Artistic Rivalry, and the Growth of the Market for Paintings in the First Decades of the Seventeenth Century. 
+                        <hi rend="italic">Journal of Historians of Netherlandish Art,</hi>
+                        <hi rend="bold">1</hi>(2), 
+                        <hi rend="Link">http://www.jhna.org/index.php/past-issues/volume-1-issue-2/109-on-brabant-rubbish</hi>.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Vasari, G.</hi> (1996). 
+                        <hi rend="italic">Lives of the Painters, Sculptors and Architects</hi>. D. Campbell, London.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Vries, J. d.</hi> (1991). Art history. In Freedberg, D. and Vries, J. d. (eds), 
+                        <hi rend="italic">Art in History, History in Art: Studies in Seventeenth-Century Dutch Culture</hi>. Santa Monica, CA: Getty Center for the History of Art &amp; the Humanities, pp. 249–71.
+                    </bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

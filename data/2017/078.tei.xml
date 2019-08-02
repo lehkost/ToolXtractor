@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xsi:schemaLocation="http://www.tei-c.org/ns/1.0 /Users/yoann/Work/Grobid/grobid-home/schemas/xsd/Grobid.xsd"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+	<teiHeader xml:lang="en">
+		<encodingDesc>
+			<appInfo>
+				<application version="0.5.4-SNAPSHOT" ident="GROBID" when="2019-06-05T06:35+0000">
+					<ref target="https://github.com/kermitt2/grobid">GROBID - A machine learning software for extracting information from scholarly documents</ref>
+				</application>
+			</appInfo>
+		</encodingDesc>
+		<fileDesc>
+			<titleStmt>
+				<title level="a" type="main">Script Identification in Medieval Latin Manuscripts Using Convolutional Neural Networks</title>
+			</titleStmt>
+			<publicationStmt>
+				<publisher/>
+				<availability status="unknown"><licence/></availability>
+			</publicationStmt>
+			<sourceDesc>
+				<biblStruct>
+					<analytic>
+						<author>
+							<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">Mike</forename><surname>Kestemont</surname></persName>
+							<email>mike.kestemont@gmail.com</email>
+							<affiliation key="aff0">
+								<orgName type="department">Centre National de la Recherche Scientifique</orgName>
+								<orgName type="institution">University of Antwerp</orgName>
+								<address>
+									<country>Belgium, France</country>
+								</address>
+							</affiliation>
+						</author>
+						<author>
+							<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">Dominique</forename><surname>Stutzmann</surname></persName>
+							<email>dominique.stutzmann@irht.cnrs.fr</email>
+							<affiliation key="aff0">
+								<orgName type="department">Centre National de la Recherche Scientifique</orgName>
+								<orgName type="institution">University of Antwerp</orgName>
+								<address>
+									<country>Belgium, France</country>
+								</address>
+							</affiliation>
+						</author>
+						<title level="a" type="main">Script Identification in Medieval Latin Manuscripts Using Convolutional Neural Networks</title>
+					</analytic>
+					<monogr>
+						<imprint>
+							<date/>
+						</imprint>
+					</monogr>
+				</biblStruct>
+			</sourceDesc>
+		</fileDesc>
+		<profileDesc>
+			<abstract/>
+		</profileDesc>
+	</teiHeader>
+	<text xml:lang="en">
+		<body>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Introduction</head><p>In paleography, scholars study the history of handwriting, a crucial aspect of book history and manuscript studies. Paleography has traditionally been dominated by expert-based approaches, driven by the opinions of a small group of highly trained individuals. These have acquired a set of expert skills through year-long training, e.g. the ability to date a handwriting or attribute it to specific individuals. This knowledge remains very hard to render explicit, in order to share it with others. Therefore, paleographers are increasingly interested in digital modelling techniques to enhance the creation and dissemination of paleographic knowledge <ref type="bibr" target="#b8">(Stutzmann, 2015</ref>). An important task in paleography is the classification of script types, especially now that digital libraries (BVMM, Gallica, e-Codices, Manuscripta Mediaevalia, etc.) are amassing reproductions of medieval manuscripts, often with scarce metadata. Being able to recognize the script type of such historic artefacts is crucial to date, localize or (semi-)automatically transcribe them. This paper focuses on script identification for medieval Latin manuscripts (ca. 500 AD to 1600 AD) and demonstrates the feasibility of a fairly accurate, meaningful automated classification.</p><p>Medieval script classification was the focus of the recent CLaMM (Classification of Latin Medieval Manuscripts) competition. For this shared task, the organizers released a training data set of 2,000 photographic (greyscale, 300 dpi) reproductions of pages extracted from Latin manuscripts, which were classified into a 12 script type classes, including uncial, caroline, textualis and humanistic script, but also more difficult to delineate classes such as the cursiva or (semi)hybrida. The participating teams had to submit a standalone application which was able to classify unseen images and estimate the distance between them. The organizers would then apply the submissions to 1,000 resp. 2,000 test images ( <ref type="bibr" target="#b9">Stutzmann, 2016)</ref> and evaluate their performance using various evaluation schemes. Here, we discuss the DeepScript submission to the CLaMM competition. The competition's results have been officially been released on 26 Oct. 2016. DeepScript was ranked first on task 2, i.e. the 'crisp' classification of mixed script images ( <ref type="bibr" target="#b2">Cloppet et al., 2016)</ref>. As the ground truth and results were released too recently, we limit this abstract to a general discussion of the approach; the final version and presentation of this paper will be supplemented with additional information and test results.</p><p>The DeepScript submission builds upon recent advances in Computer Vision, where the use of so-called 'deep' neural networks has recently led to dramatic breakthroughs in the state of the art of image classification ( <ref type="bibr" target="#b5">LeCun et al., 2015)</ref>. The kind of neural networks applied in Computer Vision are typically convolutional: they slide small 'filters' (feature detectors) across images to make the network robust to small translations of objects. The networks make use of many 'layers' of such feature detectors, where the output of one feature detector always feeds into the next one. The use of such a stack of layers is beneficial, because this 'deep architecture' allows algorithms to model features of an increasing complexity ( <ref type="bibr" target="#b0">Bengio et al., 2013)</ref>: in the first layers of the network, very raw and primitive shapes are detected ('edges'); it is only at the higher layers in the networks that these primitive features are combined into more complex, abstract visual patterns (e.g. entire faces). These neural networks lie at the basis of e.g. modern face verification algorithms on social media websites such as Facebook.</p><p>Neural networks are composed of millions of parameters which have be optimized. For this, the available training data is split out in a set of training images and a smaller set of development images (respectively ca. 1,800 and 200 images): the former is used to optimize the parameters of the network during training, the latter is used to monitor the performance of the network. The use of development data is necessary to avoid 'overfitting': it is possible for a network to start 'memorizing' the training images, so that it produces perfect predictions for the training data, but is not able any more to generalize properly to new, unseen images. By using a development set, we can stop optimizing the network, if its predictions for the development data do not increase in quality anymore. Only at this stage, the algorithm is evaluated on the actual test images.</p><p>Modern neural networks are typically trained on hundred thousands of training images. In the field of Cultural Heritage data, a common challenge is that most data sets are much smaller, and CLaMM is no exception, so that the danger of overfitting is much larger. We therefore proceeded as follows: the generous resolution for each training image was downsized by one half. Next, we would select random square crops or patches from the image (150x150 pixels) and train the algorithms on batches of these crops. This approach is blunt, yet innovative, since we make no effort to extract more specific regions of interest from the images, such as individual lines, words or characters. To avoid overfitting, we also applied augmentation: each training crop would be 'distorted' through randomly varying the zoom level, rotation and translation. Introducing such noise in the input is a common strategy to combat overfitting. Below goes an example of such a set of augmented patches for a single manuscript page <ref type="figure" target="#fig_0">(Fig. 1)</ref>. After each epoch, we evaluated the performance of the current state of the network through inspecting the classification accuracy on the development images: we randomly selected 30 crops from each image (without augmentation), and calculated the average probability for each output class. The full image was assigned to the class with the highest average probability. The best validation accuracy which we achieved was 91.17%, using a network architecture of 14 layers, inspired by the famous Oxford VGG net <ref type="bibr" target="#b6">(Simonyan et al., 2015)</ref>. The manual classification of CLaMM images was based on morphological differences and allographs, as defined in standard works on Latin scripts such as <ref type="bibr" target="#b1">(Bischoff, 1986;</ref><ref type="bibr" target="#b3">Derolez, 2003)</ref>. The confusion matrices in <ref type="figure" target="#fig_1">Fig. 2-4</ref> for the actual and the predicted classes in the development and test data illustrate that the confusions generally make sense from a paleographic point of view (the normal textualis letter is for instance often mistaken for the Southern or semi-textualis variant).  </p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>: Classifications for the test data as a confusion matrix</head><p>(task 1). Horizontal lines: ground-truth; Vertical columns: predictions. Order: 1-Uncial; 2-Half-uncial; 3-Caroline; 4-Humanistic; 5-Humanistic; Cursive; 6-Praegothica; 7-Southern Textualis; 8-Semitextualis 9-Textualis; 10-Hybrida 11-Semihybrida 12-Cursiva. There exist interesting methods to visualize which patterns the trained network is sensitive to. Using the principle of gradient ascent, we start from a random noise image and feed it to one of the filters on the last convolutional layer: during 3,000 iterations we change the image so that it maximizes the activation of this particular filter. In <ref type="figure" target="#fig_2">Fig. 3</ref>, we show the 25 artificially generated images which yielded the strongest results; clearly, the network picks up relevant patterns. The third image from the left in the first line, for instance, clearly captures the presence of loops in the ascenders of individual characters (e.g. in the 'b' or 'h', which is crucial to differentiate between e.g. a textualis and a cursive letter). These visualizations directly tackle the issue of the computational 'black box' in the Digital Humanities, and espsecially Digital Palaeography ( <ref type="bibr" target="#b4">Hassner et al., 2013;</ref><ref type="bibr" target="#b7">Stutzmann et al., 2014</ref>). In our paper, we will offer further interpretations and visualizations of our model and confront these with the results from other participants in the CLaMM competition to offer new perspectives on the graphic definition of script classes in traditional paleography. </p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Bibliography</head></div><figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_0"><head>Fig. 1 :</head><label>1</label><figDesc>Fig. 1: Example of augmented crops for a single manuscript page.</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_1"><head>Fig. 2 :</head><label>2</label><figDesc>Fig. 2: Confusion matrix for the development data.</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_2"><head>Fig. 3</head><label>3</label><figDesc>Fig. 3: Classifications for the test data as a confusion matrix (task 1). Horizontal lines: ground-truth; Vertical columns: predictions. Order: 1-Uncial; 2-Half-uncial; 3-Caroline; 4-Humanistic; 5-Humanistic; Cursive; 6-Praegothica; 7-Southern Textualis; 8-Semitextualis 9-Textualis; 10-Hybrida 11-Semihybrida 12-Cursiva.</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_3"><head>Fig. 4 :</head><label>4</label><figDesc>Fig. 4: Membership Degree matrices for task 2, on the 999 test images where only one label is attributed to the image.</figDesc><graphic url="image-5.png" coords="3,54.58,140.74,225.36,225.12" type="bitmap" /></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_4"><head>Fig. 5 :</head><label>5</label><figDesc>Fig. 5: Artificially generated images that maximally activate filters in the final convolutional layer.</figDesc><graphic url="image-6.png" coords="3,317.14,72.58,242.16,234.72" type="bitmap" /></figure>
+		</body>
+		<back>
+			<div type="references">
+
+				<listBibl>
+
+<biblStruct xml:id="b0">
+	<analytic>
+		<title level="a" type="main">Representation Learning: A Review and New Perspectives</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">Y</forename><surname>Bengio</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">A</forename><surname>Courville</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">P</forename><surname>Vincent</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">TPAMI</title>
+		<imprint>
+			<biblScope unit="volume">35</biblScope>
+			<biblScope unit="page" from="1798" to="1828" />
+			<date type="published" when="2013" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b1">
+	<monogr>
+				<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">B</forename><surname>Bischoff</surname></persName>
+		</author>
+		<title level="m">Paläographie des römischen Altertums und des abendländischen Mittelalters</title>
+		<meeting><address><addrLine>Berlin</addrLine></address></meeting>
+		<imprint>
+			<date type="published" when="1986" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b2">
+	<monogr>
+				<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">F</forename><surname>Cloppet</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">V</forename><surname>Eglin</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">V</forename><forename type="middle">C</forename><surname>Kieu</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">D</forename><surname>Stutzmann</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">N</forename><surname>Vincent</surname></persName>
+		</author>
+		<title level="m">ICFHR2016 Competition on the Classification of Medieval Handwritings in Latin Script, Proceedings of the ICFHR 2016</title>
+		<imprint>
+			<date type="published" when="2016" />
+			<biblScope unit="page" from="590" to="595" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b3">
+	<monogr>
+		<title level="m" type="main">The Palaeography of Gothic Manuscript Books from the Twelfth to the Early Sixteenth Century</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">A</forename><surname>Derolez</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="2003" />
+			<pubPlace>Cambridge</pubPlace>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b4">
+	<analytic>
+		<title level="a" type="main">Computation and palaeography: Potentials and limits</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">T</forename><surname>Hassner</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">M</forename><surname>Rehbein</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">P</forename><surname>Stokes</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">L</forename><surname>Wolf</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Dagstuhl Manifestos</title>
+		<imprint>
+			<biblScope unit="volume">2</biblScope>
+			<biblScope unit="page" from="14" to="35" />
+			<date type="published" when="2013" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b5">
+	<analytic>
+		<title level="a" type="main">Deep learning</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">Y</forename><surname>Lecun</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">Y</forename><surname>Bengio</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">G</forename><surname>Hinton</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Nature</title>
+		<imprint>
+			<biblScope unit="volume">521</biblScope>
+			<biblScope unit="issue">7553</biblScope>
+			<biblScope unit="page" from="436" to="480" />
+			<date type="published" when="2015" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b6">
+	<analytic>
+		<title level="a" type="main">Very Deep Convolutional Networks for Large-Scale Image Recognition</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">K</forename><surname>Simonyan</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">A</forename><surname>Zisserman</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Proceedings of ICLR 2015</title>
+		<meeting>ICLR 2015</meeting>
+		<imprint>
+			<date type="published" when="2015" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b7">
+	<analytic>
+		<title level="a" type="main">Digital palaeography: New machines and old texts : Executive summary</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">D</forename><surname>Stutzmann</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">S</forename><surname>Tarte</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Dagstuhl Reports</title>
+		<imprint>
+			<biblScope unit="volume">4</biblScope>
+			<biblScope unit="page" from="112" to="146" />
+			<date type="published" when="2014" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b8">
+	<analytic>
+		<title level="a" type="main">Clustering of medieval scripts through computer image analysis: Towards an evaluation protocol</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">D</forename><surname>Stutzmann</surname></persName>
+		</author>
+		<ptr target="http://digi-talmedievalist.org/journal/10/stutzmann/" />
+	</analytic>
+	<monogr>
+		<title level="j">Digital Medievalist</title>
+		<imprint>
+			<biblScope unit="volume">10</biblScope>
+			<date type="published" when="2015" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b9">
+	<monogr>
+		<title level="m" type="main">ICFHR2016 Competition on the Classification of Medieval Handwritings in Latin Script</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">D</forename><surname>Stutzmann</surname></persName>
+		</author>
+		<ptr target="http://icfhr2016-clamm.irht.cnrs.fr/" />
+		<imprint>
+			<date type="published" when="2016" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+				</listBibl>
+			</div>
+		</back>
+	</text>
+</TEI>

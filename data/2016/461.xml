@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title type="full">
+                    <title type="main">Visualising the Dynamics of Character Networks</title>
+                    <title type="sub"/>
+                </title>
+                <author>
+                    <persName>
+                        <surname>Xanthos</surname>
+                        <forename>Aris</forename>
+                    </persName>
+                    <affiliation>University of Lausanne, Switzerland</affiliation>
+                    <email>aris.xanthos@unil.ch</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Pante</surname>
+                        <forename>Isaac</forename>
+                    </persName>
+                    <affiliation>University of Lausanne, Switzerland</affiliation>
+                    <email>isaac.pante@unil.ch</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Rochat</surname>
+                        <forename>Yannick</forename>
+                    </persName>
+                    <affiliation>Swiss Federal Institute of Technology in Lausanne, Switzerland</affiliation>
+                    <email>yannick.rochat@epfl.ch</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Grandjean</surname>
+                        <forename>Martin</forename>
+                    </persName>
+                    <affiliation>University of Lausanne, Switzerland</affiliation>
+                    <email>martin.grandjean@unil.ch</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2016-02-28T20:38:28.106097000</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Maciej Eder, Pedagogical University in Krakow</publisher>
+                <publisher>Jan Rybicki, Jagiellonian University</publisher>
+                <address>
+                    <addrLine>Institute of Polish Studies</addrLine>
+                    <addrLine>Pedagogical University</addrLine>
+                    <addrLine>ul. Podchorazych 2</addrLine>
+                    <addrLine>30-084 Krakow, Poland</addrLine>
+                    <addrLine>maciej.eder@ijp-pan.krakow.pl</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from an OASIS Open Document</p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.21">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Long Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>character network</term>
+                    <term>user interface</term>
+                    <term>visualisation</term>
+                    <term>web application</term>
+                    <term>temporality</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>interface and user experience design</term>
+                    <term>teaching and pedagogy</term>
+                    <term>text analysis</term>
+                    <term>visualisation</term>
+                    <term>networks, relationships, graphs</term>
+                    <term>English</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <div type="div1" rend="DH-Heading">
+                <head>Introduction</head>
+                <p>The character network of a given narrative (novel, play, film, graphic novel, etc.) models the structure formed by the relations in its character-system (Woloch, 2003). A relation between two characters symbolises their co-presence in parts of the narrative; the entire set of relations between all characters constitutes a formal model of this character-system and lends itself to display and analysis. For example, Moretti (2011) used network modelling to compare the importance of protagonists from Shakespeare’s 
+                    <hi rend="italic">Hamlet</hi>, while Trilcke 
+                    <hi rend="italic">et al.</hi> (2015) created character networks for 465 German plays and used them to initiate a wider study of German Theatre.
+                </p>
+                <p>Most applications of character network analysis have disregarded temporality, possibly because of its representational complexity. Consequently, all relations in the system are considered as happening at the same time: one cannot distinguish if a given edge symbolises a relation at the start, at the end, or in several parts of the work under study. Furthermore, because temporality is not being accounted for, there is usually no way of relating the network visualisation with the unfolding of the source narrative. While prototypes such as those discussed in Roberts-Smith 
+                    <hi rend="italic">et al.</hi> (2013) offer sophisticate ways of dynamically visualising the text of theatre plays, they do so in a way that is unrelated to character network modelling.
+                </p>
+                <p>Based on these observations, we set out to develop an open source web application which models the character-system of theatre plays as a sequence of network states synchronised with the actual narrative content (
+                    <ref target="https://github.com/maladesimaginaires/intnetviz">https://github.com/maladesimaginaires/intnetviz</ref>). This paper proposes a high-level overview of our application , successively focusing on the underlying structure extraction process, the conception of the graphical interface, and the range of uses envisioned for it. In the conclusion, we evoke the ways in which we intend to develop it and reflect on the potential significance of this development at a more epistemological level.
+                </p>
+            </div>
+            <div type="div1" rend="DH-Heading">
+                <head>Tool overview</head>
+                <p>The underlying workflow has been divided into two parts. First, the text of a play is processed using 
+                    <hi rend="italic">Orange Textable</hi> (<ptr target="http://langtech.ch/textable"/>, Xanthos 2014), an open source text analysis add-on for the 
+                    <hi rend="italic">Orange Canvas</hi> (<ref target="http://orange.biolab.si/">http://orange.biolab.si/</ref>) visual programming environment: in particular, the play is divided into its component parts (acts, scenes, lines) and the characters present in each scene are identified and associated with each line. These data are then imported into a web interface based on the open source 
+                    <hi rend="italic">D3</hi> JavaScript library (<ptr target="https://github.com/mbostock/d3"/>, Bostock et al., 2011), which allows the user (author, researcher, teacher, etc.) to manipulate the character network without prerequisite installation.
+                </p>
+            </div>
+            <div type="div1" rend="DH-Heading">
+                <head>Structure extraction</head>
+                <p>The workflow is designed to facilitate the later inclusion of new data. The play used in the initial development phase was Molière’s 
+                    <hi rend="italic">L’Ecole des femmes</hi>, as found in raw text format on the Project Gutenberg website (
+                    <ref target="http://www.gutenberg.org/files/43535/43535-0.txt">http://www.gutenberg.org/files/43535/43535-0.txt</ref>). Theatre plays constitute a privileged input for the automatic extraction of structural information: such information is in general explicitly encoded in these data, as illustrated by the excerpt of Molière’s play reproduced on Figure 1. It is worth noting that the extraction phase can be readily adapted to take advantage of cases where structural information has been formally encoded using TEI-XML annotation for instance, such as the “Théâtre classique” database used by Karsdorp 
+                    <hi rend="italic">et al.</hi> (2015). We are currently investigating the possibility of extending our approach to a large body of plays in this way.
+                </p>
+                            <figure>
+                                <graphic url="461/100000000000026D000000C914693C24.png"/>
+                                <head>Figure 1. Excerpt of L’Ecole des femmes illustrating the explicit structuration of the data</head> 
+                            </figure>
+                <p>Structure extraction is performed by a mostly linear chaining of segmentation and recoding operations based on regular expressions which gradually transform the raw text of the play into the tables that will be later used for controlling the web interface. Each table has the same number of rows, corresponding to the extracted lines of the play. The first table gives the text of each line (lightly annotated in XML) along with the associated character and stage directions (Table 1). The second table indicates the presence or absence of each character when each line is spoken (see Table 2).</p>
+                            <figure>
+                                <graphic url="461/100000000000027100000118E53D111A.png"/>
+                                <head>Table 1. First rows of the table containing the extracted text and stage directions</head>
+                            </figure>
+                            <figure>
+                                <graphic url="461/100000000000027100000073BC46DBA3.png"/>
+                                <head>Table 2. First rows of the table indicating the presence or absence of each character when each line is spoken (the first four columns are identical to Table 1 and have been omitted, along with the last few character columns)</head>
+                            </figure>
+                <p>Applied to 
+                    <hi rend="italic">L’Ecole des femmes</hi>, the process was found to give fairly reliable results: about 98% of the lines were correctly extracted. Most errors could be fixed by determining 
+                    <hi rend="italic">a priori</hi> the set of acceptable character names in a given play. An unexpected source of errors was the assumption that characters could be consistently identified by a single string; even without taking into account situations where a character is explicitly “renamed” as part of a surprise effect, linguistic processes such as the succession of indefinite and definite articles in French discourse lead to formal variations in the designation of characters.
+                </p>
+            </div>
+            <div type="div1" rend="DH-Heading">
+                <head>Interface</head>
+                <p>Data files are then imported into a browser and D3 is used to build an interactive visualisation of the character-system (a demo is available at 
+                    <ref target="http://bit.ly/network-demo">http://bit.ly/network-demo</ref>) where the state of the network is synchronised with the current line (Figure 2). Character nodes are positioned using a force-based layout. Browsing the text simultaneously updates the network, line, and position indicator (act, scene, line). At each step, the weight of edges (expressed by their width) increases with the number of co-presences between the characters up to this point. Similarly, the weight of nodes (their radius) increases with the number of lines spoken by this character.
+                </p>
+                            <figure>
+                                <graphic url="461/10000201000005DC0000056D9CD7FF35.png"/>
+                                <head>Figure 2. User interface. [Above] Agnès is speaking in presence of Horace and Arnolphe; all characters have already intervened except Oronte and Enrique, who will appear in the final scenes. [Below] Three moments of the unfolding character network (lines 41, 359 and 536)</head>
+                            </figure>
+                <p>A character node can be in one of four states. It is: </p>
+                <list type="unordered">
+                    <item>“active” when the character is speaking.</item>
+                    <item>“activated” when it is present in the scene but not active.</item>
+                    <item>“previously activated” if it was present in the play but is not currently active nor activated.</item>
+                    <item>“not yet activated” if its first appearance is in a later scene.</item>
+                </list>
+                <p>The latter state makes it possible to offer a view of the final network state, highlighting absences as well as presences in the earlier stages.</p>
+            </div>
+            <div type="div1" rend="DH-Heading">
+                <head>Uses</head>
+                <p>We display each line in front of the matching network state for a reason: the network does not exhaust the richness of the play. Since co-presence analysis does not consider the actual content of lines, it cannot–nor aims to–account for discursive references to characters. However, by extracting an actantial model from speech turns, the tool provides a concise and dynamic representation of the enunciative structure of the play. Paired with background knowledge about theatrical narration, such a visualisation offers new ways of reading.</p>
+                <p>From a philological perspective, relating sociological variables (gender, age, social status) with structural properties of the network (dynamical statistics, centrality measures, word and line counts) helps clarifying which profiles lead the interactions, which ones merely react to them, and which ones are excluded from them, revealing potential social stigma. By expliciting not only the presence but also the absence of links between certain characters, the proposed visualisation may contribute to a visual and interactive deconstruction of the plays (Derrida, 1967).</p>
+                <p>By allowing the user to browse through successive pictures of the interactions, the interface provides a unique opportunity to "play" the play and visualise the flow of speech between characters. We believe that this playful dimension is particularly interesting for pedagogic uses, especially when discovering a new narrative work with students.</p>
+                <p>Last but not least, our method can also be applied to any text in the course of the writing process. In this context, disposing of a visualisation of existing interactions at each moment of the text may help the writer distance herself from an impressionistic representation. </p>
+            </div>
+            <div type="div1" rend="DH-Heading">
+                <head>Perspectives and conclusion</head>
+                <p>One of the most significant benefits of a digital humanities approach is the dialectic relation created between the development of a prototype and the verification of scientific hypotheses. Discussing seemingly trivial design issues like the number of colors requested to map the network relations has frequently led us to expliciting and fruitfully questioning differences in our epistemological backgrounds. Thus we consider the following perspectives not only as potential improvements to our tool but also, more importantly, as opportunities to challenge our own theoretical preconceptions:</p>
+                <list type="unordered">
+                    <item>Further enriching the visualisation (e.g. by adding line count histograms or highlighting of the first intervention of a character) would benefit the back-and-forth movement between the content and the structure of a given play.</item>
+                    <item>The dynamical nature of the interface would enable us to compare the distinctive features of different plays not only in terms of the final state of character networks, but also and more importantly, of their evolution; this should help bring out "interactional styles" and discover 
+                        <hi rend="italic">Familienähnlichkeit</hi> (Wittgenstein, 1953) by author or period.
+                    </item>
+                    <item>Other kinds of texts will benefit from such a dynamical analysis: other fictional texts such as screenplays, but also linguistic transcriptions as used in conversation analysis. </item>
+                </list>
+                <p>By allowing the user to browse the content of a narrative and manipulate an interactive character network, our motivation is ultimately to contribute to a better integration of distant and close reading practices.</p>
+            </div>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl><hi rend="bold">Bostock, M., Ogievetsky, V. and Heer, J.</hi> (2011). D3: Data-Driven Documents. 
+                        <hi rend="italic">IEEE Trans. Visualization and Comp. Graphics (Proc. InfoVis)</hi>. 
+                        <ref target="http://vis.stanford.edu/papers/d3">http://vis.stanford.edu/papers/d3</ref> (accessed Oct. 28, 2015.)
+                    </bibl>
+                    <bibl><hi rend="bold">Derrida, J.</hi> (1967). 
+                        <hi rend="italic">Of Grammatology</hi>. Baltimore: The Johns Hopkins University Press.
+                    </bibl>
+                    <bibl><hi rend="bold">Karsdorp, F., Kestemont, M. Schöch, C. and Van Den Bosch, A.</hi> (2015). The love equation: Computational modeling of romantic relationships in French classical drama. In 
+                        <hi rend="italic">Proceedings of the 6th Workshop on Computational Models of Narrative</hi> (CMN-2015), pp. 89–107.
+                    </bibl>
+                    <bibl><hi rend="bold">Moretti, F.</hi> (2011). Network theory, plot analysis. 
+                        <hi rend="italic">New Left Review</hi>, <hi rend="bold">68</hi>: 80–102.
+                    </bibl>
+                    <bibl><hi rend="bold">Roberts-Smith, J., DeSouza-Coelho, S., Dobson, T., Gabriele, S., Rodriguez-Arenas, O., Ruecker, S., Sinclair, S., Akong, A., Bouchard, M., Hong, M., Jakacki, D., Lam, D., Kovacs, A., Northam, L. and So, D.</hi> (2013). Visualizing theatrical text: from Watching the Script to the Simulated Environment for Theatre (SET).
+                        <hi rend="italic">Digital Humanities Quarterly</hi>, <hi rend="bold">7</hi>(3).
+                    </bibl>
+                    <bibl><hi rend="bold">Trilcke, P., Fischer, F. and Kampkaspar, D.</hi> (2015). Digital Network Analysis of Dramatic Texts. 
+                        <hi rend="italic">Digital Humanities 2015</hi>. 
+                        <ref target="http://dh2015.org/abstracts/xml/FISCHER_Frank_Digital_Network_Analysis_of_Dramati/FISCHER_Frank_Digital_Network_Analysis_of_Dramatic_Text.html">http://dh2015.org/abstracts/xml/FISCHER_Frank_Digital_Network_Analysis_of_Dramati/FISCHER_Frank_Digital_Network_Analysis_of_Dramatic_Text.html</ref> (accessed Oct. 28, 2015).
+                    </bibl>
+                    <bibl><hi rend="bold">Wittgenstein, L.</hi> (1953). 
+                        <hi rend="italic">Philosophical Investigations. </hi>Blackwell Publishing.
+                    </bibl>
+                    <bibl><hi rend="bold">Woloch, A.</hi> (2003). 
+                        <hi rend="italic">The One vs. the Many: Minor Characters and the Space of the Protagonist in the Novel</hi>. Princeton University Press.
+                    </bibl>
+                    <bibl><hi rend="bold">Xanthos, A.</hi> (2014). Textable: programmation visuelle pour l’analyse de données textuelles. 
+                        <hi rend="italic">Actes des 12èmes Journées internationales d’analyse statistique des données textuelles (JADT 2014)</hi>, pp. 691–703.
+                    </bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

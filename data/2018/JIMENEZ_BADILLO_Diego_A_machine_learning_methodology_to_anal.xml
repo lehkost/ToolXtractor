@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>A machine learning methodology to analyze 3D digital models of cultural heritage objects</title>
+                <author>
+                    <persName>
+                        <surname>Jimenez-Badillo</surname>
+                        <forename>Diego</forename>
+                    </persName>
+                    <affiliation>Instituto Nacional de Antropología e Historia, Mexico</affiliation>
+                    <email>diego_jimenez@inah.gob.mx</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Ruiz-Correa</surname>
+                        <forename>Salvador</forename>
+                    </persName>
+                    <affiliation>Instituto Potosino de Investigación en Ciencia y Tecnología</affiliation>
+                    <email>salvador.ruiz@ipicyt.edu.mx</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Canul-Ku</surname>
+                        <forename>Mario</forename>
+                    </persName>
+                    <affiliation>Centro de Investigación en Matemáticas, A.C. Guanajuato</affiliation>
+                    <email>mariocanul@cimat.mx</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Hasimoto</surname>
+                        <forename>Rogelio</forename>
+                    </persName>
+                    <affiliation>Centro de Investigación en Matemáticas, A.C. Guanajuato</affiliation>
+                    <email>hasimoto@cimat.mx</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2014-12-19T13:50:00Z</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Name, Institution</publisher>
+                <address>
+                    <addrLine>Street</addrLine>
+                    <addrLine>City</addrLine>
+                    <addrLine>Country</addrLine>
+                    <addrLine>Name</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from a Word document</p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.22">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Long Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>3D shape analysis; automatic recognition of 3D models; archaeological style analysis</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>archaeology</term>
+                    <term>archives</term>
+                    <term>repositories</term>
+                    <term>sustainability and preservation</term>
+                    <term>art and art history</term>
+                    <term>databases &amp; dbms</term>
+                    <term>digitisation</term>
+                    <term>resource creation</term>
+                    <term>and discovery</term>
+                    <term>English</term>
+                    <term>computer science</term>
+                    <term>artificial intelligence and machine learning</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <p>Thanks to recent advances in scanning technologies there has been an increase in the number of methods developed for digitizing cultural heritage objects. Many of the resulting 3D models are used for visualization or archiving purposes. Unfortunately, there are still few projects oriented to gain archaeological knowledge from point clouds and triangular meshes.</p>
+            <p>In this paper we present some results of an ongoing project that applies machine learning and computer vision techniques for recognizing, retrieving and classifying cultural heritage objects in an automatic way (Jiménez-Badillo, et al. 2010, 2013; Jiménez-Badillo and Román-Rangel, 2016, 2017; Roman Rangel and Jiménez-Badillo, 2015, Román-Rangel et al., 2014, 2016a, 2016b; Jiménez-Badillo and Ruiz-Correa, 2017). The presentation focuses specifically on a method to analyze style variations of archaeological artefacts with minimal human intervention. This is based on a 3D morphing algorithm proposed by Shelton (2000). Our implementation allows analyzing pairs of objects whose shapes represent the canonical extremes of a continuum, that is, objects that belong to two different “styles” within a cultural tradition. The purpose of the algorithm is taking two extreme shapes (i.e. 3D point-clouds, surface meshes or 3D digital models) as input in order to extract several 3D virtual models whose shape or “style” lies “in-between” the two extremes. This is useful in situations where archaeologists need to decide to which extreme a real artefact is more similar. Archaeologists can also apply the algorithm to compare each object of a collection against all the other members of the set. This would produce an “atlas” of the shape variations expected for such collection, which in turns would facilitate the application of a classification method based on machine learning.</p>
+            <p>The formal mathematical details of this approach can be found in the original paper by Shelton (2000). During the presentation, we plan to offer an intuitive explanation of the algorithm for the benefit of those Humanists who are not experts in mathematics. This can be summarized as follows:</p>
+            <list type="unordered">
+                <item>Mathematically speaking, the problem consists in finding correspondences between two 3D point-clouds or surface meshes. This means finding points in surface “A” that match corresponding points in surface “B” with minimal user intervention.</item>
+                <item>The challenge is how to make that the algorithm recognizes meaningful geometric correspondences between models “A” and “B”. In other words, how to find structural geometric correspondences between the points that define, for example, the nose of model “A” with the nose of model “B”, and the same for all other features of the masks.</item>
+                <item>The solution proposed by Shelton is a mathematical equation that fits three criteria: </item>
+            </list>
+            <p>
+                <hi rend="italic">Similarity</hi>. For each point a on surface A, the function 
+                <hi rend="italic">C(a)</hi> must find a point close or on the surface B.
+            </p>
+            <p>
+                <hi rend="italic">Structure</hi>. Function C must produce the least possible distortion in the transition from A to B. In other words, the result of function C(a) must have a geometric structure similar to A.
+            </p>
+            <p>
+                <hi rend="italic">Plausibility</hi>. Function C must represent a realistic model derived from surface A.
+            </p>
+            <p>The first property establishes that C must find real points in A that match points in B. The second condition establishes that the correspondences found between A and B must not be arbitrary. On the contrary, there must be matching substructures of A present in B (e.g. the matching of the nose in A must have some correspondence with the nose in B), so that the deformation makes sense (figure 1). The last condition guarantees that the deformation includes the previous knowledge of the user in terms of which forms are acceptable for the deformation, because it makes no sense to transform a face mask into an airplane, for example.</p>
+            <p>The idea for this project came from the need to rank shape similarities in a collection of archaeological stone masks from Mexico. This includes masks belonging to several well-defined styles, but it also includes many others that cannot be clearly positioned within a specific class because they share features of two or more canonic styles (figure 2). </p>
+            <p>These masks were found in the Sacred Precinct of Tenochtitlan, the main ceremonial Aztec complex, located in Mexico City. The schematic features of these objects set them apart from other artifacts with more naturalistic style. This has attracted the attention of many specialists and during the last three decades these items have been the subject of intense debate for two main reasons:</p>
+            <p>First, the 162 masks were located in 14 Aztec offerings dating from 1390 to 1469 A.C., yet they do not show typical “Aztec” features. Indeed, their appearance resembles artifacts from the southern State of Guerrero, particularly from the Mezcala region, which is hundreds of kilometers away from the ancient Tenochtitlan. </p>
+            <p>Such origin would not be rare, as it was common for the Aztecs to import goods from other regions either by trade or by extracting tribute from conquered towns. The style of the masks and figurines, however, is more difficult to explain. It is similar, if not identical, to the style of objects produced in Mezcala and other places of Guerrero during much earlier times, probably during Classic (200 to 1000 A.C.) or even Preclassic times (2000 B.C. to 200 A.C.), while the offerings are Late Postclassic contexts. This leads to the question: Did the Aztecs collected “antique” objects to re-use them in their own offerings?, or the Guerrero/Mezcala styles survived till the late Postclassic period and therefore the offering objects were produced during Aztecs times? It is worth noticing that before the Aztec offering findings very few Mezcala style artifacts had been found in Postclassic contexts. Unfortunately, not enough stratigraphc information is available for collections from Guerrero, so specialists rely purely on stylistic considerations to explain the chronology of these artifacts.</p>
+            <p>Second, it is not clear how many Guerrero/Mezcala styles exist. Some specialists believe there are at least five different traditions (Covarrubias, 1948, 1961; Olmedo and González, 1986; González and Olmedo, 1990), while others recognize only four (Gay, 1967) or two (Serra Puche, 1975). The diversity of views is due in part to a lack of contextual information available for the majority of artifacts found in Guerrero, but it also reflects the subjective criteria used to classify such artifacts. </p>
+            <p>Clearly, more objective methods are needed to answer questions such as: how many styles were developed in the Guerrero/Mezcala regions?; which specific styles are represented among the offering objects found in the Sacred Precinct of Tenochtitlan?; and more importantly for the purposes of this paper: To which style each mask belongs?</p>
+            <p>Previous studies have tried to solve some of these questions by analyzing object shapes with clustering methods (Olmedo and González, 1986 , González and Olmedo, 1990, Jiménez-Badillo and Ruiz-Correa, 2017), but we believe that the application of morphing algorithms could produce a more objective assessment to solve the problem of style attribution in this and other archaeological collections. </p>
+            <p>Our application takes examples of two canonical styles and applies the deformation algorithm in order to produce a hundred virtual 3D models whose shapes go from one to the other extreme (figure 3). The virtual models produced in this way represent intermediate steps from style “A” to “B”. Each virtual model has associated a number that indicates its degree of similarity to style “A” or “B”. We can then examine a real archaeological object “c” to determine if its shape is closest to “A” or “B” and by how much. During the presentation we demonstrate a piece of software that implements the morphing algorithm and show, in a visual way, which parts of a 3D model suffer more deformation while transitioning from style “A” to “B” (figure 4).</p>
+            <p>As this is a work in progress, we are interested in receiving feedback from the audience about the relevance of our tools to resolve similar or new archaeological questions and welcome collaboration with other research projects willing to try this generic software for new applications.</p>
+            <figure>
+                <graphic n="1001" width="16.002cm" height="10.108847222222222cm" url="Pictures/62e362707f63cb8bdc38f3d328829cd9.jpg" rend="inline"/>
+            </figure>
+            <p>Figure 1. The morphing algorithm proposed by Shelton (2000) seeks to generate a sequence of intermediate virtual models from “A” to “B”. To do that, it needs to identify correspondences in geometric substructures (i.e. noses, mouths, etc.) in both models </p>
+            <figure>
+                <graphic n="1002" width="16.002cm" height="13.915319444444444cm" url="Pictures/cd2b70cb93b6bfa71fa6ee73b17a9f17.jpg" rend="inline"/>
+            </figure>
+            <p>Figure 2. The first three columns from left to right show nine masks belonging to three different styles from Guerrero, Mexico. The fourth column on the extreme right shows three masks that cannot easily be attributed to the Sultepec, Chonatl or Mezcala styles</p>
+            <figure>
+                <graphic n="1003" width="16.002cm" height="12.024430555555556cm" url="Pictures/51b83a93a32c5562c7eb4149d2e76b1e.jpg" rend="inline"/>
+            </figure>
+            <p>Figure 3. A sequence of 3D virtual models produced with Shelton´s algorithm (Shelton, 2000). Notice that each model represents a transition between the shape of mask “A” and the shape of masks “B”</p>
+            <figure>
+                <graphic n="1004" width="16.002cm" height="8.810625cm" url="Pictures/0cc1bb034f8df15bbbf4c5becbb7ea55.jpg" rend="inline"/>
+            </figure>
+            <p>Figure. 4. A snapshot of the morphing software implemented as part of the research project</p>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl>
+                        <hi rend="bold">Covarrubias, M.</hi> (1948). Tipología de la industria de piedra tallada y pulida de la cuenca del Río Mezcala. In 
+                        <hi rend="italic">El Occidente de México</hi>. México: Sociedad Mexicana de Antropología, pp. 86-90.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Covarrubias, M.</hi> (1961). 
+                        <hi rend="italic" xml:space="preserve">Arte indígena de México y Centroamérica. </hi>México: Universidad Nacional Autónoma de México.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold" xml:space="preserve">Gay, C. T. </hi>(1967). 
+                        <hi rend="italic">Mezcala Stone Sculpture: The Human Figure</hi>. New York: The Museum of Primitive Art, Studies Number Five.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">González, C., y Olmedo, B.</hi> (1990).
+                        <hi rend="italic" xml:space="preserve"> Esculturas Mezcala en el Templo Mayor. </hi>México: Instituto Nacional de Antropología e Historia.
+                    </bibl>
+                    <bibl rend="Bibliography">
+                        <hi rend="bold">Jiménez-Badillo, D. and Román-Rangel, E.</hi> (2016). Application of the ´Bags-of-Words Model´ (BoW) for Analyzing Archaeological Potsherds. In Campana, S., Scopigno, R., Carpentiero, G., and Cirillo, M. (eds.), 
+                        <hi rend="italic">CAA 2015. Keep the Revolution Going. Proceedings of the 43</hi>
+                        <hi rend="italic superscript">rd</hi>
+                        <hi rend="italic" xml:space="preserve"> Annual Conference on Computer Applications and Quantitative Methods in Archaeology, </hi>Vol. 2. Oxford: Archaeopress, pp. 847-856.. 
+                    </bibl>
+                    <bibl rend="Bibliography">
+                        <hi rend="bold">Jiménez-Badillo, D. and Román-Rangel, E.</hi> (2017). Clasificación automática de fragmentos de vasijas arqueológicas mediante el modelo Bolsa de Palabras. In Jiménez-Badillo (ed.), 
+                        <hi rend="italic">Arqueología Computacional. Nuevos enfoques para la documentación, análisis y difusión del patrimonio cultural</hi>. México: Instituto Nacional de Antropología e Historia, pp. 111-126.
+                    </bibl>
+                    <bibl rend="Bibliography">
+                        <hi rend="bold">Jiménez-Badillo, D. and Ruiz-Correa, S.</hi> (2017). Análisis tridimensional de objetos arqueológicos con técnicas de visión por computadora. In Matos Moctezuma, E. and Ledesma Bouchan, P. (eds.), T
+                        <hi rend="italic" xml:space="preserve">emplo Mayor. Revolución y estabilidad. </hi>México: Instituto Nacional de Antropología e Historia, pp. 199-214.
+                    </bibl>
+                    <bibl rend="Bibliography">
+                        <hi rend="bold">Jiménez-Badillo, D., Ruíz-Correa, S. and García Alfaro, W.</hi> (2010). 3D Shape Matching and Retrieval for Archaeological Analysis. In Melero. F. J., Cano, P. and Revelles, J. (eds.), 
+                        <hi rend="italic">Fusion of Cultures. Abstracts of the 38</hi>
+                        <hi rend="italic superscript">th</hi>
+                        <hi rend="italic" xml:space="preserve"> Annual Conference on Computer Applications and Quantitative Methods in Archaeology</hi>, Granada, Spain, April 6-9, 2010, pp. 583-586.
+                    </bibl>
+                    <bibl rend="Bibliography">
+                        <hi rend="bold">Jiménez-Badillo, D., Ruiz-Correa, S. and García Alfaro, W.</hi> (2013). Developing a Recognition System for the Retrieval of Archaeological 3D Models. In Contreras, F., Farjas, M. and Javier Melero, F. J. (eds.), 
+                        <hi rend="italic">CAA Fusion of Cultures. Proceedings of the 38</hi>
+                        <hi rend="italic superscript">th</hi>
+                        <hi rend="italic" xml:space="preserve"> Annual Conference on Computer Applications and Quantitative Methods in Archaeology, Granada, Spain, April 6-9, 2010</hi>. Oxford: Archaeopress, BAR International Series 2494, pp. 325-332.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Olmedo, B., y González, C. (1986).</hi>
+                        <hi rend="italic" xml:space="preserve">Presencia del estilo Mezcala en el Templo Mayor: Una clasificación de piezas antropomorfas. </hi>Thesis presented as requirement for the degree of Bachelor in Archaeology. México: Escuela Nacional de Antropología e Historia.
+                    </bibl>
+                    <bibl rend="Normal1">
+                        <hi rend="bold">Román-Rangel, E. and Jiménez-Badillo, D.</hi> (2015). Similarity Analysis of Archaeological Potsherds Using 3D Surfaces. In Carrasco-Ochoa, J. A. et al. (eds.), 
+                        <hi rend="italic">Lecture Notes in Computer Science</hi>, Vol. 9116, 
+                        <hi rend="italic">Proceedings of the 7</hi>
+                        <hi rend="italic superscript">th</hi>
+                        <hi rend="italic" xml:space="preserve"> Mexican Conference on Pattern Recognition, </hi>Mexico City, June 24-27, 2015
+                        <hi rend="italic">.</hi> Switzerland: Springer International Publishing, pp. 125-134. DOI: 10.1007/978-3-319-19264-2 13
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Roman-Rangel, E., Jimenez-Badillo, D. and Aguayo-Ortiz, E.</hi> (2014). Categorization of Aztec Potsherds Using 3D Local Descriptors. In Jawahar, C. V. and Shan, S. (eds.), 
+                        <hi rend="italic">Lecture Notes in Computer Science,</hi> Vol. 9009: 
+                        <hi rend="italic color(333333)">Computer Vision - ACCV 2014 Workshops</hi>
+                        <hi rend="italic" xml:space="preserve">, Part II, </hi>Singapore, November 1-2, 2014. Switzerland: Springer International Publishing, pp. 567-582. DOI: 10.1007/978-3-319-16631-5 42
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Román-Rangel, E., Jiménez-Badillo, D., and Marchand-Maillet, S. (2016a).</hi> Classification and Retrieval of Archaeological Potsherds Using Histograms of Spherical Orientation. 
+                        <hi rend="italic">ACM Journal of Computing and Cultural Heritage 9</hi>(3): 17:1-17:23.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Román-Rangel, E., Jiménez-Badillo, D., and Marchand-Maillet, S. (2016b).</hi> Rotation Invariant Local Shape Descriptors for Classification of Archaeological 3D Models. In Martínez Trinidad, J. F. et al. (eds.), 
+                        <hi rend="italic">Lecture Notes in Computer Science</hi>, Vol. 9703: 
+                        <hi rend="italic">Proceedings of the 8</hi>
+                        <hi rend="italic superscript">th</hi>
+                        <hi rend="italic" xml:space="preserve"> Mexican Conference on Pattern Recognition, </hi>Guanajuato, Mexico, June 22-23 2016
+                        <hi rend="italic" xml:space="preserve">. </hi>Switzerland: Springer International Publishing, pp. 13–22. DOI: 10.1007/978-3-319-39393-3 2
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Serra Puche, M. C. (1975).</hi> Intento de seriación en esculturas de Guerrero. Cronología del estilo Mezcala. In 
+                        <hi rend="italic">XIII Mesa Redonda de la Sociedad Mexicana de Antropología</hi>, Jalapa, México: Sociedad Mexicana de Antropología.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Shelton, C. R.</hi> (2000). Morphable Surface Models. 
+                        <hi rend="italic">International Journal of Computer Vision</hi>, 38(1): 75-91.
+                    </bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

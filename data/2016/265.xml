@@ -1,0 +1,337 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>Where Close and Distant Readings Meet: Text Clustering Methods in Literary Analysis of Weblog Genres</title>
+                <author>
+                    <persName>
+                        <surname>Maryl</surname>
+                        <forename>Maciej</forename>
+                    </persName>
+                    <affiliation>Institute of Literary Research of the Polish Academy of Sciences, Poland</affiliation>
+                    <email>maciej.maryl@ibl.waw.pl</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Piasecki</surname>
+                        <forename>Maciej</forename>
+                    </persName>
+                    <affiliation>Wrocław University of Technology</affiliation>
+                    <email>maciej.piasecki@pwr.edu.pl</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Młynarczyk</surname>
+                        <forename>Ksenia</forename>
+                    </persName>
+                    <affiliation>Wrocław University of Technology</affiliation>
+                    <email>ksenia.mlynarczyk@gmail.com</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2016-03-06T19:54:00Z</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Maciej Eder, Pedagogical University in Krakow</publisher>
+                <publisher>Jan Rybicki, Jagiellonian University</publisher>
+                <address>
+                    <addrLine>Institute of Polish Studies</addrLine>
+                    <addrLine>Pedagogical University</addrLine>
+                    <addrLine>ul. Podchorazych 2</addrLine>
+                    <addrLine>30-084 Krakow, Poland</addrLine>
+                    <addrLine>maciej.eder@ijp-pan.krakow.pl</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from a Word document </p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.21">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Long Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>Weblogs</term>
+                    <term>genre</term>
+                    <term>stylometry</term>
+                    <term>stylistics</term>
+                    <term>typology</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>literary studies</term>
+                    <term>natural language processing</term>
+                    <term>stylistics and stylometry</term>
+                    <term>text analysis</term>
+                    <term>philology</term>
+                    <term>content analysis</term>
+                    <term>interdisciplinary collaboration</term>
+                    <term>linguistics</term>
+                    <term>English</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <div type="div1" rend="DH-Heading1">
+                <head>Problem: towards a non-topical classification of weblog genres</head>
+                <p>The existing typologies of weblog genres - both popular and academic - are based on the blog topic, e.g. cooking blogs, travels, business (cf. Morrison 2008) or its medium, e.g. vlogs, picture logs (cf. Herring et al. 2005). In order to go beyond topical distinctions, Maryl, Niewiadomski and Kidawa (2016) conducted an interpretive study on the sample of 322 popular Polish blogs. They adopted a new-rhetorical approach, basing on Carolyn Miller’s (1994) concept of genre as a social action, concentrating mostly on the blog’s communicative purpose and functions.  Following the principles of the grounded theory (cf. Lonkila 1999) the team interpreted those blogs and created an empirical-conceptual typology which entailed following genres: diaries (subjective, self-referential discourse), reflection (subjective discourse on universal matters), criticism (subjective and expert discourse on general issues), information (objective facts), filter (gateway to the existing web content), advice (subjective and expert instructions on particular issues), modelling (serving as a role model for readers) and fictionality (description of fictional events). Weblogs in the sample were coded by three separate coders with 69% average pairwise percent agreement and Cohen’s kappa of .622
+                    <note place="foot" xml:id="ftn1" n="1">
+                        <p rend="footnote text"> The intercoder reliability was calculated with ReCal3, see (Freelon, 2010)</p>
+                    </note>. Such a moderate agreement could be attributed to the fact that the resulting genres are ideal types, and most of the actual blogs share features of more than one genre.
+                </p>
+                <p>This subsequent study aims at supplementing this close-reading typology with a distant-reading perspective (Moretti 2013), based on selected tools for language processing and text clustering. We explore the style of those genres, adapting the definition proposed by Herrmann et al.: “Style is a property of texts constituted by an ensemble of formal features which can be observed quantitatively or qualitatively” (2015:41). We chose this approach due to its stress on mixed methods, as we are combining linguistic and literary criteria of selecting style markers to discriminate between blog genres (Leech &amp; Short 2007,57-58). Current research in the field of computational literary genre stylistics focuses on Most Frequent Words (e.g. Schöch and Pielström 2014; Jannidis &amp; Lauer 2014) or functional linguistic categories (or both) (e.g. Allison et. al 2011). Yet, this study applies similar methods to emergent and uncategorised forms of writing. The quantitative methods are incorporated into the qualitative research workflow in order to create a productive feedback loop.</p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Corpus</head>
+                <p>The corpus of blogs was collected with the use of 
+                    <hi rend="italic">BlogReader</hi> - an extension of a corpus gathering system developed in CLARIN-PL (Oleksy et al. 2014) on a basis of open components: 
+                    <ref target="https://code.google.com/p/justext/">
+                        <hi rend="italic">jusText</hi>
+                    </ref> and
+                    <ref target="http://code.google.com/p/onion/">
+                        <hi rend="italic">Onion</hi>
+                    </ref> (Pomikálek, 2011). From the initial set analysed by Maryl et al., 250 blogs were selected for processing as being long enough and included clean text (comments were omitted). We intentionally left out blogs with exceptionally large or small amount of text in order to balance the sample. The selected subcorpus includes: Diaries (44 blogs), Reflection (12), Criticism (73), Information (10), Filter (11), Advice (59), Modelling (24), Fictionality (5), and 10 ‘Unblogs’, i.e. websites or portals using the label of blogs. Posts from the one blog were merged together into a single text document per a blog that was saved in the CCL corpus format (Broda et al., 2012).
+                </p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Processing</head>
+                <p>We followed the blueprint of stylometry to find groups of blogs, e.g. (Burrows 2002), (Stamatatos, 2009) or (Eder, 2011). Blogs were described by feature vectors whose initial values were frequencies of the selected elements. They were next filtered or transformed. The transformed vectors were clustered into a number of groups that could be presented as automatically identified blog types or compared with the original types.</p>
+                <p>According to the criteria considered for the typology of blogs, we assumed that the interesting distinctions are not of semantic character. Thus we tried to define descriptive features that are not sensitive to the semantics of the blog contents. As a consequence, we have analysed features based on frequencies of lemmas, grammatical classes and sequences of grammatical classes. The brief description below will be elaborated in the presentation:</p>
+                <list type="ordered">
+                    <item>We have selected the 500 most frequent lemmas from the 
+                        <hi rend="italic">Polish National Corpus</hi> (Przepiórkowski et al., 2012) and in the series of experiments on the corpus of novels we reduced it to 212 lemmas that did not trigger semantic grouping (e.g. filtering out most of nouns and verbs).
+                    </item>
+                    <item>Grammatical classes (as defined in the 
+                        <hi rend="italic">Polish National Corpus</hi> tagset) were recognised by 
+                        <hi rend="italic">WCRFT</hi> morpho-syntactic tagger (Radziszewski, 2013).
+                    </item>
+                    <item>Features were defined and extracted with the help of the 
+                        <hi rend="italic">Fextor</hi> system (Broda et al., 2013).
+                    </item>
+                    <item>Raw feature values were transformed by measures returning positive results for those features which contribute the significant amount of information to the document description. 
+                        <hi rend="italic">SuperMatrix</hi> system (Broda &amp; Piasecki, 2013) for Distributional Semantics was applied during the transformation.
+                    </item>
+                    <item>Similarity of the transformed vectors were computed by the cosine and ratio measures. The first is not sensitive to the differences in the document lengths that was the case of the analysed collection. The ratio as a heuristic measure that is aimed at comparing how much information is shared by the two vectors:</item>
+                </list>
+                <p>ratio(<hi rend="italic bold">V</hi>,<hi rend="italic bold">U</hi>) = 2*sum( (<hi rend="italic">V</hi><hi rend="italic subscript">i</hi> + <hi rend="italic">U</hi><hi rend="italic subscript">i</hi>)/max(<hi rend="italic">V</hi><hi rend="italic subscript">i</hi>, <hi rend="italic">U</hi><hi rend="italic subscript">i</hi>) - 1) / (length(<hi rend="italic bold">V</hi> ) + length(<hi rend="italic bold">U</hi> ))
+                </p>
+                <list type="ordered">
+                    <item>Clustering was performed by the 
+                        <hi rend="italic">Cluto</hi> package for text data clustering (Zhao &amp;  Karypis 2005). In addition, 
+                        <hi rend="italic">Stylo</hi> package (Eder et al., 2013) for stylometry was used in experiments with visualisation of the possible blog clusters.
+                    </item>
+                </list>
+                <p>In order to understand the clusters better, most significant features for each cluster were identified and ranked. From several tests the Mann-Whitney U nonparametric test was chosen. For each feature its values in the documents of the given cluster were compared with its values in documents from the rest of the collection.</p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Experiments</head>
+                <p>We have performed several experiments that can be divided into three main groups:</p>
+                <list type="ordered">
+                    <item>
+                        <hi rend="italic">lexical level analysis</hi>, based solely on the selected most frequent lemmas and punctuation marks and aimed at testing whether those properties can serve as a basis for automated identification of the blog types;
+                    </item>
+                    <item>
+                        <hi rend="italic">lexico-syntactic level analysis</hi> featured grammatical classes in combination with the lexical features of the lexical analysis in order to assess whether blog styles result in syntactic properties. On both levels we set the expected number of clusters to 20, in order to give algorithm more ‘freedom’;
+                    </item>
+                    <item>extraction of significant features for the blog types with the help of the Mann-Whitney U nonparametric test.</item>
+                </list>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Discussion</head>
+                <p>The generated groups represented relatively high average of clusters purity: 54%-60,4%, i.e. more than 50% blogs in a cluster are of same type. Entropy was higher than expected: 0.438-0.481, i.e. besides dominating types in clusters blogs of other types were scattered (especially smaller types). However, the obtained clusters did not match very well the qualitatively defined types. Lexical analysis combined with the ratio measure produced results that were closest to the qualitative types: entropy of 0.467 and 58% purity, see Figure 1. Yet, lexico-syntactic analysis (lexical features together with grammatical classes and bigrams) yielded better results: 0.438 of entropy and 60.4% of purity, see Figure 2. A slightly worse result: 0.481 of entropy and 54% of purity, was obtained with trigrams instead of bigrams - groups became too small and too specific.</p>
+                <figure>
+                    <graphic url="265/image1.png" rend="inline"/>
+                    <head>Figure 1. Results of the lexical analysis (features: 212  selected frequent lemmas, punctuation marks), PMI weighting, the ration similarity and, graph clustering algorithm from Cluto</head>
+                </figure>
+                <figure>
+                    <graphic url="265/image2.png" rend="inline"/>
+                    <head>Figure 2. Results of the lexico-syntactic analysis (lexical features plus grammatical classes and bigrams), PMI weighting, ration similarity, graph clustering algorithm</head>
+                </figure>
+                <p>Such genres as advice, criticism and, to certain extent, diaries and modelling were clustered together with others present in multiple clusters. It was caused by distinctive language features of those genres, especially of the advice, which employs instructional vocabulary, or criticism, due to its essayistic style with compound sentences and conjunctions reflecting logical reasoning. Diaries tend to use narrative language, whereas modelling blogs are clearly concentrated on expressing the author’s self.</p>
+                <p>Those differences were further explored through the extraction of blog types’ significant features with the use of Mann-Whitney U statistic. The results were in line with the definitions of classes, but provided more detailed information about the linguistic cues in those genres, some of which are presented in Table 1.</p>
+                <p>Table 1. Selected linguistic features of weblog genres (Mann-Whitney U)</p>
+                <table rend="rules">
+                    <row>
+                        <cell rend="DH-Default">Genre</cell>
+                        <cell rend="DH-Default">Linguistic features</cell>
+                    </row>
+                    <row>
+                        <cell rend="DH-Default">Advice</cell>
+                        <cell rend="DH-Default">infinitive, passive adjectival participle, numerals, measurements (“about”, “large”, “small”)</cell>
+                    </row>
+                    <row>
+                        <cell rend="DH-Default">Criticism</cell>
+                        <cell rend="DH-Default">subjective vocabulary: „I”, „mine”; conjunctions pointing to logical reasoning, e.g. “if”, “that”, “given”, “hence”, “but”</cell>
+                    </row>
+                    <row>
+                        <cell rend="DH-Default">Diaries</cell>
+                        <cell rend="DH-Default">1
+                            <hi rend="superscript">st</hi> &amp; 2
+                            <hi rend="superscript">nd</hi> person; vocabulary: “self”, “to be”; specific words and verb forms pointing out to a narrative: “certain”, “there”
+                        </cell>
+                    </row>
+                    <row>
+                        <cell rend="DH-Default">Fictionality</cell>
+                        <cell rend="DH-Default">past tense, 3rd person</cell>
+                    </row>
+                    <row>
+                        <cell rend="DH-Default">Filter</cell>
+                        <cell rend="DH-Default">punctuation, substantives</cell>
+                    </row>
+                    <row>
+                        <cell rend="DH-Default">Information</cell>
+                        <cell rend="DH-Default">impersonal verb forms, 3
+                            <hi rend="superscript">rd</hi> person
+                        </cell>
+                    </row>
+                    <row>
+                        <cell rend="DH-Default">Modelling</cell>
+                        <cell rend="DH-Default">interjections (e.g. “eh”), exclamation marks, 1
+                            <hi rend="superscript">st</hi> &amp; 2
+                            <hi rend="superscript">nd</hi> person, vocabulary: “mine”, “thing”, “new”, “why”, “because”
+                        </cell>
+                    </row>
+                    <row>
+                        <cell rend="DH-Default">Reflection</cell>
+                        <cell rend="DH-Default">1
+                            <hi rend="superscript">st</hi> &amp; 2
+                            <hi rend="superscript">nd</hi> person, vocabulary: “self”, “always”, “everything”
+                        </cell>
+                    </row>
+                </table>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Conclusions</head>
+                <p>This study showed how close readings (literary interpretative practices) and distant readings (computational approaches to genre analysis) could be integrated in a non-topical analysis of the emerging genres. The novelty of the presented approach lies in the fact that we do not aim at assessing existing genres but rather at developing tools and procedures for the analysis and classification of new genres. The automated methods are used not only to verify the qualitative findings, but rather to enhance them by pointing towards the attributes which might have been overlooked by human coders who were able to read only a sample of each of 332 blogs. The aim is not to cluster texts automatically but rather to support human interpretation in an integrated research design.</p>
+                <p>Recurring problems with clustering genres other than advice could be attributed to the fact that individual blogs within one class may consists of posts which follow different genre conventions. Hence, further studies should explore the genre problem by comparing individual posts (rather than entire blogs) by different authors in order to find stylistic similarities.</p>
+            </div>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl>
+                        <hi rend="bold">Allison, S., Heuser, R., Jockers, M. L., Moretti, F. and Witmore, M.</hi> (2011). 
+                        <hi rend="italic">Quantitative Formalism: An Experiment</hi>, Pamphlet 1. Stanford Literary Lab.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Broda, B., Marcińczuk, M., Maziarz, M., Radziszewski, A. and Wardyński, A.</hi> (2012). 
+                        <hi rend="italic">KPWr: Towards a Free Corpus of Polish</hi>, 
+                        <hi rend="italic">Proceedings of LREC’12</hi>. Istanbul, Turkey.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Broda, B., Kędzia, P., Marcińczuk, M., Radziszewski, A., Ramocki, R. and Wardyński, A.</hi> (2013). Fextor: A Feature Extraction Framework for Natural Language Processing: A Case Study in Word Sense Disambiguation, Relation Recognition and Anaphora Resolution. In  Przepiórkowski, A., Piasecki, M., Jassem, K. and Fuglewicz, P. (eds), 
+                        <hi rend="italic">Computational Linguistics. Applications</hi>, volume 458 of Studies in Computational Intelligence, Berlin: Springer Verlag, pp. 41–62.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Broda, B. and Piasecki, M.</hi> (2013). Parallel, Massive Processing in SuperMatrix – a General Tool for Distributional Semantic Analysis of Corpora. 
+                        <hi rend="italic">International Journal of Data Mining, Modelling and Management</hi>,<hi rend="bold"> 5</hi>(1): 1–19.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Burrows, J. F.</hi> (2002). ‘Delta’: a measure of stylistic difference and a guide to likely authorship. 
+                        <hi rend="italic">Literary and Linguistic Computing</hi>,<hi rend="bold"> 17</hi>(3): 267–87.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Eder, M.</hi> (2011). Style-markers in authorship attribution: a cross-language study of authorial fingerprint. 
+                        <hi rend="italic">Studies in Polish Linguistics</hi>,<hi rend="bold"> 6</hi>: 99-114.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Eder, M., Kestemont, M. and Rybicki, J.</hi> (2013). Stylometry with R: a suite of tools. 
+                        <hi rend="italic">Digital Humanities 2013: Conference Abstracts</hi>. University of Nebraska-Lincoln, NE, pp. 487-89.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Freelon, D.</hi> (2010). ReCal: Intercoder reliability calculation as a web service. 
+                        <hi rend="italic">International Journal of Internet Science</hi>,<hi rend="bold"> 5</hi>(1): 20-33.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Herring, S., Shedit, L. A., Writh, E. and Bonus, S.</hi> (2005). Weblogs as a bridging genre, 
+                        <hi rend="italic">Information, Technology &amp; People</hi>, <hi rend="bold">18</hi>(2): 142-71.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Herrmann, J. B., van Dalen-Oskam, K. and Schöch, Ch.</hi> (2015). Revisiting Style, a Key Concept in Literary Studies, 
+                        <hi rend="italic">Journal of Literary Theory</hi>, <hi rend="bold"> 1</hi>(9): 25-52.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Jannidis, F. and Lauer, G.</hi> (2014). Burrows’s Delta and Its Use in German Literary History. In  Erlin,M. and Tatlock, L. (eds), 
+                        <hi rend="italic">Distant Readings. Topologies of German Culture in the Long Nineteenth Century</hi>, New York: Camden House, pp. 29-54.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Leech, G. N. and Short, M.</hi> (2007). 
+                        <hi rend="italic">Style in fiction: A linguistic introduction to English fictional prose</hi>. Harlow: Pearson Longman.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Lonkila, M.</hi> (1999). Grounded theory as an emerging paradigm for computer-assisted qualitative data analysis. In Kelle, U. (ed), 
+                        <hi rend="italic">Computer-Aided Qualitative Data Analysis: Theory, Methods and Practice</hi>. London: Sage, pp. 41-51.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Maryl, M., Niewiadomski, K. and Kidawa, M.</hi> (2016 - forthcoming). Empirically Generated Typology of Weblog Genres. 
+                        <hi rend="italic">CLCWeb: Comparative Literature and Culture</hi>,<hi rend="bold"> 18</hi>(2).
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Miller, C. R.</hi> (1994). Genre as Social Action. In Freedman, A. and Medway, P. (eds), 
+                        <hi rend="italic">Genre and the New Rhetoric</hi>. London: Taylor &amp; Francis, pp. 57-66.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Moretti, F.</hi> (2013). 
+                        <hi rend="italic">Distant reading</hi>. London: Verso.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Morrison, A.</hi> (2008). Blogs and Blogging: Text and Practice. In Siemens, R. and Schreibman, S. (eds), 
+                        <hi rend="italic">A Companion to Digital Literary Studies</hi>. Oxford: Blackwell, pp. 369-87.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Oleksy, M., Kocoń, J., Maryl, M. and Piasecki, M.</hi> (2014). Linguistic analysis of weblog genres, 
+                        <hi rend="italic">Practical Applications of Linguistic Corpora Conference</hi>, PALC’14, Łódź.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Pomikálek, J.</hi> (2011). 
+                        <hi rend="italic">Removing Boilerplate and Duplicate Content from Web Corpora</hi>. PhD Thesis, Faculty of Informatics, Masaryk University, Brno. 
+                        <ref target="http://is.muni.cz/th/45523/fi_d/phdthesis.pdf">http://is.muni.cz/th/45523/fi_d/phdthesis.pdf</ref> (accessed 29 February 2016).
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Przepiórkowski, A., Bańko, M., Górski, R. L. and Lewandowska-Tomaszczyk, B. (eds).</hi> (2012). 
+                        <hi rend="italic">Narodowy Korpus Języka Polskiego</hi>. Warszawa: PWN.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Radziszewski, A.</hi> (2013). A tiered CRF tagger for Polish. In Intelligent Tools for Building a Scientific Information Platform, 
+                        <hi rend="italic">Studies in Computational Intelligence</hi>, vol. 467, pp. 215–30.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Rybicki, J. and Eder, M.</hi> (2011). Deeper Delta across genres and languages: do we really need the most frequent words? 
+                        <hi rend="italic">Literary and Linguistic Computing</hi>, <hi rend="bold"> 26</hi>(3): 315-21.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Schöch, Ch. and Pielström, S.</hi> (2014). Für eine computergestützte literarische Gattungsstilistik, 
+                        <hi rend="italic">1. Jahrestagung der Digital Humanities im deutschprachigen Raum (DHd).</hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Stamatatos, E.</hi> (2009). A survey of modern authorship attribution methods. 
+                        <hi rend="italic">Journal of the American Society for Information Science and Technology</hi>, <hi rend="bold">60</hi>(3): 538–56.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Zhao, Y. and Karypis, G.</hi> (2001). Criterion functions for document clustering: Experiments and analysis. Technical Report TR #01–40, Department of Computer Science, University of Minnesota, Minneapolis.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Zhao, Y. and Karypis, G.</hi> (2005). Hierarchical Clustering Algorithms for Document Datasets. 
+                        <hi rend="italic">Data Mining and Knowledge Discovery</hi>,<hi rend="bold"> 10</hi>(2): 141-68.
+                    </bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

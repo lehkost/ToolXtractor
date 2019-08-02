@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>Verba Volant, Scripta Manent: An Open Source Platform for Collecting Data to Train OCR Models for Manuscript Studies</title>
+                <author>
+                    <persName>
+                        <surname>Grieggs</surname>
+                        <forename>Samuel</forename>
+                    </persName>
+                    <affiliation>University of Notre Dame, United States of America</affiliation>
+                    <email>sgrieggs@nd.edu</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Shen</surname>
+                        <forename>Bingyu</forename>
+                    </persName>
+                    <affiliation>University of Notre Dame, United States of America</affiliation>
+                    <email>bshen@nd.edu</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Muller</surname>
+                        <forename>Hildegund</forename>
+                    </persName>
+                    <affiliation>University of Notre Dame, United States of America</affiliation>
+                    <email>hmuller@nd.edu</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Ascik</surname>
+                        <forename>Christine</forename>
+                    </persName>
+                    <affiliation>University of Notre Dame, United States of America</affiliation>
+                    <email>cascik@nd.edu</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Ellis</surname>
+                        <forename>Erik</forename>
+                    </persName>
+                    <affiliation>University of Notre Dame, United States of America</affiliation>
+                    <email>Erik.Z.Ellis.67@nd.edu</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>McKenny</surname>
+                        <forename>Mihow</forename>
+                    </persName>
+                    <affiliation>University of Notre Dame, United States of America</affiliation>
+                    <email>Mihow.P.McKenny.5@nd.edu</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Churik</surname>
+                        <forename>Nikolas</forename>
+                    </persName>
+                    <affiliation>University of Notre Dame, United States of America</affiliation>
+                    <email>nchurik@nd.edu</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Mahan</surname>
+                        <forename>Emily</forename>
+                    </persName>
+                    <affiliation>University of Notre Dame, United States of America</affiliation>
+                    <email>emahan@nd.edu</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Scheirer</surname>
+                        <forename>Walter</forename>
+                    </persName>
+                    <affiliation>University of Notre Dame, United States of America</affiliation>
+                    <email>walter.scheirer@nd.edu</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2018-04-27T19:16:00Z</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Name, Institution</publisher>
+                <address>
+                    <addrLine>Street</addrLine>
+                    <addrLine>City</addrLine>
+                    <addrLine>Country</addrLine>
+                    <addrLine>Name</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from a Word document</p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.22">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Short Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>Machine Learning</term>
+                    <term>Manuscripts</term>
+                    <term>Optical Character Recognition</term>
+                    <term>Medieval Studies</term>
+                    <term>Classics</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>medieval studies</term>
+                    <term>digitisation</term>
+                    <term>resource creation</term>
+                    <term>and discovery</term>
+                    <term>software design and development</term>
+                    <term>text analysis</term>
+                    <term>linking and annotation</term>
+                    <term>English</term>
+                    <term>computer science</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <div type="div1" rend="DH-Heading1">
+                <head>Introduction</head>
+                <p>The transcription of handwritten historical documents into machine-encoded text has always been a difficult and time-consuming task. Much work has been done to alleviate some of that burden via software packages aimed at making this task less tedious and more accessible to non-experts. Nonetheless, an automated solution would be a worthwhile pursuit to vastly increase the number of digitized documents. As part of a continuing effort to expand the footprint of digital humanities research at our institution, we have embarked on a project to automatically transcribe and perform automated analysis of Medieval Latin manuscripts of literary and liturgical significance. Optical Character Recognition (OCR) is the process of converting images containing text into a machine encoded document. Recent advances in artificial neural networks have led to software that can transcribe printed documents with near human accuracy (LeCun et al., 2015). However, this level of accuracy breaks down when working with handwritten, and especially cursive, documents except when applied to restrictively specific domains.</p>
+                <p>Neural networks that are trained for this task require thousands of labeled examples so that their millions of parameters can be optimized. While there are thousands of high-quality scans of manuscripts available on the Internet, very few of these documents have been annotated for OCR tasks, and there is only a limited selection of ground-truth data which is annotated and segmented at the word-level (Fischer et al., 2011; Fischer et al., 2012) . There is no data available that provides annotations at the character-level. Normally, machine learning researchers would outsource the production of this ground-truth data to a platform such as Amazon's Mechanical Turk service, which allows crowdsourcing of human intelligence tasks. This is not an option for transcribing Medieval manuscripts, because it requires domain specific expertise. We put together a team of expert Medievalists and Classicists to generate the ground-truth data, and we have been developing a software platform that breaks the tedious task of producing pixel-level training data into more tractable jobs. The goals of this software go beyond just Latin manuscripts: it can be used to generate source data for any machine learning task involving document analysis. We are releasing it publicly, as free and open source software, in hopes that others can also use it to generate data, and help bring further advances in machine learning for handwritten text recognition.</p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Related work</head>
+                <p>State-of-the-art solutions to handwritten digit recognition on the MNIST dataset have achieved accuracies greater than 99% and have led some to declare handwritten OCR a solved problem (Wan et al., 2013). However, Cohen et al. have shown that adding the English alphabet to the dataset drops accuracy by more than 20% even when using the same methodology (Cohen et al., 2017). Some of the difference can be attributed to the fact that characters like ‘‘I’‘, ‘‘l’‘, and ‘‘1’‘ are often ambiguous without context --- especially when handwritten. To combat this, many handwritten text recognition algorithms will often use recurrent neural networks that look at the whole word and utilize a language model to overcome ambiguities (Fischer et al., 2009; Sánchez et al., 2016). Additionally, Convolutional Neural Networks (CNN) have been shown to have promise in segmenting biomedical images, which are also difficult to ground truth (Ronneberger et al., 2015). A similar approach could be used to segment individual letters in manuscripts. Incorporating human performance information into the machine learning process has been shown to improve the accuracy of tasks like face detection (Scheirer et al., 2014). We hypothesize that incorporating a human weighted loss function will lead to similar improvements in this task as well.</p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Workflow</head>
+                <p>Currently the software runs in Google App Engine using high-resolution source images. We are in the process of setting up the software to be run in a vagrant environment to make it available for local environments. The vagrant script will provision a Virtual Machine, either locally or to the cloud to serve the software and configure it to work with a user-provided library of documents. In either case, transcribers can access the software via a web browser. The user then proceeds to segment the document by lines and words by drawing bounding boxes, and characters by drawing over them. It also collects text annotations of the text at the word- and character-level. It stores all the information in a MySQL database.</p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Line and word level</head>
+                <p> Our process starts by having experts segment the document into lines. Transcribers use a modified version of the Image Citation Tool from the Homer Multitext Project to quickly break the document down into CITE URNs representing each line by drawing boxes around them (Blackwell and Smith, 2014). After all the lines are selected the process is repeated for each word. A screenshot of these processes is shown in Fig. 1.</p>
+                <figure>
+                    <graphic n="1001" width="15.964958333333334cm" height="10.258777777777778cm" url="Pictures/2fa98fef2e31eb44f718b6368cc0699e.png" rend="inline"/>
+                    <head>Figure 1: An example of the interface for selecting lines and words. Manuscript: Einsiedeln, Stiftsbibliothek, Codex 629(258), f. 4r – [Jacobus de Voragine] 
+                        <hi rend="italic">Legenda aurea sive lombardica</hi> (http://www.e-codices.unifr.ch/en/list/one/sbe/0629)
+                    </head>
+                </figure>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Pixel level annotation</head>
+                <p>After segmenting the document into words, our software prompts the expert to segment and annotate each word letter by letter. Instead of using a bounding box, we have the user trace over each character in the word using a pen tool. This gives us a pixel-by-pixel segmentation of the image that can be used to train a CNN to segment the characters automatically, much in the same way segmentation models are trained for other computer vision tasks (Ronneberger et al., 2015). At this stage the expert will also select which letter best represents each character from an array of buttons, as shown in Fig. 2.</p>
+                <figure>
+                    <graphic n="1002" width="15.964958333333334cm" height="13.5255cm" url="Pictures/eb8020b79a6afaf410d7a5c08f923b82.png" rend="inline"/>
+                    <head>Figure 2: An example of the tool used to collect pixel level ground-truth at the character level.</head>
+                </figure>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Psychophysical measurements</head>
+                <p>The final stage collects psychophysical measurements of the human process of reading. The software brings up individual characters, as shown in Fig. 3, and asks the transcriber to pick an annotation for a character without word context. They will also be asked to select the difficulty of each character. The software also records how long it takes for the user to submit an answer and compares whether the user selected the same character that was selected during the word-level annotation.</p>
+                <figure>
+                    <graphic n="1003" width="15.998472222222222cm" height="11.775722222222223cm" url="Pictures/62857674d4740d933438e6cd6b091dc0.png" rend="inline"/>
+                    <head>Figure 3: A screenshot of the psychometric data collection stage.</head>
+                </figure>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Outcomes</head>
+                <p>The software produces a segmented image for each document that can be used as training data for machine learning-based segmentation. Furthermore, it provides the pyschophysical measurements on the reading difficulty of each character. We also designed it to produce word-level segmented data in a similar format to the IAM Historical Document Database (Fischer et al., 2012; Fischer et al., 2011). Finally, the user will be able to export the transcribed document into a standard markup language such as TEI.</p>
+            </div>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl>
+                        <hi rend="bold">Blackwell, C. W. and Smith, D. N.</hi> (2014). The Homer Multitext and RDF-Based Integration. 
+                        <hi rend="italic">Papers of the Institute for the Study of the Ancient World</hi>, 
+                        <hi rend="bold">7</hi>.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Cohen, G., Afshar, S., Tapson, J. and Schaik, A. van</hi> (2017). EMNIST: an Extension of MNIST to Handwritten Letters. 
+                        <hi rend="italic">CoRR</hi>, 
+                        <hi rend="bold">abs/1702.05373</hi>.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Fischer, A., Frinken, V., Fornés, A. and Bunke, H.</hi> (2011). Transcription Alignment of Latin Manuscripts Using Hidden Markov Models. 
+                        <hi rend="italic">Proceedings of the 2011 Workshop on Historical Document Imaging and Processing</hi>. ACM, pp. 29–36.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Fischer, A., Keller, A., Frinken, V. and Bunke, H.</hi> (2012). Lexicon-free Handwritten Word Spotting Using Character HMMs. 
+                        <hi rend="italic">Pattern Recognition Letters</hi>, 
+                        <hi rend="bold">33</hi>(7): 934–942.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Fischer, A., Wuthrich, M., Liwicki, M., Frinken, V., Bunke, H., Viehhauser, G. and Stolz, M.</hi> (2009). Automatic Transcription of Handwritten Medieval Documents. 
+                        <hi rend="italic">Virtual Systems and Multimedia, 2009. VSMM’09. 15th International Conference on</hi>. IEEE, pp. 137–142.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">LeCun, Y., Bengio, Y. and Hinton, G.</hi> (2015). Deep Learning. 
+                        <hi rend="italic">Nature</hi>, 
+                        <hi rend="bold">521</hi>(7553): 436–444.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Ronneberger, O., Fischer, P. and Brox, T.</hi> (2015). U-net: Convolutional Networks for Biomedical Image Segmentation. 
+                        <hi rend="italic">International Conference on Medical Image Computing and Computer-Assisted Intervention</hi>. Springer, pp. 234–241.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Sánchez, J. A., Romero, V., Toselli, A. H. and Vidal, E.</hi> (2016). ICFHR2016 Competition on Handwritten Text Recognition on the READ Dataset. 
+                        <hi rend="italic">Frontiers in Handwriting Recognition (ICFHR), 2016 15th International Conference on</hi>. IEEE, pp. 630–635.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Scheirer, W. J., Anthony, S. E., Nakayama, K. and Cox, D. D.</hi> (2014). Perceptual Annotation: Measuring Human Vision to Improve Computer Vision. 
+                        <hi rend="italic">IEEE Transactions on Pattern Analysis and Machine Intelligence</hi>, 
+                        <hi rend="bold">36</hi>(8): 1679–1686.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Wan, L., Zeiler, M., Zhang, S., Cun, Y. L. and Fergus, R.</hi> (2013). Regularization of Neural Networks Using Dropconnect. 
+                        <hi rend="italic">Proceedings of the 30th International Conference on Machine Learning (ICML-13)</hi>. pp. 1058–1066.
+                    </bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

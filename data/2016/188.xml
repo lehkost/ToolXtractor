@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title type="full">
+                    <title type="main">Ancient Maya Writings as High-Dimensional Data: a Visualization Approach</title>
+                    <title type="sub"/>
+                </title>
+                <author>
+                    <persName>
+                        <surname>Can</surname>
+                        <forename>Gulcan</forename>
+                    </persName>
+                    <affiliation>Idiap Research Institute and EPFL, Switzerland</affiliation>
+                    <email>gcan@idiap.ch</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Odobez</surname>
+                        <forename>Jean-Marc</forename>
+                    </persName>
+                    <affiliation>Idiap Research Institute and EPFL, Switzerland</affiliation>
+                    <email>odobez@idiap.ch</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Pallan Gayol</surname>
+                        <forename>Carlos</forename>
+                    </persName>
+                    <affiliation>Abteilung für Altamerikanistik und Ethnologie, University of Bonn, Germany</affiliation>
+                    <email>pallan.carlos@gmail.com</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Gatica-Perez</surname>
+                        <forename>Daniel</forename>
+                    </persName>
+                    <affiliation>Idiap Research Institute and EPFL, Switzerland</affiliation>
+                    <email>gatica@idiap.ch</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2016-03-01T18:48:24</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Maciej Eder, Pedagogical University in Krakow</publisher>
+                <publisher>Jan Rybicki, Jagiellonian University</publisher>
+                <address>
+                    <addrLine>Institute of Polish Studies</addrLine>
+                    <addrLine>Pedagogical University</addrLine>
+                    <addrLine>ul. Podchorazych 2</addrLine>
+                    <addrLine>30-084 Krakow, Poland</addrLine>
+                    <addrLine>maciej.eder@ijp-pan.krakow.pl</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from an OASIS Open Document</p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.20">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Long Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>Maya glyphs</term>
+                    <term>t-SNE</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>archaeology</term>
+                    <term>image processing</term>
+                    <term>interdisciplinary collaboration</term>
+                    <term>visualisation</term>
+                    <term>English</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <div type="div1" rend="DH-Heading1">
+                <head>Introduction</head>
+                <p> The ancient Maya civilization flourished from around 2000 BC to 1600 AD and left a great amount of cultural heritage materials, in the shape of stone monument inscriptions, folded codex pages, or personal ceramic items. All these materials contain hieroglyphs (in short glyphs) written on them. The Maya writing system is visually complex (Fig. 1) and new glyphs are still being discovered. This brings the necessity of better digital preservation systems. Interpretation of a small amount of glyphs is still open to discussion due to both visual differences and semantic analysis. Some glyphs are damaged, or have many variations due to artistic reasons and the evolving nature of language.</p>
+                <p>
+                    <figure>
+                        <graphic url="188/10000201000005E1000004659135E837.png"/>
+                        <head>Figure 1. A stone inscription found in Pomona, Tabasco (Mexico), Panel 1 from 771 AD (Photograph by Carlos Pallán Gayol for AJIMAYA/INAH Project© 2006, Instituto Nacional de Antropología de Historia, Mexico)</head>
+                    </figure>
+                </p>
+                <p>Signs following ancient Mesoamerican representational conventions end up being classified according to their appearance, which leads to potential confusions as the iconic origin of many signs and their transformations through time are not well-understood. For instance, a sign thought to fall within the category of 'body-part' can later be proven to actually correspond to a vegetable element (a different semantic domain). Similarly, several signs classified as 'abstract', 'square' or 'round' could actually be pars-pro-toto representations of a larger whole.</p>
+                <p>
+                    <figure>
+                        <graphic url="188/1000020100000781000003211C532234.png"/>
+                        <head>Figure 2. Maya glyph samples from several categories (according to Thompson's catalog) that illustrate the within-class variety and between-class similarity</head>
+                    </figure> 
+                    </p>
+                <p>Fig. 2 illustrates the challenges to analyse Maya glyphs visually. Adding functionalities that take context (i.e., co-occurrence statistics, characteristics of the data) and part-whole relations (i.e., highlighting diagnostic parts) into account would bring guidance during decipherment tasks. The tools we envision are different from existing almanac-by-almanac visualization systems (Vail and Hernandez, 2013). They are also more engaging for users (i.e. visitors in museums), and offer promising perspectives for scholars.</p>
+                <p> This motivates the study of data visualization. In this paper, we built a prototype for visualization of glyphs based on visual features. We introduce (1) an approach to analyse Maya glyphs combining a state-of-the-art visual shape descriptor, and (2) a non-linear method to visualize high-dimensional data. For the first component, we use the histogram of orientation shape context (HOOSC) (Roman-Rangel et. al., 2011a; Roman-Rangel et. al., 2011b; Roman-Rangel et. al., 2013) which has similarities to other descriptors of the recognition literature (Belongie et. al., 2002; Dalal and Triggs, 2005; Lowe, 2004), but is adapted to shape analysis (Franken and van Gemert, 2013). </p>
+                <p> For the second component, we use the t-distributed Stochastic Neighbourhood Embedding (t-SNE) (Van der Maaten and Hinton, 2008), which is a dimensionality reduction method from the machine learning literature that has value for Digital Humanities (DH), as it can highlight the structure of high-dimensional data, i.e., multiple viewpoints among samples.</p>
+                <p>As analysis of DH data is often based on attributes like authorship, produced time, and place, observing these variations as smooth transitions with t-SNE becomes a relevant feature. </p>
+                <p> We show that the proposed methodology is useful to analyse the extent of spatial support used in the shape descriptor and to reveal new connections in the corpus through inspection of glyphs from stone monuments and glyph variants from catalogue sources. In particular, we hope that the presentation of our use of t-SNE can motivate further work in DH for other related problems.</p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Methodology</head>
+                <p>
+                    <figure>
+                        <graphic url="188/10000201000006D2000001D278FA1261.png"/>
+                        <head>Figure 3. Overall flow for visualization with t-SNE</head>
+                    </figure> 
+                    </p>
+                <p>The analysis process is illustrated in Fig. 3. First, for each glyph, a standard visual bag-of-words representation (BoW) is computed from the HOOSC descriptors. Second, dimensionality reduction is performed on the BoW representation of a glyph collection to generate the visualization. The main steps are described below.
+                </p>
+                <div type="div2" rend="DH-Heading2">
+                    <head>Datasets</head>
+                    <p>We analyse our visualization pipeline on two individual Maya glyph datasets.</p>
+                    <div type="div3" rend="DH-Heading3">
+                        <head>Monument data</head>
+                        <p>
+                            <figure>
+                                <graphic url="188/10000201000004A300000208C03F34E8.png"/>
+                                <head>Figure 4. Sample glyph images, corresponding Thompson annotations, and syllabic values (sounds) of selected 10 classes from the syllabic monument glyph dataset</head>
+                            </figure>
+                            </p>
+                        <p>We use a subset (630 samples from 10 classes, Fig. 4) of hand-drawings (Roman-Rangel et. al., 2011), corresponding to syllabic glyphs inscribed in monuments. These samples are collected by archaeologists (as part of Mexico’s AJIMAYA project) from stone inscriptions spread over four regions (Peten, Usumacinta, Motagua, and Yucatan). As an additional source, around 300 glyph samples are taken from existing catalogues (Thompson and Eric, 1962; Macri and Looper, 2003). </p>
+                    </div>
+                    <div type="div3" rend="DH-Heading3">
+                        <head>Thompson catalogue </head>
+                        <p>Secondly, we use 1487 glyph variants cropped from the Thompson's catalogue. These variants belong to 814 categories and divided as main sign and prefix/suffix groups in the catalogue.</p>
+                    </div>
+                </div>
+                <div type="div2" rend="DH-Heading2">
+                    <head>Visual feature representation</head>
+                    <p>
+                        <figure>
+                            <graphic url="188/10000201000003570000011DEDB4B719.png"/>
+                            <head>Figure 5. HOOSC computation at a sample position of the shape</head>
+                        </figure> 
+                        </p>
+                    <p>The HOOSC is a shape descriptor proposed in our research group for Maya glyphs (Roman-Rangel, 2011b). It is computed in two main steps (Fig. 5). First, the orientations of a set of sampled points are computed. Secondly, for a given sampled position, the histogram of local orientations are computed using a small number 
+                        <hi rend="italic">Na</hi> of angle bins forming a circular grid partition centred at each point. The HOOSC descriptor is obtained by concatenating all histograms, and applying per-ring normalization. Basic parameters are the spatial context 
+                        <hi rend="italic">sc</hi> defining the extent of the spatial partition; the number of rings 
+                        <hi rend="italic">N</hi>
+                        <hi rend="sub italic">r</hi>; and the number 
+                        <hi rend="italic">N</hi>
+                        <hi rend="sub italic">s </hi>of slices in a ring. With 
+                        <hi rend="italic">N</hi>
+                        <hi rend="sub italic">a</hi> =8, 
+                        <hi rend="italic">N</hi>
+                        <hi rend="sub italic">r</hi> =2, 
+                        <hi rend="italic">N</hi>
+                        <hi rend="sub italic">s</hi>=8, HOOSC has 128 dimensions. We have used HOOSC for usual retrieval and categorization tasks (Hu et. al., 2015).
+                    </p>
+                </div>
+                <div type="div2" rend="DH-Heading2">
+                    <head>Dimensionality reduction: t-SNE</head>
+                    <p> Proposed in (Hinton and Roweis, 2002), SNE is a non-linear dimensionality reduction method. It relates the Euclidean distances of samples in high-dimensional space to the conditional probability for each point selecting one of the neighbours. In t-SNE (Van der Maaten and Hinton, 2008), these distributions are modelled as heavy-tailed t-distributions. t-SNE aims to find for each data point, a lower-dimensional projection such that the conditional probabilities in the projected space are as close as possible to those of the original space (measured with KL divergence (Kullback and Leibler, 1951)).</p>
+                    <p> In our application, first, we project the BoW representation to a 30-dimensional space using PCA, then applied t-SNE to these projections to get 2-dimension mapping. t-SNE keeps track of the local structure of the data as it optimizes the clusters globally.</p>
+                </div>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Results and discussion</head>
+                <p> The full-scale visualization of the glyphs are available at 
+                    <ptr target="https://www.idiap.ch/project/maaya/demos/t-sne"/>.
+                </p>
+                <div type="div2" rend="DH-Heading2">
+                    <head>Glyph monument corpus structure</head>
+                    <p>
+                        <figure>
+                            <graphic url="188/100002010000044C0000046002AD45BC.png"/>
+                            <head>Figure 6. Monument data: t-SNE plots with visual representations obtained at four different spatial context levels</head>
+                        </figure> 
+                        </p>
+                    <p>Fig. 6 shows the monument corpus. The region encoded in the visual descriptor varies from almost whole glyph (sc=1/1) to small local parts (sc=1/8). One question is how spatial context influences visualization of the representation. Regarding the visual clusters, with the most global representation (sc=1/1), our method extracts more distinct clusters, e.g. T229 and T126 in Fig. 7 (navy and magenta in Fig. 6 and 9). Please see Fig. 9 for roughly-coloured clusters of the glyphs. As the descriptor gets more local, the categories with common patterns mix up (Fig. 6). Yet, our method is able to capture meaningful common local parts and maps the samples based on these elements, i.e. parallel lines, hatches, and circles.
+                    </p>
+                    <p>
+                        <figure>
+                            <graphic url="188/10000000000004E2000002EE99F1601A.png"/>
+                            <head>Figure 7. Monument data: Close-up of two clusters (T229 on the left and T126 on the right), corresponding to navy and magenta clusters in Fig. 6 with the most global HOOSC descriptor (sc=1/1)</head>
+                        </figure> 
+                    </p>
+                    <p>For Maya epigraphers in our team, a more neatly differentiated grouping of signs, e.g. obtained by HOOSC with sc=1/1 is preferable. However, work on the effects of parameter choice is required to obtain groupings that make more epigraphic sense. Clearer 'borderlines', less 'outliers,' and less 'intrusive' signs (e.g. T25 and T1) within each cluster would be desirable. Our results in this regard are preliminary, but they open promising research questions.</p>
+                    <p>
+                        <figure>
+                            <graphic url="188/1000020100000618000002F87971B233.png"/>
+                            <head>Figure 8. Monument data: Close-up of two clusters (T59 on the left and T116 on the right), which exhibit smooth transition between samples corresponding to place or temporal variations</head>
+                        </figure>
+                    </p>
+                    <p> Another important epigraphic point is that we observe interesting visual transitions between samples of the categories. Fig. 8 shows examples from category T59 and T116, which illustrate a smooth dilation of samples in one direction. These kind of observations are interesting for archaeologists, since they might correspond to modification of the glyph signs over time or place.</p>
+                    <p>
+                        <figure>
+                            <graphic url="188/10000000000003EB0000050054BDC39D.png"/>
+                            <head>Figure 9. Monument data: Visualization of all class samples with the most global HOOSC descriptor (sc=1/1)</head>
+                        </figure>
+                    </p>
+                </div>
+                <div type="div2" rend="DH-Heading2">
+                    <head>
+                        <hi rend="color(#000000)">Glyph variants from Thompson catalogue</hi>
+                    </head>
+                    <p>
+                        <figure>
+                            <graphic url="188/10000201000006940000042C50C35A02.png"/>
+                            <head>Figure 10. Catalogue data: A visual cluster of main signs from the Thompson's catalogue, with the most global HOOSC descriptor (sc=1/1). Many of them are impersonated main signs that corresponds to gods or animals. In this part of the visualization, the upper left part has more visually complex variants than the rightmost samples</head>
+                        </figure>
+                        </p>
+                    <p>From the visualization of glyph variants in Thompson's catalogue with the largest spatial context level (sc=1/1), we observe that visually similar categories are grouped together, while exhibiting smooth transitions. These transitions may correspond to some characteristics of the data. Fig. 10 shows a cluster of personified main signs in which degree of visual internal detail decreases in the indicated direction. We also observe separate visual clusters for hatched, horizontal and vertical glyphs. </p>
+                </div>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Conclusion</head>
+                <p> Our goal in this study is to help DH scholars to visualize data collections not as isolated elements, but in context (visually and semantically). Even though early catalogues are built based on visual similarities, i.e., (Thompson and Eric, 1962) or (Zimmermann, 1956) relied on graphic cards to study similar patterns, the categorization methods were poorly understood and were not easy to reconfigure.</p>
+                <p> Furthermore, due to the limited knowledge at the time about semantics and sign variants, these catalogues turned out to be inaccurate or outdated. Similarly, Gardiner’s list (Gardiner, 1957) is insufficient to elucidate sign variability in the 'Book of The Dead' (Budge, 1901).</p>
+                <p> With the proposed tool, however, considering details at different scales as semantic/diagnostic regions in the visualization can help archaeologists to discover semantic relations. In this way, overlapping notions such as 'colours', 'cardinal directions' and specific toponyms from earthly, heavenly or underworld realms can be studied in greater detail.</p>
+                <p> Finally, illustrating all variations with different visual focus in a fast and quantitative manner brings out the characteristics of signs. This also helps experts match samples from various sources (i.e. monuments, codices, and ceramic surfaces) to corpus data more efficiently; and trigger the decipherment of less frequent and damaged signs. Hence, our work is a step towards producing a more accurate and state-of-the-art sign catalogue.</p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Acknowledgements</head>
+                <p>This work was funded by Swiss National Science Foundation as part of the MAAYA project. </p>
+            </div>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl>
+                        <hi rend="bold">Belongie, S., Malik, J. and Puzicha, J.</hi> (2002). Shape matching and object recognition using shape contexts. 
+                        <hi rend="italic">IEEE Transactions on Pattern Analysis and Machine Intelligence</hi>, 
+                        <hi rend="bold">24</hi>(4): 509–22.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Budge, E. A. W.</hi> (1901). 
+                        <hi rend="italic">The Book of the Dead: An English Translation of the Chapters, Hymns, Etc. of the Theban Recension, with Introduction, Notes, Etc.</hi> (Books on Egypt and Chaldaea). Open Court Pub.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Dalal, N. and Triggs, B.</hi> (2005). <hi rend="italic">Histograms of Oriented Gradients for Human Detection. vol. 1. IEEE</hi>, pp. 886–93.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Franken, M. and Gemert, J. C. van</hi> (2013). <hi rend="italic">Automatic Egyptian hieroglyph recognition by retrieving images as texts</hi>, ACM Press, pp. 765–68.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Gardiner, A. H.</hi> (1957). 
+                        <hi rend="italic">Egyptian Grammar: Being an Introduction to the Study of Hieroglyphs. 3d ed., rev</hi>. Oxford: Griffith Institute, Ashmolean Museum.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Hinton, G. E. and Roweis, S. T.</hi> (2002). <hi rend="italic">Stochastic neighbor embedding.</hi> pp. 833–40.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Hu, R., Can, G., Pallan Gayol, C., Krempel, G., Spotak, J., Vail, G., Marchand-Maillet, S., Odobez, J.-M. and Gatica-Perez, D.</hi> (2015). Multimedia Analysis and Access of Ancient Maya Epigraphy: Tools to support scholars on Maya hieroglyphics. 
+                        <hi rend="italic">Signal Processing Magazine, IEEE</hi>, 
+                        <hi rend="bold">32</hi>(4): 75–84.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Kullback, S. and Leibler, R. A.</hi> (1951). On information and sufficiency. 
+                        <hi rend="italic">The Annals of Mathematical Statistics</hi>, 
+                        <hi rend="bold">22</hi>(1): 79–86.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Lowe, D. G.</hi> (2004). Distinctive image features from scale-invariant keypoints. 
+                        <hi rend="italic">International Journal of Computer Vision</hi>, 
+                        <hi rend="bold">60</hi>(2): 91–110.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Maaten, L. Van der and Hinton, G.</hi> (2008). Visualizing data using t-SNE. 
+                        <hi rend="italic">Journal of Machine Learning Research</hi>, 
+                        <hi rend="bold">9</hi>(2579-2605): 85.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Macri, M. J. and Looper, M. G.</hi> (2003). 
+                        <hi rend="italic">The New Catalog of Maya Hieroglyphs: The Classic Period Inscriptions</hi>. University of Oklahoma Press. Vol. <hi rend="bold">1</hi>.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Roman-Rangel, E., Odobez, J.-M. and Gatica-Perez, D.</hi> (2013). Evaluating shape descriptors for detection of maya hieroglyphs. 
+                        <hi rend="italic">Pattern Recognition</hi>. Springer, pp. 145–54.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Roman-Rangel, E., Pallan, C., Odobez, J.-M. and Gatica-Perez, D.</hi> (2011a). Analyzing ancient maya glyph collections with contextual shape descriptors. 
+                        <hi rend="italic">International Journal of Computer Vision</hi>, 
+                        <hi rend="bold">94</hi>(1): 101–17.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Roman-Rangel, E., Pallan Gayol, C., Odobez, J.-M. and Gatica-Perez, D.</hi> (2011b). <hi rend="italic">Searching the past: an improved shape descriptor to retrieve Maya hieroglyphs. ACM</hi>, pp. 163–72.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Thompson, J. E. S. and Eric, S.</hi> (1962). 
+                        <hi rend="italic">A Catalog of Maya Hieroglyphs</hi>. University of Oklahoma Press Norman.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Vail, G. and Hernández, C.</hi> (2013). The Maya Codices Database, Version 4.1. 
+                        <hi rend="italic">A Website and Database Available at: http://www.mayacodices.org/</hi>.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Zimmermann, G.</hi> (1956). 
+                        <hi rend="italic">Die Hieroglyphen Der Maya-Handschriften</hi>. (Abhandlungen Aus Dem Gebiet Der Auslandskunde / Reihe B: Völkerkunde, Kulturgeschichte Und Sprachen). De Gruyter.
+                    </bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

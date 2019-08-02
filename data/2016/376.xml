@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title type="full">
+                    <title type="main">Music notation addressability</title>
+                    <title type="sub"/>
+                </title>
+                <author>
+                    <persName>
+                        <surname>Viglianti</surname>
+                        <forename>Raffaele</forename>
+                    </persName>
+                    <affiliation>University of Maryland</affiliation>
+                    <email>rviglian@umd.edu</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2016-03-04T12:02:21.587059110</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Maciej Eder, Pedagogical University in Krakow</publisher>
+                <publisher>Jan Rybicki, Jagiellonian University</publisher>
+                <address>
+                    <addrLine>Institute of Polish Studies</addrLine>
+                    <addrLine>Pedagogical University</addrLine>
+                    <addrLine>ul. Podchorazych 2</addrLine>
+                    <addrLine>30-084 Krakow, Poland</addrLine>
+                    <addrLine>maciej.eder@ijp-pan.krakow.pl</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from an OASIS Open Document</p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.21">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Long Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>text and music</term>
+                    <term>music notation</term>
+                    <term>web</term>
+                    <term>citation</term>
+                    <term>API</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>information retrieval</term>
+                    <term>music</term>
+                    <term>software design and development</term>
+                    <term>information architecture</term>
+                    <term>internet / world wide web</term>
+                    <term>interdisciplinary collaboration</term>
+                    <term>digitisation - theory and practice</term>
+                    <term>semantic web</term>
+                    <term>linking and annotation</term>
+                    <term>standards and interoperability</term>
+                    <term>English</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <div type="div1" rend="DH-Heading1">
+                <head>Introduction</head>
+                <p>How can one virtually ‘circle’ some music notation as one would on a printed score? How can a machine interpret this ‘circling’ to select and retrieve the relevant music notation in digital format? This paper will introduce the concept of addressability for music notation, on the basis of a comparison with textual addressability as defined by Michael Witmore (2010). Additionally, the paper will report on the work of 
+                    <hi rend="italic">Enhancing Music notation Addressability</hi> (EMA), a NEH-funded one-year project that has developed methods for addressing arbitrary portions of encoded music notation on the web.
+                </p>
+                <p>Many Digital Humanities projects are concerned with the digitization of cultural objects for varied purposes of study and dissemination. Theorists such as Willard McCarty (2005) and Julia Flanders (2009) have highlighted the fact that digitization involves the creation of a data model of a cultural object, whereby scholarly interpretation and analysis is inevitably included in the model. Editorial projects in literary studies, for example, often model sources by encoding transcription and editorial intervention with the Text Encoding Initiative (TEI) format. The ability to identify and name textual structures is a fundamental operation in the creation of such models. Michael Witmore has called text a “massively addressable object” (2010); that is, given certain abstractions and conventions, it is possible to identify areas of a text such as characters, words, as well as chapters or proper names. Reading practices influence and contribute to the development of such conventions and abstractions, but, Witmore argues, addressability is a textual condition regardless of technology. With digital texts, modes of address become more abstract, so that arbitrary taxonomies can be identified as well as more established ones. To exemplify a more abstract mode of address, Witmore suggests items “identified as a ‘History’ by Heminges and Condell in the First Folio”. This enhanced addressability available in a digital context is the engine for textual analysis and scholarly discourse about digital text.</p>
+                <p>This idea of addressability is arguably applicable to many more kinds of “text”, including music notation; indeed, addressing units of music notation (such as measures, notes, and phrases) has long been a powerful instrument in musicology for both analysis and historical narrative.
+                    <note xml:id="ftn1" place="foot" n="1"> When talking about music in general, it is important to say that addressing written music notation is not the only instrument of the musicologist. Music exists on several domains besides the written or "graphemic" one, each addressable in its own way (see Babbitt 1965). For the purpose of this paper, we focus on written Western music notation, because it shares features with written language and for its prominent role in musicological discourse.</note> Music notation, however, is more complicated to represent digitally than text. Human-computer interaction has since its early days been built around the concept of character and line, which makes dealing with “plain” text a fairly straightforward matter for many basic operations; counting the number of characters in a given plain text document is trivial in any digital environment.
+                    <note xml:id="ftn2" place="foot" n="2"> Modern computing systems are able to support complex ancient and modern writing systems, including those requiring right-to-left strings and compound symbols. The Unicode Consortium has been at the forefront of the internationalization of computing systems. Nonetheless, computationally speaking, a “string” of text remains a sequence of characters even in more complex representations. Indeed, many compound Unicode characters still retain sequentiality, i.e. one component comes after the other and the compound symbol only makes sense if they are in the correct order. Music notation is not a string of text; therefore this is not possible.</note> Music notation, on the other hand, requires substantial computational modelling even for the simplest musical text before any further operation is possible. This is particularly evident when music notation is represented with markup, which implies a system based on characters and lines. There are many different ways of representing a single note; some aspects are common to all representation systems, such as information about pitch and duration, but some systems will prioritize certain aspects over others. To give a simple example, one system may represent beams (ligatures between flagged notes, usually shorter in duration), while others may ignore them altogether.
+                    <note xml:id="ftn3" place="foot" n="3"> By grouping notes together, beams provide important—but somewhat secondary to pitch and duration—information to the reader of a music score, such as a performer, a musicologist, or an algorithm.</note>
+                </p>
+                <p>Nonetheless, there are simple units that are typically represented by all music notation systems for common western music notation, such as measure, staff (or instrument), and beat. The EMA project, therefore, developed a URI scheme and an Application Programming Interface (API) to make it possible to target music notation resources on the web regardless of their format. Such a scheme may facilitate (and in some cases enable) a number of activities around music notation documents published on the web. The following table gives a few basic examples of how an implementation of the URI scheme could be useful to musicological research:</p>
+                <table rend="frame" xml:id="Table1">
+                    <row>
+                        <cell rend="bold">Scholarly</cell>
+                        <cell rend="bold">Visual</cell>
+                        <cell rend="bold">Procedural</cell>
+                    </row>
+                    <row>
+                        <cell>
+                            <hi rend="italic">Analysis</hi>: being able to address components of music notation for analytical purposes. Example: precisely identify start and end of a pedal tone in Bach’s 
+                            <hi rend="italic">Prelude no. 6 in D Minor</hi>, BWV 851.
+                        </cell>
+                        <cell>
+                            <hi rend="italic">Rendering</hi>: rendering music notation in an interactive environment such as a browser or a tablet requires the ability to cut up a large music document. For example to show only the number of measures that fit in a given space.
+                        </cell>
+                        <cell>
+                            <hi rend="italic">Processing</hi>: extracted portions of music notation can be passed on to another process. For example, given the MEI encoding of the Overture to Mozart’s 
+                            <hi rend="italic">Don </hi>
+                            <hi rend="italic">Giovanni</hi>, extract the string instrument parts and send them to another program that will return an harmonic analysis.
+                        </cell>
+                    </row>
+                    <row>
+                        <cell>
+                            <hi rend="italic">Citation</hi>: quote a passage from an encoded music notation file. For example the timpani in the opening bars of the Overture to Mozart’s Don Giovanni.
+                        </cell>
+                        <cell>
+                            <hi rend="italic">Highlighting</hi>: address a segment of music notation to highlight it in a visual context (e.g. with color).
+                        </cell>
+                        <cell/>
+                    </row>
+                </table>
+                <p>The EMA project has particularly focused on facilitating citation and attribution of credit, as is discussed in the “Evaluation” section below.</p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>A brief overview of the specification</head>
+                <p>The specification was created to provide a web-friendly mechanism for addressing specific portions of music notation in digital format. This is not unlike the APIs often provided by image servers for retrieving specific portions of an image. Such servers typically operate on a given large image ﬁle and are able to return different zoom levels and coordinate spaces. The International Image Interoperability Framework (IIIF) has recently created an API to generalize interaction with image providers, so that it can be implemented across multiple servers and digital libraries. IIIF was used as a model for the Music Addressability API created for EMA and briefly described here.</p>
+                <p>Consider the following example,
+                    <note xml:id="ftn4" place="foot" n="4"> Taken from 
+                        <hi rend="italic">Du Chemin:</hi>
+                        <hi rend="italic"> Lost Voices</hi> project, at 
+                        <ref target="http://digitalduchemin.org/">http://digitalduchemin.org</ref>.
+                    </note> and the notation highlighted in the boxes:
+                </p>
+                <p>
+                    <figure>
+                        <graphic url="376/10000000000004E30000024A46E9FC9C.png"/>
+                    </figure>
+                </p>
+                <p>The highlighted notation occurs between measure 38 and 39, on the first and third staves (labelled 
+                    <hi rend="italic">Superius</hi> and 
+                    <hi rend="italic">Tenor</hi> — this is a renaissance choral piece). Measure 38, however, is not considered in full, but only starting from the third beat. This selection can be expressed according to a URI syntax:
+                </p>
+                <p>/{identifier}/{measures}/{staves}/{beats}/</p>
+                <p>/dc0519.mei/38-39/1,3/@3-3</p>
+                <p>The measure is expressed as a range (38-39), staves can be selected through a range or separately with a comma (1,3), and the beats are always relative to their measure, so @3-3 means the third beat of the starting measure to the third beat of the ending measure.
+                    <note xml:id="ftn5" place="foot" n="5">A complete description of the URI scheme and the API is available at: <ptr target="https://github.com/umd-mith/ema/blob/master/docs/api.md"/>.</note> In this specification the beat is the primary driver of the selection: it allows for precise addressability of contiguous as well as non-contiguous areas.
+                </p>
+                <p>Music notation, however, occasionally breaks rules in favor of flexibility. Cadenzas, for example, are ornamental passages of an improvisational nature that can be written out with notation that disregards a measure’s beat, making it impossible to address subsets of the cadenza wit the syntax discussed above. While EMA’s URI scheme offers the granularity sufficient to address the vast majority of western music notation, a necessary future improvement on the API is, indeed, an extension that would make it possible to address music notation with more flexible beat.</p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Evaluation</head>
+                <p>In order to evaluate the specification, EMA has created an implementation of the API as a web service. While the URI specification can be absolute from a specific representation, the implementation must know how to operate on specific formats. The web service that we coded operates on the The Music Encoding Initiative format and is called Open MEI Addressability Service (Omas).
+                    <note xml:id="ftn6" place="foot" n="6"> A demo is available at 
+                        <ptr target="http://mith.us/ema/omas/"/>.
+                    </note> Omas interprets a conformant URI, retrieves the specified MEI resource, applies the selection, and returns it. An additional parameter on the URI can be used to determine how “complete” the retrieved selection should be (whether it should, for example, include time and key signatures, etc.).
+                </p>
+                <p>
+                    <figure>
+                        <graphic url="376/100000000000049D000000F2163CE9F5.png"/>
+                    </figure>Similarly to an image server, Omas assumes that the information specified by the URL can be retrieved in the target MEI file. If requested, the web service can return metadata information about an MEI file, such as number of measures, staves, beats and their changes throughout the document. This can be used to facilitate the creation of URL requests able to return the selection required.
+                </p>
+                <p>Finally, EMA partnered with the 
+                    <hi rend="italic">Du Chemin: </hi>
+                    <hi rend="italic">Lost Voices</hi> project to model a number of micro-analyses addressing music notation from their existing collection of MEI documents. In a second phase of the project, the analyses have been re-modeled as Linked Open Data according to the Nanopublication guidelines.
+                    <note xml:id="ftn7" place="foot" n="7"> Nanopublication is an ontology for publishing scientific data: 
+                        <ref target="http://nanopub.org/">http://nanopub.org</ref>. The Nanopublication server for 
+                        <hi rend="italic">Du Chemin: Lost Voices</hi> is available at: 
+                        <ptr target="http://digitalduchemin.org/np/"/>.
+                    </note> Each EMA nanopublication addresses an arbitrary portion of music notation using the URL specification described here. Omas operates as a web service to connect the nanopublications with the collection of MEI files in 
+                    <hi rend="italic">Du Chemin</hi>.
+                </p>
+            </div>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl>
+                        <hi rend="bold">Babbit, M.</hi> (1965). The use of computers in musicological research. 
+                        <hi rend="italic">Perspectives of New Music</hi>, 3(2): pp. 74–83.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Flanders, J.</hi> (2009). Data and Wisdom: Electronic Editing and the Quantiﬁcation of Knowledge. 
+                        <hi rend="italic">Literary and Linguistic Computing</hi>, 24(1): pp. 53–62.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">McCarty, W.</hi> (2005). Chapter 1 - Modelling. 
+                        <hi rend="italic">Humanities Computing</hi>, London: Palgrave Macmillan.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Witmore, M.</hi> (2010). 
+                        <hi rend="italic">Text: A Massively Addressable Object</hi>. 
+                        <ptr target="http://winedarksea.org/?p=926"/>.
+                    </bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

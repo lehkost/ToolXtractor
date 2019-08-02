@@ -1,0 +1,361 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xsi:schemaLocation="http://www.tei-c.org/ns/1.0 /Users/yoann/Work/Grobid/grobid-home/schemas/xsd/Grobid.xsd"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+	<teiHeader xml:lang="en">
+		<encodingDesc>
+			<appInfo>
+				<application version="0.5.4-SNAPSHOT" ident="GROBID" when="2019-06-05T06:42+0000">
+					<ref target="https://github.com/kermitt2/grobid">GROBID - A machine learning software for extracting information from scholarly documents</ref>
+				</application>
+			</appInfo>
+		</encodingDesc>
+		<fileDesc>
+			<titleStmt>
+				<title level="a" type="main">Short samples in authorship attribution: a new approach</title>
+			</titleStmt>
+			<publicationStmt>
+				<publisher/>
+				<availability status="unknown"><licence/></availability>
+			</publicationStmt>
+			<sourceDesc>
+				<biblStruct>
+					<analytic>
+						<author role="corresp">
+							<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">Maciej</forename><forename type="middle">Eder</forename></persName>
+							<email>maciejeder@gmail.com</email>
+						</author>
+						<title level="a" type="main">Short samples in authorship attribution: a new approach</title>
+					</analytic>
+					<monogr>
+						<imprint>
+							<date/>
+						</imprint>
+					</monogr>
+					<note>Institute of Polish Language Polish Academy of Sciences, Poland</note>
+				</biblStruct>
+			</sourceDesc>
+		</fileDesc>
+		<profileDesc>
+			<abstract/>
+		</profileDesc>
+	</teiHeader>
+	<text xml:lang="en">
+		<body>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Introduction</head><p>The question of minimal sample size is one of the most important issues in stylometry and nontraditional authorship attribution. In the last decade or so, a few studies concerning different aspects of scalability in stylometry have been published <ref type="bibr" target="#b13">(Zhao and Zobel, 2005;</ref><ref type="bibr" target="#b5">Hirst and Feiguina, 2007;</ref><ref type="bibr" target="#b12">Stamatatos, 2008;</ref><ref type="bibr" target="#b7">Koppel et al., 2009;</ref><ref type="bibr" target="#b9">Mikros, 2009;</ref><ref type="bibr" target="#b8">Luyckx and Daelemans, 2011</ref>), but the question has not been answered comprehensively. In his recent study, Eder proposed a systematic approach to solve the problem in a series of experiments, claiming that a sample should have at least 5,000 running words to be attributable <ref type="bibr" target="#b2">(Eder, 2015)</ref>.</p><p>The above studies (and many other as well) tacitly assume that there exists a certain amount of linguistic data that allows for reliable authorial recognition, and the real problem at stake is to determine that very value. However, one can assume that the authorial fingerprint is not distributed evenly in a collection of texts. Just the contrary, many experiments seem to suggest that the authorial voice is sometimes overshadowed by other signals, such as genre, gender, chronology, or translation. Some authors, say Chandler, should be easily attributable, while some other authors, say Virginia Woolf, will probably have their fingerprint somewhat hidden. Moreover, authorship attribution is ultimately a matter of context: telling apart Hemingway and Dickens will always be easier than distinguishing the Bronte sisters. On theoretical grounds, then, the minimal sample size can not be determined once and forever for the entire corpus, but may be different for different texts in the corpus.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Method and Data</head><p>To scrutinize the above intuition, a controlled experiment has been designed, in which particular text samples were assessed independently (one by one) and compared against the corpus. A following procedure was applied: the entire corpus served as a training set, out of which one text at a time was excluded. This temporarily excluded text was further pre-processed: in many iterations, longer and longer samples of randomly chosen words were excerpted (100 independent samples in each iteration), and then tested against the training set. In each iteration, the total number of correctly "guessed" authorial classesa single value between 0 and 100 -was recorded, resulting in a row of accuracy scores for a given text as a function of its sample size. The same procedure was repeated for each text in the corpus. The above setup does not need to be supplemented by any crossvalidation, because the experiment itself is a variant of a leave-one-out cross-validation scenario. Moreover, each text is re-sampled several times, which can be perceived as an additional way of neutralizing potential model overfitting.</p><p>The experiments were repeated a few times. <ref type="bibr" target="#b1">(Burrows, 2002</ref>). However, Delta was used as a general classification framework combined with a few custom kernels that seem to outperform the original setup. These included Cosine Delta ( <ref type="bibr" target="#b4">Evert et al., 2016)</ref>, min-max measure ( <ref type="bibr" target="#b6">Kestemont et al., 2016</ref>), Eder's Delta ( <ref type="bibr" target="#b3">Eder et al., 2016)</ref>, and, obviously, the original measure as introduced by Burrows and mathematically justified by <ref type="bibr" target="#b0">Argamon (2011)</ref>. Secondly, all the tests have been repeated for different vectors of input features, or most frequent words: 100, 200, 300, 500, 750 and 1,000. While the choice of the vectors' lengths was arbitrary, it was aimed to follow usual stylometric scenarios in their various flavors, ranging from a considerably short list of mostly frequent words, to a longish vectors overwhelmed by content words.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Firstly, three different classification methods have been tested: Support Vector Machines (SVM), Nearest Shrunken Centroids (NSC), and a distance-based learner that is routinely used in authorship attribution tests, namely Burrows's Delta</head><p>The aforementioned method of testing was applied into two roughly similar corpora (one at a time): a corpus of 100 English novels by 33 authors (male and female), covering the years 1840-1940, and a similar corpus of 100 Polish novels. Both corpora, referred to as the Benchmark Corpus of English and the Benchmark Corpus of Polish, have been compiled by Jan Rybicki (pers. comm.). The corpora used in the experiment, as well as the complete code needed to replicate the study, will be available in a GitHub repository.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Results</head><p>A lion's share of tested samples revealed a very consistent and clear picture. According to intuition, the performance for short samples falls far beyond any acceptance rate, sometimes showing no correct "guesses" at all. This is followed, however, by a very steep increase of performance which immediately turns into a plateau of statistical saturation, despite the number of analyzed features (frequent words). An example of such a behavior is The Ambassadors by Henry James <ref type="figure" target="#fig_0">(Figure 1)</ref>, as well as many other novels by Blackmore, Chesterton, Foster, Lytton, Meredith, Morris, Thackeray, and Trollope. As one can see, the amount of text needed for a reliable attribution is less than 2,000 words (!), an amount radically smaller than the previous study suggests <ref type="bibr" target="#b2">(Eder, 2015)</ref>. Sometimes the picture is somewhat blurry, nevertheless the same general shape reappears, as in the case of Felix Holt by George Elliot <ref type="figure" target="#fig_1">(Figure 2</ref>). As one can see, using shorter vectors of features requires longer samples to extract the authorial profile.  Optimistic as they are, however, the results might differ significantly. E.g., in some cases, the statistical saturation does not really take place, even if very long samples are used <ref type="figure" target="#fig_2">(Figure 3</ref>: scores for Saints Progress by John Galsworthy). What is more important, however, the final results additionally depend on the number of analyzed features. In <ref type="figure" target="#fig_3">Figure 4</ref>, a representative example of this behavior has been shown, namely Bleak House by Dickens.   Last but definitely not least, there are a few texts that are never correctly attributed, no matter how long the extracted samples are ( <ref type="figure" target="#fig_4">Figure 5</ref>). The question why some novels were misclassified will be addressed in a separate study. Here, it should be emphasized that such a behavior is unpredictable. Certainly, it can be easily detected, as long as one tests novels of known authorship; it becomes an obstacle, however, when one tries to scrutinize an anonymous text.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Detecting Outliers</head><p>The outcome of the above experiment shows that the minimal sample size can be lowered substantially, from ca. 5,000 running words as suggested previously <ref type="bibr" target="#b2">(Eder, 2015)</ref>, to less than 2,000 words. However, this is true only for those texts that exhibit a clear authorial signal; otherwise the risk of severe misclassification appears. To take advantage of the above results, then, one has to be sure which category an analyzed text belongs to. In a controlled experiment, the task is simple, in a real-case attribution study, however, one has no chance to fine-tune the model by testing the disputed sample against the corpus. What if an anonymous text does not reveal a clear accuracy curve, as the one in <ref type="figure" target="#fig_0">Figure 1</ref>?</p><p>To overcome the sample size issue of unknown texts, an additional measure can be involved to supplement the accuracy scores. (Due to limited space in this abstract, a compact outline of the proposed solution will be presented, rather than a complete algorithm). In the case of misclassification, one would like to know if the wrong response is consistent, or if different classes were assigned chaotically. To address this question, an indicator of consistency would be useful. The Simpson index is a very simple measure of concentration when observations are classified into a certain number of types <ref type="bibr" target="#b11">(Simpson, 1949)</ref>:</p><formula xml:id="formula_0">λ = Σpi2</formula><p>where pi is the proportion of observations belonging to the ith type. The index can be easily adopted to indicate imbalance between assigned classes in supervised classification. To this end, the obtained classification scores (for a given sample size) have to be divided by the total number of trials (in this case, 100). The value 1 reflects purely consistent results, lower values mean that the assigned classes were fuzzy. To make a long story short: the texts that distribute their accuracy curves as in <ref type="figure" target="#fig_0">Figure 1</ref> will also exhibit the same shape of the diversity index (see <ref type="figure" target="#fig_5">Figure 6</ref>). However, when the accuracy scores are low and/or ambiguous, the diversity index might provide a priceless hint. It is especially important when the accuracy scores are consistent <ref type="figure" target="#fig_4">(Figure 5</ref>), and the Simpson index is not <ref type="figure">(Figure 7)</ref>. Instead of being mislead ("Stevenson did not write Catriona", which is not true), we are warned that the classification is inconsistent. Thus, to reliably test a minimal size of a disputed text, one has to take into account two values (accuracy and diversity). The bigger the dispersion between the indices, the smaller the probability that the text is attributable - perhaps a longer sample has to be involved, or a different set of features?</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Conclusion</head><p>The study was aimed at re-considering the minimum sample size for reliable authorship attribution. The results of the experiments suggest that a sufficient amount of textual data may be as little as 2,000 words in many cases. However, sometimes the authorial fingerprint is so vague, that one needs to use substantially longer samples to make the attribution feasible. A question of some importance is to which category an unknown (disputed) text belongs.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Bibliography</head></div><figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_0"><head>Figure 1 :</head><label>1</label><figDesc>Figure 1: The Ambassadors by Henry James contrasted against a corpus of 100 English novels: the attribution accuracy as a function of sample size (in words). Colors represent the results for different vectors of MFWs: 100 (red), 200 (yellow), 300 (green), 500 (cyan), 750 (blue), and 1,000 (violet).</figDesc><graphic url="image-1.png" coords="2,54.30,336.78,241.44,241.44" type="bitmap" /></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_1"><head>Figure 2 :</head><label>2</label><figDesc>Figure 2: Felix Holt by George Eliot: the dependence of authorship recognition and sample size.</figDesc><graphic url="image-2.png" coords="2,316.86,72.30,241.44,241.44" type="bitmap" /></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_2"><head>Figure 3 :</head><label>3</label><figDesc>Figure 3: Saints Progress by John Galsworthy: the dependence of authorship recognition and sample size.</figDesc><graphic url="image-3.png" coords="3,54.30,72.30,241.44,241.44" type="bitmap" /></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_3"><head>Figure 4 :</head><label>4</label><figDesc>Figure 4: Bleak House by Charles Dickens: the dependence of authorship recognition and sample size.</figDesc><graphic url="image-4.png" coords="3,54.30,359.34,241.44,241.20" type="bitmap" /></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_4"><head>Figure 5 :</head><label>5</label><figDesc>Figure 5: Catriona by Robert Louis Stevenson: the dependence of authorship recognition and sample size.</figDesc><graphic url="image-5.png" coords="3,316.86,72.30,241.44,241.44" type="bitmap" /></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_5"><head>Figure 6 :</head><label>6</label><figDesc>Figure 6: Diversity scores (Simpson index) as a function of sample size.</figDesc><graphic url="image-6.png" coords="4,54.30,318.30,241.44,241.20" type="bitmap" /></figure>
+		</body>
+		<back>
+			<div type="references">
+
+				<listBibl>
+
+<biblStruct xml:id="b0">
+	<monogr>
+		<title level="m" type="main">Interpreting Burrows&apos;s delta: geometric and probabilistic foundations. Literary and Linguistic Computing</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">S</forename><surname>Argamon</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="2011" />
+			<biblScope unit="volume">23</biblScope>
+			<biblScope unit="page" from="131" to="178" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b1">
+	<analytic>
+		<title level="a" type="main">Delta&apos;: a measure of stylistic difference and a guide to likely authorship</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">J</forename><surname>Burrows</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Literary and Linguistic Computing</title>
+		<imprint>
+			<biblScope unit="volume">17</biblScope>
+			<biblScope unit="issue">3</biblScope>
+			<biblScope unit="page" from="267" to="87" />
+			<date type="published" when="2002" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b2">
+	<monogr>
+		<title level="m" type="main">Does size matter? Authorship attribution, small samples, big problem. Digital Scholarship in the Humanities</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">M</forename><surname>Eder</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="2015" />
+			<biblScope unit="volume">30</biblScope>
+			<biblScope unit="page" from="167" to="82" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b3">
+	<analytic>
+		<title level="a" type="main">Stylometry with R: a package for computational text analysis</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">M</forename><surname>Eder</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">J</forename><surname>Rybicki</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">M</forename><surname>Kestemont</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">R Journal</title>
+		<imprint>
+			<biblScope unit="volume">8</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="107" to="128" />
+			<date type="published" when="2016" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b4">
+	<analytic>
+		<title level="a" type="main">Outliers or key profiles? Understanding distance measures for authorship attribution</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">S</forename><surname>Evert</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">F</forename><surname>Jannidis</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">T</forename><surname>Proisl</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">V</forename><surname>Thorsten</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">C</forename><surname>Schöch</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">S</forename><surname>Pielström</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">I</forename><surname>Reger</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Digital Humanities</title>
+		<imprint>
+			<biblScope unit="page" from="188" to="91" />
+			<date type="published" when="2016" />
+		</imprint>
+		<respStmt>
+			<orgName>Conference Abstracts. KrakówKraków: Jagiellonian University &amp; Pedagogical University</orgName>
+		</respStmt>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b5">
+	<analytic>
+		<title level="a" type="main">Bigrams of syntactic labels for authorship discrimination of short texts</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">G</forename><surname>Hirst</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">O</forename><surname>Feiguina</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Literary and Linguistic Computing</title>
+		<imprint>
+			<biblScope unit="volume">22</biblScope>
+			<biblScope unit="issue">4</biblScope>
+			<biblScope unit="page" from="405" to="422" />
+			<date type="published" when="2007" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b6">
+	<analytic>
+		<title level="a" type="main">Authenticating the writings of Julius Caesar</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">M</forename><surname>Kestemont</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">J</forename><surname>Stover</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">M</forename><surname>Koppel</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">F</forename><surname>Karsdorp</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">W</forename><surname>Daelemans</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Expert Systems With Applications</title>
+		<imprint>
+			<biblScope unit="volume">63</biblScope>
+			<biblScope unit="page" from="86" to="96" />
+			<date type="published" when="2016" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b7">
+	<analytic>
+		<title level="a" type="main">Computational methods in authorship attribution</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">M</forename><surname>Koppel</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">J</forename><surname>Schler</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">S</forename><surname>Argamon</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Journal of the American Society for Information Science and Technology</title>
+		<imprint>
+			<biblScope unit="volume">60</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="9" to="26" />
+			<date type="published" when="2009" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b8">
+	<analytic>
+		<title level="a" type="main">The effect of author set size and data size in authorship attribution</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">K</forename><surname>Luyckx</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">W</forename><surname>Daelemans</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Literary and Linguistic Computing</title>
+		<imprint>
+			<biblScope unit="volume">26</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="35" to="55" />
+			<date type="published" when="2011" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b9">
+	<analytic>
+		<title level="a" type="main">Content words in authorship attribution: an evaluation of stylometric features in a literary corpus</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">G</forename><forename type="middle">K</forename><surname>Mikros</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Studies in Quantitative Linguistics</title>
+		<editor>Kö hler, R.</editor>
+		<imprint>
+			<date type="published" when="2009" />
+			<biblScope unit="volume">5</biblScope>
+			<biblScope unit="page" from="61" to="75" />
+		</imprint>
+	</monogr>
+	<note>Lü denscheid: RAM</note>
+</biblStruct>
+
+<biblStruct xml:id="b10">
+	<analytic>
+		<title level="a" type="main">Deeper Delta across genres and languages: do we really need the most frequent words</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">J</forename><surname>Rybicki</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">M</forename><surname>Eder</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Literary and Linguistic Computing</title>
+		<imprint>
+			<date type="published" when="2011" />
+			<biblScope unit="volume">26</biblScope>
+			<biblScope unit="page" from="315" to="336" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b11">
+	<analytic>
+		<title level="a" type="main">Measurement of diversity</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">E</forename><forename type="middle">H</forename><surname>Simpson</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Nature</title>
+		<imprint>
+			<biblScope unit="volume">163</biblScope>
+			<biblScope unit="page">688</biblScope>
+			<date type="published" when="1949" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b12">
+	<monogr>
+		<title level="m" type="main">Author identification: Using text sampling to handle the class imbalance problem. Information Processing and Management</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">E</forename><surname>Stamatatos</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="2008" />
+			<biblScope unit="volume">44</biblScope>
+			<biblScope unit="page" from="790" to="99" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b13">
+	<analytic>
+		<title level="a" type="main">Effective and scalable authorship attribution using function words</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">Y</forename><surname>Zhao</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">J</forename><surname>Zobel</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Proceedings of the Second Asia Conference on Asia Information Retrieval Technology. (AIRS&apos;05)</title>
+		<meeting>the Second Asia Conference on Asia Information Retrieval Technology. (AIRS&apos;05)<address><addrLine>Berlin, Heidelberg</addrLine></address></meeting>
+		<imprint>
+			<publisher>Springer-Verlag</publisher>
+			<date type="published" when="2005" />
+			<biblScope unit="page" from="174" to="89" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+				</listBibl>
+			</div>
+		</back>
+	</text>
+</TEI>

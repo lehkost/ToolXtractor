@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>A Distant Reading Visualization for Variant Graphs</title>
+                <author>
+                    <persName>
+                        <surname>Jänicke</surname>
+                        <forename>Stefan</forename>
+                    </persName>
+                    <affiliation>Leipzig University, Germany</affiliation>
+                    <email>stjaenicke@informatik.uni-leipzig.de</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Geßner</surname>
+                        <forename>Annette</forename>
+                    </persName>
+                    <affiliation>Göttingen Centre for Digital Humanities, University of Göttingen, Germany</affiliation>
+                    <email>annette.gessner@gmail.com</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2014-12-19T13:50:00Z</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Paul Arthur, University of Western Sidney</publisher>
+                <address>
+                    <addrLine>Locked Bag 1797</addrLine>
+                    <addrLine>Penrith NSW 2751</addrLine>
+                    <addrLine>Australia</addrLine>
+                    <addrLine>Paul Arthur</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from a Word document </p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.9">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Long Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>Variant Graph</term>
+                    <term>Distant Reading</term>
+                    <term>Bible Visualization</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>text analysis</term>
+                    <term>visualisation</term>
+                    <term>networks</term>
+                    <term>relationships</term>
+                    <term>graphs</term>
+                    <term>English</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <p>Motivation</p>
+            <p>A Variant Graph is a data structure that can be used to model the similarities and differences among various editions of a text (Schmidt et al., 2009). Last year we presented a set of design rules for Variant Graphs (Jänicke et al., 2014) that are implemented by the web-based tool TRAViz.
+                <hi rend="superscript">1</hi> Figure 1 shows a Variant Graph for 24 different English translations of 
+                <hi rend="italic">Genesis 1:1</hi>.
+            </p>
+            <figure>
+                <graphic n="1001" width="16.467666666666666cm" height="2.7904722222222222cm" url="Pictures/image1.png" rend="block"/>
+            </figure>
+            <p>Figure 1. 
+                <hi rend="italic">Genesis 1:1</hi> in 24 English translations.
+            </p>
+            <p>Designing the graph that way, the humanist is able to analyze similarities and differences among various text editions on verse level. Although TRAViz can also be utilized for larger text entities such as sections or chapters, the resultant visualizations are hardly readable, and an analysis of the Variant Graphs becomes a laborious task. Therefore, TRAViz remains a close reading visualization tool only to be used when the user has a specific research question for a desired text part, such as the analysis of numerous different translations of the Sixth Commandment, commonly recited as, ‘You shall not kill’ (Jänicke et al., 2015). Research questions like, ‘For which Bible books are the various translations most similar?’ or ‘For which chapters of book X do the rather similar translations A, B, and C differ most and why?’ cannot be answered with TRAViz. As Moretti suggests, such kind of questions require distant reading approaches to be answered (2005). This paper proposes a visualization that offers a distant view on Variant Graphs calculated for each Bible verse in order to support the humanists in detecting and analyzing occurring patterns on higher text hierarchy levels (the entire Bible, books, chapters) as provided by TRAViz (verses).</p>
+            <p>The Bible Corpus</p>
+            <p>The Bible is a very good use-case for the purpose of designing a distant reading visualization for Variant Graphs. First, it is a very influential and well-known text, which supports easy evaluation of results. Second, its structure includes a four-level hierarchy that makes views of varying distance on the text possible: the whole Bible (level 1) consists of books, each book (level 2) is divided into chapters, and each chapter (level 3) is composed of verses. Each verse (level 4) can be visualized utilizing a close reading visualization like TRAViz, but all other hierarchy levels require a distant reading solution.</p>
+            <p>The Bible corpus of our project consists of 24 English Bible translations spanning a period from the 14th (Wycliffe Bible) to the 21st centuries (e.g., Catholic Public Domain Version). It includes editions in Middle and Modern English, a great variety of translation dependencies (e.g., editions based on the King James Version) as well as a diversity of translation motivations (e.g., simplified language in the Bible in Basic English). The versatility of the corpus allows for a multitude of research questions to be asked by the humanists of our project. One of their use-cases is outlined below.</p>
+            <p>Visualization Design</p>
+            <p>Figure 2 shows a screenshot of the system that our humanists work with. Arranged in columns, the top panel lists all available Bible editions either sorted by year of publication or in alphabetical order. On demand, the user is able to compose a desired set of editions by clicking the corresponding checkboxes. Below the Bible editions, the humanist is able to tweak the visualization dependent on the given research question. In particular, the user can</p>
+            <p> • Define a threshold value for the majority of editions.</p>
+            <p> • Either highlight text passages that are similar or dissimilar to a certain extent from the predefined majority.</p>
+            <p> • Adjust the percentage of words that need to be similar or dissimilar regarding the majority to highlight a text passage.</p>
+            <p>The bottom panel visualizes a ‘(dis-)similarity fingerprint’ for all 24 editions of the Bible on level 1; the user can interactively navigate between the various hierarchy levels. Each Bible book receives a rectangular block with its width reflecting the number of chapters. According to the configuration in this example, a tiny rectangle for a chapter of an edition is drawn in its assigned color,
+                <hi rend="superscript">2</hi> if at least 50% of its contained words differ from the majority of at least 10 editions. The resultant pattern reflects, e.g., three salient editions for the New Testament, which reveals individual translation styles: the Wycliffe Bible (1380, dark yellow) is the only translation in Middle English, whereas the God’s Word Translation (1995, blue) and the Bible in Basic English (1949, light green) aim to be understood very easily nowadays and, thus, choose to deviate from other editions that tend to be more antiquated and sophisticated in language and style.
+            </p>
+            <figure>
+                <graphic n="1002" width="16.217194444444445cm" height="11.191875cm" url="Pictures/image2.png" rend="block"/>
+            </figure>
+            <p>Figure 2. Distant reading of 24 Bible editions.</p>
+            <p>A Use Case</p>
+            <p>Concentrating on similarity (80% similarity, majority of seven) highlights Bible editions that are very similar in almost all chapters of all books (Figure 3). Most of these editions are based on the King James Version, which is known as the most influential translation (Ryken, 2011). But surprisingly, albeit claiming to be ‘as exact a translation as possible’
+                <hi rend="superscript">3</hi> in Modern English from the original languages Hebrew and Greek, the Darby Bible (1890, light blue) is also highlighted as very similar. 
+            </p>
+            <p>To determine the role of the Darby Bible, we remove all Bible editions not (apparently) connected to the King James Version. Now, clicking the book 
+                <hi rend="italic">Matthew</hi> and highlighting dissimilarity (50% dissimilarity, majority of seven), we detect a cluster of derivations for verses 16–18 of chapter 7 (Figure 4). As implied on the book-level, the chapter-level confirms the Darby-deviations by highlighting the corresponding passages in the individual verses based upon a majority of four (Figure 5).
+            </p>
+            <figure>
+                <graphic n="1003" width="16.52411111111111cm" height="11.165416666666667cm" url="Pictures/image3.png" rend="block"/>
+            </figure>
+            <p>Figure 3. The whole Bible (level 1) visualizing similarity.</p>
+            <figure>
+                <graphic n="1004" width="16.1925cm" height="6.058958333333333cm" url="Pictures/image4.png" rend="inline"/>
+            </figure>
+            <p>Figure 4. Dissimilarity of selected editions in 
+                <hi rend="italic">Matthew </hi>(level 2).
+            </p>
+            <figure>
+                <graphic n="1005" width="16.52411111111111cm" height="7.9551388888888885cm" url="Pictures/image5.png" rend="block"/>
+            </figure>
+            <p>Figure 5. Dissimilarity of selected editions in 
+                <hi rend="italic">Matthew 7</hi> (level 3).
+            </p>
+            <p>Indeed in 
+                <hi rend="italic">Matthew 7:16</hi> (Figure 6), Darby and some other editions differ in word order (but not so much in the translations); among others he chooses the elder word ‘ye’ instead of ‘you’ and as the only translation he writes ‘a bunch of grapes’ instead of ‘grapes’ and instead of ‘figs of thistles’ he writes ‘thistles figs’ (?). In 
+                <hi rend="italic">Matthew 7:17</hi> (Figure 7) and 
+                <hi rend="italic">Matthew 7:18</hi> (Figure 8), the main structure of the sentence remains in Darby, but some words are translated differently: instead of ‘bring forth’, Darby uses the word ‘produce’ (followed by World English Bible [2000, brown] and A Voice in the Wilderness [2004, purple]), the word ‘nor’ instead of ‘neither’ (followed by A Voice in the Wilderness), and when fruit are described, Darby uses the not morally associated adjective ‘bad’ instead of ‘evil’, and ‘worthless’ instead of ‘corrupt’.
+            </p>
+            <figure>
+                <graphic n="1006" width="16.52411111111111cm" height="6.111875cm" url="Pictures/image6.png" rend="block"/>
+            </figure>
+            <p>Figure 6. 
+                <hi rend="italic">Matthew 7:16</hi> (level 4).
+            </p>
+            <figure>
+                <graphic n="1007" width="16.467666666666666cm" height="5.443361111111111cm" url="Pictures/image7.png" rend="block"/>
+            </figure>
+            <p>Figure 7. 
+                <hi rend="italic">Matthew 7:17</hi> (level 4).
+            </p>
+            <figure>
+                <graphic n="1008" width="16.439444444444444cm" height="5.4980416666666665cm" url="Pictures/image8.png" rend="block"/>
+            </figure>
+            <p>Figure 8. 
+                <hi rend="italic">Matthew 7:18</hi> (level 4).
+            </p>
+            <p>All in all, with this setting, even when choosing passages marked as dissimilar, the close view confirms what the distant view implied, which is, how close the Darby Bible sticks to the other editions concerning word order, language, and most of the words themselves. Most deviations are single words that are substituted by synonyms or something similar.</p>
+            <p>Nevertheless, the Darby variations tend to be the very obvious ones, next to those of A Voice in the Wilderness, but rarely seem to change the meaning of the text in a significant way. Thus, it seems that the Darby Bible, which tried to translate the ancient languages as exactly as possible, may have had a significant impact on later translations based (not only) on the King James Version.</p>
+            <p>Conclusion</p>
+            <p>In contrast to projects dealing with a rather small number of text editions on a close reading basis,
+                <hi rend="superscript">4</hi> the presented novel technique provides a distant reading of Variant Graphs for a potential high number of editions. Just reading 24 translations of the Bible would require a huge amount of time, and comparing those editions would take even longer. Being able to see similarity and dissimilarity on various text hierarchy levels enables the user not only to save time by directing to passages that could be of interest, but it can even raise new and worthy research questions. This way of visualizing bears even the potential to cause serendipity by showing relations that have not yet been seen.
+            </p>
+            <p>In the future, we plan to provide an Open Source library to enable the application of the visualization for other hierarchically structured texts. Visualizing the (dis-)similarity between various editions of Homer’s epics could be one of the interesting examples. Being an important work for philologists, we could also extend the visualization to display the occurring transposed verses.</p>
+            <p rend="Normal1">Acknowledgements</p>
+            <p rend="Normal1">The authors like to thank the Baker Publishing Group for the permission to include the God’s Word Translation in our database. This research was funded by the German Federal Ministry of Education and Research.</p>
+            <p>Notes</p>
+            <p rend="footnote text">1. http://www.traviz.vizcovery.org/.</p>
+            <p rend="Normal1">2. The fixed edition order simplified the crucial task of selecting colors. Following the suggestions made by Harrower et al. (2003), we defined a set of 24 varying colors ordered by alternating hue and saturation intensity, so that visually similar colors are not placed next to each other.</p>
+            <p rend="Normal1">3. According to the introduction to the 1890 edition, which can be found online at</p>
+            <p>http://www.ccel.org/bible/jnd/darby.htm#2.</p>
+            <p rend="Normal1">4. Other projects also provide solutions for the visualization of textual variance. CollateX (http://collatex.net/), primarily focused on developing alignment algorithms for text editions, uses the GraphViz library (http://www.graphviz.org/) to visualize rather small texts analogous to TRAViz. Some web-based platforms allow reading of parallel texts in the browser. Juxta Commons (http://juxtacommons.org/) shows variant patterns between two texts, and with Versioning Machine (http://v-machine.org/), multiple editions are displayed next to each other. Both tools support only close reading for a small number of text editions.</p>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl>
+                        <hi rend="bold">Harrower, M. and Brewer, C. A. </hi>(2003). ColorBrewer.org: An Online Tool for Selecting Colour Schemes for Maps. 
+                        <hi rend="italic">Cartographic Journal,</hi>
+                        <hi rend="bold">40</hi>(1): 27–37.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Jänicke, S., Geßner, A., Büchler, M. and Scheuermann, G. </hi>(2014a). 5 Design Rules for Visualizing Text Variant Graphs. In
+                        <hi rend="italic"> Proceedings of the Digital Humanities 2014</hi>.
+                    </bibl>
+                    <bibl rend="Normal1">
+                        <hi rend="bold">Jänicke, S., Geßner, A., Franzini, G., Terras, M., Mahony, S. and Scheuermann, G.</hi> (2015). TRAViz: A Visualization for Variant Graphs. To appear in 
+                        <hi rend="italic background(white)">Digital Scholarship in the Humanities</hi>
+                        <hi rend="italic">,</hi> 2015.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Moretti, F. </hi>(2005). 
+                        <hi rend="italic">Graphs, Maps, Trees: Abstract Models for a Literary History. </hi>Verso.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Ryken, L. </hi>(2011). 
+                        <hi rend="italic">The Legacy of the King James Bible: Celebrating 400 Years of the Most Influential English Translation. </hi>Crossway.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Schmidt, D. and Colomb, R. </hi>(2009). A Data Structure for Representing Multi-Version Texts Online. 
+                        <hi rend="italic">International Journal of Human-Computer Studies,</hi>
+                        <hi rend="bold">67</hi>(6): 497–514.
+                    </bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title type="full">
+                    <title type="main">Extraction and Visualization of Toponyms in Diachronic Text Corpora</title>
+                    <title type="sub"/>
+                </title>
+                <author>
+                    <persName>
+                        <surname>Barbaresi</surname>
+                        <forename>Adrien</forename>
+                    </persName>
+                    <affiliation>Austrian Academy of Sciences, Austria; Berlin-Brandenburg Academy of Sciences, Germany</affiliation>
+                    <email>adrien.barbaresi@oeaw.ac.at</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Biber</surname>
+                        <forename>Hanno</forename>
+                    </persName>
+                    <affiliation>Austrian Academy of Sciences, Austria</affiliation>
+                    <email>hanno.biber@oeaw.ac.at</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2016-03-04T12:24:58.154973977</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Maciej Eder, Pedagogical University in Krakow</publisher>
+                <publisher>Jan Rybicki, Jagiellonian University</publisher>
+                <address>
+                    <addrLine>Institute of Polish Studies</addrLine>
+                    <addrLine>Pedagogical University</addrLine>
+                    <addrLine>ul. Podchorazych 2</addrLine>
+                    <addrLine>30-084 Krakow, Poland</addrLine>
+                    <addrLine>maciej.eder@ijp-pan.krakow.pl</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from an OASIS Open Document</p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.21">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Poster</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>Toponym Resolution</term>
+                    <term>Visualization</term>
+                    <term>Digital Literary Studies</term>
+                    <term>German Literary History</term>
+                    <term>Methodology</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>corpora and corpus activities</term>
+                    <term>geospatial analysis, interfaces and technology</term>
+                    <term>natural language processing</term>
+                    <term>text analysis</term>
+                    <term>content analysis</term>
+                    <term>german studies</term>
+                    <term>visualisation</term>
+                    <term>English</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <div type="div1" rend="DH-Heading1">
+                <head>Introduction</head>
+                <p>This paper focuses on the extraction of German and Austrian place names in historical texts. It is part of a cooperation between the Berlin-Brandenburg and the Austrian Academies of Sciences. The latter is the holder of the text basis for this investigation, the digitized version of the satirical literary magazine "Die Fackel" ("The Torch"). It has been originally published and almost entirely written by the satirist and language critic Karl Kraus in Vienna from 1899 until 1936, and contains a considerable variety of toponyms (Biber, 2001).</p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Gazetteers and lists</head>
+                <p>Toponym resolution often relies on named-entity recognition and artificial intelligence (Leidner and Lieberman, 2011). However, knowledge-based methods using fine-grained data – for example from Wikipedia – have already been used with encouraging results (Hu et al., 2014).During the 20th century there have been significant political changes in Central Europe that have severely affected toponyms, so that geographical databases lack coverage and detail. Consequently, the database we develop follows from a combination of approaches: gazetteers are curated in a supervised way to account for historical differences,and current geographical information is used as a fallback.</p>
+                <p>First, a cascade of filtersis used: (1) current and historical states (e.g. Austria-Hungary); (2) regions, important subparts of states, and regional landscapes (e.g. Swabia); (3) populated places; (4) geographical features (e.g. valleys). Wikipedia's API is used to navigate in categories and to retrieve coordinates, which are completed by hand for states and regions.Second, current information is also compiled from the Geonames database
+                    <note xml:id="ftn1" place="foot" n="1">
+                        <ptr target="http://www.geonames.org/"/>
+                    </note>: data for European countries are retrieved and preprocessed(variants and place types).
+                </p>
+                <p>In order to exclude common and proper nouns, the German version of the Wiktionary serves as a reference
+                    <note xml:id="ftn4" place="foot" n="2"> Thanks to Kay-Michael Würzner (BBAW) for his extraction script.</note>, and registers of frequent surnamesand family names, as well as well-known persons (especially writers) are built using Wikipedia and Wikidata.
+                </p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Extraction</head>
+                <p>The texts were digitized, manually corrected as well as manually annotated with respect to the names of persons and institutions, so that most proper nouns which are not place names can be excluded from the study.</p>
+                <p>The tokenized files of works to be analyzed (Jurish and Würzner, 2013) are filtered and matched with the databaseby finite-state automatons: toponyms are extracted using a sliding window (for multi-word names up to three components). Disambiguation being a critical component (Leetaru, 2012), an algorithm similar to Pouliquen et al. (2006), who demonstrated that an acceptable precision can be reached that way,guesses the most probable entry based on distanceto Vienna (Sinnott, 1984), contextual information(closest-country, last names resolved), and importance (place type, population count).</p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>
+                    <hi rend="bold">Visualization</hi>
+                </head>
+                <p>The results are projected on a map of Europe with boundaries of 1914
+                    <note xml:id="ftn2" place="foot" n="3">
+                        <ptr target="http://dev2.dariah.eu/geoserver/web/"/>
+                    </note> using TileMill
+                    <note xml:id="ftn3" place="foot" n="4">
+                        <ptr target="https://www.mapbox.com/tilemill/"/>
+                    </note>. They are customized with CartoCSS: multiple trial-and-error iterations are performed concerning both data quality and graphical output. The two experimental maps belowground on the same data, they result from different settings.
+                </p>
+                <figure>
+                 <graphic url="404/10000000000003200000029B1FE2607EE2A29830.png"/>
+                 <head>
+                 <p>Map 1– Experiment on European scale with boundaries of 1914 (yellow: sovereign territories; orange: regions; green: populated places; blue: geographical features)</p>
+                 </head>
+                </figure>
+                <figure>
+                  <graphic url="404/1000000000000320000002A717C1DDBE9503CB88.png"/>
+                <head>
+                <p>Map 2– Central Europe, experiment with a restrictive filtering</p>
+                </head>
+                </figure>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>
+                    <hi rend="bold">Discussion</hi>
+                </head>
+                <p>Potential conceptual caveats include previous times as well as fictitious places, especially names which can refer to mythological and actual places of Ancient Greece or Rome. Practical caveats are for instance false localizations due to disambiguation errors (e.g. Brünn/Brno on map 2). We plan to bypass the disambiguation for a hand-picked list of places. As big datais an entanglement of implicit theoretical assumptions (Crawford et al., 2014), the difference between a mere data collection project and a digital humanities study resides precisely in the number and diversity of filters used. The code and listings produced for this study are available online.
+                    <note xml:id="ftn0" place="foot" n="5">
+                        <ptr target="https://github.com/adbar/toponyms"/>
+                    </note> We plan to integrate corpora of greater variety and scope and to include more specific metadata in order to design versatile visualizations.
+                </p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Conclusion</head>
+                <p>A map is a discrimination, a marking of difference (Wulfman, 2014): our maps highlight the linguistic and cultural ties of Kraus and his contemporaries with Bohemia and Northern Italy, where there are more numerous toponyms to be found than in Hungary.Beyond that, "Die Fackel" is (at least) a European phenomenon; Kraus' vision of Europe is more inclined towards cultural centers (Prague, Munich, Paris, Berlin).</p>
+                <p>It is our hope that visualization studies based upon mixed methods contribute to a greater awareness of the potential of digital heritage as well as literary studies in the digital age. Although the maps seem immediately interpretable, they are not an objective result but a construct (Juvan, 2015), the result of a filtering. The "human" interventions on the map as well as the technical competence to do so replace this study in the hermeneutic circle of the philological tradition.</p>
+            </div>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl>
+                        <hi rend="bold">AAC-FACKEL.</hi> Die Fackel. Herausgeber: Karl Kraus, Wien 1899-1936. In Biber, H., Breiteneder, E., Kabas, H., Mörth, K.; Graphic Design: Burdick, A.(eds), <hi rend="italic">AAC Digital Edition 1</hi>, http://www.aac.ac.at/fackel.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Biber, H.</hi> (2001). In Wien, in Prag und infolgedessen in Berlin - Ortskonstellationen in der "Fackel". In Marten-Finnis, S., Uecker, M. (ed.) 
+                        <hi rend="italic">Berlin-Wien-Prag. Moderne, Minderheiten und Migration in der Zwischenkriegszeit</hi>, Peter Lang, pp. 15-26.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Crawford, K., </hi>
+                        <hi rend="bold"> Gray, M. </hi>
+                        <hi rend="bold">and</hi>
+                        <hi rend="bold"> Miltner, K.</hi> (2014). Big Data | Critiquing Big Data: Politics, Ethics, Epistemology | Special Section Introduction. 
+                        <hi rend="italic">International Journal of Communication</hi>, <hi rend="bold">8</hi>: 1663–72.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Hu, Y., </hi>
+                        <hi rend="bold"> Janowicz, K. </hi>
+                        <hi rend="bold">and</hi>
+                        <hi rend="bold"> Prasad, S.</hi> (2014). Improving Wikipedia-Based Place Name Disambiguation in Short Texts Using Structured Data from Dbpedia. 
+                        <hi rend="italic">Proceedings of the 8th Workshop on Geographic Information Retrieval</hi>, ACM, pp. 8-16.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Juvan, M.</hi> (2015). From Spatial Turn to GIS-Mapping of Literary Cultures.                      <hi rend="italic">European Review</hi>
+                        <hi rend="bold">23</hi>(1): 81-96.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Jurish, B. </hi>
+                        <hi rend="bold">and</hi>
+                        <hi rend="bold"> Würzner, K.-M.</hi> (2013). Word and Sentence Tokenization with Hidden Markov Models. 
+                        <hi rend="italic">JLCL</hi>, <hi rend="bold">28</hi>(2): 61–83.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Leidner, J. L. </hi>
+                        <hi rend="bold">and</hi>
+                        <hi rend="bold"> Lieberman, M. D.</hi> (2011). Detecting Geographical References in the Form of Place Names and Associated Spatial Natural Language. 
+                        <hi rend="italic">SIGSPATIAL Special</hi>, <hi rend="bold">3</hi>(2): 5-11.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Pouliquen, B., Kimler, M., Steinberger, R., Ignat, C., Oellinger, T., Blackler, K., Fluart, F., Zaghouani, W., Widiger, A., Forslund, A.-C. and Best, C.</hi> (2006). Geocoding multilingual texts: Recognition, disambiguation and visualisation. 
+                        <hi rend="italic">Proceedings of The Fifth International Conference on Language Resources and Evaluation (LREC)</hi>, pp. 53-58.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Sinnott, R. W.</hi> (1984). Virtues of the Haversine.
+                        <hi rend="italic">Sky and Telescope</hi>
+                        <hi rend="bold">68</hi>(2): 159.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Wulfman, C. E.</hi> (2014). The Plot of the Plot: Graphs and Visualizations. 
+                        <hi rend="italic">The Journal of Modern Periodical Studies</hi>, <hi rend="bold">5</hi>(1): 94-109.
+                    </bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

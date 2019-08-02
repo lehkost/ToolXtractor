@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>Named Entity Extraction from digitized texts of Mongolian Historical Documents in Traditional Mongolian Script</title>
+                <author>
+                    <persName>
+                        <surname>Batjargal</surname>
+                        <forename>Biligsaikhan</forename>
+                    </persName>
+                    <affiliation>Research Organization of Science and Engineering, Ritsumeikan University, Japan</affiliation>
+                    <email>biligsaikhan@gmail.com</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Khaltarkhuu</surname>
+                        <forename>Garmaabazar</forename>
+                    </persName>
+                    <affiliation>Mongolia-Japan Center for Human Resources Development, Mongolia</affiliation>
+                    <email>garmaabazar@gmail.com</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Maeda</surname>
+                        <forename>Akira</forename>
+                    </persName>
+                    <affiliation>College of Information Science and Engineering, Ritsumeikan University, Japan</affiliation>
+                    <email>amaeda@media.ritsumei.ac.jp</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2014-12-19T13:50:00Z</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Maciej Eder, Pedagogical University in Krakow</publisher>
+                <publisher>Jan Rybicki, Jagiellonian University</publisher>
+                <address>
+                    <addrLine>Institute of Polish Studies</addrLine>
+                    <addrLine>Pedagogical University</addrLine>
+                    <addrLine>ul. Podchorazych 2</addrLine>
+                    <addrLine>30-084 Krakow, Poland</addrLine>
+                    <addrLine>maciej.eder@ijp-pan.krakow.pl</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from a Word document </p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.20">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Poster</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>historical documents</term>
+                    <term>traditional Mongolian script</term>
+                    <term>digital humanities</term>
+                    <term>machine learning</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>natural language processing</term>
+                    <term>text analysis</term>
+                    <term>linking and annotation</term>
+                    <term>data mining / text mining</term>
+                    <term>English</term>
+                    <term>digital humanities - diversity</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <div type="div1" rend="DH-Heading1">
+                <head>Abstract</head>
+                <p>In this paper, we demonstrate a named entity extraction method for digitized ancient Mongolian documents by using features of traditional Mongolian script. In the field of humanities, getting knowledge by analyzing various historical documents is an important task. There are increasing demands from Mongolian humanities researchers to perform text analysis at massive scale with prompt and accurate results. A few ancient Mongolian historical manuscripts including 1) the “Qad-un ündüsün-ü quriyangγui altan tobči neretü sudur (The Altan Tobchi or the Golden Summary: Short history of the Origins of the Khans)” a.k.a “Little” Altan Tobchi, and 2) the “Asaraġci neretü-yin teüke or Asragch nėrtiin tüükh (The Story of Asragch)”, which were written in traditional Mongolian script have been converted to digital texts and made publicly available through the traditional Mongolian script digital library (TMSDL) (Batjargal et al., 2013). Figure 1 shows a page of the “Little” Altan Tobchi in the TMSDL. The demands from Mongolian humanities researchers, as well as the lessons learned from the TMSDL have encouraged us to conduct further research in developing a new method for extracting named entities from ancient Mongolian historical documents. However, there has been little research on text mining or named entity extraction for Mongolian language and none of the research has considered text mining on ancient Mongolian historical documents due to the lack of research in those areas. Thus, we want to propose a named entity extraction method for ancient historical documents in traditional Mongolian script by employing machine learning techniques for aiming to reduce the labor-intensive analysis on historical text.</p>
+                <figure>
+                    <graphic url="375/image1.png" rend="inline"/>
+                    <head>
+                    <p rend="Figure Caption">Figure 1. Screenshot of the TMSDL</p>
+                    </head>
+                    </figure>
+                <p>In the proposed approach, an ancient Mongolian corpus gets tokenized, each token gets annotated and gold standard annotations are prepared for inputting into computer system for learning. The proposed method learns the extraction rules of personal names and place names from annotated training corpora, and then extracts named entities from ancient Mongolian texts by employing machine learning techniques (Batjargal et al., 2015).</p>
+                <p>We use the IOB2 (Ramshaw and Marcus, 1995) format for tagging tokens. Because of some unique features of traditional Mongolian script, we also use “Start/End” (SE) chunk tag set (Asahara and Matsumoto, 2003). “S” tag is attached to the first character of each word including the named entities and “E” tag to the last character. Thus, each token will include the 1) IOB2 tag and 2) SE tag.</p>
+                <p>We also consider the following features of traditional Mongolian script for differentiating personal names and place names.</p>
+                <list type="unordered">
+                    <item>
+                        <hi rend="bold">Information of the preceding </hi>
+                        <hi rend="Bullets">and</hi>
+                        <hi rend="bold"> following tokens:</hi> Features are extracted by looking the context of the current, preceding, and succeeding tokens. If the preceding token is generational or dynastic information, an inherited or life-time title of nobility, or a traditional descriptive phrase, it could indicate the current token is a personal name.
+                    </item>
+                    <item>
+                        <hi rend="bold">Suffix:</hi> Many 
+                        <hi rend="Bullets">living</hi> being and humankind proper names take only certain plural suffixes such as 
+                        <graphic url="375/image2.png" rend="inline"/> (nar/ner) and possessive suffixes (Chinggaltai, 1963). Some suffixes are visually separated from the stem of a word or other suffixes, but any attached suffixes are considered to be an integral part of the word. 
+                    </item>
+                    <item>
+                        <hi rend="bold">Beginning of a sentence:</hi> Subjects or personal names often appear at the beginning of a sentence.
+                    </item>
+                    <item>
+                        <hi rend="bold">End of a token:</hi> Words with a final vowel letter ‘a’ or ‘e’ are separated visually from the preceding consonant by a narrow gap. However, the ‘a’ or ‘e’ is an integral part of the word stem.
+                    </item>
+                </list>
+                <p>For evaluation, we calculated precision, recall, and F-measure by the 5-fold cross-validation. To prepare the gold standard annotations, we annotated all the personal names and place names in the “Little” Altan Tobchi using the manually compiled personal and place names’ indices obtained from the “Qad-un ündüsün quriyangγui altan tobči –Textological Study” (Choimaa, 2002). For the experimental corpus, we utilized digitized text of chronological manuscripts “Little” Altan Tobchi. We utilized the LIBLINEAR with the L2-regularized L2-loss support vector classification (dual) solver (Rong-En Fan et al., 2008).</p>
+                <p>We will further improve the proposed method by considering more features by conducting various experiments with different combinations of features for checking whether the particular feature set will improve the preliminary results of 0.70 of precision, 0.57 of recall and 0.63 of F-measure or not.</p>
+            </div>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl>
+                        <hi rend="bold">Asahara, M. and Matsumoto, Y</hi>. (2003). Japanese Named Entity Extraction with Redundant Morphological Analysis, 
+                        <hi rend="italic">Proceeding of the 2003 Conference of the North American Chapter of the Association for Computational Linguistics on Human Language</hi>, Stroudsburg, PA, USA, June 2003, pp. 8–15.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Batjargal, B., Khaltarkhuu, G., Kimura, F. and Maeda, A.</hi> (2012). Developing a Digital Library of Historical Records in Traditional Mongolian Script, 
+                        <hi rend="italic">International Journal of Digital Library Systems</hi>, 
+                        <hi rend="bold">3</hi>(1): 33–53.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Batjargal, B., Khaltarkhuu, G., Kimura, F. and Maeda, A.</hi> (2015). An Approach to Named Entity Extraction from Mongolian Historical Documents, 
+                        <hi rend="italic">Proceedings of the International Conference on Culture and Computing (Culture and Computing 2015)</hi>, Kyoto, Japan, October 2015, pp. 205-06.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Chinggaltai</hi>. (1963). <hi rend="italic">A Grammar of the Mongol Language.</hi> New York: Frederick Ungar Publishing Co.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Choimaa, Sh.</hi> (2002). <hi rend="italic">Qad-un űndűsűn quriyangγui altan tobči (Textological Study)</hi> vol. <hi rend="bold">1</hi>. (in Mongolian). Ulaanbaatar: Centre for Mongol Studies, National University of Mongolia, Urlakh Erdem.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Fan, R.-E., Chang, K.–W., Hsieh, C.–J., Wang, X.–R. and Lin, C.-J.</hi> (2008). LIBLINEAR: A Library for Large Linear Classification. 
+                        <hi rend="italic">Journal of Machine Learning Research</hi>, 
+                        <hi rend="bold">9</hi>: 1871–74.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Ramshaw, L. A. and Marcus, M. P.</hi> (1995). Text Chunking Using Transformation-based Learning, 
+                        <hi rend="italic">Proceedings of the 3rd ACL Workshop on Very Large Corpora</hi>, Cambridge MA, USA, June 1995, pp. 82–94.
+                    </bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

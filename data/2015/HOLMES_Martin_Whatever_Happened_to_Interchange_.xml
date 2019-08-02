@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>Whatever Happened to Interchange?</title>
+                <author>
+                    <persName>
+                        <surname>Holmes</surname>
+                        <forename>Martin</forename>
+                    </persName>
+                    <affiliation>Humanities Computing &amp; Media Centre, University of Victoria, Canada</affiliation>
+                    <email>mholmes@uvic.ca</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2014-12-19T13:50:00Z</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Paul Arthur, University of Western Sidney</publisher>
+                <address>
+                    <addrLine>Locked Bag 1797</addrLine>
+                    <addrLine>Penrith NSW 2751</addrLine>
+                    <addrLine>Australia</addrLine>
+                    <addrLine>Paul Arthur</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from a Word document </p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.9">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Long Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>TEI</term>
+                    <term>interchange</term>
+                    <term>interoperability</term>
+                    <term>XML</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>archives</term>
+                    <term>repositories</term>
+                    <term>sustainability and preservation</term>
+                    <term>encoding - theory and practice</term>
+                    <term>publishing and delivery systems</term>
+                    <term>digitisation</term>
+                    <term>resource creation</term>
+                    <term>and discovery</term>
+                    <term>scholarly editing</term>
+                    <term>user studies / user needs</term>
+                    <term>xml</term>
+                    <term>digitisation - theory and practice</term>
+                    <term>standards and interoperability</term>
+                    <term>English</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <p>Interchange and Interoperability</p>
+            <p>In his 2011 paper at the Balisage conference, Syd Bauman (2011) draws a clear and useful distinction between two terms that are often lazily conflated: 
+                <hi rend="italic">interoperability </hi>and 
+                <hi rend="italic">interchange</hi>. Interoperability, he says, involves ‘little or no human intervention’; data is pulled from one site or system and plugged unchanged into another. Interchange, on the other hand, involves human actions, either through direct communication between individuals, or through indirect human mediation in which the re-user of data makes an effort to learn about it through reading documentation supplied with it, and then modifies or transforms it in order to put it to use in his or her own work.
+            </p>
+            <p>The Text Encoding Initiative, as Unsworth (2011) points out, originally aimed at interchange rather than interoperability, with the ‘I’ in TEI standing in the Guidelines document itself for ‘Interchange’ rather than ‘Initiative’. Perhaps because of the increasing range of big-data projects and tools looking for texts and corpuses they can absorb and process, the focus nowadays is on interoperability and on the difficulties and failures we encounter with it (see, for example, McDonough [2009] for a detailed discussion of the chequered history of interoperability in XML encoding standards used in libraries and archives). But interoperability is hard, especially in the case of literary and historical encoding projects with unique interests and research agendas producing densely encoded texts. The TEI schema is as large and complex as it is because its user community has a wide variety of precise requirements and the need to express them at different levels of specificity. As Bauman reminds us, ‘Interoperability and expressiveness are competing goals constantly in tension with each other’, and encoding with interoperability in mind results in encoding likely to be ‘substandard, less faithful to the document, or outright incorrect’. We obviously do not want this; but when Desmond Schmidt (to take one example) complains that ‘because the choice of tags is guided by human interpretation, TEI-XML encoded files are in general not interoperable’, it is this very expressiveness he is complaining of.</p>
+            <p>In this paper I would like to re-focus on interchange, for several reasons. Interchange is a common way for TEI files to be re-used, and this is especially common in teaching environments and among novice users. Despite this, other than insisting that detailed documentation is essential and expecting re-users to read that documentation, we do little in the way of encouraging and assisting in the re-use of our data. Paying more attention to the needs of users who might want to take and work with our TEI files has a number of significant benefits to the source project, not only in terms of ordinary documentation, but also with regard to clarifying, streamlining, and normalizing practices and schemas. Finally, I would argue that making sincere efforts to enhance the practicality of interchange actually contributes significantly towards enabling interoperability, the much harder problem. I will be primarily concerned with TEI here, but the principles involved are generalizable to any formal data structure.</p>
+            <p>
+                <hi rend="bold">Barriers to Interchange</hi>
+            </p>
+            <p>If we share our XML at all (and many projects do not), we typically share a single version of it: the version we created and customized in order to be as expressive, as faithful to the data, and as useful for the goals of our project as possible. On the face of it, this is rather strange. Most modern web-based digital edition projects (to take one large subset of the XML encoding world) provide a wide variety of output formats, including various web views (for desktops and mobile devices), printable formats such as PDF, and even plain text. Interactive web views of documents often allow the user to choose between a variety of display options—TAPAS, for instance, allows the user to switch between diplomatic and normalized views, and between ‘TAPAS Generic’ and ‘TEI Boilerplate’ renderings.
+                <hi rend="superscript">1</hi> It is regarded as good practice to try to predict the variety of
+            </p>
+            <p>users who will visit a project, and to answer their needs as flexibly as possible. And yet, when it comes to our XML data, we do not do this; we typically provide a single XML dump for a document (in the TAPAS case, ‘Download TEI’).</p>
+            <p>In most projects, this XML view is likely full of peculiarities of encoding, rarely used elements and attributes, intra-project links, and other features that, even if well-documented, will present barriers to re-use. A brief analysis of the encoding in our Map of Early Modern London project shows many such issues, from which I examine three:</p>
+            <p> • Use of many project-specific private URI schemes for linking:</p>
+            <p>
+                <hi rend="bold color(00009A)">&lt;pb </hi>
+                <hi rend="bold color(F6854C)">facs=</hi>
+                <hi rend="bold color(9A3300)">‘moleebo:13311|2’</hi>
+                <hi rend="bold color(00009A)">/&gt;</hi>
+            </p>
+            <p> • Complex encoding of dates with custom dating attributes:
+                <hi rend="superscript">2</hi>
+            </p>
+            <p>
+                <hi rend="bold color(00009A)">&lt;date </hi>
+                <hi rend="bold color(F6854C)">notBefore-custom=</hi>
+                <hi rend="bold color(9A3300)">‘1438-08-31’</hi>
+                <hi rend="bold color(F6854C)">notAfter-custom=</hi>
+                <hi rend="bold color(9A3300)">‘1439-08-30’</hi>
+                <hi rend="bold color(F6854C)">datingMethod=</hi>
+                <hi rend="bold color(9A3300)">‘mol:julian’</hi>
+                <hi rend="bold color(F6854C)">calendar=</hi>
+                <hi rend="bold color(9A3300)">‘mol:regnal’</hi>
+                <hi rend="bold color(00009A)">&gt;</hi>17thof
+            </p>
+            <p>
+                <hi rend="bold color(00009A)">&lt;name </hi>
+                <hi rend="bold color(F6854C)">ref=</hi>
+                <hi rend="bold color(9A3300)">‘mol:HENR2’</hi>
+                <hi rend="bold color(00009A)">&gt;</hi>Henry VI
+                <hi rend="bold color(00009A)">&lt;/name&gt;&lt;/date&gt;</hi>
+            </p>
+            <p> • Standoff markup in the form of pointers to personographies, taxonomies, etc. in other files within the project:</p>
+            <p>
+                <hi rend="bold color(00009A)">&lt;l&gt;</hi>The honour due by graue Antiquitie,
+                <hi rend="bold color(00009A)">&lt;/l&gt;</hi>
+            </p>
+            <p>
+                <hi rend="bold color(00009A)">&lt;l&gt;</hi>Then giuen to 
+                <hi rend="bold color(00009A)">&lt;ref </hi>
+                <hi rend="bold color(F6854C)">target=</hi>
+                <hi rend="bold color(9A3300)">‘mol:LOND5’</hi>
+                <hi rend="bold color(00009A)">&gt;</hi>London
+                <hi rend="bold color(00009A)">&lt;/ref&gt;</hi>s
+            </p>
+            <p>
+                <hi rend="bold color(00009A)">&lt;name </hi>
+                <hi rend="bold color(F6854C)">ref=</hi>
+                <hi rend="bold color(9A3300)">‘mol:DRAP3’</hi>
+                <hi rend="bold color(F6854C)">type=</hi>
+                <hi rend="bold color(9A3300)">‘org’</hi>
+                <hi rend="bold color(00009A)">&gt;</hi>Draperie
+                <hi rend="bold color(00009A)">&lt;/name&gt;</hi>,
+                <hi rend="bold color(00009A)">&lt;/l&gt;</hi>
+            </p>
+            <p>
+                <hi rend="bold color(00009A)">&lt;l&gt;</hi>By Royall 
+                <hi rend="bold color(00009A)">&lt;name </hi>
+                <hi rend="bold color(F6854C)">ref=</hi>
+                <hi rend="bold color(9A3300)">‘mol:RICH2’</hi>
+                <hi rend="bold color(00009A)">&gt;</hi>Richard
+                <hi rend="bold color(00009A)">&lt;/name&gt;</hi>, who in me,
+                <hi rend="bold color(00009A)">&lt;/l&gt;</hi>
+            </p>
+            <p>All of these encoding practices are perfectly reasonable, and are well-documented, but they are likely to stand in the way of scholars wishing to take one of our documents out of its surrounding infrastructure and work with it in another context. The solution is obvious: in all of these cases, we can replace the problem feature with a more common encoding. For example, to make our date encoding more broadly useful, we could easily convert the date from the Julian calendar to the proleptic Gregorian, and remove the 
+                <hi rend="bold">@datingMethod</hi> attribute:
+            </p>
+            <p>
+                <hi rend="bold color(00009A)">&lt;date </hi>
+                <hi rend="bold color(F6854C)">notBefore=</hi>
+                <hi rend="bold color(9A3300)">‘1438-09-09’</hi>
+                <hi rend="bold color(F6854C)">notAfter=</hi>
+                <hi rend="bold color(9A3300)">‘1439-09-08’</hi>
+                <hi rend="bold color(F6854C)"> calendar=</hi>
+                <hi rend="bold color(9A3300)">‘mol:regnal’</hi>
+                <hi rend="bold color(00009A)">&gt;</hi>17th of
+            </p>
+            <p>
+                <hi rend="bold color(00009A)">&lt;name </hi>
+                <hi rend="bold color(F6854C)">ref=</hi>
+                <hi rend="bold color(9A3300)">‘mol:HENR2’</hi>
+                <hi rend="bold color(00009A)">&gt;</hi>Henry VI
+                <hi rend="bold color(00009A)">&lt;/name&gt;&lt;/date&gt;</hi>
+            </p>
+            <p>Similarly, we can expand the private URI schemes into full URLs, so that 
+                <hi rend="bold">‘moleebo:13311| 2’</hi> becomes:
+            </p>
+            <p>
+                <hi rend="bold color(00009A)">&lt;pb </hi>
+                <hi rend="bold color(F6854C)">facs=</hi>
+                <hi rend="bold color(9A3300)">‘http://eebo.chadwyck.com/fetchimage?</hi>
+            </p>
+            <p>
+                <hi rend="bold color(9A3300)">vid=13311&amp;page=2&amp;width=1200’</hi>
+                <hi rend="bold color(00009A)">/&gt;</hi>
+            </p>
+            <p>Intra-project links to personographies, gazetteers, bibliographical references, and similar resources can be expanded in similar ways. However, many users will prefer a version of the document that does not depend on resources in linked files. We can provide for this by importing external resources into the appropriate locations in the host document, creating, for example, 
+                <hi rend="bold">&lt;particDesc&gt;</hi> containing a 
+                <hi rend="bold">&lt;listPerson&gt;</hi> in the header, and a 
+                <hi rend="bold">&lt;listBibl&gt;</hi> for a bibliography in the 
+                <hi rend="bold">&lt;back&gt;</hi>.
+            </p>
+            <p>With strategies such as these, we can create a complete, standalone version of the encoded document that eschews unusual project-specific encoding practices.</p>
+            <p>Targeting Specific Output Formats</p>
+            <p>Producing a more standardized and self-contained document is one step on the path to effective interchange, but it will be useful only to a subset of potential users. The TEI schema, even if we restrict ourselves to the more common encoding practices, is still huge and daunting particularly to novice users, and problematic for the tools they are likely to use (TEI stylesheets, collation tools, rendering tools such as TEI Boilerplate,
+                <hi rend="superscript">3</hi> and so on). We can go further by providing output in simpler, more constrained versions of TEI, such as TEI Lite
+                <hi rend="superscript">4</hi> or the nascent TEI Simple.
+                <hi rend="superscript">5</hi>
+            </p>
+            <p>Naturally, there are tradeoffs here. We might characterize such conversions as lossy downsampling; most highly expressive project-specific encoding strategies will suffer in the translation to a much simpler and more constrained format. For example, the current version of the TEI Simple proposal states that ‘We will preclude use of 
+                <hi rend="bold">@rend</hi> and 
+                <hi rend="bold">@style’</hi>, and ‘We will produce a closed list of values for 
+                <hi rend="bold">@rendition</hi> using a pseudo-protocol of “simple:”’. Our project uses 
+                <hi rend="bold">@style</hi> and 
+                <hi rend="bold">@rendition </hi>extensively with CSS code to describe the appearance, layout, and typography of primary source documents. To convert this to TEI Simple, we will have to create a complex system that analyses that CSS code and converts it to the nearest possible representation in ‘simple:’ tokens, discarding information that cannot be represented. Similarly, Simple (currently) lacks the 
+                <hi rend="bold">&lt;mentioned&gt; </hi>element, which we use extensively; this will have to be mapped to a more generic representation, such as 
+                <hi rend="bold">&lt;seg type=‘mentioned’&gt;</hi>.
+            </p>
+            <p rend="teiPara">This is an uncomfortable prospect, perhaps, but it does have some positive aspects. First of all, it causes us to evaluate all our encoding practices and to consider whether we really do need to use a particular formulation when something plainer might do. Second, downsampling or simplification in the process of rendering a widely used constrained format constitutes what we might call ‘enacted documentation’; by mapping our encoding to a simpler representation, we provide another level of description of our encoding practice. For example, this template, part of a conversion to TEI Lite, shows how the 
+                <hi rend="teiCode">&lt;supplied&gt;</hi> element, not present in TEI Lite, is replaced with a 
+                <hi rend="teiCode">&lt;seg&gt;</hi> element, documenting in the process not only how the output is produced but how the 
+                <hi rend="teiItalics">MoEML</hi> project typically uses 
+                <hi rend="teiCode">&lt;supplied&gt;</hi> and its attributes: 
+            </p>
+            <p>
+                <lb/>
+                <hi rend="teiXmlComment">&lt;!-- No &lt;supplied&gt;. Have to make do with &lt;seg&gt;. --&gt;</hi>
+                <lb/>
+                <hi rend="teiXmlTag">&lt;xsl:template</hi>
+                <hi rend="teiXmlAttName"> match=</hi>
+                <hi rend="teiXmlAttVal">"supplied"</hi>
+                <hi rend="teiXmlTag">&gt;</hi>
+                <lb/>
+                <hi rend="teiXmlTag">&lt;seg</hi>
+                <hi rend="teiXmlAttName"> type=</hi>
+                <hi rend="teiXmlAttVal">"supplied"</hi>
+                <hi rend="teiXmlAttName"> n=</hi>
+                <hi rend="teiXmlAttVal">"{concat(@reason, if(@evidence) then concat('; evidence: ', @evidence) else '')}"</hi>
+                <hi rend="teiXmlTag">&gt;</hi>
+                <lb/>
+                <hi rend="teiXmlTag">&lt;xsl:apply-templates</hi>
+                <hi rend="teiXmlAttName"> select=</hi>
+                <hi rend="teiXmlAttVal">"@*|node()"</hi>
+                <hi rend="teiXmlTag">/&gt;</hi>
+                <lb/>
+                <hi rend="teiXmlTag">&lt;/seg&gt;</hi>
+                <lb/>
+                <hi rend="teiXmlTag">&lt;/xsl:template&gt;</hi>
+            </p>
+            <p>It might seem that such conversion processes should be undertaken by the end user, not the source project. However, in dealing with unusual encoding practices or rare elements and attributes, the source project’s encoders will have a much better understanding of what is intended, and how best to represent it in the target output; the example above, for instance, shows that in 
+                <hi rend="teiItalics">MoEML</hi> documents, 
+                <hi rend="teiCode">&lt;supplied&gt;</hi> can be assumed always to have 
+                <hi rend="teiCode">@reason</hi>, and often also 
+                <hi rend="teiCode">@evidence</hi>. An outsider coming to the project may not be willing or able to undertake the work involved in reading the project documentation and building an appropriate transformation such as this; and even worse, an automated tool may simply throw away important information without comment. For instance, the Abbot Text Interoperability Tool,
+                <hi rend="superscript">6</hi> in converting one of our project documents to TEI Lite, simply throws away without comment the five 
+                <hi rend="bold">&lt;egXML&gt;</hi> elements that are the heart of the document; these could actually be represented quite well using 
+                <hi rend="teiCode">&lt;eg&gt;</hi>, which is available in TEI Lite. When lossy conversions are written by the progenitors of a project’s data, they are likely to be considerably less lossy.
+            </p>
+            <p>Conclusion</p>
+            <p>While it has been argued that TEI XML has not lived up to its early promise with regard to interoperability, the focus on interoperability (unmediated re-use) has largely eclipsed interchange (human-mediated re-use), which is far more practical in most cases. By putting some effort into providing a range of different versions of our XML source encodings, targeted at different use-cases and user groups, we can greatly facilitate the re-use of our data in other projects; this process causes beneficial reflection on our own encoding practices, as well as an additional layer of documentation for our projects. Furthermore, by generating specific highly constrained output formats such as TEI Simple, we also help to facilitate interoperability. </p>
+            <p>In the Map of Early Modern London project, we have been enhancing the variety of XML renderings of our documents, and now provide four different views: ‘Original,’ ‘Standard,’ ‘Standalone’, and TEI Lite; see, for example, 
+                <hi rend="Internet_Link">http://mapoflondon.uvic.ca/METR1.htm</hi>. TEI Simple will be added when it stabilizes. A further documentation page
+                <hi rend="superscript">7</hi> provides an explanation of how each of these formats is derived, and suggests what kind of end-use it might be appropriate for. We are aiming to present a model example of how we might stimulate interchange and contribute to interoperability. Based on the demonstrable value of outputs created specifically for interchange, I would argue that such outputs should be incorporated as a formal component of plans and grant applications for all digital edition projects, and that granting agencies should be encouraged to look for and value this factor in project plans.
+            </p>
+            <p>Notes</p>
+            <p>1. See, for example, http://tapasproject.org/digital-mitford/lettertotntalfourd28oct1821/16145.</p>
+            <p>2. See Holmes, Jenstad, and Butt (2013) for an argument that sophisticated encoding of historical dates is essential for some types of interoperability.</p>
+            <p rend="footnote text">3. http://teiboilerplate.org/.</p>
+            <p rend="footnote text">4. http://www.tei-c.org/Guidelines/Customization/Lite/.</p>
+            <p rend="footnote text">5. https://github.com/TEIC/TEI-Simple.</p>
+            <p rend="footnote text">6. http://abbot.unl.edu/cocoon/vicar/Vicar.html.</p>
+            <p rend="teiFootnote">7. 
+                <hi rend="Internet_Link">http://mapoflondon.uvic.ca/xml_outputs.htm</hi>.
+            </p>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl>
+                        <hi rend="bold">Bauman, S.</hi> (2011). Interchange vs. Interoperability. In 
+                        <hi rend="italic">Proceedings of Balisage: The Markup Conference 2011</hi>. Montréal, Canada, http://www.balisage.net/Proceedings/vol7/html/Bauman01/BalisageVol7-
+                    </bibl>
+                    <bibl>Bauman01.html.</bibl>
+                    <bibl>
+                        <hi rend="bold">Holmes, M., Jenstad, J. and Butt, C.</hi> (2013). Encoding Historical Dates Correctly: Is It Practical, and Is It Worth It? In 
+                        <hi rend="teiItalics">Digital Humanities 2013 Conference Abstracts</hi>, Lincoln, NE, 
+                        <hi rend="Internet_Link">http://dh2013.unl.edu/abstracts/ab-179.html</hi>. 
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">McDonough, J.</hi> (2009). XML, Interoperability and the Social Construction of Markup Languages: The Library Example. 
+                        <hi rend="italic">Digital Humanities Quarterly, </hi>
+                        <hi rend="bold">3</hi>(3),
+                    </bibl>
+                    <bibl>http://digitalhumanities.org/dhq/vol/3/3/000064/000064.html.</bibl>
+                    <bibl>
+                        <hi rend="bold">Rahtz, S.</hi> (2014). TEI Simple: Summary. 
+                        <hi rend="italic">TEI Simple GitHub Repository</hi>,
+                    </bibl>
+                    <bibl>https://github.com/TEIC/TEI-Simple/blob/master/advisory/report1.xml.</bibl>
+                    <bibl>
+                        <hi rend="bold">Schmidt, D.</hi> (2014). Towards an Interoperable Digital Scholarly Edition. 
+                        <hi rend="italic">Journal of the Text Encoding Initiative, </hi>
+                        <hi rend="bold">7</hi>, 10.4000/jtei.979.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Unsworth, J.</hi> (2011). Computational Work with Very Large Text Collections:
+                    </bibl>
+                    <bibl>Interoperability, Sustainability, and the TEI. 
+                        <hi rend="italic">Journal of the Text Encoding Initiative, </hi>
+                        <hi rend="bold">1</hi> (June), 10.4000/jtei.215.
+                    </bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

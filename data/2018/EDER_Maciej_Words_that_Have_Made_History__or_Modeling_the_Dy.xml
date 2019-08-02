@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title type="full">
+                    <title type="main">Words that Have Made History, or Modeling the Dynamics of Linguistic Changes</title>
+                    <title type="sub"/>
+                </title>
+                <author>
+                    <persName>
+                        <surname>Eder</surname>
+                        <forename>Maciej</forename>
+                    </persName>
+                    <affiliation>Institute of Polish Language (Polish Academy of Sciences), Poland; Pedagogical University in Kraków, Poland</affiliation>
+                    <email>maciejeder@gmail.com</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2018-04-20T20:46:43.664654000</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Name, Institution</publisher>
+                <address>
+                    <addrLine>Street</addrLine>
+                    <addrLine>City</addrLine>
+                    <addrLine>Country</addrLine>
+                    <addrLine>Name</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from an OASIS Open Document</p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.22">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Short Paper (was submitted as Long Paper)</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>language change</term>
+                    <term>machine-learning</term>
+                    <term>stylometry</term>
+                    <term>American English</term>
+                    <term>distinctive features</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>corpora and corpus activities</term>
+                    <term>literary studies</term>
+                    <term>stylistics and stylometry</term>
+                    <term>text analysis</term>
+                    <term>linguistics</term>
+                    <term>english studies</term>
+                    <term>data mining / text mining</term>
+                    <term>English</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <div type="div1" rend="DH-Heading1">
+                <head>Introduction</head>
+                <p>In the last decades, quantitative linguistics (following exact and social sciences) has developed a considerable number of statistic methods providing an insight into measurable phenomena of natural language. Although to a lesser extent, it also applies to the analysis of diachronic changes. The basic tool used to assess the chronology of linguistic changes is a rather effective yet simple method of trend search: the examined features are analyzed by mapping the frequency of the described phenomenon on a timeline (Ellegård, 1953). This timeline-centric visualization has become a standard in several studies and corpus tools. The most spectacular example is the corpus of several dozens of million of documents (mainly in English) accompained by the service Google Books Ngram Viewer 
+                    <ptr target="http://books.google.com/ngrams"/>, which, according to its authors, enables to examine changes taking place not only in the language, but also in culture (Michel et al., 2011).
+                </p>
+                <p>A significant drawback of simple graphic representation of the trend, and hence of mapping the frequency of the examined phenomenon on a timeline, is a tacit assumption that the researcher knows in advance which elements of the language are subject to change. In other words, the method of plotting and inspecting the trend may be applied only to verify hypotheses stipulated earlier by traditional diachronic linguistics. For example, knowing in advance that Polish underwent the gradual replacement of the inflected ending 
+                    <hi rend="italic">-bychmy</hi> with 
+                    <hi rend="italic">-byśmy</hi>, one might draw the trendline and capture the dynamics of that change. Although many prominent diachronic works were based upon such an approach (Biber, 1988; Hilpert and Gries, 2009; Hu et al., 2007; Reppen et al., 2002; Smith and Kelly, 2002; Can and Patton, 2004), one might be interested in trend search without any 
+                    <hi rend="italic">a priori</hi> selection of the analyzed linguistic changes to be traced.
+                </p>
+                <p>Needles to say, 
+                    <hi rend="italic">some</hi> selection of potential language change predictors (e.g. a predefined set of words, certain collocates, etc.) will always be the case. The strategy followed in this study was to analyze a considerably large set of 1,000 most frequent words without any further filters, with the assumption that some of them will turn out stronger than others. Arguably, in such a big set one should find a few dozen of function words, and a vast majority of content words. Another remark that has to be formulated here is that the language change cannot be reliably separated from the stylistic drift (e.g. in literary taste of the epoch). This fact is well known in stylometric approaches to style (“stylochronometry”), where the actual changes in the system and stylistic signals of, say, the predominant genres are usually difficult to be told apart.
+                </p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Supervised classification and the timeline</head>
+                <p>The most natural strategy to assess the discriminative power of numerous features at a time is to apply one of the multivariate methods. Since none of the out-of-the-box techniques is suitable to analyze temporal datasets, some tailored approaches have been proposed, e.g. using a variant of hierarchical clustering (Hilpert and Gries, 2009; Hulle and Kestemont, 2016). These methods, however, share a common drawback, namely their results are by no means stable. Also, no cross-validation can be considered a downside.</p>
+                <p>To assess these issues, an iterative procedure of automatic text classification was applied (Eder and Górski, 2016). Its underlying idea is fairly simple: first, we formulate a working hypothesis that a certain year – be it 1835 – marks a major linguistic break. The procedure randomly picks 
+                    <hi rend="italic">n</hi> text samples written before and after the assumed break; the samples then go into the 
+                    <hi rend="italic">ante</hi> and 
+                    <hi rend="italic">post</hi> subsets. In this study, a period of 20 years before and after the assumed break was covered (with an additional gap of 10 years), 500 text samples of 1,000 tokens were harvested into each of the subsets. To give an example: for the year 1835, 500 random samples covering the time span 1810–1830 were picked into the first subset, and another 500 samples from the years 1840–1860 into the second subset. Next, the both subsets are randomly divided into two halves, so that the training set and the test contain 500 samples representing two classes (
+                    <hi rend="italic">ante</hi> and 
+                    <hi rend="italic">post</hi>). Then we train a supervised classifier – in this case, Nearest Shrunken Centroids – and record the cross-validated accuracy rates. Then we 
+                    <hi rend="italic">dismiss</hi> the original hypothesis, in order to test new ones: we iterate over the timeline, testing the years 1836, 1837, 1838, 1839, … for their discriminating power. The assumption is simple here: any acceleration of linguistic change will be reflected by higher accuracy scores.
+                </p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Data and results</head>
+                <p>The above procedure has been applied to the Corpus of Historical American English (COHA), containing ca. 400 million tokens and covering the years 1810–2009 (Davies, 2010). The corpus provides the original word forms, part-of-speech tags, and the base word forms (lemmata). The results reported below were obtained using the lemmatized version of the corpus.</p>
+                <p>
+                    <figure>
+                        <graphic url="Pictures/24553a60330956f95b6934e28fd5012d.png"/>
+                        <head>Fig. 1: Language change accelleration in the American English corpus: classification accuracy over the years 1835–1985.</head>
+                    </figure>
+                </p>
+                <p>In Fig. 1, the classification accuracy rates for the COHA corpus were shown (1,000 most frequent lemmata, NSC classifier). As one can observe, the scores obtained for each period are higher than the baseline, suggesting the existence of a temporal signal. Obviously, the higher the scores the faster the evolution of language, since the distinction between the period before and after the tested breakpoint is simpler for the classifier. More important, however, is the fact that the scores are not even: the signal becomes stronger in some periods, clearly indicating an acceleration of the language change. One of the stylistic breaks takes place in the 1870s (i.e. after the Civil War), the other in the 1920s (in the period of prosperity before the Great Depression); the third peak is not fully formed yet, even if one can observe an acceleration of language change at the end of the 20th century. Needless to say, any attempts at finding direct correlations between historical events and stylistic breaks are subject to human prejudices, and therefore might introduce substantial bias to the results. Even though, the coincidence of the three observed peaks and a few major changes in the American culture is rather striking.</p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Distinctive features</head>
+                <p>The results obtained in the above experiment seem to be rather promising. However, from the perspective of historical linguistic even more interesting is the question which features (words) were responsible for an given change observed in the dataset. It has been reported in several stylometric studies that attributing authorship relies, in most cases, on many features of individually very weak discriminative power. In the context of language change, a similar question can be asked: is it but a few characteristic words that trigger the change, or, alternatively, is the stylistic drift spread across dozens of tiny changes in word frequencies?</p>
+                <p>To answer the above question, one has to extract the features that played a prominent role in telling apart the 
+                    <hi rend="italic">ante</hi> and 
+                    <hi rend="italic">post</hi> periods as described above. The features exhibiting the biggest variance (that is, the overall impact on the results) are shown in Fig. 2. An important caveat needs to be formulated here: the plot shows the outputted weights from the classifier, rather than direct word frequencies. The underlying assumption is that the features’ weights (to be precise: the 
+                    <hi rend="italic">a posteriori</hi> probabilities returned by the classifier) reflect the changes in actual word frequencies as combined with all the other frequencies being analyzed.
+                </p>
+                <p>
+                    <figure>
+                        <graphic url="Pictures/1be4793a675c63963a82d1ec4c4f06fb.png"/>
+                        <head>Fig. 2: Seventy-six linguistic features (words) that contributed considerably to the stylistic drift.</head>
+                    </figure>
+                </p>
+                <p>The main stylistic breaks form, again, three peaks that culminate roughly in the same years as presented in Fig. 1. What is counterintuitive, however, it is the fact that the features tend to form sinusoidal waves of their periodical discrimination power. Interestingly, these high impact features turned to be very frequent words that usually occupy the top positions on the frequency list. The 25 words of the highest discrimination strength are as follows:</p>
+                <quote>
+                    <hi rend="italic">the</hi>, 
+                    <hi rend="italic">and</hi>, 
+                    <hi rend="italic">week</hi>, 
+                    <hi rend="italic">that</hi>, 
+                    <hi rend="italic">’s</hi>, 
+                    <hi rend="italic">last</hi>, 
+                    <hi rend="italic">is</hi>, 
+                    <hi rend="italic">be</hi>, 
+                    <hi rend="italic">of</hi>, 
+                    <hi rend="italic">it</hi>, 
+                    <hi rend="italic">we</hi>, 
+                    <hi rend="italic">i</hi>, 
+                    <hi rend="italic">to</hi>, 
+                    <hi rend="italic">was</hi>, 
+                    <hi rend="italic">mr.</hi>, 
+                    <hi rend="italic">our</hi>, 
+                    <hi rend="italic">my</hi>, 
+                    <hi rend="italic">been</hi>, 
+                    <hi rend="italic">not</hi>, 
+                    <hi rend="italic">u.s.</hi>, 
+                    <hi rend="italic">you</hi>, 
+                    <hi rend="italic">new</hi>, 
+                    <hi rend="italic">upon</hi>, 
+                    <hi rend="italic">there</hi>, 
+                    <hi rend="italic">has</hi>
+                </quote>
+                <p>Even more interesting are individual trajectories of the high-impact words. In Fig. 3, one can observe a collinearity of function words: 
+                    <hi rend="italic">the</hi>, 
+                    <hi rend="italic">and</hi>, 
+                    <hi rend="italic">that</hi>, 
+                    <hi rend="italic">is</hi>, 
+                    <hi rend="italic">been</hi>, as opposed to the possessive 
+                    <hi rend="italic">’s</hi>. These function words seem to have impacted the language change at the turn of the 19th century. The possessive, in turn, contributed to the evolution of language roughly at the times of the Prohibition. (Again, this is not to say that any direct links between function words and actual events in history should be drawn).
+                </p>
+                <p>
+                    <figure>
+                        <graphic url="Pictures/b42f9b00f3ae2b9330d4c7222f1cfc84.png"/>
+                        <head>Fig. 3: Function words of the highest impact on the stylistic drift.</head>
+                    </figure>
+                </p>
+                <p>A different pattern is revealed by the “social” words, especially personal pronouns. It has been shown that these words, e.g. 
+                    <hi rend="italic">I</hi>, play prominent role in betraying someone’s personality (Pennebaker, 2011). Certainly, traces of such individual profiles will hardly be noticeable at the level of the entire corpus. One might try, however, to formulate some claims of the “personality” of the population in the function of time, in the belief that some general trends in culture might be reflected in the corpus. In Fig. 4 a few personal pronouns and some contractions have been shown. As one can see, their moderate presence over the past decades turns into a very hight impact at the end of the 20th century. Moreover, the impact of the words 
+                    <hi rend="italic">I</hi> and 
+                    <hi rend="italic">my</hi> seems to grow even further… These and similar examples provide a counterintuitive evidence that a language change might be due to minute differences in the usage of very common words.
+                </p>
+                <p>
+                    <figure>
+                        <graphic url="Pictures/4c899df24c0b998562645170fcb2db77.png"/>
+                        <head>Fig. 4: High impact personal pronouns and contractions.</head>
+                    </figure>
+                </p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Conclusions</head>
+                <p>In this paper, we used a tailored stylometric method to assess the question of language change over time. Our chosen technique proved to be useful indeed, especially when one focuses on tracing the very linguistic features that were responsible for the observed change. The results were counterintuitive, since the set of strongly discriminative features contained common function words, which formed sinusoidal trajectories of their impact over time. One of the most interesting aspects of language development – overlooked in numerous existing studies – is the question of the dynamics of linguistic changes. Our study corroborated the hypothesis that epochs of substantial stylistic drift are followed by periods of stagnation, rather than forming purely linear trends.</p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Acknowledgements</head>
+                <p>This research is part of project UMO-2013/11/B/HS2/02795, supported by Poland’s National Science Centre.</p>
+            </div>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl>
+                        <hi rend="bold">Biber, D.</hi> (1988). 
+                        <hi rend="italic">Variation Across Speech and Writing</hi>. Cambridge University Press.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Can, F. and Patton, J. M.</hi> (2004). Change of writing style with time. 
+                        <hi rend="italic">Computers and the Humanities</hi>, 
+                        <hi rend="bold">38</hi>(1): 61–82.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Davies, M.</hi> (2010). The Corpus of Historical American English (COHA): 400 million words, 1810-2009 
+                        <ptr target="https://corpus.byu.edu/coha/"/>.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Eder, M. and Górski, R. L.</hi> (2016). Historical linguistics’ new toys, or stylometry applied to the study of language change. In, 
+                        <hi rend="italic">Digital Humanities 2016: Conference Abstracts</hi>. Kraków: Jagiellonian University &amp; Pedagogical University, pp. 182–84 
+                        <ptr target="http://dh2016.adho.org/abstracts/398"/>.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Ellegård, A.</hi> (1953). 
+                        <hi rend="italic">The Auxiliary Do: The Establishment and Regulation of Its Use in English</hi>. Stockholm: Almquist &amp; Wiksell.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Hilpert, M. and Gries, S. T.</hi> (2009). Assessing frequency changes in multistage diachronic corpora: Applications for historical corpus linguistics and the study of language acquisition. 
+                        <hi rend="italic">Literary and Linguistic Computing</hi>, 
+                        <hi rend="bold">24</hi>(4): 385–401.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Hu, X., McLaughlin, J. and Williamson, N.</hi> (2007). Syntactic Positions of Prepositional Phrases in the History of Chinese: Using the Developing Sheffield Corpus of Chinese for Diachronic Linguistic Studies. 
+                        <hi rend="italic">Literary and Linguistic Computing</hi>, 
+                        <hi rend="bold">22</hi>(4): 419–34.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Hulle, D. van and Kestemont, M.</hi> (2016). Stylochronometry and the Periodization of Samuel Beckett’s Prose. In, 
+                        <hi rend="italic">Digital Humanities 2016: Conference Abstracts</hi>. Kraków: Jagiellonian University &amp; Pedagogical University, pp. 393–95 
+                        <ptr target="http://dh2016.adho.org/abstracts/70"/>.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Michel, J.-B., Shen, Y. K., Aiden, A. P., Veres, A., Gray, M. K., Pickett, J. P., Hoiberg, D., et al.</hi> (2011). Quantitative analysis of culture using millions of digitized books. 
+                        <hi rend="italic">Science</hi>, 
+                        <hi rend="bold">331</hi>(6014): 176–82.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Pennebaker, J. W.</hi> (2011). 
+                        <hi rend="italic">The Secret Life of Pronouns: What Our Words Say About Us</hi>. New York: Bloomsbury Press.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Reppen, R., Fitzmaurice, S. M. and Biber, D. (eds).</hi> (2002). 
+                        <hi rend="italic">Using Corpora to Explore Linguistic Variation</hi>. Amsterdam: John Benjamins.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Smith, J. A. and Kelly, C.</hi> (2002). Stylistic Constancy and Change Across Literary Corpora: Using Measures of Lexical Richness to Date Works. 
+                        <hi rend="italic">Computers and the Humanities</hi>, 
+                        <hi rend="bold">36</hi>(4): 411–30.
+                    </bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

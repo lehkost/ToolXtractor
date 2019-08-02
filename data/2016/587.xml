@@ -1,0 +1,671 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>SAMEBibl: Sistema Automático de Migración a Europeana para Bibliotecas.</title>
+                <author>
+                    <persName>
+                        <surname>Diez-Platas</surname>
+                        <forename>M Luisa</forename>
+                    </persName>
+                    <affiliation>Universidad Pontificia de Salamanca en Madrid, Spain</affiliation>
+                    <email>ml.diezplatas@gmail.com</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Centenera-Centenera</surname>
+                        <forename>Paloma</forename>
+                    </persName>
+                    <affiliation>Universidad Pontificia de Salamanca en Madrid, Spain</affiliation>
+                    <email>paloma.centenera@gmail.com</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2014-12-19T13:50:00Z</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Maciej Eder, Pedagogical University in Krakow</publisher>
+                <publisher>Jan Rybicki, Jagiellonian University</publisher>
+                <address>
+                    <addrLine>Institute of Polish Studies</addrLine>
+                    <addrLine>Pedagogical University</addrLine>
+                    <addrLine>ul. Podchorazych 2</addrLine>
+                    <addrLine>30-084 Krakow, Poland</addrLine>
+                    <addrLine>maciej.eder@ijp-pan.krakow.pl</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from a Word document </p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.21">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Short Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>software</term>
+                    <term>migración</term>
+                    <term>biblioteca</term>
+                    <term>Europeana</term>
+                    <term>modelo relacional</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>databases &amp; dbms</term>
+                    <term>software design and development</term>
+                    <term>digital humanities - facilities</term>
+                    <term>Spanish</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <div/>
+            <div type="div1" rend="DH-Heading1">
+            <head>Introducción</head>
+                <p>
+                    <hi rend="italic">Europeana</hi>, como biblioteca digital europea, se considera como el medio de referencia para compartir el extenso patrimonio europeo de distintas categorías y del que son depositarias instituciones de diversa índole, ya sean públicas o privadas. Desde la puesta en marcha de esta biblioteca han estado presentes instituciones relevante y entre ellas bibliotecas como la 
+                    <hi rend="italic">British Library</hi>.
+                </p>
+                <p>Para las bibliotecas también es importante su integración en Europeana ya que las dota de una visibilidad imposible de imaginar en los ámbitos más restringidos en los que se encuentran localizadas las bibliotecas y les permite compartir su extenso patrimonio. </p>
+                <p>El proceso de adaptación de la información, tradicionalmente estructurada en bases de datos relacionales, al modelo de datos abiertos de Europeana (
+                    <hi rend="italic">Europeana Data Model</hi>, EDM) es excesivamente complejo, difícil de automatizar y requiere de la intervención de expertos. La complejidad estriba fundamentalmente en la brecha semántica que existe entre la forma en la que las bibliotecas almacenan y estructuran su información, en general, y la forma de representación que requiere 
+                    <hi rend="italic">Europeana</hi>. Este modelo de datos es una especificación conceptual basada en etiquetas semánticas que se integran en los datos de forma que datos y metadatos forman un todo.
+                </p>
+                <p>Las mayoría de las bibliotecas cuentan en la actualidad con una base de datos relacional, un modelo de datos de representación en el que ya se muestran detalles que trascienden los conceptos del mundo modelado, especificando características más relacionadas con la implementación de conceptos y relaciones. </p>
+                <p>Es necesario, pues, extraer la semántica conceptual del modelo relacional y trasladarla al modelo que Europeana define y exige para poder integrar en ella la biblioteca y dar visibilidad a su patrimonio.</p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+            <head><hi rend="italic">SAMEBibl</hi>, automatización del proceso de migración a Europeana</head>
+                <p>
+                    <hi rend="italic">SAMEBibl</hi> , nace con el objetivo de cubrir el proceso completo de migración de una biblioteca para su integración en la Europeana. Este proceso, que se muestra en Figura 1, parte del modelo origen de representación de la información y lo transforma en el modelo destino. 
+                </p>
+                <p>La semántica de los dos modelos, origen y destino, es cualitativamente distinta y por tanto, el proceso requiere que se conciban modelos conceptuales intermedios que evolucionan progresivamente hasta obtener el modelo necesario para la integración de los datos en Europeana.</p>
+                <figure>
+                    <graphic url="587/image1.png" rend="inline"/>
+                </figure>
+                <p>
+                    <hi rend="italic">SAMEBibl</hi> automatiza casi todo el proceso de migración, aunque se requiere la intervención del experto de la biblioteca con el objeto de establecer las correspondencias mas convenientes entre los componentes del modelo original y el modelo de 
+                    <hi rend="italic">Europeana</hi>, permitiendo asimismo la elección de la información que se considera más oportuno migrar. La interacción del experto con el sistema se realizará de forma amigable, presentando la información que se quiere migrar de forma independiente a su representación interna en el modelo que se ha definido, es decir, no es necesario que cuente con conocimientos técnicos en lo que a repositorios y datos abiertos se refiere.
+                </p>
+                <figure>
+                    <graphic url="587/image2.png" rend="inline"/>
+                    <head>Figura 2. Pantalla interfaz Samebibl</head>
+                </figure>
+                <p>La aplicación desarrollada consta de tres componentes principales:</p>
+                <list type="unordered">
+                    <item>Un traductor dirigido por la sintaxis que extrae la semántica del modelo relacional a partir de las estructuras sintácticas que se identifican en el esquema de la base de datos, y que dan lugar a un modelo conceptual intermedio.</item>
+                    <item>Un módulo que permite establecer las correspondencias, es decir, definir el “mapeado”, entre cada uno de los conceptos y relaciones del modelo conceptual extraído por el traductor y el modelo de Europeana. Para ello se requiere la intervención del experto de la biblioteca. </item>
+                    <item>Un traductor que, a partir de la información obtenida de los registros de la base de datos, la información facilitada en el mapeado por el experto y los elementos del modelo conceptual, genera los metadatos basados en 
+                        <hi rend="italic">EDM </hi>en un formato XML/RDF necesario para poblar el repositorio que será recolectado por 
+                        <hi rend="italic">Europeana</hi>.
+                    </item>
+                </list>
+                <figure>
+                    <graphic url="587/image3.png" rend="inline"/>
+                    <head>Figura 3. Casos de uso Samebibl</head>
+                </figure>
+                <p>El proceso de migración no sólo presenta complejidad interna. La cantidad de información manejada y transformada puede ser de tamaño considerable y por tanto, requerir de tiempo para su realización. Además, la información puede ser cambiante o se puede añadir información nueva. Es importante, por tanto que SAMEBibl dote de persistencia a la información que se ha generado de la persistencia necesaria para permitir su modificación y actualización. Debido a esto, la información relativa a los modelos y sus correspondencias, es almacenada para permitir tanto su actualización y mejora, con la revisión o incorporación de nuevas reglas de mapeado tras la incorporación de nuevos elementos semánticos.</p>
+                <p>Esta característica facilita el mantenimiento automático del repositorio que incorporará los cambios surgidos en el entorno operacional de la base de datos relacional.</p>
+                <p>
+                    <hi rend="italic">SAMEBibl </hi>, por tanto, es una herramienta que cubre una necesidad detectada en muchas bibliotecas,. Esta necesidad es mayor en aquellas bibliotecas que no tienen recursos suficientes como para contar con expertos técnicos que realicen el proceso de transformación del modelo de su base de datos relacional a 
+                    <hi rend="italic">Europeana</hi>., y esta es la situación en la que se encuentran la mayoría de las bibliotecas europeas que son de menor envergadura pero que son depositarias de un gran patrimonio. Sus tres características más relevantes son:
+                </p>
+                <list type="unordered">
+                    <item>la automatización completa de las funciones de extracción de la semántica conceptual y generación de metadatos. Estas dos funciones abarcan los elementos técnicamente más complejos del proceso de migración. Su total automatización aísla al usuario de esta complejidad. </item>
+                    <item>la simplicidad y naturalidad en la operación de la funcionalidad de mapeado, al contar con una interfaz sencilla que permite al usuario de la biblioteca establecer las correspondencias semánticas entre los modelos de acuerdo a sus criterios de forma intuitiva y amigable. </item>
+                    <item>la flexibilidad del modelo adoptado en la representación del conocimiento relativo a los modelos y sus correspondencias. Esto permite proporcionar ante una herramienta de propósito general que puede ser empleada por cualquier biblioteca basada en un modelo relacional. Asimismo hará muy sencilla la adaptación de la herramienta en el futuro para soportar la migración a nuevos modelos de metadatos semánticos distintos de 
+                        <hi rend="italic">EDM</hi>.
+                    </item>
+                </list>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+            <head>Aplicación de <hi rend="italic">SAMEBibl</hi> a la Biblioteca Digotal Ovidiana</head>
+                <p>
+                    <hi rend="italic">SAMEBIbl</hi> ya ha sido aplicada en la 
+                    <hi rend="italic">Biblioteca Digital Ovidiana (desde ahora BDO)</hi> (<ref target="http://www.oviduspictus.es"><hi rend="italic">www.oviduspictus.es</hi></ref>) dedicada a la obra ilustrada de Ovidio y que alberga los datos y las imágenes de todos los ejemplares de las ediciones impresas entre los siglos XV al XIX que se encuentran en las bibliotecas españolas. Es un proyecto que se esta llevando a cabo en varias fases.
+                </p>
+                <p>Con el objeto de poder compartir la información de la BDO en Europeana, se ha utilizado SAMEBibl para llevar a cabo la migración .</p>
+                <p>El modelo lógico relacional de la base de datos de BDO que se muestra en Figura 3 es un modelo complejo ya que refleja la rica semántica y estructuración de la información almacenada en la misma</p>
+                <figure>
+                    <graphic url="587/image4.jpeg" rend="inline"/>
+                </figure>
+                <p>Tras el proceso de migración se obtienen los objetos semánticos correspondientes a los diferentes conceptos identificados a partir de la semántica extraída del modelo lógico relacional como se muestra en la Figura 5.</p>
+                <figure>
+                    <graphic url="587/image5.jpeg" rend="inline"/>
+                    <head>Figura 5. Objetos generados para los conceptos Ejemplar y Biblioteca</head>
+                </figure>
+                <p>A partir del modelo de objetos generado se generan los metadatos y el archivo RDF/XML que permite la integración de la información en el repositorio., tal y como se muestra en Código 1</p>
+                <p>
+                    <hi rend="color(8B26C9)">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</hi>
+                    <lb/>
+                    <hi rend="color(000096)">&lt;rdf:RDF</hi>
+                    <hi rend="color(F5844C)"> xsi:schemaLocation</hi>
+                    <hi rend="color(FF8040)">=</hi>
+                    <hi rend="color(993300)">"http://www.w3.org/1999/02/22-rdf-syntax-ns#http://www.europeana.eu/schemas/edm/EDM.xsd"</hi>
+                    <hi rend="color(000096)">&gt;</hi>
+                    <lb/>
+                    <hi rend="color(000096)">&lt;edm:Place</hi>
+                    <hi rend="color(F5844C)"> rdf:about</hi>
+                    <hi rend="color(FF8040)">=</hi>
+                    <hi rend="color(993300)">"http://www.ovidiuspictus.es/biblioteca/27"</hi>
+                    <hi rend="color(F5844C)"> rdf:resource</hi>
+                    <hi rend="color(FF8040)">=</hi>
+                    <hi rend="color(993300)">"http://bibliotecas.usal.es/?q=biblioteca/general-historica"</hi>
+                    <hi rend="color(000096)">&gt;</hi>
+                    <lb/>
+                    <hi rend="color(000096)">&lt;skos:prefLabel&gt;</hi>
+                    <lb/> Biblioteca General Histórica de la Universidad.
+                    <lb/>
+                    <hi rend="color(000096)">&lt;/skos:prefLabel&gt;</hi>
+                    <lb/>
+                    <hi rend="color(000096)">&lt;dcterms:isPartOf&gt;</hi>
+                    <lb/> Ciudad: Salamanca
+                    <lb/>
+                    <hi rend="color(000096)">&lt;/dcterms:isPartOf&gt;</hi>
+                    <lb/>
+                    <hi rend="color(000096)">&lt;dcterms:isPartOf&gt;</hi>
+                    <lb/> Provincia: Salamanca
+                    <lb/>
+                    <hi rend="color(000096)">&lt;/dcterms:isPartOf&gt;</hi>
+                    <lb/>
+                    <hi rend="color(000096)">&lt;dcterms:isPartOf&gt;</hi>
+                    <lb/> Comunidad autónoma: Castilla León
+                    <lb/>
+                    <hi rend="color(000096)">&lt;/dcterms:isPartOf&gt;</hi>
+                    <lb/>
+                    <hi rend="color(000096)">&lt;/edm:Place&gt;</hi>
+                    <lb/>
+                    <hi rend="color(000096)">&lt;edm:ProvidedCHO</hi>
+                    <hi rend="color(F5844C)"> rdf:about</hi>
+                    <hi rend="color(FF8040)">=</hi>
+                    <hi rend="color(993300)">"http://www.ovidiuspictus.es/edicion/137"</hi>
+                    <hi rend="color(000096)">&gt;</hi>
+                    <lb/>
+                    <hi rend="color(000096)">&lt;dc:title&gt;</hi>
+                    <lb/> PUBLII
+                    <hi rend="color(000096)">&lt;br /&gt;</hi>OVIDII NASONIS
+                    <hi rend="color(000096)">&lt;br /&gt;</hi>OPERA OMNIA
+                    <hi rend="color(000096)">&lt;br /&gt;</hi>IV. VOLUMINIBUS COMPREHENSA;
+                    <hi rend="color(000096)">&lt;br /&gt;</hi>CUM INTEGRIS
+                    <hi rend="color(000096)">&lt;br /&gt;</hi>JACOBI MICYLLI, HERCULIS CIOFANI,
+                    <hi rend="color(000096)">&lt;br /&gt;</hi>ET DANIELIS HEINSII
+                    <hi rend="color(000096)">&lt;br /&gt;</hi>NOTIS,
+                    <hi rend="color(000096)">&lt;br /&gt;</hi>ET
+                    <hi rend="color(000096)">&lt;br /&gt;</hi>NICOLAI HEINSII
+                    <hi rend="color(000096)">&lt;br /&gt;</hi>CURIS SECUNDIS,
+                    <hi rend="color(000096)">&lt;br /&gt;</hi>ET 
+                    <hi rend="color(000096)">&lt;br /&gt;</hi>ALIORUM IN SINGULAS PARTES,
+                    <hi rend="color(000096)">&lt;br /&gt;</hi>PARTIM INTEGRIS, PARTIM EXCERPTIS,
+                    <hi rend="color(000096)">&lt;br /&gt;</hi>ADNOTATIONIBUS,
+                    <hi rend="color(000096)">&lt;br /&gt;</hi>CURA ET STUDIO
+                    <hi rend="color(000096)">&lt;br /&gt;</hi>PETRI BURMANNI,
+                    <hi rend="color(000096)">&lt;br /&gt;</hi>QUI ET SUAS
+                    <hi rend="color(000096)">&lt;br /&gt;</hi>IN OMNE OPUS NOTAS ADIECIT.
+                    <hi rend="color(000096)">&lt;br /&gt;&lt;br /&gt;</hi>(marca de impresor)
+                    <hi rend="color(000096)">&lt;br /&gt;&lt;br /&gt;&lt;i&gt;</hi>AMSTELODAMI,
+                    <hi rend="color(000096)">&lt;br /&gt;&lt;/i&gt;</hi>APUD FRANCISCUM CHANGUION.
+                    <hi rend="color(000096)">&lt;br /&gt;</hi>M.D.C.C.XXVII.
+                    <hi rend="color(000096)">&lt;br /&gt;</hi>
+                    <lb/>
+                    <hi rend="color(000096)">&lt;/dc:title&gt;</hi>
+                    <lb/>
+                    <hi rend="color(000096)">&lt;dc:identifier&gt;</hi>OO.Changuion.Ams.1727.t1
+                    <hi rend="color(000096)">&lt;/dc:identifier&gt;</hi>
+                    <lb/>
+                    <hi rend="color(000096)">&lt;dc:identifier&gt;</hi>Obras Completas.Burmannus.Changuion.Ámsterdam.1727.t1
+                    <hi rend="color(000096)">&lt;/dc:identifier&gt;</hi>
+                    <lb/>
+                    <hi rend="color(000096)">&lt;dc:tableOfContents&gt;</hi>
+                    <lb/> Anteportada;
+                    <hi rend="color(000096)">&lt;br/&gt;</hi>frontispicio;
+                    <hi rend="color(000096)">&lt;br /&gt;</hi>portada de las obras completas; ENTRE PÁGINAS 322 Y 323 (COMENTARIO AL EJEMPLAR)
+                    <hi rend="color(000096)">&lt;br /&gt;</hi>f. []4 dedicatoria al príncipe Eugenio de Saboya;
+                    <hi rend="color(000096)">&lt;br /&gt;</hi>f. []4 v. poema dedicatorio;
+                    <hi rend="color(000096)">&lt;br /&gt;</hi>f. *** Prefacio fechado en 1726;
+                    <hi rend="color(000096)">&lt;br /&gt;</hi>p. 1 
+                    <hi rend="color(000096)">&lt;i&gt;</hi>Heroidas
+                    <hi rend="color(000096)">&lt;/i&gt;</hi>; 
+                    <hi rend="color(000096)">&lt;br /&gt;</hi>p. 321 anteportada 
+                    <hi rend="color(000096)">&lt;i&gt;</hi>Amores
+                    <hi rend="color(000096)">&lt;/i&gt;</hi>;
+                    <hi rend="color(000096)">&lt;br /&gt;</hi>p. 323 epigrama de Ovidio sobre sus 
+                    <hi rend="color(000096)">&lt;i&gt;</hi>Amores
+                    <hi rend="color(000096)">&lt;/i&gt;</hi>;
+                    <hi rend="color(000096)">&lt;br /&gt;</hi>p. 325 comienza los 
+                    <hi rend="color(000096)">&lt;i&gt;</hi>Amores
+                    <hi rend="color(000096)">&lt;/i&gt;</hi>; 
+                    <hi rend="color(000096)">&lt;br /&gt;</hi>p. 537 anteportada 
+                    <hi rend="color(000096)">&lt;i&gt;</hi>Arte de amar
+                    <hi rend="color(000096)">&lt;/i&gt;</hi>; 
+                    <hi rend="color(000096)">&lt;br /&gt;</hi>p. 539 comienza el 
+                    <hi rend="color(000096)">&lt;i&gt;</hi>Arte de amar
+                    <hi rend="color(000096)">&lt;/i&gt;</hi>;
+                    <hi rend="color(000096)">&lt;br /&gt;</hi>p. 713 anteportada 
+                    <hi rend="color(000096)">&lt;i&gt;</hi>Remedios contra el amor
+                    <hi rend="color(000096)">&lt;/i&gt;</hi>;
+                    <hi rend="color(000096)">&lt;br /&gt;</hi>p. 715 comienza el libro de los 
+                    <hi rend="color(000096)">&lt;i&gt;</hi>Remedios contra el amor
+                    <hi rend="color(000096)">&lt;/i&gt;</hi>;
+                    <hi rend="color(000096)">&lt;br /&gt;</hi>p. 766 
+                    <hi rend="color(000096)">&lt;i&gt;</hi>Sobre la cosmética del rostro femenino
+                    <hi rend="color(000096)">&lt;/i&gt;</hi>;
+                    <hi rend="color(000096)">&lt;br /&gt;</hi>p. 777
+                    <hi rend="color(000096)">&lt;i&gt;</hi> Haliéutica
+                    <hi rend="color(000096)">&lt;/i&gt;</hi>;
+                    <hi rend="color(000096)">&lt;br /&gt;</hi>p. 793 anteportada de 
+                    <hi rend="color(000096)">&lt;i&gt;</hi>Consolatio ad Liviam
+                    <hi rend="color(000096)">&lt;/i&gt;</hi>, 
+                    <hi rend="color(000096)">&lt;i&gt;</hi>Nux y Heroidas 
+                    <hi rend="color(000096)">&lt;/i&gt;</hi>de Angelo Sabino;
+                    <hi rend="color(000096)">&lt;br /&gt;</hi>p. 795 comienza la
+                    <hi rend="color(000096)">&lt;i&gt;</hi> Consolatio ad Liviam
+                    <hi rend="color(000096)">&lt;/i&gt;</hi>;
+                    <hi rend="color(000096)">&lt;br /&gt;</hi>p. 829 comienza la
+                    <hi rend="color(000096)">&lt;i&gt;</hi> Nux
+                    <hi rend="color(000096)">&lt;/i&gt;</hi>; 
+                    <hi rend="color(000096)">&lt;br /&gt;</hi>p. 844 comienzan las 
+                    <hi rend="color(000096)">&lt;i&gt;</hi>Heroidas 
+                    <hi rend="color(000096)">&lt;/i&gt;</hi>de Angelo Sabino;
+                    <lb/>
+                    <hi rend="color(000096)">&lt;/dc:tableOfContents&gt;</hi>
+                    <lb/>
+                    <hi rend="color(000096)">&lt;dc:description&gt;</hi>Comentario: Notas de Jacobus Micyllus, Hercules Ciofano y Nicolas Hensius.
+                    <hi rend="color(000096)">&lt;/dc:description&gt;</hi>
+                    <lb/>
+                    <hi rend="color(000096)">&lt;dc:description&gt;</hi>Estructura disposición: Texto latino de ancho de página con versos numerados y notas filológicas al pie, organizadas en dos columnas. 
+                    <hi rend="color(000096)">&lt;/dc:description&gt;</hi>
+                    <lb/>
+                    <hi rend="color(000096)">&lt;dc:description&gt;</hi>Ilustraciones: La edición lleva un frontispicio calcográfico diferente en cada uno de los tres primeros tomos. En este primero se representa a Ovidio, coronado de laurel y con el pecho atravesado por una flecha que le ha lanzado Cupido, que vuela por encima de él. El poeta, que está sentado, escribiendo en una tablilla, está siendo coronado por una musa que además sostiene una rama y tiene una lira y una flauta a sus pies. Frente al poeta se encuentra la Fama, representada como una dama con túnica y manto, tocada con una diadema, que lleva una tuba en la mano derecha mientras con la izquierda con una especie de puntero le indica a Ovidio lo que debe escribir. La escena tiene lugar al borde de una corriente de agua surcada por una pareja de cisnes. En el árbol que hay detrás del grupo cuelga una cartela que reza 
+                    <hi rend="color(000096)">&lt;i&gt;</hi>P. OVIDII NASONIS OPERA OMNIA.
+                    <hi rend="color(000096)">&lt;/i&gt;&lt;br /&gt;</hi>El grabado va firmado por el diseñador y el grabador: Bernard Picart (
+                    <hi rend="color(000096)">&lt;i&gt;</hi>B Picart inv.
+                    <hi rend="color(000096)">&lt;/i&gt;</hi>) y Matthys Pool (
+                    <hi rend="color(000096)">&lt;i&gt;</hi>M. Pool Sculp)
+                    <hi rend="color(000096)">&lt;/i&gt;</hi>.
+                    <hi rend="color(000096)">&lt;br /&gt;</hi>Esta misma edición vio la luz en Ámsterdam en el mismo año en casa de tres impresores distintos: Changuion, Westein 
+                    <hi rend="color(FF0000)">&amp;</hi> Smith y Janssonius Waesbergius. (Cf. ediciones en la 
+                    <hi rend="color(000096)">&lt;i&gt;</hi>Biblioteca Digital Ovidiana
+                    <hi rend="color(000096)">&lt;/i&gt;</hi>).
+                    <hi rend="color(000096)">&lt;br /&gt;</hi>Un ejemplar de esta edición se encuentra completamente digitalizado en la Biblioteca Nacional http://bdh.bne.es/bnesearch/detalle/bdh0000052654 
+                    <lb/>
+                    <hi rend="color(000096)">&lt;/dc:description&gt;</hi>
+                    <lb/>
+                    <hi rend="color(000096)">&lt;dcterms:created&gt;</hi>1727
+                    <hi rend="color(000096)">&lt;/dcterms:created&gt;</hi>
+                    <lb/>
+                    <hi rend="color(000096)">&lt;edm:realize</hi>
+                    <hi rend="color(F5844C)"> rdf:resource</hi>
+                    <hi rend="color(FF8040)">=</hi>
+                    <hi rend="color(993300)">"http://www.ovidiuspictus.es/ejemplar/214"</hi>
+                    <hi rend="color(000096)">/&gt;</hi>
+                    <lb/>
+                    <hi rend="color(000096)">&lt;dc:contributor</hi>
+                    <hi rend="color(F5844C)"> rdf:resource</hi>
+                    <hi rend="color(FF8040)">=</hi>
+                    <hi rend="color(993300)">"http://www.ovidiuspictus.es/ilustrador/22"</hi>
+                    <hi rend="color(000096)">/&gt;</hi>
+                    <lb/>
+                    <hi rend="color(000096)">&lt;dc:contributor</hi>
+                    <hi rend="color(F5844C)"> rdf:resource</hi>
+                    <hi rend="color(FF8040)">=</hi>
+                    <hi rend="color(993300)">"http://www.ovidiuspictus.es/ilustrador/40"</hi>
+                    <hi rend="color(000096)">/&gt;</hi>
+                    <lb/>
+                    <hi rend="color(000096)">&lt;dc:subject</hi>
+                    <hi rend="color(F5844C)"> rdf:resource</hi>
+                    <hi rend="color(FF8040)">=</hi>
+                    <hi rend="color(993300)">"http://viaf.org/viaf/312263158/"</hi>
+                    <hi rend="color(000096)">&gt;</hi>Arte de amar
+                    <hi rend="color(000096)">&lt;/dc:subject&gt;</hi>
+                    <lb/>
+                    <hi rend="color(000096)">&lt;dc:subject</hi>
+                    <hi rend="color(F5844C)"> rdf:resource</hi>
+                    <hi rend="color(FF8040)">=</hi>
+                    <hi rend="color(993300)">"http://viaf.org/viaf/303708953/"</hi>
+                    <hi rend="color(000096)">&gt;</hi>Remedios contra el amor
+                    <hi rend="color(000096)">&lt;/dc:subject&gt;</hi>
+                    <lb/>
+                    <hi rend="color(000096)">&lt;dc:subject</hi>
+                    <hi rend="color(F5844C)"> rdf:resource</hi>
+                    <hi rend="color(FF8040)">=</hi>
+                    <hi rend="color(993300)">"http://viaf.org/viaf/184346141/&gt;Amores</hi>
+                    <hi rend="color(000096)">&lt;/dc:subject&gt;</hi>
+                    <lb/>
+                    <hi rend="color(000096)">&lt;dc:subject&gt;</hi>Sobre la cosmética del rostro femenino
+                    <hi rend="color(000096)">&lt;/dc:subject&gt;</hi>
+                    <lb/>
+                    <hi rend="color(000096)">&lt;dc:subject&gt;</hi>Haliéutica
+                    <hi rend="color(000096)">&lt;/dc:subject&gt;</hi>
+                    <lb/>
+                    <hi rend="color(000096)">&lt;dc:subject&gt;</hi>Consolatio ad Liviam
+                    <hi rend="color(000096)">&lt;/dc:subject&gt;</hi>
+                    <lb/>
+                    <hi rend="color(000096)">&lt;dc:subject&gt;</hi>Nux
+                    <hi rend="color(000096)">&lt;/dc:subject&gt;</hi>
+                    <lb/>
+                    <hi rend="color(000096)">&lt;dc:contributor</hi>
+                    <hi rend="color(F5844C)"> rdf:resource</hi>
+                    <hi rend="color(FF8040)">=</hi>
+                    <hi rend="color(993300)">"http://www.ovidiuspictus.es/impresor/65"</hi>
+                    <hi rend="color(000096)">/&gt;</hi>
+                    <lb/>
+                    <hi rend="color(000096)">&lt;dcterms:spatial</hi>
+                    <hi rend="color(F5844C)"> rdf:resource</hi>
+                    <hi rend="color(FF8040)">=</hi>
+                    <hi rend="color(993300)">"http://www.geonames.org/2759794/amsterdam.html"</hi>
+                    <hi rend="color(000096)">&gt;</hi>Ámsterdam (Amstelodami)
+                    <hi rend="color(000096)">&lt;/dcterms:spatial&gt;</hi>
+                    <lb/>
+                    <hi rend="color(000096)">&lt;/edm:ProvidedCHO&gt;</hi>
+                    <lb/>
+                    <hi rend="color(000096)">&lt;edm:WebResource</hi>
+                    <hi rend="color(F5844C)"> dc:about</hi>
+                    <hi rend="color(FF8040)">=</hi>
+                    <hi rend="color(993300)">"http://www.ovidiuspictus.es/visualizacionejemplar.php?clave=214%20&amp;%20clave1=OO.BGH.Ams.1727a.t1"</hi>
+                    <hi rend="color(000096)">&gt;</hi>
+                    <lb/>
+                    <hi rend="color(000096)">&lt;dc:format&gt;</hi>IMAGE
+                    <hi rend="color(000096)">&lt;/dc:format&gt;</hi>
+                    <lb/>
+                    <hi rend="color(000096)">&lt;dcterms:created&gt;</hi>Biblioteca Digital Ovidiana
+                    <hi rend="color(000096)">&lt;/dcterms:created&gt;</hi>
+                    <lb/>
+                    <hi rend="color(000096)">&lt;dcterms:rights&gt;</hi>Biblioteca Digital Ovidiana
+                    <hi rend="color(000096)">&lt;/dcterms:rights&gt;</hi>
+                    <lb/>
+                    <hi rend="color(000096)">&lt;dcterms:hasPart</hi>
+                    <hi rend="color(F5844C)"> rdef:resource</hi>
+                    <hi rend="color(FF8040)">=</hi>
+                    <hi rend="color(993300)">"htt://wwww.ovidiuspictus/images/images/OO.BGH.Ams.1727a.t1/OO.BGH.Ams.1727a.t1.1"</hi>
+                    <hi rend="color(000096)">/&gt;</hi>
+                    <lb/>
+                    <hi rend="color(000096)">&lt;/edm:WebResource&gt;</hi>
+                    <lb/>
+                    <hi rend="color(000096)">&lt;edm:ProvidedCHO</hi>
+                    <hi rend="color(F5844C)"> dc:about</hi>
+                    <hi rend="color(FF8040)">=</hi>
+                    <hi rend="color(993300)">"http://www.ovidiuspictus.es/ejemplar/214"</hi>
+                    <hi rend="color(000096)">&gt;</hi>
+                    <lb/>
+                    <hi rend="color(000096)">&lt;dc:title&gt;</hi>OO.BGH.Ams.1727a.t1
+                    <hi rend="color(000096)">&lt;/dc:title&gt;</hi>
+                    <lb/>
+                    <hi rend="color(000096)">&lt;dc:type&gt;</hi>BOOK
+                    <hi rend="color(000096)">&lt;/dc:type&gt;</hi>
+                    <lb/>
+                    <hi rend="color(000096)">&lt;dc:identifier&gt;</hi>BG/ 35111
+                    <hi rend="color(000096)">&lt;/dc:identifier&gt;</hi>
+                    <lb/>
+                    <hi rend="color(000096)">&lt;dc:provenance</hi>
+                    <hi rend="color(F5844C)"> rdf:resource</hi>
+                    <hi rend="color(FF8040)">=</hi>
+                    <hi rend="color(993300)">"http://www.ovidiuspictus.es/biblioteca/27"</hi>
+                    <hi rend="color(000096)">/&gt;</hi>
+                    <lb/>
+                    <hi rend="color(000096)">&lt;/edm:ProvidedCHO&gt;</hi>
+                    <lb/>
+                    <hi rend="color(000096)">&lt;ore:Aggregation</hi>
+                    <hi rend="color(F5844C)"> dc:about</hi>
+                    <hi rend="color(FF8040)">=</hi>
+                    <hi rend="color(993300)">"http://www.ovidiuspictus.es/ejemplarAg/214"</hi>
+                    <hi rend="color(000096)">&gt;</hi>
+                    <lb/>
+                    <hi rend="color(000096)">&lt;edm:isShownAt</hi>
+                    <hi rend="color(F5844C)"> rdf:resource</hi>
+                    <hi rend="color(FF8040)">=</hi>
+                    <hi rend="color(993300)">"http://www.ovidiuspictus.es/visualizacionejemplar.php?clave=214%20&amp;%20clave1=OO.BGH.Ams.1727a.t1"</hi>
+                    <hi rend="color(000096)">/&gt;</hi>
+                    <lb/>
+                    <hi rend="color(000096)">&lt;edm:dataProvider&gt;</hi>Biblioteca Digital Ovidiana
+                    <hi rend="color(000096)">&lt;/edm:dataProvider&gt;</hi>
+                    <lb/>
+                    <hi rend="color(000096)">&lt;edm:AggregatedCHO</hi>
+                    <hi rend="color(F5844C)"> rdf:resource</hi>
+                    <hi rend="color(FF8040)">=</hi>
+                    <hi rend="color(993300)">"http://www.ovidiuspictus.es/ejemplar/214"</hi>
+                    <hi rend="color(000096)">/&gt;</hi>
+                    <lb/>
+                    <hi rend="color(000096)">&lt;edm:hasView</hi>
+                    <hi rend="color(F5844C)"> rdf:resource</hi>
+                    <hi rend="color(FF8040)">=</hi>
+                    <hi rend="color(993300)">"http://www.ovidiuspictus.es/ejemplar/214"</hi>
+                    <hi rend="color(000096)">/&gt;</hi>
+                    <lb/>
+                    <hi rend="color(000096)">&lt;/ore:Aggregation&gt;</hi>
+                    <lb/>
+                    <hi rend="color(000096)">&lt;edm:WebResource</hi>
+                    <hi rend="color(F5844C)"> dc:about</hi>
+                    <hi rend="color(FF8040)">=</hi>
+                    <hi rend="color(993300)">"http://wwww.ovidiuspictus/images/images/OO.BGH.Ams.1727a.t1/OO.BGH.Ams.1727a.t1.1"</hi>
+                    <hi rend="color(000096)">&gt;</hi>
+                    <lb/>
+                    <hi rend="color(000096)">&lt;dc:format&gt;</hi>IMAGE
+                    <hi rend="color(000096)">&lt;/dc:format&gt;</hi>
+                    <lb/>
+                    <hi rend="color(000096)">&lt;dcterms:created&gt;</hi>Biblioteca Digital Ovidiana
+                    <hi rend="color(000096)">&lt;/dcterms:created&gt;</hi>
+                    <lb/>
+                    <hi rend="color(000096)">&lt;dcterms:rights&gt;</hi>Biblioteca Digital Ovidiana
+                    <hi rend="color(000096)">&lt;/dcterms:rights&gt;</hi>
+                    <lb/>
+                    <hi rend="color(000096)">&lt;edm:aggregatedCHO</hi>
+                    <hi rend="color(F5844C)"> rdef:resource</hi>
+                    <hi rend="color(FF8040)">=</hi>
+                    <hi rend="color(993300)">"http://www.ovidiuspictus.es/visualizacionejemplar.php?clave=214%20&amp;%20clave1=OO.BGH.Ams.1727a.t1"</hi>
+                    <hi rend="color(000096)">/&gt;</hi>
+                    <lb/>
+                    <hi rend="color(000096)">&lt;/edm:WebResource&gt;</hi>
+                    <lb/>
+                    <hi rend="color(000096)">&lt;edm:ProvidedCHO</hi>
+                    <hi rend="color(F5844C)"> dc:about</hi>
+                    <hi rend="color(FF8040)">=</hi>
+                    <hi rend="color(993300)">"http://www.ovidiuspictus.es/ilustracionejemplar/1696"</hi>
+                    <hi rend="color(000096)">&gt;</hi>
+                    <lb/>
+                    <hi rend="color(000096)">&lt;edm:isShownAt</hi>
+                    <hi rend="color(F5844C)"> rdf:resource</hi>
+                    <hi rend="color(FF8040)">=</hi>
+                    <hi rend="color(993300)">"http://wwww.ovidiuspictus/images/images/OO.BGH.Ams.1727a.t1/OO.BGH.Ams.1727a.t1.1"</hi>
+                    <hi rend="color(000096)">/&gt;</hi>
+                    <lb/>
+                    <hi rend="color(000096)">&lt;dc:title&gt;</hi>Frontispicio
+                    <hi rend="color(000096)">&lt;/dc:title&gt;</hi>
+                    <lb/>
+                    <hi rend="color(000096)">&lt;dc:description&gt;</hi>Ovidio, herido de amor por Cupido, escribiendo poesía, asistido por una Musa que lo corona y la Fama que le indica qué escribir
+                    <hi rend="color(000096)">&lt;/dc:description&gt;</hi>
+                    <lb/>
+                    <hi rend="color(000096)">&lt;/edm:ProvidedCHO&gt;</hi>
+                    <lb/>
+                    <hi rend="color(000096)">&lt;edm:Agent</hi>
+                    <hi rend="color(F5844C)"> dc:about</hi>
+                    <hi rend="color(FF8040)">=</hi>
+                    <hi rend="color(993300)">"http://www.ovidiuspictus.es/ilustrador/22&gt;"</hi>
+                    <hi rend="color(000096)">&gt;</hi>
+                    <lb/>
+                    <hi rend="color(000096)">&lt;rdaGr2:professionOrOccupation &gt;</hi>Ilustrador
+                    <hi rend="color(000096)">&lt;/rdaGr2:professionOrOccupation&gt;</hi>
+                    <lb/>
+                    <hi rend="color(000096)">&lt;skos:prefLabel&gt;</hi>Pool, Mattys (1670-1732)
+                    <hi rend="color(000096)">&lt;/skos:prefLabel&gt;</hi>
+                    <lb/>
+                    <hi rend="color(000096)">&lt;edm:hasMet</hi>
+                    <hi rend="color(F5844C)"> rdf:resource</hi>
+                    <hi rend="color(FF8040)">=</hi>
+                    <hi rend="color(993300)">"http://viaf.org/viaf/13247568/"</hi>
+                    <hi rend="color(000096)">/&gt;</hi>
+                    <lb/>
+                    <hi rend="color(000096)">&lt;owl:sameAs</hi>
+                    <hi rend="color(F5844C)"> rdf:resource</hi>
+                    <hi rend="color(FF8040)">=</hi>
+                    <hi rend="color(993300)">"http://thesaurus.cerl.org/record/cnp01001580"</hi>
+                    <hi rend="color(000096)">&gt;&lt;/owl:sameAs&gt;</hi>
+                    <lb/>
+                    <hi rend="color(000096)">&lt;/edm:Agent&gt;</hi>
+                    <lb/>
+                    <hi rend="color(000096)">&lt;edm:Agent</hi>
+                    <hi rend="color(F5844C)"> dc:about</hi>
+                    <hi rend="color(FF8040)">=</hi>
+                    <hi rend="color(993300)">"http://www.ovidiuspictus.es/ilustrador/40&gt;"</hi>
+                    <hi rend="color(000096)">&gt;</hi>
+                    <lb/>
+                    <hi rend="color(000096)">&lt;rdaGr2:professionOrOccupation &gt;</hi>Ilustrador
+                    <hi rend="color(000096)">&lt;/rdaGr2:professionOrOccupation&gt;</hi>
+                    <lb/>
+                    <hi rend="color(000096)">&lt;skos:prefLabel&gt;</hi>Bernard Picart
+                    <hi rend="color(000096)">&lt;/skos:prefLabel&gt;</hi>
+                    <lb/>
+                    <hi rend="color(000096)">&lt;edm:hasMet</hi>
+                    <hi rend="color(F5844C)"> rdf:resource</hi>
+                    <hi rend="color(FF8040)">=</hi>
+                    <hi rend="color(993300)">"http://viaf.org/viaf/64010408/"</hi>
+                    <hi rend="color(000096)">/&gt;</hi>
+                    <lb/>
+                    <hi rend="color(000096)">&lt;owl:sameAs</hi>
+                    <hi rend="color(F5844C)"> rdf:resource</hi>
+                    <hi rend="color(FF8040)">=</hi>
+                    <hi rend="color(993300)">"http://thesaurus.cerl.org/record/cnp01318163"</hi>
+                    <hi rend="color(000096)">/&gt;</hi>
+                    <lb/>
+                    <hi rend="color(000096)">&lt;/edm:Agent&gt;</hi>
+                    <lb/>
+                    <hi rend="color(000096)">&lt;edm:Agent</hi>
+                    <hi rend="color(F5844C)"> dc:about</hi>
+                    <hi rend="color(FF8040)">=</hi>
+                    <hi rend="color(993300)">"http://www.ovidiuspictus.es/mpresor/65&gt;"</hi>
+                    <hi rend="color(000096)">&gt;</hi>
+                    <lb/>
+                    <hi rend="color(000096)">&lt;rdaGr2:professionOrOccupation &gt;</hi>Impresor
+                    <hi rend="color(000096)">&lt;/rdaGr2:professionOrOccupation&gt;</hi>
+                    <lb/>
+                    <hi rend="color(000096)">&lt;skos:prefLabel&gt;</hi>Changuion, François
+                    <hi rend="color(000096)">&lt;/skos:prefLabel&gt;</hi>
+                    <lb/>
+                    <hi rend="color(000096)">&lt;edm:hasMet</hi>
+                    <hi rend="color(F5844C)"> rdf:resource</hi>
+                    <hi rend="color(FF8040)">=</hi>
+                    <hi rend="color(993300)">"http://viaf.org/viaf/19854560/"</hi>
+                    <hi rend="color(000096)">/&gt;</hi>
+                    <lb/>
+                    <hi rend="color(000096)">&lt;owl:sameAs</hi>
+                    <hi rend="color(F5844C)"> rdf:resource</hi>
+                    <hi rend="color(FF8040)">=</hi>
+                    <hi rend="color(993300)">"http://thesaurus.cerl.org/record/cni00012233"</hi>
+                    <hi rend="color(000096)">/&gt;</hi>
+                    <lb/>
+                    <hi rend="color(000096)">&lt;/edm:Agent&gt;</hi>
+                    <lb/>
+                    <hi rend="color(000096)">&lt;/rdf:RDF&gt;</hi>
+                    <lb/>
+                </p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+            <head>Conclusiones</head>
+                <list type="unordered">
+                    <item>El proceso de migración de una biblioteca digital basada en un modelo de datos relacional a Europeana entraña una gran dificultad. Esto es debido en gran parte a la gran brecha existente entre ambos modelos, el primero de naturaleza más lógica y orientada a la representación de los datos y el segundo conceptual. Esta se constata, entre otras cosas, por el reducido número de bibliotecas que se han integrado en Europeana. </item>
+                    <item>Faltan herramientas para las bibliotecas puesto que las existentes no cubren todo el proceso, son difíciles de emplear y, o bien no son específicas para Europeana , o son muy costosas.</item>
+                    <item>El software SAMEBibl desarrollado, integra y automatiza, en la medida de lo posible, todos los procesos de la metodología. Esta herramienta lleva a cabo un proceso de traducción sintáctica y semántica del modelo origen con el establecimiento de las relaciones y reglas de transformación que da lugar a un archivo en un formato interpretable por un repositorio.</item>
+                    <item>La metodología y la herramienta cumplen con los objetivos planteados como demuestra su validación mediante un caso real, la Biblioteca Digital Ovidiana (
+                        <ref target="http://www.ovidiuspictus.es">http://www.ovidiuspictus.es</ref>). 
+                    </item>
+                </list>
+            </div>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl>
+                        <hi rend="bold">Agenjo Bullón, X., and Hernández Carrascal, F.</hi> (2011). 
+                        <hi rend="italic">Perspectivas europeas en el desarrollo funcional de los sistemas de información: la agregación de datos del europeana data model. FESABID’11. Actas de Las XII Jornadas Españolas de Documentación</hi>. 
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Aloia, N., Concordia, C., and Meghini, C.</hi> (2013). 
+                        <hi rend="italic">The Europeana Linked Open Data Pilot Server.</hi> In M. Agosti, F. Esposito, S. Ferilli, and N. Ferro (Eds.), Digital Libraries and Archives, pp. 241–48. Springer Berlin Heidelberg. Retrieved from http://link.springer.com/chapter/10.1007/978-3-642-35834-0_24
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Angjeli, A., Bayerische, M., Chambers, S., Charles, V., Clayphan, R., Deliot, C., et al.</hi> (2012). 
+                        <hi rend="italic">D5. 1 Report on the alignment of library metadata with the European Data Model (EDM) Version 2.0. </hi>Report, Europeana Project.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">An, Y., Borgida, A., and Mylopoulos, J.</hi> (2005). 
+                        <hi rend="italic">Refining semantic mappings from relational tables to ontologies</hi>. In Semantic Web and Databases pp. 84–90. Springer. Retrieved from http://link.springer.com/chapter/10.1007/978-3-540-31839-2_7
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Barrasa Rodríguez, J.</hi> (2007). 
+                        <hi rend="italic">Modelo para la definición automática de correspondencias semánticas entre ontologías y modelos relacionales (phd).</hi> Facultad de Informática (UPM). Retrieved from http://oa.upm.es/4147/
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Berners-Lee, T.</hi> (2013). 
+                        <hi rend="italic">Relational databases on the semantic web</hi>. Retrieved from http://www.citeulike.org/group/17638/article/11988241
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Charles, V., Isaac, A., Tzouvaras, V., and Hennicke, S.</hi> (2013). 
+                        <hi rend="italic">Mapping Cross-Domain Metadata to the Europeana Data Model (EDM).</hi> In T. Aalberg, C. Papatheodorou, M. Dobreva, G. Tsakonas, and C. J. Farrugia (Eds.), Research and Advanced Technology for Digital Libraries, pp. 484–85. Springer Berlin Heidelberg. Retrieved from http://link.springer.com/chapter/10.1007/978-3-642-40501-3_68
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Concordia, C., Gradmann, S., and Siebinga, S. </hi>(2010). Not just another portal, not just another digital library: A portrait of Europeana as an application program interface. <hi rend="italic">IFLA Journal</hi>, <hi rend="bold">36</hi>(1): 61–9, Retrieved from http://ifl.sagepub.com/content/36/1/61.short
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">CVC </hi>(2014). 
+                        <hi rend="italic">El español en el mundo. Anuario del Instituto Cervantes 2010-2011. Las bibliotecas digitales del siglo siglo XXI. Rafael C. Carrasco Jiménez</hi>. Retrieved September 18, 2015, from 
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Europeana.</hi> (2014). 
+                        <hi rend="italic">Europeana Data Model Mapping Guidelines</hi>. Retrieved from http://pro.europeana.eu:9580/documents/900548/60777b88-35ed-4bae-8248-19c3696b81fb
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">European Commision. </hi>(2005). 
+                        <hi rend="italic">i2010: Digital libraries</hi>. Retrieved from http://europa.eu/legislation_summaries/information_society/strategies/l24226i_en.htm
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Hernando-De-Larramendi, L., Domínguez-Muriel, J., Viedma-Peláez, A., Hernández-Carrascal, F. and Agenjo, X.</hi> (2009). 
+                        <hi rend="italic">Datos y metadatos: la normalización dinámica de los elementos y de los procesos constituyentes de una Biblioteca Virtual</hi>. Retrieved from http://eprints.rclis.org/14342
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">López, F.-A. </hi>(2013). 
+                        <hi rend="italic">Visibilidad e impacto de los repositorios digitales en acceso abierto. De Bibliotecas Y Bibliotecarios. Boletín Electrónico ABGRA, (5)</hi>. Retrieved from http://eprints.rclis.org/18940/
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Pan, Z. and Heflin, J.</hi> (2004). 
+                        <hi rend="italic">Dldb: Extending relational databases to support semantic web queries. DTIC Document.</hi> http://oai.dtic.mil/oai/oai?verb=getRecord&amp;metadataPrefix=html&amp;identifier=ADA451847
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Remedios Melero, E. A. </hi>(2009). 
+                        <hi rend="italic">The situation of open access institutional repositories in Spain: 2009</hi>. Retrieved September 12, 2015, from http://www.informationr.net/ir/14-4/paper415.html
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Ríos-Hilario, A., Martín-Campo, D. and Ferreras-Fernández, T</hi>. (2012). Linked data y linked open data: su implantación en una biblioteca digital. El caso de Europeana. <hi rend="italic">El Profesional de La Información</hi>, <hi rend="bold">21</hi>(3): 292–97. Retrieved from http://elprofesionaldelainformacion.metapress.com/index/712822300Q7033W3.pdf
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Saorín, T., Peset, F. and Ferrer-Sapena, A.</hi> (2013). Retrieved July 1, 2014, from http://eprints.rclis.org/21005/
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Sequeda, J. F., Tirmizi, S. H., Corcho, O., and Miranker, D. P.</hi> (2011). Survey of directly mapping sql databases to the semantic web. <hi rend="italic">The Knowledge Engineering Review</hi>, <hi rend="bold">26</hi>(4): 445–86. Retrieved from http://journals.cambridge.org/abstract_S0269888911000208
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Vassallo, V. and Piccininno, M.</hi> (2012). Aggregating Content for Europeana: A Workflow to Support Content Providers. In P. Zaphiris, G. Buchanan, E. Rasmussen, and F. Loizides (Eds.), <hi rend="italic">Theory and Practice of Digital Libraries</hi>, pp. 445–54. Springer Berlin Heidelberg. Retrieved from http://link.springer.com/chapter/10.1007/978-3-642-33290-6_50
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Vega-Ramırez, A., Grangel-González, I., Sáez-Mosquera, I. and Garcıa-Castro, R.</hi> (2014). 
+                        <hi rend="italic">Procedimiento para la obtención de un modelo ontológico para representar la información contenida en bases de datos.</hi> Retrieved from http://ceur-ws.org/Vol-1219/paper5.pdf
+                    </bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

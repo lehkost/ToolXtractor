@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>Mining and Discovering Biographical Information in Difangzhi with a Language-Model-based Approach</title>
+                <author>
+                    <persName>
+                        <surname>Bol</surname>
+                        <forename>Peter</forename>
+                    </persName>
+                    <affiliation>Harvard University, USA</affiliation>
+                    <email>pkbol@fas.harvard.edu</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Liu</surname>
+                        <forename>Chao-Lin</forename>
+                    </persName>
+                    <affiliation>National Chengchi University, Taiwan</affiliation>
+                    <email>chaolinliu@gmail.com</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Wang</surname>
+                        <forename>Hongsu</forename>
+                    </persName>
+                    <affiliation>Harvard University, USA</affiliation>
+                    <email>hongsuwang@fas.harvard.edu</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2014-12-19T13:50:00Z</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Paul Arthur, University of Western Sidney</publisher>
+                <address>
+                    <addrLine>Locked Bag 1797</addrLine>
+                    <addrLine>Penrith NSW 2751</addrLine>
+                    <addrLine>Australia</addrLine>
+                    <addrLine>Paul Arthur</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from a Word document </p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.9">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Short Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>China Biographical Data</term>
+                    <term>Chinese Language Processing</term>
+                    <term>Grammar Induction</term>
+                    <term>Information Extraction</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>historical studies</term>
+                    <term>text analysis</term>
+                    <term>asian studies</term>
+                    <term>English</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <p>We present results of expanding the contents of the China Biographical Database [1] by text mining historical local gazetteers, 
+                <hi rend="italic">difangzhi</hi>地方志.[2] The goal of the database is to see how people are connected together, through kinship, social connections, and the places and offices in which they served. The gazetteers are the single most important collection of names and offices covering the Song through Qing periods. Although we begin with local officials, we shall eventually include lists of local examination candidates, people from the locality who served in government, and notable local figures with biographies. The more data we collect, the more connections emerge. The value of doing systematic text mining work is that we can identify relevant connections that are either directly informative or can become useful without deep historical research. Academia Sinica is developing a name database for officials in the central governments of the Ming and Qing dynasties.[3]
+            </p>
+            <figure>
+                <graphic n="1001" width="15.372291666666667cm" height="24.473958333333332cm" url="Pictures/image1.jpg" rend="inline"/>
+            </figure>
+            <p>Problem Definition and Main Findings</p>
+            <p>Figure 1 shows a scanned page from a 
+                <hi rend="italic">difangzhi</hi>,[4] and Figure 2 shows the text of the shown image. As Figure 1 shows, traditional Chinese texts do not have spaces between words or employ punctuation. This feature makes the processing of literary Chinese texts much more difficult than handling alphabetical languages and modern Chinese. The circles in Figure 2 serve as a general delimiter, representing the end of a line, the end of a page, a space, or a transition in text formatting—for example, placing two lines of text in a single column in column 2 of Figure 2.
+            </p>
+            <p>We would like to algorithmically extract the information about local officials, such as Li Chang 李常in Figure 2. We are interested in the alternative names, such as the style name (
+                <hi rend="italic">zi </hi>字) and pen name (
+                <hi rend="italic">hao</hi>號), birthplace, entry method, serving office, service time, and so forth. In this abstract, we focus on how we identify a person’s name, style name, and the dynasty. For example, we wish to extract the record Song宋as dynasty, Li Chang李常 as person name, and Gongze公擇 as style name after handling the text in Figure 2. 
+            </p>
+            <p>Local gazetteers record various types of information about local areas; we selected those that are related to local government officials. Not counting the circles in the texts, the current study employed 83 text files containing 901,302 Chinese characters. </p>
+            <p>We extracted 1,260 records from the files and compared them with the biographical data in CBDB. Table 1 gives an analysis of the results, where a circle indicates a match; a cross indicates a mismatch. Among the 1,260 records, 562 match the dynasty, personal name, and style name of some CBDB records, and 544 (43.2%) match only dynasty and name.</p>
+            <figure>
+                <graphic n="1002" width="15.920861111111112cm" height="17.707680555555555cm" url="Pictures/image2.jpg" rend="inline"/>
+            </figure>
+            <p>
+                <pb/>
+            </p>
+            <figure>
+                <p>
+                    <graphic n="1003" width="15.920861111111112cm" height="9.422694444444444cm" url="Pictures/image3.jpg" rend="inline"/>
+                    <pb/>
+                </p>
+            </figure>
+            <p>Methods</p>
+            <p>Figure 3 shows the main procedure for extracting the records. In addition to the gazetteers, we used files of previously known names, addresses, entries, offices, and reign period titles from CBDB to annotate the texts.[5] In this study, we also consider the dynasties for names, offices, and reign periods. </p>
+            <p>We need to consider the ambiguities of a word when annotating the texts. For instance, ‘Li Chang’ 李常 was a person name in the Song, Yuan, Ming, and Qing dynasties, and the four-character office title ‘Guan-cha tui-guan’ 觀察推官 was an office in the Tang and Song dynasties. In addition the second and third characters ‘cha tui’ 察推also represent an office in the Song and Yuan dynasties. Hence, as illustrated in Figure 4, we could generate at least 16 possible label sequences for the following string T1 in Figure 2.</p>
+            <p>T1: 李常字公擇南康建昌人自宣州觀察推官發運使</p>
+            <p>We sift the label sequences by adopting the principle of favoring longer words[6] and by disambiguating with contextual constraints. In T1, we do not consider ‘cha tui’ 察推 an office for the Song dynasty because the four-character sequence is a longer match for the same dynasty. In addition, it is reasonable to require that all labels in a sequence must be 
+                <hi rend="italic">consistent</hi> with the same dynasty. Hence, among the 16 sequences, only ‘李常-觀察推官’ for Song and ‘李常-察推’ for Yuan could survive. 
+            </p>
+            <p>Since there are no known tools for parsing literary Chinese, we employ the concept of language models (Manning and Schütze, 1999) to analyze the texts. We computed, collected, and counted the frequencies of 
+                <hi rend="italic">consistent sequences </hi>of six labels.[7]
+            </p>
+            <p>Aiming at extracting personal names and style names for government officials, we focused on the consistent sequences that have at least one &lt;NAME&gt; label. We then identified and preferred subsequences that include more different labels. We show four such 
+                <hi rend="italic">filter patterns</hi> below.
+            </p>
+            <p>P1: &lt;NAME&gt;&lt;ADDRESS&gt;&lt;REIGN PERIOD&gt;&lt;ENTRY&gt;</p>
+            <p>P2: &lt;NAME&gt;&lt;ADDRESS&gt;&lt;ENTRY&gt;&lt;REIGN PERIOD&gt;</p>
+            <p>P3: &lt;NAME&gt;&lt;NAME&gt;&lt;ADDRESS&gt;&lt;ADDRESS&gt;</p>
+            <p>P4: &lt;NAME&gt;&lt;ADDRESS&gt;&lt;ADDRESS&gt;&lt;ADDRESS&gt;</p>
+            <p>Finally, we selected the consistent sequences that contained the filter patterns and extracted original text segments that corresponded to the consistent sequences. The string T1 was extracted from the text in Figure 2 because it could be annotated with the sequence &lt;NAME&gt;&lt;ADDRESS&gt;&lt;ADDRESS&gt;&lt;ADDRESS&gt;&lt;OFFICE&gt;&lt;OFFICE&gt;, which contained P4. The &lt;NAME&gt; label is for ‘李常.’ At the annotation stage, our programs did not recognize ‘Gongze’ 公擇as a Style Name for ‘Li Chang’ 李常 because ‘Gongze’ 公擇was not included in the CBDB name list. One of the two annotated results is listed below.</p>
+            <p>
+                <hi rend="bold">&lt;NAME Song&gt;李常&lt;/NAME&gt;字公擇&lt;ADDRESS&gt;南康&lt;/ADDRESS&gt;&lt;ADDRESS&gt;建昌&lt;/ADDRESS&gt;人自&lt;ADDRESS&gt;宣州&lt;/ADDRESS&gt;&lt;OFFICE Song&gt;觀察推官&lt;/OFFICE&gt;&lt;OFFICE Song&gt;發運使&lt;/OFFICE&gt;</hi>
+            </p>
+            <p>To extract ‘Gongze’ 公擇as a Style Name from T1, we parsed the text segment with a low-level grammar pattern for the task. Specifically, a two-character string that appears after the sequence of a &lt;NAME&gt; label and the character ‘字’ (Style Name) and before an &lt;ADDRESS&gt; label was extracted as the Style Name for the &lt;NAME&gt;. With such syntactic rules, we discovered that ‘公擇’ is a Style Name for ‘李常,’ and obtained two records (Song,李常,公擇) and (Yuan, 李常,公擇).</p>
+            <p>
+                <pb/>
+            </p>
+            <figure>
+                <p>
+                    <graphic n="1004" width="15.920861111111112cm" height="14.869583333333333cm" url="Pictures/image4.jpg" rend="inline"/>
+                    <pb/>
+                </p>
+                <graphic n="1005" width="15.920861111111112cm" height="8.09801388888889cm" url="Pictures/image5.jpg" rend="inline"/>
+            </figure>
+            <p>Results, Evaluation, and Applications</p>
+            <p>We compared the extracted records with the combinations of dynasty, name, and Style Name in CBDB, and Table 1 shows the results. The two records that we just obtained would belong to type 2, because ‘Gongze’ 公擇 is not known to CBDB. All extracted records of type 2 provide opportunities of finding Style Names that were new to CBDB. However, they should be confirmed by asking a domain expert to check the original text segments, which is an operation facilitated by our software platform.</p>
+            <p>Extracted records of type 1 do not provide new information if we are just interested in names and Style Names. Certainly, we are more ambitious than this, and type-1 records are instrumental. They help us find the beginnings of the paragraphs that contain extra information about the owners of the type-1 records. T1 is the beginning of the second paragraph in Figure 1. This paragraph contains extra information about ‘李常’ that we can explore to enhance the contents of CBDB. The third paragraph in Figure 1 and many following paragraphs start with statements that we could identify with the filter patterns. </p>
+            <p>Records of types 3 through 7 make up only about 12.2% of the 1,260 extracted records. Similar to type-2 records, these records do not match any records in CBDB perfectly. After inspecting the original text segments, we will be able to tell whether these mismatches are new discoveries or incorrect extractions. </p>
+            <p>Discussion</p>
+            <p>The reported work represents an extension of our work for CBDB that was reported in Bol et al. (2012). In the previous work, experts manually designed regular expressions for specific text patterns. Now, based on prior information about named entities, we are able to compute and analyze the label sequences for the local gazetteer texts to learn useful filter patterns for automatically extracting desired information. We can apply the reported mechanism to extract birthplaces, service periods, offices, and other basic information, as we just did for extracting names and Style Names. In addition, by identifying key opening statements for paragraphs that contain biographical data, the reported procedure opens a new door for algorithmically extracting information about personal career and social networks. We are working toward learning the document structures of local gazetteers.</p>
+            <p>Our work is related to automatic grammar induction in computational linguistics. Hwa (1999) learns grammars with data that were manually annotated with syntactic information, and we automatically annotated data with named entities. Klein and Manning (2005) employed advanced techniques to learn hierarchical grammars for Penn treebank sentences, which may be quite challenging in the case of literary Chinese. </p>
+            <p>Additional responses to reviewers’ comments are available at http://www.cs.nccu.edu.tw/~chaolin/papers/dh2015blw.online.pdf.</p>
+            <p>Notes</p>
+            <p>1. The China Biographical Database (CBDB; http://isites.harvard.edu/icb/icb.do?keyword=k16229) is a collaborative project of Harvard University, Peking University, and Academia Sinica. CBDB is an online relational database with biographical information about approximately 328,000 individuals as of October 2013, primarily from the 7th through the 19th centuries. The data is meant to be useful for statistical, social network, and spatial analysis as well as serving as a kind of biographical reference.</p>
+            <p>2. 
+                <hi rend="italic">Difangzhi</hi>—see http://www.chinaknowledge.de/Literature/Terms/difangzhi.html.
+            </p>
+            <p>3. http://archive.ihp.sinica.edu.tw/ttsweb/html_name/search.php.</p>
+            <p>4. When written in the vertical style, Chinese paragraphs begin from the right side of a page.</p>
+            <p>5. Here, ‘names’ include either official names or any alternative names. ‘Addresses’ refer to location names. ‘Entries’ (入仕方式), e.g., ‘進士’ and ‘舉人’, include different ranks and ways of becoming a government official via the Civil Service Examinations (‘科舉’). ‘Offices’ (官職, government positions) include posts in the government. ‘Reign period names’ (年號), e.g., Kangxi 康熙, are names of time periods under a particular emperor. </p>
+            <p>6. This so-called favoring the longer term 長詞優先principle is commonly adopted when segmenting (or tokenizing) Chinese text strings (cf. Gao et al., 2005).</p>
+            <p>7. Technically speaking, we are analyzing a 6-gram language model.</p>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl>
+                        <hi rend="bold">Bol, P. K., Hsiang, J. and Fong, G. </hi>(2012). Prosopographical Databases, Text-Mining, GIS and System Interoperability for Chinese History and Literature. 
+                        <hi rend="italic">2012 International Conference on Digital Humanities</hi>, Hamburg, Germany, 19 July 2012.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Gao, J., Li, M., Wu, A. and Huang C.-N.</hi> (2005). Chinese Word Segmentation and Named Entity Recognition: A Pragmatic Approach. 
+                        <hi rend="italic">Computational Linguistics,</hi>
+                        <hi rend="bold">31</hi>(4): 531‒74.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Hwa, R.</hi> (1999). Supervised Grammar Induction Using Training Data with Limited Constituent Information. In 
+                        <hi rend="italic">Proceedings of the 37th Annual Meeting of the Association for Computational Linguistics</hi>, Stroudsburg, PA: Association for Computational Linguistics, pp. 73‒79.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Klein, D. and Manning, C. D. </hi>(2005). Natural Language Grammar Induction with a Generative Constituent-Context Model. 
+                        <hi rend="italic">Pattern Recognition,</hi>
+                        <hi rend="bold">38</hi>: 1407‒19.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Manning, C. D. and Schütze, H.</hi> (1999). 
+                        <hi rend="italic">Foundations of Statistical Natural Language Processing</hi>. Cambridge, MA: MIT Press, chap. 6.
+                    </bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

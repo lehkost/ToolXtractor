@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xsi:schemaLocation="http://www.tei-c.org/ns/1.0 /Users/yoann/Work/Grobid/grobid-home/schemas/xsd/Grobid.xsd"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+	<teiHeader xml:lang="en">
+		<encodingDesc>
+			<appInfo>
+				<application version="0.5.4-SNAPSHOT" ident="GROBID" when="2019-06-05T06:49+0000">
+					<ref target="https://github.com/kermitt2/grobid">GROBID - A machine learning software for extracting information from scholarly documents</ref>
+				</application>
+			</appInfo>
+		</encodingDesc>
+		<fileDesc>
+			<titleStmt>
+				<title level="a" type="main">Orosius&apos; Histories: A Digital Intertextual Investigation into the First Christian History of Rome</title>
+			</titleStmt>
+			<publicationStmt>
+				<publisher/>
+				<availability status="unknown"><licence/></availability>
+			</publicationStmt>
+			<sourceDesc>
+				<biblStruct>
+					<analytic>
+						<author role="corresp">
+							<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">Greta</forename><surname>Franzini</surname></persName>
+							<email>gfranzini@etrap.eu</email>
+							<affiliation key="aff0">
+								<orgName type="department">Georg-August-Universität</orgName>
+								<orgName type="institution">Georg-August-Universität Göttingen</orgName>
+								<address>
+									<settlement>Göttingen</settlement>
+									<country>Germany, Germany</country>
+								</address>
+							</affiliation>
+						</author>
+						<author>
+							<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">Marco</forename><surname>Büchler</surname></persName>
+							<affiliation key="aff0">
+								<orgName type="department">Georg-August-Universität</orgName>
+								<orgName type="institution">Georg-August-Universität Göttingen</orgName>
+								<address>
+									<settlement>Göttingen</settlement>
+									<country>Germany, Germany</country>
+								</address>
+							</affiliation>
+						</author>
+						<author>
+							<persName xmlns="http://www.tei-c.org/ns/1.0"><surname>Eu</surname></persName>
+							<affiliation key="aff0">
+								<orgName type="department">Georg-August-Universität</orgName>
+								<orgName type="institution">Georg-August-Universität Göttingen</orgName>
+								<address>
+									<settlement>Göttingen</settlement>
+									<country>Germany, Germany</country>
+								</address>
+							</affiliation>
+						</author>
+						<title level="a" type="main">Orosius&apos; Histories: A Digital Intertextual Investigation into the First Christian History of Rome</title>
+					</analytic>
+					<monogr>
+						<imprint>
+							<date/>
+						</imprint>
+					</monogr>
+				</biblStruct>
+			</sourceDesc>
+		</fileDesc>
+		<profileDesc>
+			<abstract/>
+		</profileDesc>
+	</teiHeader>
+	<text xml:lang="en">
+		<body>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Introduction</head><p>The research described in these pages is made possible by openly available Classical texts and linguistic resources. It aims at performing semi-automatic analyses of Paulus Orosius' (385-420 AD) most celebrated work, the Historia adversum Paganos Libri VII, against its sources. The Histories, as this work is known in English, constitute the first history (752 BC to 417 AD) to have been written from a Christian perspective. To do so, Orosius drew from earlier and contemporary christian and pagan authors, providing a rich narrative fraught with intertextual references to poetry and prose alike.</p><p>Orosius' vast network of references challenges automatic text reuse detection tasks both qualitatively and quantitatively. In fact, information retrieval algorithms face differences in reuse style -from verbatim quotations to paraphrase and allusions <ref type="bibr" target="#b4">(Navarro, 1991)</ref>-and millions of words to sift through. To understand how Orosius reused texts, it is necessary to detect, extract, classify and evaluate all references and compare them to their sources, mindful of the balance between the precision of the results and their recall or number.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Related Work</head><p>Existing research on Orosius' sources for the Histories is scattered and often focusses on his relation to one author or work only, albeit acknowledging the full spectrum of sources (e.g. <ref type="bibr" target="#b2">Coffin, 1936;</ref><ref type="bibr" target="#b7">Sihler, 1887)</ref>. The size of the source-texts (see <ref type="table" target="#tab_0">Table 1</ref>) makes it extremely difficult to produce a comprehensive and detailed manual exploration of all of Orosius' references.</p><p>"It would be burdensome to list all of the Vergilian echoes <ref type="bibr">[...]</ref>" <ref type="bibr">(Coffin, 1936: 237)</ref> What Coffin describes as "burdensome" can be accomplished with machine assistance. To the best of our knowledge, no existing study, traditional or computational, has quantified and analysed the reuse habits of Orosius.</p><p>The Tesserae project, which specialises in allusion detection, is the most similar to the research presented here <ref type="bibr" target="#b1">(Coffee, 2013)</ref>, with the difference that it does not yet contain the text of Orosius nor many of its sources, and that the results are automatically computed without user input.</p><p>In contrast, our approach, TRACER <ref type="bibr">(Büchler et al., 2017)</ref>, offers complete control over the algorithmic process, giving the user the choice between being guided by the software and to intervene by adjusting search parameters. In this way, results are produced through a critical evaluation of the detection.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Research Questions and Goal</head><p>Our research began with the following questions: how does Orosius adapt Classical authors? Can we categorise his text reuse styles and what is the optimal precision-recall retrieval ratio on this large historical corpus? How does detection at scale affect computational speed?</p><p>This project tests the stability of historical text reuse detection on a corpus of Latin authors where Orosius is our target text. We evaluate our computed results against known reuses published in commentaries to Orosius, thus corroborating existing findings but also potentially uncovering previously unnoticed reuse. In so doing, we refine our workflow and resources in order to advance historical text reuse detection for Latin.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Data</head><p>All of the public-domain works for this study were downloaded from The Latin Library. We chose this collection over other analogous resources as it provides clean and plain texts (.txt), the format required by our text reuse detection machine TRACER. <ref type="table" target="#tab_0">Table 1</ref> outlines the authors and works under investigation in chronological order. To give an idea of the size of the texts, the 'Tokens' column provides a total word-count for each work; the 'Types' column provides the total number of unique words; and the 'Token-Type Ratio' shows how often a type occurs in the text (e.g. a TTR of 3 indicates that for every type in a text there are three tokens on average. Generally, the higher the ratio the less linguistic variance in a text). This table reveals the language and challenges we should expect when detecting reuse. For instance, Caesar, Lucan and Tacitus share similar text lengths but Caesar has a higher TTR; this tells us that Caesar's text has less linguistic variety than Lucan and Tacitus. Conversely, if we look at Suetonius in comparison to Lucan and Tacitus, we notice a larger text but a similar TTR. This indicates a high linguistic variance in Suetonius' text, and one that can prove challenging for text reuse detection. </p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Reuse Styles</head><p>Orosius employs a variety of reuse styles, ranging from verbatim quotations to allusions and paraphrase <ref type="bibr" target="#b4">(Navarro, 1991)</ref>. The reuses are as short as two words (ibid.) or as long as sixty-five words, and sometimes invert the word order of the original text <ref type="bibr" target="#b3">(Elerick, 1994)</ref>.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Methodology</head><p>Our workflow makes use of three resources: first, a TreeTagger Latin language model for Part-ofSpeech (PoS) tagging and lemmatisation <ref type="bibr" target="#b6">(Schmid, 2013)</ref>. We chose to work with TreeTagger as, unlike other taggers, it comes with a pre-trained model for Latin (trained by Marco Passarotti). Since submitting this abstract, we also began experimenting with the LemLat morphological analyser. Secondly, we used the Latin WordNet lemma list and synonym set to support the detection of paraphrase and paradigmatic relations; and TRACER, our text reuse detection machine (see also, the list of TRACER's 700 algorithms).</p><p>First, the data is acquired and prepared: the texts are downloaded, semi-automatically cleaned (by "cleaning" we mean the removal of footnotes, section numbering, special characters and typos in the texts) and, where possible, spelling variants are normalised. Next, the texts are lemmatised and tagged for PoS. We then run TRACER with different parameters in order to define the diversity of the reuses in the corpus. TRACER can split a detection task into six subtasks, each containing parameters that users can customise or (de)activate depending on the type of detection required (see <ref type="figure" target="#fig_0">Figure 1)</ref>. The reader will notice that the Pre-processing step also contains lemmatisation. This does not mean that TRACER can lemmatise any text but it currently supports lemmatised input data from the Stanford CoreNLP English lemmatiser and the TreeTagger Latin lemmatiser.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Results</head><p>Tagged and lemmatised text accounts for 93.1% of the tokens in the corpus. A 7% of words could not be lemmatised due to typos in the text (e.g. missing white-spaces), which we are manually or semiautomatically correcting; similarly, some words could not be successfully tagged, as the lemmas are not included in the TreeTagger's parameter file (e.g. named entities).</p><p>To perform detection with TRACER, all texts were initially segmentised by sentence. The average sentence length measured across the whole corpus is thirty-one words per sentence. A first detection task between Orosius and all other authors was conducted at the sentence level. However, this failed due to the presence of very short text reuses. For this reason, the segmentation was changed to a moving window of ten words, thus giving TRACER smaller units to process. In the Selection step (see <ref type="figure" target="#fig_0">Figure 1)</ref>, we first experimented with max-pruning (i.e. the removal of high frequency words) but eventually settled on a PoS-based selection, which considered nouns, verbs and adjectives as more relevant features than function words, thus significantly increasing the recall and the overall quality of the results.</p><p>For the Scoring (see <ref type="figure" target="#fig_0">Figure 1)</ref>, we used the resemblance score, which measures the ratio of overlapping features with the overall unique set of features of two alignment candidates. <ref type="figure" target="#fig_1">Figure 2</ref> illustrates the results of this detection process: over 45% of reuses identified in Orosius overlap with the source texts by four words, and that roughly 93% of all candidates have overlaps of 3, 4 or 5 words, indicating a fragmentary reuse style rather than block-copying. This detection task took approximately 30 hours to compute. A second TRACER experiment was run between Orosius and Tacitus to explore and evaluate the results of the detection on a smaller scale. Commentaries to Orosius reveal the presence of fifteen reuses of Tacitus, ten of which refer or allude to text that no longer survives. This means that TRACER can only try to match five known reuses, which differ in style. In this experiment, we used a moving window of fifteen words and synonym replacement in order to identify paraphrase as well as verbatim quotations. TRACER identified forty reuses, of which thirty-six false positives and two new finds. <ref type="figure">Figure 3</ref> illustrates these results. <ref type="figure">Figure 3</ref>. Top: an example of a false positive produced by TRACER in detecting reuse between Orosius and Tacitus. Bottom: two new finds yielded by TRACER, an analogy and a potential reuse. Colours match up the similarities between the aligned candidates.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Limitations and Future Work</head><p>The retrieval accuracy of TRACER partly depends on the accuracy of the trained models of TreeTagger and the Latin WordNet data. An error analysis is needed in order to verify the accuracy of our cleaned and automatically-tagged data, and to determine the effect of this incorrect tagging on text reuse detection. Depending on the outcome of this analysis, we will consider re-tagging our corpus with a more advanced tagger, such as LemLat ( <ref type="bibr" target="#b5">Passarotti, 2007)</ref> and/or LatMor, or even training a tagger on the different types of Latin constituting our corpus.</p><p>We are currently running TRACER comparisons between Orosius and each of the other source authors in our corpus to verify the presence of previously unknown reuse, corroborate known reuse and improve our detection techniques.</p><p>Additionally, we plan on comparing Orosius against non-reused authors, such as Plautus or Apuleius, to examine TRACER's performance on "negative" texts. Ratio of the the scored overlap (in %)</p><p>Scored overlap with a moving window of 10</p></div><figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_0"><head>Figure 1 :</head><label>1</label><figDesc>Figure 1: The six-step pipeline of TRACER (from left to right).</figDesc><graphic url="image-2.png" coords="2,316.86,139.74,241.20,66.00" type="bitmap" /></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_1"><head>Figure 2 .</head><label>2</label><figDesc>Figure 2. In this plot the x-axis represents a window of 10 words, while the y-axis the occurrence of the overlap in percentage. Over 45% of text reuse in Orosius overlaps with the source texts by four words.</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_2"><head>Fear, T. A. ( 2010 ). Orosius: Seven Books of History against the Pagans.</head><label>2010</label><figDesc>Liverpool University Press.</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" type="table" xml:id="tab_0" validated="false"><head>Table 1 .</head><label>1</label><figDesc>Overview of analysed texts.</figDesc><table></table></figure>
+		</body>
+		<back>
+
+			<div type="acknowledgement">
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Acknowledgements</head><p>This research is funded by the German Federal Ministry of Education and Research (grant 01UG1509).</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Bibliography</head></div>
+			</div>
+
+			<div type="references">
+
+				<listBibl>
+
+<biblStruct xml:id="b0">
+	<analytic>
+		<title level="a" type="main">TRACER - a multilevel framework for historical Text Reuse detection</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">M</forename><surname>Büchler</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">G</forename><surname>Franzini</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">E</forename><surname>Franzini</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">M</forename><surname>Moritz</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Journal of Data Mining and Digital Humanities - Special Issue on Computer Aided Processing of Intertextuality in Ancient Languages</title>
+		<imprint>
+			<date type="published" when="2017" />
+		</imprint>
+	</monogr>
+	<note>forthcoming)</note>
+</biblStruct>
+
+<biblStruct xml:id="b1">
+	<analytic>
+		<title level="a" type="main">The Tesserae Project: intertextual analysis of Latin poetry</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">N</forename><surname>Coffee</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">J</forename><forename type="middle">P</forename><surname>Koenig</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">S</forename><surname>Poornima</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">C</forename><forename type="middle">W</forename><surname>Forstall</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">R</forename><surname>Ossewaarde</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">S</forename><forename type="middle">L</forename><surname>Jacobson</surname></persName>
+		</author>
+		<idno type="doi">10.1093/llc/fqs033</idno>
+		<ptr target="DOI:10.1093/llc/fqs033" />
+	</analytic>
+	<monogr>
+		<title level="j">Literary and Linguistic Computing</title>
+		<imprint>
+			<biblScope unit="volume">28</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<biblScope unit="page" from="221" to="249" />
+			<date type="published" when="2013" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b2">
+	<analytic>
+		<title level="a" type="main">Vergil and Orosius</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">H</forename><forename type="middle">C</forename><surname>Coffin</surname></persName>
+		</author>
+		<ptr target="http://www.jstor.org/stable/3290976" />
+	</analytic>
+	<monogr>
+		<title level="j">The Classical Journal</title>
+		<imprint>
+			<biblScope unit="volume">31</biblScope>
+			<biblScope unit="issue">4</biblScope>
+			<biblScope unit="page">13</biblScope>
+			<date type="published" when="1936-10" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b3">
+	<analytic>
+		<title level="a" type="main">How Latin Word Order Works</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">C</forename><surname>Elerick</surname></persName>
+		</author>
+		<idno type="doi">DOI:10.1515/joll.1994.4.1.99</idno>
+	</analytic>
+	<monogr>
+		<title level="j">Journal of Latin Linguistics</title>
+		<imprint>
+			<biblScope unit="volume">4</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="99" to="118" />
+			<date type="published" when="1994" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b4">
+	<monogr>
+		<title level="m" type="main">Historiadores y poetas citados en las Historias de Orosio: Livio y Tácito</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">M</forename><forename type="middle">A R</forename><surname>Navarro</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><surname>Virgilio Y Lucano</surname></persName>
+		</author>
+		<ptr target="https://dialnet.unirioja.es/descarga/ar-ticulo/163829.pdf" />
+		<imprint>
+			<date type="published" when="1991-10" />
+			<biblScope unit="page">13</biblScope>
+		</imprint>
+	</monogr>
+	<note>Fortunatae: Revista canaria de filología, cultura y humanidades clásicas</note>
+</biblStruct>
+
+<biblStruct xml:id="b5">
+	<analytic>
+		<title level="a" type="main">LEMLAT. Uno Strumento per la Lemmatizzazione Morfologica Automatica del Latino</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">M</forename><surname>Passarotti</surname></persName>
+		</author>
+		<idno type="doi">107-128.DOI:10.1515/joll.2007.9.3.107</idno>
+	</analytic>
+	<monogr>
+		<title level="j">Journal of Latin Linguistics</title>
+		<imprint>
+			<biblScope unit="volume">9</biblScope>
+			<biblScope unit="issue">3</biblScope>
+			<date type="published" when="2007" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b6">
+	<analytic>
+		<title level="a" type="main">Probabilistic Part-of-Speech Tagging Using Decision Trees</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">H</forename><surname>Schmid</surname></persName>
+		</author>
+		<ptr target="http://www.cis.uni-muenchen.de/~schmid/tools/TreeTagger/data/tree-tagger1.pdf" />
+	</analytic>
+	<monogr>
+		<title level="m">New Methods in Language Processing. London and New York: Routledge</title>
+		<editor>D. B. Jones and H. Somers</editor>
+		<imprint>
+			<date type="published" when="2013-10" />
+			<biblScope unit="page">28</biblScope>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b7">
+	<analytic>
+		<title level="a" type="main">The Tradition of Caesar&apos;s Gallic Wars from Cicero to Orosius</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">E</forename><surname>Sihler</surname></persName>
+		</author>
+		<idno>Ac- cessed: 14</idno>
+		<ptr target="http://www.jstor.org/stable/2935772" />
+	</analytic>
+	<monogr>
+		<title level="j">Transactions of the American Philological Association</title>
+		<imprint>
+			<biblScope unit="volume">18</biblScope>
+			<biblScope unit="page" from="19" to="29" />
+			<date type="published" when="1887-10" />
+		</imprint>
+	</monogr>
+	<note>Available at</note>
+</biblStruct>
+
+				</listBibl>
+			</div>
+		</back>
+	</text>
+</TEI>

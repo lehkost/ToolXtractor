@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>What Do You Do With A Million Readers?</title>
+                <author>
+                    <persName>
+                        <surname>Bandari</surname>
+                        <forename>Roja</forename>
+                    </persName>
+                    <affiliation>Twitter Inc., United States of America</affiliation>
+                    <email>roja.bandari@gmail.com</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Tangherlini</surname>
+                        <forename>Timothy Roland</forename>
+                    </persName>
+                    <affiliation>UCLA, United States of America</affiliation>
+                    <email>tango@humnet.ucla.edu</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Roychowdhury</surname>
+                        <forename>Vwani</forename>
+                    </persName>
+                    <affiliation>UCLA, United States of America</affiliation>
+                    <email>vwani_rc@yahoo.com</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2014-12-19T13:50:00Z</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Paul Arthur, University of Western Sidney</publisher>
+                <address>
+                    <addrLine>Locked Bag 1797</addrLine>
+                    <addrLine>Penrith NSW 2751</addrLine>
+                    <addrLine>Australia</addrLine>
+                    <addrLine>Paul Arthur</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from a Word document </p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.9">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Short Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>reader response</term>
+                    <term>plot</term>
+                    <term>machine learning</term>
+                    <term>crowd sourcing</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>literary studies</term>
+                    <term>natural language processing</term>
+                    <term>text analysis</term>
+                    <term>content analysis</term>
+                    <term>crowdsourcing</term>
+                    <term>data mining / text mining</term>
+                    <term>English</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <p>In 2006, Gregory Crane posed the provocative question, ‘What do you do with a million books?’, a question that captured the increasing anxiety in the humanities that accompanied the rapid digitization of many library collections, and the distribution of more and more books in digital form (Crane, 2006). Far more books than could ever possibly be read by a single person were now machine actionable, requiring a response from the intellectual community. In the ensuing years, that response has emerged from the digital humanities community, and DH projects have focused on a broad range of approaches to the study of literature at scale, operationalizing the ‘distant reading’ that Franco Moretti had already proposed in his well-known article, ‘Conjectures on World Literature’ (Moretti, 2000; 2013). Yet what has been overlooked in many of these studies is that, alongside the explosion in the digitization of world literature, there has been an equally large explosion of readers commenting on books in online forums and other easily accessed electronic venues. The analysis of these responses allows for the consideration of reader response at scale. The goal of our work is to provide a preliminary answer to the question, ‘What can one do with a million readers?’ At the very least, we want to know what types of information one can extract automatically from thousands of reader posts about a particular work of literary fiction, and what this can tell us about how people (or classes of people) read.</p>
+            <p>The target data for our study are reader reviews of sixteen works of fiction, five of which we focus on in this presentation (
+                <hi rend="italic">The Hobbit</hi>; 
+                <hi rend="italic">Gone with the Wind</hi>; 
+                <hi rend="italic">The Life of Pi</hi>; 
+                <hi rend="italic">Frankenstein</hi>; 
+                <hi rend="italic">Of Mice and Men</hi>). The works were chosen from the list of the most frequently rated books on the Goodreads site (number of ratings &gt; 500,000). From these books, we downloaded the maximum allowed 3,000 reviews. The sixteen works we ultimately chose were selected on the basis of the broad disparity in their narrative structures, number of characters, and character relationships. The initial goal was to develop a review-based summary of the novel in the form of a character graph (Figure 1), with dramatis personae and pair-wise connections between them based on actions, events, or other relationships. These graphical representations can be seen as an abstraction of what the reviewers on Goodreads collectively imagine who the main characters and what the main events to be, and the relationships between these characters and events.
+            </p>
+            <p>The reviews were harvested using a crawler specifically designed for this project. Readily available information on the reviewer was retained as metadata for use in addressing second-order questions related to classes of reviewers (e.g., gender, age, frequency of reviewing). To evaluate reader reviews at scale, we devised two metrics related to plot: completeness and accuracy. We used SparkNotes as a basis for ‘gold standard’ summaries, a choice motivated by SparkNotes’ high degree of completeness and accuracy for target features (entities and relationships), and the brevity of the summaries. </p>
+            <p>We devised several progressively more difficult challenges to test the type of information we could derive from the approximately 48,000 reader reviews we crawled from Goodreads. First, without any training data, could we successfully discover the main dramatis personae in each novel? Second, could we automatically discover the action-based relationships between characters as represented by the reviewers? Third, could we discover the ‘events’ in which dramatis personae played a role? And fourth, could we develop a visualization that captured these relationships in a clear and engaging fashion that also represented the varying degree or strength of relationships between these entities? </p>
+            <p>
+                <anchor xml:id="h.gjdgxs"/>To achieve reproducible results, we devised a simple workflow that can be applied to other similar sites. This workflow consists of a preprocessing step, a statistical entity ranking step that surfaces the main dramatis personae in any given work, a pair-wise relationship discovery step, and a visualization step. As with most blogs and crowdsourced data sources, the Goodreads reviews are ‘noisy’. Consequently, preprocessing focused on reducing noise. We also ran language detection on the reviews to eliminate non-English reviews, and a stemmer to aggregate inflected words.
+            </p>
+            <p>In our efforts to discover the dramatis personae for any target work, we experimented with three main approaches. LDA proved to be successful at separating the works; we intend to explore this approach more thoroughly in future work for classifying reviews that are not preclassified as they are on Goodreads. Traditional NER (named entity recognition) approaches proved to be less accurate, given the broad variance in orthography that typify these reviews. Ultimately, the most successful approach was based on a statistical ranking of tokens between the review corpus and the individual subcorpus of target work reviews.</p>
+            <p>The next challenge was to discover the relationships between dramatis personae as represented in the reviews. Here, we focused on the verbs, extracted using POS tagging, between two entities, after discovering all sentences with pairs of entities. In future work, we hope to refine these pair-wise relationships by collapsing verbs into a series of higher-level representations of the entity-relationship space. Even without this processing, the current approach discovers important relationships. For example, by looking at the reviews for 
+                <hi rend="italic">The Hobbit</hi>, the relationship between ‘Tolkien’ and ‘Hobbit’ is dominated by the verb ‘write’ with a directional relationship in which ‘Tolkien’ inhabits the subject position and ‘Hobbit’ the object position. Similarly, ‘Bilbo’ has a relationship with ‘ring’ characterized by ‘find’, and a relationship with ‘adventure’ of ‘go on’, while the dragon ‘Smaug’ has a relationship with ‘treasure’ of ‘guard’. Interestingly, the reader reviews also generated a relationship between ‘Bilbo’ and ‘Smaug’ characterized by ‘kill’, an inaccurate depiction of the actual events (Bard the Bowman slays Smaug). Our automatic method is able to build a surprisingly large number of relationships between discovered entities without any training data, nor any preexisting lists of entities or relationships.
+            </p>
+            <p>For evaluation, using only the SparkNotes plot summaries, experts created a list of nouns including (1) names, (2) locations, (3) objects, and (4) concepts that are explicitly mentioned in the summary; these were considered the true dramatis personae. Completeness was quantified by computing the proportion of this list also produced by the algorithm. We measured both Precision (proportion of main characters produced by the algorithm) and the False Detection Rate (proportion of produced characters not in the relevant set). Similarly, using only words explicitly found in the SparkNotes plot summary, experts derived relationships based on verbs that connected pairs of characters mentioned above. We again measured the Precision and the False Detection Rate (FDR) for these relationships. As an example, applying this to 
+                <hi rend="italic">The Hobbit</hi> reviews produced a measure of Completeness (or precision) for dramatis personae of 0.6 and Accuracy (False Detection Rate) of 0.13. 
+            </p>
+            <p>The final challenge was to present these relationships in a visually engaging manner (see Figures 1 and 2). We have developed directional, multicolored graphs that represent the strength (or confidence) of a relationship by an edge of varying width. These graphs are easily compared with the ‘gold standard’ ground truth graphs, and they provide us with a visual representation of our Completeness and Accuracy measures. What is immediately clear is that reader reviews have significantly lower Completeness than a resource dedicated to providing comprehensive summaries, while the Accuracy of described relationships is good (Bilbo’s dragon-slaying feats notwithstanding). The comparison raises intriguing issues about memory—for example, why is it that certain events disappear from the user-driven graphs, while others become accentuated?</p>
+            <p>Other graphs are generated for classes of reviewers: e.g., female reviewers vs male reviewers of 
+                <hi rend="italic">The Hobbit</hi>, which allow for a different type of comparison. Here the question is on which aspects of a story different types of reviewers tend to comment. Additional refinements could include metrics that reveal the number of reviews that mention particular entities or particular relationships. Currently, a missing component is a dynamic representation of reviewers’ concepts of plot (dynamics), which we are reserving for future work. 
+            </p>
+            <p>The approach we describe here is widely applicable to other crowdsourced response sites. Of particular interest are movie review sites such as Rotten Tomatoes that, much like Goodreads, allow viewers to present their own reviews of popular films. An intriguing aspect of many of these review sites is the propensity of reviewers to provide ‘plot summaries’ as opposed to critical engagements of more sophisticated thematic analysis. While this may drive many literary scholars toward the brink of insanity, it does allow us to consider questions regarding the popular engagement with literature and other forms of artistic production. Given the responses that people do post, can we use the scale of these sites to derive insight into how people (or groups of people) not only read but also remember? It is our contention that what people remember, and what people forget (or choose to leave out), can be very telling indicators of popular engagement with art. </p>
+            <figure>
+                <graphic n="1001" width="15.959666666666667cm" height="6.909152777777778cm" url="Pictures/image1.jpeg" rend="block"/>
+            </figure>
+            <p>
+                <hi rend="background(white)">Figure 1. Character/relationship graph of </hi>
+                <hi rend="italic background(white)">The Hobbit</hi>.
+            </p>
+            <figure>
+                <graphic n="1002" width="17.277291666666667cm" height="6.25475cm" url="Pictures/image2.jpeg" rend="inline"/>
+            </figure>
+            <p>
+                <hi rend="background(white)">Figure 2. Character/relationship graph of </hi>
+                <hi rend="italic background(white)">Frankenstein</hi>
+                <hi rend="italic">.</hi>
+            </p>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl>
+                        <hi rend="bold">Crane, G.</hi> (2006). What Do You Do with a Million Books? 
+                        <hi rend="italic">D-Lib Magazine,</hi>
+                        <hi rend="bold">12</hi>(3): 1.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Moretti, F.</hi> (2000). Conjectures on World Literature. 
+                        <hi rend="italic background(white)">New Left Review, </hi>
+                        <hi rend="bold background(white)">1 </hi>
+                        <hi rend="background(white)">(January–February): 54–68.</hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Moretti, F.</hi> (2013).
+                        <hi rend="background(white)"> Operationalizing: or, the Function of Measurement in Modern Literary Theory. </hi>
+                        <hi rend="italic background(white)">New Left Review,</hi>
+                        <hi rend="bold background(white)">84</hi>
+                        <hi rend="background(white)">(November–December): 103–19.</hi>
+                    </bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

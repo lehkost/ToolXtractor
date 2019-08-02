@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xsi:schemaLocation="http://www.tei-c.org/ns/1.0 /Users/yoann/Work/Grobid/grobid-home/schemas/xsd/Grobid.xsd"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+	<teiHeader xml:lang="en">
+		<encodingDesc>
+			<appInfo>
+				<application version="0.5.4-SNAPSHOT" ident="GROBID" when="2019-06-05T06:16+0000">
+					<ref target="https://github.com/kermitt2/grobid">GROBID - A machine learning software for extracting information from scholarly documents</ref>
+				</application>
+			</appInfo>
+		</encodingDesc>
+		<fileDesc>
+			<titleStmt>
+				<title level="a" type="main">Hapax: Probabilistic part-of-speech tagging in XQuery and XForms Many programs perform part-of-speech (POS) tagging on texts [Leech et al</title>
+			</titleStmt>
+			<publicationStmt>
+				<publisher>Brill</publisher>
+				<availability status="unknown"><p>Copyright Brill</p>
+				</availability>
+				<date type="published" when="1983">1983. 1985. 1988. 1988. 1992. 1994. 1994. 1995. 2003</date>
+			</publicationStmt>
+			<sourceDesc>
+				<biblStruct>
+					<analytic>
+						<author>
+							<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">C</forename><forename type="middle">M</forename><surname>Sperberg-Mcqueen</surname></persName>
+							<affiliation key="aff0">
+								<orgName type="institution">Technologies LLC</orgName>
+								<address>
+									<country>United States of America</country>
+								</address>
+							</affiliation>
+						</author>
+						<author>
+							<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">Black</forename><surname>Mesa</surname></persName>
+							<affiliation key="aff0">
+								<orgName type="institution">Technologies LLC</orgName>
+								<address>
+									<country>United States of America</country>
+								</address>
+							</affiliation>
+						</author>
+						<title level="a" type="main">Hapax: Probabilistic part-of-speech tagging in XQuery and XForms Many programs perform part-of-speech (POS) tagging on texts [Leech et al</title>
+					</analytic>
+					<monogr>
+						<title level="j" type="main">Leech</title>
+						<meeting> <address><addrLine>Booth</addrLine></address>
+						</meeting>
+						<imprint>
+							<publisher>Brill</publisher>
+							<date type="published" when="1983">1983. 1985. 1988. 1988. 1992. 1994. 1994. 1995. 2003</date>
+						</imprint>
+					</monogr>
+				</biblStruct>
+			</sourceDesc>
+		</fileDesc>
+		<profileDesc>
+			<abstract/>
+		</profileDesc>
+	</teiHeader>
+	<text xml:lang="en">
+		<body>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Design considerations</head><p>Early POS taggers used morphological and other rules to assign POS tags to input; later experience showed that purely statistical methods like hidden Markov models (HMMs) could achieve better accuracy with less effort; for tutorial descriptions of HMMs see <ref type="bibr">Rabiner 1989 and</ref><ref type="bibr">Charniak 1993.</ref> For batch-mode POS tagging, accuracy and speed are obvious desiderata. Many modifications, refinements, and alternatives to HMMs have been proposed; these can improve accuracy by several percentage points. Larger training sets make a much larger difference. Schmid 1994 reports a comparison in which the least and most accurate taggers differ by two to four percentage points, while accuracy rates for small and large training sets (&lt; 10,000 and &gt; 1,000,000 words) differ by twelve to sixteen points.</p><p>For Hapax, intended to support human annotators working on under-resourced languages, raw speed is unimportant. For any tagger, the human annotator will need to correct many proposed taggings; the key to improving annotation speed is to make corrections faster.</p><p>Selecting the correct tag from a menu requires several interactions: the 80 tags in the Brown Corpus POS tag set do not fit into a single menu; many tag sets are larger. Accepting a proposed tagging for a word requires a single user-interface interaction (e.g. clicking "OK").</p><p>So speed improves with accuracy: the fastest corrections are those not needed. But high accuracy requires large training sets, which under-resourced languages lack by definition. Some algorithms cope well with limited data. In the Brown Corpus, 92% of all tokens are tagged with the most frequent POS tag for their word type. A trivial 1-gram tagger, which just assigns the most frequent POS tag for each word form, will thus do almost as well on known words as more sophisticated algorithms. In reality, not all words are known, but a 1-gram tagger trained on as little as 2000 words from the Brown Corpus will tag 60 to 70% of input tokens correctly. Larger training sets (8000, 32000, 128000, 500000 words) again do better (68-78%, 73-85%, 77-90%, 82-92%).</p><p>Also, we can make tagging errors less costly to fix. If the tagger provides one tag for each segment, every wrong guess costs a manual tag selection. If the tagger proposes several POS tags, then some errors will be as cheap as a correct tagging: one mouse-click. So the goal of Hapax's design is to minimize the need to select tags from menus, by proposing not one but several POS tags for each word.</p><p>If a 1-gram tagger for the Brown Corpus proposes not one but three POS tags, the correct tag will be among those proposed 71-80%, 79-86%, 84-93%, 87-97%, or 90-98% of the time (for 2000-, 8000-, 32000-, 128000, 500000-word training sets). If five tags are proposed, the correct tag will be proposed 79-88%, 87-92%, 91-95%, 92-97%, or 94-98% of the time.</p><p>If a single user interaction can accept a proposed tagging for the entire sentence, we will save one interaction for each word of the sentence. Hapax uses a standard bigram HMM to calculate the N most likely taggings for the entire sentence. The higher N is set, the greater the chances that only a single mouseclick will be required, but more time will be needed for reading and considering the proposals; it is likely that there is a point of diminishing returns.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>XQuery implementation</head><p>Hapax is implemented as a library of XQuery functions. One set of functions reads the training material and produces XML word- or POS-frequency lists from them. These list word types or POS tags by frequency, subdivided by POS tags or word types (or, for bigrams, POS of following segment). Additional functions calculate probability distributions for use with unknown words, using the technique of <ref type="bibr">Charniak et al. 1993</ref>.</p><p>The 1-gram tagger consults the word/POS frequency list and returns the N most likely POS tags for the given word form. The bigram tagger consults the bigram and POS/word lists and uses the standard Viterbi algorithm to calculate the most likely path through the trellis of possible taggings for a sentence. A simple modification of the algorithm allows Hapax to calculate not one path but the best N paths, with time linear in the number of tags in the trellis.</p><p>Testing routines generate random test and training sets from a corpus stored as an XQuery database; in a project setting, the training sets are not created on the fly but prepared in advance and stored in a database.The primary interface for consumers of the Hapax library is the function hapax:tag(), which accepts as arguments:</p><p>• An XML element representing a sentence</p><p>• An indication of what frequency data to use • Optionally, a set of access functions The function calls the 1-gram and bigram taggers and returns an XML document describing possible POS taggings for the input. In the common case, the input sentence is a tei:s element, containing tei:w or tei:m elements to be tagged. Input elements may have type attributes; such a partial tagging of the sentence will affect the probabilities for the POS tags for other elements. The optional set of access functions allows Hapax to be used with non-TEI markup; the user-supplied functions are used to identify words in a sentence, detect POS tagging in the input, and add POS tags to the output.</p><p>The entire Hapax library is a few thousand lines of XQuery; the rich sets of data structures (including XML as a native type), higher-order functions, and grouping constructs in XQuery and XSLT make the implementation of POS-tagging algorithms remarkably straightforward.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>XForms interface</head><p>In the ATMO project, Hapax supports a browserbased user interface specified with XForms. The form displays a document, providing an Annotate button for each sentence. When the button fires, the form sends the sentence to the Hapax back end and uses the response to build a form for accepting or changing the annotation. The most likely taggings for the sentence are shown, each with an Accept button. A "Tag wordby-word" button is also shown; in word-by-word annotation, each segment in the sentence is displayed with several proposed tags: first those in the full-sentence taggings, then other common tags for the word type, and a worst-case "Tag manually" button which exposes the POS menus. The user can tag one or more words and activate a "Re-annotate" button, which resubmits the sentence to the back end. This allows the user to explore the effect of one POS assignment on POS probabilities for nearby words.</p><p>Within the ATMO project, data must also be segmented and spelling-regularized; those topics and their interaction with POS tagging are not discussed here.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Further work</head><p>Hapax v1 uses standard 1-and 2-gram HMMs for POS tagging <ref type="bibr">(Charniak et al. 1993)</ref>. Future versions should implement Schmid's binary-decision-tree method <ref type="bibr">(1994,</ref><ref type="bibr">1995)</ref>, which helps with sparse data. More challenging will be adapting the directed-graph model of <ref type="bibr">Xuehelaiti et al. (2013)</ref> to probabilistic POS</p></div>		</body>
+		<back>
+			<div type="annex">
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Bibliography</head></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Rabiner, L. R. (1989) "A Tutorial on Hidden Markov Models and Selected Applications in Speech Recognition."Markov Models and Selected Applications in</head></div>			</div>
+			<div type="references">
+
+				<listBibl/>
+			</div>
+		</back>
+	</text>
+</TEI>

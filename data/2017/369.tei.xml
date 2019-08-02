@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xsi:schemaLocation="http://www.tei-c.org/ns/1.0 /Users/yoann/Work/Grobid/grobid-home/schemas/xsd/Grobid.xsd"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+	<teiHeader xml:lang="en">
+		<encodingDesc>
+			<appInfo>
+				<application version="0.5.4-SNAPSHOT" ident="GROBID" when="2019-06-05T06:42+0000">
+					<ref target="https://github.com/kermitt2/grobid">GROBID - A machine learning software for extracting information from scholarly documents</ref>
+				</application>
+			</appInfo>
+		</encodingDesc>
+		<fileDesc>
+			<titleStmt>
+				<title level="a" type="main">Linking the Same Ukiyo-e Prints in Different Languages by Exploiting Word Semantic Relationships across Languages Yuting Song</title>
+			</titleStmt>
+			<publicationStmt>
+				<publisher/>
+				<availability status="unknown"><licence/></availability>
+			</publicationStmt>
+			<sourceDesc>
+				<biblStruct>
+					<analytic>
+						<author>
+							<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">Biligsaikhan</forename><surname>Batjargal</surname></persName>
+							<email>biligsaikhan@gmail.com</email>
+						</author>
+						<author>
+							<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">Akira</forename><surname>Maeda</surname></persName>
+							<email>amaeda@is.ritsumei.ac.jp</email>
+						</author>
+						<author>
+							<affiliation key="aff0">
+								<orgName type="institution">Ritsumeikan University</orgName>
+								<address>
+									<country>Japan Taisuke Kimura</country>
+								</address>
+							</affiliation>
+						</author>
+						<author>
+							<affiliation key="aff1">
+								<orgName type="institution">Ritsumeikan University</orgName>
+								<address>
+									<country key="JP">Japan</country>
+								</address>
+							</affiliation>
+						</author>
+						<author>
+							<affiliation key="aff2">
+								<orgName type="institution">Ritsumeikan University</orgName>
+								<address>
+									<country key="JP">Japan</country>
+								</address>
+							</affiliation>
+						</author>
+						<author>
+							<affiliation key="aff3">
+								<orgName type="institution">Ritsumeikan University</orgName>
+								<address>
+									<country key="JP">Japan</country>
+								</address>
+							</affiliation>
+						</author>
+						<title level="a" type="main">Linking the Same Ukiyo-e Prints in Different Languages by Exploiting Word Semantic Relationships across Languages Yuting Song</title>
+					</analytic>
+					<monogr>
+						<imprint>
+							<date/>
+						</imprint>
+					</monogr>
+				</biblStruct>
+			</sourceDesc>
+		</fileDesc>
+		<profileDesc>
+			<abstract/>
+		</profileDesc>
+	</teiHeader>
+	<text xml:lang="en">
+		<body>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Introduction</head><p>Many libraries and museums around the world have been releasing their digital collections and making them accessible online. They provide new opportunities for people to acquire information, but they also pose new challenges for accessing these large quantities of humanities resources. Language barriers are one of the main issues for accessing multiple databases in different languages. In this paper, we propose a method to link Ukiyo-e prints between databases in different languages by exploiting semantic similarity of metadata values across languages, in order to achieve our ultimate research goal that aims to provide multilingual access to multiple and diverse databases. We believe our proposed method could assist users in accessing Ukiyo-e databases regardless of languages.</p><p>Ukiyo-e, Japanese traditional woodblock print, is known as one of the popular arts of the Edo period (1603-1868). Many libraries, museums and galleries in Western countries have digitalized Ukiyo-e woodblock prints with the metadata values in different languages. <ref type="table" target="#tab_0">Table 1</ref> shows an example of the same Ukiyo-e prints that are exhibited in multiple databases with metadata values in different languages. For linking the same Ukiyo-e prints between databases in different languages, our previous methods ( <ref type="bibr" target="#b0">Batjargal et al., 2014;</ref><ref type="bibr" target="#b1">Kimura et al., 2015;</ref><ref type="bibr" target="#b2">Kimura et al., 2016)</ref> utilize the metadata values to calculate the similarity between Ukiyo-e prints, in which the metadata values are translated into the same language by using bilingual dictionaries or online machine translation services. <ref type="bibr" target="#b3">Resig (2013)</ref> has developed an image similarity based Ukiyo-e print search system, which is able to search the same Ukiyo-e prints from multiple databases regardless of languages. However, this method cannot be applied to other humanities resources that have no images, such as texts, audio, video and so on.</p><p>In this paper, we use the metadata values to calculate the similarity between Ukiyo-e prints, which is the same as our previous methods ( <ref type="bibr" target="#b0">Batjargal et al., 2014;</ref><ref type="bibr" target="#b1">Kimura et al., 2015;</ref><ref type="bibr" target="#b2">Kimura et al., 2016)</ref>. The difference is that we calculate similarity between metadata values of Ukiyo-e prints in different languages without translating.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Methodology</head><p>Our method is based on word embeddings ( <ref type="bibr" target="#b4">Mikolov et al., 2013a</ref>), which are dense, lowdimensional and real-valued vectors for representing words. By using word embeddings, the words with a similar meaning have closer distances in a vector space, which means the semantic relationships between words can be captured. An example is shown in <ref type="figure">Fig. 1</ref>, in which two words "storm" and "hurricane" that express similar concepts are closer in a vector space (only two dimensions are shown for simplicity). Word embeddings can be learned by using the Word2Vec toolkit, which employs a simple neural network model that can be trained on a large amount of unstructured text data in a short time (billions of words in hours).</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Fig. 1 An example of capturing the sematic relationships between words by using word embeddings</head><p>Our proposed method is motivated by the idea of Mikolov et al., (2013b) that the same concepts have similar geometric arrangements across languages. <ref type="figure">Fig.2</ref> illustrates the vector representations of Japanese words ("雨" and "嵐") and English words ("rainfall" and "storm") that are used to describe weather phenomena. It can be seen that the same concepts (e.g. weather phenomena) in Japanese and English have similar geometric arrangements in a vector space.</p><p>What is more important is that the relationship between vector spaces that represent these two languages can possibly be captured by learning a mapping between them, e.g. a liner mapping (dotted arrows in <ref type="figure">Fig.2)</ref>. If we know some word pairs in Japanese and English, e.g. "雨" and "rainfall", "嵐" and "storm", we can learn a mapping that can help us to transform other words in the Japanese vector space to the English vector space. <ref type="figure">Fig. 2</ref> The vector representations of words that are used to describe weather phenomena ("storm" and "rainfall") and time ("evening" and "night") in Japanese (left) and English (right)</p><p>Our goal is to measure the similarity between Ukiyo-e prints by using their metadata values in different languages. Motivated by the idea above, we represent textual metadata values as vectors in each language. Then, we learn a mapping between vector spaces that represent two languages in order to transform the vector representations of textual metadata values from source language space to target language space. Once we obtain the vector representations of textual metadata values in target language space, we can calculate the similarity between metadata values in different languages. <ref type="figure" target="#fig_0">Fig. 3</ref> illustrates how our method works. Firstly, we represent the titles of Ukiyo-e prints by additive combination of the vectors of words that compose the titles <ref type="figure" target="#fig_0">(Step 1 shown in Fig. 3</ref>). And then, we learn the mapping between vector spaces that represent different languages by using some title pairs in Japanese and English (Step 2 shown in <ref type="figure" target="#fig_0">Fig. 3</ref>), which can help us to transform metadata values from one language space to the other language space. </p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Experiments</head><p>We conducted experiments to evaluate our proposed method in linking the same Ukiyo-e prints in Japanese and English.</p><p>In the experiments, the titles are used to calculate similarities among Ukiyo-e prints. Based on our method, the Japanese and English titles are represented by additive combination of the vectors of words that compose the titles. We train the Japanese and English word vectors on Japanese and English Wikipedia articles using Word2Vec toolkit.</p><p>In the process of learning the mapping between two language spaces, we use 600 Japanese-English parallel short sentence pairs for pre-training the mapping between Japanese and English vector spaces.</p><p>In order to make this mapping more suitable to Ukiyoe titles, we further use 74 pairs of Japanese and English Ukiyo-e titles to optimize this mapping, in which each pair of titles refers to the same Ukiyo-e prints. This optimized mapping are used to transform other vectors of the titles in Japanese space to English space.</p><p>We calculate the similarities between the titles of Ukiyo-e prints using cosine similarity. For each Japanese title, after we obtain the mapped vector in English space, our method outputs the most similar English title vector as its corresponding English title.</p><p>We use 173 pairs of Japanese and English Ukiyo-e titles as the test data to evaluate our method. The precision at top-n are used to measure the experimental results, which means the percentage of Japanese titles whose truly corresponding English title are ranked in top n. In order to verify the effectiveness of using Ukiyo-e titles to optimize the mapping, we show the results of both conditions of using Ukiyo-e titles and without using them in the pre-training. The experimental results are shown in <ref type="table" target="#tab_1">Table 2</ref>. These results show that the precisions are further improved by using Japanese and English Ukiyo-e titles to optimize the mapping between Japanese and English vector spaces. The experimental results also confirm the usefulness of our proposed method for linking the same Ukiyo-e prints in Japanese and English.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Conclusion</head><p>Our proposed method measures the similarity between metadata values without using any bilingual dictionary or online machine translation system. Moreover, our proposed method represents the metadata values using word embeddings, which can capture the semantic relationships between metadata values.</p><p>In the future, we will evaluate our method for linking Ukiyo-e prints in other languages.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Bibliography</head></div><figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_0"><head>Fig. 3</head><label>3</label><figDesc>Fig. 3 An example that illustrates the main tasks of the proposed method</figDesc><graphic url="image-4.png" coords="2,316.86,355.50,241.44,136.56" type="bitmap" /></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" type="table" xml:id="tab_0" validated="false"><head>Table 1 .</head><label>1</label><figDesc>An example of the same Ukiyo-e prints that are exhibited in multiple databases with metadata values in different languages</figDesc><table></table></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" type="table" xml:id="tab_1" validated="false"><head>Table 2 . The experimental results</head><label>2</label><figDesc></figDesc><table></table></figure>
+		</body>
+		<back>
+			<div type="references">
+
+				<listBibl>
+
+<biblStruct xml:id="b0">
+	<analytic>
+		<title level="a" type="main">Identifying the same records across multiple Ukiyo-e image databases using textual data in different languages</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">B</forename><surname>Batjargal</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">T</forename><surname>Kuyama</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">F</forename><surname>Kimura</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">A</forename><surname>Maeda</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Proceedings of the 14th ACM/IEEE-CS Joint Conference on Digital Libraries</title>
+		<meeting>the 14th ACM/IEEE-CS Joint Conference on Digital Libraries<address><addrLine>London; United Kingdom</addrLine></address></meeting>
+		<imprint>
+			<date type="published" when="2014" />
+			<biblScope unit="page" from="193" to="96" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b1">
+	<analytic>
+		<title level="a" type="main">Finding the Same Artworks from Multiple Databases in Different Languages</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">T</forename><surname>Kimura</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">B</forename><surname>Batjargal</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">F</forename><surname>Kimura</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">A</forename><surname>Maeda</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Digital Humanities 2015: Conference Abstracts</title>
+		<meeting><address><addrLine>Sydney, Australia</addrLine></address></meeting>
+		<imprint>
+			<date type="published" when="2015" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b2">
+	<analytic>
+		<title level="a" type="main">Identifying the Same Ukiyo-e Prints from Databases in Dutch and Japanese</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">T</forename><surname>Kimura</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">Y</forename><surname>Song</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">B</forename><surname>Batjargal</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">F</forename><surname>Kimura</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">A</forename><surname>Maeda</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Digital Humanities 2016: Conference Abstracts</title>
+		<meeting><address><addrLine>Kraków, Poland</addrLine></address></meeting>
+		<imprint>
+			<date type="published" when="2016" />
+			<biblScope unit="page" from="822" to="846" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b3">
+	<analytic>
+		<title level="a" type="main">Aggregating and analyzing digitized Japanese woodblock prints</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">J</forename><surname>Resig</surname></persName>
+		</author>
+		<ptr target="https://ukiyo-e.org/about" />
+	</analytic>
+	<monogr>
+		<title level="m">3rd Annual Conference of the Japanese Association for Digital Humanities</title>
+		<meeting><address><addrLine>Kyoto, Japan</addrLine></address></meeting>
+		<imprint>
+			<date type="published" when="2013" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b4">
+	<monogr>
+		<title level="m" type="main">Efficient Estimation of Word Representations in Vector Space</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">T</forename><surname>Mikolov</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">K</forename><surname>Chen</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">G</forename><surname>Corrado</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">J</forename><surname>Dean</surname></persName>
+		</author>
+		<idno type="arXiv">arXiv:1301.3781</idno>
+		<imprint>
+			<date type="published" when="2013" />
+		</imprint>
+	</monogr>
+<note type="report_type">arXiv preprint</note>
+</biblStruct>
+
+<biblStruct xml:id="b5">
+	<monogr>
+		<title level="m" type="main">Exploiting similarities among languages for machine translation</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">T</forename><surname>Mikolov</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">Q</forename><forename type="middle">V</forename><surname>Le</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">I</forename><surname>Sutskever</surname></persName>
+		</author>
+		<idno type="arXiv">arXiv:1309.4168</idno>
+		<imprint>
+			<date type="published" when="2013" />
+		</imprint>
+	</monogr>
+<note type="report_type">arXiv preprint</note>
+</biblStruct>
+
+				</listBibl>
+			</div>
+		</back>
+	</text>
+</TEI>

@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xsi:schemaLocation="http://www.tei-c.org/ns/1.0 /Users/yoann/Work/Grobid/grobid-home/schemas/xsd/Grobid.xsd"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+	<teiHeader xml:lang="en">
+		<encodingDesc>
+			<appInfo>
+				<application version="0.5.4-SNAPSHOT" ident="GROBID" when="2019-06-05T06:34+0000">
+					<ref target="https://github.com/kermitt2/grobid">GROBID - A machine learning software for extracting information from scholarly documents</ref>
+				</application>
+			</appInfo>
+		</encodingDesc>
+		<fileDesc>
+			<titleStmt>
+				<title level="a" type="main">Personae: A Character- Visualisation Tool for Dramatic Texts</title>
+			</titleStmt>
+			<publicationStmt>
+				<publisher/>
+				<availability status="unknown"><licence/></availability>
+			</publicationStmt>
+			<sourceDesc>
+				<biblStruct>
+					<analytic>
+						<author>
+							<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">Justin</forename><surname>Tonra</surname></persName>
+							<email>justin.tonra@nuigalway.ie</email>
+							<affiliation key="aff0">
+								<orgName type="institution">National University of Ireland</orgName>
+								<address>
+									<settlement>Galway</settlement>
+									<country key="IE">Ireland</country>
+								</address>
+							</affiliation>
+						</author>
+						<author>
+							<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">David</forename><surname>Kelly</surname></persName>
+							<affiliation key="aff1">
+								<orgName type="institution">National University of Ireland</orgName>
+								<address>
+									<settlement>Galway</settlement>
+									<country key="IE">Ireland</country>
+								</address>
+							</affiliation>
+						</author>
+						<author>
+							<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">Lindsay</forename><surname>Reid</surname></persName>
+							<email>lindsay.reid@nuigalway.ie</email>
+							<affiliation key="aff2">
+								<orgName type="institution">National University of Ireland</orgName>
+								<address>
+									<settlement>Galway</settlement>
+									<country key="IE">Ireland</country>
+								</address>
+							</affiliation>
+						</author>
+						<title level="a" type="main">Personae: A Character- Visualisation Tool for Dramatic Texts</title>
+					</analytic>
+					<monogr>
+						<imprint>
+							<date/>
+						</imprint>
+					</monogr>
+				</biblStruct>
+			</sourceDesc>
+		</fileDesc>
+		<profileDesc>
+			<abstract/>
+		</profileDesc>
+	</teiHeader>
+	<text xml:lang="en">
+		<body>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Introduction</head><p>This paper explores the development of the Personae tool (code available on Github), an interactive resource for exploring patterns of speeches by and mentions of characters in dramatic texts. Initially developed to examine works by Shakespeare, the tool has broad application to dramatic texts.</p><p>Visualising the frequency, extent, and position of dialogue relating to a particular character presents users with a simple and immediate measure of that character's prominence within the play. The Personae tool enables users to select and visualise individual characters' involvement, producing a novel means of exploring large-scale structural, narrative, or character-focused patterns within the text.</p><p>The tool is intended to facilitate character-based analysis and reveal structural patterns at the scale of the play. The tool was conceived with exploratory potential in mind, and is designed to allow users to customise the visualisation according to their particular interests or to follow a more speculative and disinterested reading of the play's character-based features.</p><p>This deliberate aim emerged from the heuristic development process described below, and a desire to produce an extensible exploratory tool for dramatic texts. From an initial focus on using digital tools to visualise the tangling and disentangling of character names and identities in The Comedy of Errors, our interest broadened into exploring the potential for using character data to visualise larger structural and narrative patterns.</p><p>We were also motivated by the use of network analysis and visualisation for scholarship on Shakespearean and other literary texts, including work by <ref type="bibr" target="#b1">Yose et al (2016)</ref>, <ref type="bibr">Grandjean (2015)</ref>, <ref type="bibr">Moretti (2011), and</ref><ref type="bibr" target="#b0">Stiller, et al. (2003)</ref>. These analyses are similarly character-based and have yielded many interesting insights. But in the reduction of the textual data to nodes and edges (characters and their interactions), network analysis has obscured the temporal. The work of <ref type="bibr">Xanthos, et al. (2016)</ref> maintains this temporal dimension, while exploring the dynamics of the character networks as they evolve. In contrast, by visualising the characters at the level of the play as a whole, we aim to preserve characters' locations within the space of the text, thereby enabling analysis of the dramatic time and structural duration of the play.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Tool Development</head><p>Tool development took part in two phases. First, the data was extracted and transformed into a suitable format. The user interface was then designed using an iterative process that enabled the exploration of various approaches to data presentation and interaction.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Data Preparation</head><p>The tool uses data contained in XML files provided in the New Variorum Shakespeare editions of The Comedy of Errors and The Winter's Tale.</p><p>Data was extracted using a custom-developed Python script which iterates through each play's XML file extracting character and name data, along with line number, scene and act identifiers. The data as output as JSON, which reduces the complexity of using it with the JavaScript-based user interface.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>User Interface Design</head><p>The tool's web-based user interface <ref type="figure" target="#fig_0">(Figure 1</ref>) was developed using the open source Javascript library, D3 (Bostock et al, 2011). Personae developed from a fixed and static visualisation of The Comedy of Errors to a more interactive and exploratory tool. In the heuristic spirit of the tool itself, we describe here its various iterations, the stages of its development, and the motivations for various changes to its design and functionality throughout the process. Personae's focus on character and temporal visualisation is present in the first iteration of the tool <ref type="figure" target="#fig_1">(Figure 2</ref>). Speeches and mentions are plotted along a timeline, with a tabular view switching between the five acts of the play. All speeches and mentions are colour-coded, resulting in some interesting patterns and densities at certain parts of the text, but lacking the facility for isolating chosen characters. In addition, the tabular view of the five acts lacked the desired holistic view of the entire play. </p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Expanding the Second Iteration</head><p>The second iteration of the tool adopted the circular layout of the tool to plot character involvement across the entire play, as shown in <ref type="figure" target="#fig_2">Figure  3</ref>. At this point, the tool was still static, and its focus on the two pairs of twin characters in The Comedy of Errors represented a desire to deploy visualisation for a particular exploratory purpose. The play operates on the basis of identity and confusion, as Antipholus and Dromio of Syracuse are mistaken for their Ephesian counterparts, and vice versa. Our aim was to plot the speeches of these four characters to see if the visualisation revealed any insights into how the identity question was introduced and managed at a structural level. An additional avenue of exploration in the second iteration of the tool was the geographical mapping of locations mentioned in the play. The Comedy of Errors is known for including the only mention of America in Shakespeare's plays, among several other placenames in its text. In some respects, this visualisation gives a false impression of The Comedy of Errors as a worldly play. While eighteen locations are mentioned in the text, several of these are ironically located by Dromio of Syracuse on Nell the kitchen-maid's body, because "she is sphericall, like a globe: I could find out / Countries in her" (Act 3, Scene 2).</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>The final interface</head><p>As useful as this view of the play proved, we felt at this point that a more dynamic and interactive interface was required to allow users to test hypotheses like our own, or to undertake more exploratory and experimental visualisations of the data, as illustrated in <ref type="figure" target="#fig_3">Figure 4</ref>. The circular layout was retained, as it provided a useful method of presenting the play as a whole, while maintaining the temporal dimension of the character interactions. The character-selection menu and the scene-divisions in the outer ring were thus added in the final stage of development. Also added were visualisations of higher level metrics to illustrate the number of times a character speaks, and the number of lines they speak.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Conclusion</head><p>A major part of the tool's value is its extensibility. It may be used to create character visualisations for any play which is XML-encoded according to quite minimal specifications, and offer the opportunity to undertake comparative analysis of structural, narrative, and character-based patterns in different plays. Indeed, while the development of the tool focused on The Comedy of Errors, a similar visualisation of The Winter's Tale ( <ref type="figure" target="#fig_4">Figure 5</ref>) was generated from New Variorum Shakespeare XML files with no revision to our code. The trajectory of Personae's development from fixity to interactivity represents a conclusion that we drew in the course of this project: that a visualisation tool developed for a particular purpose need not be confined to its use for that objective alone. The modular and open-source principles of software development have contributed to a rich and fruitful habit of sharing within the field of Digital Humanities, and we hope that others will build upon the tool that we have developed here.</p><p>Indeed, we have plans for further developments and improvements to Personae. Working towards a tool which will enable structural and thematic comparison of the thirty-six plays in the First Folio, the next phase will test for structural correlations in a thematic grouping of five additional Shakespearean plays. This development will strengthen Personae's potential for generating insights into macro-level structural analysis of dramatic texts, while testing its technical extensibility by incorporating XML files from another source, The Bodleian First Folio.</p></div><figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_0"><head>Figure 1 :</head><label>1</label><figDesc>Figure 1: Personae Character Visualisation Interface -From the First to the Second Iteration</figDesc><graphic url="image-1.png" coords="2,54.30,72.30,247.20,188.64" type="bitmap" /></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_1"><head>Figure 2 :</head><label>2</label><figDesc>Figure 2: First iteration design</figDesc><graphic url="image-2.png" coords="2,68.94,429.18,211.44,242.64" type="bitmap" /></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_2"><head>Figure 3 :</head><label>3</label><figDesc>Figure 3: Second iteration design Indeed, the visualisation presents several clustered scenes of engagement between the pairs of twins through which various errors and misunderstandings are played out. The tell-tale single appearance of Dromio of Syracuse's orange marker in Act 1, Scene 2 precisely represents the beginnings of the error and confusion: "What now? How chance thou art returned so soon?" An additional avenue of exploration in the second iteration of the tool was the geographical mapping of locations mentioned in the play. The Comedy of Errors is known for including the only mention of America in Shakespeare's plays, among several other placenames in its text. In some respects, this visualisation gives a false impression of The Comedy of Errors as a worldly play. While eighteen locations are mentioned in the text, several of these are ironically located by Dromio of Syracuse on Nell the kitchen-maid's body, because "she is sphericall, like a globe: I could find out / Countries in her" (Act 3, Scene 2).</figDesc><graphic coords="2,322.62,263.10,229.20,189.28" type="vector_box" /></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_3"><head>Figure 4 :</head><label>4</label><figDesc>Figure 4: Final interface design</figDesc><graphic url="image-5.png" coords="3,54.30,269.10,241.44,181.20" type="bitmap" /></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_4"><head>Figure 5 :</head><label>5</label><figDesc>Figure 5: Visualisation of The Winter's Tale</figDesc><graphic url="image-7.png" coords="3,316.86,72.30,241.44,196.80" type="bitmap" /></figure>
+		</body>
+		<back>
+
+			<div type="acknowledgement">
+			</div>
+
+			<div type="references">
+
+				<listBibl>
+
+<biblStruct xml:id="b0">
+	<analytic>
+		<title level="a" type="main">Visualising the Dynamics of Character Networks</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">J</forename><surname>Stiller</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">D</forename><surname>Nettle</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">R</forename><forename type="middle">; A</forename><surname>Dunbar</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">I</forename><surname>Pante</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">Y</forename><surname>Rochat</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">M</forename><surname>Grandjean</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Digital Humanities 2016: Conference Abstracts</title>
+		<imprint>
+			<date type="published" when="2003" />
+			<biblScope unit="volume">14</biblScope>
+			<biblScope unit="page" from="417" to="419" />
+		</imprint>
+		<respStmt>
+			<orgName>Jagiellonian University &amp; Pedagogical University, KrakówKraków</orgName>
+		</respStmt>
+	</monogr>
+<note type="report_type">Print Xanthos</note>
+	<note>The Small World of Shakespeare&apos;s Plays. Print</note>
+</biblStruct>
+
+<biblStruct xml:id="b1">
+	<analytic>
+		<title level="a" type="main">A Networks-Science Investigation into the Epic Poems of Ossian</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">J</forename><surname>Yose</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">R</forename><surname>Kenna</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">P</forename><forename type="middle">M</forename><surname>Carron</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">T</forename><surname>Platini</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">J</forename><surname>Tonra</surname></persName>
+		</author>
+		<idno>1650008. Web. 26</idno>
+	</analytic>
+	<monogr>
+		<title level="j">Advances in Complex Systems</title>
+		<imprint>
+			<date type="published" when="2016-10" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+				</listBibl>
+			</div>
+		</back>
+	</text>
+</TEI>

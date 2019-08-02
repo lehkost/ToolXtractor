@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>Digital Network Analysis of Dramatic Texts</title>
+                <author>
+                    <persName>
+                        <surname>Trilcke</surname>
+                        <forename>Peer</forename>
+                    </persName>
+                    <affiliation>University of Göttingen, Germany</affiliation>
+                    <email>trilcke@phil.uni-goettingen.de</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Fischer</surname>
+                        <forename>Frank</forename>
+                    </persName>
+                    <affiliation>Göttingen Centre for Digital Humanities, Germany</affiliation>
+                    <email>frank.fischer@zentr.uni-goettingen.de</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Kampkaspar</surname>
+                        <forename>Dario</forename>
+                    </persName>
+                    <affiliation>Herzog August Library Wolfenbüttel, Germany</affiliation>
+                    <email>kampkaspar@hab.de</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2014-12-19T13:50:00Z</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Paul Arthur, University of Western Sidney</publisher>
+                <address>
+                    <addrLine>Locked Bag 1797</addrLine>
+                    <addrLine>Penrith NSW 2751</addrLine>
+                    <addrLine>Australia</addrLine>
+                    <addrLine>Paul Arthur</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from a Word document </p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.9">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Long Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>network analysis</term>
+                    <term>dramatic texts</term>
+                    <term>literary history</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>literary studies</term>
+                    <term>visualisation</term>
+                    <term>networks</term>
+                    <term>relationships</term>
+                    <term>graphs</term>
+                    <term>English</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <p>The project ‘Digital Network Analysis of Dramatic Texts’ follows in the tradition of structural analysis approaches in the literary studies (Titzmann, 1977) and is aimed at advancing them in recourse to established methods like Social Network Analysis (Wasserman and Faust, 1998). The project also enhances these elder approaches through automated data acquisition and analysis in order to handle much larger corpora and to be able to generate comprehensive relational data to analyse structural transformations in the history of literature.</p>
+            <p>As theoretical foundation we used a network-analytic conceptualisation of dramatic interaction (first ideas in Moretti, 2011; critical reading and theoretical reconceptualisation in Trilcke, 2013; also a detailed research summary). In continuation of concepts of dramatic configuration (Marcus, 1973; Pfister, 1977; Pohlheim, 1997), we resorted to a basic operationalisation according to which an ‘interaction’ takes place if two characters are listed as speakers within a given segment of a text (usually a ‘scene’).</p>
+            <p>For our first automation purposes, we considered ‘interaction’ as ‘scenic co-presence of two speakers’. Based on this concept of relations, network data is extracted automatically—both the global networks of ‘interactions’ of the plays (density, average degree, connectedness, etc.) and data that characterises individual actors (degree and various other centrality indices). The workflow we created also allows the collection of data on a meso-level (e.g., identification of clusters) and includes visualisations of the extracted network data, which in turn contributes to the analysis of the structural transformation in the history of literature.</p>
+            <p>Corpora of Dramatic Texts</p>
+            <p>For the automated analysis of theatre plays, a reliable and sufficiently large (German-language) corpus was needed. The following corpora were reviewed:</p>
+            <p> • Deutsches Textarchiv / German Text Archive (DTA): 54 dramatic texts.</p>
+            <p> • Wikisource: 50 dramatic texts.</p>
+            <p> • Projekt Gutenberg-DE: 641 dramatic texts.</p>
+            <p> • TextGrid Repository: 690 dramatic texts.</p>
+            <p>The DTA corpus has the best quality of TEI markup, but so far only incorporates few texts. The latter also applies to the German-language branch of Wikisource. The Gutenberg-DE archive is problematic due to the poor markup it provides (just some basic XHTML). Thus, only the TextGrid Repository (containing basic TEI markup) was really applicable.</p>
+            <p>First, we extracted all dramatic texts from the repository, 690 texts altogether that are marked as ‘drama’ in the ‘genre’-field of the metadata. Most of them are German plays from about 1500 to 1930, plus a dozen translations of Greek tragedies and some Shakespeare plays.</p>
+            <p>Acquisition of Network Data</p>
+            <p>As an intermediate step, we created a list of relations between all the persons appearing in a play for each of the 690 TEI files and wrote them into a CSV file, one of the standard formats for the storage of network data. To extract the speaker data, usually two separate steps are required: The recognition of the individual segments of a play and the recognition of individual speakers.</p>
+            <p>To facilitate the following work, the script first splits the files. For each level recognised in the document tree, a subdirectory is created containing all the individual parts of the TEI files, along with the respective index files. Different kinds of outputs are generated this way: for one, a detailed register of all &lt;speaker&gt; tags, but also all the &lt;rs&gt; and &lt;person&gt; tags. To obtain unambiguous reference targets, ID numbers are assigned (also facilitating later interventions, if erroneously assigned names must be manually corrected). Furthermore, co-occurrence lists are created. In the bottom directory, the occurrence of all speaker pairs in all files are counted. In the upper directories, the values of all subdirectories are added.</p>
+            <p>In addition to the recognition of the structure, the correct assignment of names is one of the bigger challenges. Ideally, all &lt;speaker&gt; tags would contain a @who attribute to provide a unique ID for each character. If this is not the case (or if &lt;rs&gt; or &lt;person&gt; tags were used instead), the script has to analyse the textual content of the tag. Possible misspellings (due to the transcription or the original) and grammatical changes have to be considered. For instance, in Lessing, 
+                <hi rend="italic">Nathan the Wise</hi> V/1, we encounter different sorts of Mamalukes, be it ‘A Mamaluke’, ‘The Mamaluke’, ‘A second Mamaluke’, or just ‘Second Mamaluke’. In this case, some linguistic knowledge about adjectives is enough to rule out mistakes when assembling the lists of relations. But there are more complicated cases when automatising this process, e.g., if multiple characters speak up at once (‘All’).
+            </p>
+            <p>In addition to trying to clarify these cases automatically, there is still the possibility of manual intervention in cases of doubt. Here, the generated index files with unique IDs will be of help. For an upcoming version of the script, it is intended to provide a simple GUI to allow easy editing in such cases.</p>
+            <p>Data Analysis and Visualisation</p>
+            <p>The data analysis was done by using the igraph package via Python (3.4.x). It was used for both the visualisation of the graphs and the calculation of the network data.</p>
+            <p>For a first visualization, we fed the graph data into a spring-embedding method (Fruchterman-Reingold), which tries to arrange related nodes closer together (clustering). A first impression of the entire corpus is provided in Figure 1. It comprises nearly 700 plays from 2,500 years of theatre history, starting chronologically at the top left with the ancient Greeks ranging to the bottom right and the second quarter of the 20th century.</p>
+            <figure>
+                <graphic n="1001" width="15.875cm" height="11.43cm" url="Pictures/image1.png" rend="block"/>
+            </figure>
+            <p>The visualised graphs (a ‘distant reading’ of its own) also suggested that most of the calculated CSV had at least minor flaws in them due to ambiguous markup. These findings contributed to the error handling in the previous step (Acquisition of Network Data).</p>
+            <p>Some basic network calculations were done on the basis of the 12 (completed) theatre plays by Gotthold Ephraim Lessing. Corresponding diagrams are show in Figure 2.</p>
+            <figure>
+                <graphic n="1002" width="15.980833333333333cm" height="11.482916666666666cm" url="Pictures/image2.png" rend="block"/>
+            </figure>
+            <p>Conclusions</p>
+            <p>The extracted (and adjusted) network data will serve as a basis for further statistical calculations and also be made publicly available. Our research focus will now shift to implementing further calculation tools for the network analysis of theatre plays (e.g., to calculate the betweenness centrality to determine the importance of individual characters in a network). We will also work on enhancing the network data (quantify speech units, include stage presence of non-speaking persons, etc.) and try to build multiplex networks that not only capture the ‘interactions’, but also consider parental or instrumental relations.</p>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl>
+                        <hi rend="bold">Marcus, S.</hi> (1973). 
+                        <hi rend="italic">Mathematische Poetik.</hi> Athenäum-Verlag, Frankfurt.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Moretti, F.</hi> (2011). Network Theory, Plot Analysis. Stanford Literary Lab Pamphlets 2, http://litlab.stanford.edu/LiteraryLabPamphlet2.pdf.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Pfister, M.</hi> (1977). 
+                        <hi rend="italic">Das Drama. Theorie und Analyse.</hi> Fink, Munich.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Pohlheim, K. K. </hi>(ed.). (1997). 
+                        <hi rend="italic">Die dramatische Konfiguration.</hi> Schöningh, Paderborn.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Titzmann, M.</hi> (1977). 
+                        <hi rend="italic">Strukturale Textanalyse. Theorie und Praxis der Interpretation.</hi> Fink, Munich.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Trilcke, P.</hi> (2013). Social Network Analysis (SNA) als Methode einer textempirischen Literaturwissenschaft. In Ajouri, P., Mellmann, K. and Rauen, C. (eds), 
+                        <hi rend="italic">Empirie in der Literaturwissenschaft.</hi> Münster: Mentis, pp. 201–47.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Wasserman, S. and Faust, K.</hi> (1998). 
+                        <hi rend="italic">Social Network Analysis: Methods and Applications.</hi> Cambridge University Press, Cambridge.
+                    </bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

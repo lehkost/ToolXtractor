@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>Bridging the Divide: Supporting Minority and Historic Scripts in Fonts: Problems and Recommendations</title>
+                <author>
+                    <persName>
+                        <surname>Anderson</surname>
+                        <forename>Deborah</forename>
+                    </persName>
+                    <affiliation>UC Berkeley, United States of America</affiliation>
+                    <email>dwanders@sonic.net</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2018-04-26T16:33:00Z</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Name, Institution</publisher>
+                <address>
+                    <addrLine>Street</addrLine>
+                    <addrLine>City</addrLine>
+                    <addrLine>Country</addrLine>
+                    <addrLine>Name</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from a Word document</p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.22">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Short Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>Unicode</term>
+                    <term>fonts</term>
+                    <term>minority scripts</term>
+                    <term>historic scripts</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>archives</term>
+                    <term>repositories</term>
+                    <term>sustainability and preservation</term>
+                    <term>digitisation</term>
+                    <term>resource creation</term>
+                    <term>and discovery</term>
+                    <term>linguistics</term>
+                    <term>standards and interoperability</term>
+                    <term>English</term>
+                    <term>library &amp; information science</term>
+                    <term>globalization &amp; digital divides</term>
+                    <term>indigenous studies</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <p>
+                <anchor xml:id="Hlk499308385"/>
+                <hi rend="bold">Introduction</hi>
+                <lb/>Today, users of many modern minority and historic scripts in Unicode are not able to reliably send text electronically, because Unicode-enabled fonts and software are not available.
+                <hi rend="endnote_reference">
+                    <note place="end">
+                        <p rend="endnote text"> Especially true for scripts in Unicode versions 6.0 to 9.0 (2010 – 2016), where over 40% of the scripts have no fonts. (Unicode version 10.0 was released in June 2017, so support in fonts would not yet be expected). The Google Noto project aims to provide fonts for all approved scripts, but release of fonts is only up to fonts for Unicode version 6.2, released in 2012.</p>
+                    </note>
+                </hi> In addition, some communities have access to Unicode fonts, but the fonts aren’t used, because they do not provide features deemed necessary, such as positioning of characters (e.g., Egyptian Hieroglyphs
+                <hi rend="endnote_reference" xml:space="preserve"> </hi>[Richmond and Glass, 2016]) or variant glyphs (e.g., Old Italic [Anderson, 2017]). Instead, images are used, which are not searchable or, alternatively, “hacked” fonts are employed, which require each person to have the same, non-standard font to send text. Keyboards or other input mechanisms are also not available for many of these same scripts. As a result, the promise that Unicode will “enable people around the world to use computers in any language” (Unicode Consortium, 2018a), does not yet ring true for some communities. 
+            </p>
+            <p>This short paper will highlight font-related problems with specific examples and will provide suggestions on how to address them.</p>
+            <p>Problems </p>
+            <list type="unordered">
+                <item>Creating a Unicode-enabled font for a language is often not a simple task, especially when the script for the language includes combining marks (which require correct positioning), or if the script has special rendering behavior, such as the consonant clusters found in South Asian scripts (Evans, 2017). </item>
+            </list>
+            <list type="unordered">
+                <item>Font creation is made more challenging when typographic details on the script (and language) are not available. Since many recently approved scripts in Unicode are not well known, information on the typography is not readily available. Unfortunately, fine details are often not included in Unicode proposals for the scripts. 
+                    <lb/>
+                </item>
+                <item>Interaction with the user community is critical in developing a suitable font, but some communities are difficult to contact. In addition, there can be differing views on the preferred shapes of glyphs. For a set of 51 Tamil numbers and fractions, for example, the community took 8 years to come to agreement on the preferred representative shapes. Specific cases will be cited, based on the author’s experience, including discussion of how to connect user communities with font providers. </item>
+            </list>
+            <p>Technical Issue: Glyph Variants</p>
+            <list type="unordered">
+                <item>For some script users, access to glyph variants is important. This is true, for example, for the Old Italic Unicode block which unified several related alphabets of Italy, dating from approximately the 8 until 1c BCE. In Old Italic, the glyph in a particular alphabet may vary from that shown in the Unicode Standard. 
+                    <lb/>
+                </item>
+            </list>
+            <p rend="List Paragraph">The Old Italic block was encoded with the understanding that different fonts would be used for the different languages and alphabets (Unicode Consortium, 2017). How should the two forms of Faliscan (above) be handled in the same font then? How should a pan-Old Italic font handle the different alphabets (which use the same code points)? </p>
+            <p rend="List Paragraph">This paper will describe the pros and cons of different options available, including use of: </p>
+            <list type="unordered">
+                <item>Code points in Unicode’s Private Use Area (with the caveat that these code points would not be reliable for general interchange) (Unicode Consortium, 2018c).</item>
+                <item>A Unicode variation sequence, when a distinction needs to be captured in plain-text (Unicode Consortium, 2018d).</item>
+                <item>An OpenType font feature, such as character variants, stylistic alternates, stylistic sets, or localized forms (Microsoft Typography, 2018).</item>
+                <item>Language-specific fonts (i.e., Faliscan1 and Faliscan2 fonts for the two forms above).</item>
+            </list>
+            <p>Suggested Solutions</p>
+            <list type="unordered">
+                <item>Incorporate font creation as a part of the overall script encoding effort, such as: including a font item in the budget to pay for a font designer to develop a font; provide information on how to create a font for users; fund a font-creation workshop within the community.</item>
+            </list>
+            <list type="unordered">
+                <item>Encourage user communities to submit a list of the basic repertoire of characters and auxiliary characters to the Common Locale Data Repository (Unicode Consortium, 2018b), since this information is used for by font and software developers worldwide. In addition, provide information on the shapes of the needed letters and variants, citing reference works (i.e., a book or website) on a publicly accessible webpage.</item>
+            </list>
+            <list type="unordered">
+                <item>For handling glyph variants, short-term and long-terms approaches should be considered:
+                    <list type="unordered">
+                        <item>If a given variant is deemed by users to be necessary in plain-text, submit a Unicode proposal</item>
+                        <item>If OpenType features are used in a font, lobby software vendors to provide better support for the features in applications (as support for some features is still spotty [4])</item>
+                        <item>For the short-term, PUA or separate fonts may be necessary.</item>
+                    </list>
+                </item>
+            </list>
+            <p rend="List Paragraph">For font designers:</p>
+            <list type="unordered">
+                <item>Use language tags from ISO 639 (SIL International, 2017), BCP 47 (Phillips and Davis, 2009), and OpenType language/script tags (Microsoft Typography, 2017a; Microsoft Typography, 2017b) in the font internals. If a language (or script) is missing a tag, a new tag should be registered. According to Roozbeh Pournader, an expert at implementation of fonts, these tags are the way the fonts communicate with other software today.
+                    <lb/>
+                </item>
+                <item>Encourage users to review the glyphs in alpha versions of any forthcoming or any released Noto fonts, and submit comments to the Noto project (Google.com, n.d.).</item>
+            </list>
+            <p>
+                <lb/>
+                <hi rend="bold">Conclusion</hi>
+                <lb/>Access to a Unicode font is critical for users of lesser-used scripts, in order to participate more fully in the digital world. Unicode fonts make the user’s text interchangeable, discoverable, and able to be preserved for the long-term in a stable format. Recognition of font-related issues is a small step towards addressing the problem. Input from the audience will be encouraged in order to identify other potential approaches.
+            </p>
+            <p>
+                <hi rend="bold">Funding</hi>
+                <lb/>
+                <hi rend="color(2A2A2A)">This work was supported by the National Endowment for the Humanities [grant number PR-253360-17].</hi>
+            </p>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl>
+                        <hi rend="bold">Anderson, D.</hi> (2017). Dealing with Variants in Historic Scripts. Presentation at 41
+                        <hi rend="superscript">st</hi> Internationalization and Unicode Conference, Santa Clara, California, October, 2017.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Evans, L.</hi> (2017). Beyond Unicode Proposals: Encoding Characters and Scripts is Not Enough! Presentation at 41
+                        <hi rend="superscript">st</hi> Internationalization and Unicode Conference, Santa Clara, California, October 2017.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold" xml:space="preserve">Google.com. </hi>(n.d.). Google Noto Fonts. 
+                        <ref target="https://www.google.com/get/noto/">https://www.google.com/get/noto/</ref> (accessed April 17, 2018).
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Microsoft Typography.</hi> (2017a). Language system tags. 
+                        <ref target="https://www.microsoft.com/typography/otspec/languagetags.htm">https://www.microsoft.com/typography/otspec/languagetags.htm</ref> (accessed April 17, 2018).
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Microsoft Typography</hi>. (2017b). Script tags. 
+                        <ref target="https://www.microsoft.com/typography/otspec/scripttags.htm">https://www.microsoft.com/typography/otspec/scripttags.htm</ref> (accessed April 17, 2018).
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Microsoft Typography</hi>. (2018). OpenType® specification
+                        <hi rend="bold" xml:space="preserve">. </hi>
+                        <ref target="https://www.microsoft.com/en-us/Typography/OpenTypeSpecification.aspx">https://www.microsoft.com/en-us/Typography/OpenTypeSpecification.aspx</ref> (accessed April 17, 2018).
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Phillips, A., and Davis, M.</hi> (2009). Tags for Identifying Languages. 
+                        <ref target="https://tools.ietf.org/html/bcp47">https://tools.ietf.org/html/bcp47</ref> (accessed April 17, 2018).
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Richmond, B. and Glass, A.</hi> (2016). Proposal to encode three control characters for Egyptian Hieroglyphs. Proposal submitted to the Unicode Technical Committee. 
+                        <ref target="http://www.unicode.org/L2/L2016/16018r-three-for-egyptian.pdf">http://www.unicode.org/L2/L2016/16018r-three-for-egyptian.pdf</ref> (accessed April 17, 2018).
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold" xml:space="preserve">SIL International. </hi>(2017). ISO 639-3: ISO 639 Code Tables. 
+                        <ref target="http://www-01.sil.org/iso639-3/codes.asp">http://www-01.sil.org/iso639-3/codes.asp</ref> (accessed April 17, 2018).
+                    </bibl>
+                    <bibl rend="Plain Text">
+                        <hi rend="bold">Unicode Consortium.</hi> (2017). Old Italic. In: Unicode Consortium, 
+                        <hi rend="italic" xml:space="preserve">The Unicode Standard, Version 10.0.0. </hi>Mountain View, CA: The Unicode Consortium, 349-351. http://www.unicode.org/versions/Unicode10.0.0/ (accessed 24 April 2018).
+                    </bibl>
+                    <bibl rend="Plain Text">
+                        <hi rend="bold" xml:space="preserve">Unicode Consortium. </hi>(2018a). The Unicode Consortium website. 
+                        <ref target="http://unicode.org/">http://unicode.org/</ref>
+                        <hi rend="Hyperlink" xml:space="preserve">  </hi>[accessed April 17, 2018).
+                    </bibl>
+                    <bibl rend="Plain Text">
+                        <hi rend="bold">Unicode Consortium.</hi> (2018b). CLDR - Unicode Common Locale Data Repository. Unicode Consortium website. http://cldr.unicode.org (accessed April 17, 2018). 
+                    </bibl>
+                    <bibl rend="Plain Text">
+                        <hi rend="bold">Unicode Consortium.</hi> (2018c). Private-Use Characters, Noncharacters &amp; Sentinels FAQ. Unicode Consortium website. 
+                        <ref target="http://www.unicode.org/faq/private_use.html">http://www.unicode.org/faq/private_use.html</ref> (accessed April 17, 2018).
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Unicode Consortium.</hi> (2018d). Variation Sequences. Unicode Consortium website.
+                        <lb/>
+                        <ref target="http://www.unicode.org/faq/vs.html">http://www.unicode.org/faq/vs.html</ref> (accessed April 17, 2018).
+                    </bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

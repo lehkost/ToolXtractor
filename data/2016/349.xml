@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>The Ibn Darraj Project: SpatioTemporal Reasoning Engine Based on Evidence Combination *</title>
+                <author>
+                    <persName>
+                        <surname>Haqiqat khah</surname>
+                        <forename>Mohammad Hossein</forename>
+                    </persName>
+                    <affiliation>Machine Learning and Computational Modeling Lab, Control and Intelligent Processing Center of Excellence, School of Electrical and Computer Engineering, University of Tehran.</affiliation>
+                    <email>mh.haqiqatkhah@ut.ac.ir</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Nadjar Araabi</surname>
+                        <forename>Babak</forename>
+                    </persName>
+                    <affiliation>Machine Learning and Computational Modeling Lab, Control and Intelligent Processing Center of Excellence, School of Electrical and Computer Engineering, University of Tehran.</affiliation>
+                    <email>araabi@ut.ac.ir</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2014-12-19T13:50:00Z</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Maciej Eder, Pedagogical University in Krakow</publisher>
+                <publisher>Jan Rybicki, Jagiellonian University</publisher>
+                <address>
+                    <addrLine>Institute of Polish Studies</addrLine>
+                    <addrLine>Pedagogical University</addrLine>
+                    <addrLine>ul. Podchorazych 2</addrLine>
+                    <addrLine>30-084 Krakow, Poland</addrLine>
+                    <addrLine>maciej.eder@ijp-pan.krakow.pl</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from a Word document </p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.21">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Poster</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>Spatio-Temporal Reasoning</term>
+                    <term>Evidence Combination</term>
+                    <term>Dempster-Shafer Theory of Evidence</term>
+                    <term>Historical Reasoning</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>geospatial analysis, interfaces and technology</term>
+                    <term>historical studies</term>
+                    <term>GLAM: galleries, libraries, archives, museums</term>
+                    <term>digital humanities - facilities</term>
+                    <term>digitisation - theory and practice</term>
+                    <term>maps and mapping</term>
+                    <term>spatio-temporal modeling, analysis and visualisation</term>
+                    <term>English</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <div type="div1" rend="DH-Heading1">
+                <head>Introduction</head>
+                <p>In historical statements, we face narrations that are vague in sense of persons, places, times, and events. This means that we have uncertainties and non-specificities about the persons and the events, and the time and place the event has taken place. These uncertainties are mostly caused by ignorance about the characters and events assignments, and definition of the boundaries narrowing down the time and space frames. Moreover, we have narrations that usually do not uphold each other, and have different validities or certainties. Putting these contradictory narrations together to judge about the most definite event needs a great effort, and is a hard task for unaided human mind.</p>
+                <p>Although its importance and utility, there are not any noteworthy research on spatio-temporal reasoning to combine evidences, or applying evidence combination methods (such as Dempster-Shafer Theory of Evidence) in spatio-temporal reasoning. Hence, this paper delivers a novel tool to compensate this deficiency.</p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Methodology</head>
+                <p>To reach this goal, we divide the problem to three main domains, and simplify the question to minimize the efforts and implementation cost of each step.</p>
+                <div type="div2" rend="DH-Heading2">
+                    <head>Extracting and Structuring Evidences</head>
+                    <p>In this step, we model narrations as narration trees, such as 
+                        <hi rend="italic">'A' says he has heard 'B' talking about [Event]</hi>. Each of the narrators has a validity coefficient indicating the reliability of the narration made by the person. Then using the SRL (Semantic Role Labeling) methods (Gildea and Jurafsky, 2000), we structure the narrations to a standard form Jurafsky and Martin (2009). Hence, we have a bunch of narrations, and each of the narrations has a narration chain and a standard, structured event.
+                    </p>
+                </div>
+                <div type="div2" rend="DH-Heading2">
+                    <head>Finding Similar Events</head>
+                    <p>In this step, using Natural Language Processing tools, we form [multiresolution] verb clusters that help us define the same events that have meanings in common. For example, killing, shooting down, hanging, and choking can be considered as different ways to end one’s life, and we may put them in one cluster. These clusters are extracted from WordNet (Hirst and St-Onge, 1998), and define the degree to which we may merge events based on their verbs (Meng et al., 2013).</p>
+                </div>
+                <div type="div2" rend="DH-Heading2">
+                    <head>Evidence Combination</head>
+                    <p>The main role of the reasoning engine is to combine different evidences to calculate the probability of a hypothesis. To do so, one can use the very familiar Bayesian inference method to incorporate different evidences using the Bayes theorem. However, this modeling cannot deal with non- specificities. For instance, if we have four persons A, B, C, and D as candidates of an assassination, we may assign probabilities to Assassins = {A,B,C,D} or other probabilities to subsets of the Assassins set. However, if we do not have crisp evidences defining the probabilities of each member we are unable to do inference where the subsets overlap. As a result, we cannot use the Bayes rule to combine evidences of Pr(A or B or C) and Pr(B or C or D) if we do not know Pr(B or C)or assume some other hypothesis for it. </p>
+                    <p>On the other hand, there is a great advantage in using the Dempster-Shafer Theory of Evidence (DST) compared to the classical probabilistic reasoning based on the Bayesian Theory (BT). By DST, it’s possible to take non-specificity into account as well as randomness, which was not possible in BT. In many problems, such as reasoning based on non-specific statements (which are modeled here as narrations), accumulated non-specificity (vagueness) may reveal more specific details. This is the main reason to use DST instead of BT.</p>
+                    <p>It means that when each narration determines a non-specific time and place for an event, or these space-time pieces overlap each other, we are able to define precisely the most and least probabilities that the event has taken place in a specific portions of space-time. These probabilities are usually mentioned as lower and upper bounds of probability, and may be interpreted as Belief and Plausibility respectively (Zadeh, 1986).</p>
+                </div>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Tools and Methods</head>
+                <p>The core element of the system is a reasoning engine that combines different pieces of evidence. The output will be total expected probabilities and the upper and lower bound of probabilities for different pieces of space-time. This task can be accomplished by efficiently succeeding in the following:</p>
+                <list type="unordered">
+                    <item>Modelling space and time effectively, and</item>
+                    <item>Using the evidence combination methods to deliver the reasoning engine, mainly using Dempster-Shafer Theorem.</item>
+                </list>
+                <p>We used the CRMgeo model (Doerr and Hiebel 2013) that is standardized in ISO 21127:2014 as the space-time model. We have incorporated GIS tools (as done in Hirschfield and Bowers, 2001; and Fuhrmann et al., 2013) and standard ISO 8601:2004 to model space and time respectively. However, due to the rich and flexible ontology design of the CRMgeo model (Doerr and Hiebel, 2013) which is standardized in ISO 21127:2014, we switched to it as our main space-time model. We also benefited from the CRMinf argumentation model (Doerr 2015) to model the narrations.</p>
+                <p>At last, we implemented different evidence combination rules in R language to combine the structured narrations together, resulting in and reduced ambiguity and vagueness (Kohlas and Monney n.d., Barnett 1991)</p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>An Example of a Toy Problem</head>
+                <p>The following figures are the output results of a reasoning over a toy problem of an airplane crash in different boroughs of London, and is plotted for each of the years in the 1930-1935 timeframe. Each plot is for a specific time (e.g. X1930 is for the year 1930). The values of the average probability of the crash in each borough are represented in decibels to better visualize the slight changes of probability in similar regions.</p>
+                <p>The problem is to combine the following five narrations to gether. The numbers in the parentheses are the validities and/or confidence of the statements.</p>
+                <p rend="Quote">1. I think (70%) it was between 1930-33 that a plane crashed in the south east of London</p>
+                <p rend="Quote">2. If I'm correct (90%) I heard my brother that he's somehow sure (80%) that it was between 1932-35 that the Air Union cargo plane hit the northern bank of the Thames river.</p>
+                <p rend="Quote">3. I cannot remember it clearly (60%) but in 1933 or 34 an airplane of a post company hit the eastern London.</p>
+                <p rend="Quote">4. It's hard to remember (60%), but my father once told me (90%) that he witnessed an airplane crash in the center of London, Old London.</p>
+                <p rend="Quote">5. If I'm remembering correctly (80%), an airplane crashed the west London between the 1932-34.</p>
+                <figure>
+                    <graphic url="349/image1.png" rend="inline"/>
+                    <graphic url="349/image2.png" rend="inline"/>
+                    <graphic url="349/image3.png" rend="inline"/>
+                    <graphic url="349/image4.png" rend="inline"/>
+                    <graphic url="349/image5.png" rend="inline"/>
+                    <graphic url="349/image6.png" rend="inline"/>
+                </figure>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>About the Project Name</head>
+                <p>
+                    <hi rend="italic">Nuh (Noah) ibn Darraj al-Nakha‘ı¯</hi> (d. 182 AH/ AD 798), was the Shı‘ite judge of Kufa, and later in his life, the grand judge of the eastern half of Baghdad. 
+                    <hi rend="italic">Nuh</hi>’s older brother, 
+                    <hi rend="italic">Jamil ibn Darraj al-Nakha‘ı¯</hi> was a prominent Shı‘ite jurist in the latter part of the second Islamic century (AD 760s - 810s) (Modarressi, 2003)
+                </p>
+            </div>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl><hi rend="bold">Barnett, J. A.</hi> (1991). Calculating Dempster-Shafer plausibility. 
+                        <hi rend="italic">IEEE Transactions on Pattern Analysis and Machine Intelligence</hi>, <hi rend="bold">13</hi>(6): 599–602.
+                    </bibl>
+                    <bibl><hi rend="bold">Doerr, M.</hi> (2015).  <hi rend="italic">CRMinf: the Argumentation Model</hi>.</bibl>
+                    <bibl><hi rend="bold">Doerr, M. and Hiebel, G.</hi> (2013). CRMgeo : Linking the CIDOC CRM to GeoSPARQL through a Spatiotemporal Refinement, pp. 1–40.</bibl>
+                    <bibl><hi rend="bold">Fuhrmann, S., Huynh, N. T. and Scholz, R.</hi> (2013). 
+                        <hi rend="italic">Crime Modeling and Mapping Using Geospatial Technologies</hi>, Available at: 
+                        <ref target="http://link.springer.com/10.1007/978-94-007-4997-9">http://link.springer.com/10.1007/978-94-007-4997-9</ref>.
+                    </bibl>
+                    <bibl><hi rend="bold">Gildea, D. and Jurafsky, D.</hi> (2000). Automatic labeling of semantic roles. 
+                        <hi rend="italic">Proceedings of the 38th Annual Meeting on Association for Computational Linguistics - ACL ’00</hi>, (1972), pp.12–520. Available at: 
+                        <ref target="http://portal.acm.org/citation.cfm?doid=1075218.1075283">http://portal.acm.org/citation.cfm?doid=1075218.1075283</ref>.
+                    </bibl>
+                    <bibl><hi rend="bold">Hirschfield, A. and Bowers, K.,</hi> (2001). 
+                        <hi rend="italic">Mapping and analysing crime data</hi>, London: Taylor and Francis, 2001. Available at: 
+                        <ref target="http://discovery.ucl.ac.uk/1329199/">http://discovery.ucl.ac.uk/1329199/</ref>.
+                    </bibl>
+                    <bibl><hi rend="bold">Hirst, G. and St-Onge, D.</hi> (1998). Lexical chains as representations of context for the detection and correction of malapropisms. 
+                        <hi rend="italic">WordNet - An Electronic Lexical Database</hi>, pp.305–32. Available at: 
+                        <ref target="http://mitpress.mit.edu/books/wordnet">http://mitpress.mit.edu/books/wordnet</ref>.
+                    </bibl>
+                    <bibl><hi rend="bold">Jurafsky, D. and Martin, J. H.</hi> (2014). 
+                        <hi rend="italic">Speech and language processing</hi>. Pearson.
+                    </bibl>
+                    <bibl><hi rend="bold">Kohlas, J. and Monney, P. A.</hi> (2013).  <hi rend="italic">A mathematical theory of hints: An approach to the Dempster-Shafer theory of evidence</hi>, <hi rend="bold"> 425</hi>, Springer Science and Business Media.</bibl>
+                    <bibl><hi rend="bold">Meng, L., Huang, R. and Gu, J.</hi> (2013). A Review of Semantic Similarity Measures in WordNet. 
+                        <hi rend="italic">International Journal of Hybrid Information Technology</hi>, <hi rend="bold">6</hi>(1): 1–12.
+                    </bibl>
+                    <bibl><hi rend="bold">Modarressi, H.</hi> (2003). 
+                        <hi rend="italic">Tradition and Survival: A Bibliographical Survey of Early Shi’ite Literature</hi>, <hi rend="bold">1</hi>.
+                    </bibl>
+                    <bibl><hi rend="bold">Zadeh, L. A.</hi> (1986). Simple View of the Dempster-Shafer Theory of Evidence and Its Implication for the Rule of Combination. 
+                        <hi rend="italic">AI Magazine</hi>, <hi rend="bold">7</hi>(2): 85–90. Available at: 
+                        <ref target="http://www.aaai.org/ojs/index.php/aimagazine/article/view/542">http://www.aaai.org/ojs/index.php/aimagazine/article/view/542</ref>.
+                    </bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

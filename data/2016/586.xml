@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>WebSty – an Open Web-based System for Exploring Stylometric Structures in Document Collections</title>
+                <author>
+                    <persName>
+                        <surname>Piasecki</surname>
+                        <forename>Maciej</forename>
+                    </persName>
+                    <affiliation>Wrocław University of Technology, Poland</affiliation>
+                    <email>maciej.piasecki@pwr.edu.pl</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Walkowiak</surname>
+                        <forename>Tomasz</forename>
+                    </persName>
+                    <affiliation>Wrocław University of Technology, Poland</affiliation>
+                    <email>tomasz.walkowiak@pwr.edu.pl</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Eder</surname>
+                        <forename>Maciej</forename>
+                    </persName>
+                    <affiliation>Institute of Polish Language PAS; Pedagogical University of Kraków</affiliation>
+                    <email>maciejeder@gmail.com</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2014-12-19T13:50:00Z</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Maciej Eder, Pedagogical University in Krakow</publisher>
+                <publisher>Jan Rybicki, Jagiellonian University</publisher>
+                <address>
+                    <addrLine>Institute of Polish Studies</addrLine>
+                    <addrLine>Pedagogical University</addrLine>
+                    <addrLine>ul. Podchorazych 2</addrLine>
+                    <addrLine>30-084 Krakow, Poland</addrLine>
+                    <addrLine>maciej.eder@ijp-pan.krakow.pl</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from a Word document </p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.21">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Poster</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>stylometry</term>
+                    <term>text classification</term>
+                    <term>web-based system</term>
+                    <term>distributed processing</term>
+                    <term>NLP</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>natural language processing</term>
+                    <term>software design and development</term>
+                    <term>stylistics and stylometry</term>
+                    <term>text analysis</term>
+                    <term>information architecture</term>
+                    <term>authorship attribution / authority</term>
+                    <term>content analysis</term>
+                    <term>linguistics</term>
+                    <term>programming</term>
+                    <term>data mining / text mining</term>
+                    <term>English</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <div type="div1" rend="DH-Heading1">
+                <head>Introduction</head>
+                <p>Computer-assisted text analysis is now witnessing the phenomenon of ever-growing computer power and, more importantly, an unprecedented aggregation of textual data. Certainly, it gives us an unique opportunity to see more than our predecessors, but at the same time it presents non-trivial challenges. To name but a few, these include information retrieval, data analysis, classification, genre recognition, sentiment analysis, and many others. It can be said that, after centuries of producing textual data and decades of digitisation them, the scholars now face another great challenge - that of beginning to make good use of this treasure.</p>
+                <p>Generally speaking, the problem of large amounts of textual data can be perceived from at least three different perspectives. Firstly, there is a need of asking new research questions that would take advantage of thousands of texts that can be compared. Secondly, one has to introduce and evaluate statistical techniques to deal with vast amounts of data. Thirdly, there is a need of new computational algorithms that would be able to handle enormous corpora, e.g. containing billions of tokens, in a reasonable amount of time. The present study addresses the third of the aforementioned issues.</p>
+                <p>Stylometric techniques are known for their high accuracy of text classification, but at the same time they are usually quite difficult to be used by, say, an average literary scholar. In this paper we present a general idea, followed by a fully functional prototype of an open stylometric system that facilitates its wide use with respect to two aspects: technical and research flexibility. The system relies on a server installation combined with a web-based user interface. This frees the user from the necessity of installing any additional software. Moreover, we plan to enlarge the set of standard stylometric features with style-markers referring to various levels of the natural language description and based on NLP methods.</p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Multi-aspectual Document Representation</head>
+                <p>Computing word frequencies is simple for English, but relatively complicated for highly inflected languages, e.g. Polish, with many word forms, resulting in data sparseness. Thus, it might be better first to map the inflected forms onto 
+                    <hi rend="italic">lemmas</hi> (i.e. basic morphological forms) with the help of a morpho-syntactic tagger, and next to calculate the lemma frequencies.
+                </p>
+                <p>Most frequent words or lemmas as descriptive features proved to be useful in authorship attribution. However, for some text types or genres they do not provide sufficient information to tell the authors apart, e.g. see (Rygl, 2014). Moreover, in other types of classification tasks, where the goal is to trace signals of individual style, literary style or gender, it usually turns out that they appear on different levels of the linguistic structures. Thus, one needs to enhance text description.</p>
+                <p>In practice, every language tool introduces errors. However, if the error level is relatively small and the errors are not systematic (i.e. their distribution is not strongly biased), than the results of such a tool can be still valuable for stylometric analysis. Bearing this in mind, we have evaluated a number of language tools for Polish, and selected types of features to be implemented:</p>
+                <list type="unordered">
+                    <item>length of: documents, paragraphs or sentences (a segmentation tool),</item>
+                    <item>morphological features
+                        <list type="unordered">
+                            <item>word forms or tokens and punctuation marks,</item>
+                            <item>pseudo-suffixes (last several letters),</item>
+                            <item>lemmas (from WCRFT2 morpho-syntactic tagger for Polish (Radziszewski, 2013))</item>
+                        </list>
+                    </item>
+                    <item>grammatical classes
+                        <list type="unordered">
+                            <item>35 grammatical classes defined in the tagset (Szałkiewicz and Przepiórkowski, 2012) of the Polish National Corpus (Przepiórkowski et al., 2012), e.g. pseudo-past participle, non-past form, ad-adjectival adjective; recognised by WCRFT2,</item>
+                            <item>parts of speech (by grouping grammatical classes),</item>
+                            <item>grammatical categories, e.g. gender, number, person, etc.; (WCRFT2),</item>
+                        </list>
+                    </item>
+                    <item>sequences
+                        <list type="unordered">
+                            <item>lemma sequences (e.g. potential collocations),</item>
+                            <item>sequences of grammatical classes (bigrams or trigrams - hints about the grammatical structures),</item>
+                        </list>
+                    </item>
+                    <item>semantic features
+                        <list type="unordered">
+                            <item>semantic 
+                                <hi rend="italic">Proper Name classes</hi> – recognised by a Named Entity Recogniser Liner2 (Marcińczuk, 2013),
+                            </item>
+                            <item>
+                                <hi rend="italic">lexical meanings</hi> – represented by synsets in plWordNet (the Polish wordnet); assigned by Word Sense Disambiguation tool WoSeDon (Kędzia, et al., 2015)
+                            </item>
+                            <item>generalised lexical meanings – more general meanings from plWordNet, e.g. 
+                                <hi rend="italic"> an animal</hi> instead of 
+                                <hi rend="italic">a cheetah</hi>,
+                            </item>
+                            <item>formalised concepts from a formal ontology SUMO that plWordNet is mapped to,</item>
+                            <item>lexicographic domains from wordnet.</item>
+                        </list>
+                    </item>
+                </list>
+                <p>Semantic features go beyond a typical stylometric description, but allow for crossing borders between the style and the content description.</p>
+                <p>There are no features overtly describing the syntactic structure, as the available parsers for Polish express too high level of errors. The set of features can be further expanded by user-defined patterns expressed in the WCCL language (Radziszewski et al., 2011) that can be used to recognise binary relations between words and their combinations.</p>
+                <p>WebSty allows for testing the performance of the aforementioned features in different stylometric tasks, several case-studies will be presented on a set of Polish novels.</p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Processing and Results</head>
+                <p>The proposed system follows a typical stylometric workflow which was adapted to the chosen language tools and other components of the architecture (see  Section 4).</p>
+                <list type="ordered">
+                    <item>Uploading a corpus of documents together with meta-data in CMDI format (Broeder et al., 2012) from the CLARIN infrastructure.</item>
+                    <item>Choosing the features for the description of documents – done by the users (see Fig. 1).</item>
+                    <item>Setting up the parameters for processing (users).</item>
+                    <item>Pre-processing texts with the help of language tools.</item>
+                    <item>Extracting the features from the pre-processed texts.</item>
+                    <item>Calculating feature values.</item>
+                    <item>Filtering and/or transforming the original feature values.</item>
+                    <item>Clustering the feature vectors representing documents.</item>
+                    <item>Extracting features that are characteristic for different clusters.</item>
+                    <item>Presenting the results: visualisation or export of data.</item>
+                </list>
+                <figure>
+                    <graphic url="586/image1.png" rend="inline"/>
+                    <head>Fig.1 Choice of features GUI</head>
+                </figure>
+                <p>The step 5 can be performed as: simple counting of words or lemmas, processing and counting annotations matching some patterns or running patterns for every position in a document. This is why a dedicated feature extraction module comes into stage, namely 
+                    <hi rend="italic">Fextor</hi> (Broda et al., 2013).
+                </p>
+                <p>Filtering and transformation functions can be built into the clustering packages (see below) or implemented by the dedicated systems, e.g. 
+                    <hi rend="italic">SuperMatrix</hi> system (Broda and Piasecki, 2013).
+                </p>
+                <p>The WebSty architecture can be relatively easy adapted to the use of any clustering package. The prototype is integrated with 
+                    <hi rend="italic">Stylo</hi> – an elaborated clustering package dedicated to stylometric analysis, and 
+                    <hi rend="italic">Cluto</hi> – a general clustering package (Zhao and Karypis, 2005). Stylo offers very good visualisation functionality, while 
+                    <hi rend="italic">Cluto</hi> delivers richer possibilities for formal analysis of the generated clusters. The obtained results are displayed by the web browser (see Fig. 2). Users can also download log files with formalised description of the clustering results.
+                </p>
+                <figure>
+                    <graphic url="586/image2.png" rend="inline"/>
+                    <head>Fig.2 Stylometric results</head>
+                </figure>
+                <p>Moreover, features that are characteristic for the description of individual clusters or differentiation between clusters can be identified.  Ten different functions (implemented in Weka
+                    <note place="foot" xml:id="ftn1" n="1">
+                        <p rend="footnote text"> http://www.cs.waikato.ac.nz/ml/weka/</p>
+                    </note> (Witten et al., 2011) and SciPy packages
+                    <note place="foot" xml:id="ftn2" n="2">
+                        <p rend="footnote text"> http://www.scipy.org/</p>
+                    </note>), based on mathematical statistics and information theory, are offered. The ranking lists of features are presented on the screen for interactive browsing (Fig. 3) and can be downloaded.
+                </p>
+                <p>The system has a web-based user interface that allows for uploading input documents from a local machine or from a public repository and enables selecting a feature set, as well as options for a clustering algorithm.</p>
+                <figure>
+                    <graphic url="586/image3.png" rend="inline"/>
+                    <head>Fig.3 Browsing significant features identified for the extracted clusters</head>
+                </figure>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Technical Architecture</head>
+                <p>Application of language tools is inevitably more complex than calculating statistics on the level of words or letters. Moreover, processing of Polish is mostly far more complex than English (in terms of the processing time and memory used). Thus, higher computing power and bigger resources are required. In order to cope with this, the entire analysis in WebSty is performed on a computing cluster. Users do not need to install any software - which might be non-trivial particularly in the case of the language tools. The system processes the documents using a parallel and distributed architecture (Walkowiak, 2015). </p>
+                <p>The workflow is as follows. Input documents are processed in parallel. The uploaded documents are first converted to an uniform text format. Next, each text is analysed by a part-of-speech tagger (we use WCRFT2 for Polish (Radziszewski, 2013)) and then it is piped to a name entity recognizer - Liner2 (Marcińczuk et al., 2013) in our case. After the annotation phase is completed for all texts, the feature extraction module comes into stage, i.e. Fextor (Broda et al., 2013).  Clustering tools requires input data in different formats: sparse or dense matrices, text (ARRF, Cluto format) or binary files (R objects, Python objects). Thus data received from the feature extraction for each input file has to be unified  and converted. The extracted raw features can be filtered or transformed by a range of methods inside the clustering packages or in a system for distributional semantics called SuperMatrix (Broda and Piasecki, 2013).  Finally, the R package Stylo (Eder et al., 2013) or a text clustering tool called Cluto (Zhao and Karypis, 2005) are run to perform exploratory analysis, e.g. multidimensional scaling.</p>
+                <p>To prevent the system from overloading and long response time the input data size is limited to 20 files. However, large text collections can be processed, if they are deposited in the dSpace repository.
+                    <note place="foot" xml:id="ftn3" n="3">
+                        <p rend="footnote text">
+                            <ref target="https://clarin-pl.eu/dspace/">https://clarin-pl.eu/dspace/</ref>
+                        </p>
+                    </note> All corpora in dSpace can be annotated stored for further processing. Therefore, it is only left to run feature extraction and clustering tools inside WebSty.
+                    <note place="foot" xml:id="ftn4" n="4">
+                        <p rend="footnote text"> http://ws.clarin-pl.eu/demo/cluto2.html</p>
+                    </note>
+                </p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Conclusion and future plans</head>
+                <p>The paper presented opened, web-based system for exploring stylometric structures in Polish document collections. The web based interface and the lack of the technical requirements facilitates the application of text clustering methods beyond the typical tasks of the stylometry, e.g. analysis of types of blogs (Maryl, 2012), recognition of the corpus internal structure, analysis of the subgroups and subcultures, etc.</p>
+                <p>The system is currently focused on processing Polish. However, as the feature representation is quite language independent, we plan to add converters for for other languages. </p>
+            </div>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl>
+                        <hi rend="bold">Broda, B., Kędzia, P., Marcińczuk, M., Radziszewski, A., Ramocki, R. and Wardyński, A.</hi> (2013). Fextor: A feature extraction framework for natural language processing: A case study in word sense disambiguation, relation recognition and anaphora resolution. In Przepiórkowski, A., Piasecki, M., Jassem, K., Fuglewicz, P. (Eds.), Computational Linguistics: Applications, Series: 
+                        <hi rend="italic">Studies in Computational Intelligence</hi>, Vol. <hi rend="bold">458</hi>, Springer Berlin Heidelberg, pp. 41-62.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Broda, B. and Piasecki, M.</hi> (2013). Parallel, Massive Processing in SuperMatrix – a General Tool for Distributional Semantic Analysis of Corpora. 
+                        <hi rend="italic">International Journal of Data Mining, Modelling and Management</hi>, <hi rend="bold">5</hi>(1): 1–19.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Broeder, D., Van Uytvanck, D., Gavrilidou, M., Trippel, T. and Windhouwer, M.</hi> (2012). Standardizing a component metadata infrastructure. In: Calzolari, N., Choukri, K., Declerck, T., Doğan, M.U., Maegaard, B., Mariani, J., Moreno, A., Odijk, J., Piperidis, S. (Eds.), 
+                        <hi rend="italic">Proceedings of LREC 2012: 8th International Conference on Language Resources and Evaluation</hi>. European Language Resources Association (ELRA), pp. 1387-90.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Eder, M., Kestemont, M. and Rybicki, J.</hi> (2013). Stylometry with R: a suite of tools. In: 
+                        <hi rend="italic">Digital Humanities 2013: Conference Abstracts</hi>. University of Nebraska-Lincoln, NE, pp. 487-89.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Kędzia, P., Piasecki, M. and Orlińska, M. J.</hi> (2015). Word Sense Disambiguation Based on Large Scale Polish CLARIN Heterogeneous Lexical Resources. <hi rend="italic">Cognitive Studies | Études cognitives</hi>, <hi rend="bold">15</hi>: 269-92.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Marcińczuk, M., Kocoń, J. and Janicki, M.</hi> (2013). Liner2 - A Customizable Framework for Proper Names Recognition for Polish. In Bembenik, R., Skonieczny, Ł., Rybiński, H., Kryszkiewicz, M., Niezgódka, M., Intelligent Tools for Building a Scientific Information Platform, Series: 
+                        <hi rend="italic">Studies in Computational Intelligence,</hi> Springer: Berlin Heidelberg, <hi rend="bold">467</hi>: 231-53.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Maryl, M.</hi> (2012). Kim jest pisarz (w internecie?). <hi rend="italic">Teksty Drugie</hi>, <hi rend="bold">6</hi>: 77-100.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Przepiórkowski, A., Bańko, M., Górski, R. L. and Lewandowska-Tomaszczyk, B. </hi>(Eds.),(2012). 
+                        <hi rend="italic">Narodowy Korpus Języka Polskiego</hi>. Warszawa: PWN.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Radziszewski, A.</hi> (2013). A tiered CRF tagger for Polish, In Bembenik, R., Skonieczny, Ł., Rybiński, H., Kryszkiewicz, M., Niezgódka, M., Intelligent Tools for Building a Scientific Information Platform, Series: 
+                        <hi rend="italic">Studies in Computational Intelligence</hi>. Springer Berlin Heidelberg, <hi rend="bold">467</hi>: 215-30.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Radziszewski, A., Wardyński, A., and Śniatowski, T.</hi> (2011). <hi rend="italic">WCCL: A morpho-syntactic feature toolkit</hi>. In Habernal, I. and Matoušek, V. (Eds.), Text, <hi rend="italic">Speech and Dialogue</hi>, Plzen, Springer: Berlin Heidelberg, LNAI 6836, pp. 434–41.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Rygl, J.</hi> (2014) Automatic Adaptation of Author’s Stylometric Features to Document Types, In Sojka, P., Horák, A., Kopeček, I. and Pala, K. (Eds.), 
+                        <hi rend="italic">Proceedings of 17th International Conference TSD 2014</hi>. Brno, Czech Republic, LNCS 8655, Springer: Berlin Heidelberg, pp. 53-61.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Szałkiewicz, Ł. and Przepiórkowski, A.</hi> (2012). <hi rend="italic">Anotacja morfoskładniowa</hi>. In Przepiórkowski et al., pp. 59-96.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Walkowiak, T.</hi> (2015). Web based engine for processing and clustering of Polish texts. In Zamojski, W., Mazurkiewicz, J., Sugier, J., Walkowiak, T., Kacprzyk, J., <hi rend="italic">Proceedings of the Tenth International Conference on Dependability and Complex Systems DepCoS-RELCOMEX</hi>, Brunów, Poland, Series: Advances in Intelligent Systems and Computing Springer, Springer Berlin Heidelberg, pp. 515-22.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Witten, I. H., Frank, E. and Hall, M. A.</hi> (2011). Data Mining: Practical Machine Learning Tools and Techniques, Third Edition. <hi rend="italic">Series in Data Management Systems</hi>, Morgan Kaufmann.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Zhao, Y. and Karypis, G.</hi> (2005). Hierarchical Clustering Algorithms for Document Datasets. <hi rend="italic">Data Mining and Knowledge Discovery</hi>, 
+                        <hi rend="bold">10</hi>(2): 141-68.
+                    </bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

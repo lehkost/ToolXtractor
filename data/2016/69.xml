@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>The Project Zeri Photo Archive: Towards a Model for Defining Authoritative Authorship Attributions</title>
+                <author>
+                    <persName>
+                        <surname>Daquino</surname>
+                        <forename>Marilena</forename>
+                    </persName>
+                    <affiliation>University of Bologna, Italy</affiliation>
+                    <email>marilena.daquino2@unibo.it</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Peroni</surname>
+                        <forename>Silvio</forename>
+                    </persName>
+                    <affiliation>University of Bologna, Italy</affiliation>
+                    <email>silvio.peroni@unibo.it</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Tomasi</surname>
+                        <forename>Francesca</forename>
+                    </persName>
+                    <affiliation>University of Bologna, Italy</affiliation>
+                    <email>francesca.tomasi@unibo.it</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Vitali</surname>
+                        <forename>Fabio</forename>
+                    </persName>
+                    <affiliation>University of Bologna, Italy</affiliation>
+                    <email>fabio.vitali@unibo.it</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2016-03-01T17:13:00Z</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Maciej Eder, Pedagogical University in Krakow</publisher>
+                <publisher>Jan Rybicki, Jagiellonian University</publisher>
+                <address>
+                    <addrLine>Institute of Polish Studies</addrLine>
+                    <addrLine>Pedagogical University</addrLine>
+                    <addrLine>ul. Podchorazych 2</addrLine>
+                    <addrLine>30-084 Krakow, Poland</addrLine>
+                    <addrLine>maciej.eder@ijp-pan.krakow.pl</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from a Word document </p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.21">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Short Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>ontologies</term>
+                    <term>linked open data</term>
+                    <term>authoritativeness</term>
+                    <term>provenance</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>ontologies</term>
+                    <term>knowledge representation</term>
+                    <term>authorship attribution / authority</term>
+                    <term>semantic web</term>
+                    <term>linking and annotation</term>
+                    <term>standards and interoperability</term>
+                    <term>English</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+          <div type="div1" rend="DH-Heading1">
+          <head>Introduction</head>
+            <p>The global project of data conversion of the notable Italian ‘Zeri Photo Archive’ into a Linked and Open Dataset
+                <note place="foot" xml:id="ftn1" n="1">
+                    <p rend="footnote text"> The project is supported by the Zeri Foundation with the University of Bologna and started in 2014</p>
+                </note> primarily regarded the analysis of the 
+                <hi rend="bold">description model of the available records</hi>, so as to define a collection of suitable ontologies to describe such a complex domain.
+            </p>
+            <p>Indeed, the uniqueness of the Zeri collection
+                <note place="foot" xml:id="ftn2" n="2">
+                    <p rend="footnote text"> Fondazione Zeri, Photo Archive Catalog, 
+                        <ref target="http://catalogo.fondazionezeri.unibo.it">http://catalogo.fondazionezeri.unibo.it</ref>
+                    </p>
+                </note>, which includes about 290,000 photographs of works of art and monuments, lies in the rich documentation of the described artefacts, mostly related to provenance, attributions, restoration events and their connections to the collection of 46,000 books and 37,000 auction catalogues (Mambelli, 2014). 
+            </p>
+            <p>The full project entails, together with the ontological modeling, the production of the RDF dataset, the creation of proper links to the LOD cloud, and the definition of the user interface for browsing the dataset.</p>
+          </div>
+          <div type="div1" rend="DH-Heading1">
+          <head>F Entry Ontology</head>
+            <p>The first activity of the project had been the 
+                <hi rend="bold">formalization of the </hi>
+                <hi rend="italic bold">Scheda F</hi> (‘Fotografia’) (Mibact, 1999)
+                <hi rend="italic">,</hi> – the metadata standard of the Italian Istituto Centrale per il Catalogo e la Documentazione (ICCD) – by mapping the schema onto CIDOC-CRM model (Crofts et al., 2011). In the conversion we initially considered the specific flavor of the Scheda F used by the Zeri Foundation, i.e. its subset of 113 fields (based on the experimental 1.04 version of the ICCD standard) and an handful of custom extensions to it. A deep analysis of the schema of the Scheda F showed that it is organized in semantically independent sections (called “paragrafi”, or 
+                <hi rend="italic">paragraphs</hi>), each one belonging to a specific FRBR concept (Work, Manifestation, Item); this allows the mapping to proceed by logical sections affecting only a limited number of entities and relating these entities to the data documented by the fields of the schema.
+            </p>
+            <p>Before accomplishing the mapping, we proceeded with the creation of a 
+                <hi rend="bold">new ontology called FEO</hi> (<hi rend="italic">F Entry Ontology</hi>
+                <note place="foot" xml:id="ftn3" n="3">
+                    <p rend="footnote text">
+                        <ref target="http://www.essepuntato.it/2014/03/fentry">http://www.essepuntato.it/2014/03/fentry</ref>
+                    </p>
+                </note>). Since our final goal was to make available Scheda F data in a triple store, the target language we chose was OWL 2 DL. The current version of FEO introduces the classes and properties that characterize three specific concepts: the photograph, the work of art that is the subject of the photograph, and the Scheda F itself describing the photograph and its subject.
+            </p>
+            <p>So, through the use of well-known ontologies – i.e. CIDOC-CRM, but also PROV-O (Lebo et al., 2013), and FaBiO (Peroni and Shotton, 2012), as part of the SPAR Ontologies
+                <note place="foot" xml:id="ftn4" n="4">
+                    <p rend="footnote text">
+                        <ref target="http://www.sparontologies.net">http://www.sparontologies.net</ref>
+                        <hi rend="Hyperlink"> </hi>
+                    </p>
+                </note> (Peroni, 2014) – plus the FEO ontology developed 
+                <hi rend="italic">ad hoc</hi>, most of the content expressed as descriptive entries in the Scheda F have been already formally represented (Gonano et al., 2014).
+            </p>
+          </div>
+          <div type="div1" rend="DH-Heading1">
+          <head>OA Entry Ontology</head>
+            <p>In this presentation we propose an extension of our work on the Zeri Photo Archive by introducing a 
+                <hi rend="bold">new ontology</hi> for representing works of art and their related information, namely, the 
+                <hi rend="italic bold">OA Entry Ontology</hi>
+                <note place="foot" xml:id="ftn5" n="5">
+                    <p rend="footnote text">
+                        <ref target="http://purl.org/emmedi/oaentry">http://purl.org/emmedi/oaentry</ref>
+                    </p>
+                </note>. In particular, this ontology is based on the 
+                <hi rend="italic">Scheda OA </hi>(‘Opera d’Arte’) – another ICCD metadata standard
+                <note place="foot" xml:id="ftn6" n="6">
+                    <p rend="footnote text"> See the ICCD cataloging standards at: 
+                        <ref target="http://www.iccd.beniculturali.it/index.php?it/473/standard-catalografici">http://www.iccd.beniculturali.it/index.php?it/473/standard-catalografici</ref>
+                    </p>
+                </note> – and proposes a mapping between the content standard and, again, the CIDOC-CRM, in order to create shareable descriptions of metadata
+                <note place="foot" xml:id="ftn7" n="7">
+                    <p> We are planning to publish both the F and the OA mapping to CIDOC-CRM in the next few months, according with the ICCD activities</p>
+                </note>. In addition, other kinds of information that are not easily representable through the aforementioned standards, such as certain peculiar relations between works of art, are modelled by means of new classes and properties created in the OA Entry Ontology. This last allows to describe, in particular, the work of art and the related items, by focusing on some classes (e.g. copy, derivation, fake, drawing, model, replica, sinopia) and by using properties as necessary connection typization (e.g. conceived or former).
+            </p>
+          </div>
+          <div type="div1" rend="DH-Heading1">
+          <head>HICO and authorship attribution</head>
+            <p>Moreover, in this paper we further investigate a way for providing a clear and shareable representation of questionable information, i.e., the 
+                <hi rend="bold">authorship attribution of works of art</hi>. In the Zeri Photo Archive there are particular authorship attribution created by either the Zeri Foundation cataloguers and/or by Federico Zeri (collector of photographs) himself, and such attributions (that could be accepted or discarded at certain point) are accompanied with the criteria that corroborate the cataloguers’ choice. 
+            </p>
+            <p>In order to provide a precise characterisation of all these aspects, we discuss the adoption of 
+                <hi rend="bold">HiCO</hi>, 
+                <hi rend="italic bold">Historical Context Ontology</hi> (Daquino and Tomasi, 2015) as a way for enabling a definition of authoritative attributions based on Zeri cataloguers’ own criteria. HiCO
+                <note place="foot" xml:id="ftn8" n="8">
+                    <p rend="footnote text">
+                        <ref target="http://purl.org/emmedi/hico">http://purl.org/emmedi/hico</ref>
+                    </p>
+                </note> is an OWL 2 DL ontology we created for describing contents of data (e.g., an authorship attribution), in particular cultural heritage data, and data creation itself (e.g., RDF statements representing above mentioned authorship attribution) as part of an interpretative process. Cultural heritage object is a wide concept: it includes any sort of representation of culture heritage embodied in a tangible form like artifacts (books, documents, and, as in this case, works of art), but also any concept, assertion and interpretation somehow bounded to cultural objects.
+            </p>
+            <p>With the hico:InterpretationAct class it’s possible to 
+                <hi rend="bold">describe the interpretation act as a process</hi>:
+            </p>
+            <list type="unordered">
+                <item>the conceptualization of the interpretation and its classification, for enabling further relations among different kind of interpretations; </item>
+                <item>the embodiment of the interpretation as RDF statements, for representing information extracted from the content of the object of interest.</item>
+            </list>
+            <p>Two fundamental object properties complete the process: the hico:hasInterpretationType property and the hico:hasInterpretationCriterion property. The former states an arbitrary classification of the interpretation, which can be simply defined as philological, historical, semiotic, linguistic etc. The latter is a briefly explanation of the criterion used to state information extracted from a source, e.g. a literally transcription, a hypothesis, or the adoption of the literature about a specific argument.</p>
+            <p>A crucial aspect of the project is the 
+                <hi rend="bold">correct formalization of statements</hi> so as to allow the ontologically-consistent coexistence of data created by different actors that express contradictory statements about the same subject (e.g., authorship attribution data of a work of art), in order to guarantee the data integration with Pharos (Reist et al., 2015) project partners, of which the Zeri Foundation is a member. By the use of SWRL rules applied to relations between sources, criteria and context information used by an agent to explain his interpretation, 
+                <hi rend="bold">we could formally infer when an interpretation can be considered authoritative</hi>.
+            </p>
+          </div>
+          <div type="div1" rend="DH-Heading1">
+          <head>An example of authoritative assertion</head>
+            <p>We could give an 
+                <hi rend="bold">example</hi>. We state aside the interpretation (i.e. the assertion “An artist X is author of a specific work of art Y in a specific time Z”) which sort of interpretation we are dealing with (i.e. authorship attribution), and which criteria have been used by the cataloguer to assert such proposition. A provenance statement ensures both author of assertion (i.e. interpretation) and author of data conversion are fully described, ensuring that no contradictory statements will affect data validity. 
+            </p>
+            <p>When necessary conditions for stating authorship are fulfilled, an attribution may be inferred as authoritative. In the example (Fig. 1), we have an attribution which respects minimal requirements for being considered an 
+                <hi rend="bold">authoritative assertion</hi>:
+            </p>
+            <list type="unordered">
+                <item>it has been stated by a well-known author (i.e. the cataloguer of Zeri Foundation);</item>
+                <item>it considers as criterium an authoritative source (i.e. the photo depicting the work of art);</item>
+                <item>it agrees with another interpretation, i.e. Federico Zeri classification.</item>
+            </list>
+            <p>This obviously doesn’t entail that the attribution is surely correct, but it can be a useful tool for historians when searching for different attributions and related criteria adopted in interpretative process.</p>
+            <figure>
+                <graphic url="69/image1.png" rend="block"/>
+            <head>Fig. 1 Sample of multiple interpretation of the same object and Zeri authoritativeness</head>
+            </figure>
+          </div>
+          <div type="div1" rend="DH-Heading1">
+          <head>Conclusions</head>
+            <p>To conclude, as said before it will be the natural completion of the Zeri Project the RDF triple store set up, the creation of links to other datasets, and the definition of the user interface for browsing the linked open dataset. All these activities are now object of our research group industry and the final publication of the project is expected for the middle of 2016. Data had already been transformed in a RDF/XML dataset, according to above mentioned ontologies. Next steps of the project involve thus data publication, ensuring access to them through a SPARQL endpoint. When published, data will be enriched with further RDF links to major datasets and authority files online (e.g. VIAF for people and works, Getty thesauri, GeoNames for places
+                <note place="foot" xml:id="ftn9" n="9">
+                    <p rend="footnote text"> A first check on 
+                        <ref target="https://datahub.io/dataset">https://datahub.io/dataset</ref>
+                    </p>
+                </note>). This ensures our data will really be part of the LOD Cloud, avoiding creation of another data silo. So enriched data will then be exploited in a new smart application, which will enable users to search data about both photos and works of art. Through this modelization data and new relations will be easier discovered, enhancing user experience.
+            </p>
+          </div>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl>
+                        <hi rend="bold">MiBACT</hi> (1999).
+                        <hi rend="italic">Strutturazione dei dati delle schede di catalogo: beni artistici e storici: scheda F, prima parte</hi>. Roma: ICCD.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Mambelli, F.</hi> (2014). Una risorsa online per la storia dell’arte: il database della fototeca Zeri. In: Ciotti, F. (Ed.), 
+                        <hi rend="italic">Digital Humanities: progetti italiani ed esperienze di convergenza multidisciplinare</hi>. Quaderni Digilab, Università di Roma La Sapienza.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Crofts, N., Doerr, M., Gill, T., Stead, S. and Stiff, M.</hi> (2011). 
+                        <hi rend="italic">Definition of the CIDOC Conceptual Reference Model</hi> (version 5.0.4). http://www.cidoc-crm.org/docs/cidoc_crm_version_5.0.4.pdf.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Lebo, T., Sahoo, S. and McGuinnes, D.</hi> (2013). 
+                        <hi rend="italic">PROV-O: the PROV Ontology</hi>. W3C Recommendation. http://www.w3.org/TR/prov-o/.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Peroni, S. and Shotton, D.</hi> (2012). FaBiO and CiTO: ontologies for describing bibliographic resources and citations.  
+                        <hi rend="italic">Journal of Web Semantics: Science, Services and Agents on the World Wide Web</hi>, <hi rend="bold">17</hi>: 33-43. 
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Peroni, S.</hi> (2014). The Semantic Publishing and Referencing Ontologies. In: Peroni, S., 
+                        <hi rend="italic">Semantic Web Technologies and Legal Scholarly Publishing</hi>. Cham, Switzerland: Springer, pp. 121-93. 
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Gonano, C.M., Mambelli, F., Peroni, S., Tomasi, F. and Vitali, F.</hi> (2014). Zeri e LODE. Extracting the Zeri photo archive to Linked Open Data: formalizing the conceptual model. 
+                        <hi rend="italic">Proceedings of the 2014 IEEE/ACM Joint Conference on Digital Libraries (JCDL 2014)</hi>. IEEE, pp 289-98.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Daquino, M. and Tomasi, F.</hi> (2015). Historical Context (HiCo): a conceptual model for describing context information of cultural heritage objects. 
+                        <hi rend="italic">Communication in Computer and Information Science</hi>, Berlin: Springer Verlag, pp. 424-36.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Reist, I., Farneth, D., Stein, R. and Weda, R.</hi> (2015). An Introduction to PHAROS: Aggregating Free Access to 31 Million Digitized Images and Counting. Speech at 
+                        <hi rend="italic">CIDOC 2015</hi>. New Dehli.
+                    </bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

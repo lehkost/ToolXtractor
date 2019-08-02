@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xsi:schemaLocation="http://www.tei-c.org/ns/1.0 /Users/yoann/Work/Grobid/grobid-home/schemas/xsd/Grobid.xsd"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+	<teiHeader xml:lang="en">
+		<encodingDesc>
+			<appInfo>
+				<application version="0.5.4-SNAPSHOT" ident="GROBID" when="2019-06-05T06:27+0000">
+					<ref target="https://github.com/kermitt2/grobid">GROBID - A machine learning software for extracting information from scholarly documents</ref>
+				</application>
+			</appInfo>
+		</encodingDesc>
+		<fileDesc>
+			<titleStmt>
+				<title level="a" type="main">WeisoEvent: A Ming-Weiso Event Analytics Tool with Named Entity Markup and Spatial-Temporal Information Linking</title>
+			</titleStmt>
+			<publicationStmt>
+				<publisher/>
+				<availability status="unknown"><licence/></availability>
+			</publicationStmt>
+			<sourceDesc>
+				<biblStruct>
+					<analytic>
+						<author>
+							<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">Richard</forename><surname>Tzong</surname></persName>
+						</author>
+						<author role="corresp">
+							<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">Han</forename><surname>Tsai</surname></persName>
+							<email>thtsai@csie.ncu.edu.tw</email>
+						</author>
+						<author>
+							<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">Yu-Ting</forename><surname>Lai</surname></persName>
+						</author>
+						<author>
+							<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">Yu-Chun</forename><surname>Wang</surname></persName>
+						</author>
+						<author>
+							<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">Chunghwa</forename><surname>Telecom</surname></persName>
+						</author>
+						<author>
+							<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">Taiwan</forename><surname>Sunny</surname></persName>
+						</author>
+						<author>
+							<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">Hui-Ming</forename><surname>Huang</surname></persName>
+						</author>
+						<author>
+							<affiliation key="aff0">
+								<orgName type="department">Center for GIS</orgName>
+								<orgName type="institution">Academia Sinica</orgName>
+								<address>
+									<country key="TW">Taiwan</country>
+								</address>
+							</affiliation>
+						</author>
+						<author>
+							<affiliation key="aff1">
+								<orgName type="department" key="dep1">Center for GIS, Academia Sinica</orgName>
+								<orgName type="department" key="dep2">Institute of History and Philology</orgName>
+								<orgName type="department" key="dep3">Center for GIS, Academia Sinica</orgName>
+								<orgName type="institution">National Central University</orgName>
+								<address>
+									<addrLine>Academia Sinica Taiwan I-Chun Fan</addrLine>
+									<settlement>Pi-Ling Pai</settlement>
+									<country>Taiwan, Taiwan, Taiwan</country>
+								</address>
+							</affiliation>
+						</author>
+						<title level="a" type="main">WeisoEvent: A Ming-Weiso Event Analytics Tool with Named Entity Markup and Spatial-Temporal Information Linking</title>
+					</analytic>
+					<monogr>
+						<imprint>
+							<date/>
+						</imprint>
+					</monogr>
+				</biblStruct>
+			</sourceDesc>
+		</fileDesc>
+		<profileDesc>
+			<abstract/>
+		</profileDesc>
+	</teiHeader>
+	<text xml:lang="en">
+		<body>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Introduction</head><p>Weiso(衛所制), which means "guardhouse", is one of the military units of the barracks used by the Chinese dynasty Ming  to maintain peace throughout its empire. WeisoEvent is a web-based digital humanity research tool targeting Ming Weiso events recorded in Ming Shilu, which contains the imperial annals of the Ming emperors. WeisoEvent is composed of two parts: (1) an event type classifier that categorizes paragraphs according to their event types; (2) an analytics tool that shows (1)'s result, markups named entities, links guard mentions to Academia Sinica's Chinese Civilization in Time and Space (CCTS) spatial-temporal platform, and provides four visualization functions. Historians can use this tool to search for specific event types and gain insight into the relationship between particular guards and those event types, not only improving the efficiency but still maintaining the quality of research.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Event type classifier</head><p>Normally, one would develop a supervisedlearning-based text categorization system to classify paragraphs into different event types. This involves defining a set of categories and annotating example texts for each category. However, lacking the human resources needed for such a task, we use unsupervised text clustering, which groups paragraphs into clusters by event type, to generate categories and their corresponding paragraphs for training an automatic event classifier. Although the results are not as accurate as those of pure supervised text classification, this hybrid approach is an acceptable tradeoff.</p><p>In clustering algorithms, each paragraph is represented as a vector. In previous studies, paragraphs have been represented using the vector space model (VSM), which represents each text as a feature vector of terms. However, this approach loses the ordering and ignores semantics. Yet another representation scheme inspired by word2vec is the "Paragraph Vector" proposed by <ref type="bibr" target="#b0">(Le and Mikolov, 2014</ref>), an unsupervised framework that learns continuous distributed vectors for pieces of text. In their model, entire paragraphs are represented as vectors. The vector representation is trained to predict the words in a paragraph. More precisely, they concatenate the paragraph vector with several word vectors from a paragraph and predict the following word in the given context. Le's Paragraph Vector model has many advantages. First, it is mostly unsupervised and works well with sparsely labeled data. Second, it is suitable for text strings of various lengths, ranging from sentences to whole documents. Finally, it can overcome many weaknesses of the bagof-words and bag-of-n-grams models. Because it does not suffer from data scarcity and high dimensionality, it also preserves the ordering and semantic information.</p><p>In summary, we propose a classification method which is based on clustering. First, we employ a named entity (NE) recognizer to label texts. Second, we train a paragraph vector model to represent paragraphs as vectors. Third, we cluster paragraphs with length &lt;40</p><p>characters. Finally, we use the clustering results as gold-standard categories with which to train a support-vector-machines classifier to predict other paragraphs' categories.</p><p>We compare our method with the state-of-the-art paragraph clustering method using continuous vector space representation proposed by (M. Chinea- <ref type="bibr" target="#b1">Rios et al., 2015)</ref>. They use word2vec to learn word vectors and represent each sentence by summing the vectors of the words in that sentence. Like Chinea-Rios et al., we use the k-means algorithm to cluster vectors. We set the number of clusters to 68. We refer to the evaluation measures used in ( <ref type="bibr" target="#b0">Le and Mikolov, 2014</ref>). We generate sets of three paragraphs: two with the same event type and one with a different event type. Each set is referred to as a paragraph triplet. The distance between the two vectors with the same event type should be closer than the distance between either of these two and the unrelated one. We collect 923 paragraph triplets and compute the accuracy. Our best configuration that combines word dimensions and named entity dimensions to generate paragraph vectors achieves an accuracy of 62.49%, outperforming Chinea-Rios et al.'s pure text-clustering approach (M. Chinea-Rios et al., 2015) by 24.65%.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Analytics tool interface</head><p>WeisoEvent groups paragraphs with similar subjects into clusters automatically and each cluster is named manually according to the main subject of its paragraphs. Clusters with related topics are grouped into broader categories for search convenience. For example, we group "earthquake", "conflagration" and "hailstorm" into the event category "disaster". Users can modify event category titles by clicking a button on the top-right of the webpage (see <ref type="figure">Fig. 1, [1]</ref>) <ref type="figure">Figure 1</ref>. System interface. <ref type="figure">Fig. 1</ref> shows our research tool webpage, which consists of three main windows: (a) search parameters, (b) search result visualizations, and (c) search results snippets.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="1.">Search parameters: Users can search for one</head><p>or more guards by typing the name into the search box <ref type="figure" target="#fig_0">(Fig. 1, [2]</ref>). For convenience, a user may also import a guard list by clicking the "import" icon ( <ref type="figure">Fig. 1, [3]</ref>). Notably, if two guards are queried, their event timelines are displayed in parellel, like Jian-zhou (建州) and Wu-che (兀者) guards shown in window b. After at least one event category is selected, the search results are shown in windows b and c. 2. Search result visualization tools: In window b, users can select among four visualization options at the top of the frame. Option 1 hides or shows an event timeline of the search results on the page. When the event timeline is enabled, event-type labels corresponding to each retrieved paragraph are displayed chronologically on the timeline. For reference, the timeline shows the CE year at the bottom of the window <ref type="figure" target="#fig_0">(Fig.  2</ref>, <ref type="bibr">[4]</ref>) and the name of era, which usually corresponds with the reigning Ming emperor, at the top <ref type="figure" target="#fig_0">(Fig. 2, [5]</ref>). When a user clicks on an event icon in the timeline, the corresponding text snippet is displayed in window c, highlighted in yellow <ref type="figure" target="#fig_0">(Fig. 2)</ref>. <ref type="figure">Figure 3</ref> takes Jian-zhou guard (建州衛) as an example to depict options 2 to 4. Option 2 is the bar chart. Each bar corresponds to a Chinese era name and represents the total number of paragraphs for the three selected event types in that era. Option 3 shows each bar sub-divided by color to show the distribution of paragraphs of each event type ("come over and pledge allegiance"/ "reward alien"/ "tribute-reward") in each era. By clicking Option 4, a pie chart shows the distribution of the three selected event types in the entire dataset. The slice for each event type is labeled with the number of paragraphs of that event type and its percentage of the total. These data visualizations offer historians a quick statistical overview of selected event types.  Finally, we conduct a case study targeting Jurchens subordinated garrisons, including Wu-che guards (兀 者諸衛) , Jian-zhou guards (建州諸衛), Mao-lian guard (毛憐衛) by using the proposed tool to obtain statistics regarding tribute event types.</p><p>We compare our event classification results with Cheng's study (N. <ref type="bibr" target="#b2">Cheng, 2015)</ref>, which used Ming Shilu as the source to investigate the tribute events during Yongle (永樂), Hongxi (洪熙), and Xuande (宣德) periods. We regard the paragraphs categorized as "tribute-reward", "come over and pledge allegiance", and "reward alien" event types as those potentially illustrating tribute events and manually check them. For Wu-che, Jian-zhou, and Mao-lian guards, 69, 86, and 40 paragraphs are identified as the above three types, respectively. Among these paragraphs, 66, 77, 37 are correct, which are close to the numbers of tribute events in Cheng's study for these three guards (60+, 70+, 30-). This study was done within 16 manhours. These preliminary results are consistent with Cheng's manual analysis results and show that our tool not only helps historians study Weiso events more efficiently but also keep the quality.</p></div><figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_0"><head>Figure 2 .</head><label>2</label><figDesc>Figure 2. Event timeline</figDesc><graphic url="image-3.png" coords="3,54.30,199.02,241.44,159.36" type="bitmap" /></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_1"><head>Figure 4 .</head><label>4</label><figDesc>Figure 4. Academia Sinica CCTS-API map service</figDesc><graphic url="image-4.png" coords="3,316.86,84.54,241.44,151.44" type="bitmap" /></figure>
+		</body>
+		<back>
+			<div type="references">
+
+				<listBibl>
+
+<biblStruct xml:id="b0">
+	<monogr>
+		<title level="m" type="main">Distributed Representations of Sentences and Documents</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">Q</forename><forename type="middle">V</forename><surname>Le</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">T</forename><surname>Mikolov</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="2014" />
+			<biblScope unit="page" from="1188" to="96" />
+			<pubPlace>Beijing, China</pubPlace>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b1">
+	<monogr>
+		<title level="m" type="main">Sentence clustering using continuous vector space representation</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">M</forename><surname>Chinea-Rios</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">G</forename><surname>Sanchis-Trilles</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">Casacuberta</forename></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">F</forename></persName>
+		</author>
+		<imprint>
+			<date type="published" when="2015" />
+			<biblScope unit="page" from="432" to="472" />
+			<pubPlace>Santiago de Compostela, Spain</pubPlace>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b2">
+	<analytic>
+		<title level="a" type="main">A Study of the Tributary System of Jurchens in the Ming Dynasty</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">N</forename><surname>Cheng</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Journal of Chinese Humanities</title>
+		<imprint>
+			<biblScope unit="volume">347</biblScope>
+			<biblScope unit="page" from="90" to="109" />
+			<date type="published" when="2015" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+				</listBibl>
+			</div>
+		</back>
+	</text>
+</TEI>

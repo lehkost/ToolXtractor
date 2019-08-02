@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>Microanalyzing Parts of Texts</title>
+                <author>
+                    <persName>
+                        <surname>Hoover</surname>
+                        <forename>David L.</forename>
+                    </persName>
+                    <affiliation>New York University, United States of America</affiliation>
+                    <email>david.hoover@nyu.edu</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2016-03-10T20:27:00Z</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Maciej Eder, Pedagogical University in Krakow</publisher>
+                <publisher>Jan Rybicki, Jagiellonian University</publisher>
+                <address>
+                    <addrLine>Institute of Polish Studies</addrLine>
+                    <addrLine>Pedagogical University</addrLine>
+                    <addrLine>ul. Podchorazych 2</addrLine>
+                    <addrLine>30-084 Krakow, Poland</addrLine>
+                    <addrLine>maciej.eder@ijp-pan.krakow.pl</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from a Word document </p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.21">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Long Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>character dialogue</term>
+                    <term>computational stylistics</term>
+                    <term>text-analysis</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>literary studies</term>
+                    <term>stylistics and stylometry</term>
+                    <term>text analysis</term>
+                    <term>English</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <p>Some broad questions require the analysis of huge collections of texts. Other broad questions and many narrower ones require microanalyzing parts of texts. Some microanalyses are unproblematic: narrative structure and its relationship to chapter divisions can be studied simply by dividing texts into chapters. Analyzing narrative or dialogue only, or the relationships between these and chapter divisions, may be much more problematic, as may analyzing a novel that also contains letters, diaries, legends, and poetry. Some or all of these may be more appropriately analyzed separately or ignored. Difficulties multiply for multiple narrators whose narratives contain dialogue and subdivisions.</p>
+            <p> One of the most difficult tasks is analyzing the character dialogue in a novel. Burrows showed that the frequencies of the most frequent words in their dialogue can distinguish Jane Austen’s characters from each other (1987), but few scholars have followed his lead, at least partly because of the tedium and difficulty of separating character parts. McKenna and Antonia (1996) were an early exception, but most related work involves epistolary novels or multiple narrators, where the separation of parts is simpler (Stewart 2003; Rybicki 2006; Ramsay 2011; Balossi 2014; Hoover, Culpeper, and O’Halloran 2014; Hoover 2010, and forthcoming).) Consider the case of Sherlock Holmes. Perhaps, as Moretti argues, “Doyle owes his phenomenal success to his greater skill in the handling of clues” (2004, 48), but Holmes and Watson are also extraordinarily fascinating characters. Analyzing their voices for distinctiveness requires comparing them with his other characters. Because reliable results require substantial amounts of text, I focus here on the longest Holmes novel, 
+                <hi rend="italic">The Hound of the Baskervilles</hi> (
+                <hi rend="italic">Hound</hi>, below).
+            </p>
+            <p> Extracting the dialogue computationally still requires the tedious and error-prone manual separation of the character parts and identification of the speakers. Typically characters are too numerous to open separate dialogue files for all of them, and multiple files increase copying and pasting errors. Initial decisions about the handling of dialogue may also change, requiring painstaking re-editing. Instead, I introduce very simple markup that is then processed in “Analyze Textual Divisions,” an Excel spreadsheet with macros. The markup, powerful enough for texts with quite complex structures, is also simple, flexible, and customizable:</p>
+            <p>&lt;1&gt; text division 1</p>
+            <p>&lt;2&gt; text division 2</p>
+            <p>&lt;3&gt; text division 3</p>
+            <p>&lt;4&gt; text division 4</p>
+            <p>[ ] Letter writer</p>
+            <p>{ } Letter addressee</p>
+            <p>/ speaker</p>
+            <p>\ speech marker</p>
+            <p>&gt; copy without processing</p>
+            <p>^ special character follows</p>
+            <p> For Wilkie Collins’s complex novel 
+                <hi rend="italic">No Name,</hi> with scenes containing chapters, which contain letters and other documents, the four divisions are “Scene”, “Chapter”, “Letter”, and “Document.” (The spreadsheet includes brief excerpts from this novel with mark-up.) Epistolary novels might use “Letter,” and others might use “Volume” and “Book.” For texts with multiple narrators and for plays “Narrator” and “Act” and “Scene” are obvious divisions. The top-level division, like the rest of the markup, can be modified. For 
+                <hi rend="italic">No Name</hi>, division one is defined as follows: div1name = “Scene”. Novels divided into books could use “div1name = “Book.” Alternatively, after the macro operates, the labels can be changed as desired.
+            </p>
+            <p> Here is a truncated version of 
+                <hi rend="italic">No Name</hi>:
+            </p>
+            <figure>
+                <graphic url="27/image1.png" rend="block"/>
+            </figure>
+            <p>A “&lt;1&gt;” has been inserted to mark “THE FIRST SCENE.” as division one, and all lines in the first scene will be so labeled. In line two, “&gt;” indicates that “COMBE-RAVEN, SOMERSETSHIRE.,” which seems like a scene-setting label, not narrative, should not be processed (epigraphs or poems might be treated similarly). In line three, “CHAPTER I.” marks division two. In line six, “/Norah” labels lines 6-8 as hers (the person addressed could, like a letter addressee, be marked with {}). In line seven, “\she said” is a speech marker, categorized separately because they sometimes vary interestingly and because “she said” seems to me neither dialogue nor narration. In line eight, the quotation mark indicates dialogue. The blank ninth line changes the label from dialogue to narrative until marked otherwise. The beginning of chapter thirteen is marked similarly. Later in the novel, embedded letters are marked with “Letter writer” and “Letter addressee.” Finally, “^” must begin any line that would otherwise begin with “+”, “-”, or “=” (reserved characters in Excel). (Line-division can be changed instead, except where required line breaks force special characters to the beginning.)</p>
+            <p>With the Analyze Textual Divisions spreadsheet and the marked-up text open in Excel, the macro processes the text line by line, producing the results below (the marked-up text and empty columns have been deleted). Each line gets a scene label, and, beginning in line three, a chapter label, and all the lines are numbered. Lines 4-5 are marked as narration, lines 6 and 8 as Dialogue, and line 7 as Marker, and the speaker is entered for lines 6-8 and 14-16. The processed text appears on the right with all markup removed.</p>
+            <p>The text could be marked up in TEI and the character parts extracted with XSLT, but the markup here is much simpler and easier to learn, and the spreadsheet has advantages over XSLT. Excel’s built-in sorting function can handle several levels of sorting, for example, so that the dialogue can be sorted by type, scene, chapter, speaker, and line number, all at once. The unmarked processed text, after sorting, can be divided and analyzed however the analyst desires with plain-text tools. Sorting on the line number restores the original order for further analysis, and errors can be corrected in the original text, and the analysis re-run. (See my Excel Text-Analysis Pages at 
+                <ref target="http://wp.nyu.edu/exceltextanalysis/">http://wp.nyu.edu/exceltextanalysis/</ref> for detailed instructions.) This method works especially well for short, simple texts like 
+                <hi rend="italic">Hound,</hi> with character parts too short to be analyzed by chapter; the dialogue can be marked with just speaker and speech marker characters, and &gt; and ^.
+            </p>
+            <figure>
+                <graphic url="27/image2.png" rend="inline"/>
+            </figure>
+            <p> To test the distinctiveness of the character voices in 
+                <hi rend="italic">Hound</hi>, I selected all character parts at least 1,500 words long, and divided longer parts into 1,500-word sections. Initial testing was disappointing. Although the sections of dialogue by Stapleton, Mortimer, and Watson grouped correctly, those by Baskerville, Barrymore, and Holmes did not, casting doubt on the distinctiveness of their voices. The section of Baskerville’s dialogue that groups with Barrymore’s, however, consists almost entirely of a conversation between the two, so that similarity of topic may skew the results. More significantly, the first six sections of Holmes’s dialogue consistently group correctly. The final two, which consist almost entirely of the final chapter, and which tend to group separately from all others, are Holmes’s explanation of the case to Watson. Nominally dialogue, this chapter is more like narration, a genre difference that is almost certainly responsible for the anomalous clustering. Removing the final chapter and sorting the lines of Baskerville’s dialogue in random order to blunt any topical or thematic effects produces the cluster analysis shown in Fig. 1, based on the 225mfw (most frequent words).
+            </p>
+            <p> Cluster analysis is an exploratory statistical method that compares the frequencies of a set of words across a set of texts to determine which texts use those words at the most similar frequencies. The nearer to the left that sections join together into a single cluster, the more similarly they use the words. All sections in Fig. 1 group correctly by speaker, and several sections of Holmes’s dialogue are the most similar, and the results are correct across analyses based on the 125-325mfw. Doyle’s use of clues may have helped the Sherlock Holmes stories succeed, but the distinct character voices also seem likely to be a factor. (The analysis here uses Ward Linkage and squared Euclidean distance; the often-used complete linkage gives weaker results.)</p>
+            <p> Separating character dialogue can never be easy, but my spreadsheet makes it much easier. It also provides a versatility in comparing multiple kinds of textual divisions that may encourage more in-depth analysis of dialogue and characterization and enhance our understanding of how texts work.</p>
+            <figure>
+                <graphic url="27/image3.png" rend="inline"/>
+                <head>Fig. 1: Character Dialogue in <hi rend="italic">Hound</hi> (225mfw)</head>
+            </figure>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl>
+                        <hi rend="bold">Balossi, G.</hi> (2014). 
+                        <hi rend="italic">A Corpus Linguistic Approach to Literary Language and Characterization: Virginia Woolf’s The Waves</hi>. Amsterdam: Johns Benjamins.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Burrows, J.</hi> (1987). 
+                        <hi rend="italic">Computation into Criticism.</hi> Oxford: Clarendon Press.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Hoover D.</hi> (forthcoming). Argument, evidence, and the limits of digital literary studies. In Gold, M. (ed), 
+                        <hi rend="italic">Debates in the Digital Humanities,</hi> University of Minnesota Press.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold"> Hoover D.</hi> (2010). Some approaches to corpus stylistics. In Yu Dongmin (ed), 
+                        <hi rend="italic">Stylistics: Past, Present and Future</hi>. Shanghai Foreign Language Education Press, pp. 40-63.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Hoover, D., Culpeper, J., and O’Halloran, K.</hi> (2014). 
+                        <hi rend="italic">Digital Literary Studies: Corpus Approaches to Poetry, Prose, and Drama</hi>. London: Routledge.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">McKenna, C. W. F., and Antonia, A.</hi> (1996). ‘A few simple words’ of interior monologue in “Ulysses”: reconfiguring the evidence. 
+                        <hi rend="italic">Literary and Linguistic Computing</hi>, <hi rend="bold">11</hi>(2): 55-66. 
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Moretti, F.</hi> (2004). Graphs, maps, trees: abstract models for literary history — 3, 
+                        <hi rend="italic">New Left Review</hi>, <hi rend="bold">28</hi>: 43-63.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Ramsay, S.</hi> (2011). 
+                        <hi rend="italic">Reading Machines: Toward an Algorithmic Criticism</hi>. Urbana: University of Illinois Press.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Rybicki, J.</hi> (2006). Burrowing into translation: character idiolects in Henryk Sienkiewicz’s trilogy and its two English translations. 
+                        <hi rend="italic">Literary and Linguistic Computing</hi>, <hi rend="bold">21</hi>(1): 91-103.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Stewart, L.</hi> (2003). Charles Brockden Brown: quantitative analysis and literary interpretation. 
+                        <hi rend="italic">Literary and Linguistic Computing</hi>, <hi rend="bold">18</hi>(2): 129-38.
+                    </bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>TILT 2: Text to Image Linking Tool</title>
+                <author>
+                    <persName>
+                        <surname>Schmidt</surname>
+                        <forename>Desmond</forename>
+                    </persName>
+                    <affiliation>Queensland University of Technology, Australia</affiliation>
+                    <email>desmond.allan.schmidt@gmail.com</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2014-12-19T13:50:00Z</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Paul Arthur, University of Western Sidney</publisher>
+                <address>
+                    <addrLine>Locked Bag 1797</addrLine>
+                    <addrLine>Penrith NSW 2751</addrLine>
+                    <addrLine>Australia</addrLine>
+                    <addrLine>Paul Arthur</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from a Word document </p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.9">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Short Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>OCR</term>
+                    <term>text-to-image linking</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>image processing</term>
+                    <term>audio</term>
+                    <term>video</term>
+                    <term>multimedia</term>
+                    <term>digitisation</term>
+                    <term>resource creation</term>
+                    <term>and discovery</term>
+                    <term>software design and development</term>
+                    <term>programming</term>
+                    <term>visualisation</term>
+                    <term>linking and annotation</term>
+                    <term>English</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <p rend="CM4">TILT is a Web-service and graphical user interface designed to make it easier to study printed books or handwritten manuscripts. TILT recognises word-shapes in page images, then links them to words in an already existing transcription. Unlike a traditional OCR program, no actual characters are recognised. Instead, the links are used to provide visual cues to the user by highlighting corresponding parts of the image and the text as the user moves the mouse over the words or taps them.</p>
+            <p>Text-to-image linking was ﬁrst explored by Seales et al. (2000) in electronic editions of old English texts at the University of Kentucky. Their technique was to manually draw mostly rectangles around areas of manuscripts and then link them to the text by means of embedded markup in the transcription (Dekhtyar et al., 2005), developing eventually the commercial EPT tool. Other examples include the British Museum’s electronic 
+                <hi rend="italic">Codex Sinaticus</hi> (BM, 2009) and, using a different display technique, the ‘zoom topographic’ view of the Samuel Beckett digital manuscript project (Hulle et al., 2011), the TILE project (Reside et al., 2011), and the TextGrid text-to-image link editor (Al-Hajj and Küster, 2013). However, all of these methods were predominantly manual. Rather than automatically processing the text and images, they invite the user to manually draw shapes (rectangles, ovals, and polygons) around words, and to link them one at a time to words in the text. This is very tedious, and the linking methods also lead to problems of overlapping markup that can only be resolved by creating two separate transcriptions: one to contain the text-to-image links and one the formatted text (Middell and Wissenbach, 2011). 
+            </p>
+            <p rend="CM5">The earlier TILT tool (Schmidt, 2013) attempted to address the automation of the text-to-image links by allowing words to be outlined via a single click, and for entire pages to have their shapes recognised and 
+                <hi rend="italic">linked</hi> to the corresponding words of the transcription largely automatically. But TILT 1 proved to be limited in the way it could deliver a user interface. The key problem was that in order to automate the linking, it would be necessary to have access to a fully featured suite of image-processing tools. For this, the Java class library was chosen. However, the only way to mediate the automation process was to present the tool as a Java applet, which is notoriously difficult to run in a web context.
+            </p>
+            <p rend="CM5">TILT 2 attempts to address this problem by separating the front-end GUI (link editing and management of the recognition process) from the back-end (page recognition) part. The back-end is accessible via a test interface (Schmidt, 2014), and is designed to act as a faceless service usable by anyone who has a page image and a transcription, and wants to link the two. The front-end GUI is currently under development and contains tools for revising the automatically generated word-shapes and links using standard web technologies.</p>
+            <figure>
+                <graphic n="1001" width="13.230930555555556cm" height="9.768416666666667cm" url="Pictures/image1.png" rend="block"/>
+            </figure>
+            <p>Figure 1. Text-to-image links and polygons as invisible GeoJSON overlay.</p>
+            <p rend="CM14">Rather than use embedded markup in the transcriptions to link word-shapes with the corresponding words in the text, TILT uses GeoJSON (Butler et al., 2014) to describe the page and its recognised shapes, and annotates it with the positions of the words in the text. As shown in Figure 1, both the text-to-image links and the polygons that overlay the image are wholly contained in an invisible GeoJSON document, which can be loaded from a database or generated if required. The transcription can be in HTML or plain text formats. </p>
+            <p rend="CM16">Page Recognition </p>
+            <p>Given the immense variety of manuscript types, the TILT service is divided into clear stages. Each stage feeds the result into later stages, ending in the generation of the word-level links. The stages are:</p>
+            <p rend="List"> 1. Conversion to greyscale. </p>
+            <p rend="List"> 2. Conversion to two-tone. </p>
+            <p rend="List"> 3. Removal of borders. </p>
+            <p rend="List"> 4. Line recognition. </p>
+            <p rend="List"> 5. Word recognition. </p>
+            <p rend="List"> 6. Linking word-shapes to actual words. </p>
+            <p rend="CM14">Of these, the first three conform closely to the standard processing steps of OCR and use techniques in the Java class library or the Ocropus toolset (Google, 2014).</p>
+            <p>The fourth step, however, represents a departure from standard OCR techniques. In order to recognise words, they must first be organised into lines. In printed books, recognition of lines is relatively easy. OCR programs use heuristics to determine text blocks and assume even line spacing. Skewed or warped lines must first be deskewed or dewarped. Since lines may curve or tilt naturally in manuscripts, a general line-recognition algorithm is needed that can cope with both printed and handwritten material. TILT’s approach is to first divide the image into narrow vertical strips. The strips are then reduced to a single average column of pixels, which is smoothed via a moving average algorithm. The peaks in the black pixels of each strip then are taken to correspond to lines. Finally, the peaks are linked up across the page using a greedy approach, by linking the closest points in each pair of adjacent columns first, then progressively more distant points, so long as this does not cause the lines to cross (Figure 2) (BL, 2014).</p>
+            <figure>
+                <graphic n="1002" width="14.179902777777778cm" height="10.216444444444445cm" url="Pictures/image2.jpeg" rend="block"/>
+            </figure>
+            <p rend="CM14">Figure 2. Line-recognition (Court of Oyer and Terminer for Trial of Attained Traitors record book [1796] from Grenada). </p>
+            <p>Once lines have been recognised they can be subdivided into words. (This assumes that texts 
+                <hi rend="italic">have</hi> word divisions, which may not be the case in certain languages.) The current method uses the two-tone image to identify ‘blobs’ of connected pixels in an image, then surrounds them with a polygon, and finally measures the gaps between polygons (Stamatopoulos et al., 2010). So on a page with 230 words on 30 lines, the number of inter-word gaps to be expected would be 229−29=200. So, assuming that the 200 largest gaps are inter-word gaps, polygons not separated in this way can be merged to form word-shapes. Although this works well for printed texts, with success rates often as high as 98 to 100%, variation in the use of spacing in manuscripts limits its success. An alternative technique (Manmatha and Srimal, 1999) tries to determine an appropriate Gaussian blur to join up blobs into the expected number of words, and then split words on that basis, achieving 86% average word recognition on the test documents. Application of this technique to TILT2 is planned but not yet implemented.
+            </p>
+            <figure>
+                <graphic n="1003" width="13.006916666666667cm" height="6.168319444444444cm" url="Pictures/image3.png" rend="block"/>
+            </figure>
+            <p rend="CM14">Figure 3. Alignment of word-widths in text and image.</p>
+            <p>The final linking step is actually the most reliable part of TILT. Since the numbers of word-shapes and words are now known, the approximate width of a single letter can be calculated. This allows the estimation of the pixel-widths of words in the text. Since the sequence of word-shapes in the image must match the sequence of word-shapes in the transcription, the two can be aligned by modifying a classic diff algorithm, such as Ukkonen’s (Ukkonen, 1985). But instead of matching letters in two texts, TILT matches word-widths and allows either several word-shapes in the page image to match one word of the transcription or several words in the transcription to match one word-shape in the image, as shown in Figure 
+                <ref target="REF BMalignment \h \* MERGEFORMAT " rend="ref mergeformat">3</ref>. This can result in polygons being split or merged to correct the alignment. 
+            </p>
+            <p rend="heading 3">Editing Interface</p>
+            <p>The editing interface aims to visualise the automatically generated text-to-image links and allow the user to adjust them manually. This uses a number of semi-automatic techniques to speed up the editing process (Figure 
+                <ref target="REF BMsemiautomatic \h \* MERGEFORMAT " rend="ref mergeformat">4</ref>): 
+            </p>
+            <p rend="List"> 1. Redistributing words among the word-shapes between any two manually specified anchor points. </p>
+            <p rend="List"> 2. Merging two selected polygons when a word-shape has been incorrectly split by dragging across the shapes. </p>
+            <p rend="List"> 3. Splitting of polygonal shapes by dragging a line across merged words. </p>
+            <p>In addition to these techniques, manually adding and deleting points, and adjusting shapes provide a fallback when automatic methods fail. </p>
+            <p>Although currently incomplete, the editing interface is anticipated to be ready for demonstration at the conference (Schmidt, 2015).</p>
+            <figure>
+                <graphic n="1004" width="13.3985cm" height="8.038041666666667cm" url="Pictures/image4.png" rend="block"/>
+                <graphic n="1005" width="8.79298611111111cm" height="1.2841111111111112cm" url="Pictures/image5.png" rend="block"/>
+                <graphic n="1006" width="6.057194444444445cm" height="2.428875cm" url="Pictures/image6.png" rend="block"/>
+                <head>Figure 
+                    <anchor xml:id="BMsemiautomatic"/>4: Semi-automatic editing tools: realignment with anchors (top), merging a split word (middle), splitting two merged words (bottom).
+                </head>
+            </figure>
+            <p>Acknowledgements</p>
+            <p>The TILT2 tool was one of two winners of the British Library Labs Competition 2014. The Center for Biodiversity Informatics at the Missouri Botanical Garden is currently supporting further development of the tool.</p>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl>
+                        <hi rend="bold">Al-Hajj, Y. A. A. and Kuster, M. W. </hi>(2013). The Text-Image-Link-Editor: A Tool for Linking Facsimiles and Transcriptions, and Image Annotations. 
+                        <hi rend="italic">Literary and Linguistic Computing,</hi>
+                        <hi rend="bold">28</hi>(2): 190–98. 
+                    </bibl>
+                    <bibl rend="CM15">
+                        <hi rend="bold">BL.</hi> (2014). Endangered Archives: EAP295/2: Collection of Court Records Held by the Grenada Supreme Court Registry [1765–1797]. http://eap.bl.uk/database/overview_item.a4d?catId=140831;r=21726.
+                    </bibl>
+                    <bibl rend="CM4">
+                        <hi rend="bold">BM.</hi> (2009). Codex Sinaticus. http://www.codexsinaiticus.org/en/manuscript.aspx.
+                    </bibl>
+                    <bibl rend="CM12">
+                        <hi rend="bold">Butler, H., Daly, M., Doyle, A., Gillies, S., Schaub, T. and Schmidt, C.</hi> (2014). Geojson. http://geojson.org/.
+                    </bibl>
+                    <bibl rend="CM15">
+                        <hi rend="bold">Dekhtyar, A., Iacob, I. E., Jaromczyk, J. W., Kiernan, K., Moore, N. and Porter, D. C.</hi> (2005). Support for XML Markup of Image-Based Electronic Editions. 
+                        <hi rend="italic">International Journal on Digital Libraries, </hi>
+                        <hi rend="bold">6</hi>(1) (February): 55–69
+                        <hi rend="italic">.</hi>
+                    </bibl>
+                    <bibl rend="CM12">
+                        <hi rend="bold">Google.</hi> (2014). The OCRopus(tm) Open Source Document Analysis and OCR System. https://code.google.com/p/ocropus/.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Manmatha, R. and Srimal, N.</hi> (1999). Scale Space Technique for Word Segmentation in Handwritten Documents. In Nielsen, M., Johansen, P., Olsen, O. and Wieckert, J. (eds), 
+                        <hi rend="italic">Scale-Space Theories in Computer Vision</hi>. 
+                        <hi rend="italic">Lecture Notes in Computer Science</hi>. Vol. 1682. Springer Berlin Heidelberg, pp. 22–33.
+                    </bibl>
+                    <bibl rend="CM15">
+                        <hi rend="bold">Middell, G. and Wissenbach, M.</hi> (2011). Faust: Multiple Encodings and Diplomatic Transcript Layout. In 
+                        <hi rend="italic">Philology in the Digital Age Annual TEI Conference</hi>, Wurzburg, 10–16 October 2011, http://www.tei-c.org/Vault/MembersMeetings/2011/ﬁleadmin /04100700/_temp_/TEI_Book_of_Abstracts.pdf, p. 29.
+                    </bibl>
+                    <bibl rend="CM12">
+                        <hi rend="bold">Reside, D., Lester, D., Porter, D. and Walsh, J.</hi> (2011). Tile–Text Image Linking Environment. http://mith.umd.edu/tile/.
+                    </bibl>
+                    <bibl rend="CM15">
+                        <hi rend="bold">Schmidt, D. </hi>(2013). Text to Image Linking Tool (TILT). In 
+                        <hi rend="italic">Digital Humanities 2013 Proceedings</hi>, University of Nebraska, Lincoln, 16–19 July 2013, http://dh2013.unl.edu/abstracts/ab-112.html.
+                    </bibl>
+                    <bibl rend="CM6">
+                        <hi rend="bold">Schmidt, D.</hi> (2014). TILT2 Test Interface. http://ecdosis.net/tilt/test/post.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Schmidt, D.</hi> (2015). TILT2. http://www.github.com/AustESE-Infrastructure/TILT2.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Seales, W. B., Griﬃoen, J., Kiernan, K., Yuan, C. J. and Cantara, L. </hi>(2000). The Digital Atheneum: New Techniques for Restoring and Preserving Old Documents. 
+                        <hi rend="italic">Computers in Libraries,</hi>
+                        <hi rend="bold">20</hi>(2) (February): 26–31. 
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Stamatopoulos, N., Louloudis, G. and Gatos, B.</hi> (2010). Efficient Transcript Mapping to Ease the Creation of Document Image Segmentation Ground Truth with Text-Image Alignment. In 
+                        <hi rend="italic">Proceedings of 12th International Conference on Frontiers in Handwriting Recognition, </hi>Kolkata, 16–18 November 2010. IEEE, pp. 226–31.
+                    </bibl>
+                    <bibl rend="CM12">
+                        <hi rend="bold">Ukkonen, Esko.</hi> 1985. Algorithms for Approximate String Matching. 
+                        <hi rend="italic">Information and Control,</hi>
+                        <hi rend="bold">64</hi>: 100–118. 
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Van Hulle, D., Nixon, M. and Neyt, V.</hi> (2011). Samuel Beckett Digital Manuscript Project. http://www.beckettarchive.org/demo/.
+                    </bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

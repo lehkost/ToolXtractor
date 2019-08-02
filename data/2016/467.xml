@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title type="full">
+                    <title type="main">Wikidition: Towards A Multi-layer Network Model of Intertextuality</title>
+                    <title type="sub"/>
+                </title>
+                <author>
+                    <persName>
+                        <surname>Mehler</surname>
+                        <forename>Alexander</forename>
+                    </persName>
+                    <affiliation>Goethe University, Germany</affiliation>
+                    <email>mehler@em.uni-frankfurt.de</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Wagner</surname>
+                        <forename>Benno</forename>
+                    </persName>
+                    <affiliation>Beijing Institute of Technology, China</affiliation>
+                    <email>wagner@lit-wiss.uni-siegen.de</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Gleim</surname>
+                        <forename>Rüdiger</forename>
+                    </persName>
+                    <affiliation>Goethe University, Germany</affiliation>
+                    <email>Gleim@em.uni-frankfurt.de</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2016-03-04T09:51:06.663482052</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Maciej Eder, Pedagogical University in Krakow</publisher>
+                <publisher>Jan Rybicki, Jagiellonian University</publisher>
+                <address>
+                    <addrLine>Institute of Polish Studies</addrLine>
+                    <addrLine>Pedagogical University</addrLine>
+                    <addrLine>ul. Podchorazych 2</addrLine>
+                    <addrLine>30-084 Krakow, Poland</addrLine>
+                    <addrLine>maciej.eder@ijp-pan.krakow.pl</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from an OASIS Open Document</p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.21">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Long Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>Wikidition</term>
+                    <term>text mining</term>
+                    <term>multi-layer network</term>
+                    <term>linkification</term>
+                    <term>lexiconisation</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>corpora and corpus activities</term>
+                    <term>natural language processing</term>
+                    <term>hypertext</term>
+                    <term>networks, relationships, graphs</term>
+                    <term>data mining / text mining</term>
+                    <term>English</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <div type="div1" rend="DH-Heading1">
+                <head>Introduction</head>
+                <p>Current computational models of intertextuality run the risk of ignoring several desiderata: on the one hand, they mostly rely on single methods of quantifying text similarities. This includes syntagmatic models that look for shared vocabularies (unigram models) or (higher order) (
+                    <hi rend="italic">k</hi>-skip-)
+                    <hi rend="italic">n</hi>-grams (Guthrie et al., 2006). Such approaches disregard the two-level process of sign constitution according to which language-related, paradigmatic relations have to be distinguished from their text-related, syntagmatic counterparts (Hjelmslev, 1969; Miller et al., 1991; Raible, 1981) where the former require language models of the sort of neural networks (Mikolov et al., 2013), topic models (Blei et al., 2007) or related approaches in the area of latent semantic analysis (cf., e.g., (Paaß et al., 2004)). On the other hand, computational models should enable scholars to revise their computations. The reason is the remarkably high error rate produced by statistical models even in cases that are supposed to be as “simple” as automatic 
+                    <hi rend="italic">pre</hi>-processing. Thus, scholars need efficient means to make numerous corrections and additions to automatic computations. Otherwise, the computations will be hardly acceptable as scientific data in the humanities (Thaller, 2014).
+                </p>
+                <p>
+                    <figure>
+                        <graphic url="467/10000201000005320000010C62AC686B05DB4FC0.png"/>
+                        <head>Table 1: Nine scenarios of generating Wikiditions out of corpora of (referring) literary (hyper-)texts and their (referred) hypotexts. Examples: (1) Kafka's "Bericht für eine Akademie" (in the role of a hypertext) versus Hauff's "Der Affe als Mensch" (in the role of a hypotext); (2) Kafka's "Bericht für eine Akademie" versus all "Affentexte" (Borgards, 2012) since the end of the 18th Century (including works of, e.g., Hauff, E. T. A. Hoffmann, Flaubert etc.); (3) Kafka's "Beim Bau der Chinesischen Mauer" versus the "Prager Tagblatt" from August 1914 to March 1917; (4) Kafka's "Oeuvre" versus Nietzsche's "Geburt der Tragödie aus dem Geiste der Musik"; (5) a selection of Kafka's "Oeuvre" versus a selection of Nietzsche's "Oeuvre"; (6) Kafka's "Oeuvre" versus a newspaper corpus (e.g., sampled from the "Prager Tagblatt"); (7) the complete works of several authors versus a single hypotext (e.g., Goethe's "Faust"); (8) the complete works of several authors versus a corpus of "Faust" texts; (9) the complete works of several German authors versus the complete works of several French authors.</head>
+                    </figure>
+                    </p>
+                <p>This paper presents 
+                    <hi rend="italic">Wikidition</hi> as a 
+                    <hi rend="italic">Literary Memory Information System</hi> (LiMeS) to address these desiderata. It allows for the automatic generation of online editions of text corpora. This includes literary texts in the role of (referring) 
+                    <hi rend="italic">hypertexts</hi> (Genette, 1993) in relation to candidate (referred) hypotexts by exploring their 
+                    <hi rend="italic">intra- and intertextual relations</hi> – see Table 1 for nine related research scenarios. In order to explore, annotate and display such relations, Wikidition computes multi-layer networks that account for the multi-resolution of linguistic relations – on the side of the hypo- and the hypertexts. The reason is that hypertextual relations (in the sense of Genette) (that occur in the form of transformations, imitations or any mixture thereof) may be manifested on the lexical, sentential or the textual level (including whole paragraphs or even larger subtexts). As a consequence, Wikidition spans lexical, sentential and textual networks that allow for browsing along the constituency relations of words in relation to sentences, sentences in relation to texts etc. In this multi-layer network model, intrarelational links (of words, sentences or texts) are represented together with interrelational links that combine units of different layers. Figure 1 shows the range of sign relations that are mapped. To this end, Wikidition combines a multitude of text similarity measures (beyond 
+                    <hi rend="italic">n</hi>-grams) for automatically linking lexical, sentential and textual units regarding their (1) syntagmatic (e.g., syntactic) and (2) paradigmatic use. We call this two-level task 
+                    <hi rend="italic">linkification</hi>.
+                </p>
+                <p>
+                    <figure>
+                        <graphic url="467/10000201000005A800000271CE80EDC9FCC4FD2D.png"/>
+                        <head>Figure 1: Sign relations that are automatically explored and annotated by Wikidition (Mehler et al., 2016): on the level of words (Module (5) – paradigmatic –, (6) and (7) – both syntagmatic), on the level of sentences (Module (3) – paradigmatic – and (4) – syntagmatic) and on the level of texts (Module (1) and (2) – both paradigmatic). Wikidition additionally includes a component for wikification (i.e., for linking occurrences of concepts to articles in Wikipedia (Mihalcea et al., 2007)) and especially for automatically inducing lexica out of input corpora (i.e., for linkification). Arcs denote links explored by Wikidition; reflexive arcs denote intrarelational (i.e., purely lexical, sentential or textual) links. In this way, intra- and interrelational links are maintained by the same information system.</head>
+                    </figure>
+                </p>
+                <p>Beyond linkification, Wikidition contains a module for automatic 
+                    <hi rend="italic">lexiconisation</hi> (see Figure 2). It extracts lexica from input corpora to map author specific vocabularies as subsets of the corresponding reference language. Input corpora (currently in English, German or Latin) are given as plain text that first are automatically preprocessed; the resulting wikiditions are mapped onto separate URLs to be accessible as self-contained wikis. By means of lexiconisation, research questions of the following sort can be addressed: 
+                    <hi rend="italic">What kind of German does Franz Kafka write? (E.g., Prager Deutsch.) What terminologies does Franz Kafka use in “In der Strafkolonie”? (E.g., engineering terminology.) How does his German depart from the underlying reference language?</hi> Since texts are not necessarily monolingual (because of using citations, translations, loan words, verbal expressions etc.), the same procedure can be applied by simultaneously looking at all foreign languages being manifested in the texts under consideration (right side of Figure 2).
+                </p>
+                <p>
+                    <figure>
+                        <graphic url="467/10000201000003CE0000028AAB9CD0E53B655ADE.png"/>
+                        <head>Figure 2: Left side: schematic depiction (red) of the vocabulary of an author (e.g., Franz Kafka) as manifested within Wikidition's input text(s) (e.g., "In der Strafkolonie") as mainly overlapping with the vocabulary of the corresponding reference language (e.g., German).</head>
+                    </figure>
+                </p>
+                <p>To this end, Wikidition distinguishes three levels of lexical resolution: superlemmas (e.g. German 
+                    <hi rend="italic">Tätigkeit</hi>), lemmas (e.g., 
+                    <hi rend="italic">Thätigkeit</hi>) and syntactic words (e.g., 
+                    <hi rend="italic">Thätigkeiten</hi> (
+                    <hi rend="italic">nominative</hi>, 
+                    <hi rend="italic">plural</hi>)) as featured sign-like manifestations of lemmas (lower part of the figure). Note that this model diverges from the majority of computational models to textual data which start from tokens as manifestations of wordforms (referred to as types) and which, therefore, disregard the meaning-side of lexical units. Based on linkification and lexiconisation, Wikidition does not only allow for traversing input corpora on different (lexical, sentential and textual) levels. Rather, the readers of a Wikidition can also study the vocabulary of single authors on several levels of resolution: starting from the level of superlemmas via the level of lemmas down to the level of syntactic words and wordforms (see Figure2).
+                </p>
+                <p>
+                    <figure>
+                        <graphic url="467/10000201000005720000021F41FDAD9F264C67A4.png"/>
+                        <head>Table 2: Notions of human, computer-supported and machine-based reading. Wikidition addressesmachine close reading by integrating semantic web (SW) resources and the human mind (HM) (asthe ultima ratio of interpreting its computations). T<hi rend="sub">1</hi>, ..., T<hi rend="sub">m</hi> span the input corpus of m (hyper-)texts; X<hi rend="sub">n</hi> denotes the contextualizing corpus of hypotexts of size n that is explicitly consulted by the readingprocess. Machine close reading is similar to human reading in that it focuses on small, rather than bigdata.</head>
+                    </figure>
+                </p>
+                <p>While the linkification component of Wikidition relates to principles of WikiSource and Wikipedia, the Wiktionary project is addressed by its lexiconisation module. Wikidition uses numerous computational methods for providing interoperability and extensibility of the resulting editions according to the wiki principle. In this way, the dissemination of computer-based methods is supported even across the borders of digital humanities in that scholars are enabled to make their own exploratory analyses. However, Wikidition does not address a big data scenario in support of distant reading (Moretti, 2013), nor does it aim at emulating human reading in the sense of machine reading (Etzioni, 2007). Rather, Wikidition addresses what we call 
+                    <hi rend="italic">machine close reading</hi> in that it aims at massively supporting the process of (scientific or literary) reading by means of computational methods (see Table 2).
+                </p>
+            </div>
+            <div type="div1">
+                <head>Evaluation</head>
+                <p>We exemplify Wikidition by example of three pairs of text. Regarding the layers of lemmas and sentences, Table 3 shows that Wikidition generates extremely sparse networks (whose cohesion is below 1%) of high cluster values and short average geodesic distances in conjunction with largest connected components that comprise almost all lexical and sentential nodes. In this example, we compute paradigmatic associations among words by means of word2vec (Mikolov et al., 2013) while sentence similarities are computed by means of the centroids of the embeddings of their lexical constituents. Networks are filtered by focusing on the first three most similar neighbors of each node – obviously, this does not interfere with the small-world topology of the networks. Each pair of texts is additionally described regarding the subnetwork of syntactic words and sentences. This is done to account for the impact of inflection on networking. As a result, the networks are thinned out (cohesion is now at most 0.5%), but neither the sizes of the largest connected components nor the cluster and distances values are affected considerably. Obviously, differentiation leads to sparseness, but in a sense that the general topology is retained. By focusing on a single level of resolution (e.g., paradigmatic relations among words), sub-networks are generated that fit into what is known about universal laws of complex linguistic networks (Mehler, 2008). See (Mehler et al., 2016) for additional evaluations of Wikidition.</p>
+                <table rend="frame" xml:id="Eval-Table">
+                    <head>Table 3: Wikiditions of three text pairs (Kafka: Beim Bau der Chinesischen Mauer // Nietzsche: Die Zeit der Zyklopen-Bauten; Kafka: Ein Bericht für eine Akademie // Rathenau: Höre, Israel; Kafka: In der Strafkolonie // Rauchberg: Statistische Technik) compared by their cluster value c, the average geodesic distance of their nodes l, the fraction of nodes in their largest connected components lcc and by their cohesion coh (the number of links in relation to all possible links). First line of each text pair: nodes comprise lemmas and sentences; second line of each pair: nodes comprise syntactic words and sentences. Networking is conditioned by the operative preprocessor (Eger et al., 2016).</head>
+                    <row>
+                        <cell>Edition</cell>
+                        <cell>#nodes</cell>
+                        <cell>#links</cell>
+                        <cell rend="italic">c</cell>
+                        <cell rend="italic">lcc</cell>
+                        <cell rend="italic">l</cell>
+                        <cell rend="italic">coh</cell>
+                    </row>
+                    <row>
+                        <cell>Kafka // Nietzsche</cell>
+                        <cell rend="end">1624</cell>
+                        <cell rend="end">10391</cell>
+                        <cell rend="end">0,27</cell>
+                        <cell rend="end">1</cell>
+                        <cell rend="end">3,31</cell>
+                        <cell rend="end">0,008</cell>
+                    </row>
+                    <row>
+                        <cell/>
+                        <cell rend="end">2401</cell>
+                        <cell rend="end">13644</cell>
+                        <cell rend="end">0,34</cell>
+                        <cell rend="end">1</cell>
+                        <cell rend="end">3,56</cell>
+                        <cell rend="end">0,005</cell>
+                    </row>
+                    <row>
+                        <cell>Kafka // Rathenau</cell>
+                        <cell rend="end">1749</cell>
+                        <cell rend="end">10782</cell>
+                        <cell rend="end">0,28</cell>
+                        <cell rend="end">1</cell>
+                        <cell rend="end">3,36</cell>
+                        <cell rend="end">0,007</cell>
+                    </row>
+                    <row>
+                        <cell/>
+                        <cell rend="end">2473</cell>
+                        <cell rend="end">13609</cell>
+                        <cell rend="end">0,36</cell>
+                        <cell rend="end">1</cell>
+                        <cell rend="end">3,60</cell>
+                        <cell rend="end">0,004</cell>
+                    </row>
+                    <row>
+                        <cell>Kafka // Rauchberg</cell>
+                        <cell rend="end">4034</cell>
+                        <cell rend="end">30951</cell>
+                        <cell rend="end">0,25</cell>
+                        <cell rend="end">0,999</cell>
+                        <cell rend="end">3,35</cell>
+                        <cell rend="end">0,004</cell>
+                    </row>
+                    <row>
+                        <cell/>
+                        <cell rend="end">6830</cell>
+                        <cell rend="end">44369</cell>
+                        <cell rend="end">0,31</cell>
+                        <cell rend="end">0,999</cell>
+                        <cell rend="end">3,62</cell>
+                        <cell rend="end">0,002</cell>
+                    </row>
+                </table>
+            </div>
+            <div type="div1">
+                <head>Conclusion</head>
+                <p>We presented Wikidition as a framework for exploring intra- and intertextual relations. Wikidition combines machine learning with principles of several wiki-based projects (Wikipedia, WikiSource and Wiktionary) to generate multi-layer networks from input corpora by integrating syntagmatic and paradigmatic relations on the lexical, sentential and the textual level. Our approach addresses intra- and inter-level networking in a single framework while adhering to laws of networking as being explored by complex network theory. In this way, input corpora get traversable in line with both empirical findings about characteristics of linguistic networks and the multi-resolution of sign relations whose space complexity is preferably reduced. Currently, Wikidition exists as a prototype that is further-developed by means of several edition projects in order to be finally made available as open source software. Wikidition is open for the cooperative development of digital editions.</p>
+            </div>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl>
+                        <hi rend="bold">Eger, S. </hi>
+                        <hi rend="bold">and </hi>
+                        <hi rend="bold">Gleim, R. and Mehler, A.</hi> (2016). Lemmatization and Morphological Tagging in German and Latin: A comparison and a survey of the state-of-the-art. In 
+                        <hi rend="italic">Proceedings of the 10th International Conference on Language Resources and Evaluation</hi>.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Etzioni, </hi>
+                        <hi rend="bold">O.</hi> (2007). Machine reading of web text. In 
+                        <hi rend="italic">Proceedings of the 4th International Conference on Knowledge Capture, K-CAP ’07</hi>, pp. 1–4.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Genette, </hi>
+                        <hi rend="bold">G.</hi> (1993). Palimpseste: Die Literatur auf zweiter Stufe. Suhrkamp, Frankfurt am Main.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Guthrie, </hi>
+                        <hi rend="bold">D., </hi>
+                        <hi rend="bold">Allison, </hi>
+                        <hi rend="bold">B., </hi>
+                        <hi rend="bold">Liu, </hi>
+                        <hi rend="bold">W., </hi>
+                        <hi rend="bold">Guthrie, </hi>
+                        <hi rend="bold">L.</hi>
+                        <hi rend="bold"> and Wilks, </hi>
+                        <hi rend="bold">Y.</hi> (2006). A closer look at skip-gram modelling.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Hjelmslev, </hi>
+                        <hi rend="bold">L.</hi> (1969). Prolegomena to a Theory of Language. University of Wisconsin Press, Madison.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Kafka, </hi>
+                        <hi rend="bold">F.</hi> (1916). Die Verwandlung. Kurt Wolff Verlag, Leipzig.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Kafka, </hi>
+                        <hi rend="bold">F.</hi> (1919). In der Strafkolonie. Kurt Wolff Verlag, Leipzig.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Mehler, </hi>
+                        <hi rend="bold">A.</hi> (2008). Large text networks as an object of corpus linguistic studies. In Anke Lüdeling and Merja Kytö, editors, 
+                        <hi rend="italic">Corpus Linguistics. An International Handbook of the Science of Language and Society</hi>. De Gruyter, Berlin/New York, pp. 328–82.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Mehler, A., </hi>
+                        <hi rend="bold">Gleim, R., </hi>
+                        <hi rend="bold">vor der Brück, T., </hi>
+                        <hi rend="bold">Hemati, W., </hi>
+                        <hi rend="bold">Uslu, T. and Eger, S.</hi> (2016). “Wikidition: Automatic Lexiconization and Linkiﬁcation of Text Corpora,” 
+                        <hi rend="italic">Information Technology</hi>.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Mihalcea, </hi>
+                        <hi rend="bold">R.</hi>
+                        <hi rend="bold"> and Csomai, </hi>
+                        <hi rend="bold">A.</hi> (2007). Wikify!: Linking documents to encyclopedic knowledge. In 
+                        <hi rend="italic">Proceedings of the Sixteenth ACM Conference on Conference on Information and Knowledge Management, CIKM ’07</hi>. New York, NY, USA. ACM, pp. 233–42.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Mikolov, </hi>
+                        <hi rend="bold">T.,</hi>
+                        <hi rend="bold"> Yih, </hi>
+                        <hi rend="bold">W. </hi>
+                        <hi rend="bold">and Zweig, </hi>
+                        <hi rend="bold">G.</hi> (2013). Linguistic regularities in continuous space word representations. In Lucy Vanderwende, Hal Daumé III, and Katrin Kirchhoff, (eds), <hi rend="italic">Proceedings of NAACL 2013</hi>. The Association for Computational Linguistics, pp. 746–51.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Miller, G. A. and Charles, W. G.</hi> (1991). Contextual correlates of semantic similarity. 
+                        <hi rend="italic">Language and Cognitive Processes</hi>,<hi rend="bold"> 6</hi>(1): 1–28.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Moretti, </hi>
+                        <hi rend="bold">F</hi>. (2013). Distant Reading. 
+                        <hi rend="italic">Verso</hi>.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Paaß, </hi>
+                        <hi rend="bold">G., </hi>
+                        <hi rend="bold">Kindermann, </hi>
+                        <hi rend="bold">J.</hi>
+                        <hi rend="bold"> and Leopold, </hi>
+                        <hi rend="bold">E.</hi> (2004). Learning prototype ontologies by hierarchical latent semantic analysis. In Andreas Abecker, Steffen Bickel, Ulf Brefeld, Isabel Drost, Nicola Henze, Olaf Herden, Mirjam Minor, Tobias Scheffer, Ljiljana Stojanovic, and Stephan Weibelzahl, (eds), 
+                        <hi rend="italic">LWA 2004: Lernen – Wissensentdeckung – Adaptivität</hi>. Humbold-Universität Berlin, pp. 193–205.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Raible, </hi>
+                        <hi rend="bold">W.</hi> (1981). Von der Allgegenwart des Gegensinns (und einiger anderer Relationen). Strategien zur Einordnung semantischer Informationen. 
+                        <hi rend="italic">Zeitschrift für romanische Philologie</hi>,<hi rend="bold"> 97</hi>(1-2): 1–40.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Rauchberg, </hi>
+                        <hi rend="bold">H.</hi> (1890). Statistische Technik. Deutsche Statistische Gesellschaft, 1.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Thaller, </hi>
+                        <hi rend="bold">M.</hi> (2014). The humanities are about research, first and foremost; their interaction with computer science should be too. 
+                        <hi rend="italic">Dagstuhl Reports</hi>,<hi rend="bold"> 4</hi>(7): 108–10.
+                    </bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

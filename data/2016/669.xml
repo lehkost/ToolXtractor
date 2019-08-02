@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>Approaches to Thematic Classification for Latin Epic</title>
+                <author>
+                    <persName>
+                        <surname>Forstall</surname>
+                        <forename>Christopher W.</forename>
+                    </persName>
+                    <affiliation>Université de Genève, Switzerland</affiliation>
+                    <email>forstall@buffalo.edu</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Galli Milic</surname>
+                        <forename>Lavinia</forename>
+                    </persName>
+                    <affiliation>Université de Genève, Switzerland</affiliation>
+                    <email>lavinia.gallimilic@unige.ch</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Damien</surname>
+                        <forename>Nelis</forename>
+                    </persName>
+                    <affiliation>Université de Genève, Switzerland</affiliation>
+                    <email>damien.nelis@unige.ch</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2016-03-13T22:33:00Z</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Maciej Eder, Pedagogical University in Krakow</publisher>
+                <publisher>Jan Rybicki, Jagiellonian University</publisher>
+                <address>
+                    <addrLine>Institute of Polish Studies</addrLine>
+                    <addrLine>Pedagogical University</addrLine>
+                    <addrLine>ul. Podchorazych 2</addrLine>
+                    <addrLine>30-084 Krakow, Poland</addrLine>
+                    <addrLine>maciej.eder@ijp-pan.krakow.pl</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from a Word document </p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.21">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Short Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>Latin</term>
+                    <term>epic</term>
+                    <term>text analysis</term>
+                    <term>classification</term>
+                    <term>machine learning</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>classical studies</term>
+                    <term>stylistics and stylometry</term>
+                    <term>text analysis</term>
+                    <term>data mining / text mining</term>
+                    <term>English</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <div type="div1" rend="DH-Heading1">
+                <head>Background and Motivation</head>
+                <p>It has long been understood that Greek and Roman epic poems partake of a shared repertory of stock themes and typical scenes: the catalogue of heroes, the warrior arming for battle, the tempest, etc. These themes originally evolved under circumstances peculiar to oral-formulaic composition in archaic Greece, where they served the exigencies of real-time composition in performance by organizing poetic material into mnemonic chunks, each with a predictable internal structure (Rubin, 1995; Minchin, 2001). For later, literate Greeks, and still later for the Romans, who continued to develop the epic tradition, the use of these themes was no longer an aide to memory, but a complex intertextual gesture that formed one of the defining features of the genre (De Jong, 2014; Nünlist, 2009).</p>
+                <p>The study of elemental, thematic building-blocks in epic and related genres has a long history, through the twentieth century and even earlier, including work by Claude Levi-Strauss, Milman Parry, and Vladimir Propp. While catalogues and typologies of epic themes exist (
+                    <hi rend="italic">e.g.</hi>, Edwards, 1992), at the same time significant disagreement remains over their definition and delineation. Here we take first steps towards automated detection of theme in epic, defining features that target scene-sized samples of text under in bag-of-words model, and applying both unsupervised and supervised classification methods.
+                </p>
+                <p>Our research is on intertextuality in Latin epics of the Flavian period, and in particular the ways in which an intertextual relationship at the thematic level can support or undermine specific verbal allusions at the sentence or phrase level. The ability to automatically detect text reuse in Latin epic at the scale of individual verse lines is provided by tools such as Tesserae (
+                    <ref target="http://tesserae.caset.buffalo.edu">http://tesserae.caset.buffalo.edu</ref>), Musisque Deoque’s co-occurrence search (
+                    <ref target="http://www.mqdq.it/mqdq/cooccorrenze.jsp">http://www.mqdq.it/mqdq/cooccorrenze.jsp</ref>), and eTRAP’s forthcoming TRACER framework (
+                    <ref target="http://etrap.gcdh.de">http://etrap.gcdh.de</ref>), so that it is now conceivable to generate an exhaustive list of all such correspondences between any two texts. Yet the same efforts have shown that simple text-reuse search alone cannot capture all of the allusions noted by professional commentaries, and that sensitivity to scene-level thematic parallelism would improve both recall and precision over a model based on single verse lines or sentences (Coffee et al., 2012).
+                </p>
+                <p>Tesserae has in fact produced a prototype thematic search using topic modelling to create scene-level features (Scheirer et al., forthcoming). At the same time, work by the Memorata Poetis project affiliated with Musisque Deoque is carrying out systematic manual tagging of themes in Latin vernacular poetry (Ciotti et al., 2015). Both approaches—the supervised and the unsupervised identification of themes—show promise, although neither has been fully integrated into its respective parent project’s verse-level, text-reuse search tool. In the ongoing work presented here, we attempt to combine elements of each approach, comparing unsupervised, bag-of-words classifiers at the scene-level with manual tagging for specific, selected themes. Our ultimate goal is to combine similarity scores for thematic parallelism with existing phrase-level search tools’ scores for text reuse in order to improve their accuracy.</p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Method</head>
+                <p>We consider a corpus including the three more or less complete epics of the Flavian period—Valerius Flaccus’ 
+                    <hi rend="italic">Argonautica</hi>, Statius’ 
+                    <hi rend="italic">Thebaid</hi>, and Silius Italicus’ 
+                    <hi rend="italic">Punica</hi>—as well as three earlier poems to which our works of interest respond—Lucan’s 
+                    <hi rend="italic">Civil War</hi>, Ovid’s 
+                    <hi rend="italic">Metamorphoses</hi>, and Vergil’s 
+                    <hi rend="italic">Aeneid</hi>. These works are initially subdivided into samples of 50 consecutive verse lines.  After lemmatization, tf-idf weighted feature vectors are calculated for each sample, dropping terms common to 50% or more of the samples, and the resulting feature set is reduced using principal components analysis to the most significant 500 components.
+                </p>
+                <p>The samples still show a strong tendency to cluster by author despite the removal of very frequent words. Since our goal is to examine parallel variation across authors, we attempt to remove a characteristic ‘authorship signal’ from each author’s 
+                    <hi rend="italic">œuvre</hi> before classification. A mean vector representing the author is thus subtracted from every one of his samples.
+                </p>
+                <p>In the unsupervised approach, we then perform k-means clustering on the corpus as a whole. Because we do not have any 
+                    <hi rend="italic">a priori </hi>set of themes to look for, we test multiple values of 
+                    <hi rend="italic">k</hi> in an attempt to identify the most stable number of clusters. For each possible value of 
+                    <hi rend="italic">k</hi>, we perform multiple repetitions and compare pairwise agreement among the resulting classifications using the adjusted Rand index. We also attempt to identify the most stable passages through comparison of error across repeated classifications using different offsets for our 50-line sampling window. For those passages most consistently classified across repetitions, we return to the text to investigate, through close reading, whether the passages indeed demonstrate meaningful similarity.
+                </p>
+                <p>In the supervised approach, on the other hand, we begin by identifying scenes of interest using a set of 
+                    <hi rend="italic">a priori</hi> thematic categories—for example, battle scenes and storms at sea. We then attempt to train a classifier that can distinguish these types. Earlier work on this project has shown that certain thematic contexts can be separated at a coarse scale (e.g, love versus war, generally) using principal components analysis alone; however here we will attempt to achieve finer precision using support vector machines, a popular approach in stylometric tasks and one that has previously been applied to intertextuality in Latin in particular (Forstall et al., 2011).
+                </p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Results</head>
+                <p>This work is ongoing, and one of our goals in presenting at DH 2016 is to elicit feedback that will help to shape the design of future experiments. At the same time, early results suggest that the supervised and unsupervised approaches may indeed meet in the middle. For example, many of the most stable passages in the unsupervised classification belong to a ‘nautical’ theme which includes as a subset the storm theme identified by human tagging. Across 100 different classifications of the six epics, using differently-offset sampling windows, the passages with the lowest rate of disagreement included characteristic descriptions of tempests in 
+                    <hi rend="italic">Aeneid</hi> 1 and 
+                    <hi rend="italic">Argonautica</hi> 1 (Figs. 1–2). The same class, and a high degree of stability, also marked nautical chase sequences in 
+                    <hi rend="italic">Aeneid</hi> 5 and 
+                    <hi rend="italic">Argonautica</hi> 8 as well as the recounting of the Argonauts’ story in 
+                    <hi rend="italic">Thebaid</hi> 5.
+                </p>
+                <figure>
+                    <graphic url="669/image1.png" rend="inline"/>
+                    <head>Figure 1. Vergil’s <hi rend="italic">Aeneid</hi>, book 1, after k-means classification with 8 classes. The line shows disagreement between repeated re-classifications. Shaded bands at bottom show classes in one randomly-selected trial.</head>
+                </figure>
+                <figure>
+                    <graphic url="669/image2.png" rend="inline"/>
+                    <head>Figure 2. Valerius Flaccus, <hi rend="italic">Argonautica</hi>, book 1, after k-means classification with 8 classes. Line shows disagreement among repeated re-classifications; shaded bands show the same classes as in Fig. 1.</head>
+                </figure>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Implications</head>
+                <p>The concrete goal of this project is to provide a thematic feature set for automated intertext-detection, compatible with the phrase-based results of existing tools, so that, for example, otherwise slight verbal correspondences can be promoted where they occur within thematically parallel passages and thus are likely more interesting to readers. More generally, we would like to understand how stock themes function in epic intertextuality, and whether they can indeed be sufficiently modeled using a bag-of-words approach. To the degree that they can, we can say that thematic features are in fact made of words and exist on a continuum with the word-level bigrams matched by Tesserae, for example, instead of representing ‘deeper’, semiotic structures distinct from the word forms that appear on the ‘surface’ of the text (as in, e.g., Levi-Strauss, 1955)</p>
+            </div>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl>
+                        <hi rend="bold">Ciotti, F., Mordenti, R., and Silvi, D.</hi> (2015). Thematic Annotation of Literary Text: The Case for Ontology. Paper presented at 
+                        <hi rend="italic">Humanités Numeriques et Antiquité</hi>, Grenoble, France.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Coffee, N., et al.</hi> (2012). Intertextuality in the Digital Age. 
+                        <hi rend="italic">Transactions of the American Philological Association</hi>, <hi rend="bold">142</hi>(2): 383–422.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">De Jong, I. J. F.</hi> (2014). 
+                        <hi rend="italic">Narratology and Classics: A Practical Guide</hi>. New York: Oxford University Press.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Edwards, M. W.</hi> (1992). Homer and Oral Tradition: The Type-Scene. 
+                        <hi rend="italic">Oral Tradition</hi>, 
+                        <hi rend="bold">7</hi> (2): 284–330.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Forstall, C. W., Jacobson, S. L., and Scheirer, W. J. </hi>(2011). Evidence of intertextuality: investigating Paul the Deacon’s 
+                        <hi rend="italic">Angustae Vitae</hi>. 
+                        <hi rend="italic">Literary and Linguistic Computing</hi>, 
+                        <hi rend="bold">26</hi> (3): 285–96.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Levi-Strauss, C.</hi> (1955). The Structural Study of Myth. 
+                        <hi rend="italic">The Journal of American Folklore</hi>, 
+                        <hi rend="bold">68</hi> (270): 428–44.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Minchin, E.</hi> (2001). 
+                        <hi rend="italic">Homer and the Resources of Memory</hi>. New York: Oxford University Press.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Nünlist, R.</hi> (2009). 
+                        <hi rend="italic">The Ancient Critic at Work: Terms and Concepts of Literary Criticism in Greek Scholia.</hi> Cambridge: Cambridge University Press.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Rubin, D. C.</hi> (1995). 
+                        <hi rend="italic">Memory in Oral Traditions: The Cognitive Psychology of Epic, Ballads, and Counting-out Rhymes</hi>. New York: Oxford University Press.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Scheirer, W. J., Forstall, C. W., and Coffee, N.</hi> (forthcoming). The Sense of a Connection: Automatic Tracing of Intertextuality by Meaning. 
+                        <hi rend="italic">Digital Scholarship in the Humanities</hi>. First published online October 20, 2014: 10.1093/llc/fqu058.
+                    </bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

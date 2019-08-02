@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>Exploring and Discovering Archive-It Collections with Warcbase</title>
+                <author>
+                    <persName>
+                        <surname>Milligan</surname>
+                        <forename>Ian</forename>
+                    </persName>
+                    <affiliation>Department of History, University of Waterloo, Canada</affiliation>
+                    <email>i2milligan@uwaterloo.ca</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Lin</surname>
+                        <forename>Jimmy</forename>
+                    </persName>
+                    <affiliation>David R. Cheriton School of Computer Science, University of Waterloo, Canada</affiliation>
+                    <email>jimmylin@uwaterloo.ca</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Wiebe</surname>
+                        <forename>Jeremy</forename>
+                    </persName>
+                    <affiliation>Department of History, University of Waterloo, Canada</affiliation>
+                    <email>jrwiebe@uwaterloo.ca</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Zhou</surname>
+                        <forename>Alice</forename>
+                    </persName>
+                    <affiliation>David R. Cheriton School of Computer Science, University of Waterloo, Canada</affiliation>
+                    <email>alice.zhou@uwaterloo.ca</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2014-12-19T13:50:00Z</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Maciej Eder, Pedagogical University in Krakow</publisher>
+                <publisher>Jan Rybicki, Jagiellonian University</publisher>
+                <address>
+                    <addrLine>Institute of Polish Studies</addrLine>
+                    <addrLine>Pedagogical University</addrLine>
+                    <addrLine>ul. Podchorazych 2</addrLine>
+                    <addrLine>30-084 Krakow, Poland</addrLine>
+                    <addrLine>maciej.eder@ijp-pan.krakow.pl</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from a Word document </p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.21">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Long Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>web archives</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>archives, repositories, sustainability and preservation</term>
+                    <term>historical studies</term>
+                    <term>information retrieval</term>
+                    <term>text analysis</term>
+                    <term>internet / world wide web</term>
+                    <term>data mining / text mining</term>
+                    <term>English</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <div xml:id="introduction" type="div1" rend="DH-Heading1">
+                <head>Introduction</head>
+                <p>Big Data is reshaping the historical profession in ways we are only now beginning to grasp. The growth of digital sources since the advent of the World Wide Web in 1990-91 presents new opportunities for social and cultural historians. Large web archives contain billions of webpages, from personal homepages to professional or academic websites, and now make it possible for us to develop large-scale reconstructions of the recent web. Yet the sheer number of these sources presents significant challenges: if the norm until the digital era was to have human information vanish, “now expectations have inverted. Everything may be recorded and preserved, at least potentially” (Gleick, 2012).</p>
+                <p>While the Internet Archive makes archived web content available to the general public and mainstream scholarly community through its “Wayback Machine,” (at <ref target="http://archive.org/web">http://archive.org/web</ref>) which allows visitors to enter a Uniform Resource Locator (URL) to visit archived web versions of a particular page, this system is limited: not only do visitors need to know the URL in the first place, but they are limited to individual readings of single webpages.</p>
+                <p>By unlocking the Wayback Machine’s underlying system of specialized files, primarily ISO-standardized WebARChive (WARC) files, we can develop new ways to systematically track, visualize, and analyze change occurring over time within web archives. Warcbase, an open-source platform for managing web archives built on Hadoop and HBase, provides a flexible data model for storing and managing raw content as well as metadata and extracted knowledge. Tight integration with Hadoop provides powerful tools for analytics and data processing. Using a case study of one collection, this paper introduces the work that we have been doing to facilitate web archive access with warcbase. We have growing documentation at <ref target="http://docs.warcbase.org">http://docs.warcbase.org</ref>.</p>
+            </div>
+            <div xml:id="web-archives-from-data-to-access" type="div1" rend="DH-Heading1">
+                <head>Project Rationale and Case Study</head>
+                <p>In 1996, the Internet Archive launched a complementary research services company, Archive-It, which offers subscription-based web archiving to collecting institutions. </p>
+                <p>The University of Toronto Library (UTL) began collecting a quarterly crawl in 2005 of Canadian political parties and political interest groups (the collections were separate in 2005, merging in 2006) (University of Toronto, 2015). The collection itself has a murky history: UTL had been part of a broader project that would have collected political websites. It fell through, but UTL opted to carry out their crawl on their own and the librarian was responsible for selecting the seed list herself (faculty and other librarians did not respond for calls for engagement). While formal political parties are robustly covered, the “political interest groups” collection was a bit more nebulous: sites were discovered through keyword searches, and some were excluded due to robots.txt exclusion requests. Beyond this brief sketch, we have little information about the decisions made in 2005 to create this collection. This lack of documentation is a shortcoming of this collection model, as if a historian was to use this material in a peer-reviewed paper, questions would be raised about its representativeness.</p>
+                <p>If a user wants to use the Canadian Political Parties and Interest Groups Collection (CPP) through Archive-It today, they visit the collection page at https://archive-it.org/collections/227 and enter full-text search queries. In August 2015, our group also launched <ref target="http://webarchives.ca">http://webarchives.ca</ref>, based on the British Library’s SHINE front end for web archives; this was a way to facilitate a different form of more casual user access, aimed at the general public (we discuss this in a separate paper).</p>
+                <p>The Archive-It portal is limited. There are no readily-available metrics of how many pages have been collected, how they break down by domain and date, and the portal undoubtedly provides skewed results unless the search phrase is dramatically narrowed down.</p>
+                <p>Consider the search for “Stephen Harper,” Canada’s Prime Minister between 2006 and 2015 in Figure 1.</p>
+                <figure>
+                    <graphic url="99/image1.png" rend="inline"/>
+                    <head>Figure 1: Archive-It Search Portal</head>
+                </figure>
+                <p>The results are decent: Harper’s Facebook page from 2009, a Twitter snapshot from 2010, and some long-form journalism articles and opposition press releases. But amidst the 1,178,351 results, there is no indication as to how the ranking took place, what facets are available, and how things may have changed over the last ten years of the crawl.</p>
+                <p>The data is there, but the problem is access.</p>
+            </div>
+            <div xml:id="warcbase-a-platform-for-web-archive-anal" type="div1" rend="DH-Heading1">
+                <head>Warcbase: A Platform for Web Archive Analysis</head>
+                <p>Warcbase is a web archive platform, not a single program. Its capabilities comprise two main categories:</p>
+                <list type="ordered">
+                    <item>Analysis of web archives using the Pig or Spark programming languages, and assorted helper scripts and utilities</item>
+                    <item>Web archive database management, with support for the HBase distributed data store, and OpenWayback integration providing a friendly web interface to view stored websites</item>
+                </list>
+                <p>One can take advantage of the analysis tools (1) without bothering with the database management aspect of Warcbase – in fact, most digital humanities researchers will probably find the former more useful. This paper focuses on the former capabilities, showing how we can use the warcbase platform to carry out text and network analyses.</p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Using Warcbase on Web Archival Collections: Text Analysis</head>
+                <p>We have begun to document all warcbase commands on a GitHub wiki, found at 
+                    <ref target="https://github.com/lintool/warcbase/wiki">https://github.com/lintool/warcbase/wiki</ref>. We begin with installation instructions, and then provide simple scripts written in Apache Spark to run the commands.</p>
+                <p>While possible to generate a plain text version of the entire collection, a more fruitful approach has been to generate date-ordered text for particular domains. If a researcher is interested in say, the Green Party of Canada’s evolution between 2005 and 2015, they can extract the plain text for greenparty.ca by running the following script:</p>
+                <figure>
+                    <graphic url="99/image2.png" rend="inline"/>
+                </figure>
+                <p>All they would need to change would be the path/to/input to the directory with their web archive files, the path/to/output for where they want to save the resulting plain-text files, and the greenparty.ca value to whatever domain they might be interested in researching.</p>
+                <p>They then receive a date-ordered output of all plain text for that domain (as per the extractCrawldateDomainUrlBody command). It can then be sorted and used in other research avenues. For example, this plain text could be loaded into a text analysis suite such as <ref target="http://voyant-tools.org/">http://voyant-tools.org/</ref> or other digital humanities environments.</p>
+                <p>We have also been experimenting with other visualizations based on the extracted plain text. Computationally intensive textual analysis can be carried out using warcbase itself. Using the Stanford NER package in parallel, we have a script that extracts entities, counts them, and then visualizes them using D3.js to help see overall changes in a web archival collection. Figure 2 below shows the output of the NER visualizer.</p>
+                <figure>
+                    <graphic url="99/image3.png" rend="inline"/>
+                    <head>Figure 2: Named Entity Visualization within Warcbase</head>
+                </figure>
+                <p>Finally, another text approach is topic modelling (Blei et al., 2003). LDA works by finding topics in unstructured text. To visualize topic models, we elected to use the Termite Data Server, which is a visual analysis tool for exploring the output of statistical topic models (“uwdata/termite-data-server,” n.d.). As Figure 3 demonstrates, the visualization allows you to get a top-down view at the topics found in a web archive.</p>
+                <figure>
+                    <graphic url="99/image4.png" rend="inline"/>
+                    <head>Figure 3: Termite Topic Model</head>
+                </figure>
+                <p>Warcbase presents versatile opportunities to extract plain text and move it into other environments for analysis. Unlike the keyword-based Archive-It portal, we now have data that can be inquired in many fruitful ways.</p>
+            </div>
+            <div xml:id="using-warcbase-on-web-archival-collectio" type="div1" rend="DH-Heading1">
+                <head>Using Warcbase on Web Archival Collections: Hyperlink Analysis</head>
+                <p>Warcbase can also extract hyperlinks. While text can be very important, these sorts of metadata can often be more important: allowing us to see changes in how groups link to each other, what articles and issues were important, and how relationships changed over time.</p>
+                <p>Consider Figure 4, which visualizes the links stemming from and between the websites of Canada’s three main political parties.</p>
+                <figure>
+                    <graphic url="99/image5.png" rend="inline"/>
+                    <head>Figure 4: Three major political parties in Canada</head>
+                </figure>
+                <p>Above, we can see which pages only link to the left-leaning New Democratic Party (ndp.ca), those that link only to the centrist Liberals (liberal.ca) in the top, and those that only connect to and from the right-wing Conservative Party at right. We can use it to find further information, such as in Figure 5.</p>
+                <figure>
+                    <graphic url="99/image6.png" rend="inline"/>
+                    <head>Figure 5: NDP attack</head>
+                </figure>
+                <p>The above links are from the 2006 Canadian federal election. The Liberal Party was then in power and was under attack by both the opposition parties. In particular, the left-leaning NDP linked hundreds of times to their ideologically close cousins, the centrist Liberals, as part of their electoral attacks, ignoring the right-leaning Conservative Party in the process. Link metadata illuminates more than a close reading of an individual website would. It contextualizes and tells stories itself.</p>
+                <p>While we have traditionally used Gephi to do analysis, importing material into Gephi from warcbase required many manual steps as documented at <ref target="https://github.com/lintool/warcbase/wiki/Gephi:-Converting-Site-Link-Structure-into-Dynamic-Visualization">https://github.com/lintool/warcbase/wiki/Gephi:-Converting-Site-Link-Structure-into-Dynamic-Visualization</ref>. We have been prototyping a link analysis visualization in D3.js, which can run in browser (Figure 6).</p>
+                <figure>
+                    <graphic url="99/image7.png" rend="inline"/>
+                    <head>Figure 6: Link Visualization</head>
+                </figure>
+            </div>
+            <div xml:id="conclusions" type="div1" rend="DH-Heading1">
+                <head>Conclusions</head>
+                <p>With the increasingly widespread availability of large web archives, historians and Internet scholars are now in a position to find new ways to track, explore, and visualize changes that have taken place within the first two decades of the Web. Warcbase will allow them to do so. This project is among the first attempts to harness data in ways that will enable present and future historians to usefully access, interpret, and curate the masses of born-digital primary sources that document our recent past.</p>
+            </div>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl>
+                        <hi rend="bold">Brügger, N.</hi> (2008). The Archived Website and Website Philology: A New Type of Historical Document, 
+                        <hi rend="italic">Nordicom Review</hi>, <hi rend="bold"> 29</hi>(2): 155–75.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Gleick, J.</hi> (2012). 
+                        <hi rend="italic">The Information: A History, a Theory, a Flood</hi>. London: Vintage.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">University of Toronto</hi>. (2015). Archive-It - Canadian Political Parties and Political Interest Groups [WWW Document]. 
+                        <ref target="https://archive-it.org/collections/227">
+                            <hi rend="Link">https://archive-it.org/collections/227</hi>
+                        </ref>.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">uwdata/termite-data-server</hi>. GitHub. 
+                        <ref target="https://github.com/uwdata/termite-data-server">https://github.com/uwdata/termite-data-server</ref>.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Blei, D. M., Ng, A. Y., Jordan, Michael I.</hi> (2003). Latent Dirichlet Allocation. 
+                        <hi rend="italic">J. Mach. Learn. Res</hi>, <hi rend="bold">3</hi>: 993–1022.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Brügger, N. and Finnemann, N. O.</hi> (2013). The Web and Digital Humanities: Theoretical and Methodological Concerns. 
+                        <hi rend="italic">Journal of Broadcasting &amp; Electronic Media</hi>,<hi rend="bold"> 57</hi>(1): 66–80.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Lin, J., Gholami, M. and Rao, J.</hi> (2014). Infrastructure for Supporting Exploration and Discovery in Web Archives. 
+                        <hi rend="italic">Proceedings of the 23rd International Conference on World Wide Web</hi>. doi:10.1145/2567948.2579045.
+                    </bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

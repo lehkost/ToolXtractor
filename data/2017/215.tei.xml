@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xsi:schemaLocation="http://www.tei-c.org/ns/1.0 /Users/yoann/Work/Grobid/grobid-home/schemas/xsd/Grobid.xsd"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+	<teiHeader xml:lang="en">
+		<encodingDesc>
+			<appInfo>
+				<application version="0.5.4-SNAPSHOT" ident="GROBID" when="2019-06-05T06:20+0000">
+					<ref target="https://github.com/kermitt2/grobid">GROBID - A machine learning software for extracting information from scholarly documents</ref>
+				</application>
+			</appInfo>
+		</encodingDesc>
+		<fileDesc>
+			<titleStmt>
+				<title level="a" type="main">Flexible NLP Pipelines for Digital Humanities Research</title>
+			</titleStmt>
+			<publicationStmt>
+				<publisher/>
+				<availability status="unknown"><licence/></availability>
+			</publicationStmt>
+			<sourceDesc>
+				<biblStruct>
+					<analytic>
+						<author>
+							<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">Janneke</forename><forename type="middle">M</forename><surname>Van Der Zwaan</surname></persName>
+							<email>j.vanderzwaan@esciencecenter.nl</email>
+						</author>
+						<author>
+							<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">Wouter</forename><surname>Smink</surname></persName>
+						</author>
+						<author>
+							<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">Anneke</forename><surname>Sools</surname></persName>
+						</author>
+						<author>
+							<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">Bernard</forename><surname>Veldkamp</surname></persName>
+							<email>b.p.veldkamp@utwente.nl</email>
+						</author>
+						<author>
+							<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">Sytske</forename><surname>Wiegersma</surname></persName>
+						</author>
+						<author>
+							<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="middle">Wiegersma@utwente</forename><surname>Nl</surname></persName>
+						</author>
+						<author>
+							<affiliation key="aff0">
+								<orgName type="department">Netherlands eScience Center</orgName>
+								<orgName type="laboratory">a.m.sools@utwente.nl</orgName>
+								<orgName type="institution">University of Twente</orgName>
+								<address>
+									<country>The Netherlands, The Netherlands</country>
+								</address>
+							</affiliation>
+						</author>
+						<author>
+							<affiliation key="aff1">
+								<orgName type="institution">University of Twente</orgName>
+								<address>
+									<addrLine>The Netherlands Gerben Westerhof</addrLine>
+								</address>
+							</affiliation>
+						</author>
+						<author>
+							<affiliation key="aff2">
+								<orgName type="institution">University of Twente</orgName>
+								<address>
+									<country key="NL">The Netherlands</country>
+								</address>
+							</affiliation>
+						</author>
+						<author>
+							<affiliation key="aff3">
+								<orgName type="institution">University of Twente</orgName>
+								<address>
+									<country key="NL">The Netherlands</country>
+								</address>
+							</affiliation>
+						</author>
+						<author>
+							<affiliation key="aff4">
+								<orgName type="institution">University of Twente</orgName>
+								<address>
+									<country key="NL">The Netherlands</country>
+								</address>
+							</affiliation>
+						</author>
+						<title level="a" type="main">Flexible NLP Pipelines for Digital Humanities Research</title>
+					</analytic>
+					<monogr>
+						<imprint>
+							<date/>
+						</imprint>
+					</monogr>
+				</biblStruct>
+			</sourceDesc>
+		</fileDesc>
+		<profileDesc>
+			<abstract/>
+		</profileDesc>
+	</teiHeader>
+	<text xml:lang="en">
+		<body>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Introduction</head><p>A lot of Digital Humanities (DH) research involves applying Natural Language Processing (NLP) tasks, such as, sentiment analysis, named entity recognition, or topic modeling. A large amount of NLP software is already available. On the one hand, there are frameworks that bundle software for different tasks and languages (e.g., NLTK <ref type="bibr">[Bird et al, 2009]</ref>, or xtas1), and on the other hand there are tools that target specific tasks (e.g., gensim, <ref type="bibr">Rehurek and Sojka, 2010)</ref>. As long as researchers do not need to combine tools from different packages, it is usually relatively easy to write scripts that perform the task. However, for innovative research, combining tools often is required, especially when working with non-English text. This abstract presents work in progress on NLP <ref type="bibr">Pipeline (nlppln)</ref>, an open source tool that improves access to NLP software by facilitating combining NLP functionality from different software packages2.</p><p>nlppln is based on Common Workflow Language (CWL), a standard for describing data analysis workflows and tools <ref type="bibr">(Amstutz et al, 2016</ref>). The main advantage of using a standard is that any existing NLP tool can be integrated into a workflow, as long as it can be run as a command line tool. This flexibility is missing from existing frameworks for creating NLP pipelines, such as DKPro (Eckart <ref type="bibr">de Castilho, and Gurevych, 2015</ref>) using the UIMA framework <ref type="bibr">(Ferrucci, and Lally, 2004</ref>). In addition to improved reuse of existing software, CWL increases research reproducibility, as it provides a standardized, formal record of all steps taken in a processing pipeline. Finally, CWL workflows are modular. This means that individual processing steps can easily be swapped in and out.</p><p>To demonstrate how NLP tools can be combined using nlppln, we show what need to be done to create a pipeline that removes named entities from a directory of text files. This is a common NLP task, that can be used as part of a data anonymization procedure.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>The Software</head><p>An NLP pipeline or workflow is a sequence of natural language processing steps. A 'step' represents a specific NLP task, that is executed by a single tool. Tools require input and produce output. The basic units in CWL are command line tools (i.e., tools that can be run from the command line). In order to be able to run a command line tool, CWL needs a specification. The nlppln software helps creating those specifications. In addition, nlppln provides functionality to convert existing NLP tools written in Python to command line tools. Finally, the software helps users to combine (existing and new) processing steps to pipelines.</p><p>In the next section, we explain how nlppln facilitates creating NLP steps, and in "Constructing Pipelines" we demonstrate the creation of an NLP pipeline for data anonymization.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Generating Steps</head><p>nlppln allows users to generate CWL specifications for existing NLP tools. To simplify the generation of CWL specifications, we use a convention for NLP tasks. The convention assumes that there can be two types of input parameters: a list of files for which the command should be executed, and/or a file containing metadata about the texts in the corpus. Output parameters consist of a directory where output files are stored (usually there is one output file for every input file) and/or a file in which metadata is stored. So far, almost all steps that are currently available in nlppln follow this convention. Be that as it may, we would like to emphasize that it is possible to deviate from this convention; for example, when existing NLP functionality requires different parameters (e.g., the name of a directory containing the input files instead of a list of input files). This does however mean that the user has to adapt the CWL specification by hand.</p><p>In addition to CWL specifications, nlppln allows users to generate boilerplate Python command line tools. A boilerplate command line tool contains generic functionality, such as opening input files and saving output files, but lacks implementation of the specific NLP task. The generated Python command can be used to turn existing NLP functionality into command line tools, and to create Python command line tools for new NLP tasks.</p><p>Python commands and associated CWL steps are generated using a command line tool that requires the user to answer a sequence of yes/no questions. Listing 1 shows what that looks like for a (hypothetical) command 'command', that takes as input a metadata file and multiple input files, and produces as output multiple text files and metadata.</p><p>Listing 1: Generating a CWL specification and associated boilerplate Python command using nlppln.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Constructing Pipelines</head><p>To combine text processing steps into a CWL pipeline, nlppln provides an interface that allows users to write a simple Python script. We demonstrate this functionality by creating a pipeline that replaces named entities in a collection of text documents. Named entities are objects in text referred to by proper names, such as persons, organizations, and locations. In the example pipeline, named entities will be replaced with their named entity type (i.e., PER (person), ORG (organization), LOC (location), or UNSP (unspecified)). The pipeline can be used as part of a data anonymization procedure.</p><p>The pipeline consists of the following steps:</p><p>1. Extract named entities from text documents using frog (van den <ref type="bibr">Bosch et al, 2007</ref>), an existing parser/tagger for Dutch 2. Convert frog output to SAF, a generic representation for text data3 3. Aggregate data about named entities that occur in the text files 4. Replace named entities with their named entity type in the SAF documents 5. Convert SAF documents to text All steps required for this pipeline are available through nlppln. Listing 2 shows the script that creates a CWL workflow for this pipeline. After importing nlppln (line 1), a new WorkflowGenerator object is created (line 3), and the available NLP steps are listed (line 4). Next, the script specifies the workflow inputs (line 6). In this case, there is a single input, which is a directory containing text files. This directory is the input of the first step, which is frog_dir (line 8). The output argument txts contains the internal CWL name of the input parameter (line 6). By assigning its value to the input argument dir_in of frog_dir (line 8), the output is connected to the input. Steps 1 to 5 from the pipeline description correspond to lines 8 to 12 in listing 2. After the remaining steps steps of the workflow are added (lines 9-12), the workflow outputs are specified (line 14). Finally, the workflow is saved to a CWL file (line 16).</p><p>Listing 2: Python script for constructing the pipeline to replace named entities in text files.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Conclusion</head><p>To help DH researchers to (re)use and combine existing NLP software, we presented nlppln, an open source Python package for creating flexible and reusable NLP pipelines in CWL. nlppln comes with ready-to-use NLP steps, facilitates creating new steps, and helps combining steps into standardized workflows that are portable across different software and hardware environments. Compared to existing frameworks for creating NLP pipelines, CWL and nlppln add flexibility and improved research reproducibility.</p><p>nlppln is a work in progress. An important challenge that needs to be addressed is the fact that there is no standard data format for representing text and/or information extracted from text. This means that we will have to add NLP steps that convert different data formats (cf. Eckart <ref type="bibr">de Castilho, 2016)</ref>). For future work, we plan to implement additional NLP steps and pipelines, including functionality that targets more languages. We would also like to add visualizations of pipelines and allow users to run pipelines directly from nlppln. </p></div><figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_0"><head>Bibliography Amstutz, P., Crusoe, M. R., Tijanić, N., Chapman, B., Chilton, J., Heuer, M., Kartashov, A., Leehr, D., Mé- nager, H., Nedeljkovich, M., Scales, M., Soiland- Reyes, S., and Stojanovic, L. ( 2016 )., S., Loper, E., and Klein, E. ( 2009 ). van den Bosch, A., B Busser, B., Dealemans, G. J., and Canisius, S. ( 2007 ) An efficient memory-based mor-</head><label>201620092007</label><figDesc>Common Work- flow Language, v1.0,.BirdNatural Language Processing with Python. O'Reilly Media Incphosyntactic tagger and parser for Dutch. In Proceed- ings of the 17th Meeting of Computational Linguistics in the Netherlands, pages 191-206, 2007. Eckart de Castilho, R. (2016). Interoperability = f(commu- nity, division of labour). In Proceedings of the Workshop on Cross-Platform Text Mining and Natural Language Processing Interoperability (INTEROP 2016) at LREC 2016, pages 24-28, 2016. Eckart de Castilho, R., and Gurevych, I. (2014). A broad- coverage collection of portable NLP components for building shareable analysis pipelines. In Proceedings of the Workshop on Open Infrastructures and Analysis Frameworks for HLT (OIAF4HLT) at COLING 2014, pages 1-11. Ferrucci, D., and Lally., A. (2004) UIMA: an architectural approach to unstructured information processing in the corporate research environment. Natural Language En- gineering 10.3-4, pages 327-348. Rehurek, R., and Sojka, P. (2010). Software Framework for Topic Modelling with Large Corpora. In Proceedings of the LREC 2010 Workshop on New Challenges for NLP Frameworks, pages 45-50.</figDesc></figure>
+		</body>
+		<back>
+			<div type="references">
+
+				<listBibl/>
+			</div>
+		</back>
+	</text>
+</TEI>

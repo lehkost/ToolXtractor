@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>Spatial Disaggregation of Historical Census Data Leveraging Multiple Sources of Ancillary Data</title>
+                <author>
+                    <persName>
+                        <surname>Monteiro</surname>
+                        <forename>João Miguel</forename>
+                    </persName>
+                    <affiliation>University of Lisbon, IST and INESC-ID, Portugal</affiliation>
+                    <email>joao.miguel.monteiro@tecnico.ulisboa.pt</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Martins</surname>
+                        <forename>Bruno Emanuel</forename>
+                    </persName>
+                    <affiliation>University of Lisbon, IST and INESC-ID, Portugal</affiliation>
+                    <email>bruno.g.martins@ist.utl.pt</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Murrieta-Flores</surname>
+                        <forename>Patricia</forename>
+                    </persName>
+                    <affiliation>University of Lancaster, United Kingdom</affiliation>
+                    <email>p.murrietaflop.a.murrieta-flores@lancaster.ac.uk</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Pires</surname>
+                        <forename>João Moura</forename>
+                    </persName>
+                    <affiliation>Universidade NOVA de Lisboa, FCT / NOVA LINCS, Portugal</affiliation>
+                    <email>jmp@fct.unl.pt</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2014-12-19T13:50:00Z</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Name, Institution</publisher>
+                <address>
+                    <addrLine>Street</addrLine>
+                    <addrLine>City</addrLine>
+                    <addrLine>Country</addrLine>
+                    <addrLine>Name</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from a Word document</p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.22">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Short Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>Spatial Disaggregation ; Regression Analysis ; Deep Learning ; Historical Census Data ; Geo-spatial Humanities</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>geohumanities; spatial &amp; spatio-temporal analysis</term>
+                    <term>modeling</term>
+                    <term>visualization</term>
+                    <term>technologies</term>
+                    <term>English</term>
+                    <term>computer science</term>
+                    <term>geography</term>
+                    <term>artificial intelligence and machine learning</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <p>Accurate information about the human population distribution is essential for formulating informed hypothesis in the context of several social, economic, and environmental issues. Government instigated national censuses are authoritative sources of population data, subdividing space into discrete areas (e.g., fixed administrative units) and providing multiple snapshots of society at regular intervals, typically every 10 years. Many research institutions or national statistical offices have developed historical Geographical Information Systems (GIS), containing statistical data from previous censuses together with the administrative boundaries (i.e., records of administrative boundary changes) used to publish them over long periods of time. However, using these data can still be quite challenging, particularly when looking at changes over time.</p>
+            <p>There are multiple reasons why population data aggregated to administrative units is not an ideal form of information about population counts and/or density. First, these representations suffer from the modifiable areal unit problem (Lloyd, 2014), which states that the results of an analysis that is based on data aggregated by administrative units may depend on the shape and arrangement of the units, rather than capturing the theoretically continuous variation in the underlying population. Second, the spatial detail of aggregated data is variable and usually low, particularly in the context of historical data. In a highly aggregated form these data are useful for broad-scale assessments, but using aggregated data has the danger of masking important local hotspots, and overall tends to smooth out spatial variations. Third, there is often a spatial mismatch between census areal units and the user-desired units required for particular types of analysis. Finally, the boundaries of census aggregation units may change over time from one census to another, making the analysis of population change, in the context of longitudinal studies dealing with high spatial resolutions, difficult.</p>
+            <p>Given the aforementioned limitations, high-resolution population grids (i.e., geographically referenced lattices of square cells, with each cell carrying a population count or the value of population density at its location) are often used as an alternative format to deliver population data. All cells in a population grid have the same size and the cells are stable in time. There is no spatial mismatch problem as any partition of a given study area can be rasterized to be co- registered with a population grid.</p>
+            <p>Population grids can be built from census data through the application of spatial disaggregation methods (Monteiro et al., 2014), which range in complexity from simple mass- preserving areal weighting, to intelligent dasymetric weighting schemes that leverage regression analysis to combine multiple sources of ancillary data.</p>
+            <p>Nowadays, there are for instance many well-known gridded datasets that describe the modern population distribution, created using a variety of disaggregation techniques (e.g., the Gridded Population of the World (Doxsey-Whitfield et al., 2015) or the WorldPop databases (Tatem, 2017)). However, despite the rapid progress in terms of disaggregation techniques, population grids have not been widely adopted in the context of historical data. We argue that the availability of high-resolution population grids within historical GIS has the potential to improve the analysis of long-term geographical population changes. Perhaps more importantly, this can also facilitate the combination of population data with other GIS layers to perform analyses on a wide range of topics, such as the development of the transport network, historical epidemiology, the formation of urban agglomerations, or climate changes.</p>
+            <p>This work reports on experiments with a hybrid disaggregation technique that combines the ideas of dasymetric mapping and pycnophylactic interpolation (Monteiro et al., 2014), using machine learning methods (e.g., linear regression models, ensembles of decision trees, or deep learning approaches based on convolutional neural networks, which previously have only seldom been used for spatial disaggregation (Robinson et al., 2017)) to combine different types of ancillary data (e.g., historical land-coverage data from the HILDA project (Fuchs et al., 2015), together with modern information that we argue can correlate with historical population), in order to disaggregate historical census data into a 200 meter resolution grid. Apart from few exceptions related to the use of areal interpolation for integrating historical census data, most previous related studies have focused on modern datasets.</p>
+            <p>We specifically report on experiments related to the disaggregation of historical population counts from three different national censuses which took place around 1900, respectively in Great Britain, Belgium, and the Netherlands. All three statistical datasets, together with the corresponding boundaries for the regions at which the data were collected (i.e., parishes or municipalities), are presently available in digital formats within national historical GIS projects. The obtained results indicate that the proposed method is indeed accurate, outperforming simpler schemes based on mass-preserving areal weighting or pycnophylactic interpolation. Moreover, the obtained results also show that modern data, particularly pre-existing gridded datasets that describe the modern population distribution (i.e., data from the Gridded Population of the World (Doxsey-Whitfield et al., 2015) project), are particularly useful as features for supporting the disaggregation of historical population counts. The best results were obtained with regression models leveraging multiple features (i.e., different models attained the best results in each of the three national territories that were considered), although a simple dasymetric technlque, leveraging the modern population gridded data to define the disaggregation weights, achieved very competitive results.</p>
+            <p>Acknowledgements</p>
+            <p>This research was partially supported by the Trans-Atlantic Platform for the Social Sciences and Humanities, through the Digging into Data project with reference HJ-253525. The researchers from INESC-ID also had financial support from Fundação para a Ciência e Tecnologia (FCT), through the project grants with references PTDC/EEI-SCR/1743/2014 (Saturn) and CMUPERI/TIC/0046/2014 (GoLocal), as well as through the INESC-ID multi-annual funding from the PIDDAC program, which has the reference UID/CEC/50021/2013.</p>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl>
+                        <hi rend="bold">Doxsey-Whitfield, E., MacManus, K., Adamo, S. B., Pistolesi, L., Squires, J., Borkovska, O. and Baptista, S. R.</hi> (2015). 
+                        <ref target="https://doi.org/10.1080/23754931.2015.1014272">Taking advantage of the improved availability of census data: a first look at the gridded population of the world, version 4</ref>. Papers in Applied Geography, 1(3).
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Fuchs, R., Herold, M., Verburg, P. H., Clevers, J. G. and Eberle, J.</hi> (2015). 
+                        <ref target="https://doi.org/10.1111/gcb.12714">Gross changes in reconstructions of historic land cover/use for Europe between 1900 and 2010</ref>. Global change biology, 21(1).
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Lloyd, C. D.</hi> (2014). 
+                        <ref target="https://doi.org/10.1002/9781118526729.ch3">The Modifiable Areal Unit Problem. Exploring Spatial Scale in Geography</ref>. John Wiley &amp; Sons.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Monteiro, J., Martins, B. and Pires, J. M.</hi> (2017). 
+                        <ref target="https://link.springer.com/article/10.1007/s41060-017-0080-z">A hybrid approach for the spatial disaggregation of socio-economic indicators</ref>. International Journal of Data Science and Analytics, 5(2-3), pp 189–211.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Robinson, C., Hohman, F., and Dilkina, B.</hi> (2017). 
+                        <ref target="https://doi.org/10.1145/3149858.3149863">A Deep Learning Approach for Population Estimation from Satellite Imagery</ref>. Proceedings of the ACM SIGSPATIAL Workshop on Geospatial Humanities. New York: ACM Press.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Tatem, A. J.</hi> (2017). 
+                        <ref target="https://www.nature.com/articles/sdata20174">WorldPop, open data for spatial demography</ref>. Scientific Data, 4, 170004.
+                    </bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>Modeling the Fragmented Archive: A Missing Data Case Study from Provenance Research</title>
+                <author>
+                    <persName>
+                        <surname>Lincoln</surname>
+                        <forename>Matthew</forename>
+                    </persName>
+                    <affiliation>Getty Research Institute, United States of America</affiliation>
+                    <email>mlincoln@getty.edu</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>van Ginhoven</surname>
+                        <forename>Sandra</forename>
+                    </persName>
+                    <affiliation>Getty Research Institute, United States of America</affiliation>
+                    <email>svanginhoven@getty.edu</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2014-12-19T13:50:00Z</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Name, Institution</publisher>
+                <address>
+                    <addrLine>Street</addrLine>
+                    <addrLine>City</addrLine>
+                    <addrLine>Country</addrLine>
+                    <addrLine>Name</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from a Word document</p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.22">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Short Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>missing data</term>
+                    <term>imputation</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>art and art history</term>
+                    <term>historical studies</term>
+                    <term>data modeling and architecture including hypothesis-driven modeling</term>
+                    <term>visualisation</term>
+                    <term>agent modeling and simulation</term>
+                    <term>English</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <p>Historians grapple with missing information constantly. While there are many statistical tools for gauging the impact of missing source data on quantitative results and conclusions, DH researchers have rarely deployed these tools in their work. This paper presents one implementation of data imputation used in the study of the New York City art dealer M. Knoedler &amp; Co. Demonstrating the significant contribution imputation had on our study and its conclusions, this paper will discuss specific, practical rhetorical strategies, including static and interactive visualization, for explaining this methodology to an audience that does not specialize in quantitative methods.</p>
+            <div xml:id="missing-data-in-the-digital-humanities" type="div1" rend="DH-Heading1">
+                <head>Missing Data in the Digital Humanities</head>
+                <p>Miriam Posner has argued that both data structures and rhetorical conventions for computing with missing information, uncertainty, and highly subjective/viewpoint-contingent knowledge remains a key desideratum of DH scholarship. (Posner, 2015) Several attempts have been made by the information science community to express uncertainty in a structured format, ranging from generalized ontologies for reasoning in a networked world (Laskey et al., 2008), as well as more specific projects such as the 
+                    <hi rend="italic">Topotime</hi> library for reasoning about temporal uncertainty. (Grossner and Meeks, 2013)
+                </p>
+                <p>However, many DH projects have sidestepped these approaches. Matthew Jockers, for example, has asserted that the availability of full text is becoming such that literary historians will no longer have to be concerned about drawing a representative sample. (Jockers, 2013: 7–8) More commonly, though, scholars have attempted to carefully constrain their conclusions based on what they know to be missing from their data. Theorizing and documenting the difference between one’s data set and one’s subject has become a genre of DH work unto itself. Katherine Bode has argued that such documented datasets should be understood as 
+                    <hi rend="italic">the</hi> object of DH inquiry. (Bode, 2017)
+                </p>
+                <p>While statistical literature on the problem of missing-data imputation is quite mature (see Gelman and Hill, 2006 for a valuable review), few DH research projects have openly explored the use of statistical procedures for reckoning with missing data, nor have they grappled with how to theorize and present such imputation in the context of their home disciplines. (An important exception includes Brosens et al., 2016) Bode, for one, has explicitly rejected such approaches, arguing (without specific evidence) that quantitative error assessment cannot be usefully performed in historical analysis. (Bode, 2017: 101)</p>
+                <p>We argue that such methods should be 
+                    <hi rend="italic">central</hi> to data-based digital humanities practice. Simulation and imputation allow us to realize multiple, sometimes conflicting assumptions about the nature of missing data. In doing so, these affordances allow us to evaluate how certain assertions may propagate their assumptions through the transformations we perform on our sources.
+                </p>
+            </div>
+            <div xml:id="case-study-modeling-m.-knoedler-co.s-bus" type="div1" rend="DH-Heading1">
+                <head>Case Study: Modeling M. Knoedler &amp; Co.’s Business from Sparse Stock Books</head>
+                <p>As part of a research initiative into data-based approaches to the study of the art market, we are investigating the changing strategies of the New York City art dealer M. Knoedler &amp; Co., whose stock books have been encoded by the Getty Research Institute (
+                    <ref target="http://www.getty.edu/research/tools/provenance/search.html">http://www.getty.edu/research/tools/provenance/search.html</ref>). Based on these transaction data, we have built a predictive model that classifies whether a given artwork would result in a profit or a loss, using a host of variables such as how much money the work of art originally cost, the genre and size of the work, their prior relationships with buyers and sellers, and the time the work remained in stock before it was sold, to name but a few. Predictive modeling illuminates complex relationships between these variables and highlights unusual sales for further archival research.
+                </p>
+                <p>As informative as these stock books are, however, many of their notations are partial: Knoedler’s staff may have neglected to record the date of sale; there may be a listed purchase without a description of the type of work (i.e. portrait, landscape, etc.); the identity of the buyer, and whether they were a first-time customer or a well-known shopper, may also have gone unrecorded. Because our random-forest-based model (Liaw and Wiener, 2002) does not allow missing values, we must either discard incomplete records (and thus eliminate nearly half of the records from consideration), or we must find ways to impute values for our predictor variables.</p>
+                <figure>
+                    <graphic n="1001" width="15.663333333333334cm" height="4.512819444444444cm" url="Pictures/f476763fb518db3ae7a366399a11c5ae.png" rend="inline"/>
+                    <p rend="Image Caption">Figure 1 Schematic workflow for imputing missing data, producing derivative features, building models, and then aggregating statistics from the multiple models produced.</p>
+                </figure>
+                <p>While it is impossible to perfectly reconstruct these missing records, it 
+                    <hi rend="italic">is</hi> possible to operationalize educated guesses about their possible values. (Figure 1) Purchase and sale dates for artworks, for example, can be predicted with some accuracy based on their location in the roughly-chronological series of stock books. Likewise, unknown genres can also be imputed as a function of the existing distribution of genres across stock books, with, e.g. abstract paintings being far less common in the pre-20th c. books than in the later ones. By defining an informed range of possibilities for these missing data, and then sampling from that range, we can produce ensemble models and results that provide a more nuanced representation.
+                </p>
+                <figure>
+                    <graphic n="1002" width="14.816666666666666cm" height="16.66875cm" url="Pictures/eedf809e114442beec4d234d8386ce65.png" rend="inline"/>
+                    <p rend="Image Caption">Figure 2 Partial dependence plots illustrating the marginal effect of artwork genre on Knoedler’s chance at profitability.</p>
+                </figure>
+                <p>Figure 2(a) shows the marginal effect of artwork genre on Knoedler’s chance of turning a profit across three periods of their business, only considering around 20,000 “complete” cases from the Knoedler transaction records (approximately 60% of the known transactions they made.) A first glance suggests that history paintings were markedly less profitable after 1935, while still lifes became comparatively more profitable after 1935.</p>
+                <p>However, 2(b) shows the results not from 1 model, but from 500 models, each trained on a slightly different set of stochastically-imputed data. By visualizing one bar for each model, this plot drives home the effect of increased uncertainty on these measurements, while visually foregrounding the crucial methodological decision - 500 models instead of 1 - in a way that a box plot or other summary visualization method does not (at least, not in the eyes of a reader unused to reading such idioms.) The apparent advantage of still life in Knoedler’s post-1935 business has evaporated, although the notably-lower value of history paintings between 1900-1935 may have withstood this simulation of uncertainty. While this model affirms that genre is largely an anachronistic construct that has little effect on prices, these results complicate a simplistic reading by indicating that, in some cases, there 
+                    <hi rend="italic">is</hi> a significant relationship that must be reckoned with.
+                </p>
+                <figure>
+                    <graphic n="1003" width="14.816666666666666cm" height="16.66875cm" url="Pictures/d741e633acf2ddd90bb1bd127543d428.png" rend="inline"/>
+                    <p rend="Image Caption">Figure 3 Partial dependence plots illustrating the marginal effect of time in stock on Knoedler’s chance at profitability.</p>
+                </figure>
+                <p>Figure 3 shows a similar comparison of complete case vs. imputed data for a continuous variable: the time a painting spent in stock. Both 3(a) and 3(b) support the conclusion that not only did a longer time in stock contribute to lower chances of turning a profit, but that Knoedler’s window for making a profitable sale grew throughout the lifetime of the firm, from around 2 years before 1900, to more than 5 years after 1935. The increased uncertainty added by the multiplicity of models in 3(b) discourages the kind of over-interpretation that the seeming-precision of 3(a) allows. However, it also demonstrates that, even in the face of so many missing or imprecise dates in the Knoedler stock books, we can still recover meaningful quantitative conclusions.</p>
+                <figure>
+                    <graphic n="1004" width="14.816666666666666cm" height="13.183975cm" url="Pictures/df98e54140b8a00f38d80a90b751a242.png" rend="inline"/>
+                    <p rend="Image Caption">Figure 4 Screenshot of an interactive application allowing users to modify imputation assumptions and see the effect on modeling and analysis results.</p>
+                </figure>
+                <p>These static visualizations are easily enhanced through animation that shows the buildup of individual model characteristics into aggregate confidence intervals. (Lincoln, 2015) We have also experimented with interactive applications (Figure 4) that allow the user to specify different imputation assumptions, and then immediately see the downstream results on our predictive models, reinforcing the close relationship between starting assumptions and modeled conclusions. (An early demo of this work: 
+                    <ref target="https://mdlincoln.shinyapps.io/missingness/">https://mdlincoln.shinyapps.io/missingness/</ref>)
+                </p>
+                <p>Computationally, these imputations are simple, perhaps even simplistic. More complex approaches, such as iteratively modeling every missing variable (Buuren and Groothuis-Oudshoorn, 2011), might lead to more accurate modeling. However, these less parsimonious methods are more opaque to humanities scholars. Operationalizing the historian’s habit of educated guessing and thoughtful assumptions, and visualizing those operations straightforwardly, may allow missing data imputation to work its way into the accepted suite of DH methodologies.</p>
+            </div>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl rend="Bibliography">
+                        <anchor xml:id="ref-bode2017"/>
+                        <anchor xml:id="refs"/>
+                        <hi rend="bold">Bode, K.</hi> (2017). The Equivalence of ‘Close’ and ‘Distant’ Reading; or, Toward a New Object for Data-Rich Literary History. 
+                        <hi rend="italic">Modern Language Quarterly</hi>, 
+                        <hi rend="bold">78</hi>(1): 77–106 doi:
+                        <ref target="https://doi.org/10.1215/00267929-3699787">10.1215/00267929-3699787</ref>.
+                    </bibl>
+                    <bibl rend="Bibliography">
+                        <anchor xml:id="ref-brosens2016"/>
+                        <hi rend="bold">Brosens, K., Alen, K., Slegten, A. and Truyen, F.</hi> (2016). MapTap and Cornelia: Slow Digital Art History and Formal Art Historical Social Network Research. 
+                        <hi rend="italic">Zeitschrift Für Kunstgeschichte</hi>, 
+                        <hi rend="bold">79</hi>: 1–14.
+                    </bibl>
+                    <bibl rend="Bibliography">
+                        <anchor xml:id="ref-buuren2011"/>
+                        <hi rend="bold">Buuren, S. van and Groothuis-Oudshoorn, K.</hi> (2011). Mice: Multivariate Imputation by Chained Equations in 
+                        <hi rend="italic">R</hi>. 
+                        <hi rend="italic">Journal of Statistical Software</hi>, 
+                        <hi rend="bold">45</hi>(3) doi:
+                        <ref target="https://doi.org/10.18637/jss.v045.i03">10.18637/jss.v045.i03</ref>.
+                    </bibl>
+                    <bibl rend="Bibliography">
+                        <anchor xml:id="ref-gelman2006"/>
+                        <hi rend="bold">Gelman, A. and Hill, J.</hi> (2006). Missing-data Imputation. In, 
+                        <hi rend="italic">Data Analysis Using Regression and Multilevel/Hierarchical Models</hi>. Oxford: Cambridge University Press, pp. 529–43.
+                    </bibl>
+                    <bibl rend="Bibliography">
+                        <anchor xml:id="ref-grossner2013"/>
+                        <hi rend="bold">Grossner, K. and Meeks, E.</hi> (2013). 
+                        <hi rend="italic">Temporal Geometry in Topotime</hi>. Stanford University Libraries 
+                        <ref target="http://dh.stanford.edu/topotime/docs/TemporalGeometry.pdf">http://dh.stanford.edu/topotime/docs/TemporalGeometry.pdf</ref>.
+                    </bibl>
+                    <bibl rend="Bibliography">
+                        <anchor xml:id="ref-jockers2013"/>
+                        <hi rend="bold">Jockers, M. L.</hi> (2013). 
+                        <hi rend="italic">Macroanalysis: Digital Methods and Literary History</hi>. Urbana: University of Illinois Press.
+                    </bibl>
+                    <bibl rend="Bibliography">
+                        <anchor xml:id="ref-laskey2008"/>
+                        <hi rend="bold">Laskey, K. J., Laskey, K. B., Costa, P. C. G., Kokar, M. M., Martin, T. and Lukasiewicz, T.</hi> (2008). 
+                        <hi rend="italic">Uncertainty Reasoning for the World Wide Web</hi>. W3C Incubator Group Report World Wide Web Consortium (W3C) 
+                        <ref target="https://www.w3.org/2005/Incubator/urw3/XGR-urw3-20080331/">https://www.w3.org/2005/Incubator/urw3/XGR-urw3-20080331/</ref> (accessed 26 November 2017).
+                    </bibl>
+                    <bibl rend="Bibliography">
+                        <anchor xml:id="ref-liaw2002"/>
+                        <hi rend="bold">Liaw, A. and Wiener, M.</hi> (2002). Classification and Regression by randomForest. 
+                        <hi rend="italic">R News</hi>, 
+                        <hi rend="bold">2</hi>(3): 18–22 
+                        <ref target="https://www.stat.berkeley.edu/~breiman/RandomForests/">https://www.stat.berkeley.edu/~breiman/RandomForests/</ref>.
+                    </bibl>
+                    <bibl rend="Bibliography">
+                        <anchor xml:id="ref-lincoln2015-1"/>
+                        <hi rend="bold">Lincoln, M. D.</hi> (2015). DataGIFs: Animate Your Visualizations for Fun and Clarity 
+                        <hi rend="italic">Matthew Lincoln, PhD</hi>
+                        <ref target="https://matthewlincoln.net/2015/12/18/datagifs-animate-your-visualizations-for-fun-and-clarity.html">https://matthewlincoln.net/2015/12/18/datagifs-animate-your-visualizations-for-fun-and-clarity.html</ref>.
+                    </bibl>
+                    <bibl rend="Bibliography">
+                        <anchor xml:id="ref-posner2015-1"/>
+                        <hi rend="bold">Posner, M.</hi> (2015). What’s Next: The Radical, Unrealized Potential of Digital Humanities 
+                        <hi rend="italic">Miriam Posner’s Blog</hi>
+                        <ref target="http://miriamposner.com/blog/whats-next-the-radical-unrealized-potential-of-digital-humanities/">http://miriamposner.com/blog/whats-next-the-radical-unrealized-potential-of-digital-humanities/</ref> (accessed 20 April 2017).
+                    </bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

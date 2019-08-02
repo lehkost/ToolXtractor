@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>Tool-based Identification of Melodic Patterns in MusicXML Documents</title>
+                <author>
+                    <persName>
+                        <surname>Burghardt</surname>
+                        <forename>Manuel</forename>
+                    </persName>
+                    <affiliation>Media Informatics Group, University of Regensburg, Germany</affiliation>
+                    <email>manuel.burghardt@ur.de</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Lamm</surname>
+                        <forename>Lukas</forename>
+                    </persName>
+                    <affiliation>Media Informatics Group, University of Regensburg, Germany</affiliation>
+                    <email>lukas.lamm@stud.uni-regensburg.de</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Lechler</surname>
+                        <forename>David</forename>
+                    </persName>
+                    <affiliation>Media Informatics Group, University of Regensburg, Germany</affiliation>
+                    <email>david.lechler@stud.uni-regensburg.de</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Schneider</surname>
+                        <forename>Matthias</forename>
+                    </persName>
+                    <affiliation>Media Informatics Group, University of Regensburg, Germany</affiliation>
+                    <email>Matthias.Schneider@stud.uni-regensburg.de</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Semmelmann</surname>
+                        <forename>Tobias</forename>
+                    </persName>
+                    <affiliation>Media Informatics Group, University of Regensburg, Germany</affiliation>
+                    <email>Tobias.Semmelmann@stud.uni-regensburg.de</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2014-12-19T13:50:00Z</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Maciej Eder, Pedagogical University in Krakow</publisher>
+                <publisher>Jan Rybicki, Jagiellonian University</publisher>
+                <address>
+                    <addrLine>Institute of Polish Studies</addrLine>
+                    <addrLine>Pedagogical University</addrLine>
+                    <addrLine>ul. Podchorazych 2</addrLine>
+                    <addrLine>30-084 Krakow, Poland</addrLine>
+                    <addrLine>maciej.eder@ijp-pan.krakow.pl</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from a Word document </p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.21">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Short Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>music information retrieval</term>
+                    <term>melodic similarity</term>
+                    <term>melodic patterns</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>information retrieval</term>
+                    <term>music</term>
+                    <term>software design and development</term>
+                    <term>xml</term>
+                    <term>English</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <div type="div1" rend="DH-Heading1">
+                <head>Introduction: Digital musicology</head>
+                <p>Computer-based methods in musicology have been around at least since the 1980s
+                    <note place="foot" xml:id="ftn1" n="1">
+                        <p> The popular series „Computing in Musicology“ started around 1985. For an overview of all volumes of the series cf. http://www.ccarh.org/publications/books/cm/; Note: All URLs mentioned in this text were last checked on March 3, 2016.</p>
+                    </note>. Besides the creation of digital editions (cf. Kepper et al., 2014; Veit, 2015), scholars in this area of study have also been interested in quantitative approaches for musicological analyses (cf. Müllensiefen and Frieler, 2004; Vigilanti, 2007). Such quantitative analyses rely on music information retrieval (MIR) systems, which can be used to search collections of songs according to different musicological parameters. There are many examples for existing MIR systems, all with specific strengths and weaknesses. Among the main downsides of such systems are:
+                </p>
+                <list type="unordered">
+                    <item>
+                        <hi rend="bold">Usability problems</hi>, i.e. tools are cumbersome to use, as they oftentimes only provide a command-line interface and also require some basic programming skills to utilize them; example: Humdrum
+                        <note place="foot" xml:id="ftn2" n="2">
+                            <p rend="footnote text"> http://www.humdrum.org/</p>
+                        </note>
+                    </item>
+                    <item>
+                        <hi rend="bold">Restricted scope of querying</hi>, i.e. tools can only be used to search for musical incipits; examples: RISM
+                        <note place="foot" xml:id="ftn3" n="3">
+                            <p rend="footnote text"> https://opac.rism.info/</p>
+                        </note>, HymnQuest
+                        <note place="foot" xml:id="ftn4" n="4">
+                            <p rend="footnote text"> http://hymnquest.com/</p>
+                        </note>
+                    </item>
+                    <item>
+                        <hi rend="bold">Restricted song collection</hi>, i.e. tools can only be used for specific collections of music files; various examples of MIR tools for specific collections are described in Typke et al. (2005)
+                    </item>
+                </list>
+                <p>A particularly promising MIR tool can be found in Peachnote
+                    <note place="foot" xml:id="ftn5" n="5">
+                        <p rend="footnote text"> http://www.peachnote.com/</p>
+                    </note> (Viro, 2011), which uses optical music recognition (OMR) software to index more than one million sheets from the Petrucci Music Library
+                    <note place="foot" xml:id="ftn6" n="6">
+                        <p rend="footnote text"> http://imslp.org/</p>
+                    </note>, aiming to provide a search interface for musicology which can be seen as an analog of the Google Books Ngram Viewer
+                    <note place="foot" xml:id="ftn7" n="7">
+                        <p rend="footnote text"> https://books.google.com/ngrams</p>
+                    </note>. Despite many existing software solutions, we believe that accurate OMR is still a major challenge in digital musicology. At the same time, there are numerous databases
+                    <note place="foot" xml:id="ftn8" n="8">
+                        <p rend="footnote text"> http://www.musicxml.com/music-in-musicxml/</p>
+                    </note> at hand, that provide machine-readable music documents, fully annotated with MusicXML (Good, 2001) markup. 
+                </p>
+                <p>On this account, we designed MusicXML Analyzer, a generic MIR system that is trying to overcome the weaknesses of existing MIR tools, and that allows for the analysis of arbitrary documents encoded in MusicXML format. </p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>MusicXML Analyzer: Basic functionality and implementation details</head>
+                <p>MusicXML Analyzer can be used to analyze songs in a quantitative manner, and to search for specific melodic patterns in a collection of songs. The results of the analyses are rendered as virtual scores and can be viewed in any recent web browser. In addition, the queries and the results can be played as a synthesized audio file; all analyses can also be exported as PDF or CSV files.</p>
+                <p>The tool comprises three main components: (1) the upload function, (2) the analysis function, and (3) the search function. After one or more files in MusicXML format have been uploaded via an intuitive drag-and-drop dialog, the analysis component parses the data and calculates basic frequencies; the results are stored in an SQL database and can be displayed in a dashboard view (cf. Fig. 1). </p>
+                <figure>
+                    <graphic url="458/image1.png" rend="inline"/>
+                    <head>Figure 1: Snippet from the dashboard view, showing basic frequencies for a corpus of MusicXML documents.</head>
+                </figure>
+                <p>The dashboard displays the following information, either for an individual song, or for a corpus of multiple songs:</p>
+                <list type="unordered">
+                    <item>Overall statistics for single notes, rests and measures </item>
+                    <item>Types of instruments used in the song (if described in the MusicXML data)</item>
+                    <item>Frequency distribution for single notes, intervals, keys, note durations and meters </item>
+                </list>
+                <p>Via a dedicated search function, a corpus of MusicXML documents can be queried for melodic patterns on different levels of information:</p>
+                <list type="unordered">
+                    <item>Search for a sound sequence; example: c’, c’, g’, g’</item>
+                    <item>Search for a rhythmic pattern; example: eighth note, eighth note, quarter note, quarter note</item>
+                    <item>Search for melodic patterns, i.e. a combination of sound sequence and rhythm; example: c’ / eighth note, c’ / eighth note, g’ / quarter note, g’ / quarter note</item>
+                </list>
+                <p>Search queries can be entered via a virtual staff that was realized with the VexFlow library
+                    <note place="foot" xml:id="ftn9" n="9">
+                        <p rend="footnote text"> http://www.vexflow.com/</p>
+                    </note> (cf. Fig. 2). Once a search pattern has been entered, it can also be played as a synthesized Midi sequence, which was realized with the Midi.js library
+                    <note place="foot" xml:id="ftn10" n="10">
+                        <p rend="footnote text"> http://mudcu.be/midi-js</p>
+                    </note>. 
+                </p>
+                <figure>
+                    <graphic url="458/image2.png" rend="inline"/>
+                    <head>Figure 2: Interface for entering queries to identify tonal, rhythmic, or melodic patterns in a corpus of MusicXML documents.</head>
+                </figure>
+                <p>After a query has been submitted, all results – i.e. the songs that contain the search pattern – are displayed in a list view. The list contains the name of the song and also the number of total occurrences of the search pattern in that song. By clicking on one of the song items in the list, a virtual score is rendered for the whole song; the search pattern is highlighted whenever it occurs in that virtual score (cf. Fig. 3). The whole song can be played directly in the web browser, or downloaded for further analyses as a PDF (realized with the jsPDF library
+                    <note place="foot" xml:id="ftn11" n="11">
+                        <p rend="footnote text"> https://parall.ax/products/jspdf</p>
+                    </note>).
+                </p>
+                <figure>
+                    <graphic url="458/image3.png" rend="inline"/>
+                    <head>Figure 3: Virtual score rendering of a document from the results list; the search pattern is highlighted in red color.</head>
+                </figure>
+                <p>MusicXML Analyzer was implemented by means of standard web technologies (HTML, CSS, JavaScript, PHP), in particular by utilizing the following libraries and frameworks: Laravel
+                    <note place="foot" xml:id="ftn12" n="12">
+                        <p rend="footnote text"> http://laravel.com/</p>
+                    </note>, jQuery
+                    <note place="foot" xml:id="ftn13" n="13">
+                        <p rend="footnote text"> https://jquery.com/</p>
+                    </note>, D3.js
+                    <note place="foot" xml:id="ftn14" n="14">
+                        <p rend="footnote text"> http://d3js.org/</p>
+                    </note>, Bootstrap
+                    <note place="foot" xml:id="ftn15" n="15">
+                        <p rend="footnote text"> http://getbootstrap.com/</p>
+                    </note>, Typed.js
+                    <note place="foot" xml:id="ftn16" n="16">
+                        <p rend="footnote text"> http://www.mattboldt.com/demos/typed-js/</p>
+                    </note>, Dropzone.js
+                    <note place="foot" xml:id="ftn17" n="17">
+                        <p rend="footnote text"> http://www.dropzonejs.com/</p>
+                    </note>. 
+                </p>
+                <p>A short demo video that showcases the main functionality of the tool is available at</p>
+                <list type="unordered">
+                    <item>
+                        <ref target="https://dl.dropboxusercontent.com/u/4194636/MusicXML-Analyzer.mp4">https://dl.dropboxusercontent.com/u/4194636/MusicXML-Analyzer.mp4</ref>
+                    </item>
+                </list>
+                <p>A fully functional online demo
+                    <note place="foot" xml:id="ftn18" n="18">
+                        <p> Due to some technical limitations of our server environment, the initial access to the online demo may take a few seconds to wake up the server from 
+                            <hi rend="italic">idle mode</hi>.
+                        </p>
+                    </note> of MusicXML Analyzer is available at
+                </p>
+                <list type="unordered">
+                    <item>
+                        <ref target="http://music-xml-analyzer.herokuapp.com/">http://music-xml-analyzer.herokuapp.com/</ref>
+                    </item>
+                </list>
+                <p>MusicXML Analyzer can also be downloaded and modified (according to the MIT open source license) from GitHub:</p>
+                <list type="unordered">
+                    <item>
+                        <ref target="https://github.com/freakimkaefig/Music-XML-Analyzer">
+                            <hi rend="Bullets">https://github.com/freakimkaefig/Music-XML-Analyzer</hi>
+                        </ref>
+                    </item>
+                </list>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Future directions</head>
+                <p>In its current implementation, MusicXML Analyzer performs an exact match search, i.e. only documents which have the exact same value in their MusicXML markup will be found by the search function. We are planning to implement a more sophisticated melodic similarity algorithm (cf. Grachten et al., 2002; Miura and Shioya, 2003) that allows for the configuration of different similarity thresholds. </p>
+                <p>At the same time, we are adapting MusicXML Analyzer for a recent project on a large corpus of German folksongs. Besides monophonic melodies, this collection of folksongs also contains machine-readable metadata (region, date, etc.) and lyrics. Accordingly, we are trying to enhance the search features of MusicXML Analyzer in a way it can not only search songs for melodic patterns, but also for metadata parameters and keywords from the lyrics. Such an enhanced MIR system could be used to analyze the following research questions:</p>
+                <list type="unordered">
+                    <item>Are there characteristic melodic and linguistic patterns for German folksongs, from a diachronic perspective as well as from a regional perspective?</item>
+                    <item>Are there melodic-linguistic collocations, i.e. do certain melodic patterns co-occur with certain keywords or phrases?</item>
+                </list>
+            </div>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl>
+                        <hi rend="bold">Good, M.</hi> (2001). MusicXML for Notation and Analysis. In Hewlett, W. B. and Selfridge-Field, E. (eds.), 
+                        <hi rend="italic">The Virtual Score: Representation, Retrieval, Restoration</hi>. Cambridge (MA) and London (UK): MIT Press, pp. 113–24.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Grachten, M. A., Josep, L. and Mántaras R. L.</hi> (2002). A comparison of different approaches to melodic similarity. 
+                        <hi rend="italic">Proceedings of the 2nd International Conference in Music and Artificial Intelligence (ICMAI) 2002</hi>.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Kepper, J., Schreiter, S. and Veit, J.</hi> (2014). ‚Freischütz‘ analog oder digital – Editionsformen im Spannungsfeld von Wissenschaft und Praxis. 
+                        <hi rend="italic">Editio</hi>, <hi rend="bold">28</hi>: 127–50.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Miura, T. and Shioya, I.</hi> (2003). Similarity among melodies for music information retrieval. 
+                        <hi rend="italic">Proceedings of the 12th International Conference on Information and Knowledge Management (CIKM) 2003</hi>.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Müllensiefen, D. and Frieler, K.</hi> (2004). Optimizing Measures Of Melodic Similarity For The Exploration Of A Large Folk Song Database. 
+                        <hi rend="italic">Proceedings of the 5th International Conference on Music Information Retrieval (ISMIR) 2004</hi>, pp. 274–80.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Typke, R., Wiering, F. and Veltkamp, R. C.</hi> (2005). A survey of music information retrieval systems. 
+                        <hi rend="italic">Proceedings of the 6th International Conference on Music Information Retrieval (ISMIR) 2005</hi>, pp. 153–60.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Veit, J.</hi> (2015). Music notation beyond paper. On developing digital humanities tools for music editing. 
+                        <hi rend="italic">Forschungsforum Paderborn</hi>, <hi rend="bold">18</hi>: 40-48. 
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Viglianti, R.</hi> (2007). MusicXML: An XML Based Approach to Musicological Analysis. <hi rend="italic">Digital Humanities 2007: Conference Abstracts</hi>, pp. 235–37.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Viro, V.</hi> (2011). Peachnote: Music Score Search and Analysis Platform. 
+                        <hi rend="italic">Proceedings of the 12th International Conference on Music Information Retrieval (ISMIR) 2011</hi>, pp. 359-62. 
+                    </bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

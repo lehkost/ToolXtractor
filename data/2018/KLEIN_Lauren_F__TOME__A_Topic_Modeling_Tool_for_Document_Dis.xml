@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>TOME: A Topic Modeling Tool for Document Discovery and Exploration</title>
+                <author>
+                    <persName>
+                        <surname>Hayward</surname>
+                        <forename>Adam</forename>
+                    </persName>
+                    <affiliation>Georgia Institute of Technology, United States of America</affiliation>
+                    <email>adam.hayward@gatech.edu</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Bawa</surname>
+                        <forename>Nikita</forename>
+                    </persName>
+                    <affiliation>Georgia Institute of Technology, United States of America</affiliation>
+                    <email>nbawa3@gatech.edu</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Orangi</surname>
+                        <forename>Morgan</forename>
+                    </persName>
+                    <affiliation>Georgia Institute of Technology, United States of America</affiliation>
+                    <email>moorangi@gatech.edu</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Foster</surname>
+                        <forename>Caroline</forename>
+                    </persName>
+                    <affiliation>Georgia Institute of Technology, United States of America</affiliation>
+                    <email>cfoster2@gatech.edu</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Klein</surname>
+                        <forename>Lauren F.</forename>
+                    </persName>
+                    <affiliation>Georgia Institute of Technology, United States of America</affiliation>
+                    <email>lauren.klein@lmc.gatech.edu</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2018-04-25T15:43:00Z</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Name, Institution</publisher>
+                <address>
+                    <addrLine>Street</addrLine>
+                    <addrLine>City</addrLine>
+                    <addrLine>Country</addrLine>
+                    <addrLine>Name</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from a Word document</p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.22">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Poster (was submitted as Short Paper)</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>topic modeling</term>
+                    <term>information visualization</term>
+                    <term>interface design</term>
+                    <term>Black studies</term>
+                    <term>social justice</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>historical studies</term>
+                    <term>interface &amp; user experience design/publishing &amp; delivery systems/user studies/user needs</term>
+                    <term>natural language processing</term>
+                    <term>digitisation</term>
+                    <term>resource creation</term>
+                    <term>and discovery</term>
+                    <term>visualisation</term>
+                    <term>English</term>
+                    <term>computer science</term>
+                    <term>design</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <p rend="normal">1. Introduction and Overview</p>
+            <p rend="normal">In the past several years, the utility of topic modeling for the humanities has been clearly established. Scholars can now point to projects that convincingly employ topic modeling to explore the figurative language employed in ekphrastic poetry (Rhody 2012), to trace the “quiet transformations” of literary studies (Goldstone and Underwood 2014), and to distill the epistemic dimensions of novels (Erlin 2017), among others. And yet, broader applications of the technique remain limited by the computational and statistical expertise required to implement a topic model and interpret its results. While there has been some work to develop topic model “browsers” (e.g. Goldstone 2014, Murdock and Allen 2015), these projects are designed to facilitate the exploration of the model itself, rather than to leverage the affordances of topic modeling for humanities scholars. By contrast, our interface was conceived so that non-technical humanities scholars can employ a topic model of their corpus in order to discover the documents most salient to their research (Klein et al. 2015).
+                <hi rend="endnote_reference">
+                    <note place="end">
+                        <p rend="normal"> The first round of research on TOME was conducted between 2013 and 2015 in collaboration with Jacob Eisenstein, Assistant Professor of Interactive Computing at Georgia Tech, funded by NEH Office of Digital Humanities Startup Grant HD-51705-13. See Klein et al. 2015. </p>
+                    </note>
+                </hi>
+            </p>
+            <p rend="normal">2. Corpus, Model, and Database</p>
+            <p rend="normal">Our corpus consists of nearly 300,000 documents drawn from a collection of nineteenth-century abolitionist newspapers. The documents were scraped from the Accessible Archives website, as per an agreement with Accessible. Additional cleaning of the data, as well as metadata creation, was performed through custom Python scripts. </p>
+            <p rend="normal">The topic model of our corpus was created using gensim, the vector space and topic modeling library (Rehurek and Sojka 2010). We employed gensim’s wrapper for Latent Dirichlet Allocation (LDA) from MALLET (McCallum 2002). We generated 100 topics after 100 iterations, filtering the 100 most common words. We printed the topics and topical composition of each document to CSV files. We then ingested the data into a MySQL database using Django’s ORM framework.
+                <note place="end">
+                    <p rend="normal"> The topic model and related processing scripts can be found at: 
+                        <ref target="../customXml/item1.xml">https://github.com/GeorgiaTechDHLab/TOME/</ref>. 
+                    </p>
+                </note>
+            </p>
+            <p rend="normal">4. Interface and Sample Interaction</p>
+            <p rend="normal">Our interface is the result of a several-month design process during which we considered a variety of user scenarios. Our goal was to scaffold the process of document discovery so that the user could draw new insights as they moved through each section of the interface: Topic Overview, Topic Details, Document Overview, and Document Details.
+                <note place="end">
+                    <p rend="normal"> A live version of this interface can be found at: 
+                        <ref target="numbering.xml">http://tome.lmc.gatech.edu/</ref>. 
+                    </p>
+                </note>
+            </p>
+            <p rend="normal">The user begins with the Topic Overview section (Figure 1), which employs a custom visualization in order to display each of the 100 topics according to its change in rank over time. The user can also filter the topics by keyword or sort according to overall prevalence. </p>
+            <figure>
+                <graphic n="1001" width="16.509980555555554cm" height="12.241388888888888cm" url="Pictures/2b80bc75107e665d87587607edadb3db.jpg" rend="inline"/>
+                <head>Topic Overview</head>
+            </figure>
+            <p rend="normal">When the user has selected their topics of interest, they scroll to see details about those topics: change in percentage of the corpus over time; distribution in each newspaper over time; and geographic distribution (Figure 2). These visualizations work together to show which topics were most prevalent at which times; which sources were reporting on which topics at particular times; and where each topic was being reported on. From there, the user can either return to the Topic Overview to further refine the topic set (Gelman 2004), or scroll down to the Document Overview section. </p>
+            <figure>
+                <graphic n="1002" width="16.509980555555554cm" height="12.241388888888888cm" url="Pictures/203f154830a42720b299262ef543607d.jpg" rend="inline"/>
+                <head>Topic Details</head>
+            </figure>
+            <p rend="normal">The Document Overview (figure 3) section allows the user to further refine the set of documents they will eventually read. They can toggle between a standard list view of all the documents, ranked in terms of what percentage of the selected topics they contain, and a dust-and-magnets view (Yi et al. 2005). </p>
+            <figure>
+                <graphic n="1003" width="16.509980555555554cm" height="12.241388888888888cm" url="Pictures/40fe5744f6f3988c72e68dc34056494b.jpg" rend="inline"/>
+                <head>Document Overview</head>
+            </figure>
+            <p rend="normal">From there, they move to Document Details (figure 4), which displays the metadata associated with each article in the corpus, ordered according to the percentage of the selected topics they contain. This allows the user to click through to the articles themselves, having narrowed down a set of articles relevant to their research. </p>
+            <figure>
+                <graphic n="1004" width="16.509980555555554cm" height="12.241388888888888cm" url="Pictures/f2468ae1400003309ed69b958c66498d.jpg" rend="inline"/>
+                <head>Document Details</head>
+            </figure>
+            <p rend="normal">The interface is implemented using HTML and JavaScript, including D3.js, the JavaScript-based visualization library, and AJAX for client-side data retrieval. </p>
+            <p rend="normal">
+                <hi rend="italic" xml:space="preserve">Initial research on TOME was conducted from 2013 to 2015 in collaboration with Jacob Eisenstein, School of Interactive Computing, Georgia Institute of Technology, funded by NEH Office of Digital Humanities Startup Grant HD-51705-13. </hi>
+            </p>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl rend="normal">
+                        <hi rend="bold">Erlin, M.</hi> (2017). Topic Modeling, Epistemology, and the English and German Novel. 
+                        <hi rend="italic">Cultural Analytics</hi>. 
+                    </bibl>
+                    <bibl rend="normal">
+                        <hi rend="bold">Gelman, A.</hi> (2004). Exploratory Data Analysis for Complex Models. 
+                        <hi rend="italic">Journal of Computational and Graphical Statistics</hi> 13 (4): 755–779.
+                    </bibl>
+                    <bibl rend="normal">
+                        <hi rend="bold background(white)">Goldstone, A., and Underwood T.</hi>
+                        <hi rend="background(white)">(2014). The Quiet Transformations of Literary Studies: What Thirteen Thousand Scholars Could Tell Us.</hi>
+                        <hi rend="italic background(white)">New Literary History</hi>
+                        <hi rend="background(white)" xml:space="preserve"> 45 (3): 359-384. </hi>
+                    </bibl>
+                    <bibl rend="normal">
+                        <hi rend="bold">Goldstone, A.</hi> (n.d.). DfR Browser. 
+                        <ref target="https://agoldst.github.io/dfr-browser/">
+                            <hi rend="underline">https://agoldst.github.io/dfr-browser/</hi>
+                        </ref> (accessed 25 April 2018).
+                    </bibl>
+                    <bibl rend="normal">
+                        <hi rend="bold" xml:space="preserve">Klein, L., Eisenstein, J., and Sun, I. </hi>(2015). Exploratory Thematic Analysis for Digitized Archival Collections. 
+                        <hi rend="italic">Digital Scholarship in the Humanities</hi> 30 (Supp. 1): i130-i141.
+                    </bibl>
+                    <bibl rend="normal">
+                        <hi rend="bold">McCallum, A.</hi> (2002). MALLET: A Machine Learning for Language Toolkit.
+                        <ref target="HYPERLINK" xml:space="preserve"> </ref>
+                        <ref target="HYPERLINK">
+                            <hi rend="underline">http://mallet.cs.umass.edu</hi>
+                        </ref> (accessed 25 April 2018).
+                    </bibl>
+                    <bibl rend="normal">
+                        <hi rend="bold background(white)">Murdock, J. and Allen, C.</hi>
+                        <hi rend="background(white)" xml:space="preserve">(2015). Visualization Techniques for Topic Model Checking. </hi>
+                        <hi rend="italic background(white)">AAAI Conference on Artificial Intelligence</hi>
+                        <hi rend="background(white)">, Austin, TX, January 2015.</hi>
+                    </bibl>
+                    <bibl rend="normal">
+                        <hi rend="bold">Rehurek, R. and Sojka, P.</hi> (2010). Software Framework for Topic Modelling with Large Corpora. 
+                        <hi rend="italic">LREC 2010 Workshop on New Challenges for NLP Frameworks</hi>, Valetta, Malta, May 2010. 
+                    </bibl>
+                    <bibl rend="normal">
+                        <hi rend="bold">Rhody, L. M.</hi> (2012). “Topic Modeling and Figurative Language.” 
+                        <hi rend="italic" xml:space="preserve">Journal of Digital Humanities </hi>2 (1). 
+                    </bibl>
+                    <bibl rend="normal">
+                        <hi rend="bold">Yi, J.S.</hi> (2005). Dust &amp; Magnet: Multivariate Information Visualization Using a Magnet Metaphor. 
+                        <hi rend="italic" xml:space="preserve">Information Visualization </hi>4 (4): 239-256.
+                    </bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

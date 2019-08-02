@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>In Search of the Drowned in the Words of the Saved: Mining and Anthologizing Oral History Interviews of Holocaust Survivors</title>
+                <author>
+                    <persName>
+                        <surname>Toth</surname>
+                        <forename>Gabor</forename>
+                    </persName>
+                    <affiliation>Yale University, United States of America</affiliation>
+                    <email>gabor.toth@yale.edu</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2018-04-26T20:56:00Z</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Name, Institution</publisher>
+                <address>
+                    <addrLine>Street</addrLine>
+                    <addrLine>City</addrLine>
+                    <addrLine>Country</addrLine>
+                    <addrLine>Name</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from a Word document</p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.22">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Long Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>Holocaust editting oral_history</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>historical studies</term>
+                    <term>natural language processing</term>
+                    <term>scholarly editing</term>
+                    <term>linguistics</term>
+                    <term>cultural studies</term>
+                    <term>data mining / text mining</term>
+                    <term>English</term>
+                    <term>digital humanities history</term>
+                    <term>theory</term>
+                    <term>epistemology</term>
+                    <term>criticism</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <p>The experiences of six million victims of the Holocaust perished with them. This paper will discuss the ways text and data mining technology has helped to recover fragments of lost experiences out of oral history interviews with survivors. The paper will also present how a data-driven anthology of these fragments has been built. The first part situates the challenge of uncovering experiences of the voiceless in historiography. The second part shows how text and data mining techniques have been applied to recover fragments of lost experiences from a big corpus of English language interview transcripts in the collection of the United States Holocaust Memorial Museum (USHMM). The third part demonstrates how web technology and visualization are used to render these fragments in a digital anthology. </p>
+            <p>The ethical and theoretical problem of narrating the experience of those who did not survive the Holocaust has been often addressed. Primo Levi has argued that survivors cannot tell the experience of those who did not survive because the Saved and the Drowned are “two particularly well differentiated categories among men.” The Saved lived in a morally questionable “grey zone” that compromises their testimony (Levi, 2018). Others have pointed out how trauma inhibits survivors from recalling their own experiences (Felman, Laub 2013; Lacapra, 2014; Hartman, 2015). Others have argued that testimonies are shaped by narrative and discoursive processes (Bernard-Donals, Glejzer 2001; Rosen, 2009). Survivors’ testimonies are therefore often used to study memory, and the underlying mediative processes (Langer, 2007). In short, there are gaps between the experience of the Saved and the Drowned, and between experiences recalled in a testimony and the original experience in the past. </p>
+            <p>This paper argues that despite these gaps, in testimonies there is a set of rudimentary experiences that are shared by both the Saved and the Drowned. They are basic physical and emotional states, as well as actions, that are cross-cultural; they are not the expression of post-traumatic states or any discursive, narrative, and linguistic mediation, but the very original experience. “Children crying for their parents“ or “feeling ashamed at the moment of being forced to undress” are examples of these rudimentary experiences. Beyond their rudimentary nature, experiences shared by the Drowned and the Saved have another feature: given a reasonably large collection of testimonies, they recur in narration of victims who had very different fates. Epistemologically, the recurrent rudimentary experiences in testimonies by the Saved are the likely experiences of the Drowned. This however overlooks - on purpose - the realm of suppressed memories.</p>
+            <p>The first computational goal of this work was to retrieve textual fragments expressing similar rudimentary experiences in a corpus of 1571 randomly selected interview transcripts (approximately 27 million tokens) in the USHMM. The retrieval of textual fragments expressing similar experiences is a text mining task that has two differences from text reuse and plagiarism detection (Alzahrani et al, 2012; Büchler et al., 2014). First, non–native speakers are likely to use different vocabulary, as well as different grammatical constructions, to describe the same experience. Second, while plagiarism and text reuse detection aim to discover any repeating sequence in a text, this project has sought to discover only rudimentary experiences. In addition to the fact that plagiarism and text reuse detection tools could not offer solutions to the problems above, the project had to face another core difficulty: inference of meaning from longer sequences of words requires substantial further research in Text Mining.</p>
+            <p>In order to retrieve fragments describing experiences that are recurrent and rudimentary, a specific pipeline involving both algorithmic and human supervised stages has been designed by the author. Prior to the implementation of the pipeline, the data underwent a standard linguistic pre-processing, including detection of multiword expressions. The document frequency of all verbs in the corpus was computed, and verbs with document frequencies above the median (0.14) were labelled as “recurrent” and were investigated by a human agent. From this list of recurrent verbs, those expressing rudimentary physical and emotional experiences (for instance, “cry”, “yell”, “fear”) were selected. Focus on verbs is explained by the fact that they are the most natural form to express experience. As a second step, a word embedding model was trained on the data, and synonyms of the pre-selected verbs were identified. The word embedding model broadened the initial focus on verbs since less frequently used adverbial and adjectival expressions were also identified (for instance, “undress”, “barefooted” and “naked”). This resulted in an array of recurrent synonym sets. As a third step, from all textual contexts in which members of a given synonym set occur, document collections were constructed, and trained with a TF-IDF based LDA (Blei et al, 2003). The LDA model resulted in groups of words, also known as topic words, that tend to co-occur in a collection of textual contexts, as well as those textual contexts that are the most likely to be close to the group. As a short evaluation, the context based application of LDA was efficient to analyze the tendency of larger unit of words to co-occur. Traditional metrics to measure strength of association give less efficient results with units longer than bigrams. Furthermore, they cannot capture synonymy while LDA can do in certain cases. The last stage of the pipeline was the analysis of groups of words, and the textual contexts close to them, by a human agent. This was meant to investigate whether a given word combination, uncovered by LDA, actually referred to an experience, and to capture complete phrases, or “fragments,” that express the experience. The result of the modelling process was a collection of approximately 200 fragments expressing 30 rudimentary experiences, though the model continues to identify additional experiences. In short, the pipeline has helped to detect sets of “sub-experiences” associated with a given rudimentary experience (shooting as sub-experience in the domain of nakedness), as well as textual fragments expressing them. At the same time, the model features limitations: it cannot for instance detect metaphorical expressions.</p>
+            <p>The second computational task was to find prototypical episodes in the domain of a rudimentary experience without supervision. For this purpose, the document collection of textual contexts underlying a given synonym set was trained with paragraph vector model (Le and Mikolov, 2014), and clustered with affinity propagation (Frey et al, 2007). This produced not only clusters but specific contexts that are the centers or the prototypical members of clusters. These prototypes are seen as typical episodes in the domain of a rudimentary experience.</p>
+            <p>Using these findings, a digital anthology that renders fragments expressing rudimentary experiences, prototypical instances of rudimentary experiences along with transcripts and audio / video recordings is currently being developed. This anthology will support a hierarchical tree visualization in which branches represent core rudimentary experiences and leaves represent either prototypical instances or sub-experiences in the domain of rudimentary experiences. It will answer three important requirements of scholarship. First, it will uncover the multiplicity of contexts and ways in which the very same rudimentary experiences could take shape. Second, it will enable the investigation of a testimony both as a text and as an audio / video record. Third, the anthology enables the reading, listening or watching of experiences, which were retrieved and selected not by drawing on a historical preconception. Instead, a “let the data speak” approach was implemented in the pipeline described above. The retrieval and selection process was guided by features (recurrence, prototypically, characteristic word combinations) inherent in the data set, which gives rise to a data-driven anthology. As a whole, the anthology does not aim to present hitherto unknown or surprising experiences. Instead, the goal is to challenge the implicit banality of experiences such as “children crying for their parents” by letting survivors talk about them (where and how they happened; most importantly what and how they felt). The contribution of the anthology is the offering of a wide-scale overview of a large variety of experiences - narrated by victims themselves and retrieved with a bottom-up approach - which would not be accessible by reading individual testimonies.</p>
+            <p>The goal of this work can be summarized with an analogy. Original works of Pre-Socratic philosophers vanished forever; nonetheless, their intellectual world have remained accessible and investigable through hundreds of fragments recovered from later works (Kirk et al., 1957). Individual experiences of millions perished, but their likely experiences continue to live through fragments in testimonies. Our contemporary understanding of the Holocaust is by large based on archival sources produced by perpetrators. These sources can help to investigate the process through which victims went through, but not the way victims experienced the process. The anthology of recovered fragments wants to impact scholarship by presenting the perspective of the victim from less studied angles. The overall goal is to let those who did not survive speak through recovered fragments.</p>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl>
+                        <hi rend="bold">Alzahrani S.M, Salim N and Abraham A</hi> (2012). Understanding plagiarism linguistic patterns, textual features, and detection methods. 
+                        <hi rend="italic">IEEE Trans Syst Man Cybern Pt C Appl Rev IEEE Transactions on Systems, Man and Cybernetics Part C: Applications and Reviews</hi>, 
+                        <hi rend="bold">42</hi>(2): 133–49.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Bernard-Donals, M. F. and Glejzer, R. R.</hi> (2001). 
+                        <hi rend="italic">Between Witness and Testimony: The Holocaust and the Limits of Representation (UPCC Book Collections on Project MUSE)</hi>. State University of New York Press.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Blei, D. M., Ng, A. Y. and Jordan, M. I.</hi> (2003). Latent Dirichlet Allocation. 
+                        <hi rend="italic">Journal of Machine Learning Research</hi>, 
+                        <hi rend="bold">3</hi>(4/5): 993–1022.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Büchler, M., Burns, P. R., Müller, M., Franzini, E. and Franzini, G.</hi> (2014). Towards a Historical Text Re-use Detection.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Felman, S. and Laub, D.</hi> (2013). 
+                        <hi rend="italic">Testimony: Crises of Witnessing in Literature, Psychoanalysis and History.</hi> Florence: Taylor and Francis 
+                        <ref target="http://public.ebookcentral.proquest.com/choice/publicfullrecord.aspx?p=1486841">http://public.ebookcentral.proquest.com/choice/publicfullrecord.aspx?p=1486841</ref> (accessed 26 April 2018).
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Frey BJ and Dueck D</hi> (2007). Clustering by passing messages between data points. 
+                        <hi rend="italic">Science (New York, N.Y.)</hi>, 
+                        <hi rend="bold">315</hi>(5814): 972–76.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Hartman, G.</hi> (2015). 
+                        <hi rend="italic">Scars of the Spirit: The Struggle against Inauthenticity</hi>. New York: St. Martin’s Press 
+                        <ref target="http://rbdigital.oneclickdigital.com">http://rbdigital.oneclickdigital.com</ref> (accessed 26 April 2018).
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Kirk, G. S. and Raven, J. E.</hi> (1957). 
+                        <hi rend="italic">The Presocratic Philosophers: A Critical History with a Selection of Texts</hi>. Cambridge, England: University Press.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">LaCapra, D.</hi> (2014). 
+                        <hi rend="italic">Writing History, Writing Trauma</hi>. Baltimore: Johns Hopkins University Press.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Langer, L. L.</hi> (2007). 
+                        <hi rend="italic">Holocaust Testimonies: The Ruins of Memory</hi>. New Haven: Yale University Press.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Le, Q. V. and Mikolov, T.</hi> (2014). Distributed Representations of Sentences and Documents. 
+                        <hi rend="italic">ArXiv:1405.4053 [Cs]</hi>
+                        <ref target="http://arxiv.org/abs/1405.4053">http://arxiv.org/abs/1405.4053</ref> (accessed 26 April 2018).
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Levi, P.</hi> (2018). 
+                        <hi rend="italic">Drowned and the Saved.</hi> London: ABACUS.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Rosen, A.</hi> (2009). 
+                        <hi rend="italic">Sounds of Defiance: The Holocaust, Multilingualism, and the Problem of English</hi>. Lincoln, Neb.; Chesham: University of Nebraska Press.
+                    </bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

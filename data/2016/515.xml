@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>Authorship Verification with the Ruzicka Metric</title>
+                <author>
+                    <persName>
+                        <surname>Kestemont</surname>
+                        <forename>Mike</forename>
+                    </persName>
+                    <affiliation>University of Antwerp, Belgium</affiliation>
+                    <email>mike.kestemont@gmail.com</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Stover</surname>
+                        <forename>Justin</forename>
+                    </persName>
+                    <affiliation>University of Oxford, United Kingdom</affiliation>
+                    <email>justin.stover@classics.ox.ac.uk</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Koppel</surname>
+                        <forename>Moshe</forename>
+                    </persName>
+                    <affiliation>Bar-Ilan University, Israel</affiliation>
+                    <email>moishk@gmail.com</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Karsdorp</surname>
+                        <forename>Folgert</forename>
+                    </persName>
+                    <affiliation>Meertens Institute, The Netherlands</affiliation>
+                    <email>fbkarsdorp@fastmail.nl</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Daelemans</surname>
+                        <forename>Walter</forename>
+                    </persName>
+                    <affiliation>University of Antwerp, Belgium</affiliation>
+                    <email>walter.daelemans@uantwerpen.be</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2016-03-04T20:55:00Z</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Maciej Eder, Pedagogical University in Krakow</publisher>
+                <publisher>Jan Rybicki, Jagiellonian University</publisher>
+                <address>
+                    <addrLine>Institute of Polish Studies</addrLine>
+                    <addrLine>Pedagogical University</addrLine>
+                    <addrLine>ul. Podchorazych 2</addrLine>
+                    <addrLine>30-084 Krakow, Poland</addrLine>
+                    <addrLine>maciej.eder@ijp-pan.krakow.pl</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from a Word document </p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.21">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Long Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>stylometry</term>
+                    <term>authorship verification</term>
+                    <term>classical antiquity</term>
+                    <term>julius caesar</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>classical studies</term>
+                    <term>natural language processing</term>
+                    <term>stylistics and stylometry</term>
+                    <term>text analysis</term>
+                    <term>authorship attribution / authority</term>
+                    <term>English</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <div type="div1" rend="DH-Heading1">
+                <head>Introduction</head>
+                <p>Authorship studies have long played a central role in stylometry, the popular subfield of DH in which the writing style of a text is studied as a function of its author’s identity. While authorship studies come in many flavors, a remarkable aspect is that the field continues to be dominated by so-called ‘lazy’ approaches, where the authorship of an anonymous document is determined by extrapolating the authorship of a document’s nearest neighbor. For this, researchers use metrics to calculate the distances between vector representations of documents in a higher-dimensional space, such as the well-known Manhattan city block distance. In this paper, we apply the minmax metric – originally proposed in the field of geobotanics – to the problem of authorship attribution and verification. Comparative evaluations across a variety of benchmark corpora show that this metric yields better, as well as more consistent results than previously used metrics. While intuitively simply, this metric generally displays a regularising effect across different hyperparametrizations, and allows the more effective use of larger vocabularies and sparser document vectors. In particular the metric seems much less sensitive than its main competitors to (the dimensionality of) the vector space model under which the metric is applied.</p>
+                <p>Most authorship studies in computer science are restricted to present-day document collections. In this paper, we illustrate the broader applicability of the minmax metric by applying it to a high-profile case study from Classical Antiquity. The ‘War Commentaries’ by Julius Caesar (
+                    <hi rend="italic">Corpus Caesarianum</hi>) refers to a group of Latin prose commentaries, describing the military campaigns of the world-renowned Roman statesman Julius Caesar (100-44 BC). While Caesar must have authored a significant portion of these commentaries himself, the exact delineation of his contribution to this important corpus remains a controversial matter. Most notably, Aulus Hirtius – one of Caesar’s most trusted generals – is sometimes believed to have contributed significantly to the corpus. Thus, the authenticity and authorship of the Caesarian corpus is a philological puzzle that has persisted for nineteen centuries. In our paper, we shed new light on this matter.
+                </p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Benchmarking</head>
+                <p>To properly evaluate the performance of the novel Ruzicka minmax metric, we turn to a publicly available benchmark corpora: the multilingual datasets (Dutch, English, Greek, and Spanish) used by the 2014 track on authorship verification in the PAN competition on uncovering plagiarism, authorship, and social software misuse. This track focused on the “open” task of authorship verification (as opposed to the closed set-up of authorship verification). Each dataset holds a number of “problems”, where given (a) at least one training text by a particular target author, (b) a set of similar mini-oeuvres by other authors, and (c) a new anonymous text, the task is to determine whether or not the anonymous text was written by the target author. A system must output for each of the problems a real-valued confidence score between 0.0 (“definitely not the same author”) and 1.0 (“definitely the same author”). By outputting the value of 0.5, a system can specify that it was not able to solve a problem. For each dataset, a fully independent training and test corpus are available (i.e. the problems, nor authors and texts in both sets do not overlap). Systems are eventually evaluated using two scoring metrics which were also used at the PAN: the established AUC-score, as well as the so-called c@1, a variation of the traditional accuracy-score, which gives more credit to systems that decide to leave some difficult verification problems unanswered. In the full paper, we offer a complete evaluation of all datasets: for the sake of brevity, this paper is restricted to a representative selection of results.</p>
+                <p>As common in text classification research, we vectorize the datasets into a tabular model, under a ‘bag-of-words’ assumption, which is largely ignorant of the original word order in document. Unless reported otherwise, we use character tetragrams below (Koppel et al., 2014), which yield generally acceptable results across corpora. We experiment with a number of different vector space models, the results of which can be summarized as follows:</p>
+                <list type="unordered">
+                    <item>plain 
+                        <hi rend="italic">tf</hi> (where simple relative frequencies are used);
+                    </item>
+                    <item>
+                        <hi rend="italic">tf-std</hi>, where the 
+                        <hi rend="italic">tf</hi>-model is scaled using a feature’s standard deviation in the corpus (cf. Burrows’s Delta: Burrows, 2002);
+                    </item>
+                    <item>
+                        <hi rend="italic">tf-idf</hi>, where the 
+                        <hi rend="italic">tf</hi>-model is scaled using a feature’s inverse document-frequency (to increase the weight of rare terms).
+                    </item>
+                    <item>…</item>
+                </list>
+                <p>In our experiments, we focus on the Ruzicka ‘minmax’ distance metric, a still fairly novel algorithm in the field of stylometry. Just as the Euclidean or Manhattan distance, this metric will calculate a real-valued distance score between two document vector A and B as follows:</p>
+                <figure>
+                    <graphic url="515/image1.png" rend="inline"/>
+                </figure>
+                <p>While the formula below uses the tf-model, the Ruzicka distance can of course be easily applied to other vector space models too. In our paper, we will offer a intuitive assessment of the desirable properties of this metric (e.g. in comparison to Burrows’s Delta).</p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>General Imposters Framework (GI)</head>
+                <p>In our experiments, we make amongst others use of the General Imposters Method, a bootstrapped approach to authorship verification which has recently yielded excellent results. Fitting the verifier on the train data involves two steps. First, we calculate a distance score for the anonymous document in each problem, using Algorithm 1, in order to determine whether the anonymous text was written by the target author specified in the problem:</p>
+                <figure>
+                    <graphic url="515/image2.png" rend="inline"/>
+                </figure>
+                <p>Thus, during 
+                    <hi rend="italic">k</hi> iterations (default 100), we randomly select a sample (e.g. 50%) of all the available features in the data set. Likewise, we randomly select 
+                    <hi rend="italic">m</hi> ‘imposter’ documents (default 30), which were not written by the target author. Next, we use a 
+                    <hi rend="italic">dist()</hi> function to assess whether the anonymous text is closer to any text by the target author than to any text written by the imposters. Here, 
+                    <hi rend="italic">dist()</hi> represents a regular, geometric distance metric, such as the Manhattan or Ruzicka metric. The score returned by Algorithm 1 has been characterized as a ‘second-order’ metric, because it does not rely on the rather comparison of document vectors. The general intuition here, is that we do not just calculate how different two documents are; rather we test whether the stylistic differences between them are consistent (a) across many different feature sets, and (b) in comparison to other randomly, sampled documents.
+                </p>
+                <p>In the second stage, we attempt to optimize the distance scores returned by Algorithm 1, in the light of the specific evaluation measures used. We apply a score shifter (Algorithm 2), which attempts to define a ‘grey zone’ where the results seem too unreliable to output a score (cf. c@1):</p>
+                <figure>
+                    <graphic url="515/image3.png" rend="inline"/>
+                </figure>
+                <p>Through a grid search of different values between 0 and 1 for p1 and p2, we determine the settings which yield the optimal AUC x c@1 on the train data. In Fig. 1, we plot the optimal results which could be obtained on the train problems in the data set of Dutch Essays, for a specific combination of a metric and a vector space model. We ran the experiment 20 times, with increasing vocabulary truncations (e.g. the 1000 most frequent tetragrams). The results demonstrate how the Ruzicka minmax metric returns the most stable results across the experiments and clearly has a regularizing effect across different hyperparametrizations. In the full paper, we will present a complete evaluation of this system on all the PAN datasets, which in most cases yields surprisingly competitive scores on the test data, even without much corpus-specific parameter tuning. In the table below, we show the test results for Dutch essays corpus in terms of the AUC x c@1. The best combination reaches a AUC x c@1 of 0.886 on the test data (combination of 
+                    <hi rend="italic">minmax</hi> and 
+                    <hi rend="italic">std</hi>), whereas the best individual system submitted to PAN 2014 only reached 0.823 on that test dataset. Using randomized significance tests, we will additionally demonstrate the regularizing effect of the Ruzicka distance across vector spaces; its strong performance is also evident from Table 1.
+                </p>
+                <figure>
+                    <graphic url="515/image4.png" rend="inline"/>
+                    <head>Figure 1: Optimal results on train corpus</head>
+                </figure>
+                <table rend="rules">
+                    <row>
+                        <cell rend="DH-Default"/>
+                    </row>
+                    <row>
+                        <cell>
+                            <table rend="rules">
+                                <row>
+                                    <cell rend="DH-Default">Vector Space / Metric</cell>
+                                    <cell rend="DH-Default">Euclidean</cell>
+                                    <cell rend="DH-Default">Manhattan</cell>
+                                    <cell rend="DH-Default">Minmax</cell>
+                                </row>
+                                <row>
+                                    <cell rend="DH-Default">Tf</cell>
+                                    <cell rend="DH-Default">0.676</cell>
+                                    <cell rend="DH-Default">0.698</cell>
+                                    <cell rend="DH-Default">0.837</cell>
+                                </row>
+                                <row>
+                                    <cell rend="DH-Default">Tf-Idf</cell>
+                                    <cell rend="DH-Default">0.720</cell>
+                                    <cell rend="DH-Default">0.750</cell>
+                                    <cell rend="DH-Default">0.854</cell>
+                                </row>
+                                <row>
+                                    <cell rend="DH-Default">Tf-Std</cell>
+                                    <cell rend="DH-Default">0.614</cell>
+                                    <cell rend="DH-Default">0.701</cell>
+                                    <cell rend="DH-Default">0.886</cell>
+                                </row>
+                            </table>
+                        </cell>
+                    </row>
+                </table>
+                <p>Table 1: Final test results (AUC x C@1)</p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Corpus Caesarianum</head>
+                <p>To further illustrate the applicability of the Ruzicka metric for authorship problems in traditional philology, we also report a stylometric case study concerning the 
+                    <hi rend="italic">Corpus Caesarianum</hi>. This 
+                    <hi rend="italic">Corpus</hi> is a group of five commentaries Caesar’s military campaigns:
+                </p>
+                <list type="unordered">
+                    <item>
+                        <hi rend="italic">Bellum Gallicum</hi>, the conquest of Gaul, 58 to 50 BC;
+                    </item>
+                    <item>
+                        <hi rend="italic">Bellum civile</hi>, the civil war with Pompey, 49 to 48 BC;
+                    </item>
+                    <item>
+                        <hi rend="italic">Bellum Alexandrinum</hi>, the campaigns in Egypt etc., 48 to 47 BC;
+                    </item>
+                    <item>
+                        <hi rend="italic">Bellum Africum</hi>, the war in North Africa, 47 to 46 BC
+                    </item>
+                    <item>
+                        <hi rend="italic">Bellum Hispaniense</hi>, a rebellion in Spain, 46 to 45 BC.
+                    </item>
+                </list>
+                <p>The first two commentaries are mainly by Caesar himself, the only exception being the final part of the 
+                    <hi rend="italic">Gallic War</hi> (Book 8), which is by Caesar’s general Aulus Hirtius. Suetonius, writing a century and a half later, suggests that either Hirtius or another general, named Oppius, authored the remaining works. We will report experiments which broadly supports the Hirtius’s own claim that he himself compiled and edited the corpus of the non-Caesarian commentaries. Figure 2, for instance, shows a heatmap-like visualisation, in which Hirtius’s Book 8 of the 
+                    <hi rend="italic">Gallic War</hi> clearly clusters with the bulk of the 
+                    <hi rend="italic">Alexandrian War</hi> (labeled 
+                    <hi rend="italic">x</hi>).
+                </p>
+                <figure>
+                    <graphic url="515/image5.png" rend="inline"/>
+                    <head>Figure 2: Minmax-based clustermap of 1000-word samples of the 
+                        <hi rend="italic">Corpus Caesarianum</hi>.
+                    </head>
+                </figure>
+            </div>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl>
+                        <hi rend="bold">Argamon, S.</hi> (2008). Interpreting Burrows’s Delta: Geometric and probabilistic foundations. 
+                        <hi rend="italic">Literary and Linguistic Computing</hi>,<hi rend="bold"> 23</hi>: 131-47.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Burrows. J. F.</hi> (2002). ‘Delta’: A measure of stylistic difference and a guide to likely authorship. 
+                        <hi rend="italic">Literary and Linguistic Computing</hi>,<hi rend="bold"> 17</hi>: 267-87.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Gaertner, J. and Hausburg, B.</hi> (2013). 
+                        <hi rend="italic">Caesar and the Bellum Alexandrinum: An Analysis of Style, Narrative Technique, and the Reception of Greek Historiography</hi>. Vandenhoeck &amp; Ruprecht, Göttingen.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Koppel, M. and Winter, Y.</hi> (2014). Determining if two documents are written by the same author. 
+                        <hi rend="italic">Journal of the Association for Information Science and Technology</hi>, <hi rend="bold">65</hi>: 178–87.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Mayer, M. </hi>(2011). Caesar and the corpus caesarianum. In Marasco, G. (ed), 
+                        <hi rend="italic">Political auto-biographies and memoirs in antiquity: A Brill companion</hi>. Brill, Leiden, pp. 189-232.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Stamatatos, E. et al.</hi> (2014). Overview of the author identification task at PAN 2014. In 
+                        <hi rend="italic">Working Notes for CLEF 2014 Conference</hi>, pp. 877-97.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Stover, J., Winter, Y., Koppel, M. and Kestemont, M.</hi> (2016). Computational authorship verification method attributes a new work to a major 2nd century African author. 
+                        <hi rend="italic">Journal of the American Society for Information Science and Technology</hi>,<hi rend="bold"> 66</hi>: 239-42.
+                    </bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

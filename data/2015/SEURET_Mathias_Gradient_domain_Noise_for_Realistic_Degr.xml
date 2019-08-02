@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>Gradient-domain Noise for Realistic Degradations in Historical Documents Images</title>
+                <author>
+                    <persName>
+                        <surname>Seuret</surname>
+                        <forename>Mathias</forename>
+                    </persName>
+                    <affiliation>University of Fribourg, Switzerland</affiliation>
+                    <email>mathias.seuret@unifr.ch</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Eichenberger</surname>
+                        <forename>Nicole</forename>
+                    </persName>
+                    <affiliation>University of Fribourg, Switzerland</affiliation>
+                    <email>nicole.eichenberger@unifr.ch</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Liwicki</surname>
+                        <forename>Marcus</forename>
+                    </persName>
+                    <affiliation>University of Fribourg, Switzerland</affiliation>
+                    <email>marcus.eichenberger-liwicki@unifr.ch</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Ingold</surname>
+                        <forename>Rolf</forename>
+                    </persName>
+                    <affiliation>University of Fribourg, Switzerland</affiliation>
+                    <email>rolf.ingold@unifr.ch</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2014-12-19T13:50:00Z</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Paul Arthur, University of Western Sidney</publisher>
+                <address>
+                    <addrLine>Locked Bag 1797</addrLine>
+                    <addrLine>Penrith NSW 2751</addrLine>
+                    <addrLine>Australia</addrLine>
+                    <addrLine>Paul Arthur</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from a Word document </p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.9">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Long Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>historical document image processing</term>
+                    <term>degradation</term>
+                    <term>noising</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>image processing</term>
+                    <term>digitisation</term>
+                    <term>resource creation</term>
+                    <term>and discovery</term>
+                    <term>interdisciplinary collaboration</term>
+                    <term>programming</term>
+                    <term>English</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <p>We developed a novel method for adding realistic degradations to color document images in order to generate large sets of training data for computational processing. We extract and process patches of real noise from degraded documents and paste them into the target document image using the gradient domain in order to achieve independence from the hue of the document. We will describe the novel algorithm and present an expert’s opinion on the data generated.</p>
+            <p>* * *</p>
+            <p>Historical documents suffer from different kinds of damages during their conservation, caused by either constant use (e.g., stains, fingermarks, ink strokes or spots, scratches, degradation of ink by abrasion), by inappropriate storage conditions (such as mildew caused by humidity), by historical catastrophes like wars, or by the material itself (such as ink corrosion). These damages can affect the readability of the manuscripts and also pose a severe challenge for digital processing of such documents.</p>
+            <p>Developing robust digital processing algorithms requires machine learning, which relies on huge amounts of realistic training data, i.e., large sets of document images together with their corresponding ground truth (which refers to the expected labeling of the document). The high cost of ground-truthing limits the number of available training and testing documents. This motivates the development of methods that artificially add noise to existing ground-truthed documents in order to increase the number of available training documents.</p>
+            <p>Fischer et al. (2013) presented a method to generate training samples by deforming binarized text lines. They showed that the accuracy of text recognition could be increased by up to 3.23% by their method.</p>
+            <figure>
+                <graphic n="1001" width="11.297708333333333cm" height="5.662083333333333cm" url="Pictures/image1.png" rend="inline"/>
+            </figure>
+            <p>Figure 1. An document image sample (left) and its degraded version (right).</p>
+            <p>Kieu et al. (2012) have presented a local noise generation method for historical document gray-scale images. They evaluated their method with optical characters recognition (OCR) software and found a linear relation between the quantity of the noise and the recognition error rate. Several other methods have been developed, but they all work either on the red, green, and blue values of images, or on binary (black-and-white) images.</p>
+            <p>Methodology</p>
+            <p>The main novelty of our method is, contrary to previous work, to work in the gradient domain of color images, i.e., using the difference of values between pixels, and to use patches of real degradations from existing document images.</p>
+            <p>To insert degradation patches in the gradient domain, we first compute the gradients of the document image and of the degradation patches, then paste the gradients of the degradations on the gradients of the document image, and finally reconstruct the document image from its modified gradients. This method is illustrated in Figure 1. Working in the RGB color space would lead to inconsistencies if the document from which we extracted the degradations does not have a very similar background color as our target document image. Working in the gradient domain to avoid this is the main novelty of our method.</p>
+            <p>Our method is inspired by the Poisson image editing method presented by Pérez et al. (2003). First, we compute the horizontal and vertical gradients of the image. Then we apply the degradations on these gradients. Finally, we construct the result image from the modified gradients.</p>
+            <p>Scholar’s Point of View</p>
+            <p>From a manuscript scholar’s point of view, the method for adding synthetic noise presents advantages and disadvantages regarding its verisimilitude. One advantage is that the inserted patches are based on real degradations appearing in historical documents; thus, they represent realistic historical degradations. This method provides a rather realistic impression for small-sized details of a manuscript page. However, the overall impression of an entire page looks less realistic, because the degradation patches are spread repeatedly, following a uniform random distribution over the page, and can easily be recognized as artificially added. Thus, the gradient method is appropriate for simulating degradations such as stains, scratches, and ink spots, which mostly overlap the script or the background, but doesn’t have a direct impact on the script (as, for example, abrasion and humidity do). It works best on small-scale details.</p>
+            <p>Discussion</p>
+            <p>Our method can be used to generate document images to train machine learning algorithms. The settings of the software that we developed are easy to manipulate by non–computer scientists. However, precautions have to be taken in order to clarify that the resulting degraded documents do not represent the actual state of the real historical document. As future work, we will compute statistics about the position of the degradations while extracting patches in order to generate more realistic distribution models.</p>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl>
+                        <hi rend="bold">
+                            <hi rend="color(222222)">Fischer</hi>
+                            <hi rend="color(222222)">,</hi>
+                            <hi rend="color(222222)"> A., </hi>
+                            <hi rend="color(222222)">Visani</hi>
+                            <hi rend="color(222222)">,</hi>
+                            <hi rend="color(222222)"> M., </hi>
+                            <hi rend="color(222222)">Kieu</hi>
+                            <hi rend="color(222222)">, </hi>
+                            <hi rend="color(222222)">C. V. </hi>
+                            <hi rend="color(222222)">and </hi>
+                            <hi rend="color(222222)">Suen</hi>
+                            <hi rend="color(222222)">,</hi>
+                            <hi rend="color(222222)"> C. Y.</hi>
+                        </hi>
+                        <hi rend="color(222222)">(2013). Generation of Learning Samples for Historical Handwriting Recognition Using Image Degradation. In </hi>
+                        <hi rend="italic color(222222)">Proceedings of the 2nd International Workshop on Historical Document Imaging and Processing</hi>
+                        <hi rend="color(222222)">, pp. 73–79.</hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">
+                            <hi rend="color(222222)">Kieu</hi>
+                            <hi rend="color(222222)">, </hi>
+                            <hi rend="color(222222)">C. V., </hi>
+                            <hi rend="color(222222)">Visani</hi>
+                            <hi rend="color(222222)">,</hi>
+                            <hi rend="color(222222)"> M., </hi>
+                            <hi rend="color(222222)">Journet</hi>
+                            <hi rend="color(222222)">, N., </hi>
+                            <hi rend="color(222222)">Domenger</hi>
+                            <hi rend="color(222222)"> J.-P.</hi>
+                            <hi rend="color(222222)">and</hi>
+                            <hi rend="color(222222)">Mullot</hi>
+                            <hi rend="color(222222)">,</hi>
+                            <hi rend="color(222222)"> R.</hi>
+                        </hi>
+                        <hi rend="apple-converted-space">
+                            <hi rend="color(222222)"> </hi>
+                        </hi>
+                        <hi rend="color(222222)">(2012). A Character Degradation Model for Grayscale Ancient Document Images. In </hi>
+                        <hi rend="italic color(222222)">21st International Conference on Pattern Recognition (ICPR),</hi>
+                        <hi rend="color(222222)"> pp. 685–88.</hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Pérez, P., Gangnet, M. and Blake, A.</hi> (2003). Poisson Image Editing. In 
+                        <hi rend="italic">ACM Transactions on Graphics (TOG),</hi> pp. 313–18.
+                    </bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

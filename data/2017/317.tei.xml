@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xsi:schemaLocation="http://www.tei-c.org/ns/1.0 /Users/yoann/Work/Grobid/grobid-home/schemas/xsd/Grobid.xsd"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+	<teiHeader xml:lang="en">
+		<encodingDesc>
+			<appInfo>
+				<application version="0.5.4-SNAPSHOT" ident="GROBID" when="2019-06-05T06:27+0000">
+					<ref target="https://github.com/kermitt2/grobid">GROBID - A machine learning software for extracting information from scholarly documents</ref>
+				</application>
+			</appInfo>
+		</encodingDesc>
+		<fileDesc>
+			<titleStmt>
+				<title level="a" type="main">What Changed When Andy Weir&apos;s The Martian Got Edited?</title>
+			</titleStmt>
+			<publicationStmt>
+				<publisher/>
+				<availability status="unknown"><licence/></availability>
+			</publicationStmt>
+			<sourceDesc>
+				<biblStruct>
+					<analytic>
+						<author>
+							<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">Erik</forename><surname>Ketzan</surname></persName>
+							<email>eketza01@mail.bbk.ac.uk</email>
+							<affiliation key="aff0">
+								<orgName type="institution">University of London</orgName>
+								<address>
+									<settlement>Birkbeck</settlement>
+									<country key="GB">United Kingdom</country>
+								</address>
+							</affiliation>
+						</author>
+						<author>
+							<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">Christof</forename><surname>Schöch</surname></persName>
+							<email>christof.schoech@uni-wuerzburg.de</email>
+							<affiliation key="aff1">
+								<orgName type="institution">University of Wü rzburg</orgName>
+								<address>
+									<country key="DE">Germany</country>
+								</address>
+							</affiliation>
+						</author>
+						<title level="a" type="main">What Changed When Andy Weir&apos;s The Martian Got Edited?</title>
+					</analytic>
+					<monogr>
+						<imprint>
+							<date/>
+						</imprint>
+					</monogr>
+				</biblStruct>
+			</sourceDesc>
+		</fileDesc>
+		<profileDesc>
+			<abstract/>
+		</profileDesc>
+	</teiHeader>
+	<text xml:lang="en">
+		<body>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Introduction</head><p>The Martian is a best-selling science fiction novel by Andy Weir that became a hit film in 2015. The novel exists in two versions, or variants: Weir self-published The Martian on his personal website in 2011 (hereafter, "Martian1") and began selling it on Amazon.com in 2012. Crown Publishing subsequently bought the rights, edited the book, and re-released it (hereafter, "Martian2").</p><p>The research presented here investigates what exactly changed when The Martian got edited. At first glance, the two versions appear essentially the same, with no major changes to plot, character, or structure. A closer look using a combination of quantitative and qualitative methods, however, reveals a number of noteworthy changes, as well as notable changes that result from thousands of seemingly minor copyedits.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Aims</head><p>The aim of our research is to identify what changed between the two variants of The Martian using a combination of close reading and digital methods, analyze why those changes are important, and propose a methodology for comparing self-published and later-edited novels, an increasingly common phenomenon. We hypothesize that the editing process of a leading publishing house results in a novel that is more "mainstream", i.e. socialised, domesticated, and appealing to a general audience. In order to test this hypothesis, we explore a range of aspects, including style, content, and character. Our research also aims to bring a critical perspective to the strengths and weaknesses of a variety of qualitative and technical methods in identifying the edits and assessing their importance.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Related Work</head><p>In addition to work in digital genetic criticism (e.g. van Hulle 2008), a small number of studies use digital methods to explore variants of contemporary fiction. Yufang Ho (2011) compared the 1966 and revised 1977 versions of John Fowles's novel The Magus, while Martin Paul Eve (2016) looked at differences in the US and UK versions of David Mitchell's Cloud Atlas. As both Ho and Eve use different methods from one another and from us, it appears that no standard method has emerged so far for this type of research.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Data</head><p>The data used for this research is primarily two plain text files of the variants of The Martian. Martian1 was obtained in PDF format from Andy Weir's website. Martian2 was obtained by scanning a print copy, performing OCR with manual corrections. We consider this our best option given the legal issues regarding text protected by copyright.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Methods and Results</head></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Basic collation</head><p>We used the Wdiff frontend to the "diff" algorithm <ref type="bibr" target="#b4">(Hunt &amp; McIlroy 1975)</ref> to produce a collated version of Martian1 and Martian2 and assess the number and extent of the edits. We then used bespoke Python scripts to classify the edits identified by Wdiff.</p><p>We found a total of 5146 edits were made to the novel. While 92% of the 101,000 words in Martian1 remain unchanged in Martian2, the remaining 8% of the words undergo some type of edit, whether they are deleted or modified ( <ref type="figure" target="#fig_0">Figure 1</ref>). The sheer number of edits calls for automatic means to classify them and detect any patterns. </p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Automatic Classification of Edits</head><p>Edits were automatically classified into two broad categories: script-detectable copyedits, and all other edits. Script-detectable copyedits includes changes in capitalization, whitespace, hyphenation, spelling of numbers, abbreviations, or combinations thereof ( <ref type="figure" target="#fig_1">Figure 2</ref>). All other edits were classified as insertion, deletion, expansion or condensation and as "minor" or "major", depending on the Levenshtein distance <ref type="figure" target="#fig_2">(Figure 3)</ref>. Of the 5146 edits, 2863 (or 55%) were script-detectable copyedits, while 2283 (or 45%) comprised the rest. The code used as well as the collation data obtained are available on GitHub.  </p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Cumulative Effect of the Script-Identifiable Copyedits</head><p>Taken together, the 2863 script-identifiable copyedits have substantial effects upon the text. Weir's many misspellings and misuse of hyphens and capitalization are corrected. Numbers in Martian1 are overwhelmingly written numerically, and 765 of these become words in Martian2, e.g. "8" becomes "eight". We found 231 instances of edits involving abbreviations, e.g. "L" becomes "liters".</p><p>The copyedits work together in different ways when they appear in protagonist Mark Watney's narration or in sections written in the third person <ref type="figure" target="#fig_3">(Figure 4)</ref>. When Watney narrates, the hundreds of misspellings, numerals, and scientific abbreviations in Martian1 support the fiction that he is a scientist working in extreme conditions. Martian2 increases readability but eliminates the stylistic realism of Watney's text. When Weir uses, for instance, numerals in the dialogue of other characters, the effect can be jarring. Martian2 corrects this for the better. </p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Detecting transpositions with CollateX</head><p>Wdiff does not detect transpositions, or text that has been moved to a different location in the novel. Using CollateX (Dekker &amp; Middell 2011) as described in Schö ch (2016) revealed a total of 126 transpositions. Twenty-eight (or 22%) involve punctuation and should be considered artefacts of the method; 43 (or 34%) represent transpositions of a single word, showing stylistic preferences on the word-order level; 55 (or 44%) concern multi-word expressions which change the overall construction of a sentence or paragraph more substantially. <ref type="figure" target="#fig_4">Figure 5</ref> shows a relatively minor transposition appearing in combination with a contraction of a sentence. We conclude that, quantitatively and qualitatively, transpositions were not a major part of the edit to The Martian. However, future work could apply the same method to other, comparable variants of novels to gain better reference points.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Close Reading of Other Edits</head><p>When we grouped the other edits, placed them into a spreadsheet, and manually inspected them, a number of thematic and stylistic shifts between Martian1 and Martian2 became apparent.</p><p>Profanity is a key stylistic feature of The Martian that is substantially cut and softened by the edit. Words like "fuck" and "shit" are substantially reduced (by about 33% and 15%, respectively), while numerous other words and phrases are softened with "lesser" profanity or simple non-profanity (e.g. "the shit hits the fan" becomes "all hell breaks loose"). <ref type="figure" target="#fig_5">Figure 6</ref> shows a selection of these edits. Similarly, crude and sophomoric humor is cut in key instances. The plot of The Martian revolves around solving one problem after another to rescue an astronaut, Mark Watney, stranded on Mars, while relatively little text is devoted to Watney's emotions or inner world. In Martian2, however, Watney expresses significantly more emotion: he misses his family and friends more and expresses despair, loneliness, and introspection more often. The Martian Additionally, Martian1 contains an epilogue that is completely cut in the edit. It portrays Watney, back on Earth, being openly and profanely rude to a young fan. In Martian2, meanwhile, text is added to have Watney express gracious appreciation for all the parties involved in his rescue and a widespread faith in human nature. The edit therefore alters the tone of the ending substantially.</p><p>We believe that all of these changes, analyzed together with close reading, serve to align Watney's character with our overall hypothesized goal of the edit: to make Watney more "relatable," "nice," and "human," and thus to appeal to a wider audience.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Edits Over the Course of the Novel</head><p>Patterns in the edits related to textual progression are revealed by measuring the absolute Levenshtein distance of the script-identifiable copyedits and other edits line by line (Levenshtein distance is a metric for measuring the difference between two sequences, see <ref type="bibr">Navarro 2001</ref>).  <ref type="table">Sum of absolute Levenshtein distance per line  over textual progression (script-identifiable copyedits in red,</ref> other edits in blue). <ref type="figure" target="#fig_6">Figure 7</ref> shows the sum of the absolute Levenshtein distances for each line of the novel (with SavitzkyGolay smoothing applied). The graph shows the substantial modifications to the ending of the novel, but also a large number of locations with smaller but nonetheless above-average modifications.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Conclusion and Further Research</head><p>We have identified and analyzed a number of key features that emerged from the editing of The Martian, notably on the level of style and character, which combine to make the novel more appealing to a wider audience.</p><p>Ongoing research into The Martian concerns the relative frequency and function of parts of speech, quantifying the amount of syntactic change, and the legal issues affecting the obtaining and processing of the texts. We hope to present these additional findings in the near future.</p><p>As for our typology of edits, an established methodology for classifying edits in the companion fields of textual analysis and scholarly editing is the distinction between the "accidentals" and "substantives" used by the Greg-Bowers tradition and included in the MLA Committee on Scholarly Editions' Guidelines for Editors of Scholarly Editions (Modern Language Association, 2011). Scholars are not unanimous, however, in supporting this. G. Thomas Tanselle, for instance, found these terms "misleading and often untenable in their implication of a firm distinction in all cases" <ref type="bibr">(Greetham 1992, pp.335-336)</ref>. Further, there appears to be no widely-applicable typology of edits in digital scholarly editing and collation, with different materials calling for different typologies (see TEI-L 2016).</p><p>Our typology of edits departs from previously proposed ones by focusing entirely on types which can be identified automatically, based on surface features. While limited in scope and excluding any semantic criteria, our typology may serve as a first approach to the edits of any text and allow quantitative comparison of some key phenomena. We believe that our method could be applied to other variants of fiction - by itself or incorporated alongside another taxonomy, including accidentals/substantives -particularly to novels which begin as self-published works but are later edited and re-released, an increasingly important phenomenon in contemporary fiction.</p></div><figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_0"><head>Figure 1 :</head><label>1</label><figDesc>Figure 1: Visualization of edits to The Martian as grouped by Wdiff.</figDesc><graphic url="image-1.png" coords="1,316.86,557.58,241.20,102.72" type="bitmap" /></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_1"><head>Figure 2 :</head><label>2</label><figDesc>Figure 2: Script-identifiable copyedits to The Martian.</figDesc><graphic url="image-2.png" coords="2,54.30,225.90,241.44,136.08" type="bitmap" /></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_2"><head>Figure 3 :</head><label>3</label><figDesc>Figure 3: All other edits to The Martian.</figDesc><graphic url="image-3.png" coords="2,54.30,400.62,241.44,135.84" type="bitmap" /></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_3"><head>Figure 4 :</head><label>4</label><figDesc>Figure 4: Edits to numerals and scientific abbreviations in Watney's narration (top) and third-person character dialogue (bottom).</figDesc><graphic url="image-4.png" coords="2,316.86,195.42,241.44,107.04" type="bitmap" /></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_4"><head>Figure 5 :</head><label>5</label><figDesc>Figure 5: An example of a transposition identified by CollateX.</figDesc><graphic url="image-5.png" coords="3,54.30,84.54,241.44,279.12" type="bitmap" /></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_5"><head>Figure 6 :</head><label>6</label><figDesc>Figure 6: examples of toned-down profanity in the editing of The Martian</figDesc><graphic url="image-6.png" coords="3,316.86,109.26,241.44,142.80" type="bitmap" /></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_6"><head>Figure 7 :</head><label>7</label><figDesc>Figure 7: Sum of absolute Levenshtein distance per line over textual progression (script-identifiable copyedits in red, other edits in blue).</figDesc></figure>
+		</body>
+		<back>
+			<div type="references">
+
+				<listBibl>
+
+<biblStruct xml:id="b0">
+	<monogr>
+		<title level="m" type="main">Computer-Supported Collation with CollateX: Managing Textual Variance in an Environment with Varying Requirements. Supporting Digital Humanities</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">R</forename><surname>Dekker</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">G</forename><surname>Middell</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="2011-11" />
+			<biblScope unit="page" from="17" to="18" />
+			<pubPlace>Copenhagen, Denmark</pubPlace>
+		</imprint>
+		<respStmt>
+			<orgName>University of</orgName>
+		</respStmt>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b1">
+	<monogr>
+		<title level="m" type="main">You have to keep track of your changes&quot;: The Version Variants and Publishing History of David Mitchell&apos;s Cloud Atlas, Open Library of Humanities</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">M</forename><forename type="middle">P</forename><surname>Eve</surname></persName>
+		</author>
+		<idno type="doi">10.16995/olh.82/</idno>
+		<ptr target="https://olh.openlibhums.org/article/10.16995/olh.82/" />
+		<imprint>
+			<date type="published" when="2016" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b2">
+	<monogr>
+		<title level="m" type="main">Textual scholarship: An introduction</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">D</forename><surname>Greetham</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="1992" />
+			<publisher>Garland Publishing</publisher>
+			<pubPlace>New York/London</pubPlace>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b3">
+	<monogr>
+				<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">Y</forename><surname>Ho</surname></persName>
+		</author>
+		<title level="m">Corpus Stylistics in Principles and Practice: A Stylistic Exploration of John Fowles&apos; The Magus</title>
+		<meeting><address><addrLine>New York</addrLine></address></meeting>
+		<imprint>
+			<date type="published" when="2011" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b4">
+	<analytic>
+		<title level="a" type="main">An algorithm for differential file comparison</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">J</forename><forename type="middle">W</forename><surname>Hunt</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">M</forename><forename type="middle">D</forename><surname>Mcilroy</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Computer Science</title>
+		<imprint>
+			<date type="published" when="1975" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b5">
+	<analytic>
+		<title level="a" type="main">A guided tour to approximate string matching</title>
+		<idno type="doi">doi:10.1145/375360.375365</idno>
+		<ptr target="https://www.mla.org/Resources/Research/Surveys-Reports-" />
+	</analytic>
+	<monogr>
+		<title level="m">Other-Documents/Publishing-andScholarship/Reports-from-the-MLA-Committee-onScholarly-Editions/Guidelines-for</title>
+		<imprint>
+			<date type="published" when="2001" />
+			<biblScope unit="volume">33</biblScope>
+			<biblScope unit="page" from="31" to="88" />
+		</imprint>
+	</monogr>
+	<note>Reports from the MLA Committee on Scholarly Editions</note>
+</biblStruct>
+
+<biblStruct xml:id="b6">
+	<monogr>
+		<title level="m" type="main">Detecting Transpositions when Comparing Text Versions using CollateX. The Dragonfly&apos;s Gaze</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">C</forename><surname>Schöch</surname></persName>
+		</author>
+		<ptr target="http://dragonfly.hypotheses.org/954" />
+		<imprint>
+			<date type="published" when="2016" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b7">
+	<monogr>
+				<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">Tei-L</forename></persName>
+		</author>
+		<ptr target="http://tei-l.970651.n3.nabble.com/Types-of-edits-tp4028495" />
+		<title level="m">Manuscript Genetics, Joyce&apos;s KnowHow, Beckett&apos;s Nohow</title>
+		<meeting><address><addrLine>Gainesville</addrLine></address></meeting>
+		<imprint>
+			<publisher>University Press of Florida</publisher>
+			<date type="published" when="2008" />
+		</imprint>
+	</monogr>
+	<note>Types of Edits. TEI-List</note>
+</biblStruct>
+
+<biblStruct xml:id="b8">
+	<monogr>
+		<title level="m" type="main">The Martian. Self-published</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">A</forename><surname>Weir</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="2011" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b9">
+	<monogr>
+		<title level="m" type="main">The Martian</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">A</forename><surname>Weir</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="2014" />
+			<publisher>Crown Publishing Group</publisher>
+			<pubPlace>New York</pubPlace>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+				</listBibl>
+			</div>
+		</back>
+	</text>
+</TEI>

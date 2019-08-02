@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>Towards Linked Data of Bible Quotations in Jewish Texts</title>
+                <author>
+                    <persName>
+                        <surname>Mishali</surname>
+                        <forename>Oren</forename>
+                    </persName>
+                    <affiliation>Technion, Israel Institute of Technology, Israel</affiliation>
+                    <email>oren.mishali@gmail.com</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Kimelfeld</surname>
+                        <forename>Benny</forename>
+                    </persName>
+                    <affiliation>Technion, Israel Institute of Technology, Israel</affiliation>
+                    <email>bennyk@cs.technion.ac.il</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2014-12-19T13:50:00Z</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Name, Institution</publisher>
+                <address>
+                    <addrLine>Street</addrLine>
+                    <addrLine>City</addrLine>
+                    <addrLine>Country</addrLine>
+                    <addrLine>Name</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from a Word document</p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.22">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Short Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>Linked Data</term>
+                    <term>Bible</term>
+                    <term>Quotation detection</term>
+                    <term>Text analysis</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>text analysis</term>
+                    <term>knowledge representation</term>
+                    <term>near eastern studies</term>
+                    <term>semantic web</term>
+                    <term>English</term>
+                    <term>computer science</term>
+                    <term>library &amp; information science</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <div type="div1" rend="DH-Heading1">
+                <head>Introduction</head>
+                <p>The Hebrew Bible (the Tanakh) is the most ancient and sacred collection of Jewish texts. Throughout the history, additional religious Jewish texts have been written such as the Mishna, the Babylonian Talmud, and many more. These additional texts are often related to (or inspired by) the Bible. As such, many of them quote verses
+                    <note place="foot" xml:id="ftn1" n="1">
+                        <p rend="footnote text"> The Bible is divided into basic text elements called 
+                            <hi rend="italic">verses</hi>.
+                        </p>
+                    </note> from the Bible (as in Figure 1). Depending mostly on their frequency and location within the text, the quotations may indicate a weak or strong semantic relation between a given text and a specific portion of the Bible. Knowing these semantic relations may be beneficial for those interested in studying or investigating the Bible.
+                </p>
+                <p>Nowadays, a variety of Jewish texts are publicly available over the Internet, yet the identification of Bible quotations within them is often sparse and sometimes entirely absent. Moreover, the existing identification lacks a rigorous representation, which makes it difficult to automatically infer semantic correspondence and to develop supporting software applications.</p>
+                <p>We report an ongoing project that aims to establish the machinery for the automatic detection and rigorous representation of quotations of Bible verses within Jewish texts. The project consists of three interleaving components. In the first component, an algorithm for identifying Bible quotations in text is developed. In the second, the results of executing the algorithm on a large and open text corpus are represented as a 
+                    <ref target="http://linkeddata.org/">Linked Data</ref> graph (RDF dataset). In the third component, we develop a web frontend for making the dataset accessible to end users. Exposing the data to end users may also engage their participation in data-driven crowdsourcing (Ched et al, 2015), and hence, will serve to collectively help in improving the dataset quality. In what follows, we elaborate on each of the project components.
+                </p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Algorithm</head>
+                <p>Quotation detection is gaining popularity in fields such as copyright enforcing and political analysis, and within ancient texts (Ernst-Gerlach and Crane, 2008; Gesche et al, 2016). The algorithms in use share common characteristics, yet each domain brings its own specificities and challenges. Given an input text, our algorithm first matches maximal n-grams
+                    <note place="foot" xml:id="ftn2" n="2">
+                        <p rend="footnote text"> An 
+                            <hi rend="italic">n-gram</hi> is a contiguous sequence of n words from a text.
+                        </p>
+                    </note> in the text to candidate Bible verses. For example, the green bigram (2-gram) in the first line of Figure 1 will have one matching verse, since its text ('לך לך') appears in exactly one Bible verse. This matching is maximal, since the words that appear before and after the bigram are not part of the quoted verse.
+                </p>
+                <figure>
+                    <graphic n="1001" width="16.002cm" height="3.8470416666666667cm" url="Pictures/b6f2ce39a08172bdd64af4748b78bf31.jpeg" rend="inline"/>
+                    <head>A portion of ancient Jewish Text (from Midrash Raba), that quotes two Bibles verses. Quotations to the same verse are marked in a similar color. Note that each quotation refers only to a part of the verse (1-4 words of it).</head>
+                </figure>
+                <p>A first challenge that we face is related to variations found between the quoting text and the original Bible text, mostly related to the omission (or inclusion) of Hebrew vowel letters. As an example, consider the red quotation in the second line of the figure, that contains the word 'המוריה', where in the original Bible source the 'ו' (vav) vowel is omitted. We have implemented two alternative solutions, one is based on 
+                    <hi rend="italic">fuzzy search</hi> (Levenshtein distance), and the other on 
+                    <hi rend="italic">exact search</hi> performed simultaneously on two versions of the Bible, with and without vowels.
+                </p>
+                <p>Not all verse candidates are valid quotations of Bible verses in the text. For instance, the phrase 'בית אביך' in the third line of the figure (underlined) is a common phrase that appears in eleven different Bible verses. Nevertheless, the phrase is mentioned in a different context, which is not related to any of them. False candidates occur mostly in bigrams and trigrams (3-grams), and the algorithm makes an effort to filter them out. One approach is to keep a candidate if a matching candidate appears in a larger n-gram in the same text. For instance, the green bigrams and trigram shown in the figure are reported as valid quotations since there is a 4-gram that quotes the same verse in the text ('אל הארץ אשר אראך', line 3). We are considering additional filtering approaches related to statistical data inference and machine learning. We are also creating collections of labeled data for a systematic evaluation of the algorithm.</p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Linked Data</head>
+                <p>The detected quotations are represented as RDF Linked Data, making them accessible to machines for standard consumption and integration. We use a lightweight ontology that we have defined, augmented with standard properties taken from known ontologies such as RDF, RDFS, and Dublin Core (DC). We are working on the integration of additional ontologies such as CIDOC-CRM, FRBR, and SPAR. Key ontology classes are 
+                    <hi rend="italic">Book</hi>, 
+                    <hi rend="italic">Section</hi>, 
+                    <hi rend="italic">Text</hi>, and 
+                    <hi rend="italic">Quotation</hi>. A 
+                    <hi rend="italic">Book</hi> is composed of 
+                    <hi rend="italic">Sections</hi>, that may be composed of other 
+                    <hi rend="italic">Sections</hi>, and eventually of 
+                    <hi rend="italic">Text</hi> elements. Each Bible verse is a node of type 
+                    <hi rend="italic">Text</hi> in the RDF graph. To date, our graph contains a total of 23,206 
+                    <hi rend="italic">Text</hi> nodes of Bibles verses. Additional 355,181 
+                    <hi rend="italic">Text</hi> nodes represent text elements within other Jewish books (where quotations are searched for). An edge from a 
+                    <hi rend="italic">Text</hi> node of the latter kind to one of the former kind indicates a 'quotes' relationship. Nodes of class 
+                    <hi rend="italic">Quotation</hi> hold additional details such as the exact location wherein a quotation appears in the text.
+                </p>
+                <figure>
+                    <graphic n="1002" width="16.002cm" height="4.464402777777778cm" url="Pictures/a1cef4850d51311c293005c750a85872.jpeg" rend="inline"/>
+                    <head>A SPARQL query that retrieves all text elements quoting the first verse of the Bible.</head>
+                </figure>
+                <p>A Linked Data graph may be accessed by expert users using the SPARQL query language. An example SPARQL query is shown in Figure 2. To make our data widely accessible, we have implemented a graphical web frontend that acts like a search engine for Bible verses. A user selects a set of verses from the Bible, and then being presented with all text elements that quote one or more verses from the set. (The elements are retrieved from the RDF graph.) The results are sorted by significance, and may be filtered using predefined categories. We plan to enhance the web interface with data-driven crowdsourcing support, where the crowd will help in improving the accuracy of the algorithm by marking false negatives (places in the text that the algorithm has missed), as well as false positives (incorrect detections). The web tool, as well as the detection algorithm and related artifacts, are accessible via our main 
+                    <ref target="https://github.com/TechnionTDK/jbs-project">GitHub repository</ref>.
+                </p>
+            </div>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl>
+                        <hi rend="bold">Ched, L. and Lee, D. and Milo, T.</hi> (2015). 
+                        <hi rend="italic">Data-driven Crowdsourcing: Management, Mining, and Applications</hi>. International Conference on Data Engineering (ICDE), Tutorial.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Ernst-Gerlach, A. and Crane, G.</hi> (2008). 
+                        <hi rend="italic">Identifying Quotations in Reference Works and Primary Materials</hi>‏. Research and Advanced Technology for Digital Libraries, 78-87.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Gesche, S. and Egyed-Zsigmond, E. and Calabretto , S.</hi> (2016). 
+                        <hi rend="italic">Was it better before? Automated Quotation Detection in Ancient Texts</hi>. CORIA-CIFED, 167-182.
+                    </bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title type="full">
+                    <title type="main">Contextualizing Historical Places in a Gazetteer by Using Historical Maps and Linked Data</title>
+                    <title type="sub"/>
+                </title>
+                <author>
+                    <persName>
+                        <surname>Ikkala</surname>
+                        <forename>Esko</forename>
+                    </persName>
+                    <affiliation>Aalto University, Finland</affiliation>
+                    <email>esko.ikkala@aalto.fi</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Tuominen</surname>
+                        <forename>Jouni</forename>
+                    </persName>
+                    <affiliation>Aalto University, Finland</affiliation>
+                    <email>jouni.tuominen@aalto.fi</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Hyvönen</surname>
+                        <forename>Eero</forename>
+                    </persName>
+                    <affiliation>Aalto University, Finland</affiliation>
+                    <email>eero.hyvonen@aalto.fi</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2016-02-11T09:57:45.549000000</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Maciej Eder, Pedagogical University in Krakow</publisher>
+                <publisher>Jan Rybicki, Jagiellonian University</publisher>
+                <address>
+                    <addrLine>Institute of Polish Studies</addrLine>
+                    <addrLine>Pedagogical University</addrLine>
+                    <addrLine>ul. Podchorazych 2</addrLine>
+                    <addrLine>30-084 Krakow, Poland</addrLine>
+                    <addrLine>maciej.eder@ijp-pan.krakow.pl</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from an OASIS Open Document</p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.19">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Short Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>ontology service</term>
+                    <term>gazetteer</term>
+                    <term>historical places</term>
+                    <term>historical maps</term>
+                    <term>crowdsourcing</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>archives, repositories, sustainability and preservation</term>
+                    <term>digital humanities - institutional support</term>
+                    <term>information retrieval</term>
+                    <term>interface and user experience design</term>
+                    <term>metadata</term>
+                    <term>data modeling and architecture including hypothesis-driven modeling</term>
+                    <term>ontologies</term>
+                    <term>digitisation, resource creation, and discovery</term>
+                    <term>software design and development</term>
+                    <term>GLAM: galleries, libraries, archives, museums</term>
+                    <term>digital humanities - facilities</term>
+                    <term>visualisation</term>
+                    <term>crowdsourcing</term>
+                    <term>semantic web</term>
+                    <term>maps and mapping</term>
+                    <term>spatio-temporal modeling, analysis and visualisation</term>
+                    <term>standards and interoperability</term>
+                    <term>English</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <div type="div1" rend="DH-Heading1">
+                <head>Introduction</head>
+                <p>Dealing with historical geographic places (Southall et al., 2011) is important in museums, libraries, archives, and media companies, but challenging: 1) Historical places change in time. 2) It is difficult to understand the spatial and temporal context of the places. 3) Historical place names can often be seen only on historical maps. 4) Historical geographic data is scattered across multiple sources that can be incomplete and/or mutually conflicting. 5) To preserve semantic interoperability across Cultural Heritage (CH) datasets, there is a need to find out how the same place is represented in different repositories. 6) If a place is nowhere to be found—a situation quite common—there should be a mechanism to suggest and share new place concepts among the CH community.</p>
+                <p>To tackle these challenges, we have developed a Linked Open Data brokering service model HIPLA for using and maintaining historical place gazetteers and maps based on distributed SPARQL endpoints. Using Linked Data technologies, HIPLA provides a common search interface to historical geographic data like place names with coordinates and historical maps. Contextual information, e.g. historical events or photographs related to a geographic location, is provided to help the user to gain a deeper understanding of the historical place. HIPLA also serves as a sustainable and evolving repository of historical places by implementing Dynamic Ontology Services for Evolving Ontologies (Hyvönen et al., 2015). Cultural Heritage organizations can connect their legacy cataloguing systems to HIPLA using a widget or an API in the same vain as in the ONKI ontology service (Tuominen et al., 2009).</p>
+                <p>The general HIPLA model is being implemented to create and manage a national level gazetteer and map service Hipla.fi. Hipla.fi is based on four Finnish datasets in SPARQL endpoints totalling some 840,000 geocoded places, on 450 historical maps from two atlas series aligned on modern maps, and on the Getty Thesaurus of Geographic Names (TGN) SPARQL endpoint in the US.</p>
+                <p>This paper first presents Hipla.fi’s user groups (section 2) and the end-user interface (section 3), complementing the crowdsourcing view to the system (Hyvönen et al., 2015). Then the system architecture is outlined (section 4), and finally lessons learned are discussed (section 5). Hipla.fi is available at 
+                    <ref target="http://dev.hipla.fi/">http://hipla.fi</ref>.
+                </p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>HIPLA user groups</head>
+                <p>The audiences of HIPLA are 1) collaborative geo-ontology developers, 2) cataloguers of historical content, 3) information searchers, and 4) application developers. For group 1 HIPLA facilitates a sustainable model for aggregating historical place names in shared data repositories as time goes by. For groups 2 and 3 HIPLA provides a combination of historical and contemporary maps, linked contextual data, and semantic federated search to find and understand historical places. User group 4 can utilize distributed SPARQL endpoints, URI resolving services, and an autocompletion text search widget.</p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Finding and understanding historical places in context</head>
+                <div type="div2" rend="DH-Heading2">
+                    <head>Federated search</head>
+                    <p>Our first focus in developing Hipla.fi has been on modeling, storing, and searching Finnish place names in multiple SPARQL endpoints, and on displaying them on historical and contemporary maps. The datasets used are stored in separate RDF graphs, which makes it possible to offer dynamic selection of data sources for the user interface or external data consumers. Table 1 presents the datasets currently connected to Hipla.fi, most of them available on the Linked Data Finland platform
+                        <note xml:id="ftn1" place="foot" n="1"> http://www.ldf.fi</note> (Hyvönen et al., 2014).
+                    </p>
+                    <p>Figure 1 depicts the Hipla.fi user interface. For finding, disambiguating, and examining historical places, there is an autocompletion search input field (a). Place names can be searched from multiple SPARQL endpoints at the same time based on the user's choice (checkboxes above (b)) with the following functionalities:</p>
+                    <list type="ordered">
+                        <item>Hovering the cursor over the search results shows where the places are: the corresponding marker bounces on the map.</item>
+                        <item>A click on a search result label opens the info window of the place, showing its context (c).</item>
+                        <item>A click of the menu button on a result row (a) shows the place data in a Linked Data browser for investigating the data in detail.</item>
+                    </list>
+                    <p>
+                        <figure>
+                            <graphic url="177/1000000000000780000003BEDCB3BFAF82C50978.png"/>
+                            <head>Figure 1. Hipla.fi user interface</head>
+                        </figure>
+                    </p>
+                    <table rend="frame" xml:id="Taulukko1">
+                        <head>Table 1. Datasets connected to Hipla.fi</head>
+                        <row>
+                            <cell rend="start">Dataset</cell>
+                            <cell rend="start">Original source</cell>
+                            <cell rend="start">Place type</cell>
+                            <cell rend="start">Size</cell>
+                            <cell rend="start">Description</cell>
+                        </row>
+                        <row>
+                            <cell rend="start">Finnish Municipalities 1939–44</cell>
+                            <cell rend="start">National Archives of Finland</cell>
+                            <cell rend="start">municipality</cell>
+                            <cell rend="start">612</cell>
+                            <cell rend="start">Finnish National Archives research project “Finland, prisoners of war and extraditions 1939–1955” produced a map application, from where the war time municipalities were obtained.</cell>
+                        </row>
+                        <row>
+                            <cell rend="start">Karelian map names 1922–44</cell>
+                            <cell rend="start">Jyrki Tiittanen / National Land Survey of Finland</cell>
+                            <cell rend="start">village, house, etc.</cell>
+                            <cell rend="start">34 938</cell>
+                            <cell rend="start">Historical places in the Karelia region of Finland and Russia.</cell>
+                        </row>
+                        <row>
+                            <cell rend="start">Finnish Spatio-Temporal Ontology</cell>
+                            <cell rend="start">SeCo</cell>
+                            <cell rend="start">municipality</cell>
+                            <cell rend="start">1 261</cell>
+                            <cell rend="start">A spatio-temporal ontology of Finnish municipalities.</cell>
+                        </row>
+                        <row>
+                            <cell rend="start">Finnish Geographic Names Registry</cell>
+                            <cell rend="start">National Land Survey of Finland</cell>
+                            <cell rend="start">61 place types</cell>
+                            <cell rend="start">800 000</cell>
+                            <cell rend="start">The place name dataset comprises natural and cultural names whose spelling has been checked by the Institute for the Languages of Finland.</cell>
+                        </row>
+                        <row>
+                            <cell rend="start">The Getty Thesaurus of Geographic Names</cell>
+                            <cell rend="start">J. Paul Getty Trust</cell>
+                            <cell rend="start">1800 place types</cell>
+                            <cell rend="start">2 156 896</cell>
+                            <cell rend="start">TGN is a structured vocabulary containing names and other information about places. Names for a place may include names in the vernacular language, English, other languages, historical names, names and in natural order and inverted order. Among these names, one is flagged as the preferred name.</cell>
+                        </row>
+                        <row>
+                            <cell rend="start">Senate atlas</cell>
+                            <cell rend="start">National Archives of Finland</cell>
+                            <cell rend="start">map</cell>
+                            <cell rend="start"> 414</cell>
+                            <cell rend="start">Series of maps of Southern Finland drawn by the Russian Army topographic troops in the end of the 19th and the beginning of the 20th centuries in scale 1:21 000.</cell>
+                        </row>
+                        <row>
+                            <cell rend="start">Karelian maps</cell>
+                            <cell rend="start">National Land Survey of Finland</cell>
+                            <cell rend="start">map</cell>
+                            <cell rend="start">47</cell>
+                            <cell rend="start">The National Board of Survey and Topografikunta produced four-colour topographic maps in scale 1:100 000 during 1928–1951.</cell>
+                        </row>
+                    </table>
+                </div>
+                <div type="div2" rend="DH-Heading2">
+                    <head>Map-based multiple dataset browsing</head>
+                    <p>If the user does not know the name of the place, but has some idea where the place is located, she can pan and zoom the map view to the area. After this it’s possible to use the “View all places on current map view” button. This way places from different datasets connected to Hipla.fi are rendered on the map, and the user can check if the place exists already in some of the datasets, and compare places in different gazetteers.</p>
+                </div>
+                <div type="div2" rend="DH-Heading2">
+                    <head>Fetch historical maps</head>
+                    <p>The "Historical maps" tab (Figure 1 (b)) provides a list of old maps that intersect the current map view. The map images are fetched from the Hipla.fi's Map Warper service
+                        <note xml:id="ftn2" place="foot" n="2"> http://mapwarper.onki.fi</note> and their metadata is queried with SPARQL from the map RDF graph of the HIPLA service. Each map has a checkbox for rendering the map on the main map view, a thumbnail image, information about map series, scale and type, and a link to view the map in Map Warper. All map series are visible by default, but with the series button it is possible to filter the maps by their series. Once one or more historical maps have been selected with the checkboxes, the opacity of the historical maps can be controlled with the slider that is located on the top right corner of the map. If the user pans or zooms the main map view, clicking the "Refresh map list" button updates the map list.
+                    </p>
+                </div>
+                <div type="div2" rend="DH-Heading2">
+                    <head>View contextual data</head>
+                    <p>When the user selects a place, contextual data (Figure 1 (c)) is provided for connecting the place to other relevant data sources. This functionality is first piloted with the spatial datasets of the WarSampo portal (Hyvönen et al., 2016), providing, e.g. 160 000 historical photos of the Second World War related to the places, and a timeline of historical events. In addition to this, the spatial perspective
+                        <note xml:id="ftn3" place="foot" n="3"> http://www.sotasampo.fi/en/places/</note> of the WarSampo portal uses customized Hipla.fi user interface elements to visualize wartime places and their connections to other WarSampo datasets.
+                    </p>
+                </div>
+                <div type="div2" rend="DH-Heading2">
+                    <head>Extend with new gazetteers</head>
+                    <p>The HIPLA model is adaptable to various geographic data models and both contemporary and historical gazetteers. The only requirement is that the gazetteer is published in a SPARQL endpoint. Because there is no standard for how to express the temporal extent of spatial data, the spatial dimension of gazetteer data can be utilized in the user interface (e.g. when disambiguating place names) by individual configurations.</p>
+                </div>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>System architecture</head>
+                <p>Figure 2 depicts the components of the HIPLA model. The Hipla.fi prototype is implemented using the Linked Data Finland platform (Hyvönen et al., 2014), based on Fuseki
+                    <note xml:id="ftn4" place="foot" n="4"> https://jena.apache.org/documentation/serving_data/</note> with a Varnish
+                    <note xml:id="ftn5" place="foot" n="5"> https://www.varnish-cache.org</note> front end for serving the linked data. The end-user interface of Hipla.fi is a lightweight HTML5 single page map application, which provides access to multiple data sources with SPARQL queries and autocomplete search functionality using typeahead.js
+                    <note xml:id="ftn6" place="foot" n="6"> https://twitter.github.io/typeahead.js/</note>. Embedded Google Maps view is used to visualize historical places. Hipla.fi's Map Warper is an instance of the open source Map Warper tool of the New York Public Library for georectifying old maps on top of modern ones.
+                </p>
+                <p>
+                    <figure>
+                        <graphic url="177/10000000000003900000022DF6B8D0882F55E99C.png"/>
+                        <head>Figure 2. HIPLA system architecture</head>
+                    </figure>
+                </p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Related work and discussion</head>
+                <p>HIPLA is an ontology library service (d'Aguin and Noy, 2012) for historical places. Complementing traditional gazetteers, HIPLA not only publishes the data for humans but also for machines using the SPARQL endpoint API. In addition, historical maps and contextual linked data about the places are provided.</p>
+                <p>Thesauri of historical places, published as Linked Data, include the Getty TGN
+                    <note xml:id="ftn7" place="foot" n="7"> http://www.getty.edu/research/tools/vocabularies/tgn/</note> of some 1.5 million records, 'Pelagios: Enable Linked Ancient Geodata In Open Systems'
+                    <note xml:id="ftn8" place="foot" n="8"> http://pelagios-project.blogspot.fi/p/about-pelagios.html</note>, and Pleiades
+                    <note xml:id="ftn9" place="foot" n="9"> http://pleiades.stoa.org</note>. Pelagios and Pleiades are based on crowdsourcing volunteers' work in ontology development. The novelty of HIPLA from a user interface viewpoint lays in the idea of combining multiple geographic data sources, offering a unified view for examining and comparing them. In addition, HIPLA makes it possible to crowdsource the creation of the gazetteer to cataloguers of Cultural Heritage content, as a side effect of their daily work, as discussed in Hyvönen et al., 2015.
+                </p>
+                <p>The Historical Gazetteer of England's Place-names
+                    <note xml:id="ftn10" place="foot" n="10"> http://www.placenames.org.uk</note> is a service of over 4 million names that can be searched and viewed on modern maps as well as on historical ones. HIPLA has a similar local flavor focusing on places in Finland, but is based on Linked Open Data. OldMapsOnline
+                    <note xml:id="ftn11" place="foot" n="11"> http://www.oldmapsonline.org</note> is a search engine for finding historical maps covering a given area. In contrast to the systems above, HIPLA includes a map service for aligning and viewing georectified historical maps, as in the New York Public Library's Chronology of Place gazetteer
+                    <note xml:id="ftn12" place="foot" n="12"> http://nypl.gazetteer.us</note>. HIPLA also publishes the metadata of the historical maps as Linked Open Data and the dynamic and transparent selection of data sources makes it possible to understand the origins of the data.
+                </p>
+                <p>Our research was supported by the Finnish Cultural Foundation and Wikidata Finland.</p>
+            </div>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl>
+                        <hi rend="bold">’Aquin, M. and Noy, N. F</hi>. (2012). Where to publish and find ontologies? A survey of ontology libraries. 
+                        <hi rend="italic">Web Semantics: Science, Services and Agents on the World Wide Web,</hi>
+                        <hi rend="bold">11:</hi> 96–111.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Hyvönen, E., Tuominen, J., Alonen, M. and Mäkelä, E. </hi>(2014). Linked Data Finland: A 7-star model and platform for publishing and re-using linked datasets. 
+                        <hi rend="italic">The Semantic Web: ESWC 2014 Satellite Events, Revised Selected Papers</hi>. Springer–Verlag, pp. 226–30.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Hyvönen, E., Tuominen, J., Ikkala, E. and Mäkelä, E</hi>. (2015). Ontology services based on crowdsourcing: Case national gazetteer of historical places. 
+                        <hi rend="italic">Proceedings of the ISWC 2015 </hi>
+                        <hi rend="italic">Posters &amp; Demonstrations Track, </hi>CEUR Workshop Proceedings, Vol 1486. http://ceur-ws.org/Vol-1486/.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Hyvönen, E., Heino E., Leskinen, P., Ikkala, E., Koho M., Tamper M., Tuominen, J. and Mäkelä, E.</hi> (2016). Publishing Second World War History as Linked Data Events on the Semantic Web. 
+                        <hi rend="italic">Proceedings of Digital Humanities 2016</hi>, short papers, Kraków, Poland, July 2016.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Southall, H., Mostern, R. and Berman, M. L. </hi>(2011). On historical gazetteers. 
+                        <hi rend="italic">International Journal of Humanities and Arts Computing,</hi>
+                        <hi rend="bold">5</hi>: 127–45.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Tuominen, J., Frosterus, M., Viljanen, K. and Hyvönen, E.</hi> (2009). ONKI SKOS server for publishing and utilizing SKOS vocabularies and ontologies as services. 
+                        <hi rend="italic">Proceedings of the 6th European Semantic Web Conference (ESWC 2009)</hi>. Springer–Verlag, pp. 768–80.
+                    </bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>Game of Thrones for All: Model-based Generation of Universe-appropriate Fictional Characters</title>
+                <author>
+                    <persName>
+                        <surname>Parker</surname>
+                        <forename>Matthew</forename>
+                    </persName>
+                    <affiliation>California Polytechnic State University, United States of America</affiliation>
+                    <email>themparker@gmail.com</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Khosmood</surname>
+                        <forename>Foaad</forename>
+                    </persName>
+                    <affiliation>California Polytechnic State University, United States of America</affiliation>
+                    <email>foaad@calpoly.edu</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Pickett</surname>
+                        <forename>Grant</forename>
+                    </persName>
+                    <affiliation>California Polytechnic State University, United States of America</affiliation>
+                    <email>gpickett@calpoly.edu</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2014-12-19T13:50:00Z</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Paul Arthur, University of Western Sidney</publisher>
+                <address>
+                    <addrLine>Locked Bag 1797</addrLine>
+                    <addrLine>Penrith NSW 2751</addrLine>
+                    <addrLine>Australia</addrLine>
+                    <addrLine>Paul Arthur</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from a Word document </p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.9">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Long Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>games</term>
+                    <term>interactive fiction</term>
+                    <term>non-player characters</term>
+                    <term>immersion</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>natural language processing</term>
+                    <term>games and meaningful play</term>
+                    <term>agent modeling and simulation</term>
+                    <term>English</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <p>Providing rich narrative assets for games featuring interactive storytelling is both difficult and expensive. Of particular concern to us is the problem of believability for non-player-characters (NPC) in video games and interactive worlds. In addition to art and voice assets, which can be substantial, a good NPC requires narrative assets such as universe-appropriate character background, life history, personality, speech mannerisms, and behavioral peculiarities. </p>
+            <p>In this paper, we discuss our tool for generating NPCs for use in Interactive Fiction (IF) projects. The tool is intended to assist IF authors with NPC creation. Discussed are the two parts of our character creation process: the statistical model-based generator and the translator for interfacing with a game engine. A user study of 40 subjects is conducted to assess utility of this tool for IF authors, based on the system generating characters from the 
+                <hi rend="italic">Game of Thrones</hi> universe. Most subjects indicate that the system would be useful for IF authors. The results are positive and demonstrate that such a technique could work for creating believable characters in an interactive fiction context.
+            </p>
+            <p>
+                <anchor xml:id="h.blheym417tkk"/>Creating Narrative Assets
+            </p>
+            <p>Traditionally, interactive entertainment character narratives, including all possible dialogue, is developed by the project writing staff. There are no quality tools for automated mass character creation and realistic procedural vocalization. Therefore, the process yields limited content and often limited ranges of expression. This limitation in character expression is a limitation on the potential of video games as a storytelling medium. The most popular solution in games where characters are critical is to only flesh out certain key characters with whom the player is supposed to interact. Generally these NPCs have names and can be engaged in conversation. Most traditional role-playing games take this route. They tend to create a small, set number of ‘named’ characters that have responses to player action and a large number of generic characters (e.g., ‘commoners’) who all have identical or formulaic responses to the situation. These other characters in the world are left as nearly blank husks, having at most a few lines of general response and not interacting with the player in any meaningful way. </p>
+            <p>To make NPCs interesting requires a large budget and is out of reach of all but the most well-funded studios. The most basic character for an independent low-budget 2D fighting game can cost upwards of $150,000 USD (Plunkett, 2012). The salaries of relevant staff are constantly growing: $102,000 USD average for a video game writer, with voiceover artists averaging $128,000 USD in the United States.
+                <hi rend="superscript">1</hi> Another solution is to limit the amount of exposure that a player has to other characters. This can be done at the expense of player experience. Large crowds (such as busy city scenes or other large gatherings) become off limits or are moved into the scenery. As a result the game world can come to feel very empty and small, even if the scenery is incredibly expansive. Lankoski and Bjork (2007) address this problem in their examination of character believability in the context of a character from 
+                <hi rend="italic">The Elder Scrolls IV: Oblivion</hi>.
+            </p>
+            <p>Presented here is a procedural method to create unique characters with diverse personalities that can then be imported into a game and interact with the player—in this case, an Inform 7 work of interactive fiction. Inform 7 is an English-like declarative programming language and development environment for interactive fiction.
+                <hi rend="superscript">2</hi> It was chosen because it could provide a proof of concept with many characters without requiring visual representations of characters. What results is a pool of characters with diverse personalities and detailed experiences that should be depended upon to act as more realistic extras, complete with personal histories, ambitions, and relationships.
+            </p>
+            <p>
+                <anchor xml:id="h.czz87wmo3zzc"/>Related Work
+            </p>
+            <p>While there are a wide variety of rudimentary character generators for pen-and-paper-type games available online, these focus on specific rule sets,
+                <hi rend="superscript">3</hi> with application to role-playing games. Bayesian networks have been explored in natural language generation research, but almost none specifically for large-scale personality or character generation. Corradini’s group sets out to focus on creating a single realistic depiction of a very specific character, in this case, Hans Christian Anderson (Corradini et al., 2005). Lebowitz goes a long way toward establishing a story generation system for creating believable worlds and descriptions by emphasizing the need for consistency and coherency (Lebowitz, 1984). Kienzle et al. (2007) demonstrate the use of a generational model to create variety in NPC character action, with the emphasis on in-game abilities rather than personality or social interaction. Merrick also focuses on behavior, discussing a technique for making persistent non-player characters (such as those in massively multiplayer games) more realistic by having them change and react to changes in the environment over time (Merrick and Maher, 2006). Lankoski and Bjork (2007) examine what makes a character believable in the context of 
+                <hi rend="italic">The Elder Scrolls</hi> video game series and role-playing games in particular. 
+            </p>
+            <p>
+                <anchor xml:id="h.otbpq5lxtcjr"/>System Overview
+            </p>
+            <p>Our system is broken into two largely independent portions. The first part generates the features of the characters. In order to establish realistic characters, it was necessary to implement a Bayesian Belief Network of different character features and events and use these to build a person structure from which language describing the character could be generated. The second step in the character representation process is to translate the features and stories that the character has experienced into a format that a player can interact with. </p>
+            <p>Character Model and Generator</p>
+            <p>The first nondeterministic trait to be generated per character is the location where the character is from. In the universe of 
+                <hi rend="italic">A Song of Ice and Fire</hi> this is very important to cultural and political identity. The location distribution is limited to broader geographical regions. This is primarily because, being a fictional universe, there is no reliable way to estimate the populations of smaller regions without more evidence (Various, 2012). The names generated come from a list of the characters (in this case, male) in the novels. The list itself includes about 1,400 individual characters.
+                <hi rend="superscript">4</hi> These names are then chosen at random (some combination of the first and the second) and assigned to the character. 
+            </p>
+            <figure>
+                <graphic n="1001" width="8.830536111111112cm" height="7.500938888888889cm" url="Pictures/image1.png" rend="block"/>
+            </figure>
+            <p>Figure 1. How the ‘profession’ event interacts with the rest of the model.</p>
+            <p>The next set of traits to be created for a character are those that are present from birth. These are physical traits (blue-eyed, tall, strong, short, etc.) and a limited number of psychological traits (such as level of intelligence and initial temperament) as well as social class.</p>
+            <p>Stochastic Life Events</p>
+            <p>The next step in creating a realistic character is to give it a series of life events to build a story arc for the individual. For the purpose of this generator, the character’s life has been broken into nine different life event categories ranging from early childhood trauma to marriage to late life-changing events. Not all of these event categories will happen to everyone (some have less than a 50% of occurring) while others (like profession) are guaranteed for everyone. Each event category has a range of possible outcomes. Initially, the probability of each of the events in the category is the same, but each event has a number of potential influencing traits and a corresponding multiplier that changes the distribution (after normalizing) of the event list. The influences can cascade across multiple events.</p>
+            <p>Translator and Game Interface</p>
+            <p>The translator takes the Bayesian model for the character and transforms it into usable Inform 7 code. The conversations that the users have with the characters generated through the generator and translator are facilitated by one of the many extensions available to the Inform 7 IDE, Conversation Framework
+                <hi rend="superscript">5</hi> by Eric Eve. This framework allows the user to ask the character about specific topics from within the interactive experience.
+            </p>
+            <figure>
+                <graphic n="1002" width="9.154583333333333cm" height="7.249688888888889cm" url="Pictures/image2.png" rend="block"/>
+            </figure>
+            <p>Figure 2. User distribution of familiarity with the Game of Thrones universe (5= ‘most familiar’).</p>
+            <p>User Study</p>
+            <p>All 40 participants in the study are computer science undergraduate students at California Polytechnic State University (Cal Tech). About two-thirds of the participants are from the Interactive Entertainment Engineering class, and have experience with Inform 7 and interactive fiction authoring due to having completed class projects. The overall familiarity with Inform 7 is around 
+                <graphic n="1003" width="7.875763888888889cm" height="6.441722222222222cm" url="Pictures/image3.png" rend="block"/>80 to 85%. Tutoring and supervision are offered for all participants.
+            </p>
+            <figure>
+                <graphic n="1004" width="7.896930555555556cm" height="6.1718472222222225cm" url="Pictures/image4.png" rend="block"/>
+            </figure>
+            <p>Figure 3. Believable background and conversation scores (5=most believable). X axis represents portion of users. 40 subjects were surveyed.</p>
+            <p>The participants are then asked a series of questions about their familiarity with the 
+                <hi rend="italic">Game of Thrones</hi> (or 
+                <hi rend="italic">Song of Ice and Fire</hi>) universe, the believability of their character in the context of the universe, whether they would use this character in one of their own works, and how helpful they thought this generation method could be making realistic secondary characters for interactive fiction.
+            </p>
+            <p>People find the generated characters to have a believable backstory. The average score was a 3.7 out of 5 in that area. The best result from the generator was that 54% of the people polled would be willing to use the character unedited in a work of interactive fiction. The rest stated that they would use the character with some editing. None of the people polled responded that they would not use the generated character in any form.</p>
+            <p>When asked about their willingness to use the unaltered generated character as a non-major character, the generator received an average score of 4.1 out of 5. The average score for using an unedited version of the generated character as a major player in a work of interactive fiction was a 2.3. This was foreseen as the generator was never meant to supplant major characters driving a main plotline but as more complex NPCs meant to provide context and exposure. When looking at individuals who had a higher than average (4 or 5) familiarity with the 
+                <hi rend="italic">Game of Thrones</hi> universe, the number of people willing to use the character unedited went down a small amount to 50%, but those who did say they would use the character gave the primary character the same average score (2.3) while giving the non-major character a significantly higher score at an average of around 4.5. Finally, when asked the question ‘Do you think this kind of character generation can be helpful to interactive fiction authors?’ the average score was a 4.23.
+            </p>
+            <figure>
+                <graphic n="1005" width="8.913833333333333cm" height="14.433022222222222cm" url="Pictures/image5.png" rend="block"/>
+            </figure>
+            <p>Figure 4. Subject responses to ‘Are you willing to use this character in your own story?’ (5= ‘most willing’). 40 subjects surveyed.</p>
+            <p>
+                <anchor xml:id="h.2hrs4q1kjroq"/>Notes
+            </p>
+            <p>1. http://www.indeed.com/salary/q-Video-Game-Writer-l-United-States.html.</p>
+            <p>2. http://en.wikipedia.org/wiki/Inform.</p>
+            <p>3. See, for example, http://www.pathguy.com/cg35.htm.</p>
+            <p>4. http://www.namenerds.com/uucn/listofweek/icefire.html.</p>
+            <p>5. Ibid.</p>
+            <p>Sample Output</p>
+            <table rend="rules">
+                <row>
+                    <cell rend="DH-Default">Sample translated code to create character ‘Josmyn’ in Inform 7</cell>
+                    <cell rend="DH-Default">Sample game playthrough with same character</cell>
+                </row>
+                <row>
+                    <cell rend="DH-Default">
+                        <p>The quizzing table is the Table of ComplexNPC0 Answers.</p>
+                        <p>Table of ComplexNPC0 Answers </p>
+                        <p>subject response rule response table suggest </p>
+                        <p>...</p>
+                        <p>adolescence -- Table of ComplexNPC0 adolescence 3</p>
+                        <p>Table of ComplexNPC0 adolescence</p>
+                        <p>response</p>
+                        <p>‘A couple of friends and I went on a fun adventure’.</p>
+                        <p>‘I became more diligent in my adolescent years’.</p>
+                        <p>‘I traveled between Oldtown and Volantis as a cabin boy’.</p>
+                    </cell>
+                    <cell rend="DH-Default">
+                        <p>&gt;greet Josmyn</p>
+                        <p>Greetings</p>
+                        <p>(You could ask him about himself, home, life, class, childhood or adolescence.)</p>
+                        <p>&gt;ask about adolescence</p>
+                        <p>A couple of friends and I went on a fun adventure.</p>
+                        <p>&gt;ask about adolescence</p>
+                        <p>I became more diligent in my adolescent years.</p>
+                        <p>&gt;ask about adolescence</p>
+                        <p>I traveled between Oldtown and Volantis as a cabin boy.</p>
+                    </cell>
+                </row>
+            </table>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl>
+                        <hi rend="bold">Corradini, A., Mehta, M., Bernsen, N.-O., and Charfuelan, M. (2005).</hi> Animating an Interactive Conversational Character for an Educational Game System. In 
+                        <hi rend="italic">Proceedings of the 10th International Conference on Intelligent User Interfaces, IUI ’05</hi>, New York, pp. 183–90.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Kienzle, J., Denault, A., and Vangheluwe, H.</hi> (2007). Model-Based Design of Computer-Controlled Game Character Behavior. 
+                        <hi rend="italic">ACM/IEEE 10th International Conference on Model Driven Engineering Languages and Systems</hi>, October 2007.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Lankoski, P. and Bjork, S.</hi> (2007). Gameplay Design Patterns for Believable Non-Player Characters. In 
+                        <hi rend="italic">Situated Play</hi>, University of Tokyo, September 2007.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Lebowitz, M.</hi> (1984). Creating Characters in a Storytelling Universe. 
+                        <hi rend="italic">Poetics,</hi>
+                        <hi rend="bold">13</hi>(3): 171–94.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Merrick, K. and Maher, M. L.</hi> (2006). Motivated Reinforcement Learning for Non-Player Characters in Persistent Computer Game Worlds. In 
+                        <hi rend="italic">Proceedings of the 2006 ACM SIGCHI International Conference on Advances in Computer Entertainment Technology, ACE ’06</hi>, New York: ACM.
+                    </bibl>
+                    <bibl>Plunkett, L. (n.d.). It Will Blow Your Mind to See How Much It Costs to Add One New Character to a Fighting Game. Kotaku.com (accessed February 2012).</bibl>
+                    <bibl>Various (2012). A Forum of Ice and Fire: How Many People Live in Westeros? In Each Kingdom? westeros.org (accessed January 2012).</bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xsi:schemaLocation="http://www.tei-c.org/ns/1.0 /Users/yoann/Work/Grobid/grobid-home/schemas/xsd/Grobid.xsd"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+	<teiHeader xml:lang="en">
+		<encodingDesc>
+			<appInfo>
+				<application version="0.5.4-SNAPSHOT" ident="GROBID" when="2019-06-05T06:34+0000">
+					<ref target="https://github.com/kermitt2/grobid">GROBID - A machine learning software for extracting information from scholarly documents</ref>
+				</application>
+			</appInfo>
+		</encodingDesc>
+		<fileDesc>
+			<titleStmt>
+				<title level="a" type="main">Enhancing Domain-Specific Entity Linking in DH</title>
+			</titleStmt>
+			<publicationStmt>
+				<publisher/>
+				<availability status="unknown"><licence/></availability>
+			</publicationStmt>
+			<sourceDesc>
+				<biblStruct>
+					<analytic>
+						<author>
+							<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">Federico</forename><surname>Nanni</surname></persName>
+						</author>
+						<author>
+							<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">Yang</forename><surname>Zhao</surname></persName>
+							<email>yzhao@mail.uni-mannheim.de</email>
+						</author>
+						<author>
+							<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">Simone</forename><forename type="middle">Paolo</forename><surname>Ponzetto</surname></persName>
+						</author>
+						<author>
+							<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">Laura</forename><surname>Dietz</surname></persName>
+							<email>dietz@cs.unh.edu</email>
+						</author>
+						<author>
+							<affiliation key="aff0">
+								<orgName type="institution">University of Mannheim</orgName>
+								<address>
+									<country key="DE">Germany</country>
+								</address>
+							</affiliation>
+						</author>
+						<author>
+							<affiliation key="aff1">
+								<orgName type="institution">University of Mannheim</orgName>
+								<address>
+									<country key="DE">Germany</country>
+								</address>
+							</affiliation>
+						</author>
+						<author>
+							<affiliation key="aff2">
+								<orgName type="institution">University of Mannheim</orgName>
+								<address>
+									<country key="DE">Germany</country>
+								</address>
+							</affiliation>
+						</author>
+						<title level="a" type="main">Enhancing Domain-Specific Entity Linking in DH</title>
+					</analytic>
+					<monogr>
+						<imprint>
+							<date/>
+						</imprint>
+					</monogr>
+				</biblStruct>
+			</sourceDesc>
+		</fileDesc>
+		<profileDesc>
+			<abstract/>
+		</profileDesc>
+	</teiHeader>
+	<text xml:lang="en">
+		<body>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Entity Linking</head><p>In the last decade, advances in natural language processing (NLP) gave rise to word-sense disambiguation and entity linking techniques ( <ref type="bibr" target="#b1">Cornolti et al., 2013)</ref>, which automatically disambiguate entities and concepts in context and link them to knowledge bases such as Wikipedia, <ref type="bibr">DBpedia (Auer et al., 2007)</ref> or Babelnet ( <ref type="bibr" target="#b9">Navigli and Ponzetto, 2012</ref>). Among them, TagMe <ref type="bibr" target="#b3">(Ferragina and Scaiella, 2010)</ref> has been often adopted in NLP, thanks to its decent performance on different datasets and to its easy-to-use API.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Current Limitations for DH research</head><p>TagMe also highlights a few common limitations of current standard entity linking systems that reduce their applicability within most scenarios found in the heterogeneous spectrum of Digital Humanities research.</p><p>• Black Box and reproducibility. As <ref type="bibr" target="#b6">Hasibi et al. (2016)</ref> recently remarked, the TagMe RESTful API remains a black box, as it is impossible to check whether it corresponds to the system described in the original paper. Not knowing the reliability of the system limits its use for distant reading analyses, i.e. quantitative studies that go beyond text exploration.</p><p>• Language Versions. Currently, TagMe is only available in English, German and Italian but does not support other widespread languages such as Chinese, Arabic, Spanish, and French, which are essential for enhancing its use in the DH community.</p><p>• Infrequent Updates. TagMe has been initially created on the English 2009 version of Wikipedia and it has been updated only twice (summer 2012, summer 2016). Imagine a setting where a scholar intends to analyze a collection of mainstream news on the Middle East: before the most recent update the system was not able to detect mentions of "Al-Nursa Front", the former Syrian branch of al-Qaeda.</p><p>• Wikipedia as Knowledge Base. TagMe, as well as other entity-linking solutions, relies on the assumption that the entries and structure of Wikipedia provide us with a comprehensive and accurate knowledge base. While this is mostly true for standard NLP and IR approaches, when it comes to humanities research this assumption shows all its limitations. As a matter of fact, linking to Wikipedia is not ideal for example when dealing with historical documents, simply because entities and concepts relevant in the corpus may be missing from such a general-purpose knowledge resource (as remarked in <ref type="bibr" target="#b7">Lauscher et al., 2016</ref>).</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Specific contribution</head><p>While we are currently working on the implementation and optimization of a domain-adaptable entity linking pipeline, at the conference we intend to present a solution for generating, in an automatic fashion, domain-specific knowledge bases from an user-created Wiki. As the creation of a complete Wiki is too time-consuming, these domain-specific wikis are used in combination with general world knowledge available on Wikipedia. In particular, we will describe how our system can make use of the following input:</p><p>The XML Dump of any language version of Wikipedia and rapidly create the indexes that compose the knowledge base. This permits to have a knowledge base for each language version of Wikipedia and to update it on the spot whenever needed.</p><p>Any MediaWiki website dump, such as Wikia (although it is important to consider the copyright license when downloading and using this data), to be merged into the same index. In the table we report a few examples from different Wikia sites. It is important This solution gives the scholar the possibility of creating (or improving an already existent) domain specific Wikia (a practice common in <ref type="bibr">DH education, see Farabaugh, 2007 and</ref><ref type="bibr" target="#b4">Giglio &amp; Venecek, 2009</ref>) on the topic she/he intends to study and identifying mentions of domain-specific and general-purpose concepts in large text collections. Bibliography</p></div>		</body>
+		<back>
+			<div type="references">
+
+				<listBibl>
+
+<biblStruct xml:id="b0">
+	<monogr>
+		<title level="m" type="main">Dbpedia: A nucleus for a web of open data</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">S</forename><surname>Auer</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="2007" />
+			<publisher>Springer</publisher>
+			<biblScope unit="page" from="722" to="735" />
+			<pubPlace>Berlin Heidelberg</pubPlace>
+		</imprint>
+	</monogr>
+	<note>The semantic web</note>
+</biblStruct>
+
+<biblStruct xml:id="b1">
+	<analytic>
+		<title level="a" type="main">A framework for benchmarking entity-annotation systems</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">M</forename><surname>Cornolti</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">P</forename><surname>Ferragina</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">Ciaramita</forename></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">M</forename></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Proceedings of the 22nd international conference on World Wide Web</title>
+		<meeting>the 22nd international conference on World Wide Web</meeting>
+		<imprint>
+			<publisher>ACM</publisher>
+			<date type="published" when="2013" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b2">
+	<analytic>
+		<title level="a" type="main">The isle is full of noises&apos;: Using wiki software to establish a discourse community in a Shakespeare classroom</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">R</forename><surname>Farabaugh</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Language Awareness</title>
+		<imprint>
+			<biblScope unit="volume">16</biblScope>
+			<biblScope unit="page" from="41" to="56" />
+			<date type="published" when="2007" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b3">
+	<analytic>
+		<title level="a" type="main">Tagme: on-the-fly annotation of short text fragments (by wikipedia entities)</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">P</forename><surname>Ferragina</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">U</forename><surname>Scaiella</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Proceedings of the 19th ACM international conference on Information and knowledge management</title>
+		<meeting>the 19th ACM international conference on Information and knowledge management</meeting>
+		<imprint>
+			<publisher>ACM</publisher>
+			<date type="published" when="2010" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b4">
+	<monogr>
+		<title level="m" type="main">The Radical Historicity of Everything: Exploring Shakespearean Identity with Web 2.0</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">K</forename><surname>Giglio</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">J</forename><surname>Venecek</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="2009" />
+		</imprint>
+	</monogr>
+	<note>Digital Humanities Quarterly 3.3</note>
+</biblStruct>
+
+<biblStruct xml:id="b5">
+	<analytic>
+		<title level="a" type="main">Automatic Keyphrase Extraction: A Survey of the State of the Art</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">K</forename><forename type="middle">S</forename><surname>Hasan</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">V</forename><surname>Ng</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">ACL</title>
+		<imprint>
+			<biblScope unit="issue">1</biblScope>
+			<date type="published" when="2014" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b6">
+	<monogr>
+		<title level="m" type="main">On the Reproducibility of the TAGME Entity Linking System</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">F</forename><surname>Hasibi</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">K</forename><surname>Balog</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">S</forename><forename type="middle">E</forename><surname>Bratsberg</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="2016" />
+			<publisher>Springer International Publishing</publisher>
+		</imprint>
+	</monogr>
+	<note>European Conference on Information Retrieval</note>
+</biblStruct>
+
+<biblStruct xml:id="b7">
+	<analytic>
+		<title level="a" type="main">Entities as topic labels: combining entity linking and labeled LDA to improve topic interpretability and evaluability</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">A</forename><surname>Lauscher</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">IJCol-Italian journal of computational linguistics</title>
+		<imprint>
+			<biblScope unit="volume">2</biblScope>
+			<biblScope unit="page" from="67" to="88" />
+			<date type="published" when="2016" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b8">
+	<analytic>
+		<title level="a" type="main">A survey of named entity recognition and classification</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">D</forename><surname>Nadeau</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">Satoshi</forename><forename type="middle">S</forename></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Lingvisticae Investigationes</title>
+		<imprint>
+			<biblScope unit="volume">30</biblScope>
+			<biblScope unit="page" from="3" to="26" />
+			<date type="published" when="2007" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b9">
+	<analytic>
+		<title level="a" type="main">BabelNet: The automatic construction, evaluation and application of a widecoverage multilingual semantic network</title>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">R</forename><surname>Navigli</surname></persName>
+		</author>
+		<author>
+			<persName xmlns="http://www.tei-c.org/ns/1.0"><forename type="first">S</forename><forename type="middle">P</forename><surname>Ponzetto</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Artificial Intelligence</title>
+		<imprint>
+			<biblScope unit="volume">193</biblScope>
+			<biblScope unit="page" from="217" to="250" />
+			<date type="published" when="2012" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+				</listBibl>
+			</div>
+		</back>
+	</text>
+</TEI>
