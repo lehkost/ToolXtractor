@@ -23,6 +23,8 @@ public class ToolXtractor {
         options.addOption("inputTools", true, "A txt file with list of the tools (1 tool per line)");
         options.addOption("stopwords", true, "A txt file with list of the stopwords (toolnames that you don't want to" +
                 " use) (1 tool per line)");
+        options.addOption("reverse", false, "Reverse the order of the result (by default ascending order)");
+        options.addOption("verbose", false, "Add extra verbose information");
 
 
         CommandLineParser parser = new DefaultParser();
@@ -38,39 +40,43 @@ public class ToolXtractor {
             exit(1);
         }
 
-        long start = System.currentTimeMillis();
+        long startFull = System.currentTimeMillis();
         if(cmd.hasOption("dir")) {
             File dir = new File(cmd.getOptionValue("dir"));
             if(dir.exists() && dir.isDirectory()) {
+                long start = System.currentTimeMillis();
                 System.out.println("Start parsing the directories");
                 ParseDirectory parseDirectory = new ParseDirectory(dir);
                 parseDirectory.parseDirectory();
                 List<DHAbstract> dhAbstracts = parseDirectory.getDhAbstractList();
-                System.out.println("Finished parsing the directories");
+                System.out.println("Finished parsing the directories (in " + (System.currentTimeMillis() - start) + "ms)");
+                start = System.currentTimeMillis();
                 System.out.println("Start searching in the files");
-                SearchInAbstract searchInAbstract = new SearchInAbstract();
+                SearchInAbstract searchInAbstract = new SearchInAbstract(cmd.hasOption("verbose"));
                 searchInAbstract.search(dhAbstracts, cmd.getOptionValue("inputTools"), cmd.getOptionValue("stopwords"));
-                System.out.println("Finish searching in the files");
+                System.out.println("Finish searching in the files (in " + (System.currentTimeMillis() - start) + "ms)");
                 if(cmd.hasOption("byAbstract"))
-                    printResults(searchInAbstract.getLinkAbstractToolList());
+                    printResults(searchInAbstract.getLinkAbstractToolList(), cmd.hasOption("reverse"));
                 if(cmd.hasOption("byTool"))
-                    printResults(searchInAbstract.getLinkToolAbstractList());
+                    printResults(searchInAbstract.getLinkToolAbstractList(), cmd.hasOption("reverse"));
             } else {
                 throw new RuntimeException("The directory used must exist (and be a directory, not a file)");
             }
         } else {
             throw new RuntimeException("The option dir must exist");
         }
-        System.out.println("Took " + (System.currentTimeMillis() - start) + "ms");
+        System.out.println("Total time " + (System.currentTimeMillis() - startFull) + "ms");
     }
 
     private static void printUsage(Options options) {
         HelpFormatter formatter = new HelpFormatter();
-        formatter.printHelp( "java -jar DH-tool-list-match-jar-with-dependencies.jar", options );
+        formatter.printHelp( "java -jar ToolXtractor-full.jar", options );
     }
 
-    private static void printResults(List<LinkData> linkDataList) {
-        Collections.sort(linkDataList, new LinkData(""));
+    private static void printResults(List<LinkData> linkDataList, boolean reverse) {
+        linkDataList.sort(new LinkData(""));
+        if(reverse)
+            Collections.reverse(linkDataList);
         System.out.println("There are " + linkDataList.size() + " items listed below, and each have their own linked items");
         for(LinkData linkData : linkDataList) {
             if(linkData.getMentioned().size() > 0) {

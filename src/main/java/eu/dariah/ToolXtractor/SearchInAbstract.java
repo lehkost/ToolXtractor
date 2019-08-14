@@ -19,10 +19,12 @@ public class SearchInAbstract {
 
     private List<LinkData> linkAbstractToolList;
     private List<LinkData> linkToolAbstractList;
+    private boolean debug;
 
-    public SearchInAbstract() {
+    public SearchInAbstract(boolean debug) {
         this.linkAbstractToolList = new ArrayList<>();
         this.linkToolAbstractList = new ArrayList<>();
+        this.debug = debug;
     }
 
     public void search(List<DHAbstract> dhAbstractList, String toolFilename, String stopwordFilename) throws IOException {
@@ -34,7 +36,8 @@ public class SearchInAbstract {
         int size = dhAbstractList.size();
         int i = 0;
         for(DHAbstract dhAbstract : dhAbstractList) {
-            System.out.println("Searching in file " + (++i) + " / " + size);
+            if(this.debug)
+                System.out.println("Searching in file " + (++i) + " / " + size);
             LinkData linkAbstractTool = new LinkData(dhAbstract.getIdentifier());
             for(String toolname : toolnames) {
                 if(! stopwords.contains(toolname)) {
@@ -52,12 +55,6 @@ public class SearchInAbstract {
                         } else {
                             m = p.matcher(dhAbstract.getDescription());
                             if(m.matches()) {
-//                                m.find();
-//                            int st = m.start() - 5;
-//                            if(st < 0) st = 0;
-//                            int end = m.end() + 5;
-//                            if(end > dhAbstract.getDescription().length()) end = dhAbstract.getDescription().length();
-//                            System.out.println(dhAbstract.getDescription().substring(st, end) + " == " + toolname);
                                 linkAbstractTool.getMentioned().add(toolname);
                             }
                         }
