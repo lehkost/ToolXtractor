@@ -1,4 +1,4 @@
-package eu.dariah.ToolXtractor;
+package eu.dariah.ToolXtractor.model;
 
 import java.util.ArrayList;
 import java.util.Comparator;

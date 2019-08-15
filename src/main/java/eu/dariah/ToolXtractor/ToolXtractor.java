@@ -1,5 +1,7 @@
 package eu.dariah.ToolXtractor;
 
+import eu.dariah.ToolXtractor.model.DHAbstract;
+import eu.dariah.ToolXtractor.model.LinkData;
 import org.apache.commons.cli.*;
 
 import java.io.File;

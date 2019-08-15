@@ -1,5 +1,8 @@
 package eu.dariah.ToolXtractor;
 
+import eu.dariah.ToolXtractor.model.DHAbstract;
+import eu.dariah.ToolXtractor.model.LinkData;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;

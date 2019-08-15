@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>Palimpsest: Improving Assisted Curation of Loco-specific Literature</title>
+                <author>
+                    <persName>
+                        <surname>Alex</surname>
+                        <forename>Beatrice</forename>
+                    </persName>
+                    <affiliation>University of Edinburgh, United Kingdom</affiliation>
+                    <email>balex@inf.ed.ac.uk</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Grover</surname>
+                        <forename>Claire</forename>
+                    </persName>
+                    <affiliation>University of Edinburgh, United Kingdom</affiliation>
+                    <email>grover@inf.ed.ac.uk</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Zhou</surname>
+                        <forename>Ke</forename>
+                    </persName>
+                    <affiliation>Yahoo Labs, London</affiliation>
+                    <email>zhouke.nlp@gmail.com</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Hinrichs</surname>
+                        <forename>Uta</forename>
+                    </persName>
+                    <affiliation>University of St. Andrews, United Kingdom</affiliation>
+                    <email>uh3@st-andrews.ac.uk</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2014-12-19T13:50:00Z</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Paul Arthur, University of Western Sidney</publisher>
+                <address>
+                    <addrLine>Locked Bag 1797</addrLine>
+                    <addrLine>Penrith NSW 2751</addrLine>
+                    <addrLine>Australia</addrLine>
+                    <addrLine>Paul Arthur</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from a Word document </p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.9">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Long Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>assisted curation</term>
+                    <term>document retrieval</term>
+                    <term>annotation</term>
+                    <term>user feedback</term>
+                    <term>geo-parsing</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>geospatial analysis</term>
+                    <term>interfaces and technology</term>
+                    <term>information retrieval</term>
+                    <term>literary studies</term>
+                    <term>natural language processing</term>
+                    <term>text analysis</term>
+                    <term>visualisation</term>
+                    <term>data mining / text mining</term>
+                    <term>English</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <p>This paper reports on interdisciplinary work carried out for the Palimpsest project, focusing on mining literary works set in Edinburgh, a UNESCO City of Literature.
+                <hi rend="superscript">1</hi> The project’s aim is to use text mining to scour accessible literary works and find those mentioning Edinburgh or places within it. We ground ‘loco-specific’ passages of text by identifying their latitudes and longitudes, so that scholars and the public can both geographically explore their fictional city. Palimpsest is a collaboration between literary scholars studying the use of place in literature and computer scientists working on text mining and information visualisation. Through a range of maps and accessible visualisations, users are able to explore the spatial relations of the literary city at particular times in its history, in the works of specific authors, or across eras and writers.
+            </p>
+            <p>We present an overview of the project workflow and describe the assisted curation process adopted. It involves automatic retrieval and ranking of accessible literature according to its loco-specificity followed by manual selection of ranked documents, resulting in a set of literary works identified as set in Edinburgh. We report on the fine-tuning of the retrieval and ranking prototype based on literary scholar annotators’ feedback.</p>
+            <p>Palimpsest</p>
+            <p>Figure 1 shows the Palimpsest workflow. The input data is made of five literary document collections amounting to approximately 380,000 works, most of which are out of copyright, as well as a small set of modern books from authors who are well known for their literature being set in Edinburgh (incl. Irvine Welsh, Alexander McCall Smith, and Muriel Spark). The out-of-copyright collections are varied in content and contain literary fiction and nonfiction genres. The data is first indexed using Indri 5.6
+                <hi rend="superscript">2</hi> and ranked using a set of 1,633 Edinburgh place name queries.
+                <hi rend="superscript">3</hi> We use the Indri inference network language model-based ranking approach (Strohman et al., 2005). The ranking score of a document is increased given certain metadata information (including a set of favoured Library of Congress codes and subject terms) or down-weighted for ambiguous Edinburgh place names. We combine the score for genre in the metadata with the location query retrieved from the content of the book. The output of the document retrieval component is a set of ranked Edinburgh-specific candidate documents per collection.
+            </p>
+            <figure>
+                <graphic n="1001" width="15.24cm" height="12.962819444444444cm" url="Pictures/image1.png" rend="block"/>
+            </figure>
+            <p>This data was loaded into a web-based annotation tool for manual curation. All Edinburgh place names occurring in the document and snippets surrounding them were displayed to aid in the annotators’—three literary scholars from the School of Literature at the University of Edinburgh—decision making. The subset of works which were manually curated as Edinburgh-specific are further processed by text mining, which geo-references place names by grounding them to their latitude/longitude coordinates using the Edinburgh Geoparser (Grover et al., 2010)
+                <hi rend="superscript">4</hi> and in particular the Edinburgh gazetteer that is being developed in Palimpsest. The output (geo-referenced location mentions and snippets) is stored in the Palimpsest database, which is accessible via web-based visualisations.
+            </p>
+            <p>Assisted Curation</p>
+            <p>By assisted curation we refer to the process of semiautomatically curating a set of Edinburgh-specific literature from all accessible literature. Related endeavours have relied on the collection of titles, or passages, by a few individuals or via crowdsourcing (e.g., Edinburgh Reads
+                <hi rend="superscript">5</hi> run by Edinburgh Libraries or Global Bookmap
+                <hi rend="superscript">6</hi>). The idea for Palimpsest arose out of an initial prototype that visualises a small set of extracts manually collected by literary scholars at the University of Edinburgh.
+                <hi rend="superscript">7</hi> Such an approach results in high-quality data with the disadvantage of missing less well-known but potentially interesting works. In Palimpsest we consider the entire pool of accessible literature accessible to determine a subset of highly ranked Edinburgh-specific candidates automatically using location-based document retrieval. The aim is to uncover a large range of Edinburgh-specific literature, not only famous and well-read titles. Assisted curation by means of text mining alone has shown encouraging results in other domains (e.g., Kristjansson et al., 2004; Alex et al., 2008). We combine text mining and information retrieval for assisted curation and show how user feedback can improve the technical stages to this process.
+            </p>
+            <p>The manual annotation of the ranked candidates to select actual Edinburgh-specific literature was done using the annotation tool displayed in Figure 2. All ranked documents are displayed on the left-hand panel, listing the title of each work, the author and publication date if available, a link to the original source document, and a list of location mentions identified within the book. When clicking on a title, additional information appears in the right-hand panel, including a graph showing occurrences of place names within a document and snippets containing Edinburgh place names. Based on this information and by following the link to the original source, the annotators can determine a work as being Edinburgh-specific or not, enter further comments, and identify the start and end content pages of a document. When clicking the submit button, a document annotation is saved to the database and disappears from the panel on the left.</p>
+            <figure>
+                <graphic n="1002" width="15.24cm" height="12.220222222222223cm" url="Pictures/image2.png" rend="block"/>
+            </figure>
+            <p>An item can be annotated using the annotation scheme shown in Figure 3. We consider documents annotated as
+                <hi rend="italic">yes</hi> or
+                <hi rend="italic">yes (except)</hi> as Edinburgh-specific within Palimpsest.
+                <hi rend="superscript">8</hi> The scheme was developed by the annotators while working on an initial ranking of HathiTrust documents.
+                <hi rend="superscript">9</hi>
+            </p>
+            <figure>
+                <graphic n="1003" width="15.215305555555556cm" height="3.9775694444444443cm" url="Pictures/image3.png" rend="block"/>
+            </figure>
+            <p>We used the HathiTrust collection (253,350 documents) to develop the retrieval and ranking component. This resulted in 20,542 ranked candidate documents containing one or more Edinburgh place names. Over a period of two weeks, the annotators curated the ranked documents in order. This resulted in 1,710 annotated documents, of which 200 were considered Edinburgh-specific literature.</p>
+            <p>Initially, the annotators reacted enthusiastically to the annotation and discovered several works set in Edinburgh of which they were unaware (e.g.,
+                <hi rend="italic">John and Betty’s Scotch History Visit</hi> or
+                <hi rend="italic">Noctes Ambrosianae</hi>). As they worked through the documents, however, they lost trust in the ranking. They noticed relevant documents appearing far down the list and sometimes had to go through many documents to find a positive example. They also recorded a list of ambiguous place names (
+                <hi rend="italic">High Street </hi>or
+                <hi rend="italic"> Trinity</hi>) mostly referring to other locations as well as a list of words in titles suggesting nonliterary content (
+                <hi rend="italic">catalogue </hi>or
+                <hi rend="italic">dictionary</hi>). Finally, they observed that most Edinburgh-specific documents contain a reference to
+                <hi rend="italic">Edinburgh</hi> or a variant.
+            </p>
+            <p>Improving the Ranking</p>
+            <p>Based on this feedback, we then fine-tuned the retrieval component. We used the set of 1,710 annotated works as an evaluation set to determine the effect of a modification. There is a body of research on using relevance judgments for improving information retrieval, a good summary of which appears in Manning et al. (2008). We tested the initial ranking (baseline), the following three measures and their combination:</p>
+            <p> (a) Down-weighting ambiguous place names identified by the annotators.</p>
+            <p> (b) Removing documents containing nonliterary title words (
+                <hi rend="italic">catalogue</hi>,
+                <hi rend="italic">dictionary</hi>, etc).
+            </p>
+            <p> (c) Ensuring that
+                <hi rend="italic">Edinburgh</hi> or one of its variants (
+                <hi rend="italic">Embra</hi>,
+                <hi rend="italic">Edinburrie</hi>, etc.) occurs in the work.
+            </p>
+            <p>Figure 4 shows that down-weighting of ambiguous place names (a) resulted in a small improvement in average precision (MAP) (Baeza-Yates and Ribeiro-Neto, 1999). Filtering documents with nonliterary title words (b) had the highest increase in MAP. The condition of Edinburgh or a variant to appear in the document (c) decreased MAP slightly. However, it resulted in a large decrease in the number of ranked documents, reducing the workload of the annotators significantly. We therefore consider measure (c) to be beneficial as well. When combining all three measures, the retrieval component yielded an improved MAP score of 0.1684 (compared to the baseline MAP of 0.1307), and the workload of documents to be curated was reduced by 60%.</p>
+            <figure>
+                <graphic n="1004" width="15.215305555555556cm" height="5.559777777777778cm" url="Pictures/image4.png" rend="block"/>
+            </figure>
+            <p>Conclusion</p>
+            <p>The assisted curation process undertaken in Palimpsest attempts to keep the user in the loop during iterative technical development. We received useful feedback from the literary scholars on issues that appeared as they curated documents and considered their suggestions in changing the underlying methods for ranking Edinburgh-specific literature. Our results show that document retrieval performance improved and curation workload was reduced as a result. The improved method was subsequently applied to all document collections, which resulted in very positive feedback from the curators, reporting that the ranking improved considerably.</p>
+            <p>Acknowledgements</p>
+            <p>Palimpsest is funded by the AHRC (Digital Transformations in the Arts and Humanities—Big Data, PI: Prof. Loxley). We would like to thank Dr Anderson, Dr Otty, and Dr Thomson, who were in charge of the curation, and Dr Harris-Birtill, who helped with the data processing for the annotation tool.</p>
+            <p>Notes</p>
+            <p>1.
+                <ref target="http://palimpsest.blogs.edina.ac.uk/">http://palimpsest.blogs.edina.ac.uk/</ref>.
+            </p>
+            <p>2.
+                <ref target="http://sourceforge.net/projects/lemur/files/lemur/indri-5.6/">http://sourceforge.net/projects/lemur/files/lemur/indri-5.6/</ref>.
+            </p>
+            <p>3. This includes entries appearing in at least three of five resources used to construct the Edinburgh gazetteer (OpenStreetMap, OSLocator, Royal Commission for Ancient Historic Monuments of Scotland, Historic Scotland, QuatroShapes of Edinburgh areas).</p>
+            <p>4.
+                <ref target="https://www.ltg.ed.ac.uk/software/geoparser">https://www.ltg.ed.ac.uk/software/geoparser</ref>.
+            </p>
+            <p>5.
+                <ref target="http://yourlibrary.edinburgh.gov.uk/fictionmap">http://yourlibrary.edinburgh.gov.uk/fictionmap</ref>.
+            </p>
+            <p>6.
+                <ref target="http://www.mappit.net/bookmap/">http://www.mappit.net/bookmap/</ref>.
+            </p>
+            <p>7.
+                <ref target="http://palimpsest-eng.appspot.com/">http://palimpsest-eng.appspot.com/</ref>.
+            </p>
+            <p>8. We excluded poetry, but we annotated it (
+                <hi rend="italic">prob. not</hi>) to be able to work on it in future.
+            </p>
+            <p>9. HathiTrust:
+                <ref target="http://www.hathitrust.org/">http://www.hathitrust.org</ref>.
+            </p>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl>
+                        <anchor xml:id="Ref286864043"/>
+                        <anchor xml:id="Ref286864414"/>
+                        <anchor xml:id="Ref286870641"/>
+                        <hi rend="bold">Alex, B., Grover, C., Haddow, B., Kabadjov, M., Klein, E., Matthews, M., Roebuck, S., Tobin, R. and Wang, X.</hi> (2008). Assisted Curation: Does Text Mining Really Help? In
+                        <hi rend="italic">Biocomputing 2008: Proceedings of the Pacific Symposium on Biocomputing</hi>, pp. 556–67.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Baeza-Yates, R. and Ribeiro-Neto, B.</hi> (1999).
+                        <hi rend="italic">Modern Information Retrieval.</hi> Addison Wesley Longman, London.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Grover, C., Tobin, R., Byrne, K., Woollard, M., Reid, J., Dunn, S. and Ball, J.</hi> (2010). Use of the Edinburgh Geoparser for Georeferencing Digitised Historical Collections.
+                        <hi rend="italic color(222222)">Philosophical Transactions of the Royal Society of London A: Mathematical, Physical and Engineering Sciences,</hi>
+                        <hi rend="bold color(222222)">368</hi>
+                        <hi rend="color(222222)">(1925): 3875–89.</hi>
+                    </bibl>
+                    <bibl>
+                        <anchor xml:id="Ref286864944"/>
+                        <hi rend="bold">Kristjansson, T. T., Culotta, A., Viola, P. and McCallum, A.</hi> (2004). Interactive Information Extraction with Constrained Conditional Random Fields. In
+                        <hi rend="italic color(222222)">Proceedings of the 19th National Conference on Artificial Intelligence</hi>
+                        <hi rend="color(222222)">, San Jose, CA. AAAI Press, pp. 412–</hi>18.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Manning, C. D., Raghavan, P. and Schütze, H.</hi> (2008).
+                        <hi rend="italic">Introduction to Information Retrieval</hi>. Cambridge University Press, Cambridge.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Strohman, T., Metzler, D., Turtle, H. and Croft, W. B.</hi> (2005). Indri: A Language-Model Based Search Engine for Complex Queries, CIIR Technical Report, ext. version.
+                    </bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

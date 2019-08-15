@@ -1,6 +1,6 @@
 package eu.dariah.ToolXtractor.sax;
 
-import eu.dariah.ToolXtractor.DHAbstract;
+import eu.dariah.ToolXtractor.model.DHAbstract;
 import org.xml.sax.Attributes;
 import org.xml.sax.helpers.DefaultHandler;
 

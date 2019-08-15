@@ -22,10 +22,13 @@ public class ListRetrieverFromFile {
         return getListWords(inputStream);
     }
 
-    private static Set<String> getListWords(InputStream inputStream) throws IOException {
+    protected static Set<String> getListWords(InputStream inputStream) throws NullPointerException, IOException {
+        if(inputStream == null) {
+            throw new NullPointerException("InputStream is null");
+        }
         String stopwords = new BufferedReader(new InputStreamReader(inputStream)).lines().collect(Collectors.joining(
                 "\n"));
         inputStream.close();
-        return new HashSet<String>(Arrays.asList(stopwords.split("\n")));
+        return new HashSet<>(Arrays.asList(stopwords.split("\n")));
     }
 }
