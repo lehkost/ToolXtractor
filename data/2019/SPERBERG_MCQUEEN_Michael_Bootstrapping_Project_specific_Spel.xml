@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title type="full">
+                    <title type="main">Bootstrapping Project-specific Spell-checkers</title>
+                    <title type="sub"/>
+                </title>
+                <author>
+                    <persName>
+                        <surname>Sperberg-McQueen</surname>
+                        <forename>C. M.</forename>
+                    </persName>
+                    <affiliation>Black Mesa Technologies LLC, United States of America</affiliation>
+                    <email>cmsmcq@acm.org</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Huitfeldt</surname>
+                        <forename>Claus</forename>
+                    </persName>
+                    <affiliation>Universitetet i Bergen</affiliation>
+                    <email>Claus.Huitfeldt@uib.no</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2019-05-02T18:03:32.494422000</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Name, Institution</publisher>
+                <address>
+                    <addrLine>Street</addrLine>
+                    <addrLine>City</addrLine>
+                    <addrLine>Country</addrLine>
+                    <addrLine>Name</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from an OASIS Open Document</p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.22">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Long Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>spell-checking</term>
+                    <term>quality assurance</term>
+                    <term>transcription</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>data models and formal languages</term>
+                    <term>project design</term>
+                    <term>organization</term>
+                    <term>management</term>
+                    <term>scholarly editing</term>
+                    <term>philology</term>
+                    <term>cultural artifacts digitisation - theory</term>
+                    <term>methods and technologies</term>
+                    <term>English</term>
+                    <term>computer science and informatics</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <p>Spell-checking software is well established in consumer applications but often unexploited by data-creation projects in the digital humanities. We argue that spell-checking provides a relatively straightforward way to find (some) transcription errors even in texts written in idiosyncratic or inconstant spelling. </p>
+            <div type="div1" rend="DH-Heading1">
+                <head>Working hypotheses</head>
+                <p>We believe that spell checking is feasible, useful, and underused in DH projects.</p>
+                <p>More specifically:</p>
+                <list type="unordered">
+                    <item>Fewer than half of DH projects transcribing existing materials use spell-checking technology.</item>
+                    <item>Standard word-in-isolation spell checking can find transcription errors.</item>
+                    <item>Project-specific spelling dictionaries can do better than off-the-shelf dictionaries for
+                        <list type="unordered">
+                            <item>writing by idiosyncratic or inconstant spellers</item>
+                            <item>older language forms no longer supported in off-the-shelf dictionaries</item>
+                            <item>non-standard and minority languages which lack off-the-shelf dictionaries</item>
+                        </list>
+                    </item>
+                    <item>Project-specific filters may be necessary to create a checkable alpha text ([Huitfeldt 2006]) but are feasible.</item>
+                </list>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Modeling spell-checking, modeling languages</head>
+                <p>In conventional word-in-isolation spell-checking ([Earnest 2011], [Damerau 1964], [McIlroy 1982], [Bentley 1986], [Peterson 1980], [Kuenning 2018], [Atkinson 2017], [Németh 2018]), the language model is trivial: all acceptable forms are equiprobable, a form is acceptable if and only if listed in the dictionary, unknown forms have probability zero, and any token with probability zero is a probable error. To find alternative spellings, a Levenshtein distance of one ([Norvig 2007]) or more ([Garbe 2012], [Garbe 2015]) is sometimes used. A combination of phonetic encoding and Levenshtein distance can sometimes be helpful ([Atkinson 2017]).</p>
+                <p>Recent work on spelling correction (e.g. [Choudhury et al. 2018], [Dashti et al. 2018]) uses more elaborate models to detect ‘real-word’ errors (e.g. “be” for “he”).</p>
+                <p>In this paper, however, we assume the simple model of text as a sequence of equiprobable known forms.</p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Challenges in using spell-checking</head>
+                <p>For spell-checking in DH projects, some complications arise.</p>
+                <list type="unordered">
+                    <item>Transcribers normally seek to reproduce the spelling of the exemplar, not to correct it. When standard spelling dictionaries are used to check material which consistently violates orthographic norms (idiosyncratic spelling), they will erroneously flag some correctly transcribed misspellings and miss unconscious corrections by the transcriber.</item>
+                    <item>Off-the-shelf dictionaries reflect current norms for widely spoken languages. Older language varieties and under-resourced languages often lack dictionaries.</item>
+                    <item>The language transcribed may have no standardized orthography; spelling may vary by scribe or line-by-line (inconstant spelling).</item>
+                    <item>XML documents may contain material not to be spell-checked (markup, project-internal comments, etc.), or material in different languages or varieties (e.g. 21st-century English in the header and 17th-century English in the body).</item>
+                </list>
+                <p>We believe these complications can be addressed.</p>
+                <p>For idiosyncratic spelling, the solution is to use a project-specific dictionary, not a standard dictionary, so that correctly transcribed misspellings will be accepted and inadvertent corrections flagged.</p>
+                <p>Inconstant spelling makes spell-checkers miss transcription errors that substitute one accepted form for another. But spell-checking can still catch other errors. (Similarly, an English spelling dictionary with both British and American spellings won't catch "colour" in American texts, but it will catch the typo "teh".)</p>
+                <p>Producing project-specific dictionaries from scratch requires some work, but our experiments suggest that even modest effort can produce spelling dictionaries that will detect existing transcription errors without excessive noise.</p>
+                <p>For dealing with XML, it's helpful to write filters to extract the desired word forms. Fortunately, this is normally straightforward.</p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>A small pilot study</head>
+                <p>Several practical questions arise:</p>
+                <list type="unordered">
+                    <item>How can project-specific dictionaries be constructed?</item>
+                    <item>What should they contain (and exclude)?</item>
+                    <item>How much work is involved? How big must the dictionary be:
+                        <list type="unordered">
+                            <item>to catch as many actual errors as possible?</item>
+                            <item>not to flag correctly transcribed words erroneously?</item>
+                        </list>
+                    </item>
+                    <item>How much project data is necessary to obtain a dictionary of that size?</item>
+                </list>
+                <p>We have explored these questions using material from the Wittgenstein Archives at the University of Bergen and from Liam Quin's digital version of Alexander Chalmers's General Biographical Dictionary ([Quin 2017]).</p>
+                <list type="unordered">
+                    <item>For each project, we selected test material: for Wittgenstein, two small texts taken from non-final versions of the corpus; for Chalmers, 10,000 words from volume 25.</item>
+                    <item>For Wittgenstein, we checked the normalized-spelling text, identifying word forms which violate German orthographic norms.
+                        <note xml:id="ftn0" place="end" n="i">The Wittgenstein project defined standard orthography as that of Duden's 
+                            <hi rend="italic">Rechtschreibung,</hi> but admitted some idiosyncratic spellings consistently used by Wittgenstein.
+                        </note>
+                    </item>
+                    <item>For Chalmers, we proofread the sample against the page scans.</item>
+                    <item>With programmatic filters we extracted an alpha text (a list of words for spell-checking).</item>
+                    <item>We constructed dictionaries of various sizes by compiling lists of correct forms from different subsets of the project corpora.
+                        <note xml:id="ftn1" place="end" n="ii">In principle, project-specific dictionaries should be built by proofreading texts one-by-one; to streamline the pilot project, we took the shortcut of checking wordlists against off-the-shelf dictionaries. This does not visibly affect the statistical results shown later, but it does mean that for Chalmers some mistranscriptions were missed and some bad flags thrown.</note>
+                    </item>
+                    <item>We checked the test samples against those dictionaries.</item>
+                    <item>For each test, we counted the number of correct and incorrect tokens in the sample flagged or left unflagged by the spell checker.</item>
+                </list>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Results of the pilot study</head>
+                <div type="div2" rend="DH-Heading2">
+                    <head>Constructing project-specific dictionaries</head>
+                    <p>The simplest (not fastest) method is to start with an empty dictionary and spell-check texts from the project's corpus one by one. For each word flagged by the spell checker, either add it to the dictionary or correct it in the text. (More on this below.)</p>
+                    <p>With an empty dictionary, the spell-checker will at first flag every form in the text. To avoid the tedium of dealing with so many bad flags, it may be worthwhile to list the most frequent forms in whatever part of the corpus is available for consultation, check them manually, and seed the dictionary with them. For Wittgenstein, a dictionary of 1300 forms covers about 90% of the running tokens in the text, flagging only one token in ten.</p>
+                </div>
+                <div type="div2" rend="DH-Heading2">
+                    <head>What to include and exclude</head>
+                    <p>Ideally, the dictionary should include all forms which actually occur correctly in the corpus and no forms which are transcription errors. This ideal is unattainable for two reasons. First, the same form may occur both as a correct transcription and as a mistranscription (real-word errors); it cannot be both included and excluded. Second, as the corpus grows, there will always be some correct forms not yet found in the dictionary, and thus always some erroneous flags.</p>
+                    <p>The optimal solution is to balance the relative inconvenience of undetected errors and false flags against the relative frequency with which each form is correct or mistranscribed. If undetected errors and bad flags have equal weight, then a form should be included in the dictionary if any occurrence is more likely correct than not. If we would rather see ten bad flags than miss one mistranscription, then a form should be included only if it is ten times more likely to be correct than incorrect. The project's preferences determine the threshold to be met.</p>
+                    <p>If spelling habits vary from document to document, it can be useful to make both a project-wide dictionary and document-specific dictionaries for texts with distinctive usage.</p>
+                    <p>When forms intentionally excluded from the dictionary do occur correctly transcribed, they can be marked with sic or similar markup and excluded from the alpha text, to avoid throwing bad flags for them.</p>
+                    <p>With these complications, the rule for forms flagged by the spell-checker becomes:</p>
+                    <list type="unordered">
+                        <item>If the form is correctly transcribed and meets the project's correctness threshold, add it to the project dictionary.</item>
+                        <item>If the form is correctly transcribed and meets the threshold in the current document but not elsewhere, then add it to the document-specific dictionary.</item>
+                        <item>If the form is correctly transcribed but does not meet the threshold, then tag it with sic or the equivalent.</item>
+                        <item>If the form is incorrectly transcribed, correct it.</item>
+                    </list>
+                </div>
+                <div type="div2" rend="DH-Heading2">
+                    <head>Dictionary size</head>
+                    <p>Error detection does not require a big dictionary. Indeed, because of real-word errors, bigger dictionaries often find fewer actual errors than smaller dictionaries, as shown below for Chalmers.</p>
+                    <p>
+                        <figure>
+                            <graphic url="Pictures/63fffc2c03a8fb329c738d5e33602d4a.png"/>
+                        </figure>
+                    </p>
+                    <p>Small dictionaries, however, throw too many bad flags. Fortunately, the number of bad flags falls dramatically as dictionary size rises, as shown below for Wittgenstein (red, two samples) and Chalmers (blue).</p>
+                    <p>
+                        <figure>
+                            <graphic url="Pictures/b3a987ff9117798391b1a0f1b2bd4fa2.png"/>
+                        </figure>
+                    </p>
+                    <p>Whether spell-checking feels useful or pointless depends (we think) on its signal:noise ratio; in our data dictionaries of about 15,000 forms reach a (bearable?) ratio of 1:10 (ten erroneous flags for each detected error).</p>
+                    <p>
+                        <figure>
+                            <graphic url="Pictures/ff745ba025e45a4c44b54638aa6aac98.png"/>
+                        </figure>
+                    </p>
+                    <p>How big a corpus must be processed to produce a dictionary of suitable size? It varies, but as the plots below show, something more than 200,000 tokens are needed for a dictionary of 15,000 forms.</p>
+                    <p>
+                        <figure>
+                            <graphic url="Pictures/617e51282c2a33e2edea5e6bdab1eccb.png"/>
+                        </figure>
+                        <figure>
+                            <graphic url="Pictures/83e0dbdbb731f6c4e1f67947d2616f5e.png"/>
+                        </figure>
+                    </p>
+                </div>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Conclusions and future work</head>
+                <p>Spell checking can find transcription errors in real-world data, even though transcription errors are logically distinct from misspellings and even when the spelling is idiosyncratic or inconstant.</p>
+                <p>Developing a project-specific dictionary takes little time and can be expected to improve the results of proofreading. Even very small project-specific dictionaries can be useful.</p>
+                <p>Work remains to be done to extend the pilot study to more materials, to support interactive correction of texts, to improve on the XML support offered by existing spell-checkers, and to explore the application of more sophisticated models of text to support word-in-context spell-checking in lieu of word-in-isolation spell-checking.</p>
+            </div>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl>[Atkinson 2017] Atkinson, Kevin. “GNU Aspell.” 
+                        <ref target="http://aspell.net/">http://aspell.net</ref> (Last rev. 30 January 2017).
+                    </bibl>
+                    <bibl>[Bentley 1986] Bentley, Jon. 1985. “A spelling checker”. In Programming Pearls.. Reading, Mass.: Addison-Wesley, 1986, pp. 139-150. Reprinted from Communications of the ACM May 1985.</bibl>
+                    <bibl>[Charniak 1993] Charniak, Eugene. 
+                        <hi rend="italic">Statistical Language Learning</hi>. Cambridge, Mass.: MIT Press, 1993.
+                    </bibl>
+                    <bibl>[Choudhury et al. 2018] Choudhury, Ranjan, Nabamita Deb, and Kishore Kashyap. “Context-Sensitive Spelling Checker for Assamese Language.” 2018. In 
+                        <hi rend="italic">Recent Developments in Machine Learning and Data Analytics</hi>, ed. Jugal Kalita, Valentina Emilia Balas, Samarjeet Borah, Ratika Pradhan (= Advances in Intelligent Systems and Computing 740). New York, etc.: Springer, 2018, pp. 177-188.
+                    </bibl>
+                    <bibl>[Damerau 1964] Damerau, Fred J. 1964. “A technique for computer detection and correction of spelling errors”. 
+                        <hi rend="italic">Communications of the ACM</hi> 7.3 (March 1964): 171-176.
+                    </bibl>
+                    <bibl>[Dashti et al. 2018] Dashti, Seyed MohammedSadegh, Amid Khatibi Bardsiri, and Vahid Khatibi Bardsiri. “Correcting real-word spelling errors: A new hybrid approach.” 
+                        <hi rend="italic">Digital Scholarship in the Humanities</hi> 33.3 (2018): 488-499.
+                    </bibl>
+                    <bibl>
+                        <anchor xml:id="id_earnest"/>[Earnest 2011] Earnest, Les. “The three first spelling checkers”. Unpublished sketch, May 2011. On the Web at 
+                        <ref target="https://web.archive.org/web/20121022091418/http://www.stanford.edu/~learnest/spelling.pdf">https://web.archive.org​/web​/20121022091418​/brhttp:​/​/www.stanford.edu​/~learnest​/spelling.pdf</ref>, archived from 
+                        <ref target="http://www.stanford.edu/~learnest/spelling.pdf">http://www.stanford.edu​/~learnest​/spelling.pdf</ref>.
+                    </bibl>
+                    <bibl>
+                        <anchor xml:id="id_garbe2012"/>[Garbe 2012] Garbe, Wolf. 2012. “Fast 1000x Faster Spelling Correction algorithm.” Blog post originally posted at http://blog.faroo.de​/2012​/06​/07​/improved-edit-distance-based-spelling-correction/ and now at https://medium.com​/@wolfgarbe​/1000x-faster-spelling-correction-algorithm-2012-8701fcd87a5f
+                    </bibl>
+                    <bibl>
+                        <anchor xml:id="id_garbe2015"/>[Garbe 2015] Garbe, Wolf. 2015. “Fast approximate string matching with large edit distances in Big Data.” Blog post originally posted at 
+                        <ptr target="http://blog.faroo.de/2015/03/24/fast-approximate-string-matching-with-large-edit-distances/"/> and now at 
+                        <ptr target="https://medium.com/@wolfgarbe/fast-approximate-string-matching-with-large-edit-distances-in-big-data-2015-9174a0968c0b"/>
+                    </bibl>
+                    <bibl>[Huitfeldt 2006] Huitfeldt, Claus. 2006. “Philosophy Case Study.” In 
+                        <hi rend="italic">Electronic Textual Editing</hi>, ed. Lou Burnard, Katherine O´Brien O´Keeffe, and John Unsworth. New York: MLA 2006, pp. 181-96.
+                    </bibl>
+                    <bibl>
+                        <anchor xml:id="id_kuenning"/>[Kuenning 2018] Kuenning, Geoff. “International ispell [v 3.4.00].” 
+                        <ptr target="https://www.cs.hmc.edu/~geoff/ispell.html"/> (Last rev. 26 March 2018).
+                    </bibl>
+                    <bibl>[McIlroy 1982] McIlroy, Douglas. “Development of a spelling list.” 
+                        <hi rend="italic">IEEE Transactions on Communications</hi> 30.1 (January 1982): 91-99.
+                    </bibl>
+                    <bibl>
+                        <anchor xml:id="id_nemeth"/>[Németh 2018] Németh, László. 2018. “Hunspell.” 
+                        <ref target="http://hunspell.github.io/">http://hunspell.github.io</ref> (Last rev. 6 July 2018).
+                    </bibl>
+                    <bibl>
+                        <anchor xml:id="id_norvig"/>[Norvig 2007] Norvig, Peter. “How to Write a Spelling Corrector.” Blog post Feb. 2007 (with periodic revisions to August 2016). 
+                        <ptr target="http://norvig.com/spell-correct.html"/>
+                    </bibl>
+                    <bibl>[Peterson 1980] Peterson, James L. “Computer programs for detecting and correcting spelling errors.” 
+                        <hi rend="italic">Communications of the ACM</hi> 23.12 (December 1980): 676-687.
+                    </bibl>
+                    <bibl>[Quin 2017] Quin, Liam. “Improving text quality with automatic majority editions: How shall I count the ways?”. In 
+                        <hi rend="italic">XML Prague 2017 Conference Proceedings.</hi> University of Economics, Prague, February 9-11, 2017, pp. 33-45. On the web at http://archive.xmlprague.cz/2017/files/xmlprague-2017-proceedings.pdf. The digitized edition of Chalmers is on the web at 
+                        <ptr target="https://words.fromoldbooks.org/Chalmers-Biography/"/>.
+                    </bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title type="full">
+                    <title type="main">Publishers, Printers and Booksellers - Implications of Properly Structured Metadata for Digital History</title>
+                    <title type="sub"/>
+                </title>
+                <author>
+                    <persName>
+                        <surname>Vaara</surname>
+                        <forename>Ville</forename>
+                    </persName>
+                    <affiliation>University of Helsinki, Finland</affiliation>
+                    <email>villepvaara@gmail.com</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Hill</surname>
+                        <forename>Mark</forename>
+                    </persName>
+                    <affiliation>University of Helsinki, Finland</affiliation>
+                    <email>mark.john.hill@gmail.com</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Tolonen</surname>
+                        <forename>Mikko</forename>
+                    </persName>
+                    <affiliation>University of Helsinki, Finland</affiliation>
+                    <email>mikko.tolonen@helsinki.fi</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2019-04-25T12:33:39.426707412</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Name, Institution</publisher>
+                <address>
+                    <addrLine>Street</addrLine>
+                    <addrLine>City</addrLine>
+                    <addrLine>Country</addrLine>
+                    <addrLine>Name</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from an OASIS Open Document</p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.22">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Short Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>book history</term>
+                    <term>metadata</term>
+                    <term>analytical bibliography</term>
+                    <term>library catalogues</term>
+                    <term>digital history</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>digital archives and digital libraries</term>
+                    <term>corpus and text analysis</term>
+                    <term>history and historiography</term>
+                    <term>metadata</term>
+                    <term>bibliographic methods / textual studies</term>
+                    <term>English</term>
+                    <term>digital humanities (history</term>
+                    <term>theory and methodology)</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <p>There is a critical point to be made about proper use of metadata in digital history. With any computational analysis of a large historical dataset, there is a strong temptation to approach the dataset as holistic representation of the language and intellectual landscape of its era. Digital history projects are often rightly criticised for having a naive approach to sources resulting in simplification of complex phenomena (Leca-Tsiomis, 2013; Bode, 2017). In this paper we demonstrate a way to avoid this, and how proper use of metadata is necessary for serious corpus control and digital source criticism.</p>
+            <p>This work makes two contributions to the history of the book and digital history. First, we present a methodological approach for creating a historical biographical database from a bibliographical catalogue. Second, we demonstrate solutions for forming a uniform dataset from a noisy and heterogenous starting point. This opens new opportunities which earlier historical research using bibliographical data has missed due to problems of data quality and coverage (Raven, 2007: 193). For example, while publisher networks had a greater impact on the distribution of ideas in early modern period than has been realised, publisher information as a source has not previously been extracted at scale, despite its potential to change the way we study intellectual history. Additionally, as this work is part of wider intellectual history research project, and the dataset produced here is combined with other bibliographical research strands, there are more general claims with regard to the utility of proper metadata in quantitative computational book history.</p>
+            <div type="div1" rend="DH-Heading2">
+                <head>Data</head>
+                <p>The English Short-Title Catalogue (ESTC, 
+                    <ref target="http://estc.bl.uk/">http://estc.bl.uk</ref>) is a standard source for analytical bibliographic research (Lahti et al., 2015) holding close to half a million titles with varying but substantial coverage of printed items published in English from 1473 to 1800 (Raven, 2014: 14). Following MARC 21 guidelines, the data in the catalogue closely matches that found in the original published titles: names, years, publisher imprints, etc. are documented as they appeared on the title pages of the printed originals. The raw data presents major challenges for computational approaches to analysis, however. Bibliographical data is compiled around published titles, and all data points are handled as simple strings of text, instead of independent and unique objects. Thus a new, more structured, data model is required. To this end, we implemented a relational model, where each actor is an independent and unique object connected to all the titles they were involved with.
+                </p>
+                <p>The names of entities in the ESTC which this study focuses on (book trade actors and their geographic locations) are ‘hidden’ in the text of the full publisher statements, and thus had to be identified in the imprint. As a first step, a machine learning based named entity recognition (NER) package offered by the Stanford NLP Group (Finkel et al., 2005) was used for entity name identification. Following extraction, various heterogeneous textual representations (spelling conventions varied widely in the period) of the same entity were identified, linked, and collected to create objects with unique identifiers for each historical actor. A data matching process was applied to test if names detected in the publisher statements could be linked with distinct entities found in external databases (British Booktrade Index (
+                    <ref target="http://bbti.bodleian.ox.ac.uk/">http://bbti.bodleian.ox.ac.uk</ref>) and Virtual International Authority File (
+                    <ref target="http://viaf.org/">http://viaf.org</ref>)). In the cases where such entries did not exist, similar entities were grouped with rules based logic. Previous efforts to distill the publisher information from the ESTC have not incorporated these essential linking and unification steps, or approach the problem with labour intensive solutions (eg. Shakeosphere (
+                    <ref target="https://shakeosphere.lib.uiowa.edu/">https://shakeosphere.lib.uiowa.edu</ref>), Map of Early Modern London (
+                    <ptr target="https://mapoflondon.uvic.ca/BLOG18.htm"/>) and ImprintDB (
+                    <ptr target="https://github.com/Early-Modern-OCR/ImprintDB"/>)).
+                </p>
+                <p>The end result of the unification process is a bibliographic database of 900,000 non-unique records harmonized into fewer than 200,000 actors, of which 30,000 are identified as being part of the book trade. Between these actors we have been able to make roughly 800,000 individual connections. These relations are documented in linking tables similar to a linked data database. The benefit of a flexible linked data model is that it allows natural extension and modification as research based needs arise. We claim that this is currently the state of the art dataset covering the early modern English book trade.</p>
+            </div>
+            <div type="div1" rend="DH-Heading2">
+                <head>Discussion</head>
+                <p>Multiple previous historical hypotheses, based on both geographically and chronologically limited sources, can now be tested at a scale that covers all the publications in the ESTC. Questions of location (Harris, 1982; Raven, 2014), spread of the trade outside London and the importance of networks and connections to that process (Maxted, 1982; Raven, 2007: 141), and questions of authors’ and publishers’ relations (Treadwell, 1983; Isaac and McKay, 1999) can all benefit from a statistical re-examination. Previously unidentified niches, subgroups, and structures in the social networks of the book trade can be discovered through quantitative data exploration.</p>
+                <p>Another potential for this type of book trade metadata can be identified with regard to corpus control for researchers utilizing large full text collections (eg. Early English Books Online (EEBO), or Eighteenth Century Collections Online (ECCO)). While large scale historical text corpora strive to encompass “everything”, by their they nature introduce multiple layers of statistical bias into the data. By making use of linked metadata one can focus text mining efforts on historically meaningful subsections of large text corpora. In fields such as historical computational linguistics, the standard solution has been to limit the corpus to a relatively small manually curated one. Large historical text collections do not typically come supplied with the kind of metadata that would allow properly subsetting them on a large scale, but with the methods presented in this paper, that becomes possible.</p>
+                <p>This work demonstrates a general method for generating a linked biographical database from library metadata catalogue, and shows the benefit of using this as starting point for historical research. While at this stage the primary users of the data are the historians in the research group, as the project progresses the tools and data will be published following good practices for open science, such as adhering to a “tidy” data model (Wickham, 2014), proper code documentation, and open repositories. Additionally, the methods can be adapted to a variety of existing national and transnational bibliographical metadata resources. </p>
+            </div>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl>
+                        <hi rend="bold">Bode, K.</hi> (2017). The Equivalence of ‘Close’ And ‘Distant’ Reading; Or, toward a New Object for Data-Rich Literary History. 
+                        <hi rend="italic">Modern Language Quarterly</hi>, 
+                        <hi rend="bold">78</hi>(1): 77–106 doi:10.1215/00267929-3699787.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Finkel, J. R., Grenager, T. and Manning, C.</hi> (2005). Incorporating Non-local Information into Information Extraction Systems by Gibbs Sampling. 
+                        <hi rend="italic">Proceedings of the 43rd Annual Meeting on Association for Computational Linguistics</hi>. (ACL ’05). Stroudsburg, PA, USA: Association for Computational Linguistics, pp. 363–370 doi:10.3115/1219840.1219885.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Harris, M.</hi> (1982). Trials and Criminal Biographies: A Case Study in Distribution. 
+                        <hi rend="italic">Sale and Distribution of Books from 1700</hi>. (Publishing Pathways). Oxford: Oxford Polytechnic Press, pp. 1–36.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Isaac, P. C. G. and McKay, B. (eds).</hi> (1999). 
+                        <hi rend="italic">The Human Face of the Book Trade: Print Culture and Its Creators</hi>. (Print Networks 3). Winchester, Hampshire : New Castle, DE: St. Paul’s Bibliographies ; Oak Knoll Press.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Lahti, L., Ilomäki, N. and Tolonen, M.</hi> (2015). A Quantitative Study of History in the English Short-Title Catalogue (ESTC), 1470-1800. 
+                        <hi rend="italic">LIBER Quarterly</hi>, 
+                        <hi rend="bold">25</hi>(2): 87–116 doi:10.18352/lq.10112.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Leca-Tsiomis, M.</hi> (2013). The Use and Abuse of the Digital Humanities in the History of Ideas: How to Study the Encyclopédie. 
+                        <hi rend="italic">History of European Ideas</hi>, 
+                        <hi rend="bold">39</hi>(4): 467–76 doi:10.1080/01916599.2013.774115.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Maxted, I.</hi> (1982). ‘4 Rotten Cornbags and Sold Old Books’: The Impact of the Printed Word in Devon. 
+                        <hi rend="italic">Sale and Distribution of Books from 1700</hi>. Oxford: Oxford Polytechnic Press, pp. 37–76.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Raven, J.</hi> (2007). 
+                        <hi rend="italic">The Business of Books : Booksellers and the English Book Trade, 1450-1850</hi>. Yale University Press.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Raven, J.</hi> (2014). 
+                        <hi rend="italic">Bookscape : Geographies of Printing and Publishing in London before 1800</hi>. British Library.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Treadwell, M.</hi> (1983). Swift’s Relations with the London Book Trade to 1714’. 
+                        <hi rend="italic">Author/Publisher Relations during the Eighteenth and Nineteenth Centuries</hi>. (Publishing Pathways Series v. 5.). Oxford: Oxford Polytechnic Press, pp. 1–36.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Wickham, H.</hi> (2014). Tidy Data. 
+                        <hi rend="italic">Journal of Statistical Software</hi>, 
+                        <hi rend="bold">59</hi>(1): 1–23 doi:10.18637/jss.v059.i10.
+                    </bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

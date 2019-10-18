@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title type="full">
+                    <title type="main">Improving OCR of Black Letter in Historical Newspapers: The Unreasonable Effectiveness of HTR Models on Low-Resolution Images</title>
+                    <title type="sub"/>
+                </title>
+                <author>
+                    <persName>
+                        <surname>Ströbel</surname>
+                        <forename>Phillip Benjamin</forename>
+                    </persName>
+                    <affiliation>University of Zurich, Switzerland</affiliation>
+                    <email>pstroebel@cl.uzh.ch</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Clematide</surname>
+                        <forename>Simon</forename>
+                    </persName>
+                    <affiliation>University of Zurich, Switzerland</affiliation>
+                    <email>simon.clematide@cl.uzh.ch</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2019-05-02T20:32:27.166804665</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Name, Institution</publisher>
+                <address>
+                    <addrLine>Street</addrLine>
+                    <addrLine>City</addrLine>
+                    <addrLine>Country</addrLine>
+                    <addrLine>Name</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from an OASIS Open Document</p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.22">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Short Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>OCR</term>
+                    <term>HTR</term>
+                    <term>historical newspapers</term>
+                    <term>text mining</term>
+                    <term>Transkribus</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>data mining / text mining</term>
+                    <term>English</term>
+                    <term>library &amp; information science</term>
+                    <term>artificial intelligence and machine learning</term>
+                    <term>software studies</term>
+                    <term>digital humanities (history</term>
+                    <term>theory and methodology)</term>
+                    <term>OCR and hand-written recognition</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <div type="div1" rend="DH-Heading1">
+                <head>Introduction</head>
+                <p>The quality of Optical Character Recognition (OCR) is a decisive factor for the application of text mining techniques on historical newspapers (Chiron et al., 2017; Walker et al., 2010; Strange et al., 2014). OCR for texts published in black letter is particularly challenging due to several factors: the low distinctiveness of characters, the change over time regarding vocabulary and spelling, the use of small font sizes, and the oftentimes poor paper quality.</p>
+                <p>Holley (2009) argued that in light of the poor OCR quality in newspapers, a focus on manual crowd-correction is more promising than investments in software development. Although automatic OCR post-correction can improve the quality of the text, the methods often lack precision, are not robust enough, or require a lot of in-domain training data (Alex et al., 2012; Chiron et al., 2017).</p>
+                <p>The problems are manifold and complex, but recent progress in neural OCR techniques promises significant improvements (Springmann and Lüdeling, 2016). These OCR models often outperform commercial systems like 
+                    <hi rend="bold">ABBYY FineReader</hi>
+                    <hi rend="bold">
+                        <note xml:id="ftn0" place="foot" n="1">
+                            <ptr target="https://www.abbyy.com"/>
+                        </note>
+                    </hi>. However, the training of a neural system using open-source software (e.g., 
+                    <hi rend="bold">Tesseract</hi>
+                    <hi rend="bold">
+                        <note xml:id="ftn1" place="foot" n="2">
+                            <ptr target="https://github.com/tesseract-ocr/tesseract"/>
+                        </note>
+                    </hi>) is demanding. Integrated handwritten text recognition and annotation platforms like 
+                    <hi rend="bold">Transkribus</hi>
+                    <hi rend="bold">
+                        <note xml:id="ftn2" place="foot" n="3">
+                            <ptr target="https://www.transkribus.eu"/>
+                        </note>
+                    </hi> facilitate the creation of a ground truth, as well as the training and application of neural and corpus-specific models for OCR.
+                </p>
+                <p>Transkribus was initially designed to decipher manuscripts
+                    <note xml:id="ftn3" place="foot" n="4">see 
+                        <ptr target="https://read.transkribus.eu/"/>
+                    </note>. It allows the manual transcription of uploaded documents so that they can be used as training material for 
+                    <hi rend="bold">Handwritten Text Recognition</hi> (HTR) models (Weidemann et al., 2017). A useful feature of Transkribus’ HTR models is that the recognition of printed texts works just as well as that of manuscripts. A few dozen of corrected pages are sufficient for high-quality OCR results.
+                </p>
+                <p>In this study we illustrate how to drastically improve OCR quality for black letter in newspapers with a modest amount of manual work for ground truth creation. The integration of HTR model training into the Transkribus platform enables Digital Humanists to leverage the performance of neural OCR without having to tackle unnecessary technicalities. In our experiments we additionally address the following questions. Robustness: Are HTR models reusable for material that varies in digitisation quality (medium-resolution scans from microfilm vs. high-resolution scans from paper). Transferability: How well does a model perform on another newspaper than the one it was trained on?</p>
+            </div>
+            <div type="div1">
+                <head>
+                    <anchor xml:id="id_data-and-experiments"/>Data and Experiments
+                </head>
+                <p>We use PDFs with medium-resolution images produced in 2005 from scanned microfilms of the German-language 
+                    <hi rend="bold">Neue Zürcher Zeitung</hi> (NZZ) for our experiments. The OCRed text stems from 
+                    <hi rend="bold">ABBYY FineReader XIX</hi>
+                    <hi rend="bold">
+                        <note xml:id="ftn4" place="foot" n="5">
+                            <ptr target="https://www.frakturschrift.com/de:products:finereaderxix"/>
+                        </note>
+                    </hi>, which was ABBYY’s product for 19th century black letter recognition at that time.
+                </p>
+                <p>The first experiment evaluates the differences between three OCR systems: (a) FineReader XIX (FRXIX) results from 2005, (b) ABBYY FineReader Server 11 (FRS11) results
+                    <note xml:id="ftn5" place="foot" n="6">see 
+                        <ptr target="https://www.abbyy.com/de-de/finereader-server/"/>, available within Transkribus
+                    </note>, (c) Transkribus’ HTR model. Figure 1 shows example output from our three OCR systems.
+                </p>
+                <p>
+                    <figure>
+                        <graphic url="Pictures/43d1bacd66807525a4cf35690f3fa329.png"/>
+                        <head>Example excerpts with low-quality OCR from two pages of the NZZ (1819 left, 1859 right, red: FRXIX, blue: FRS11, green: Transkribus HTR)</head>
+                    </figure>
+                </p>
+                <p>In our second experiment we apply the HTR model trained on medium-resolution images to high-resolution images (400dpi) from 1899 digitised anew from paper in order to test the transferability of the model. We also analyse the performance of the HTR model in two other publications.</p>
+                <div type="div2">
+                    <head>
+                        <anchor xml:id="id_creation-of-a-ground-truth-and-htr-model-training"/>Creation of a ground truth and HTR model training
+                    </head>
+                    <p>The NZZ had been published in black letter from 1780 until 1947. We chose one title page per year at random from this period and loaded the image extracted from the PDF into Transkribus. We used the Transkribus internal FRS11 to recognise the text in the images and manually corrected words and baselines. The resulting ground truth of 167 pages contains 304,286 words and 43,151 lines. Depending on the amount of text on a page, the correction of a page including the baselines (needed to train the HTR model) takes between 1 and 2.5 hours. We used 90/10 split for training and testing the model.</p>
+                </div>
+                <div type="div2">
+                    <head>
+                        <anchor xml:id="id_evaluation"/>Evaluation
+                    </head>
+                    <p>We use the bag-of-words F1-measure metrics of PRImA TextEval 1.4
+                        <note xml:id="ftn6" place="foot" n="7">
+                            <ptr target="https://www.primaresearch.org/tools/PerformanceEvaluation"/>
+                        </note> for evaluation. The F1-measure is the harmonic mean of precision and recall. Precision gives the percentage of OCRed words that are part of the ground truth, while recall measures the percentage of ground truth words that were found by the OCR system. By applying a bag-of-words approach, possible differences in layout recognition cannot distort the results.
+                    </p>
+                </div>
+            </div>
+            <div type="div1">
+                <head>
+                    <anchor xml:id="id_results-and-discussion"/>Results
+                </head>
+                <p>Figure 2 shows the evaluation on all pages from the test set. The FRS11 (mean F1-measure 81.1%, SD 7.3%) beats the FRXIX (mean 67.8%, SD 11.1%) throughout. Our HTR model scores 97.0% (SD, 1.8%) on average and achieves significant improvements over both ABBYY products.</p>
+                <p>
+                    <figure>
+                        <graphic url="Pictures/16f498cc6da6a09f06204600b60f7129.png"/>
+                        <head>Comparison between original FRXIX, FRS11, and Transkribus HTR.</head>
+                    </figure>
+                </p>
+                <p>The application of our HTR model to five high-resolution images of newspaper pages from the NZZ shows accuracies of at least 98% and an average improvement of 4.24% over FRS11 (see Figure 3).</p>
+                <p>
+                    <figure>
+                        <graphic url="Pictures/22e84f6523c4aa62b6c3f5166d3ef074.png"/>
+                        <head>Comparison between FRS11 and Transkribus HTR model on five high-resolution images from 1899.</head>
+                    </figure>
+                </p>
+                <p>In terms of the transferability of our HTR model the average F1-measures of 98.6% (SD 1.9%) for the 
+                    <hi rend="bold">Bundesblatt</hi>
+                    <hi rend="italic"> </hi>and 98.9% (SD 0.6%) for the 
+                    <hi rend="bold">Neue Zuger Zeitung</hi> over five pages each show that although the model has been trained on the NZZ, it is able to score equally high on different publications. The FRS11 reaches 92.4% (SD 2.7%) for the Bundesblatt and 88.4% (SD 3.7%) for the Neue Zuger Zeitung, showing the superiority of our HTR model.
+                </p>
+            </div>
+            <div type="div1">
+                <head>
+                    <anchor xml:id="id_conclusion"/>Conclusion
+                </head>
+                <p>We have shown that Transkribus is an excellent tool for creating HTR models for the OCR of newspapers typeset in black letter. Even with a limited amount of training data (150 pages), our HTR model consistently outperforms state-of-the-art commercial software. Our HTR model trained on medium-resolution images digitised from microfilm still performs better than commercial software when applied to high-resolution images derived from paper originals.</p>
+                <p>Given the availability and abundance of digitised historical material in the form of PDF files with poorly OCRed text, our findings showcase how digital humanists can improve their source material for text mining with a reasonable effort.</p>
+            </div>
+            <div type="div1">
+                <head>Acknowledgments</head>
+                <p>We would like to express our gratitude to Günter Mühlberger and the Transkribus team for their support in training HTR models and partially correcting baselines of our ground truth. Moreover, we thank Camille Watter and Isabel Meraner for their help in the transcription process. This research is supported by the Swiss National Science Foundation under grant CR-SII5_173719.</p>
+            </div>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl>
+                        <hi rend="bold">Alex, B., Grover, C., Klein, E., Tobin, R.</hi> (2012). 
+                        <hi rend="italic">Digitised Historical Text: Does it have to be mediOCRe?</hi>, in: KONVENS. pp. 401–409.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Chiron, G., Doucet, A., Coustaty, M., Visani, M., Moreux, J.-P.</hi> (2017). 
+                        <hi rend="italic">Impact of OCR Errors on the Use of Digital Libraries: Towards a Better Access to Information</hi>.
+                        <hi rend="italic"> 2017 ACM/IEEE Joint Conference on Digital Libraries (JCDL)</hi>. IEEE. 
+                        <ptr target="https://doi.org/10.1109/jcdl.2017.7991582"/>
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Holley, R.</hi> (2009). 
+                        <hi rend="italic">How Good Can It Get? Analysing and Improving OCR Accuracy in Large Scale Historic Newspaper Digitisation Programs</hi>. D-Lib Magazine 15. 
+                        <ptr target="https://doi.org/10.1045/march2009-holley"/>
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Springmann, U., Lüdeling, A.</hi> (2016). 
+                        <hi rend="italic">OCR of Historical Printings with an Application to Building Diachronic Corpora: A Case Study Using the RIDGES Herbal Corpus</hi>. CoRR abs/1608.02153.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Strange, C., McNamara, D., Wodak, J., Wood, I.</hi> (2014). Mining for the Meanings of a Murder: The Impact of OCR Quality on the Use of Digitized Historical Newspapers. 
+                        <hi rend="italic">DHQ: Digital Humanities Quarterly 8</hi>.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Walker, D. D., Lund, W. B., Ringger, E. K.</hi> (2010). 
+                        <hi rend="italic">Evaluating Models of Latent Document Semantics in the Presence of OCR Errors</hi>.
+                        <hi rend="italic"> Proceedings of the 2010 Conference on Empirical Methods in Natural Language Processing</hi>. Association for Computational Linguistics, pp. 240–250.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Weidemann, M., Michael, J., Grüning, T., Labahn, R.</hi> (2017). 
+                        <hi rend="italic">HTR Engine Based on NNs P2 Building Deep Architectures with TensorFlow</hi>. 
+                        <ptr target="https://read.transkribus.eu/wp-content/uploads/2017/12/Del_D7_8.pdf"/>
+                    </bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

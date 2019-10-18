@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>Comparing Assonance and Consonance for Authorship Attribution</title>
+                <author>
+                    <persName>
+                        <surname>Ivanov</surname>
+                        <forename>Lubomir</forename>
+                    </persName>
+                    <affiliation>Iona College, United States of America</affiliation>
+                    <email>livanov@iona.edu</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2019-04-06T16:38:00Z</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Name, Institution</publisher>
+                <address>
+                    <addrLine>Street</addrLine>
+                    <addrLine>City</addrLine>
+                    <addrLine>Country</addrLine>
+                    <addrLine>Name</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from a Word document</p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.22">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Long Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>Authorship attribution</term>
+                    <term>consonance</term>
+                    <term>assonance</term>
+                    <term>machine learning</term>
+                    <term>prosody</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>corpus and text analysis</term>
+                    <term>authorship attribution / authority</term>
+                    <term>English</term>
+                    <term>computer science and informatics</term>
+                    <term>digital humanities (history</term>
+                    <term>theory and methodology)</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <div type="div1" rend="DH-Heading1">
+                <head>Introduction</head>
+                <p style="text-align:left; ">Author attribution is the task of identifying the writer of a text of unknown/disputed authorship. Automated attribution is based on selecting a set of stylistic features (e.g. function words, n-grams, etc.), which capture the intuitive notion of an author’s style. The frequencies of use of these features in known works are used to train machine learning classifiers, which can be applied to recognizing the style of a document of unknown or disputed authorship. For an overview of the field, the reader is referred to (Stamatatos 2016, Stamatatos 2009, Juola 2008). Recently, there has been interest in stylistic features based on prosody. Lexical stress for attribution was studied in (Ivanov et al 2018, Ivanov and Petrovic 2015, Dumalus and Fernandez 2011). In (Ivanov 2016), the role of alliteration for attribution was investigated.</p>
+                <p style="text-align:left; ">In this paper, we compare the usefulness for attribution of two other prosodic features – assonance and consonance. We present results from several machine learning experiments, based on extracted assonance and consonance patterns from a historical corpus of 18th Century works, the popular Reuters corpus, and two small poetry corpora.</p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Assonance and consonance</head>
+                <div type="div2" rend="DH-Heading2">
+                    <head>Definitions</head>
+                    <p style="text-align:left; ">Assonance is defined as the use of a repeated vowel or diphthong sound in nearby words. Consonance is the use of a repeated (combination of) consonant sound(s) in nearby words. Examples of assonance and consonance abound in literature: 
+                        <hi rend="color(333333)" xml:space="preserve">Blake's "Tyger, Tyger burning bright in the forest of the night" illustrates the use of the assonant "ai" sound. The sentence "I have a craving for scrambled eggs and marble rye toast" illustrates the use of multiple consonant blocks ("kr", "mbl", "s", "r", etc.). </hi>There has been little work on assonance and consonance except for a paper (
+                        <hi rend="color(333333)">Addanki and Wu 2013) on rhyme identification in hip hop. A few</hi> earlier works (Genzel et al 2010, Byrd and Chodorow 1985) also consider rhyme identification. To the best of our knowledge, neither assonance nor consonance have been used for authorship attribution prior to this study. 
+                    </p>
+                </div>
+                <div type="div2" rend="DH-Heading2">
+                    <head>Extracting assonance and consonance</head>
+                    <p style="text-align:left; ">We developed algorithms for extracting assonance and consonance sequences from text. Both algorithms use a modified version of the Carnegie Mellon University (CMU) pronunciation dictionary, augmented with word-pronunciation pairs from our historical corpus. </p>
+                    <p style="text-align:left; ">The assonance algorithm takes as input a text and several user-specified parameters: The maximum inter-vowel distance (max-IVD) parameter defines how far apart assonant vowels/diphthongs can be. The second parameter specifies the scope for the assonance search: within sentences or within paragraphs. The third parameter indicates whether only primary stressed vowels or any vowels should be considered. The fourth parameter indicates whether only the longest or the two longest assonance patterns per block should be used. For each text block (sentence or paragraph), the algorithm determines the (two) longest assonance sequence(s), and labels them with the vowel/diphthong they represent plus a "short", "medium", "long", or "very-long" tag, e.g. "AE_vl". The label(s) are entered into a map, which tracks the number of times different sequences appear in the text. </p>
+                    <p style="text-align:left; ">The consonance algorithm accepts as input a text and two parameters: the maximum inter-consonance-distance (max-ICD) and the maximum number of consonant-sound/frequency patterns to be output. The algorithm considers all possible combinations of nearby consonant sounds and complexes. For example, in the phrase "extremely strong", the algorithm keeps track of the "str" complex, the "st" and "tr" sub-complexes, and the individual 's', 't', and 'r' consonant sounds. Both deliberate and accidental use of consonance is taken into account. Using the modified CMU dictionary, the algorithm converts a text into a string of syllables, and processes them using a table, which keeps track of the consonant sounds, their count, and their ICDs. The consonant sound patterns and their frequencies are output at the end.</p>
+                    <p style="text-align:left; ">When all corpus files have been processed, separate programs create training/testing vectors, and write them to ARFF files for the WEKA data mining software (Hall et al, 2009).</p>
+                </div>
+                <div type="div2" rend="DH-Heading2">
+                    <head>Experiments with the 18
+                        <hi rend="superscript">th</hi> Century Historical Corpus
+                    </head>
+                    <p style="text-align:left; ">Our historical corpus consists of 224 documents authored by 38 American and British 18
+                        <hi rend="superscript">th</hi> Century political figures. The number of documents per author varies between 2 and 21, and the size of the documents varies between 959 and 19101 words.
+                    </p>
+                    <div type="div3" rend="DH-Heading3">
+                        <head>Baseline experiments</head>
+                        <p style="text-align:left; ">The baseline experiments were conducted using JGAAP (Juola, 2009). We used all 38 and subsets of 15, 10, and 7 authors. Our set of stylistic features is described in Table 1. The classification was performed with WEKA support vector machines with sequential minimal optimization (SMO) and multilayer perceptrons (MLP).</p>
+                        <p style="text-align:left; text-align:center;">
+                            <hi style="font-size:9pt">Table 1: Baseline accuracies (historical corpus)</hi>
+                        </p>
+                        <figure>
+                            <graphic n="1001" width="16.002cm" height="5.953125cm" url="Pictures/018baaaea4b274be778b5518615870d8.png" rend="inline"/>
+                        </figure>
+                    </div>
+                    <div type="div3" rend="DH-Heading3">
+                        <head>Assonance and consonance experiments</head>
+                        <p style="text-align:left; ">All assonance experiments and most consonance experiments used leave-one-out (L1O) validation. Only the 38-author consonance experiments used 10-fold validation. For assonance, we experimented with all combinations of the following parameters: a max-IVD of 5, 10, and 15, sentence and paragraph search boundaries, the longest- and the two-longest assonance sequences per block, and the all-vowel (stressed and non-stressed) option. For consonance, we used max-ICD of 5, 10, 15, and 25, outputting the top 100 consonant-sound/frequency pairs. In all experiments, we used MLP and SMO classifiers. The maximum accuracies achieved are presented in Table 2:</p>
+                        <p style="text-align:left; text-align:center;">
+                            <hi style="font-size:9pt">Table 2: Consonance vs assonance accuracies (historical corpus)</hi>
+                        </p>
+                        <figure>
+                            <graphic n="1002" width="16.002cm" height="3.744736111111111cm" url="Pictures/187fdb16b7affc81cbb723eee35aa830.png" rend="inline"/>
+                        </figure>
+                        <p style="text-align:left; ">In the assonance experiments, for larger author sets, the use of the two longest assonance-sequences-per-block produced the strongest results. The results in the 7-author experiments were obtained using the longest-sequence-per-block only. With two exceptions, the maximum accuracy was achieved using a max-IVD of 15. The sentence boundary consistently produced higher accuracy compared to the paragraph boundary. In terms of classification methodology, SMOs outperformed MLPs in two-thirds of the experiments. </p>
+                        <p style="text-align:left; ">For consonance
+                            <hi rend="italic">,</hi> MLPs routinely outperformed SMOs, yielding stronger results in all but one experiments. The optimal max-ICD was 10 in all consonance experiments. Larger max-ICD values led to rapidly deteriorating results.
+                        </p>
+                    </div>
+                </div>
+                <div type="div2" rend="DH-Heading2">
+                    <head>Experiments with the Reuters corpus</head>
+                    <p style="text-align:left; ">The Reuters Corpus v.1 (RCV1) (Lewis et al, 2004, NIST) is an expansion of the popular Reuters-21578 corpus for text categorization. We selected a random 20-author subset of RCV1 for our second set of experiments. Each author had 50 texts with an average length of about 700 words.</p>
+                    <div type="div3" rend="DH-Heading3">
+                        <head>Baseline experiments</head>
+                        <p style="text-align:left; ">The baseline results are listed in Table 3:</p>
+                        <p style="text-align:left; text-align:center;">
+                            <hi style="font-size:9pt">Table 3: Baseline accuracies (Reuters RCV1 corpus)</hi>
+                        </p>
+                        <figure>
+                            <graphic n="1003" width="16.002cm" height="6.496402777777778cm" url="Pictures/017085dc94f38820ce890c6c2df9ae34.png" rend="inline"/>
+                        </figure>
+                    </div>
+                    <div type="div3" rend="DH-Heading3">
+                        <head>Assonance and consonance experiments</head>
+                        <p style="text-align:left; ">We repeated all experiments using the RCV1 corpus. The assonance and consonance parameters were varied as described in section 2.3.2. The maximum accuracies obtained are presented in Table 4. Both assonance and consonance performed at least as well as the baseline averages, outperforming most traditional features when the number of authors was relatively small. In all except one case, the maximum consonance accuracy was obtained with a max-ICD of 10. Assonance results were somewhat surprising: As in the case of the historical corpus, the highest accuracy was obtained using a sentence boundary, However, the max-IVD parameter did not affect the accuracy - identical results were obtained using an IVD of 5, 10, and 15. We suspect that this is due to the equal per-author distribution of documents and their sizes in the Reuters corpus. Interestingly, Random Forest (RF) classifiers outperformed both SMOs and MLPs in all experiments. </p>
+                        <p style="text-align:left; text-align:center;">
+                            <hi style="font-size:9pt">Table 4: Consonance vs assonance accuracies (RCV1 corpus)</hi>
+                        </p>
+                        <figure>
+                            <graphic n="1004" width="16.002cm" height="4.288013888888889cm" url="Pictures/43396c997e874b884031a9175a47c61c.png" rend="inline"/>
+                        </figure>
+                    </div>
+                </div>
+                <div type="div2" rend="DH-Heading2">
+                    <head>Experiments with poetry</head>
+                    <p style="text-align:left; ">We performed a third set of experiments with two small poetry corpora - 18
+                        <hi rend="superscript">th</hi> Century American poetry (8 authors, 4-6 texts/author), and a mixed 19
+                        <hi rend="superscript">th</hi>-20
+                        <hi rend="superscript">th</hi> Century poetry (7 authors, 8-19 texts/author). All parameters of the assonance and consonance algorithms were as in the previous experiments. Table 5 present the assonance/consonance maximum accuracies. The baseline accuracies were 39.48% for both corpora.
+                    </p>
+                    <p style="text-align:left; text-align:center;">
+                        <hi style="font-size:9pt">Table 5: Consonance vs assonance accuracies (poetry corpora)</hi>
+                    </p>
+                    <figure>
+                        <graphic n="1005" width="16.002cm" height="1.3440833333333333cm" url="Pictures/5e849d56b7dcac2906d5fb4811bebf2a.png" rend="inline"/>
+                    </figure>
+                    <p style="text-align:left; ">Once again, consonance and assonance performed at or above the baseline average. If fact, assonance may have a slight edge in performance in poetry experiments. However, we refrain from drawing conclusions since the corpora are too small to have any statistical validity. We are currently constructing a larger poetry corpus using the resources of (Project Guttenberg 2018).</p>
+                </div>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Conclusion and future work</head>
+                <p style="text-align:left; ">We presented an experimental study of the effectiveness of the assonance and consonance as stylistic features for authorship attribution. Both features exhibit a good performance for smaller author sets. Consonance appears to work better for attributing historical texts, while assonance may perform better on poetry. The performance of both features is affected by the predisposition of authors to using prosody: Certain author styles (e.g. Paine, Wollstonecraft) are readily recognizable through the use of consonance and assonance, while other authors yield weak results. The most promising use of assonance and consonance is in ensemble classifiers, which use traditional features to carry out the initial classification, and prosodic features to fine-tune the attribution hypothesis.</p>
+            </div>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold">Addanki, K. and Wu, D.</hi> (2013). Unsupervised Rhyme Scheme Identification in Hip Hop Lyrics Using Hidden Markov Models. In: Dediu AH., et al, (eds) Statistical Language and Speech Processing. SLSP 2013. 
+                        <hi rend="italic">Lecture Notes in Computer Science</hi>, vol. 7978. Springer, Berlin, Heidelberg
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold">Byrd, R. and Chodorow, M.</hi> (1985). Using an online dictionary to find rhyming words and pronunciations for unknown words. 
+                        <hi rend="italic">Proceedings of ACL</hi>. 
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold">Dumalus, A. and Fernandez, P.</hi> (2011). Authorship Attribution Using Writer’s Rhythm Based On Lexical Stress, 
+                        <hi rend="italic">11th Philippine Computing Science Congress</hi>, Naga City, Philippines 
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold">Genzel, D., Uszkoreit, J., and Och, F.</hi> (2010). “Poetic” statistical machine translation: Rhyme and meter. 
+                        <hi rend="italic">Proceedings of EMNLP</hi>.
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold">Hall M., Frank E., Holmes G., Pfahringer B., Reutemann P., Witten I.</hi> (2009). The WEKA Data Mining Software: An Update. 
+                        <hi rend="italic">SIGKDD Explorations</hi>, Volume 11, Issue 1 
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold">Juola, P.</hi> (2009). JGAAP: A system for comparative evaluation of authorship attribution. 
+                        <hi rend="italic">Journal of the Chicago Colloquium on Digital Humanities and Computer Science</hi>, 1(1): 1-5. 
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold">Juola, P.</hi> (2008). Authorship Attribution. 
+                        <hi rend="italic">Foundations and Trends in Information Retrieval 1</hi>, pp. 234– 334
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold">Lewis, D., Yang, Y., Rose, T., and Li, F.</hi> (2004). RCV1: A New Benchmark Collection for Text Categorization Research. 
+                        <hi rend="italic">Journal of Machine Learning Research</hi>, 5:361-397.
+                        <hi rend="apple-converted-space"> </hi>
+                    </bibl>
+                    <bibl style="text-align:left; ">NIST: https://trec.nist.gov/data/reuters/reuters.html</bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold">Project Gutenberg.</hi> (n.d.). Retrieved June 2018, from www.gutenberg.org
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold">Stamatatos E. (2016).</hi> Authorship Verification: A Review of Recent Advances Research. 
+                        <hi rend="italic">Computer Science</hi>, 123, pp. 9-25, IPN.
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold">Stamatatos E. (2009).</hi>
+                        <hi rend="bold">
+                            <hi rend="normalweight" xml:space="preserve">A Survey </hi>
+                            <hi rend="normalweight">of</hi>
+                            <hi rend="normalweight">Modern</hi>
+                            <hi rend="normalweight">Authorship</hi>
+                            <hi rend="normalweight" xml:space="preserve"> Attribution </hi>
+                            <hi rend="normalweight">Methods</hi>
+                            <hi rend="normalweight">,</hi>
+                        </hi>
+                        <hi rend="italic">Journal of the American Society for Information Science and Technology</hi>, 60(3), pp. 538-556, Wiley.
+                    </bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

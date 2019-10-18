@@ -1,0 +1,625 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>Applying Measures of Lexical Diversity to Classification of the Greek New Testament Editions</title>
+                <author>
+                    <persName>
+                        <surname>Miyake</surname>
+                        <forename>Maki</forename>
+                    </persName>
+                    <affiliation>Osaka university, Japan</affiliation>
+                    <email>mmiyake@lang.osaka-u.ac.jp</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2019-04-29T00:56:00Z</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Name, Institution</publisher>
+                <address>
+                    <addrLine>Street</addrLine>
+                    <addrLine>City</addrLine>
+                    <addrLine>Country</addrLine>
+                    <addrLine>Name</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from a Word document</p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.22">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Short Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>Lexical Diversity Measures</term>
+                    <term>Tree Models</term>
+                    <term>Textual Criticism</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>corpus and text analysis</term>
+                    <term>stylistics and stylometry</term>
+                    <term>theology and religious studies</term>
+                    <term>authorship attribution / authority</term>
+                    <term>English</term>
+                    <term>digital humanities (history</term>
+                    <term>theory and methodology)</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <p>
+                <hi rend="bold" style="font-size:14pt">1. Introduction</hi>
+            </p>
+            <p>
+                <hi style="font-size:12pt">A number of lexical diversity measures have been proposed and applied in stylometric studies (Tweedie &amp; Baayen,1998). Covington et al. (2015) introduced three stylometric measures including moving-average type-token ratio, or MATTR (Covington and MacFall, 2010). They applied the measures to classify ten English translations of the Gospel of Mark.</hi>
+            </p>
+            <p>
+                <hi style="font-size:12pt">The study focuses on decision tree models based on several measures of lexical diversity, aiming at classifying genres of authorship attribution and critical types in various editions of the Greek New Testament. We extract measures of lexical diversity that do not significantly correlate with tokens and investigate specific indices that highly contribute to the performance of discriminant models. After creating training and test subsets from ten editions, we apply two classification algorithms such as Classification and Regression Tree (Breiman et al., 1984) and Random Forest (Breiman, 2001). We then figure out the classification accuracy with the token-independent measures.</hi>
+            </p>
+            <p>
+                <hi style="font-size:12pt">For all that the aim of the study is to classify genres of authorship attribution and critical types in various New Testament editions, we do not simply pursue higher accuracy of classification per se, especially in the edition types. We are rather focusing on the characteristics of misclassified texts and edition types. Before comparing contents among the editions, we try to identify the measures of lexical diversity contributing to classification according to purposes such as authorship and edition types in this case.</hi>
+            </p>
+            <p>
+                <hi rend="bold" style="font-size:14pt">2. Methods</hi>
+            </p>
+            <p>
+                <hi rend="bold" style="font-size:14pt">2.1. Data</hi>
+            </p>
+            <p>
+                <hi style="font-size:12pt">In this study, we focus on the top ten longest books over 4000 tokens in the New Testament: the four Gospels, Acts, Romans, the first and second Epistles to the Corinthians, Epistle to the Hebrew and Revelation.</hi>
+            </p>
+            <p>
+                <hi style="font-size:12pt">Table 1 shows the list of ten books with its abbreviated name, genres and authors. The author’s names followed the general consensus in the biblical studies. We distinguish the authors between the Gospel of John and the Revelation and we do not specify the name of the author the Epistle to the Hebrew.</hi>
+            </p>
+            <table rend="rules">
+                <row>
+                    <cell rend="center">Book</cell>
+                    <cell rend="center">Genre</cell>
+                    <cell rend="center">Author</cell>
+                    <cell rend="center" cols="2">Stephanus</cell>
+                    <cell rend="center" cols="2">Nestle-Aland</cell>
+                </row>
+                <row>
+                    <cell rend="center"/>
+                    <cell rend="center"/>
+                    <cell rend="center"/>
+                    <cell rend="center">Tokens</cell>
+                    <cell rend="center">Types</cell>
+                    <cell rend="center">Tokens</cell>
+                    <cell rend="center">Types</cell>
+                </row>
+                <row>
+                    <cell rend="left">Matthew</cell>
+                    <cell rend="left">Gospel</cell>
+                    <cell rend="left">Matthew the Evangelist</cell>
+                    <cell rend="right">18769</cell>
+                    <cell rend="right">4281</cell>
+                    <cell rend="right">18348</cell>
+                    <cell rend="right">4190</cell>
+                </row>
+                <row>
+                    <cell rend="left">Mark</cell>
+                    <cell rend="left">Gospel</cell>
+                    <cell rend="left">Mark the Evangelist</cell>
+                    <cell rend="right">11656</cell>
+                    <cell rend="right">3128</cell>
+                    <cell rend="right">11306</cell>
+                    <cell rend="right">3005</cell>
+                </row>
+                <row>
+                    <cell rend="left">Luke</cell>
+                    <cell rend="left">Gospel</cell>
+                    <cell rend="left">Luke the Evangelist</cell>
+                    <cell rend="right">19949</cell>
+                    <cell rend="right">4977</cell>
+                    <cell rend="right">19490</cell>
+                    <cell rend="right">4858</cell>
+                </row>
+                <row>
+                    <cell rend="left">John</cell>
+                    <cell rend="left">Gospel</cell>
+                    <cell rend="left">John the Evangelist</cell>
+                    <cell rend="right">15942</cell>
+                    <cell rend="right">2878</cell>
+                    <cell rend="right">15641</cell>
+                    <cell rend="right">2809</cell>
+                </row>
+                <row>
+                    <cell rend="left">Acts</cell>
+                    <cell rend="left">Acts</cell>
+                    <cell rend="left">Luke the Evangelist</cell>
+                    <cell rend="right">18814</cell>
+                    <cell rend="right">4927</cell>
+                    <cell rend="right">18455</cell>
+                    <cell rend="right">4846</cell>
+                </row>
+                <row>
+                    <cell rend="left">Romans</cell>
+                    <cell rend="left">Epistle</cell>
+                    <cell rend="left">Paul</cell>
+                    <cell rend="right">7220</cell>
+                    <cell rend="right">2121</cell>
+                    <cell rend="right">7111</cell>
+                    <cell rend="right">2086</cell>
+                </row>
+                <row>
+                    <cell rend="left">1 Corinthians</cell>
+                    <cell rend="left">Epistle</cell>
+                    <cell rend="left">Paul</cell>
+                    <cell rend="right">6941</cell>
+                    <cell rend="right">2084</cell>
+                    <cell rend="right">6832</cell>
+                    <cell rend="right">2055</cell>
+                </row>
+                <row>
+                    <cell rend="left">2 Corinthians</cell>
+                    <cell rend="left">Epistle</cell>
+                    <cell rend="left">Paul</cell>
+                    <cell rend="right">4499</cell>
+                    <cell rend="right">1499</cell>
+                    <cell rend="right">4478</cell>
+                    <cell rend="right">1484</cell>
+                </row>
+                <row>
+                    <cell rend="left">Hebrews</cell>
+                    <cell rend="left">Epistle</cell>
+                    <cell rend="left">Unknown</cell>
+                    <cell rend="right">5016</cell>
+                    <cell rend="right">1922</cell>
+                    <cell rend="right">4955</cell>
+                    <cell rend="right">1896</cell>
+                </row>
+                <row>
+                    <cell rend="left">Revelation</cell>
+                    <cell rend="left">Revelation</cell>
+                    <cell rend="left">John of Patmos</cell>
+                    <cell rend="right">9975</cell>
+                    <cell rend="right">2301</cell>
+                    <cell rend="right">9857</cell>
+                    <cell rend="right">2218</cell>
+                </row>
+            </table>
+            <p style="text-align:left;">
+                <hi rend="bold" style="font-size:12pt">Table 1: List of top 10 longest books in the New Testament</hi>
+            </p>
+            <p>
+                <hi style="font-size:12pt">The ten editions we selected can be divided into three types, such as the so-called Received Text ("Textus Receptus"), critical edition and Byzantine Textform.</hi>
+            </p>
+            <p>
+                <hi style="font-size:12pt">Table 2 shows the list of ten editions of the Greek New Testament that are used in the study. Most of the texts are obtained from the electric texts in two biblical software such as Bible Works 9.0.12 and Accordance 11.2.5. The last column of the list represents the electric version of the text.</hi>
+            </p>
+            <p>
+                <hi style="font-size:12pt">We apply 100 samples in total (10 books × 10 editions) to discriminant analyses. The samples of these editions are randomly distributed into training and test subsets.</hi>
+            </p>
+            <table rend="rules">
+                <row>
+                    <cell rend="left">Edition</cell>
+                    <cell rend="left">Date</cell>
+                    <cell rend="left">Type</cell>
+                    <cell rend="left">
+                        <hi style="font-size:12pt">Electric Text Vers.</hi>
+                    </cell>
+                </row>
+                <row>
+                    <cell rend="left">Stephanus (R. Etienne)</cell>
+                    <cell rend="left">1550</cell>
+                    <cell rend="left">Textus Receptus</cell>
+                    <cell rend="left">4.8</cell>
+                </row>
+                <row>
+                    <cell rend="left">Tregelles</cell>
+                    <cell rend="left">1857-1879</cell>
+                    <cell rend="left">Critical Text</cell>
+                    <cell rend="left">1.0</cell>
+                </row>
+                <row>
+                    <cell rend="left">Tischendorf 8th ed.</cell>
+                    <cell rend="left">1869-1872</cell>
+                    <cell rend="left">Critical Text</cell>
+                    <cell rend="left">2.7</cell>
+                </row>
+                <row>
+                    <cell rend="left">
+                        <hi style="font-size:11pt">Westcott-Hort</hi>
+                    </cell>
+                    <cell rend="left">1881</cell>
+                    <cell rend="left">Critical Text</cell>
+                    <cell rend="left">2.7</cell>
+                </row>
+                <row>
+                    <cell rend="left">Scrivener</cell>
+                    <cell rend="left">1894</cell>
+                    <cell rend="left">Textus Receptus</cell>
+                    <cell rend="left">-</cell>
+                </row>
+                <row>
+                    <cell rend="left">
+                        <hi style="font-size:11pt">Von Soden</hi>
+                    </cell>
+                    <cell rend="left">1902-1910</cell>
+                    <cell rend="left">Critical Text</cell>
+                    <cell rend="left">1.0</cell>
+                </row>
+                <row>
+                    <cell rend="left">Robinson-Pierpont</cell>
+                    <cell rend="left">2005</cell>
+                    <cell rend="left">Byzantine Textform</cell>
+                    <cell rend="left">2.8</cell>
+                </row>
+                <row>
+                    <cell rend="left">Nestle-Aland 28th ed.</cell>
+                    <cell rend="left">2012</cell>
+                    <cell rend="left">Critical Text</cell>
+                    <cell rend="left">2.0</cell>
+                </row>
+                <row>
+                    <cell rend="left">BGNT</cell>
+                    <cell rend="left">2014</cell>
+                    <cell rend="left">Byzantine Textform</cell>
+                    <cell rend="left">-</cell>
+                </row>
+                <row>
+                    <cell rend="left">Tyndale House</cell>
+                    <cell rend="left">2014</cell>
+                    <cell rend="left">Critical Text</cell>
+                    <cell rend="left">-</cell>
+                </row>
+            </table>
+            <p style="text-align:left;">
+                <hi rend="bold" style="font-size:12pt">Table 2: List of the Greek New Testament editions</hi>
+            </p>
+            <p>
+                <hi rend="bold" style="font-size:14pt">2.2. Measures of Lexical Diversity</hi>
+            </p>
+            <p>
+                <hi style="font-size:12pt">We use measures of lexical diversity as categorical variables for classification. First of all, we calculated 16 measures including basic indices such as types, tokens and punctuation using the koRpus package (Michalke, 2018) in R version 3.5.1.</hi>
+            </p>
+            <p>
+                <hi style="font-size:12pt">Fig. 1 shows the Correlation Coefficients of each measure of lexical diversity with Tokens. We extract measures with no significant correlations with tokens at the 0.05 level of p-value. In this way, the following the eight measures are going to use the classification: Punctuation Ratio, Yule’s K, MATTR, Dugast’s U, Maas, Somers, MTLD, and HD-D.</hi>
+            </p>
+            <figure>
+                <graphic n="1001" width="16.002cm" height="9.212791666666666cm" url="Pictures/fc12fa0b0bda652ee30c2ef98ea6226d.png" rend="inline"/>
+            </figure>
+            <p style="text-align:left;">
+                <hi rend="bold" style="font-size:12pt">Fig. 1: Correlation Coefficients with Tokens</hi>
+            </p>
+            <p>
+                <hi rend="bold" style="font-size:14pt">2.3. Classification</hi>
+            </p>
+            <p>
+                <hi style="font-size:12pt">We apply two classification algorithms to classify authors and edition types in the Greek New Testament. One algorithm is Classification and Regression Tree, or CART and the other one is Random Forest, or RF. Discriminant analyses are performed in R 3.5.1 using the rpart package (Therneau, 2018) for the CART algorithm and the randomForest package (Liaw, A.&amp; Wiener, M., 2002) for RF.</hi>
+            </p>
+            <p>
+                <hi style="font-size:12pt">For CART tree models, trees are split based on the Gini index and the values of variable importance are recalculated so that the sum total becomes 100. The minimum number of observations is set to 3. We prune trees based on the cost-complexity parameter and cross validated error results, if necessary. Meanwhile, the minimum size of terminal nodes in RF is varied to optimize the classification accuracy.</hi>
+            </p>
+            <p>
+                <hi style="font-size:12pt">The samples of the New Testament editions are randomly distributed into 50 training and 50 test subsets. Generating decision tree models from training samples, we apply the trees to test datasets and then examine the classification results. We also observe the discriminant measures of lexical diversity.</hi>
+            </p>
+            <p>
+                <hi style="font-size:12pt">The breakdowns of datasets are shown in Table 3 for authorship and in Table 4 for classification of edition types. The names of each authors referred to the third column in Table 1. The letter "E" of "E_(Mark/Matthew/Luke/John)" stands for the Evangelist.</hi>
+            </p>
+            <table rend="rules">
+                <row>
+                    <cell rend="DH-Default"/>
+                    <cell rend="DH-Default">E_Mark</cell>
+                    <cell rend="DH-Default">E_Matthew</cell>
+                    <cell rend="DH-Default">E_Luke</cell>
+                    <cell rend="DH-Default">E_John</cell>
+                    <cell rend="DH-Default">Paul</cell>
+                    <cell rend="DH-Default">Unknown</cell>
+                    <cell rend="DH-Default">John of Patmos</cell>
+                </row>
+                <row>
+                    <cell rend="DH-Default">Training</cell>
+                    <cell rend="DH-Default">4</cell>
+                    <cell rend="DH-Default">5</cell>
+                    <cell rend="DH-Default">10</cell>
+                    <cell rend="DH-Default">4</cell>
+                    <cell rend="DH-Default">16</cell>
+                    <cell rend="DH-Default">6</cell>
+                    <cell rend="DH-Default">5</cell>
+                </row>
+                <row>
+                    <cell rend="DH-Default">Test</cell>
+                    <cell rend="DH-Default">6</cell>
+                    <cell rend="DH-Default">5</cell>
+                    <cell rend="DH-Default">10</cell>
+                    <cell rend="DH-Default">6</cell>
+                    <cell rend="DH-Default">14</cell>
+                    <cell rend="DH-Default">4</cell>
+                    <cell rend="DH-Default">5</cell>
+                </row>
+            </table>
+            <p style="text-align:left; ">Table 3: Breakdowns for authorship classification</p>
+            <table rend="rules">
+                <row>
+                    <cell rend="DH-Default"/>
+                    <cell rend="DH-Default">
+                        <hi style="font-size:12pt">Byzantine Textform</hi>
+                    </cell>
+                    <cell rend="DH-Default">
+                        <hi style="font-size:12pt">Textus Receptus</hi>
+                    </cell>
+                    <cell rend="DH-Default">Critical Text</cell>
+                </row>
+                <row>
+                    <cell rend="DH-Default">Training</cell>
+                    <cell rend="DH-Default">9</cell>
+                    <cell rend="DH-Default">11</cell>
+                    <cell rend="DH-Default">30</cell>
+                </row>
+                <row>
+                    <cell rend="DH-Default">Test</cell>
+                    <cell rend="DH-Default">11</cell>
+                    <cell rend="DH-Default">9</cell>
+                    <cell rend="DH-Default">30</cell>
+                </row>
+            </table>
+            <p style="text-align:left; ">Table 4: Breakdowns for classification of edition types</p>
+            <p>
+                <hi rend="bold" style="font-size:14pt">3. Classification Results</hi>
+            </p>
+            <p>
+                <hi rend="bold" style="font-size:14pt">3.1. Authorship</hi>
+            </p>
+            <p style="text-align:left; ">
+                <hi style="font-size:12pt" xml:space="preserve">First, we apply CART tree models to classify authors. Fig. 2 shows the variable importance in CART classification. Although MATTR indicates the highest score among eight measures, Dugast’s U can be also regarded as important index for discrimination. There are many other relatively important measures such as Maas, Yule’s K and MTLD. Pruning trees was not needed in this model. </hi>
+            </p>
+            <figure>
+                <graphic n="1002" width="8.004527777777778cm" height="7.783061111111111cm" url="Pictures/1ceaed518ec17348b8fa5cf2e924f45e.png" rend="inline"/>
+            </figure>
+            <p style="text-align:left; ">
+                <hi rend="bold" style="font-size:12pt">Fig. 2: CART's Variable Importance</hi>
+            </p>
+            <figure>
+                <graphic n="1003" width="8.00553611111111cm" height="7.784041666666667cm" url="Pictures/5add30658efc582c5f48db248c9a3541.png" rend="inline"/>
+            </figure>
+            <p style="text-align:left; ">Fig. 3: RF’s Variable Importance</p>
+            <table rend="rules">
+                <row>
+                    <cell rend="DH-Default"/>
+                    <cell rend="DH-Default">E_Mark</cell>
+                    <cell rend="DH-Default">E_Matthew</cell>
+                    <cell rend="DH-Default">E_Luke</cell>
+                    <cell rend="DH-Default">E_John</cell>
+                    <cell rend="DH-Default">Paul</cell>
+                    <cell rend="DH-Default">Unknown</cell>
+                    <cell rend="DH-Default">John of Patmos</cell>
+                </row>
+                <row>
+                    <cell rend="DH-Default">E_Mark</cell>
+                    <cell rend="DH-Default">6</cell>
+                    <cell rend="DH-Default">0</cell>
+                    <cell rend="DH-Default">0</cell>
+                    <cell rend="DH-Default">0</cell>
+                    <cell rend="DH-Default">0</cell>
+                    <cell rend="DH-Default">0</cell>
+                    <cell rend="DH-Default">0</cell>
+                </row>
+                <row>
+                    <cell rend="DH-Default">E_Matthew</cell>
+                    <cell rend="DH-Default">0</cell>
+                    <cell rend="DH-Default">5</cell>
+                    <cell rend="DH-Default">0</cell>
+                    <cell rend="DH-Default">0</cell>
+                    <cell rend="DH-Default">0</cell>
+                    <cell rend="DH-Default">0</cell>
+                    <cell rend="DH-Default">0</cell>
+                </row>
+                <row>
+                    <cell rend="DH-Default">E_Luke</cell>
+                    <cell rend="DH-Default">0</cell>
+                    <cell rend="DH-Default">0</cell>
+                    <cell rend="DH-Default">10</cell>
+                    <cell rend="DH-Default">0</cell>
+                    <cell rend="DH-Default">0</cell>
+                    <cell rend="DH-Default">0</cell>
+                    <cell rend="DH-Default">0</cell>
+                </row>
+                <row>
+                    <cell rend="DH-Default">E_John</cell>
+                    <cell rend="DH-Default">0</cell>
+                    <cell rend="DH-Default">0</cell>
+                    <cell rend="DH-Default">0</cell>
+                    <cell rend="DH-Default">6</cell>
+                    <cell rend="DH-Default">0</cell>
+                    <cell rend="DH-Default">0</cell>
+                    <cell rend="DH-Default">0</cell>
+                </row>
+                <row>
+                    <cell rend="DH-Default">Paul</cell>
+                    <cell rend="DH-Default">0</cell>
+                    <cell rend="DH-Default">0</cell>
+                    <cell rend="DH-Default">0</cell>
+                    <cell rend="DH-Default">0</cell>
+                    <cell rend="DH-Default">12</cell>
+                    <cell rend="DH-Default">2</cell>
+                    <cell rend="DH-Default">0</cell>
+                </row>
+                <row>
+                    <cell rend="DH-Default">Unknown</cell>
+                    <cell rend="DH-Default">0</cell>
+                    <cell rend="DH-Default">0</cell>
+                    <cell rend="DH-Default">0</cell>
+                    <cell rend="DH-Default">0</cell>
+                    <cell rend="DH-Default">0</cell>
+                    <cell rend="DH-Default">4</cell>
+                    <cell rend="DH-Default">0</cell>
+                </row>
+                <row>
+                    <cell rend="DH-Default">John of Patmos</cell>
+                    <cell rend="DH-Default">0</cell>
+                    <cell rend="DH-Default">0</cell>
+                    <cell rend="DH-Default">0</cell>
+                    <cell rend="DH-Default">0</cell>
+                    <cell rend="DH-Default">0</cell>
+                    <cell rend="DH-Default">0</cell>
+                    <cell rend="DH-Default">5</cell>
+                </row>
+            </table>
+            <p style="text-align:left;">
+                <hi rend="bold" style="font-size:12pt">Table 5: CART Classification (Accuracy: 96.0%)</hi>
+            </p>
+            <p style="text-align:left; ">
+                <hi style="font-size:12pt">As shown in Table 5, two Pauline Epistles were misclassified as the author of Epistle to the Hebrews and the accuracy is 96.0%. Meanwhile, the RF algorithm classified with 100% accuracy. Fig. 2 plots Mean Decrease in Gini coefficient equivalent to variable importance in CART. Maas and Yule’s K highly are considered to contribute to the authorship classification.</hi>
+            </p>
+            <p>
+                <hi rend="bold" style="font-size:14pt">3.2. Edition Types</hi>
+            </p>
+            <p style="text-align:left; ">
+                <hi style="font-size:12pt">In the CART classification, we pruned the tree where the value of complexity parameter is 0.17. Fig. 4 shows the variable importance in CART. Punctuation Rate indicates exclusively the highest score and can be regarded as the most important index for discrimination. As shown in Table 6, all editions of Byzantine textform were misclassified into both Textus Receptus and Critical Text. The classification accuracy in CART is 60.0%, while that in RF is slightly higher: 62.0% shown in Table 7, where minimum size of terminal nodes is set to 10. As shown in Table 5, the constituent ratio of Mean Decrease in Gini coefficient is very similar to that in CART in Fig. 4: distinctive importance of punctuation rate.</hi>
+            </p>
+            <figure>
+                <graphic n="1004" width="7.973119444444444cm" height="7.752522222222222cm" url="Pictures/1acbf9b6d9845490d696c2891a6a2832.png" rend="inline"/>
+            </figure>
+            <p style="text-align:left; ">
+                <hi rend="bold" style="font-size:12pt">Fig. 4: CART's Variable Importance</hi>
+            </p>
+            <table rend="rules">
+                <row>
+                    <cell rend="DH-Default"/>
+                    <cell rend="DH-Default">
+                        <hi style="font-size:12pt">Byzantine Textform</hi>
+                    </cell>
+                    <cell rend="DH-Default">
+                        <hi style="font-size:12pt">Textus Receptus</hi>
+                    </cell>
+                    <cell rend="DH-Default">Critical Text</cell>
+                </row>
+                <row>
+                    <cell rend="DH-Default">
+                        <hi style="font-size:12pt">Byzantine Textform</hi>
+                    </cell>
+                    <cell rend="DH-Default">0</cell>
+                    <cell rend="DH-Default">3</cell>
+                    <cell rend="DH-Default">8</cell>
+                </row>
+                <row>
+                    <cell rend="DH-Default">
+                        <hi style="font-size:12pt">Textus Receptus</hi>
+                    </cell>
+                    <cell rend="DH-Default">0</cell>
+                    <cell rend="DH-Default">5</cell>
+                    <cell rend="DH-Default">4</cell>
+                </row>
+                <row>
+                    <cell rend="DH-Default">Critical Text</cell>
+                    <cell rend="DH-Default">0</cell>
+                    <cell rend="DH-Default">5</cell>
+                    <cell rend="DH-Default">25</cell>
+                </row>
+            </table>
+            <p style="text-align:left; ">
+                <hi rend="bold" style="font-size:12pt">Table 6: CART Classification (Accuracy: 60.0%)</hi>
+            </p>
+            <figure>
+                <graphic n="1005" width="7.973113888888889cm" height="7.752519444444444cm" url="Pictures/acd482dc8fe968d7fd4aba5fe510efe8.png" rend="inline"/>
+            </figure>
+            <p style="text-align:left; ">Fig. 5: RF’s Variable Importance</p>
+            <table rend="rules">
+                <row>
+                    <cell rend="DH-Default"/>
+                    <cell rend="DH-Default">
+                        <hi style="font-size:12pt">Byzantine Textform</hi>
+                    </cell>
+                    <cell rend="DH-Default">
+                        <hi style="font-size:12pt">Textus Receptus</hi>
+                    </cell>
+                    <cell rend="DH-Default">Critical Text</cell>
+                </row>
+                <row>
+                    <cell rend="DH-Default">
+                        <hi style="font-size:12pt">Byzantine Textform</hi>
+                    </cell>
+                    <cell rend="DH-Default">0</cell>
+                    <cell rend="DH-Default">3</cell>
+                    <cell rend="DH-Default">8</cell>
+                </row>
+                <row>
+                    <cell rend="DH-Default">
+                        <hi style="font-size:12pt">Textus Receptus</hi>
+                    </cell>
+                    <cell rend="DH-Default">0</cell>
+                    <cell rend="DH-Default">4</cell>
+                    <cell rend="DH-Default">5</cell>
+                </row>
+                <row>
+                    <cell rend="DH-Default">Critical Text</cell>
+                    <cell rend="DH-Default">0</cell>
+                    <cell rend="DH-Default">3</cell>
+                    <cell rend="DH-Default">27</cell>
+                </row>
+            </table>
+            <p style="text-align:left; ">
+                <hi rend="bold" style="font-size:12pt">Table 7: RF Classification (Accuracy: 62.0%)</hi>
+            </p>
+            <p>
+                <hi rend="bold" style="font-size:14pt">4. Discussion</hi>
+            </p>
+            <p style="text-align:left; ">
+                <hi style="font-size:12pt">The token-independent measures of lexical diversity can be distinguished by Pearson correlation coefficients of each measure with tokens. Punctuation rate is exclusively crucial when classifying edition types, while the others are effective in the authorship classification. In both authorship and edition types, the classification accuracy in RF is higher than that in CART. For all that edition types were poorly discriminated against, that does not indicate the limitations of the techniques. We will rather focus on the misclassified texts, especially the editions of the Byzantine textform, to work out these peculiar characteristics.</hi>
+            </p>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl>
+                        <hi rend="bold" style="font-size:12pt">Breiman, L., Friedman, J.H., Olshen, R.A., Stone, C.J.</hi>
+                        <hi style="font-size:12pt" xml:space="preserve"> (1984). Classification and Regression Trees, Chapman and Hall.</hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold" style="font-size:12pt">Breiman , L.</hi>
+                        <hi style="font-size:12pt" xml:space="preserve"> (2001). Random Forests, Machine Learning, 45(1), pp.5–32.</hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold" style="font-size:12pt">Burkett, D.</hi>
+                        <hi style="font-size:12pt" xml:space="preserve"> (2002). An Introduction to the New Testament and the Origins of Christianity, Cambridge University Press.</hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold" style="font-size:12pt">Covington M.A. &amp; McFall J.D.</hi>
+                        <hi style="font-size:12pt" xml:space="preserve"> (2010). Cutting the Gordian Knot: The Moving-Average Type-Token Ratio (MATTR), Journal of Quantitative Linguistics, 17(2), pp.94–100.</hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold" style="font-size:12pt">Covington, M.A., Potter, I., Snodgrass, T.</hi>
+                        <hi style="font-size:12pt" xml:space="preserve"> (2015). Stylometric classification of different translations of the same text into the same language, Literary and Linguistic Computing, 30(3), pp.322–325.</hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold" style="font-size:12pt">Liaw, A.&amp; Wiener, M.</hi>
+                        <hi style="font-size:12pt" xml:space="preserve"> (2002). Classification and Regression by randomForest, R News, 2(3), pp.18–22.</hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold" style="font-size:12pt">Michalke, M. (2018).</hi>
+                        <hi style="font-size:12pt">koRpus: An R Package for Text Analysis, version 0.11-2.</hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold" style="font-size:12pt">Therneau, T. and Atkinson, B.</hi>
+                        <hi style="font-size:12pt" xml:space="preserve"> (2018). rpart: Recursive Partitioning and Regression Trees, R package version 4.1-12.</hi>
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold" style="font-size:12pt">Tweedie,F.J., Baayen, R.H.</hi>
+                        <hi style="font-size:12pt" xml:space="preserve"> (1998). How Variable May a Constant be? Measures of Lexical Richness in Perspective, Computers and the Humanities, 32(5), pp.323–352.</hi>
+                    </bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

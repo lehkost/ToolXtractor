@@ -1,0 +1,468 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>A Survey On LDA Topic Modeling In Digital Humanities</title>
+                <author>
+                    <persName>
+                        <surname>Du</surname>
+                        <forename>Keli</forename>
+                    </persName>
+                    <affiliation>Universität Würzburg, Germany</affiliation>
+                    <email>cndukeli@hotmail.com</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2014-12-19T13:50:00Z</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Name, Institution</publisher>
+                <address>
+                    <addrLine>Street</addrLine>
+                    <addrLine>City</addrLine>
+                    <addrLine>Country</addrLine>
+                    <addrLine>Name</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from a Word document</p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.22">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Short Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>Topic Modelling</term>
+                    <term>Latent Dirichlet Allocation (LDA)</term>
+                    <term>Survey</term>
+                    <term>DH Conference Abstracts</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>corpus and text analysis</term>
+                    <term>content analysis</term>
+                    <term>data mining / text mining</term>
+                    <term>English</term>
+                    <term>digital humanities (history</term>
+                    <term>theory and methodology)</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <p>Introduction</p>
+            <p>
+                <hi style="font-size:12pt">Latent Dirichlet Allocation (LDA) topic modeling (Blei, 2012) is a statistical method that discovers hidden themes and topics from a text corpus, and it has been widely applied in digital humanities over the past several years. My survey on applications of topic modeling have found 53 studies from the books of abstracts of the annual international conference of the Alliance of Digital Humanities Organizations between 2011 and 2018</hi>
+                <note place="foot" xml:id="ftn1" n="1">
+                    <p rend="footnote text"> Collection of abstracts from the last decade was initially planned. Unfortunately, due to a broken link, the abstracts of DH2009 could not be obtained, and studies related to topic modeling could not be found in the abstracts of DH2010.</p>
+                </note>
+                <hi style="font-size:12pt" xml:space="preserve">. Topic modeling-related approaches are increasing (Figure 1) and most of them are related to historical studies (18 approaches) and literary studies (17 approaches). It has also been used for religious studies, digital archaeology, etc. </hi>
+            </p>
+            <figure>
+                <graphic n="1001" width="16.002cm" height="9.729611111111112cm" url="Pictures/ab1e7c854743ae500dfe47acbd038818.png" rend="inline"/>
+            </figure>
+            <p>Figure 1. Distribution of studies over time.</p>
+            <p style="text-align:left;">The Problem</p>
+            <p>
+                <hi style="font-size:12pt" xml:space="preserve">The standard use of LDA topic modeling is to browse corpora through topics and data visualizations, while it is more complex than just training and visualizing topics in practice. Results of topic modeling can be influenced by several factors such as the LDA hyperparameters, topic number, chunk-length of documents, number of iterations of model-updating as well as hyperparameter optimization (Schöch, 2017). As far as I know, a common understanding on handling these factors seems yet to be established. Using text chunking as an example, Jockers (2013) divided novels into chunks in order to capture transient themes which only appear at certain points of a novel. In contrast, Nichols et al. (2018) writes: “Following common practice using LDA on texts, we did not chunk or split the texts in our corpus for analysis.” Stop words removal is another example, where more coherent topics are able to be obtained in general by removing stop words with no contents. Most approaches remove stop words before training the model, however discussions regarding the effectiveness of removing stop words after the modeling process have surfaced (Schofield et al. 2017). </hi>
+            </p>
+            <p>In order to provide a comprehensive overview of how the majority of humanities scholars understands and uses topic modeling, a survey on above mentioned 53 approaches in detail has been done. In this paper I therefore propose to look at these approaches in the following aspects:</p>
+            <list type="ordered">
+                <item>Preprocessing: text processing procedures before topic modeling. What kinds of preprocessing is used and why?</item>
+                <item>Modeling: what are the parameters, which control a topic modeling process. How can they influence the results and how are they been used in different approaches?</item>
+                <item>
+                    <hi style="font-size:12pt" xml:space="preserve">Postprocessing: What method has been used for the interpretation of topics? How were the quality of a topic model and the topics evaluated? </hi>
+                </item>
+            </list>
+            <p>
+                <hi rend="bold" style="font-size:12pt" xml:space="preserve">Preprocessing: </hi>
+                <hi style="font-size:12pt">The common preprocessing procedures include lemmatization, part-of-speech (POS) tagging and document chunking. By transforming words to their base form, the topic model can become more concentrated on the semantic structure. Through POS tagging, words with less contents could be identified and removed from corpus, in order to get more coherent topics. Chunking allows us to capture topics which only appear at certain points. My survey pays particular attention to the reasons of applying (or not) a preprocessing procedure in practice. For example, lemmatization is often applied when the corpora are in highly inflected languages like German or French. Document chunking is very diverse: the chunk-size could be several hundred or several thousand words, or a page of a book, or to split a book into ten equal segments. But almost no approach explained the reason of their chunking choices.</hi>
+            </p>
+            <p>
+                <hi rend="bold" style="font-size:12pt">Modeling:</hi>
+                <hi style="font-size:12pt" xml:space="preserve"> The LDA hyperparameters, the number of topics, the number of iterations of model-updating, the hyperparameter optimization control the modeling process. As a matter of fact, no approaches have been reported on setting the hyperparameters, while two approaches reported their number of iterations (Schöch, 2015; Maryl &amp; Eder, 2017) and two approaches applied the hyperparameter optimization (Goldstone, 2014; Falk, 2016). Other approaches are more focused on the visualization and analysis on topic models. In 23 approaches, the choice of topic number has been reported, but only 8 of them explained how the numbers were determined. </hi>
+            </p>
+            <p>
+                <hi rend="bold" style="font-size:12pt">Postprocessing:</hi>
+                <hi style="font-size:12pt" xml:space="preserve"> After the modeling process, it is important to evaluate the topic model and the topics. Only 5 approaches reported their evaluation methods. Although the topic quality can be evaluated by measuring topic coherence (Röder et al., 2015) and topics can also be automatically labeled (Magatti et al., 2009). Only one approach used topic coherence for the evaluation of the trained topics (Rhody, 2014). It is more common to label topics manually and to highlight the correlation between interesting topics and metadata. More than half of all approaches applied data visualization for exploration purposes.</hi>
+            </p>
+            <p>Conclusion</p>
+            <p>This survey intends to provide an overview regarding the common use of topic modeling in digital humanities. It presents the situation that DH-community not always report how topic modeling was applied: Within 53 approaches, around 74% didn't report how their corpora were prepared; more than 70% didn't report which tool was used to train their topic models; almost 57% didn't report how many topics were trained and about 90.5% didn't report how their topic model were evaluated. Without reporting the technical details, the scientific reproducibility and the stability of their research could be questionable. </p>
+            <p>
+                <hi style="font-size:12pt" xml:space="preserve">In addition, the lack of interest (or knowledge) on the complexity of topic modeling itself may indicate non-optimal application of this method. The standard parametrization of the topic modeling tool could be used, but because texts in humanities (for example literary texts) are more complex, it is not always clear how much previous understanding of topic modeling from computer science can be beneficial. One good example of the variation is the subgenre classification using topic modeling in Schöch, 2017. The accuracy difference between the worst and the best models is 17%. To obtain a better understanding of topic modeling, series of systematic investigations into the impact of factors on topic modeling will be my next steps to proceed. </hi>
+            </p>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl>
+                        <hi rend="bold" style="font-size:12pt">Armaselu, F.</hi>
+                        <hi style="font-size:12pt" xml:space="preserve"> (2018). The Magnifying Glass and the Kaleidoscope. Analysing Scale in Digital History and Historiography. In: </hi>
+                        <hi rend="italic" style="font-size:12pt">DH</hi>
+                        <hi style="font-size:12pt" xml:space="preserve">. </hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold" style="font-size:12pt">Bailey, S., &amp; Rochester, E.</hi>
+                        <hi style="font-size:12pt" xml:space="preserve"> (2016). Testing the Doctrine of Election: A Computational Approach to Karl Barth's Church Dogmatics. In: </hi>
+                        <hi rend="italic" style="font-size:12pt">DH</hi>
+                        <hi style="font-size:12pt" xml:space="preserve">. </hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold" style="font-size:12pt">Bartz, T., Beißwenger, M., Pölitz, C., Radtke, N., &amp; Storrer, A.</hi>
+                        <hi style="font-size:12pt" xml:space="preserve"> (2014, July). Neue Möglichkeiten der Arbeit mit strukturierten Sprachressourcen in den Digital Humanities mithilfe von Data-Mining. In: </hi>
+                        <hi rend="italic" style="font-size:12pt">DH</hi>
+                        <hi style="font-size:12pt" xml:space="preserve">. </hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold" style="font-size:12pt">Blei, D. M.</hi>
+                        <hi style="font-size:12pt" xml:space="preserve"> (2012). Probabilistic topic models. Communications of the ACM, 55(4), 77-84.</hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold" style="font-size:12pt">Blevins, C.</hi>
+                        <hi style="font-size:12pt" xml:space="preserve"> (2011). Topic modeling historical sources: Analyzing the diary of Martha Ballard. In: </hi>
+                        <hi rend="italic" style="font-size:12pt">DH</hi>
+                        <hi style="font-size:12pt" xml:space="preserve">. </hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold" style="font-size:12pt">Broadwell, P., &amp; Tangherlini, T. R.</hi>
+                        <hi style="font-size:12pt" xml:space="preserve"> (2015). ElfYelp: Geolocated topic models for pattern discovery in a large folklore corpus. In: </hi>
+                        <hi rend="italic" style="font-size:12pt">DH</hi>
+                        <hi style="font-size:12pt" xml:space="preserve">. </hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold" style="font-size:12pt">Burton, M.</hi>
+                        <hi style="font-size:12pt" xml:space="preserve"> (2013). Data Driven Documentation of Digital Humanities Discourse. In: </hi>
+                        <hi rend="italic" style="font-size:12pt">DH</hi>
+                        <hi style="font-size:12pt" xml:space="preserve">. </hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold" style="font-size:12pt">Chao, A. S., Li, Q., &amp; Liu, Z.</hi>
+                        <hi style="font-size:12pt" xml:space="preserve"> (2018). Integrating Latent Dirichlet Allocation and Poisson Graphical Model: A Deep Dive into the Writings of Chen Duxiu, Co-Founder of the Chinese Communist Party. In: </hi>
+                        <hi rend="italic" style="font-size:12pt">DH</hi>
+                        <hi style="font-size:12pt" xml:space="preserve">. </hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold" style="font-size:12pt">Clivaz, C., Clark, E. S., Dilley, P., Faull, K. M., McBride-Lindsey, R., &amp; Phillips, P.</hi>
+                        <hi style="font-size:12pt" xml:space="preserve"> (2017). Digital Religion-Digital Theology. In: </hi>
+                        <hi rend="italic" style="font-size:12pt">DH</hi>
+                        <hi style="font-size:12pt" xml:space="preserve">. </hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold" style="font-size:12pt">Croxall, B.</hi>
+                        <hi style="font-size:12pt" xml:space="preserve"> (2017). Digital humanities from scratch: A pedagogy-driven investigation of an in-copyright corpus. In: </hi>
+                        <hi rend="italic" style="font-size:12pt">DH</hi>
+                        <hi style="font-size:12pt" xml:space="preserve">. </hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold" style="font-size:12pt">Du, K.</hi>
+                        <hi style="font-size:12pt" xml:space="preserve"> (2017). Authorship of Dream of the Red Chamber: A Topic Modeling Approach. In: </hi>
+                        <hi rend="italic" style="font-size:12pt">DH</hi>
+                        <hi style="font-size:12pt" xml:space="preserve">. </hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold" style="font-size:12pt">Eder, M., Winkowski, J., Wozniak, M., Górski, R. L., &amp; Grzybowski, B</hi>
+                        <hi style="font-size:12pt" xml:space="preserve">. (2018). Text Mining Methods to Solve Organic Chemistry Problems, or Topic Modeling Applied to Chemical Molecules. In: </hi>
+                        <hi rend="italic" style="font-size:12pt">DH</hi>
+                        <hi style="font-size:12pt" xml:space="preserve">. </hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold" style="font-size:12pt">Eisenstein, J., Sun, I., &amp; Klein, L. F.</hi>
+                        <hi style="font-size:12pt" xml:space="preserve"> (2014). Exploratory thematic analysis for historical newspaper archives. In: </hi>
+                        <hi rend="italic" style="font-size:12pt">DH</hi>
+                        <hi style="font-size:12pt">.</hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold" style="font-size:12pt">Falk, M. G.</hi>
+                        <hi style="font-size:12pt" xml:space="preserve"> (2016). Faraway, So Close!: Reading Adeline Mowbray Closely Using Topic Modelling. In: </hi>
+                        <hi rend="italic" style="font-size:12pt">DH</hi>
+                        <hi style="font-size:12pt" xml:space="preserve">. </hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold" style="font-size:12pt">Fankhauser, P., Knappen, J., &amp; Teich, E.</hi>
+                        <hi style="font-size:12pt" xml:space="preserve"> (2016). Topical diversification over time in the royal society corpus. In: </hi>
+                        <hi rend="italic" style="font-size:12pt">DH</hi>
+                        <hi style="font-size:12pt" xml:space="preserve">. </hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold" style="font-size:12pt">Fischer, S., Knappen, J., &amp; Teich, E.</hi>
+                        <hi style="font-size:12pt" xml:space="preserve"> (2018). Using Topic Modelling to Explore Authors’ Research Fields in a Corpus of Historical Scientific English. In: </hi>
+                        <hi rend="italic" style="font-size:12pt">DH</hi>
+                        <hi style="font-size:12pt" xml:space="preserve">. </hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold" style="font-size:12pt">Fitzgerald, J. D., &amp; Cordell, R. (</hi>
+                        <hi style="font-size:12pt" xml:space="preserve">2018). Stranger Genres: Computationally Classifying Reprinted Nineteenth Century Newspaper Texts. In: </hi>
+                        <hi rend="italic" style="font-size:12pt">DH</hi>
+                        <hi style="font-size:12pt" xml:space="preserve">. </hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold" style="font-size:12pt">Fyfe, P.</hi>
+                        <hi style="font-size:12pt" xml:space="preserve"> (2013). Counting Words with Henry James: Towards a Quantitative Hermeneutics. In: </hi>
+                        <hi rend="italic" style="font-size:12pt">DH</hi>
+                        <hi style="font-size:12pt" xml:space="preserve">. </hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold" style="font-size:12pt">Garcia, A. S.</hi>
+                        <hi style="font-size:12pt" xml:space="preserve"> (2018). Interrogating the Roots of American Settler Colonialism: Experiments in Network Analysis and Text Mining. In: </hi>
+                        <hi rend="italic" style="font-size:12pt">DH</hi>
+                        <hi style="font-size:12pt" xml:space="preserve">. </hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold" style="font-size:12pt">Goldstone, A.</hi>
+                        <hi style="font-size:12pt" xml:space="preserve"> (2014). Let DH Be Sociological! [Short Paper]. In: </hi>
+                        <hi rend="italic" style="font-size:12pt">DH</hi>
+                        <hi style="font-size:12pt" xml:space="preserve">. </hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold" style="font-size:12pt">Hammond, A., &amp; Brooke, J.</hi>
+                        <hi style="font-size:12pt" xml:space="preserve"> (2018). SciFiQ," Twinkle, Twinkle": A Computational Approach to Creating" the Perfect Science Fiction Story". In: </hi>
+                        <hi rend="italic" style="font-size:12pt">DH</hi>
+                        <hi style="font-size:12pt" xml:space="preserve">. </hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold" style="font-size:12pt">Hettinger, L., Jannidis, F., Reger, I., &amp; Hotho, A.</hi>
+                        <hi style="font-size:12pt" xml:space="preserve"> (2016). Significance Testing for the Classification of Literary Subgenres. In: </hi>
+                        <hi rend="italic" style="font-size:12pt">DH</hi>
+                        <hi style="font-size:12pt" xml:space="preserve">. </hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold" style="font-size:12pt">Jähnichen, P., Oesterling, P., Liebmann, T., Heyer, G., Kuras, C., &amp; Scheuermann, G.</hi>
+                        <hi style="font-size:12pt" xml:space="preserve"> (2015). Exploratory search through interactive visualization of topic models. In: </hi>
+                        <hi rend="italic" style="font-size:12pt">DH</hi>
+                        <hi style="font-size:12pt" xml:space="preserve">. </hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold" style="font-size:12pt">Jautze, K., van Cranenburgh, A., &amp; Koolen, C.</hi>
+                        <hi style="font-size:12pt" xml:space="preserve"> (2016). Topic modeling literary quality. In: </hi>
+                        <hi rend="italic" style="font-size:12pt">DH</hi>
+                        <hi style="font-size:12pt" xml:space="preserve">. </hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold" style="font-size:12pt">Jennings, C., &amp; Binder, J. M.</hi>
+                        <hi style="font-size:12pt" xml:space="preserve"> (2013). Eighteenth-and Twenty-First-Century Genres of Topical Knowledge. In: </hi>
+                        <hi rend="italic" style="font-size:12pt">DH</hi>
+                        <hi style="font-size:12pt" xml:space="preserve">. </hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold" style="font-size:12pt">Jockers, M. L</hi>
+                        <hi style="font-size:12pt" xml:space="preserve">. (2011). Detecting and characterizing national style in the 19th century novel. In: </hi>
+                        <hi rend="italic" style="font-size:12pt">DH</hi>
+                        <hi style="font-size:12pt" xml:space="preserve">. </hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold" style="font-size:12pt">Jockers, M. L.</hi>
+                        <hi style="font-size:12pt" xml:space="preserve"> (2012). Computing and visualizing the 19th-century literary genome. In: </hi>
+                        <hi rend="italic" style="font-size:12pt">DH</hi>
+                        <hi style="font-size:12pt" xml:space="preserve">. </hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold" style="font-size:12pt" xml:space="preserve">Jockers, M. L. </hi>
+                        <hi style="font-size:12pt">(2013). Macroanalysis: Digital methods and literary history. University of Illinois Press.</hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold" style="font-size:12pt">Kaufman, M.</hi>
+                        <hi style="font-size:12pt" xml:space="preserve"> (2015). Everything on paper will be used against me: Quantifying Kissinger. In: </hi>
+                        <hi rend="italic" style="font-size:12pt">DH</hi>
+                        <hi style="font-size:12pt" xml:space="preserve">. </hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold" style="font-size:12pt">Liu, A., Champagne, A., Douglass, J., Kleinman, S., Russell, J., &amp; Thomas, L</hi>
+                        <hi style="font-size:12pt" xml:space="preserve">. (2017). Open, Shareable, Reproducible Workflows for the Digital Humanities: The Case of the 4Humanities. org" WhatEvery1Says" Project. In: </hi>
+                        <hi rend="italic" style="font-size:12pt">DH</hi>
+                        <hi style="font-size:12pt" xml:space="preserve">. </hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold" style="font-size:12pt" xml:space="preserve">Magatti, D., Calegari, S., Ciucci, D., &amp; Stella, F. </hi>
+                        <hi style="font-size:12pt">(2009, November). Automatic labeling of topics. Intelligent Systems Design and Applications, 2009. ISDA'09. Ninth International Conference on (pp. 1227-1232). IEEE.</hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold" style="font-size:12pt">Maryl, M., &amp; Eder, M.</hi>
+                        <hi style="font-size:12pt" xml:space="preserve"> (2017). Topic Patterns in an Academic Literary Journal: The Case Of “Teksty Drugie”. In: </hi>
+                        <hi rend="italic" style="font-size:12pt">DH</hi>
+                        <hi style="font-size:12pt" xml:space="preserve">. </hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold" style="font-size:12pt">McCallum, A. K.</hi>
+                        <hi style="font-size:12pt" xml:space="preserve"> (2002). MALLET: A Machine Learning for Language Toolkit.</hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold" style="font-size:12pt">Meneses, L., &amp; Mallen, E.</hi>
+                        <hi style="font-size:12pt" xml:space="preserve"> (2017). Semantic Domains in Picasso's Poetry. In: </hi>
+                        <hi rend="italic" style="font-size:12pt">DH</hi>
+                        <hi style="font-size:12pt" xml:space="preserve">. </hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold" style="font-size:12pt">Meneses, L., Martin, J., Furuta, R., &amp; Siemens, R</hi>
+                        <hi style="font-size:12pt" xml:space="preserve">. (2018). Part Deux: Exploring the Signs of Abandonment of Online Digital Humanities Projects. In: </hi>
+                        <hi rend="italic" style="font-size:12pt">DH</hi>
+                        <hi style="font-size:12pt" xml:space="preserve">. </hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold" style="font-size:12pt">Miller, B., Berger, C., Bhattcharyya, S., Caselli, T., Kelman, D., Olive, J., &amp; Rajiva, J</hi>
+                        <hi style="font-size:12pt" xml:space="preserve">. (2016). Contextualizing Receptions of World Literature by Mining Multilingual Wikipedias. In: </hi>
+                        <hi rend="italic" style="font-size:12pt">DH</hi>
+                        <hi style="font-size:12pt" xml:space="preserve">. </hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold" style="font-size:12pt">Mimno, D., Broadwell, P. M., &amp; Tangherlini, T. R.</hi>
+                        <hi style="font-size:12pt" xml:space="preserve"> (2014). The Telltale Hat: LDA and Classification Problems in a Large Folklore Corpus. In: </hi>
+                        <hi rend="italic" style="font-size:12pt">DH</hi>
+                        <hi style="font-size:12pt">.</hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold" style="font-size:12pt">Montague, J., Simpson, J., Rockwell, G., Ruecker, S., &amp; Brown, S.</hi>
+                        <hi style="font-size:12pt" xml:space="preserve"> (2015). Exploring large datasets with topic model visualizations. In: </hi>
+                        <hi rend="italic" style="font-size:12pt">DH</hi>
+                        <hi style="font-size:12pt" xml:space="preserve">. </hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold" style="font-size:12pt">Nelson, R. K., Mimno, D., &amp; Brown, T.</hi>
+                        <hi style="font-size:12pt" xml:space="preserve"> (2012). Topic Modeling the Past. In: </hi>
+                        <hi rend="italic" style="font-size:12pt">DH</hi>
+                        <hi style="font-size:12pt" xml:space="preserve">. </hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold" style="font-size:12pt" xml:space="preserve">Nichols, R., Slingerland, E., Nielbo, K., Bergeton, U., Logan, C., &amp; Kleinman, S. </hi>
+                        <hi style="font-size:12pt">(2018). Modeling the Contested Relationship between Analects, Mencius, and Xunzi: Preliminary Evidence from a Machine-Learning Approach. The Journal of Asian Studies, 77(1), 19-57. doi:10.1017/S0021911817000973</hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold" style="font-size:12pt">Norén, F., &amp; Mähler, R.</hi>
+                        <hi style="font-size:12pt" xml:space="preserve"> (2017). Text Mining the History of Information Politics Through Thousands of Swedish Governmental Official Reports. In: </hi>
+                        <hi rend="italic" style="font-size:12pt">DH</hi>
+                        <hi style="font-size:12pt" xml:space="preserve">. </hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold" style="font-size:12pt">Olesen, C. G., &amp; Kisjes, I.</hi>
+                        <hi style="font-size:12pt" xml:space="preserve"> (2018). OCR'ing and classifying Jean Desmet's business archive: methodological implications and new directions for media historical research. In: </hi>
+                        <hi rend="italic" style="font-size:12pt">DH</hi>
+                        <hi style="font-size:12pt" xml:space="preserve">. </hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold" style="font-size:12pt">Organisciak, P., &amp; Franklin, S.</hi>
+                        <hi style="font-size:12pt" xml:space="preserve"> (2017). Modeling Creativity: Tracking Long-term Lexical Change. In: </hi>
+                        <hi rend="italic" style="font-size:12pt">DH</hi>
+                        <hi style="font-size:12pt" xml:space="preserve">. </hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold" style="font-size:12pt">Organisciak, P.; Auvil, L.; Downie, J. S.</hi>
+                        <hi style="font-size:12pt" xml:space="preserve"> (2015). Remembering books: A within-book topic mapping technique. In: </hi>
+                        <hi rend="italic" style="font-size:12pt">DH</hi>
+                        <hi style="font-size:12pt" xml:space="preserve">. </hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold" style="font-size:12pt">O'Sullivan, J., Shade, M., &amp; Rowles, B.</hi>
+                        <hi style="font-size:12pt" xml:space="preserve"> (2016). Player-Driven Content: Analysing Textual Communications in Online Roleplay. In: </hi>
+                        <hi rend="italic" style="font-size:12pt">DH</hi>
+                        <hi style="font-size:12pt" xml:space="preserve">. </hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold" style="font-size:12pt">Quamen, H., &amp; Hjartarson, P.</hi>
+                        <hi style="font-size:12pt" xml:space="preserve"> (2014). Big Data and the Literary Archive: Topic Modeling the Watson-McLuhan Correspondence. In: </hi>
+                        <hi rend="italic" style="font-size:12pt">DH</hi>
+                        <hi style="font-size:12pt" xml:space="preserve">. </hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold" style="font-size:12pt">Rhody, L.</hi>
+                        <hi style="font-size:12pt" xml:space="preserve"> (2014). The Story of Stopwords: Topic Modeling an Ekphrastic Tradition. In: </hi>
+                        <hi rend="italic" style="font-size:12pt">DH</hi>
+                        <hi style="font-size:12pt" xml:space="preserve">. </hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold" style="font-size:12pt">Riddell, A. B.</hi>
+                        <hi style="font-size:12pt" xml:space="preserve"> (2011). Toward a Demography of Literary Forms: Building on Moretti's Graphs. In: </hi>
+                        <hi rend="italic" style="font-size:12pt">DH</hi>
+                        <hi style="font-size:12pt" xml:space="preserve">. </hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold" style="font-size:12pt" xml:space="preserve">Roe, G., Gladstone, C., &amp; Morrissey, R. </hi>
+                        <hi style="font-size:12pt" xml:space="preserve">(2014). Discourses and disciplines in the enlightenment: Topic modeling the french encyclopédie. In: </hi>
+                        <hi rend="italic" style="font-size:12pt">DH</hi>
+                        <hi style="font-size:12pt" xml:space="preserve">. </hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold" style="font-size:12pt">Röder, M., Both, A., &amp; Hinneburg, A.</hi>
+                        <hi style="font-size:12pt" xml:space="preserve"> (2015, February). Exploring the space of topic coherence measures. Proceedings of the eighth ACM international conference on Web search and data mining (pp. 399-408). ACM.</hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold" style="font-size:12pt">Savonick, D., &amp; Tagliaferri, L.</hi>
+                        <hi style="font-size:12pt" xml:space="preserve"> (2018). The Purpose of Education: A Large-Scale Text Analysis of University Mission Statements. In: </hi>
+                        <hi rend="italic" style="font-size:12pt">DH</hi>
+                        <hi style="font-size:12pt" xml:space="preserve">. </hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold" style="font-size:12pt">Schofield, A., Magnusson, M., &amp; Mimno, D.</hi>
+                        <hi style="font-size:12pt" xml:space="preserve"> (2017). Pulling out the stops: Rethinking stopword removal for topic models. Proceedings of the 15th Conference of the European Chapter of the Association for Computational Linguistics: Volume 2, Short Papers (Vol. 2, pp. 432-436).</hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold" style="font-size:12pt">Schöch, C.</hi>
+                        <hi style="font-size:12pt" xml:space="preserve"> (2015). Topic Modeling French Crime Fiction. In: </hi>
+                        <hi rend="italic" style="font-size:12pt">DH</hi>
+                        <hi style="font-size:12pt" xml:space="preserve">. </hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold" style="font-size:12pt">Schöch, C.</hi>
+                        <hi style="font-size:12pt">(2017) Topic Modeling Genre: An Exploration of French Classical and Enlightenment Drama.” Digital Humanities Quarterly 11, no. 2. §1-53. http://www.digitalhumanities.org/dhq/vol/11/2/000291/000291.html.</hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold" style="font-size:12pt">Schreibman, S., Kerr, S., &amp; McGarry, S.</hi>
+                        <hi style="font-size:12pt" xml:space="preserve"> (2017). The Third Way: Discovery Beyond Search and Browse in Letters of 1916. In: </hi>
+                        <hi rend="italic" style="font-size:12pt">DH</hi>
+                        <hi style="font-size:12pt" xml:space="preserve">. </hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold" style="font-size:12pt">Shaw, R.</hi>
+                        <hi style="font-size:12pt" xml:space="preserve"> (2012). Contours of the Past: Computationally Exploring Civil Rights Histories. In: </hi>
+                        <hi rend="italic" style="font-size:12pt">DH</hi>
+                        <hi style="font-size:12pt" xml:space="preserve">. </hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold" style="font-size:12pt">Shawn, G</hi>
+                        <hi style="font-size:12pt" xml:space="preserve"> (2013). Topic Modeling Time and Space: Archaeological Datasets as Discourses. In: </hi>
+                        <hi rend="italic" style="font-size:12pt">DH</hi>
+                        <hi style="font-size:12pt" xml:space="preserve">. </hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold" style="font-size:12pt" xml:space="preserve">Smeets, J., Scholtes, J. C., Rasterhoff, C., &amp; Schavemaker, M. </hi>
+                        <hi style="font-size:12pt" xml:space="preserve">(2016). SMTP: Stedelijk Museum Text Mining Project. In: </hi>
+                        <hi rend="italic" style="font-size:12pt">DH</hi>
+                        <hi style="font-size:12pt" xml:space="preserve">. </hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold" style="font-size:12pt" xml:space="preserve">Wevers, M., Smits, T., &amp; Impett, L. </hi>
+                        <hi style="font-size:12pt" xml:space="preserve">(2018). Modeling the Genealogy of Imagetexts: Studying Images and Texts in Conjunction using Computational Methods. In: </hi>
+                        <hi rend="italic" style="font-size:12pt">DH</hi>
+                        <hi style="font-size:12pt" xml:space="preserve">. </hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold" style="font-size:12pt">Wolff, M.</hi>
+                        <hi style="font-size:12pt" xml:space="preserve"> (2013). Surveying a corpus with alignment visualization and topic modeling. In: </hi>
+                        <hi rend="italic" style="font-size:12pt">DH</hi>
+                        <hi style="font-size:12pt" xml:space="preserve">. </hi>
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold" style="font-size:12pt">Yamada, T., Inoue, S.</hi>
+                        <hi style="font-size:12pt" xml:space="preserve"> (2015). Detection of People Relationship Using Topic Model from Diaries in Medieval Period of Japan. In: </hi>
+                        <hi rend="italic" style="font-size:12pt">DH</hi>
+                        <hi style="font-size:12pt">.</hi>
+                    </bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

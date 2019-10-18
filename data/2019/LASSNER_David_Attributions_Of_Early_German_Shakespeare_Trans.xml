@@ -1,0 +1,354 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>Attributions Of Early German Shakespeare Translations</title>
+                <author>
+                    <persName>
+                        <surname>Lassner</surname>
+                        <forename>David</forename>
+                    </persName>
+                    <affiliation>Technische Universität Berlin</affiliation>
+                    <email>lassner@tu-berlin.de</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Baillot</surname>
+                        <forename>Anne</forename>
+                    </persName>
+                    <affiliation>Le Mans Université</affiliation>
+                    <email>anne.baillot@gmail.com</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Coburger</surname>
+                        <forename>Julius</forename>
+                    </persName>
+                    <affiliation>Technische Universität Berlin</affiliation>
+                    <email>j.coburger@campus.tu-berlin.de</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2019-04-29T09:13:00Z</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Name, Institution</publisher>
+                <address>
+                    <addrLine>Street</addrLine>
+                    <addrLine>City</addrLine>
+                    <addrLine>Country</addrLine>
+                    <addrLine>Name</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from a Word document</p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.22">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Long Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>attribution of translation</term>
+                    <term>collaborative translation</term>
+                    <term>machine learning</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>stylistics and stylometry</term>
+                    <term>authorship attribution / authority</term>
+                    <term>translation studies</term>
+                    <term>german studies</term>
+                    <term>English</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <div type="div1" rend="DH-Heading1">
+                <head>Introduction</head>
+                <p style="text-align:left; ">Since it was first printed, the translation of Shakespeare's plays edited by August Wilhelm Schlegel and Ludwig Tieck has been re-edited many times (Reimer, 1832). A major reference in the first half of the 19th century, it is still regarded as a groundbreaking translation and referred to today. While there is little doubt that Schlegel translated the first edited plays, L. Tieck did not work out the edition of the final volumes by himself, but delegated the main translation work to his daughter Dorothea Tieck and Wolf Graf von Baudissin (Baillot, 2008; Paulin, 1998).</p>
+                <p style="text-align:left; ">This paper investigates the contribution of the three actors involved in this joint translation project. Machine Learning methods are used to analyse the plays and translations in order to gain quantitative insights into what may seem a peculiar authorship setting but was quite usual in the context of the 19th century. The method proposed here is hence likely to improve our understanding of co-creation conditions in the 19th century at large.</p>
+                <p style="text-align:left; ">Stylometric investigations of collaborative translations to identify translators has already been analyzed by Rybicki and Heydel (Rybicki and Heydel, 2013), who could show that Burrows’ delta features were able to distinguish between the different translators of novels by Virginia Woolf into Polish.</p>
+                <p style="text-align:left; ">Based on D. Tieck's statement of the repartition of the plays we start with the setting shown in Figure 1 (Uechtritz, Erinnerungen. Sybel, 1884). Since the manuscript of the raw translation is now lost, the sole material this paper can base its analysis on is the Shakespeare edition and the first German edition. We have no material traces allowing to easily discriminate between what D. Tieck translated, what W. Baudissin translated, and what L. Tieck corrected in the translations. We investigate two questions: firstly, the goal consists in defining the roles and tasks of the three translation partners, especially for scenes where D. Tieck and W. Baudissin collaborated. The second point of interest is to shed light on the cooperation mode between father and daughter Tieck (respective contributions and intervention scope, collaboration issues).</p>
+                <p style="text-align:left; ">In contrast to authorship attribution, translators are aiming at preserving the style of the original text – the traces of the translators should therefore be even harder to identify. This paper presents a novel approach to use methods such as Burrows’ delta in the 
+                    <hi rend="bold">multilingual</hi> context, to compare translation styles and attribute translators.
+                </p>
+                <figure>
+                    <graphic n="1001" width="16.002cm" height="7.630583333333333cm" url="Pictures/331fd3af1044673a72c8da0776cba8ee.png" rend="inline"/>
+                    <head>Plays were written by Shakespeare and were translated by either D. Tieck or W. Baudissin. In some plays they collaborated. All translation drafts were then discussed in common, including L. Tieck.</head>
+                </figure>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Method</head>
+                <p style="text-align:left; ">The first two experiments deal with the question of the individual translation properties of D. Tieck and W. Baudissin, while the third experiment assesses the question of L. Tieck's contribution. The data layout and the analysis steps of all experiments are shown in Figure 2. The English corpus is retrieved from 
+                    <hi rend="italic">First Folio (Shakespeare, 1623)</hi>, for the German corpus, TextGrid (TextGrid, 2018) was used. Throughout the experiments, spacy (Honnibal and Montani, 2017) for preprocessing and pyphen for syllable counts are used.
+                </p>
+                <p style="text-align:left; ">In the first experiment, solely based on the German material, translation-stylistic characteristics are to be found that discriminate the translator. In addition to Nearest Neighbors on Burrows’ delta (Burrows, 2002; Argamon, 2008) that was used by Rybicki (Rybicki and Heydel, 2013), Bag-of-N-Gram features and also pre-trained word vectors using the Fasttext model (Grave et al., 2018) were used and classified by a Support Vector Machine with RBF kernels (Cortes and Vapnik, 1995; Müller et al., 2001). Cross validation was used to find good hyper parameters using sk-learn (Pedregosa et al., 2011).</p>
+                <p style="text-align:left; ">In the second experiment, we use the trained classifiers of Experiment 1 on the collaborative works of D. Tieck and W. Baudissin. We compute the predicted class of each scene individually and try to examine who the major translator of each part of the translation was. This explorative experiment enables us to concentrate on scenes for which the classifiers tend to agree, which we then manually evaluate.</p>
+                <p style="text-align:left; ">In Experiment 3, cross-language features are compared with respect to its translator. As shown in Figure 2, the first step for analysing the translation is to map the corresponding scenes, to be able to identify deviations on scene level. During the translation process, the scene boundaries were not always preserved and in order to compare intervals of the same contents, an automatic mapping of scenes is performed. Afterwards, two different features on scene level, namely the richness (a) and the number of syllables per line (b), and Burrows’ delta (c) on play level are compared.</p>
+                <figure>
+                    <graphic n="1002" width="16.002cm" height="13.599583333333333cm" url="Pictures/fed683a79b6b484e0545b99d46244549.png" rend="inline"/>
+                    <head>Data layout for all three experiment settings. The first experiment evaluates the possibility of classifying translators based on textual features of the translation. Experiment 2 explores the unknown parts of the corpus with the trained classifiers of Experiment 1. Experiment 3 parallelizes the corpus of the English and the German version and investigates the influence of each of the collaborators.</head>
+                </figure>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Results</head>
+                <div type="div2" rend="DH-Heading2">
+                    <head>Experiment 1: Classify translator scenes in validation set</head>
+                    <p style="text-align:left; ">As shown in Table 1, the individual classifiers on scene level show decent performance. Burrow's delta, however, does not show convincing results. For further improvement, we combined the classifiers by filtering scenes for which all scene-classifiers agree. This results in a smaller test set (57 scenes) but also in a dramatic performance boost. For this subset of the test set, our combined classifier is on average performing with a precision and recall of ≈.93. Overall, the classifiers perform better in identifying scenes by W. Baudissin.</p>
+                    <table rend="rules">
+                        <head>
+                            <anchor xml:id="Ref7427343"/>Table 1: Scores on held-out test set for various features and groupings. For classification of N-Gram features and Word Vectors, an SVM with RBF Kernel has been used. The Support row denotes the number of scenes in the respective class. Parameters have been optimized using grid search and 5-fold cross validation. For Burrows’ delta, a Nearest Neighbors Classifier has been used. The optimal number of features for the delta has been cross validated.
+                        </head>
+                        <row>
+                            <cell rend="DH-Default">Method</cell>
+                            <cell rend="DH-Default"/>
+                            <cell rend="DH-Default">Burrows’ Delta</cell>
+                            <cell rend="DH-Default">Word N-Grams</cell>
+                            <cell rend="DH-Default">Char N-Grams</cell>
+                            <cell rend="DH-Default">Word Vectors</cell>
+                            <cell rend="DH-Default">Combined Classifiers</cell>
+                        </row>
+                        <row>
+                            <cell rend="DH-Default">Grouping</cell>
+                            <cell rend="DH-Default"/>
+                            <cell rend="DH-Default">Play</cell>
+                            <cell rend="DH-Default">Scene</cell>
+                            <cell rend="DH-Default">Scene</cell>
+                            <cell rend="DH-Default">Scene</cell>
+                            <cell rend="DH-Default">Scene</cell>
+                        </row>
+                        <row>
+                            <cell rend="DH-Default">D. Tieck</cell>
+                            <cell rend="DH-Default">F1</cell>
+                            <cell rend="DH-Default">.5000</cell>
+                            <cell rend="DH-Default">0.6216</cell>
+                            <cell rend="DH-Default">0.6486</cell>
+                            <cell rend="DH-Default">0.7952</cell>
+                            <cell rend="DH-Default">0.8947</cell>
+                        </row>
+                        <row>
+                            <cell rend="DH-Default"/>
+                            <cell rend="DH-Default">Precision</cell>
+                            <cell rend="DH-Default">.5000</cell>
+                            <cell rend="DH-Default">0.6765</cell>
+                            <cell rend="DH-Default">0.7059</cell>
+                            <cell rend="DH-Default">0.7674</cell>
+                            <cell rend="DH-Default">0.9444</cell>
+                        </row>
+                        <row>
+                            <cell rend="DH-Default"/>
+                            <cell rend="DH-Default">Recall</cell>
+                            <cell rend="DH-Default">.5000</cell>
+                            <cell rend="DH-Default">0.5750</cell>
+                            <cell rend="DH-Default">0.6000 </cell>
+                            <cell rend="DH-Default">0.8250</cell>
+                            <cell rend="DH-Default">0.8500</cell>
+                        </row>
+                        <row>
+                            <cell rend="DH-Default"/>
+                            <cell rend="DH-Default">Support</cell>
+                            <cell rend="DH-Default">2</cell>
+                            <cell rend="DH-Default">40</cell>
+                            <cell rend="DH-Default">40</cell>
+                            <cell rend="DH-Default">40</cell>
+                            <cell rend="DH-Default">20</cell>
+                        </row>
+                        <row>
+                            <cell rend="DH-Default">W. Baudissin</cell>
+                            <cell rend="DH-Default">F1</cell>
+                            <cell rend="DH-Default">0.6667</cell>
+                            <cell rend="DH-Default">0.7705</cell>
+                            <cell rend="DH-Default">0.7869</cell>
+                            <cell rend="DH-Default">0.8496</cell>
+                            <cell rend="DH-Default">0.9474</cell>
+                        </row>
+                        <row>
+                            <cell rend="DH-Default"/>
+                            <cell rend="DH-Default">Precision</cell>
+                            <cell rend="DH-Default">0.6667</cell>
+                            <cell rend="DH-Default">0.7344</cell>
+                            <cell rend="DH-Default">0.7500 </cell>
+                            <cell rend="DH-Default">0.8727</cell>
+                            <cell rend="DH-Default">0.9231</cell>
+                        </row>
+                        <row>
+                            <cell rend="DH-Default"/>
+                            <cell rend="DH-Default">Recall</cell>
+                            <cell rend="DH-Default">0.6667</cell>
+                            <cell rend="DH-Default">0.8103</cell>
+                            <cell rend="DH-Default">0.8276</cell>
+                            <cell rend="DH-Default">0.8276</cell>
+                            <cell rend="DH-Default">0.9730</cell>
+                        </row>
+                        <row>
+                            <cell rend="DH-Default"/>
+                            <cell rend="DH-Default">Support</cell>
+                            <cell rend="DH-Default">3</cell>
+                            <cell rend="DH-Default">58</cell>
+                            <cell rend="DH-Default">58</cell>
+                            <cell rend="DH-Default">58</cell>
+                            <cell rend="DH-Default">37</cell>
+                        </row>
+                        <row>
+                            <cell rend="DH-Default">Weighted average</cell>
+                            <cell rend="DH-Default">F1</cell>
+                            <cell rend="DH-Default">0.6000</cell>
+                            <cell rend="DH-Default">0.7097</cell>
+                            <cell rend="DH-Default">0.7305 </cell>
+                            <cell rend="DH-Default">0.8274</cell>
+                            <cell rend="DH-Default">0.9289</cell>
+                        </row>
+                        <row>
+                            <cell rend="DH-Default"/>
+                            <cell rend="DH-Default">Precision</cell>
+                            <cell rend="DH-Default">0.6000</cell>
+                            <cell rend="DH-Default"> 0.7105</cell>
+                            <cell rend="DH-Default">0.7320</cell>
+                            <cell rend="DH-Default">0.8298</cell>
+                            <cell rend="DH-Default">0.9306</cell>
+                        </row>
+                        <row>
+                            <cell rend="DH-Default"/>
+                            <cell rend="DH-Default">Recall</cell>
+                            <cell rend="DH-Default">0.6000</cell>
+                            <cell rend="DH-Default">0.7143</cell>
+                            <cell rend="DH-Default">0.7347</cell>
+                            <cell rend="DH-Default">0.8265</cell>
+                            <cell rend="DH-Default">0.9298</cell>
+                        </row>
+                        <row>
+                            <cell rend="DH-Default"/>
+                            <cell rend="DH-Default">Support</cell>
+                            <cell rend="DH-Default">5</cell>
+                            <cell rend="DH-Default">98</cell>
+                            <cell rend="DH-Default">98</cell>
+                            <cell rend="DH-Default">98</cell>
+                            <cell rend="DH-Default">57</cell>
+                        </row>
+                    </table>
+                </div>
+                <div type="div2" rend="DH-Heading2">
+                    <head>Experiment 2: Classify translator scenes in the collaboration set</head>
+                    <p style="text-align:left; ">In Figure 3, the translator attribution for the collaborative scenes are shown. Additionally, we exploit the finding of Experiment 1 that our classifiers performance is boosted when they are combined. In 
+                        <hi rend="italic">Viel Lärmen um nichts</hi> (
+                        <hi rend="italic">Much adoe about Nothing</hi>), fourth act, first scene the highest agreement for D. Tieck, in 
+                        <hi rend="italic">Der Widerspenstigen Zähmung</hi> (
+                        <hi rend="italic">The Taming of the Shrew</hi>) first act, second scene the highest agreement for Baudissin is observed. As it turns out, the two scenes are exceptionally long scenes with 302 and 264 speeches respectively, although the mean number of speeches per scene over the whole German corpus is only ≈118.7. The length of the scene may give the classifiers more features to distinguish the translators.
+                    </p>
+                    <p style="text-align:left; ">The scene from 
+                        <hi rend="italic">The Taming of the Shrew</hi> alternates between Verses and Prose which may have given the translator the chance to underline their characteristic style. The scene from 
+                        <hi rend="italic">Much adoe about Nothing</hi> has a much more coherent rhythm which possibly fits D. Tieck's translation style better.
+                    </p>
+                    <figure>
+                        <graphic n="1003" width="16.002cm" height="2.5629305555555555cm" url="Pictures/defe5f1724a2b7c9c37a248a2223b6b8.png" rend="inline"/>
+                        <head>This figure shows the average score of all scene-level classifiers of Experiment 1 to attribute each scene to D. Tieck or W. Baudissin for the two plays in which they collaborated.</head>
+                    </figure>
+                </div>
+                <div type="div2" rend="DH-Heading2">
+                    <head>Experiment 3: Identify Contribution of Ludwig Tieck</head>
+                    <p style="text-align:left; ">In Figure 4, the results of the cross-language comparison are shown. Points in all panels that are close to the diagonal do not deviate across language. The richness (a) of the scenes stay very close to the diagonal, however the majority of points is slightly below the diagonal. The original is slightly “richer” in the sense of our measurement than the translation, but there is no difference across translators.</p>
+                    <p style="text-align:left; ">The median syllables per line (b) of the translation deviates quite significantly in that the German version often uses more syllables per line than the English version. D. Tieck stated in her letter that she also translated Sonnets even in a play that was otherwise translated by W. Baudissin. Because of this statement we originally expected D. Tieck to follow the number of syllables of the original more strictly. This expectation is also in line with the findings of Experiment 2 where most classifiers agree on D. Tieck as the translator in a scene with a coherent rhythm. However, the findings of (b) cannot verify this hypothesis, because the deviation exists for both translators.</p>
+                    <p style="text-align:left; ">In (c), the points visualize Burrow's delta between the two plays in English, the vertical position is the Burrow's delta of the respective pair in German. </p>
+                    <p style="text-align:left; ">Each data point for which both plays are translated by the same person is color-coded accordingly (grey otherwise). Interestingly, the green points are almost exclusively below the diagonal, with only a few exceptions for plays that already exhibit a small delta in the English version. This indicates translations by D. Tieck move closer to each other and thus may incorporate a more consistent style.</p>
+                    <figure>
+                        <graphic n="1004" width="16.002cm" height="6.178902777777778cm" url="Pictures/7a386d8fc31d8107420ee9cde58e570a.png" rend="inline"/>
+                        <head>Three different features that compare original texts and their translations across languages. For each panel, the horizontal axis corresponds to the original version in English, the vertical axis corresponds to the German translation. The richness feature (a) shows little deviation in both languages. The Syllables per line feature (b) shows deviation in the translation for both translators and the Burrow's feature (c) shows deviation especially for one translator: D. Tieck (Green). For (b) gaussian noise (with std. of .2) was added to the points to visualize overlapping points. Also, in (b), a few outliers are not visualized. The points in (c) are grey if both plays were not translated by the same person.</head>
+                    </figure>
+                </div>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Conclusion</head>
+                <p style="text-align:left; ">We proposed an ensemble of translator attribution methods that result in a very high performance on scenes where they agree (Experiment 1). We show a significant improvement over state-of-the-art methods for translator attribution. This combination of classifiers is used to suggest translators for scenes where the true translator is unknown. </p>
+                <p style="text-align:left; ">A close reading of the scenes revealed distinct characteristics that could explain the decision of the classifiers (Experiment 2). We thus argue that this method likely found scenes where the majority of translation work can be attributed to the proposed translator.</p>
+                <p style="text-align:left; ">A novel approach of comparing the material in the source language and the translations yield the result that D. Tieck has a more distinct style in her translations (Experiment 3, c). With regard to the daughter-father relationship this can be seen as a literary independence from her father.</p>
+                <p style="text-align:left; ">Also, it could be observed that there is a translation system on which the three collaborators agree (Experiment 3, a and b). In that, we identified candidate features that could signal a contribution of L. Tieck. </p>
+                <p style="text-align:left; ">For further analysis we plan to include original plays by L. Tieck in order to identify distinct characteristics that further narrow down his contribution to the translation. We also plan to include additional cross-language features that characterize a distinct style of W. Baudissin.</p>
+            </div>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl rend="Bibliography">
+                        <hi rend="bold">Argamon, S.</hi> (2008). Interpreting Burrows’s Delta: Geometric and probabilistic foundations. 
+                        <hi rend="italic">Literary and Linguistic Computing</hi>, 
+                        <hi rend="bold">23</hi>(2): 131–147.
+                    </bibl>
+                    <bibl rend="Bibliography">
+                        <hi rend="bold">Baillot, A.</hi> (2008). ‘Ein Freund hier würde diese Arbeit unter meiner Beihülfe übernehmen’. Die Arbeit Dorothea Tiecks an den Übersetzungen ihres Vaters. (Ed.) Wehinger, B. &amp; Brown, H. 
+                        <hi rend="italic">Übersetzungskultur Im 18. Jahrhundert</hi>: 187–206.
+                    </bibl>
+                    <bibl rend="Bibliography">
+                        <hi rend="bold">Burrows, J.</hi> (2002). ‘Delta’: a measure of stylistic difference and a guide to likely authorship. 
+                        <hi rend="italic">Literary and Linguistic Computing</hi>, 
+                        <hi rend="bold">17</hi>(3): 267–287.
+                    </bibl>
+                    <bibl rend="Bibliography">
+                        <hi rend="bold">Cortes, C. and Vapnik, V.</hi> (1995). Support-vector networks. 
+                        <hi rend="italic">Machine Learning</hi>, 
+                        <hi rend="bold">20</hi>(3): 273–297 doi:10.1007/BF00994018.
+                    </bibl>
+                    <bibl rend="Bibliography">
+                        <hi rend="bold">Grave, E., Bojanowski, P., Gupta, P., Joulin, A. and Mikolov, T.</hi> (2018). Learning Word Vectors for 157 Languages. 
+                        <hi rend="italic">Proceedings of the International Conference on Language Resources and Evaluation (LREC 2018)</hi>.
+                    </bibl>
+                    <bibl rend="Bibliography">
+                        <hi rend="bold">Honnibal, M. and Montani, I.</hi> (2017). spaCy 2: Natural language understanding with Bloom embeddings, convolutional neural networks and incremental parsing. 
+                        <hi rend="italic">To Appear</hi>.
+                    </bibl>
+                    <bibl rend="Bibliography">
+                        <hi rend="bold">Müller, K.-R., Mika, S., Ratsch, G., Tsuda, K. and Schölkopf, B.</hi> (2001). An introduction to kernel-based learning algorithms. 
+                        <hi rend="italic">IEEE Transactions on Neural Networks</hi>, 
+                        <hi rend="bold">12</hi>(2): 181–201.
+                    </bibl>
+                    <bibl rend="Bibliography">
+                        <hi rend="bold">Paulin, R.</hi> (1998). Luise Gottsched und Dorothea Tieck. Vom Schicksal zweier Übersetzerinnen. 
+                        <hi rend="italic">Shakespeare-Jahrbuch</hi>(134): 108–122.
+                    </bibl>
+                    <bibl rend="Bibliography">
+                        <hi rend="bold">Pedregosa, F., Varoquaux, G., Gramfort, A., Michel, V., Thirion, B., Grisel, O., Blondel, M., et al.</hi> (2011). Scikit-learn: Machine Learning in Python. 
+                        <hi rend="italic">Journal of Machine Learning Research</hi>, 
+                        <hi rend="bold">12</hi>: 2825–2830.
+                    </bibl>
+                    <bibl rend="Bibliography">
+                        <hi rend="bold">Reimer, G. A. (ed).</hi> (1832). 
+                        <hi rend="italic">Shakspeare’s Dramatische Werke. Übersetzt von August Wilhelm Schlegel. Ergänzt Und Erläutert von Ludwig Tieck</hi>. 1. Auflage. Berlin.
+                    </bibl>
+                    <bibl rend="Bibliography">
+                        <hi rend="bold">Rybicki, J. and Heydel, M.</hi> (2013). The stylistics and stylometry of collaborative translation: Woolf’s Night and Day in Polish. 
+                        <hi rend="italic">Literary and Linguistic Computing</hi>, 
+                        <hi rend="bold">28</hi>(4): 708–17 doi:10.1093/llc/fqt027.
+                    </bibl>
+                    <bibl rend="Bibliography">
+                        <hi rend="bold">Shakespeare</hi> (1623). 
+                        <hi rend="italic">First Folio Home Page. Digital Facsimile of the Bodleian First Folio of Shakespeare’s Plays</hi>. . Vol. Arch. G c.7 http://firstfolio.bodleian.ox.ac.uk/.
+                    </bibl>
+                    <bibl rend="Bibliography">
+                        <hi rend="bold">Sybel, H. (ed).</hi> (1884). 
+                        <hi rend="italic">Erinnerungen an Friedrich von Uechtritz Und Seine Zeit in Briefen von Ihm Und an Ihn. Mit Einem Vorwort von Heinrich von Sybel</hi>. Salomon Hirzel Verlag.
+                    </bibl>
+                    <bibl rend="Bibliography">
+                        <hi rend="bold">TextGrid Consortium (ed).</hi> (2018). 
+                        <hi rend="italic">TextGrid: A Virtual Research Environment for the Humanities</hi>. Göttingen: TextGrid Consortium textgrid.de.
+                    </bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

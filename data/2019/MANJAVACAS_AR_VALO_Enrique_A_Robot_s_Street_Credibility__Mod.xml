@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title type="full">
+                    <title type="main">A Robot’s Street Credibility: Modeling authenticity judgments for artificially generated Hip-Hop lyrics</title>
+                    <title type="sub"/>
+                </title>
+                <author>
+                    <persName>
+                        <surname>Manjavacas Arévalo</surname>
+                        <forename>Enrique</forename>
+                    </persName>
+                    <affiliation>University of Antwerp, Belgium</affiliation>
+                    <email>enrique.manjavacas@gmail.com</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Kestemont</surname>
+                        <forename>Mike</forename>
+                    </persName>
+                    <affiliation>University of Antwerp, Belgium</affiliation>
+                    <email>mike.kestemont@uantwerpen.be</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Karsdorp</surname>
+                        <forename>Folgert</forename>
+                    </persName>
+                    <affiliation>University of Antwerp, Belgium</affiliation>
+                    <email>folgert.karsdorp@meertens.knaw.nl</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2019-04-29T15:22:16.125231390</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Name, Institution</publisher>
+                <address>
+                    <addrLine>Street</addrLine>
+                    <addrLine>City</addrLine>
+                    <addrLine>Country</addrLine>
+                    <addrLine>Name</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from an OASIS Open Document</p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.22">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Long Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>Neural Networks</term>
+                    <term>Hip-Hop</term>
+                    <term>Natural Language Generation</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>natural language processing</term>
+                    <term>data mining / text mining</term>
+                    <term>English</term>
+                    <term>computer science and informatics</term>
+                    <term>artificial intelligence and machine learning</term>
+                    <term>cognitive sciences and psychology</term>
+                    <term>digital art</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <div type="div1" rend="DH-Heading1">
+                <head>Introduction</head>
+                <p>Recent years have witnessed an impressive surge in the interest for Natural Language Generation. Advances in neural language modeling in particular have boosted the capacities of computational text generation systems, resulting in increased realism of generated text and the capability to generate text in a variety of genres or styles (Ficler et al., 2017). Aside from scholarship, text generation is currently triggering a significant deal of attention in the arts, for instance, with the emergence of artist communities such as botnik.org. While the limited semantic coherence of generated text remains a worry, the grammatical correctness and stylistic qualities of these artificial texts are remarkably convincing (Manjavacas et al., 2017).</p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Goal</head>
+                <p>The current study set out to study how well human readers are able to distinguish between authentic and synthetic text fragments, with an interpretive focus on the linguistic cues that readers seem to rely on in their authenticity judgements. As a case study, we turned to the domain of Hip-Hop lyrics, known for its explicit content and typical rhythmical delivery (Adams, 2009; Potash et. al.,, 2015). Through a large-scale experiment in the form of a serious game, we crowdsourced authenticity judgments for original and generated rap lyrics. Through statistical modeling of the resulting database of authenticity judgments, the present study aims to (i) enhance our understanding of the cognitive processes at play in the perception of authentic and synthetic artifacts in cultural production and (ii) improve text generation systems.</p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Methods</head>
+                <p>We have compiled a large corpus of Hip-Hop lyrics from the Original Hip-Hop Lyrics Archive (ohhla.com), an online archive of Hip-Hop songs. This corpus, amounting to approximately 38M tokens in about 64k songs, was preprocessed in a pipeline that included line and stanza detection, tokenization, syllabification, and grapheme to phoneme conversion (to detect word stresses and rhyme words). These data were used to train a neural language model (LM), which makes use of recurrent connections to model longer-term dependencies (Hochreiter et. al., 1997). With the help a LM, a sentence of n words, represented by words w_1 to w_n can easily be generated by following the generative process expressed in Equation 1:</p>
+                <p>
+                    <figure>
+                        <graphic url="Pictures/6aa9da19c68a4678900cc0c0737bca38.png"/>
+                    </figure>
+                </p>
+                <p>During generation, we sample from the output distribution at each step inputting the token sampled at the previous step, which can also be a single character or syllable, depending on the sequences the model was trained on. We trained three kinds of LMs at different levels: a character-level LM, a syllable-level LM and a hierarchical LM (Chung et. al., 2016), the latter being similar to a word-level LM in that it decomposes the probability of a sentence into the conditional probabilities of its words but, additionally, it decomposes the probability of each word on the basis of its characters. Additionally, we also experiment with a conditional LM variant to each of the three models, which controls for sentence length and final sentence phonology (i.e. the phonological representation after the last stressed vowel). Figure 1 shows examples of generated text.</p>
+                <p>
+                    <figure>
+                        <graphic url="Pictures/462fbea0199e9730a2c783607aca2d3a.png"/>
+                    </figure>Figure 1: Generated samples from the experiment randomly extracted from different difficulty bins (e.g. 25%-50% refers to examples in the 25%-50% difficulty percentile according to a logistic classifier). Models correspond to character-level (C), syllable-level (S) and hierarchical (H). The trailing "+" indicates a conditional model.
+                </p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Serious game</head>
+                <p>At the heart of this study lies a crowdsourcing experiment carried out at a popular music festival. In this context, we collected authenticity judgments from participants in a serious game relating to how well participants could distinguish between authentic and artificial fragments generated by one of our models. In order to efficiently communicate the game’s purpose in the media, we publicized this experiment as a so-called ‘Turing test’, although the description below will make clear how the set-up is markedly different from the “imitation game” which Turing (1950) originally proposed. Each game took the form of a series of (independent) questions, each of which had to be solved within a time limit of 15 seconds. The questions randomly alternated between two kinds:</p>
+                <p>
+                    <hi rend="bold">Type-A</hi>: presented with an authentic and an artificially generated fragment, the participant had to decide which fragment was authentic.
+                </p>
+                <p>
+                    <hi rend="bold">Type-B</hi>: presented with a single fragment the participant had to decide whether the fragment was authentic or generated.
+                </p>
+                <p>Type-B questions involved less reading but only presented participants with a single fragment, meaning that participants were unable to compare two fragments. Each game allowed the player to answer at least 11 questions and the player was awarded one point per correct answer. After the first 10 questions, the game switched into a ‘sudden death’ mode, allowing the player to continue until a false answer was given. The length of fragments was randomly varied between 2-4 lines. We ranked pairs of generated and authentic texts in terms of difficulty (see below). Pairs were then collected into bins of increasing difficulty. After 5 questions, the questions presented would be sampled from the next, more difficult bin.</p>
+                <p>
+                    <figure>
+                        <graphic url="Pictures/256a6126e5a8070a39d6c6ac86209b1c.png"/>
+                    </figure>Figure 2: Example of a type-A question in the game's interface.
+                </p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Modeling authenticity</head>
+                <p>Each fragment for the game was enriched with a set of linguistic features that were deemed to be relevant in modeling the difference between authentic and synthetic Hip-Hop. These included morphological, lexical and syntactic characteristics (see below), which we refer to as “cues”. Most of these can be argued to capture some aspect of the linguistic complexity of the fragments. Using these features, we fit a Bayesian logistic regression model (see, e.g. Hoffman &amp; Gelman 2014) with participants as random effect against the following two response variables (i) whether the text is authentic or generated (modeling objective authenticity) and (ii) the actual participant authenticity judgment (modeling perceived authenticity). Additionally, we also study and control for authenticity perception biases, learning effects and linguistic cues learnt to be exploited by participants to solve the game. </p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Results</head>
+                <p>We restrict this discussion to our most salient results and refer the reader to the presentation for further details. </p>
+                <p>On average, the authenticity detection accuracy was above chance level (50%), with participants correctly answering 60.5% of the time. With 58% median accuracy, participants performed slightly worse on questions of type-B than of type-A, suggesting that the task becomes harder in the absence of a reference point. In addition, we observed marked differences in the authenticity detection accuracy for the three aforementioned Language Models. Hierarchically and word-level generated fragments were markedly harder to detect than character-level fragments.</p>
+                <p>As shown in Figure 3a, there is considerable evidence of a learning effect in both question types, especially towards the beginning of the game. Importantly, the learning effect must be explained differently depending on question type. By design, any learning effect in type-A questions can only involve accuracy of the original fragment. For type-B questions, however, the learning effects seems to reflect a shift in bias towards “generated” to bias towards “original”, as can be seen in Figure 3b.</p>
+                <p>
+                    <figure>
+                        <graphic url="Pictures/6574d532f5dc50ceb34c6ea7175fe52f.png"/>
+                    </figure>Figure 3: Marginal effects with 95% credible intervals of trial number for both type-A and type-B questions (a). Marginal effects plots showing the effect of trial number on guess accuracy for “Authentic” and “Generated” in type-B questions (b).
+                </p>
+                <p>To estimate the objective feature importance, we perform a logistic regression analysis, with as dependent variable whether a text was original or generated, and as predictors the linguistic cues (Figure 4a); we performed the same procedure to model the perceived authenticity of text fragments (right panel). The odds ratios show interesting (dis)similarities in feature importance between the objective and the perceived authenticity. The average depth of syntax trees, for instance, suggests that generated text fragments have considerably less complex sentence constructions and this was clearly picked up by participants as well. Interestingly, Figure 4b shows that humans easily overestimated the positive weight of some feature types—e.g. the portion of politically incorrect words (pc words)—, indicating that humans underestimated a machine’s ability to produce foul language. These observations point to specific aspects for future text generation research to improve on.</p>
+                <p>
+                    <figure>
+                        <graphic url="Pictures/f0b96b977a5a134f074be3570ecd45e3.png"/>
+                    </figure>Figure 4: Log-Odds ratios for objective (a) and subjetive (b) feature importance.
+                </p>
+            </div>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl>
+                        <anchor xml:id="id_docs-internal-guid-97f178fa-7fff-1d3c-a8ac-8ee7f051c0bb"/>
+                        <hi rend="color(#000000)bold">Adams, K.</hi>
+                        <hi rend="color(#000000)"> </hi>
+                        <hi rend="color(#000000)">(2009). </hi>
+                        <hi rend="color(#000000)">On the metrical techniques of flow in rap music. </hi>
+                        <hi rend="color(#000000)italic">Music Theory Online</hi>
+                        <hi rend="color(#000000)"> </hi>
+                        <hi rend="color(#000000)">15(5).</hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Chung, J., Ahn, S., and Bengio, Y</hi>. (2016). Hierarchical multiscale recurrent neural networks. arXiv preprint arXiv:1609.01704.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Ficler, J., and Goldberg, Y.</hi> (2017). Controlling Linguistic Style Aspects in Neural Language Generation. In 
+                        <hi rend="italic">Proceedings of the Workshop on Stylistic Variation</hi>, pp. 94-104.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Manjavacas, E., De Gussem, J., Daelemans, W., &amp; Kestemont, W.</hi> (2017). Assessing the Stylistic Properties of Neurally Generated Text in Authorship Attribution. In 
+                        <hi rend="italic">Proceedings of the Workshop on Stylistic Variation</hi>, pp. 112-125.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Hochreiter, S., and Schmidhuber, J.</hi> (1997). LONG SHORT-TERM MEMORY. 
+                        <hi rend="italic">Neural Computation,</hi>
+                        <hi rend="bold">9</hi>: 1735–1780.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Hoffman, M. D., &amp; Gelman, A</hi>. (2014). The No-U-turn sampler: adaptively setting path lengths in Hamiltonian Monte Carlo. 
+                        <hi rend="italic">Journal of Machine Learning Research</hi>, 
+                        <hi rend="bold">15(1)</hi>, 1593-1623.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Turing, A. M.</hi> (1950). Computing machinery and intelligence. 
+                        <hi rend="italic">Mind</hi>, 
+                        <hi rend="bold">59</hi>: 433-460.
+                    </bibl>
+                    <bibl>
+                        <hi rend="color(#000000)bold">Potash, P. </hi>
+                        <hi rend="color(#000000)bold">&amp; Romanov, A. &amp; Rumshisky, A.</hi>
+                        <hi rend="color(#000000)"> (2015). </hi>
+                        <hi rend="color(#000000)">GhostWriter: Using an LSTM for Automatic Rap Lyric Generation. </hi>
+                        <hi rend="color(#000000)">In </hi>
+                        <hi rend="color(#000000)italic">Proceedings of the 2015 Conference on Empirical Methods in Natural Language Processing</hi>
+                        <hi rend="color(#000000)">, </hi>
+                        <hi rend="color(#000000)">pp. </hi>
+                        <hi rend="color(#000000)">1919-1924.</hi>
+                    </bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

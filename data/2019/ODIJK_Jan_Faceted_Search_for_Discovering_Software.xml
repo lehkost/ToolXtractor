@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>Faceted Search for Discovering Software</title>
+                <author>
+                    <persName>
+                        <surname>Odijk</surname>
+                        <forename>Jan</forename>
+                    </persName>
+                    <affiliation>Utrecht University, Netherlands, The</affiliation>
+                    <email>j.odijk@uu.nl</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2014-12-19T13:50:00Z</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Name, Institution</publisher>
+                <address>
+                    <addrLine>Street</addrLine>
+                    <addrLine>City</addrLine>
+                    <addrLine>Country</addrLine>
+                    <addrLine>Name</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from a Word document</p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.22">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Long Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>Metadata for software</term>
+                    <term>faceted search</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>corpus and text analysis</term>
+                    <term>history and historiography</term>
+                    <term>metadata</term>
+                    <term>natural language processing</term>
+                    <term>speech processing</term>
+                    <term>linguistics</term>
+                    <term>English</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <div type="div1" rend="DH-Heading1">
+                <head>Introduction</head>
+                <p style="text-align:left; ">
+                    <hi style="font-size:10pt">Enabling the easy discovery of resources is an important service for Digital Humanities scholars. In CLARIN, the Virtual Language Observatory (VLO) serves this purpose, but it is currently mostly suited for the discovery of data. Discovering software is not so easy in the current VLO. In order to address this issue, we present a proposal for faceted search in metadata for software, which is based on a CLARIN Component Metadata Infrastructure (CMDI) profile for the description of software that enables discovery of the software and formal documentation of aspects of the software. We have tested the profile and the faceted search based on this profile by making metadata for over 80 pieces of software, and by creating an implementation of the faceted search. It is available on the web.</hi>
+                    <note place="foot" xml:id="ftn1" n="1">
+                        <p rend="footnote text">
+                            <ref target="http://portal.clarin.nl/clariah-tools-fs">
+                                <hi style="font-size:9pt">http://portal.clarin.nl/clariah-tools-fs</hi>
+                            </ref>
+                        </p>
+                    </note>
+                    <hi style="font-size:10pt" xml:space="preserve"> We propose   to add this faceted search to the VLO, and show how metadata curation software, combined with provided metadata curation files, can curate existing metadata descriptions for software using other profiles to make them suited for such faceted search (implemented for 280 other pieces of software, also available on the web</hi>
+                    <note place="foot" xml:id="ftn2" n="2">
+                        <p rend="footnote text">
+                            <ref target="http://portal.clarin.nl/clariah-tools-fs-global">
+                                <hi style="font-size:9pt">http://portal.clarin.nl/clariah-tools-fs-global</hi>
+                            </ref>
+                        </p>
+                    </note>
+                    <hi style="font-size:10pt">).</hi>
+                </p>
+            </div>
+            <div xml:id="Metadata_Profile_CLARINSoftwareDescripti" type="div1" rend="DH-Heading1">
+                <head>Metadata Profile ClarinSoftwareDescription</head>
+                <p style="text-align:left; ">
+                    <hi style="font-size:10pt">The ClarinSoftwareDescription (CSD) profile</hi>
+                    <note place="foot" xml:id="ftn3" n="3">
+                        <p rend="footnote text">
+                            <ref target="http://catalog.clarin.eu/ds/ComponentRegistry/rest/registry/profiles/clarin.eu:cr1:p_1342181139640/xsd">
+                                <hi style="font-size:9pt">http://catalog.clarin.eu/ds/ComponentRegistry/rest/registry/profiles/clarin.eu:cr1:p_1342181139640/xsd</hi>
+                            </ref>
+                        </p>
+                    </note>
+                    <hi style="font-size:10pt" xml:space="preserve">enables one to describe information about software in accordance with the CMDI metadata framework </hi>
+                    <ref target="#bookmark17">
+                        <hi style="font-size:10pt">(Broeder et al., 2012).</hi>
+                    </ref>
+                    <hi style="font-size:10pt" xml:space="preserve"> The profile has been set up in such a way that it enables (1) the description of properties that support discovery of the resource, and (2) the description of properties for documenting the resource, in as formal a manner as possible.</hi>
+                </p>
+                <p style="text-align:left; ">Since the focus of this paper is on the faceted search for software, we only briefly describe some aspects of the profile. </p>
+                <p style="text-align:left; ">
+                    <hi style="font-size:10pt">The profile consists of the CMDI components Generalinfo, SoftwareFunction, SoftwareImplementation, Access, ResourceDocumentation, SoftwareDevelopment, TechnicalInfo, Service and LRS.</hi>
+                </p>
+                <p style="text-align:left; ">
+                    <hi style="font-size:10pt" xml:space="preserve">The </hi>
+                    <hi rend="italic" style="font-size:10pt">SoftwareFunction</hi>
+                    <hi style="font-size:10pt" xml:space="preserve"> component enables one to describe the function of the software in terms of the closed vocabulary elements </hi>
+                    <hi rend="italic" style="font-size:10pt">tool category</hi>
+                    <hi style="font-size:10pt" xml:space="preserve">, </hi>
+                    <hi rend="italic" style="font-size:10pt">tool tasks</hi>
+                    <hi style="font-size:10pt" xml:space="preserve">, </hi>
+                    <hi rend="italic" style="font-size:10pt">research phase(s)</hi>
+                    <hi style="font-size:10pt" xml:space="preserve"> (for which it is most relevant), </hi>
+                    <hi rend="italic" style="font-size:10pt" xml:space="preserve">research domains </hi>
+                    <hi style="font-size:10pt" xml:space="preserve">and, for the linguistics domain, relevant </hi>
+                    <hi rend="italic" style="font-size:10pt" xml:space="preserve">linguistic subdisciplines </hi>
+                    <hi style="font-size:10pt" xml:space="preserve">for which it was originally developed. </hi>
+                </p>
+                <p style="text-align:left; ">
+                    <hi style="font-size:10pt" xml:space="preserve">The </hi>
+                    <hi rend="italic" style="font-size:10pt" xml:space="preserve">SoftwareImplementation </hi>
+                    <hi style="font-size:10pt" xml:space="preserve">component enables one to describe information for users on the implementation and installation of the software. The most important components are for the description of the </hi>
+                    <hi rend="italic" style="font-size:10pt">interface</hi>
+                    <hi style="font-size:10pt" xml:space="preserve">, the </hi>
+                    <hi rend="italic" style="font-size:10pt" xml:space="preserve">input </hi>
+                    <hi style="font-size:10pt" xml:space="preserve">and the </hi>
+                    <hi rend="italic" style="font-size:10pt" xml:space="preserve">output </hi>
+                    <hi style="font-size:10pt">of the software.</hi>
+                </p>
+                <p style="text-align:left; ">
+                    <hi style="font-size:10pt" xml:space="preserve">The </hi>
+                    <hi rend="italic" style="font-size:10pt" xml:space="preserve">Service </hi>
+                    <hi style="font-size:10pt" xml:space="preserve">component (CLARIN-NL Web Service description) is intended for describing properties    of web services. It is compatible with the CLARIN CMDI core model for Web Service description version 1.0.2. </hi>
+                </p>
+                <p style="text-align:left; ">
+                    <hi style="font-size:10pt" xml:space="preserve">The </hi>
+                    <hi rend="italic" style="font-size:10pt" xml:space="preserve">LRS </hi>
+                    <hi style="font-size:10pt" xml:space="preserve">component is intended for the description of the properties of a particular task for the CLARIN Language Resource SwitchBoard (CLRS, </hi>
+                    <ref target="#bookmark23">
+                        <hi style="font-size:10pt">(Zinn,</hi>
+                    </ref>
+                    <hi style="font-size:10pt" xml:space="preserve"> 2016)). It is our viewpoint that specifications for an application for inclusion in the CLRS registry</hi>
+                    <hi style="font-size:10pt" xml:space="preserve">should be derivable from the metadata for this application. We devised a script to turn a CSD-compatible metadata record that contains an LRS component into the format required for the CLRS and tested it successfully with the Frog web service and application (Van den </hi>
+                    <ref target="#bookmark21">
+                        <hi style="font-size:10pt">Bosch et al., 2007).</hi>
+                    </ref>
+                </p>
+                <div xml:id="Semantics" type="div2" rend="DH-Heading2">
+                    <head>Semantics</head>
+                    <p style="text-align:left; ">
+                        <hi style="font-size:10pt" xml:space="preserve">Many of the profile’s components, elements and their possible values have a semantic definition by a link to an entry in the CLARIN Concept Registry (CCR, </hi>
+                        <ref target="#bookmark20">
+                            <hi style="font-size:10pt">(Schuurman et al.,</hi>
+                        </ref>
+                        <hi style="font-size:10pt" xml:space="preserve"> 2016)). For the ones that were lacking we created definitions and provided other relevant information required for inclusion into   the CCR. These are currently being evaluated by the CCR coordinators for inclusion in the CCR.  After our submission to the CCR, we made some new modifications to the profile, so there are new elements and values for which the semantics does not yet exist.</hi>
+                    </p>
+                </div>
+                <div xml:id="Comparison_with_other_profiles_for_softw" type="div2" rend="DH-Heading2">
+                    <head>Metadata Descriptions using the CSD profile</head>
+                    <p style="text-align:left; ">
+                        <hi style="font-size:10pt">We have described more than 80 software resources with the CSD profile. Describing these software resources resulted in various improvements of earlier versions of the profile. Most descriptions started from the information contained in an unformalized software overview. The information from this overview was semi-automatically converted to CMDI metadata in accordance with the CSD profile. The resulting descriptions were further extended and then submitted to the original developers and CLARIN Centres that host the resources for corrections and/or additions.</hi>
+                    </p>
+                </div>
+            </div>
+            <div xml:id="Metadata_Quality" type="div1" rend="DH-Heading1">
+                <head>
+                    <anchor xml:id="bookmark12"/>Faceted Search
+                </head>
+                <p style="text-align:left; ">
+                    <hi style="font-size:10pt">A major purpose of metadata is to facilitate the discovery of resources. An important instrument for this purpose in CLARIN is the Virtual Language Observatory (VLO, (</hi>
+                    <ref target="#bookmark22">
+                        <hi style="font-size:10pt">Van Uytvanck,</hi>
+                    </ref>
+                    <hi style="font-size:10pt" xml:space="preserve"> 2014)). The VLO offers faceted search for resources through their metadata, but its faceted search is fully tuned to the discovery    of </hi>
+                    <hi rend="italic" style="font-size:10pt">data</hi>
+                    <hi style="font-size:10pt" xml:space="preserve">. For this reason, we defined a new faceted search, specifically tuned to discovery of </hi>
+                    <hi rend="italic" style="font-size:10pt">software</hi>
+                    <hi style="font-size:10pt" xml:space="preserve">. This faceted search offers </hi>
+                    <hi rend="italic" style="font-size:10pt" xml:space="preserve">search </hi>
+                    <hi style="font-size:10pt" xml:space="preserve">facets and </hi>
+                    <hi rend="italic" style="font-size:10pt">display</hi>
+                    <hi style="font-size:10pt">facets</hi>:
+                </p>
+                <p style="text-align:left; ">
+                    <hi rend="bold" style="font-size:10pt" xml:space="preserve">Search Facets </hi>
+                    <hi style="font-size:10pt">LifeCycleStatus, ResearchPhase, toolTask, researchDomain, linguisticsSubject, inputLanguage, applicationType, NationalProject, CLARINCentre, input modality, licence</hi>
+                </p>
+                <p style="text-align:left; ">
+                    <hi rend="bold" style="font-size:10pt" xml:space="preserve">Display Facets </hi>
+                    <hi style="font-size:10pt">name, title, version, inputMimetype, outputMimetype, outputLanguage, Country, Description, ResourceProxy, AccessContact, ProjectContact, CreatorContact, Documentation, Publication, sourcecodeURI, Project, MDSelfLink, OriginalLocation</hi>
+                </p>
+                <p style="text-align:left; ">
+                    <hi style="font-size:10pt">Furthermore, all metadata profiles for the description of software must be able to provide the values for the facets. That is the case to a large extent, though some metadata curation is needed in some cases and existing values must be mapped to a restricted vocabulary for use in the faceted search.</hi>
+                </p>
+            </div>
+            <div xml:id="Curation_of_existing_metadata_for_softwa" type="div1" rend="DH-Heading1">
+                <head>Curation of existing metadata for software</head>
+                <p style="text-align:left; ">
+                    <hi style="font-size:10pt">The basic idea is as follows: we create a new standardised metadata record for all software descriptions, in principle each time a record is harvested. This metadata record contains the components and elements that are required for the faceted search as defined above. The record is constructed from the original CMDI record for the resource, combined with the data for this resource contained in a curation file, by a script. The curation file can be used to add information that was lacking or only present in an unformalised way, and it can be used to map existing values to other values, e.g. to restrict them to a specific closed vocabulary. We report on our experiments with such a curation file for the</hi>
+                    <hi rend="italic" style="font-size:10pt">WebLichtWebService</hi>
+                    <hi style="font-size:10pt">profile, since it was most needed and most complex for this profile. Over 280 WebLicht Web Services can now be found with the faceted search.</hi>
+                </p>
+            </div>
+            <div xml:id="Concluding_Remarks" type="div1" rend="DH-Heading1">
+                <head>Concluding Remarks</head>
+                <p style="text-align:left; ">
+                    <hi style="font-size:10pt">The faceted search is publicly available and in use by digital humanities researchers. We already received feedback from users for further improvements, which we hope to make in the course of 2019. We will also describe some problems we encountered, which we only briefly mention here: (1) definition of closed vocabularies (2) several technical problems related to the CLARIN Component Registry (3) lack of good CMDI metadata editors. Finally, we will identify some future work, in particular on deriving CLRS registry entries for CLAM-based applications and web services,</hi>
+                    <note place="foot" xml:id="ftn4" n="4">
+                        <p rend="footnote text">
+                            <ref target="https://proycon.github.io/clam/">
+                                <hi style="font-size:9pt">https://proycon.github.io/clam/</hi>
+                            </ref> 
+                        </p>
+                    </note>
+                    <hi style="font-size:10pt" xml:space="preserve"> for extracting metadata information from independent initiatives such as codemeta.</hi>
+                    <note place="foot" xml:id="ftn5" n="5">
+                        <p rend="footnote text">
+                            <ref target="https://codemeta.github.io/">
+                                <hi style="font-size:9pt">https://codemeta.github.io/</hi>
+                            </ref>
+                        </p>
+                    </note>
+                </p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>References</head>
+                <p>
+                    <hi rend="bold" style="font-size:9pt">Daan Broeder, Menzo Windhouwer, Dieter Van Uytvanck, Twan Goosen, and Thorsten Trippel</hi>
+                    <hi style="font-size:9pt" xml:space="preserve">. (2012). CMDI: A component metadata infrastructure. In </hi>
+                    <hi rend="italic" style="font-size:9pt">Proceedings of the LREC workshop ‘Describing LRs with Metadata: Towards Flexibility and Interoperability in the Documentation of LR’.</hi>
+                    <hi style="font-size:9pt">, pages 1–4, Istanbul, Turkey. European Language Resources Association (ELRA).</hi>
+                </p>
+                <p>
+                    <hi rend="bold" style="font-size:9pt">Davor Ostojic, Go Sugimoto, and Matej Ďurčo</hi>
+                    <hi style="font-size:9pt">. (2017). The curation module and statistical analysis on VLO metadata quality. In Selected papers from the CLARIN Annual Conference 2016, Aix-en-Provence, 2628 October 2016, number 136 in Linköping Electronic Conference Proceedings, pages 90–101. Linköping University Electronic Press, Linköpings Universitet.</hi>
+                </p>
+                <p>
+                    <anchor xml:id="bookmark20"/>
+                    <hi rend="bold" style="font-size:9pt">Ineke Schuurman, Menzo Windhouwer, Oddrun Ohren, and Daniel Zeman</hi>
+                    <hi style="font-size:9pt" xml:space="preserve">. (2016). CLARIN Concept Registry: The New Semantic Registry. In Koenraad De Smedt, editor, Selected Papers from the CLARIN Annual Conference 2015, October 1416, 2015, Wroclaw, Poland, number 123 in Linköping Electronic Conference Proceedings, pages 62–70, Linköping, Sweden. CLARIN, Linköping University Electronic Press. </hi>
+                    <ref target="http://www.ep.liu.se/ecp/article.asp?issue=123&amp;amp;article=004">
+                        <hi style="font-size:9pt">http://www.ep.liu.se/ecp/article.asp?issue=123&amp;article=004</hi>
+                    </ref>
+                    <hi style="font-size:9pt" xml:space="preserve"> .</hi>
+                </p>
+                <p>
+                    <anchor xml:id="bookmark21"/>
+                    <hi rend="bold" style="font-size:9pt">A. van den Bosch, G.J. Busser, W. Daelemans, and S. Canisius</hi>
+                    <hi style="font-size:9pt" xml:space="preserve">. (2007). An efficient memory-based morphosyntactic tagger and parser for Dutch.   In F. Van Eynde, P.  Dirix, I. Schuurman, and V. Vandeghinste, editors, </hi>
+                    <hi rend="italic" style="font-size:9pt">Selected Papers of the 17th Computational Linguistics in the Netherlands Meeting</hi>
+                    <hi style="font-size:9pt">, pages 99–114. Leuven, Belgium.</hi>
+                </p>
+                <p>
+                    <anchor xml:id="bookmark22"/>
+                    <hi rend="bold" style="font-size:9pt" xml:space="preserve">Dieter Van Uytvanck. </hi>
+                    <hi style="font-size:9pt" xml:space="preserve"> (2014).  How can I find resources using CLARIN?  Presentation held at the </hi>
+                    <hi rend="italic" style="font-size:9pt" xml:space="preserve">Using CLARIN for Digital Research </hi>
+                    <hi style="font-size:9pt" xml:space="preserve">tutorial workshop at the </hi>
+                    <hi rend="italic" style="font-size:9pt">2014 Digital Humanities Conference</hi>
+                    <hi style="font-size:9pt" xml:space="preserve">, Lausanne, Switzerland. </hi>
+                    <ref target="https://www.clarin.eu/sites/default/files/CLARIN-dvu-dh2014_VLO.pdf">
+                        <hi style="font-size:9pt">https://www.clarin.eu/sites/default/files/CLARIN-dvu-dh2014_</hi>
+                    </ref>
+                    <ref target="https://www.clarin.eu/sites/default/files/CLARIN-dvu-dh2014_VLO.pdf">
+                        <hi style="font-size:9pt">VLO.pdf</hi>
+                    </ref>
+                    <hi style="font-size:9pt">, July.</hi>
+                </p>
+                <p>
+                    <anchor xml:id="bookmark23"/>
+                    <hi rend="bold" style="font-size:9pt">Claus Zinn</hi>
+                    <hi style="font-size:9pt" xml:space="preserve">. (2016). The CLARIN language resource switchboard. </hi>
+                    <ref target="https://www.clarin.eu/sites/default/files/08%20-%20ZINN-Lg-Sw-Board.pdf">
+                        <hi style="font-size:9pt">https://www.clarin.eu/</hi>
+                    </ref>
+                    <ref target="https://www.clarin.eu/sites/default/files/08%20-%20ZINN-Lg-Sw-Board.pdf">
+                        <hi style="font-size:9pt">sites/default/files/08%20-%20ZINN-Lg-Sw-Board.pdf</hi>
+                    </ref>
+                    <hi style="font-size:9pt">. Presentation at the CLARIN 2016 Annual Conference.</hi>
+                </p>
+            </div>
+        </body>
+    </text>
+</TEI>

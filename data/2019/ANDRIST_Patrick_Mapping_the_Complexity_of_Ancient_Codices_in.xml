@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>Mapping the Complexity of Ancient Codices in Databases: the Syntactical Model</title>
+                <author>
+                    <persName>
+                        <surname>Andrist</surname>
+                        <forename>Patrick</forename>
+                    </persName>
+                    <affiliation>Ludwig-Maximilians-Universität, Munich, Germany; Université de Fribourg, Switzerland</affiliation>
+                    <email>patrick.andrist@lmu.de</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2014-12-19T13:50:00Z</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Name, Institution</publisher>
+                <address>
+                    <addrLine>Street</addrLine>
+                    <addrLine>City</addrLine>
+                    <addrLine>Country</addrLine>
+                    <addrLine>Name</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from a Word document</p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.22">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Long Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>manuscripts</term>
+                    <term>codex</term>
+                    <term>graphic representation</term>
+                    <term>manuscript descriptions and structure</term>
+                    <term>manuscript complexity</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>corpus and text analysis</term>
+                    <term>databases &amp; dbms</term>
+                    <term>medieval studies</term>
+                    <term>data models and formal languages</term>
+                    <term>English</term>
+                    <term>library &amp; information science</term>
+                    <term>manuscripts description and representation</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <p>
+                <hi style="font-family:Garamond">Most antique and mediaeval codices preserved today present one or more layers of complexity. Codices are usually considered “complex” when they contain more than one text; but there are other aspects to be taken into consideration. Sometimes, they are complex objects because several scribes collaborated in copying several texts into one book, at times using different ink or layouts, or because their writing material was reused from pre-existing books. Other times, a manuscript’s owner might also restore damaged leaves or choose to add new texts on new quires. Readers too could contribute to an evolving complexity as they added comments, drawings or small pieces of content in the margins or in blank spots. The historical complexity of ancient codices is in itself also a complex notion (See further Gumbert, 2004; Maniaci, 2004; Andrist et al., 2013).</hi>
+            </p>
+            <p>
+                <hi style="font-family:Garamond" xml:space="preserve">How can the various levels of complexity of a codex be coded into a database in such a way that the complexity is not only clearly understandable but also correctly searchable? </hi>
+            </p>
+            <p>
+                <hi style="font-family:Garamond">The aim of this paper is to present a language-independent model for achieving this goal, and some of the new challenges it now faces. It is called the syntactical model and is already in use in several MySQL as well as XML/TEI databases.</hi>
+            </p>
+            <p>
+                <hi style="font-family:Garamond">The first section of the paper sets out the problem by showing a few slides of a complex codex and explaining the problem one encounters in many current databases. Even though they record accurate information searches with multiple criteria often result in inaccurate answers. Let us for example consider a codex C, which contains both a text by Aristotle copied in the twelfth century, and a text by Chrysostom copied in the fifteenth; let us now imagine a scholar searching databases for witnesses of Chrysostom copied in the twelfth century; by far most of today’s databases will return codex C as a positive match, though it is not! Why is this so? Because the single pieces of information is unrelated to its context of production: these databases fail to consider the codex as an object evolving over time (see Andrist 2014).</hi>
+            </p>
+            <p>
+                <hi style="font-family:Garamond" xml:space="preserve">The second section presents the principles of the syntactical model. The basic idea is that all the contents are linked to a more or less conscious act of production. Let us imagine that someone orders a new copy of Homer’s </hi>
+                <hi rend="italic" style="font-family:Garamond">Iliad</hi>
+                <hi style="font-family:Garamond" xml:space="preserve">; many years later, someone adds some texts by Hesiod to this book; to these a subsequent reader adds the commentaries of Eustathius in the margins along with some notes of her or his own; later still someone takes out the pages containing the Hesiodic texts, binds them together with Pindar’s </hi>
+                <hi rend="italic" style="font-family:Garamond">Odes</hi>
+                <hi style="font-family:Garamond" xml:space="preserve"> and adds a colophon… every stage of the transformation represents a unique act of production. The Syntactical model holds that each content in a printed or electronic description of a codex ought to be clearly and unambiguously related to its production unit (the theoretical underlying principles are explained in Andrist et al., 2013).</hi>
+            </p>
+            <p>
+                <hi style="font-family:Garamond" xml:space="preserve">The third section explains how this model has been implemented until now. A standard description according to the syntactical model operates on three data levels: the data level related to the codex as it is today; the data level related to its constitutive production units i.e. its historical parts (which are the main “description units”); and the data level of the pieces of content (mostly texts, but also images or musical pieces), always situated within a production unit. I will show how the syntactical model is implemented in our MySQL shared database (in the framework of the ERC project ParaTexBib submitted by Martin Wallraff in 2013; see Wallraff et al., 2015) and I will also show an example from the XML/TEI </hi>Beta maṣāḥǝft
+                <hi style="font-family:Garamond" xml:space="preserve"> database of Ethiopian manuscripts (unrelated to our project). </hi>
+            </p>
+            <p>
+                <hi style="font-family:Garamond" xml:space="preserve">This very structured and hierarchical way to describe manuscripts enabled us to develop a new tool, with the specific purpose of both visually relaying the overall structure of a codex, as well as the content of each stratum; elements which may not be immediately evident in a written description. It generates graphic representations on demand from a manuscript description based on the syntactical model (an image of it is available </hi>
+                <ref target="https://www.itg.uni-muenchen.de/bilder/projekte_bilder/web_bilder_xl/struvima_-05-0901_xl.JPG">
+                    <hi style="font-family:Garamond">here</hi>
+                </ref>
+                <hi style="font-family:Garamond">). The whole codex, as well as its historical parts and their contents, is represented on a single screen; extra details are displayed by clicking on individual elements of this graphic representation. These are created by an open-access web application, developed through a proof-of-concept funded by the ERC (see Dirkse et al., 2019).</hi>
+            </p>
+            <p>
+                <hi style="font-family:Garamond" xml:space="preserve">A promising future development of this tool is the reconstruction of now dispersed manuscripts; by drawing elements from existing graphic representations, the users will be able to create a new representation by joining diverse parts of various manuscripts and arranging them in order. </hi>
+            </p>
+            <p>
+                <hi style="font-family:Garamond">The final part of the paper mentions some of the main current challenges:</hi>
+            </p>
+            <list type="unordered">
+                <item>
+                    <hi style="font-family:Garamond">the main one is a human one, that is to say, when people are unfamiliar with or misunderstand the historical layers of a codex and consequently do not represent them correctly in the database;</hi>
+                </item>
+            </list>
+            <list type="unordered">
+                <item>
+                    <hi style="font-family:Garamond">from a more technical point of view, the hierarchical way in which the syntactical model is currently implemented in the databases results in very static descriptions and poses certain problems. For example, when the production units of a codex are not easy to identify, or when one wants to simultaneously visualise all the pieces of content currently on one page even though they were produced at different stages. Moreover, other structure levels of the codex within or above the production units are not easy to represent. This is why we are currently thinking of other ways to implement the syntactical model in the databases, which would allow us to visualise the codex according to various interpretation of the syntactical model or, when needed, according to other models (see Andrist, 2015).</hi>
+                </item>
+            </list>
+            <p rend="List Paragraph">
+                <hi style="font-family:Garamond">Mapping the major layers of complexity of ancient codices in databases is possible with the syntactical model, even though there is a lot room for improvement. We hope that in the future more projects will take advantage of the potential of this model.</hi>
+            </p>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold" style="font-family:Garamond">Andrist P., Canart P. and Maniaci M.</hi>
+                        <hi style="font-family:Garamond" xml:space="preserve"> (2013). La syntaxe du codex. Essai de codicologie structural. Bibliologia 34. Turnhout.</hi>
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold" style="font-family:Garamond">Andrist P.</hi>
+                        <hi style="font-family:Garamond" xml:space="preserve"> (2014). Going online is not enough! … Electronic descriptions of ancient manuscripts, and the needs of manuscript studies. In T. Andrews and C. Macé (eds.), Analysis of Ancient and Medieval Texts and Manuscripts: Digital Approaches. Lectio 1, Turnhout: 309-334.</hi>
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold" style="font-family:Garamond">Andrist P.</hi>
+                        <hi style="font-family:Garamond" xml:space="preserve"> (2015). Syntactical description of manuscripts, in A. Bausi (et al. eds.), Comparative Oriental Manuscript Studies. An Introduction. Hamburg: 511-520.</hi>
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold" style="font-family:Garamond">Dirkse S., Andrist P. and Wallraff M.</hi>
+                        <hi style="font-family:Garamond">(2019). Structural Visualization of Manuscripts (StruViMan): Principles, Methods, Prospects. Open Theology 6, forthcoming</hi>
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold" style="font-family:Garamond">Gumbert J.P.</hi>
+                        <hi style="font-family:Garamond" xml:space="preserve"> (2004). Codicological Units: Towards a Terminology for the Stratigraphy of the Non-Homogeneous Codex. In E. Crisci and O. Pecere (eds.), Il codice miscellaneo, tipologia e funzioni. Segno e testo 2: 17-42. </hi>
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold" style="font-family:Garamond">Maniaci M.</hi>
+                        <hi style="font-family:Garamond" xml:space="preserve"> (2004). Il codice greco 'non unitario'. Tipologia e terminologia, in In E. Crisci and O. Pecere (eds.), Il codice miscellaneo, tipologia e funzioni. Segno e testo 2: 75-107</hi>
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold" style="font-family:Garamond">Wallraff M. and Andrist P.</hi>
+                        <hi style="font-family:Garamond" xml:space="preserve"> (2015). Paratexts of the Bible: A New Research Project on Greek Textual Transmission. Early Christianity 6: 237-243.</hi>
+                    </bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

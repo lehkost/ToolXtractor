@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>A Predictive Approach to Semantic Change Modelling</title>
+                <author>
+                    <persName>
+                        <surname>Boukhaled</surname>
+                        <forename>Mohamed Amine</forename>
+                    </persName>
+                    <affiliation>Laboratoire Langues, Textes, Traitements informatique, Cognition (Lattice, CNRS, ENS &amp; Université Paris 3)</affiliation>
+                    <email>amine.boukhaled@ens.fr</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Fagard</surname>
+                        <forename>Benjamin</forename>
+                    </persName>
+                    <affiliation>Laboratoire Langues, Textes, Traitements informatique, Cognition (Lattice, CNRS, ENS &amp; Université Paris 3)</affiliation>
+                    <email>benjamin.fagard@ens.fr</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Poibeau</surname>
+                        <forename>Thierry</forename>
+                    </persName>
+                    <affiliation>Laboratoire Langues, Textes, Traitements informatique, Cognition (Lattice, CNRS, ENS &amp; Université Paris 3)</affiliation>
+                    <email>thierry.poibeau@ens.fr</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2019-04-30T11:18:00Z</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Name, Institution</publisher>
+                <address>
+                    <addrLine>Street</addrLine>
+                    <addrLine>City</addrLine>
+                    <addrLine>Country</addrLine>
+                    <addrLine>Name</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from a Word document</p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.22">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Short Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>Semantic change</term>
+                    <term>computational modelling</term>
+                    <term>diachronic word embedding</term>
+                    <term>distributional semantics</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>corpus and text analysis</term>
+                    <term>semantic analysis</term>
+                    <term>linguistics</term>
+                    <term>data mining / text mining</term>
+                    <term>English</term>
+                    <term>computer science and informatics</term>
+                    <term>artificial intelligence and machine learning</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <div type="div1" rend="DH-Heading1">
+                <head>Introduction </head>
+                <p style="text-align:left; ">Although it is well known that word meanings evolve over time, there is still much to discover concerning the causes and pace of semantic change . In this context, computational modelling can shed new light on the problem by considering at the same time a large number of variables that are supposed to interact in a complex manner. This field has already given birth to a large number of publications ranging from early work involving statistical and mathematical formalism (Bailey, 1973 ; Kroch, 1989) to more recent work involving robotics and large-scale simulations (Steels, 2011). </p>
+                <p style="text-align:left; ">We consider that semantic change includes all kinds of change in the meanings of lexical items happening over the years. For example, the word 
+                    <hi rend="italic">awful</hi> has dramatically changed in meaning, moving away from a rather positive perspective equivalent to 
+                    <hi rend="italic">impressive</hi> or 
+                    <hi rend="italic">majestic</hi> at the beginning of the nineteenth century to a negative one equivalent to 
+                    <hi rend="italic">disgusting</hi> and 
+                    <hi rend="italic">messy</hi> nowadays (Wijaya and Yeniterzi, 2011). 
+                </p>
+                <p style="text-align:left; ">In this work, we address the question of semantic change from a computational point of view. Our aim is to capture the systemic change of word meanings in an empirical model that is also predictive, contrary to most previous approaches that meant to reproduce empirical observations. We will first describe our methodology, then the experiment and our results, before concluding. </p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Proposed methodology</head>
+                <p style="text-align:left; ">Our goal is to train a model representing semantic change over a certain period and, from there, to predict potential future semantic changes. The evaluation will thus be based on the observation of the gap between actual data and predicted data. </p>
+                <p style="text-align:left; ">Our model is based on two main components: </p>
+                <p style="text-align:left; ">
+                    <hi rend="italic">1- Diachronic word embeddings</hi> representing the meaning of words over time-periods, following Turney and Pantel (2010). Word embeddings are known to effectively represent the meaning of words by taking into account their surrounding contexts. The representation can be extended to include a diachronic perspective: word embeddings are first trained for each time-period and then aligned temporally, so as to be able to track semantic change over time, see Fig. 1. For our study, we used the pre-trained diachronic word embeddings released by Hamilton et al. (2016): for each decade from 1800 to 1990, a specific word embedding is built using the word2vec skip gram algorithm. The training corpus used to produce these word embeddings was derived from the English Google Books N-gram datasets (Lin et al., 2012), which contain a large number of historical texts in many languages (we used 5-grams with no part-of-speech tags). Each word in the corpus appearing from 1800 to 1999 is represented by a set of twenty 300-dimensional vectors, with one vector per decade.
+                </p>
+                <figure>
+                    <graphic n="1001" width="16.012583333333332cm" height="4.416777777777778cm" url="Pictures/81f9e15e0e8793bca8fc3a114e70d8d9.png" rend="inline"/>
+                </figure>
+                <p style="text-align:left; ">Figure 1. Two-dimensional visualization of the semantic change in the English word “
+                    <hi rend="italic">cell</hi>” using diachronic word embedding. In the early 19th century the word cell was typically used to refer to a prison cell, hence the frequency of 
+                    <hi rend="italic">cage</hi> and 
+                    <hi rend="italic">dungeon</hi> in the context of 
+                    <hi rend="italic" xml:space="preserve">cell </hi>in 1800, whereas in the late 19th century its meaning changed as it came to be frequently used in a scientific context, referring to a microscopic part of a living being (see 
+                    <hi rend="italic">protoplasm</hi>, 
+                    <hi rend="italic">ovum</hi>, etc. in the 1900 context).
+                </p>
+                <p style="text-align:left; ">
+                    <hi rend="italic">2- Recurrent Neural Networks (RNNs)</hi> modelling semantic change itself. RNNs are known to be powerful at recognizing dynamic temporal behaviours in diachronic data (Medsker and Jain, 2001). In this experiment, we used the word embeddings representing the semantic space of each decade from 1800 to 1990 as input for the RNN, and from this we predicted the embedding corresponding to the 1990-1999 decade. Our RNNs have a long short-term memory (LSTM) and are implemented through Tensorflow. 
+                </p>
+                <p style="text-align:left; ">To explore different scenarios, we ran several experiments with different vocabulary sizes (restricted to the 1,000, 5,000, 10,000, 20,000 and 50,000 most frequent words). We used the stratified 10-fold cross-validation method to estimate the prediction error (i.e. 90% of the words were used for training, and 10% for testing). The overall prediction accuracy is taken as the average performance over these 10 runs. </p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Experiment, Results and Discussion</head>
+                <p style="text-align:left; ">To get an overall estimation of the prediction accuracy, we compare each predicted embedding to the ground truth obtained from real data. Though it is impossible to predict exactly the vector corresponding to a given word “w”, as we are working in a continuous 300-dimensional space, one can assess the accuracy of the predicted meaning by extracting the closest vectors, i.e. the closest neighbours of a given word over time. </p>
+                <p style="text-align:left; ">If the word “w” is actually the nearest semantic neighbour to the predicted vector, then it is considered to be a correct prediction. Otherwise, it is considered to be an error (a false prediction). The results are summarized in Table 1. </p>
+                <table rend="rules">
+                    <row>
+                        <cell rend="DH-Default">Vocabulary Size</cell>
+                        <cell rend="DH-Default">Accuracy</cell>
+                    </row>
+                    <row>
+                        <cell rend="DH-Default">1000</cell>
+                        <cell rend="DH-Default">91.7%</cell>
+                    </row>
+                    <row>
+                        <cell rend="DH-Default">5000</cell>
+                        <cell rend="DH-Default">86.1%</cell>
+                    </row>
+                    <row>
+                        <cell rend="DH-Default">10000</cell>
+                        <cell rend="DH-Default">71.4%</cell>
+                    </row>
+                    <row>
+                        <cell rend="DH-Default">20000</cell>
+                        <cell rend="DH-Default">52.2%</cell>
+                    </row>
+                    <row>
+                        <cell rend="DH-Default">50000</cell>
+                        <cell rend="DH-Default">25%</cell>
+                    </row>
+                </table>
+                <p style="text-align:left; ">
+                    <hi rend="bold">Table 1.</hi> Results of prediction accuracy measured for different vocabulary sizes. The training and the prediction using the RNNs model were performed on embeddings derived from the Google N-gram corpus.
+                </p>
+                <p style="text-align:left; ">The results show that the model can be highly effective at capturing semantic change, and can achieve a high accuracy when predicting the evolution of word meaning through distributional semantics. As one can see from Table 1, the model was able to achieve 71.4% accuracy when trained and tested exclusively on embeddings based on the 10,000 most frequent words of the corpus. The model was even able to correctly predict word embeddings for words that have radically changed their meaning over time such as 
+                    <hi rend="italic">awful</hi>, 
+                    <hi rend="italic">nice</hi>, 
+                    <hi rend="italic">cell</hi> and 
+                    <hi rend="italic">record</hi> (Wijaya and Yeniterzi, 2011). 
+                </p>
+                <p style="text-align:left; ">The results also show better results when using smaller vocabulary sizes containing top frequent words. The decrease of performance with large vocabularies is due to the fact that infrequent words do not have enough occurrences to derive meaningful and stable enough contexts so as to observe reliable evolutions. It is thus fundamental to use large corpora for this kind of experiments, but also to adapt the size of the vocabulary to the size of the corpus. </p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Conclusion</head>
+                <p style="text-align:left; ">We have proposed a new computational model of semantic change. Although this model is (partially) successful at representing this evolution, it can still appear to be too simple compared to the complexity of language change in general and semantic change in particular. For now, it may remain hard to understand precisely how this type of computational modelling can be combined with more traditional methods of linguistic analysis. However, we strongly believe that such empirical approaches based on diachronic vector-based representations can considerably help to refine and clarify theoretical insights on the foundations and mechanisms of semantic change, as well as provide an accurate empirical evaluation.</p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Acknowledgements</head>
+                <p style="text-align:left; ">This work is supported by the project 2016-147 ANR OPLADYN TAP-DD2016. Thierry Poibeau is also supported by the CNRS International Research Network “Cyclades”. Our thanks go to the anonymous reviewers for their constructive comments.</p>
+            </div>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold">Bailey, C.-J.N.</hi> (1973). Variation and linguistic theory. Arlington: Centre for Applied Linguistics. 
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold">Hamilton, W.L., Leskovec, J. and Jurafsky, D.</hi> (2016). Diachronic word embeddings reveal statistical laws of semantic change. 
+                        <hi rend="italic">Proceedings of the 54th Annual Meeting of the Association for Computational Linguistics</hi>, 1489–1501. 
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold">Kroch, A.S.</hi> (1989). Reflexes of grammar in patterns of language change. 
+                        <hi rend="italic">Language Variation and Change</hi>, 
+                        <hi rend="bold">1</hi>: 199–244. 
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold">Lin, Y., Michel, J.-B., Aiden, E.L., Orwant, J., Brockman, W., Petrov, S.</hi> (2012). Syntactic annotations for the google books Ngram corpus. 
+                        <hi rend="italic">Proceedings of the 50th Annual Meeting of the Association for Computational Linguistics</hi>: 169–174. 
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold">Medsker, L.R. and Jain, L.C.</hi> (2001). Recurrent neural networks. Boca Raton: CRC Press. 
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold">Steels, L.</hi> (2011). Modeling the cultural evolution of language. 
+                        <hi rend="italic">Physical Life Review</hi>, 
+                        <hi rend="bold">8</hi>: 339–356.
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold">Turney, P.D. and Pantel, P.</hi> (2010). From frequency to meaning: Vector space models of semantics. 
+                        <hi rend="italic">Journal of Artificial Intelligence Research</hi>, 
+                        <hi rend="bold">37</hi>: 141–188. 
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold">Wijaya, D. and Yeniterzi, R.</hi> (2011). Understanding Semantic Change of Words Over Centuries. In the 
+                        <hi rend="italic" xml:space="preserve">Workshop on Detecting and Exploiting Cultural Diversity on the Social Web </hi>(DETECT 2011) during CIKM 2011.
+                    </bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

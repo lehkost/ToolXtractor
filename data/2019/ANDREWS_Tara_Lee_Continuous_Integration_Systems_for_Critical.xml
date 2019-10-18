@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>Continuous Integration Systems for Critical Edition: The Chronicle of Matthew of Edessa</title>
+                <author>
+                    <persName>
+                        <surname>Andrews</surname>
+                        <forename>Tara Lee</forename>
+                    </persName>
+                    <affiliation>Universität Wien, Austria</affiliation>
+                    <email>tara.andrews@univie.ac.at</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Safaryan</surname>
+                        <forename>Anahit</forename>
+                    </persName>
+                    <affiliation>Universität Wien, Austria</affiliation>
+                    <email>anahit.safaryan@univie.ac.at</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Atayan</surname>
+                        <forename>Tatevik</forename>
+                    </persName>
+                    <affiliation>Universität Wien, Austria</affiliation>
+                    <email>tatevik.atayan@univie.ac.at</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2014-12-19T13:50:00Z</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Name, Institution</publisher>
+                <address>
+                    <addrLine>Street</addrLine>
+                    <addrLine>City</addrLine>
+                    <addrLine>Country</addrLine>
+                    <addrLine>Name</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from a Word document</p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.22">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Short Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>digital edition</term>
+                    <term>critical edition</term>
+                    <term>continuous integration</term>
+                    <term>armenian studies</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>databases &amp; dbms</term>
+                    <term>scholarly editing</term>
+                    <term>software design and development</term>
+                    <term>near eastern studies</term>
+                    <term>English</term>
+                    <term>computer science and informatics</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <p style="text-align:left; ">We present here a project to prepare the digital critical edition of the 
+                <hi rend="italic">Chronicle</hi> of Matthew of Edessa, which is due to finish its first stage in April 2019. The 
+                <hi rend="italic">Chronicle</hi> is a 12
+                <hi rend="superscript">th</hi> century Armenian-language historical text covering events in the Near East during the 10
+                <hi rend="superscript">th</hi>-12th centuries. This takes the reader from the apogee of the medieval Armenian kingdoms to the fall of most of them during the eleventh century as their lands were annexed to Byzantium and ultimately lost to the Seljuk Turks. The Chronicle is also an important source for the history of the First Crusade, and particularly the Crusader County of Edessa. There are about 40 known manuscripts that contain the text of the Chronicle in whole or in part, copied between the end of the 16
+                <hi rend="superscript">th</hi> century up to the 19
+                <hi rend="superscript">th</hi>.
+            </p>
+            <p style="text-align:left; ">In our workflow we have adopted the stages of digital critical edition suggested by Robinson 
+                <?biblio ADDIN ZOTERO_ITEM CSL_CITATION {"citationID":"h8pErGgn","properties":{"formattedCitation":"(2004)","plainCitation":"(2004)","noteIndex":0},"citationItems":[{"id":2364,"uris":["http://zotero.org/users/990935/items/B6U2EE2H"],"uri":["http://zotero.org/users/990935/items/B6U2EE2H"],"itemData":{"id":2364,"type":"article-journal","title":"Making electronic editions and the fascination of what is difficult","container-title":"Linguistica Computazionale","page":"415–38","volume":"20–21","shortTitle":"Making electronic editions and the fascination of what is difficult","author":[{"family":"Robinson","given":"Peter"}],"issued":{"date-parts":[["2004"]]}},"suppress-author":true}],"schema":"https://github.com/citation-style-language/schema/raw/master/csl-citation.json"}?>(2004) – transcription, collation, stemmatic analysis, edition and publication. We found, in the process, that these stages do not occur in a strict succession; it was quite regularly necessary to move back and forth between stages, refining earlier steps on the basis of later results. One of the central features of our project was to adopt a 
+                <hi rend="bold">continuous integration</hi> (CI) system
+                <note place="foot" xml:id="ftn1" n="1">
+                    <p rend="footnote text"> In this case, the software in question is Concourse (
+                        <ref target="https://concourse-ci.org/">https://concourse-ci.org/</ref>).
+                    </p>
+                </note> in order to manage the work across these stages in a sensible manner. The primary challenge we then had to overcome was the need to ensure that the data was cleanly maintained from beginning to end, as the nature of CI design does not allow for modifications in the middle of the pipeline.
+            </p>
+            <p style="text-align:left; ">Beginning with the transcription, where we also followed general guidelines proposed by Robinson and Solopova 
+                <?biblio ADDIN ZOTERO_ITEM CSL_CITATION {"citationID":"y7n0oXXy","properties":{"formattedCitation":"(1993)","plainCitation":"(1993)","noteIndex":0},"citationItems":[{"id":4462,"uris":["http://zotero.org/users/990935/items/5C37Z44A"],"uri":["http://zotero.org/users/990935/items/5C37Z44A"],"itemData":{"id":4462,"type":"paper-conference","title":"Guidelines for Transcription of the Manuscripts of the Wife of Bath’s Prologue","container-title":"In The Canterbury Tales Project Occasional Papers 1","source":"CiteSeer","abstract":"This account of the principles we have established so far in our transcription of the manuscripts of the Wife of Bath’s Prologue is not intended as a final statement of transcription policy even for this part of the Canterbury Tales. Rather, it is a discussion document, partly that we may explain to ourselves and to others what we are doing, and partly that the act of explanation may lead to debate about and refinement of our transcription of the manuscripts.1 In the course of our work we have come to realize that no transcription of these manuscripts into computer-readable form can ever be considered ‘final ’ or ‘definitive’. Transcription for the computer is a fundamentally interpretative activity, composed of a series of acts of translation from one system of signs (that of the manuscript) to another (that of the computer). Accordingly, our transcripts are best judged on how useful they will be for others, rather than as an attempt to achieve a definitive transcription of these manuscripts. Will the distinctions we make in these transcripts and the","author":[{"family":"Robinson","given":"Peter"},{"family":"Solopova","given":"Elizabeth"}],"issued":{"date-parts":[["1993"]]}},"suppress-author":true}],"schema":"https://github.com/citation-style-language/schema/raw/master/csl-citation.json"}?>(1993), diplomatic transcriptions of all available manuscripts were made in T-PEN 
+                <?biblio ADDIN ZOTERO_ITEM CSL_CITATION {"citationID":"iohN6BiB","properties":{"formattedCitation":"(Ginther et al., 2009)","plainCitation":"(Ginther et al., 2009)","noteIndex":0},"citationItems":[{"id":2556,"uris":["http://zotero.org/users/990935/items/ITSM7TH3"],"uri":["http://zotero.org/users/990935/items/ITSM7TH3"],"itemData":{"id":2556,"type":"webpage","title":"T-PEN: Transcription for Paleographical and Editorial Notation","URL":"http://t-pen.org/TPEN/","note":"15 May 2012","shortTitle":"T-PEN: Transcription for Paleographical and Editorial Notation","author":[{"family":"Ginther","given":"Jim"},{"family":"Firey","given":"Abigail"},{"family":"O'Sullivan","given":"Tomás"},{"family":"Walker","given":"Alison"},{"family":"Elliot","given":"Michael"},{"family":"Gaffield","given":"Meredith"},{"family":"Deering","given":"Jon"},{"family":"Cuba","given":"Patrick"}],"issued":{"date-parts":[["2009"]],"season":"2012"}}}],"schema":"https://github.com/citation-style-language/schema/raw/master/csl-citation.json"}?>(Ginther et al., 2009) according to guidelines maintained in the project’s GitHub repository, and converted from T-PEN’s native Shared Canvas JSON format into valid TEI-XML using a Python library developed for the purpose. A major advantage of the digital approach is the ease with which entire categories of transcription error can be identified and corrected automatically. The CI framework enabled parsing and validation errors to be spotted immediately. Rare cases could be corrected manually in T-PEN (that is, the source of our pipeline data), but widespread mistakes required us to revise our workflow tools to behave in a way more akin to functional programming, so that we could insert custom code to handle peculiarities of our specific texts without compromising the more general design of the tools themselves. 
+            </p>
+            <p style="text-align:left; ">Given transcriptions that passed our litmus tests for validation and basic accuracy of content, we were then ready to collate them using the JSON input functionality of CollateX 
+                <?biblio ADDIN ZOTERO_ITEM CSL_CITATION {"citationID":"khmfjCFS","properties":{"formattedCitation":"(Dekker and Middell, 2011)","plainCitation":"(Dekker and Middell, 2011)","noteIndex":0},"citationItems":[{"id":2849,"uris":["http://zotero.org/users/990935/items/U2TMFT86"],"uri":["http://zotero.org/users/990935/items/U2TMFT86"],"itemData":{"id":2849,"type":"paper-conference","title":"Computer-supported collation with CollateX: Managing Textual Variance in an Environment with Varying Requirements","container-title":"Supporting Digital Humanities","publisher-place":"Copenhagen","event-place":"Copenhagen","URL":"http://crdo.up.univ-aix.fr/SLDRdata/doc/show/copenhagen/SDH-2011/submissions/sdh2011_submission_54.pdf","shortTitle":"Computer-supported collation with CollateX: Managing Textual Variance in an Environment with Varying Requirements","author":[{"family":"Dekker","given":"Ronald Haentjens"},{"family":"Middell","given":"Gregor"}],"issued":{"date-parts":[["2011"]]}}}],"schema":"https://github.com/citation-style-language/schema/raw/master/csl-citation.json"}?>(Dekker and Middell, 2011). Here again we relied on custom programming within the CI setup – while programmatically taking TEI files and tokenise the text contents into individual readings is a straightforward task in its basics, the specifics will vary massively from text to text. Our tokenizer software thus provides a number of code plug-in interfaces that can be used to generate a correct token, also in the specific XML context of that reading in the document. The CI setup also allowed us to make, and preserve, a number of custom modifications to how we used CollateX, in order to maximise its accuracy.
+            </p>
+            <p style="text-align:left; ">Since one of our transcription guidelines was to leave abbreviations unexpanded, we also developed a tool using a combination of base text collation, regular expression logic, and user interactivity to (semi-)automatically expand these abbreviations and store the results in a database, which could in turn be fed into the tokenisation step on later runs of the pipeline. Here too we retained the principles of diplomatic transcription: if the word was abbreviated the way that it could be expanded in a canonical orthography, we did so, otherwise, we tried to follow the intended (or perhaps mistaken) spelling of the scribe. </p>
+            <p style="text-align:left; ">Given full collations of the chronological sections within the text, our editorial analysis could begin. We have used the Stemmaweb tool 
+                <?biblio ADDIN ZOTERO_ITEM CSL_CITATION {"citationID":"LUcmYVvr","properties":{"formattedCitation":"(Andrews and Mac\\uc0\\u233{}, 2013)","plainCitation":"(Andrews and Macé, 2013)","noteIndex":0},"citationItems":[{"id":2239,"uris":["http://zotero.org/users/990935/items/68FU2UHQ"],"uri":["http://zotero.org/users/990935/items/68FU2UHQ"],"itemData":{"id":2239,"type":"article-journal","title":"Beyond the tree of texts: Building an empirical model of scribal variation through graph analysis of texts and stemmata","container-title":"Literary and Linguistic Computing","page":"504-521","volume":"28","issue":"4","source":"llc.oxfordjournals.org","abstract":"Stemmatology, or the reconstruction of the transmission history of texts, is a field that stands particularly to gain from digital methods. Many scholars already take stemmatic approaches that rely heavily on computational analysis of the collated text (e.g. Robinson and O’Hara 1996; Salemans 2000; Heikkilä 2005; Windram et al. 2008 among many others). Although there is great value in computationally assisted stemmatology, providing as it does a reproducible result and allowing access to the relevant methodological process in related fields such as evolutionary biology, computational stemmatics is not without its critics. The current state-of-the-art effectively forces scholars to choose between a preconceived judgment of the significance of textual differences (the Lachmannian or neo-Lachmannian approach, and the weighted phylogenetic approach) or to make no judgment at all (the unweighted phylogenetic approach). Some basis for judgment of the significance of variation is sorely needed for medieval text criticism in particular. By this, we mean that there is a need for a statistical empirical profile of the text-genealogical significance of the different sorts of variation in different sorts of medieval texts. The rules that apply to copies of Greek and Latin classics may not apply to copies of medieval Dutch story collections; the practices of copying authoritative texts such as the Bible will most likely have been different from the practices of copying the Lives of local saints and other commonly adapted texts. It is nevertheless imperative that we have a consistent, flexible, and analytically tractable model for capturing these phenomena of transmission. In this article, we present a computational model that captures most of the phenomena of text variation, and a method for analysis of one or more stemma hypotheses against the variation model. We apply this method to three ‘artificial traditions’ (i.e. texts copied under laboratory conditions by scholars to study the properties of text variation) and four genuine medieval traditions whose transmission history is known or deduced in varying degrees. Although our findings are necessarily limited by the small number of texts at our disposal, we demonstrate here some of the wide variety of calculations that can be made using our model. Certain of our results call sharply into question the utility of excluding ‘trivial’ variation such as orthographic and spelling changes from stemmatic analysis.","DOI":"10.1093/llc/fqt032","ISSN":"0268-1145, 1477-4615","shortTitle":"Beyond the tree of texts","journalAbbreviation":"Lit Linguist Computing","language":"en","author":[{"family":"Andrews","given":"Tara L."},{"family":"Macé","given":"Caroline"}],"issued":{"date-parts":[["2013",12,1]]}}}],"schema":"https://github.com/citation-style-language/schema/raw/master/csl-citation.json"}?>(Andrews and Macé, 2013) both to normalise and to specify classes of relationship between individual readings throughout the text, which in turn eases the stemmatic analysis of the manuscripts. Recent versions of Stemmaweb also provide a means of indicating the ‘lemma’ reading among a set of variants, so that critical edition text can be produced directly. At this time a system for annotation of the textual content is under development, which will enable us to provide a digital commentary on the historical content of the 
+                <hi rend="italic">Chronicle</hi>, as well as the edition itself.
+            </p>
+            <p style="text-align:left; ">Although our project has not extended the CI model past the stage of collation – this would require a system to save and “re-play” editorial decisions concerning the collated text, which would have required more of an engineering effort than we had resources for within the framework of the project – we consider this to be an important direction for producing a critical edition that is truly reproducible from the textual evidence at its base. </p>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold">Andrews, T. L., and Macé, C.</hi> (2013). Beyond the tree of texts: Building an empirical model of scribal variation through graph analysis of texts and stemmata. 
+                        <hi rend="italic">Literary and Linguistic Computing</hi>, 
+                        <hi rend="italic">28</hi>(4): 504–21. 10.1093/llc/fqt032.
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold">Dekker, R. H., and Middell, G.</hi> (2011). Computer-supported collation with CollateX: Managing Textual Variance in an Environment with Varying Requirements. In 
+                        <hi rend="italic">Supporting Digital Humanities</hi>. Copenhagen. http://crdo.up.univ-aix.fr/SLDRdata/doc/show/copenhagen/SDH-2011/submissions/sdh2011_submission_54.pdf.
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold">Ginther, J., Firey, A., O’Sullivan, T., Walker, A., Elliot, M., Gaffield, M., … Cuba, P.</hi> (2009, 2012). T-PEN: Transcription for Paleographical and Editorial Notation. http://t-pen.org/TPEN/.
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold">Howe, C. J., Connolly, R., and Windram, H. F.</hi> (2012). Responding to Criticisms of Phylogenetic Methods in Stemmatology. 
+                        <hi rend="italic">Studies in English Literature 1500-1900</hi>, 
+                        <hi rend="italic">52</hi>(1): 51–67. 10.1353/sel.2012.0008.
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold">Robinson, P.</hi> (2004). Making electronic editions and the fascination of what is difficult. 
+                        <hi rend="italic">Linguistica Computazionale</hi>, 
+                        <hi rend="italic">20</hi>–
+                        <hi rend="italic">21</hi>: 415–38.
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold">Robinson, P., and Solopova, E.</hi> (1993). Guidelines for Transcription of the Manuscripts of the Wife of Bath’s Prologue. In 
+                        <hi rend="italic">In The Canterbury Tales Project Occasional Papers 1</hi>
+                    </bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>A Digital Catalogue of Medieval and Early Modern Manuscripts</title>
+                <author>
+                    <persName>
+                        <surname>Granholm</surname>
+                        <forename>Patrik</forename>
+                    </persName>
+                    <affiliation>National Library of Sweden, Sweden</affiliation>
+                    <email>patrik.granholm@kb.se</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2019-04-23T07:24:00Z</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Name, Institution</publisher>
+                <address>
+                    <addrLine>Street</addrLine>
+                    <addrLine>City</addrLine>
+                    <addrLine>Country</addrLine>
+                    <addrLine>Name</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from a Word document</p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.22">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Short Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>manuscripts</term>
+                    <term>cataloguing</term>
+                    <term>digitisation</term>
+                    <term>TEI</term>
+                    <term>IIIF</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>digital archives and digital libraries</term>
+                    <term>medieval studies</term>
+                    <term>digital research infrastructures and virtual research environments</term>
+                    <term>English</term>
+                    <term>library &amp; information science</term>
+                    <term>manuscripts description and representation</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <div type="div1" rend="DH-Heading1">
+                <head>Introduction</head>
+                <p>This paper presents the guiding principles and ongoing development of 
+                    <ref target="https://www.manuscripta.se">Manuscripta</ref>, a digital catalogue of medieval and early modern manuscripts in Sweden, which started as a project specific database but has since evolved to become a national infrastructure. The manuscript descriptions are encoded in 
+                    <ref target="https://www.tei-c.org">TEI</ref>, which is a highly suitable metadata format for detailed, scholarly catalogues since the hierarchical structure of TEI corresponds to the four parts traditionally used in cataloguing: description of contents, codicological description, provenance, and bibliography. The digitised manuscripts are presented using the 
+                    <ref target="https://iiif.io/">IIIF API</ref>, and the images are available free of restriction under the CC0 public domain dedication. The infrastructure is built entirely using open source software, and the source code, together with the TEI-files, are available on 
+                    <ref target="https://github.com/manuscripta">GitHub</ref>.
+                </p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Cataloguing and encoding principles</head>
+                <p>Medieval and early modern manuscripts are seldom monographs, but often contain multiple texts by different authors. Furthermore, they have usually gone through several stages of production and use, e.g. been expanded, taken apart, lost certain parts, or been rebound with new additions. Occasionally new texts may have been inserted on previously blank pages. This historical stratigraphy has not, until recently, been taken into account in manuscript cataloguing, but recent scholarship and methodological developments have shown that the notion of codicological units is an essential requirement for detailed, scholarly catalogues, not least to distinguish different dates and provenances of various units, and to clearly indicate this information for each particular unit, which has previously not been the case (Gumbert, 2004; Andrist et al., 2013).</p>
+                <p>The manuscript descriptions are therefore structured around the notion of codicological units, and the customised TEI encoding schema, which also provides cataloguing guidelines with examples and documentation of the elements and attributes used, has been tailored to this end. This is one of the first digital catalogues to implement this state-of-the-art research, which at times has been called a codicological revolution. There have so far only been a few printed catalogues offering this form of stratified cataloguing.</p>
+                <p>The structure of the TEI-encoded descriptions follows as closely as possible the hierarchical structure of the manuscripts: the intellectual content, physical description, and history, where applicable, of each unit are described in separate &lt;msPart&gt; elements, whereas information common to all units, e.g. the binding, provenance, and bibliography, is described one level higher, directly under the &lt;msDesc&gt; element. The &lt;msPart&gt; element is always used, even when a manuscript consists of only one codicological unit, to reflect the notion of the ‘monomerous codex’, a term coined by Gumbert (Gumbert, 2004:26).</p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Technology</head>
+                <p>The infrastructure is built entirely using open source software which is an essential requirement for transparency and for ensuring long-term maintainability. It runs on an XML database called 
+                    <ref target="https://exist-db.org">eXist-db</ref>, which offers advanced indexing and search functionality through XQuery, and built-in functions for converting TEI to HTML and PDF. The digitised manuscripts are displayed adjacent to the descriptions, with page references linked to the digitised manuscript, enabling immediate access to specific locations in the manuscript. Part of the description is given in running text, and TEI provides a variety of possibilities for tagging words and phrases, e.g. information such as names, places, dates, writing material, and watermarks. These tags then allow for advanced text search queries. In addition, names, places, and bibliographical references are linked to authority files which have information on alternative name forms, short biographical and geographical data, and links to other external resources. Since TEI is based on XML, it can easily be converted into other formats like HTML, PDF, MODS, JSON, RDFa. This is an essential requirement for the data to be transferable between different platforms and to enable Linked Open Data.
+                </p>
+                <p>Cataloguing is done using a web-based editing interface, which does not require any knowledge of TEI encoding and therefore simplifies and reduces the time required for the cataloguing process. The interface is built with 
+                    <ref target="https://reactjs.org">React.js</ref>. Previously, it has been necessary to use an XML editor which had a steep learning curve, and was time-consuming as well as error prone, even when validating with an encoding schema and using detailed cataloguing guidelines. 
+                </p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Future plans</head>
+                <p>More descriptions will be added to Manuscripta continuously, not only born digital descriptions, but also descriptions from legacy databases like Microsoft Access and FileMaker, and printed manuscript catalogues, using OCR and data extraction. These will then be encoded into the same schema as the born digital descriptions. Further development will include adding a controlled vocabulary for technical terms used in the manuscript descriptions and authority files for works preserved in the manuscripts; enriching the HTML with 
+                    <ref target="https://www.w3.org/TR/microdata">Microdata</ref>, i.e., machine-readable data for the semantic web which would enable search engines to give users more accurate search results; creating stylesheets for converting the TEI of the authority files into linked open data formats like RDF and JSON-LD.
+                </p>
+            </div>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl>
+                        <hi rend="bold">Andrist, P., Canart, P. and Maniaci, M.</hi> (2013). 
+                        <hi rend="italic">La syntaxe du codex : essai de codicologie structurale</hi>. Turnhout: Brepols.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Gumbert, J. P.</hi> (2004). Codicological Units: Towards a Terminology for the Stratigraphy of the Non-Homogeneous Codex. 
+                        <hi rend="italic">Segno e testo</hi> 2: 17-42.
+                    </bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

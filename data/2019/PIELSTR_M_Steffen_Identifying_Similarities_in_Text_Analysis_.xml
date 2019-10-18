@@ -1,0 +1,408 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title type="full">
+                    <title type="main">Identifying Similarities in Text Analysis: Hierarchical Clustering (Linkage) versus Network Clustering (Community Detection)</title>
+                    <title type="sub"/>
+                </title>
+                <author>
+                    <persName>
+                        <surname>Jeremi</surname>
+                        <forename>Ochab</forename>
+                    </persName>
+                    <affiliation>Institute of Physics, Jagiellonian University, Kraków, Poland</affiliation>
+                    <email>jeremi.ochab@uj.edu.pl</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Joanna</surname>
+                        <forename>Byszuk</forename>
+                    </persName>
+                    <affiliation>Institute of Polish Language, Polish Academy of Sciences, Kraków, Poland</affiliation>
+                    <email>joanna.byszuk@ijp.pan.pl</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Pielström</surname>
+                        <forename>Steffen</forename>
+                    </persName>
+                    <affiliation>Department of Literary Computing, University of Würzburg, Germany</affiliation>
+                    <email>pielstroem@biozentrum.uni-wuerzburg.de</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Maciej</surname>
+                        <forename>Eder</forename>
+                    </persName>
+                    <affiliation>Institute of Polish Language, Polish Academy of Sciences, Kraków, Poland</affiliation>
+                    <email>maciejeder@gmail.com</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2019-04-28T23:18:08.432583197</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Name, Institution</publisher>
+                <address>
+                    <addrLine>Street</addrLine>
+                    <addrLine>City</addrLine>
+                    <addrLine>Country</addrLine>
+                    <addrLine>Name</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from an OASIS Open Document</p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.22">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Long Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>Stylometry</term>
+                    <term>Clustering</term>
+                    <term>Network Analysis</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>stylistics and stylometry</term>
+                    <term>English</term>
+                    <term>digital humanities (history</term>
+                    <term>theory and methodology)</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <p>
+                <anchor xml:id="id_docs-internal-guid-86b039f9-7fff-2106-31ff-8d0f9a42ec06"/>The aim of this paper is to introduce to stylometry the methods allowing for evaluation of classification results obtained with (i) hierarchical clustering methods, with the distinction of performance of individual linkage methods, and (ii) network clustering, with the comparison of community detection techniques. We compare three recognized evaluation measures: AMI, ARI and NMI using 6 model datasets of known clustering, of which three constitute binary problems and three – corpora with a large number (25) of expected internal groups, which were designed for authorship attribution (or similar multiclass problems). Our results show (i) superiority of Ward linkage method as compared to 5 other, (ii) greater performance and stability of Cosine Delta for both hierarchical and network clustering, (iii) Louvain as the most reliable method of community detection, and (iv) usefulness of AMI method for hierarchical clustering, which we propose for general use making our scripts available.
+            </p>
+            <div type="div1">
+                <head>Introduction</head>
+                <p>For visualizing the stylometric structure of a text corpus, many studies and popular tools like ‘stylo’ (Eder et al., 2016) rely on explanatory methods and intuitively-interpretable visualizations, usually belonging to either tree charts as produced by hierarchical clustering, or network representations. The intuition behind it is that the graphs will group texts of high stylistic similarity close together, thereby allowing the spectator to visually identify multiple levels of groupings instead of simply singling out one nearest neighbour for each individual text. There were even some methodological studies on stylometric distance measures based on evaluating the clusterings they produce (Jannidis et al., 2015).</p>
+                <p>Despite the popularity dendrograms and networks have in stylometry, there is to this date no systematic investigation on how these methods behave when applied to problems in computational stylistics – research usually focuses on method selection from general pool of classification approaches. In clustering, both fine-grained clusters (e.g. groupings by author) and larger groups containing several texts (e.g. higher level genre-wise groupings of multiple authors) are generated by the method itself – a very reproducible process  – but particular clustering method used is a matter of choice. Most cases rely on the ‘Ward’ linkage method (Ward, 1963) which is the default in ‘stylo’, but its advantages and disadvantages for the research field have not been investigated systematically. E.g., Hoover’s choice of Ward linkage is based on a concise comparison of Ward, complete, and average linkages (Hoover, 2003), but the methodological design of the comparison has not been outlined in the paper.</p>
+                <p>
+                    <hi rend="color(#000000)">The case of network analysis is even more problematic, as low and/or high level groups are often/usually only identified visually. The best approach to operationalize </hi>
+                    <hi rend="color(#000000)">how people perceive group formation in networks is to use community detection.</hi>
+                    <hi rend="color(#000000)"> </hi>
+                </p>
+                <p>This study aims to constitute an initial step to the systematic investigation of these issues, which we do by analyzing the quality of grouping achieved by different clustering and community detection algorithms in comparison to known properties of different test corpora.</p>
+            </div>
+            <div type="div1">
+                <head>Corpora</head>
+                <p>We conducted our study on 6 text corpora, each assembled with an inherent internal structure with groups expected to be stylistically distinct. We used both corpora with a large number (25) of internal groups, and corpora that can be separated into two major stylistic groups.</p>
+                <p>
+                    <hi rend="color(#000000)">As examples with a large number of low-level groups, we used three reference corpora for authorship attribution, each composed of 75 novels by 25 authors. These corpora, from English, French and German literature were previously used in various studies on text distance measures (e.g. Jannidis et al. 2015) and are freely available (</hi>
+                    <ptr target="https://github.com/cophi-wue/refcor"/>
+                    <hi rend="color(#000000)">).</hi>
+                </p>
+                <p>
+                    <hi rend="color(#000000)">As examples for problems featuring two major stylistic groups, we took (1) a corpus of 17th century French drama published by Christof Schöch (</hi>
+                    <ptr target="https://github.com/cligs/textbox/"/>
+                    <hi rend="color(#000000)">), where we removed all texts not clearly labeled comedies or tragedies; (2) a corpus containing Latin verse and prose from the so-called Golden Age; (3) a corpus of Latin historiography containing texts from the very same Golden Age (late first century BCE) on the one hand, and the “Silver Age” on the other. The Latin materials were assembled from the Latin Library (</hi>
+                    <ptr target="http://www.thelatinlibrary.com/"/>
+                    <hi rend="color(#000000)">).</hi>
+                </p>
+            </div>
+            <div type="div1">
+                <head>Methods: Clustering quality measures</head>
+                <p>There are many similarity indices for clustering evaluation (see Albatineh et al. 2006; Wagner and Wagner 2007; Vinh et al. 2010 for their comparison). In this pilot study we focus on three best understood: ARI (Adjusted Rand Index; Hubert and Arabie 1985), AMI (Adjusted Mutual Information) and NMI (Normalized Mutual Information). The first two are adjusted for baseline value in case of random clustering (Vinh et al. 2009, 2010) but not fully for selection bias (i.e. usually bias to select a clustering having higher number of clusters than ground truth; Romano et al. 2014, 2016), while the third one is not adjusted. Standardized Mutual Information (SMI;  Romano et al. 2014) might offer a further improvement in future studies. </p>
+            </div>
+            <div type="div1">
+                <head>Methods: Community detection methods in networks</head>
+                <p>Community detection methods allow for automatized search for natural division of network into smaller clusters, that is communities. They can be applied to bare distance tables (resulting in complete weighted graphs), or on pruned or otherwise sparse networks (such as consensus networks in Eder 2017). We use “A not so small collection of clustering methods” facilitating consensus clustering (Lancichinetti and Fortunato 2012), which includes such algorithms as  OSLOM (Lancichinetti et al. 2011), Infomap (Rosvall and Bergstrom 2007), label propagation method (Raghavan et al. 2007), and modularity optimization by simulated annealing (Guimera et al. 2004) and by Louvain method (Blondel et al. 2008).</p>
+            </div>
+            <div type="div1">
+                <head>Methods: Experiments</head>
+                <p>We first conducted a large series of stylometric tests that were later used for evaluation. For each dataset we conducted myriads of tests for a total of 160 basic experimental scenarios, being a combination of the following changing factors of: (i) number of MFWs (100 to 1000, iterated by 100), (ii) distance measure (Classic and Cosine Deltas) and (iii) linkage method (single, complete, average, McQuitty's, Ward in two implementations: “ward.D”, “ward.D2”, "median"  – k-median, and "centroid” – k-means). We then evaluated quality of the clusterings in the results, considering the number of clusters ranging from 2 to the number of texts in the corpus using a script implementing ARI, AMI and NMI indices. E.g.: for any of the 75-book corpora, we would obtain 160 scenarios and test 74 clustering options for each of them, obtaining a total of 11,840 clustering scenarios up for evaluation.</p>
+                <p>
+                    <hi rend="color(#000000)">We performed similar experiments utilising networks: in one, we used all the mentioned community detection methods together with consensus networks; in the second experiment, we used distance tables instead. Let us note that modularity optimization is well defined in the case of directed and weighted networks (Arenas et al. 2007) and indeed it is the only one that produces non-trivial clustering of distance tables (since distances are inversely proportional to network weights we chose a transformation – from among the infinitely many </hi>
+                    <hi rend="color(#000000)">– from one to the other </hi>
+                    <hi rend="color(#000000)italic">w=exp(-d)</hi>
+                    <hi rend="color(#000000)">, yielding weights in the range (0,1). Owing to that we could use consensus clustering over distance tables that were generated by a range of the selected most frequent words (as one does with consensus bootstrap trees).</hi>
+                </p>
+            </div>
+            <div type="div1">
+                <head>Results: hierarchical clustering</head>
+                <p>In all of our tests, Ward’s linkage outperformed other algorithms, both for Classic and Cosine Deltas. Notably, this particular linkage method was designed for large-scale tests of more than 100 samples: the speed, not the optimal clustering was a priority (Ward 1963: 236). Cosine Delta proved superior of the two distances – it systematically scored higher and gave maximal agreement with ground truth at the same number of clusters, even for a small MFW number.</p>
+                <p>
+                    <figure>
+                        <graphic url="Pictures/6faeb33339a869b5767ac147396246df.png"/>
+                    </figure>
+                </p>
+                <p>Fig. 1 Clustering quality for the French corpus, Cosine (Wurzburg) Delta distance measure and Ward linkage using different MFW ranges.</p>
+                <p>An example of clustering assessment, here for the French corpus, is shown in Fig. 1. Vertical dashed line marks the expected number of clusters (here, 25 authorial classes). Each curve represents values of one quality measure for a given number of MFWs, and dots mark their maxima. AMI maximum falls around the expected and intuitive number of authorial clusters. NMI is heavily biased towards a larger number of smaller clusters, in line with its characteristics as described in the method section, proving that it should not be recommended as a quality measure for this type of problems. The conclusions for all considered corpora are qualitatively similar.</p>
+                <p>
+                    <figure>
+                        <graphic url="Pictures/bc1488d8c7356b3820b5114d1f1da49a.png"/>
+                    </figure>
+                </p>
+                <p>Fig. 2 Clustering quality for different linkage methods – Ward performing best, and centroid  worst – at 1000 MFWs. Layout as in Fig. 1.</p>
+            </div>
+            <div type="div1">
+                <head>Results: networks</head>
+                <p>The results of Louvain method on distance tables indicate that this scenario should be avoided: neither Classic nor Cosine Delta could reach AMI=0.2 on any corpus, which is worse than most of the hierarchical clustering methods (cf Fig. 2). However, a more sophisticated approach involving undirected consensus networks (Eder 2017) offers much better results, see Fig. 3–4: the community detection methods rarely score below AMI=0.4 (on the exemplary French authorial corpus), and the best one scores above AMI=0.6 which contends for the first place with Ward linkage clustering.</p>
+                <p>While hierarchical clustering typically provides a number of clusters higher than expected, community detection tends to produce a smaller number of larger clusters. This might be caused by the less detailed (and less noisy) information contained in the consensus networks. One should also take into account that hierarchical clustering did not take advantage of the consensus scheme and hence is computationally less demanding.</p>
+            </div>
+            <div type="div1">
+                <head>
+                    <figure>
+                        <graphic url="Pictures/6b67c5f3b7c557e5e871478c17c8fa14.png"/>
+                    </figure>
+                </head>
+                <p>Fig. 3 Layout analogous to Fig. 1–2. Results of community detection on consensus networks based on Classic Delta. Each community detection method provided one clustering for the consensus network. All methods predict smaller number of clusters than expected. Louvain method typically scores highest.</p>
+            </div>
+            <div type="div1">
+                <head> </head>
+                <p>
+                    <figure>
+                        <graphic url="Pictures/258a896f579f28d7094c086c58b64d47.png"/>
+                    </figure>
+                </p>
+                <p>Fig. 4 Layout as in Fig. 3. Results of community detection on consensus networks based on Cosine Delta. </p>
+            </div>
+            <div type="div1">
+                <head>Conclusion</head>
+                <p>Our study provided empirical proof for the choice of Ward linkage method in clustering applications on literary text, and further strengthened the argument for the use of Cosine Delta as a method more resistant to changes in the number of used MFWs and factors such as language or size of the corpus. The best community detection methods, which again make use of Cosine Delta, can contend with hierarchical clustering, however, they clearly require previous data filtering, e.g., by means of constructing consensus networks. Interestingly, they offer a complementary more coarse-grained view. Importantly, we also propose introduction of clustering evaluation step into the analysis, in particular AMI method which worked best for all model cases with expected divisions. We will make the evaluation script available in our github repository, encouraging other scholars to use this or similar techniques.</p>
+                <p>Acknowledgements</p>
+                <p>
+                    <hi rend="color(#000000)">JB was partially funded for the research by Poland's National Science Centre (grant number 2017/26/HS2/01019), SP contributed to this research as part of a Short Term Scientific Mission financed by the EU COST Action “Distant Reading” (CA16204), ME was partially funded by the National Science Centre (grant number 2014/12/W/ST5/00592).</hi>
+                </p>
+            </div>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl>
+                        <anchor xml:id="id_docs-internal-guid-3c99f8fc-7fff-66c8-a98e-38ed6cffc697"/>
+                        <hi rend="color(#333333)bold">Albatineh, A. N., Niewiadomska-Bugaj, M. and Mihalko, D.</hi>
+                        <hi rend="color(#333333)"> </hi>
+                        <hi rend="color(#333333)">(2006). On similarity indices and correction for chance agreement. </hi>
+                        <hi rend="color(#333333)italic">Journal of Classification</hi>
+                        <hi rend="color(#333333)">, </hi>
+                        <hi rend="color(#333333)bold">23</hi>
+                        <hi rend="color(#333333)">(2): 301–13. doi:</hi>
+                        <ref target="https://doi.org/10.1007/s00357-006-0017-z">
+                            <hi rend="color(#1155cc)underline">10.1007/s00357-006-0017-z</hi>
+                        </ref>
+                        <hi rend="color(#333333)">.</hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="color(#333333)bold">Arenas, A., Duch, J., Fernández, A. and Gómez, S.</hi>
+                        <hi rend="color(#333333)"> </hi>
+                        <hi rend="color(#333333)">(2007). Size reduction of complex networks preserving modularity. </hi>
+                        <hi rend="color(#333333)italic">New Journal of Physics</hi>
+                        <hi rend="color(#333333)">, </hi>
+                        <hi rend="color(#333333)bold">9</hi>
+                        <hi rend="color(#333333)">(6): 176.</hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="color(#333333)bold">Blondel, V. D., Guillaume, J.-L., Lambiotte, R. and Lefebvre, E.</hi>
+                        <hi rend="color(#333333)"> </hi>
+                        <hi rend="color(#333333)">(2008). Fast unfolding of communities in large networks. </hi>
+                        <hi rend="color(#333333)italic">Journal of Statistical Mechanics: Theory and Experiment</hi>
+                        <hi rend="color(#333333)">, </hi>
+                        <hi rend="color(#333333)bold">2008</hi>
+                        <hi rend="color(#333333)">(10): P10008.</hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="color(#333333)bold">Eder, M.</hi>
+                        <hi rend="color(#333333)"> </hi>
+                        <hi rend="color(#333333)">(2017). Visualization in stylometry: cluster analysis using networks. </hi>
+                        <hi rend="color(#333333)italic">Digital Scholarship in the Humanities</hi>
+                        <hi rend="color(#333333)">, </hi>
+                        <hi rend="color(#333333)bold">32</hi>
+                        <hi rend="color(#333333)">(1): 50–64.</hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="color(#333333)bold">Eder, M., Rybicki, J. and Kestemont, M.</hi>
+                        <hi rend="color(#333333)"> </hi>
+                        <hi rend="color(#333333)">(2016). Stylometry with R: a package for computational text analysis. </hi>
+                        <hi rend="color(#333333)italic">R Journal</hi>
+                        <hi rend="color(#333333)">, </hi>
+                        <hi rend="color(#333333)bold">8</hi>
+                        <hi rend="color(#333333)">(1): 107–21.</hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="color(#333333)bold">Guimerà, R., Sales-Pardo, M. and Amaral, L. A. N.</hi>
+                        <hi rend="color(#333333)"> </hi>
+                        <hi rend="color(#333333)">(2004). Modularity from fluctuations in random graphs and complex networks. </hi>
+                        <hi rend="color(#333333)italic">Physical Review E</hi>
+                        <hi rend="color(#333333)">, </hi>
+                        <hi rend="color(#333333)bold">70</hi>
+                        <hi rend="color(#333333)">(2): 025101 doi:</hi>
+                        <ref target="https://doi.org/10.1103/PhysRevE.70.025101">
+                            <hi rend="color(#1155cc)underline">10.1103/PhysRevE.70.025101</hi>
+                        </ref>
+                        <hi rend="color(#333333)">.</hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="color(#333333)bold">Hoover, D. L.</hi>
+                        <hi rend="color(#333333)"> </hi>
+                        <hi rend="color(#333333)">(2003). Frequent collocations and authorial style. </hi>
+                        <hi rend="color(#333333)italic">Literary and Linguistic Computing</hi>
+                        <hi rend="color(#333333)">, </hi>
+                        <hi rend="color(#333333)bold">18</hi>
+                        <hi rend="color(#333333)">(3): 261–86.</hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="color(#333333)bold">Hubert, L. and Arabie, P.</hi>
+                        <hi rend="color(#333333)"> </hi>
+                        <hi rend="color(#333333)">(1985). Comparing partitions. </hi>
+                        <hi rend="color(#333333)italic">Journal of Classification</hi>
+                        <hi rend="color(#333333)">, </hi>
+                        <hi rend="color(#333333)bold">2</hi>
+                        <hi rend="color(#333333)">(1): 193–218 doi:</hi>
+                        <ref target="https://doi.org/10.1007/BF01908075">
+                            <hi rend="color(#1155cc)underline">10.1007/BF01908075</hi>
+                        </ref>
+                        <hi rend="color(#333333)">.</hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="color(#333333)bold">Jannidis, F., Pielström, S., Schöch, C. and Vitt, T.</hi>
+                        <hi rend="color(#333333)"> </hi>
+                        <hi rend="color(#333333)">(2015). Improving Burrows’ Delta – An empirical evaluation of text distance measures. </hi>
+                        <hi rend="color(#333333)italic">Digital Humanities 2015: Conference Abstracts</hi>
+                        <hi rend="color(#333333)">. Sydney, Australia: University of Western Sydney. </hi>
+                        <ptr target="http://dh2015.org/abstracts"/>
+                        <hi rend="color(#333333)"> </hi>
+                        <hi rend="color(#333333)">(accessed 27 November 2018).</hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="color(#333333)bold">Lancichinetti, A. and Fortunato, S.</hi>
+                        <hi rend="color(#333333)"> </hi>
+                        <hi rend="color(#333333)">(2012). Consensus clustering in complex networks. </hi>
+                        <hi rend="color(#333333)italic">Scientific Reports</hi>
+                        <hi rend="color(#333333)">, </hi>
+                        <hi rend="color(#333333)bold">2</hi>
+                        <hi rend="color(#333333)">: 336.</hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="color(#333333)bold">Lancichinetti, A., Radicchi, F., Ramasco, J. J. and Fortunato, S.</hi>
+                        <hi rend="color(#333333)"> </hi>
+                        <hi rend="color(#333333)">(2011). Finding statistically significant communities in networks. </hi>
+                        <hi rend="color(#333333)italic">PLOS ONE</hi>
+                        <hi rend="color(#333333)">, </hi>
+                        <hi rend="color(#333333)bold">6</hi>
+                        <hi rend="color(#333333)">(4): e18961 doi:</hi>
+                        <ref target="https://doi.org/10.1371/journal.pone.0018961">
+                            <hi rend="color(#1155cc)underline">10.1371/journal.pone.0018961</hi>
+                        </ref>
+                        <hi rend="color(#333333)">.</hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="color(#333333)bold">Raghavan, U. N., Albert, R. and Kumara, S.</hi>
+                        <hi rend="color(#333333)"> </hi>
+                        <hi rend="color(#333333)">(2007). Near linear time algorithm to detect community structures in large-scale networks. </hi>
+                        <hi rend="color(#333333)italic">Physical Review E</hi>
+                        <hi rend="color(#333333)">, </hi>
+                        <hi rend="color(#333333)bold">76</hi>
+                        <hi rend="color(#333333)">(3): 036106 doi:</hi>
+                        <ref target="https://doi.org/10.1103/PhysRevE.76.036106">
+                            <hi rend="color(#1155cc)underline">10.1103/PhysRevE.76.036106</hi>
+                        </ref>
+                        <hi rend="color(#333333)">.</hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="color(#333333)bold">Romano, S., Bailey, J., Nguyen, V. and Verspoor, K.</hi>
+                        <hi rend="color(#333333)"> </hi>
+                        <hi rend="color(#333333)">(2014). Standardized mutual information for clustering comparisons: one step further in adjustment for chance. In Xing, E. P. and Jebara, T. (eds), </hi>
+                        <hi rend="color(#333333)italic">Proceedings of the 31st International Conference on Machine Learning</hi>
+                        <hi rend="color(#333333)">. PMLR: 1143–51.</hi>
+                        <ref target="http://proceedings.mlr.press/v32/romano14.html">
+                            <hi rend="color(#333333)"> </hi>
+                        </ref>
+                        <ptr target="http://proceedings.mlr.press/v32/romano14.html"/>
+                        <hi rend="color(#333333)">.</hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="color(#333333)bold">Romano, S., Vinh, N. X., Bailey, J. and Verspoor, K.</hi>
+                        <hi rend="color(#333333)"> </hi>
+                        <hi rend="color(#333333)">(2016). Adjusting for chance clustering comparison measures. </hi>
+                        <hi rend="color(#333333)italic">Journal of Machine Learning Research</hi>
+                        <hi rend="color(#333333)">, </hi>
+                        <hi rend="color(#333333)bold">17</hi>
+                        <hi rend="color(#333333)">(134): 1–32.</hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="color(#333333)bold">Rosvall, M. and Bergstrom, C. T.</hi>
+                        <hi rend="color(#333333)"> </hi>
+                        <hi rend="color(#333333)">(2007). An information-theoretic framework for resolving community structure in complex networks. </hi>
+                        <hi rend="color(#333333)italic">Proceedings of the National Academy of Sciences</hi>
+                        <hi rend="color(#333333)">, </hi>
+                        <hi rend="color(#333333)bold">104</hi>
+                        <hi rend="color(#333333)">(18): 7327–31. doi:</hi>
+                        <ref target="https://doi.org/10.1073/pnas.0611034104">
+                            <hi rend="color(#1155cc)underline">10.1073/pnas.0611034104</hi>
+                        </ref>
+                        <hi rend="color(#333333)">.</hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="color(#333333)bold">Shrestha, P., Jacquin, C., Daille, B.</hi>
+                        <hi rend="color(#333333)"> </hi>
+                        <hi rend="color(#333333)">(2012). Clustering Short Text and Its Evaluation. In: Gelbukh, A. (Ed.). Computational Linguistics and Intelligent Text Processing, Lecture Notes in Computer Science. Springer Berlin Heidelberg: 169–180.</hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="color(#333333)bold">Vinh, N. X., Epps, J. and Bailey, J.</hi>
+                        <hi rend="color(#333333)"> </hi>
+                        <hi rend="color(#333333)">(2009). Information theoretic measures for clusterings comparison: is a correction for chance necessary?. </hi>
+                        <hi rend="color(#333333)italic">Proceedings of the 26th Annual International Conference on Machine Learning</hi>
+                        <hi rend="color(#333333)">. Montreal, Quebec, Canada: ACM: 1073–80. </hi>
+                        <ptr target="http://ee.unsw.edu.au/~nguyenv/ICML_final_pdfversion_5.pdf"/>
+                        <hi rend="color(#333333)">.</hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="color(#333333)bold">Vinh, N. X., Epps, J. and Bailey, J.</hi>
+                        <hi rend="color(#333333)"> </hi>
+                        <hi rend="color(#333333)">(2010). Information theoretic measures for clusterings comparison: variants, properties, normalization and correction for chance. </hi>
+                        <hi rend="color(#333333)italic">Journal of Machine Learning Research</hi>
+                        <hi rend="color(#333333)">, </hi>
+                        <hi rend="color(#333333)bold">11</hi>
+                        <hi rend="color(#333333)">: 2837–54.</hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="color(#333333)bold">Wagner, S. and Wagner, D.</hi>
+                        <hi rend="color(#333333)"> </hi>
+                        <hi rend="color(#333333)">(2007). </hi>
+                        <hi rend="color(#333333)italic">Comparing Clusterings: An Overview</hi>
+                        <hi rend="color(#333333)">.</hi>
+                        <ref target="https://i11www.iti.kit.edu/extra/publications/ww-cco-06.pdf">
+                            <hi rend="color(#333333)"> </hi>
+                        </ref>
+                        <ptr target="https://i11www.iti.kit.edu/extra/publications/ww-cco-06.pdf"/>
+                        <hi rend="color(#333333)">.</hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="color(#333333)bold">Ward, J. H.</hi>
+                        <hi rend="color(#333333)"> </hi>
+                        <hi rend="color(#333333)">(1963). Hierarchical grouping to optimize an objective function. </hi>
+                        <hi rend="color(#333333)italic">Journal of the American Statistical Association</hi>
+                        <hi rend="color(#333333)">, </hi>
+                        <hi rend="color(#333333)bold">58</hi>
+                        <hi rend="color(#333333)">(301): 236–44 doi:</hi>
+                        <ref target="https://doi.org/10.1080/01621459.1963.10500845">
+                            <hi rend="color(#1155cc)underline">10.1080/01621459.1963.10500845</hi>
+                        </ref>
+                        <hi rend="color(#333333)">.</hi>
+                    </bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>A Computational Approach to Analyzing Musical Complexity of the Beatles</title>
+                <author>
+                    <persName>
+                        <surname>Burghardt</surname>
+                        <forename>Manuel</forename>
+                    </persName>
+                    <affiliation>Leipzig University, Germany</affiliation>
+                    <email>burghardt@informatik.uni-leipzig.de</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Fuchs</surname>
+                        <forename>Florian</forename>
+                    </persName>
+                    <affiliation>Regensburg University, Germany</affiliation>
+                    <email>fuchsflo90@gmail.com</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2014-12-19T13:50:00Z</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Name, Institution</publisher>
+                <address>
+                    <addrLine>Street</addrLine>
+                    <addrLine>City</addrLine>
+                    <addrLine>Country</addrLine>
+                    <addrLine>Name</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from a Word document</p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.22">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Long Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>musical complexity</term>
+                    <term>computational musicology</term>
+                    <term>Beatles</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>musicology</term>
+                    <term>content analysis</term>
+                    <term>data mining / text mining</term>
+                    <term>English</term>
+                    <term>digital humanities (history</term>
+                    <term>theory and methodology)</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <div type="div1" rend="DH-Heading1">
+                <head>
+                    <hi rend="bold">Introduction: The Beatles and musical complexity</hi>
+                </head>
+                <p style="text-align:left; ">The Beatles are considered to be one of the most influential bands of the 20th century, who still shape and influence pop music today (Everett, 2001). In the course of their creative history, the band has proven an enormous range and variety of individual compositions. One reason for the unusually large musical diversity of the Beatles is that with Paul McCartney, John Lennon and George Harrison three persons were involved in composing the Beatles’ songs (MacDonald, 1995). In addition, the Beatles’ producer George Martin also had a considerable influence on the composition of many songs (Martin &amp; Hornsby, 1979). </p>
+                <p style="text-align:left; ">In this paper we will investigate how this diversity in composition is reflected in musical complexity in the work of the Beatles by using computational methods. So far, related work studies can be found in Mason (2012), who statistically analyzes the properties of Beatles songs in order to decipher what he calls the “Beatles genome”. The aspect of complexity has already been investigated by Eerola et al. (2000), who use a MIDI corpus to analyze the relationship between musical complexity in Beatles songs and its effect on chart placement. Eerola et al. (2000) also discover a highly significant increasing time-trend in melodic complexity, i.e. the Beatles’ songs became melodically more complex through the course of time. While Eerola et al. (2000) only looked at singular melodies and their complexity, we present a study that takes into account all of the available melodies and also the chords to compute the complexity of a song. We present an exploratory tool for the interactive visualization of musical complexity distributions in the work of the Beatles. The visualizations can be scaled from all of the Beatles’ albums to single songs and composers, to investigate complexity on a more detailed level.</p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Corpus and Method</head>
+                <p style="text-align:left; ">
+                    <hi rend="bold">Corpus</hi> – The corpus used for this study is based on guitar tablatures from the online platform 
+                    <hi rend="italic">Ultimate Guitar</hi>
+                    <note place="foot" xml:id="ftn1" n="1">
+                        <p rend="footnote text">
+                            <hi style="font-size:9pt" xml:space="preserve"> Ultimate Guitar portal: https://www.ultimate-guitar.com/, (Note: all URLs mentioned in this paper were last checked Nov. 25, 2018)</hi>
+                        </p>
+                    </note>, which were downloaded in 
+                    <hi rend="italic">GuitarPro</hi>
+                    <note place="foot" xml:id="ftn2" n="2">
+                        <p rend="footnote text">
+                            <hi style="font-size:9pt" xml:space="preserve"> Guitar Pro Tool: https://www.guitar-pro.com/</hi>
+                        </p>
+                    </note> format and converted to 
+                    <hi rend="italic">MusicXML</hi>
+                    <note place="foot" xml:id="ftn3" n="3">
+                        <p rend="footnote text">
+                            <hi style="font-size:9pt">MusicXML documentation: https://www.musicxml.com/for-developers/</hi>
+                        </p>
+                    </note> for analysis. This platform has already been successfully used as a data source for other scientific studies (Di Giorgi et al., 2017) and includes 205 songs from the Beatles’ first single in 1962 to their last studio album in 1970. 
+                </p>
+                <p style="text-align:left; ">
+                    <hi rend="bold">Normalization</hi> – To be able to compare songs with different scales to each other we normalize the note inventory according to Cuddy et al. (1981), who propose the 
+                    <hi rend="italic">Roman Numeral Analysis</hi> method. With this method all notes of a diatonic scale are represented by Roman numerals, starting from the basic note of the scale as step I. Tones that are not part of the scale are marked with a sharp (#) (cf. Fig. 1). 
+                </p>
+                <figure>
+                    <graphic n="1001" width="16.002cm" height="2.3724305555555554cm" url="Pictures/88dacb4cede2851333de892e1f3d739f.png" rend="inline"/>
+                    <head>Example for the classification of tones according to the Roman Numerals Analysis using the scales of C Major /A Minor and D Major / B Minor.</head>
+                </figure>
+                <p style="text-align:left; ">
+                    <hi rend="bold">Complexity model</hi> – To operationalize the concept of musical complexity we rely on experiments by Krumhansl &amp; Shepard (1979), in which test persons were asked to evaluate how a certain tone completes the tone sequence of a scale. The results show that scale tones (the keynote in particular) are rated better than non-diatonic tones. Building on this previous work, we define four levels of complexity (cf. Fig. 2). We use this complexity model for both, the analysis of single notes as well as for chord progressions.
+                </p>
+                <figure>
+                    <graphic n="1002" width="12.380397222222221cm" height="5.716652777777778cm" url="Pictures/8aee6a543850c48429e201ac02445222.png" rend="inline"/>
+                    <head>Classification of tones into different levels of expectation-based complexity using the example of C Maj. / A Min.</head>
+                </figure>
+                <p style="text-align:left; ">
+                    <hi rend="bold">Computation of results</hi> – Our corpus of MusicXML files is analyzed by means of Python scripts that parse individual notes and chords from the data and count their frequencies. For the recognition of chords, the existing 
+                    <hi rend="italic">music21</hi>
+                    <note place="foot" xml:id="ftn4" n="4">
+                        <p rend="footnote text">
+                            <hi style="font-size:9pt" xml:space="preserve"> Music 21 Toolkit: http://web.mit.edu/music21/ </hi>
+                        </p>
+                    </note> library is used, as it provides many useful functions for the analysis of transcribed music. Because both the tone material and the chord material of each song are to be analyzed on the basis of the previously described Roman Numeral categories, it is necessary to identify the scale of a song. In many songs the scale is explicitly annotated by means of global accidentals and therefore can be extracted directly from the MusicXML transcription. For those cases where global accidentals are missing, we apply an existing algorithm for scale detection (Madsen et al., 2007). By assigning notes and chords to the previously introduced four complexity levels, a complexity distribution can be calculated for each song and album.
+                </p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>
+                    <hi rend="bold">Results and Discussion</hi>
+                </head>
+                <p style="text-align:left; ">The results can be analyzed statistically, to detect general trends in the development of musical complexity in the work of the Beatles. We conducted a Pearson-Bravais (Pearson, 1895) correlation test to investigate how musical complexity has developed through time. For each year, we calculate the frequency of tones and chords that belong to the complexity levels 1+2 (rather low complexity) and also the frequency of tones that belong to the complexity 3+4 levels (rather high complexity). For the higher complexity levels, we find a weak positive correlation (cf. Cohen, 1988) for both tones (r = 0.208, p=0.005) and chords (r = 0.167, p=0.024). These results indicate a gentle trend toward increased musical complexity over time, but cannot confirm the observation of a highly significant correlation as noted by Eerola et al. (2000). Our results rather seem to correspond with existing research on the musical development of the Beatles, which does not describe a general complexity trend, but rather identifies different phases (of different composers) and individual albums with increased complexity (Everett, 2001). This observation is also illustrated by the following graph (cf. Fig. 3), which does not show a clear trend in the development of complexity levels, but rather goes up and down over time.</p>
+                <figure>
+                    <graphic n="1003" width="17.89100277777778cm" height="8.125102777777778cm" url="Pictures/e5cadd340a0b4f63c115c8bb0d412ab1.png" rend="inline"/>
+                    <head>Development of tonal complexity levels
+                        <note place="foot" xml:id="ftn5" n="5">
+                            <p rend="footnote text">
+                                <hi style="font-size:9pt" xml:space="preserve"> The graphs for chord complexity levels largely correspond to the tonal complexity levels. The detailed graphs are available via the online visualization tool.</hi>
+                            </p>
+                        </note> (level 1 = low complexity, level 4 = high complexity) for the Beatles’ albums over time.
+                    </head>
+                </figure>
+                <p style="text-align:left; ">We can also show that a general complexity trend for albums is problematic, as even just a few outlier songs can substantially influence the overall complexity score of an album. This can be best illustrated for the album “A Hard Day’s Night”. While Fig. 1 suggests that tones on the complexity level 4 for the whole album increased as compared to the previous (and also the successive) albums, a closer look (cf. Fig. 4) at the individual songs shows that in fact only two of the 13 songs show high complexity on level 4 (“And I Love Her” = 31%; “When I Get Home” = 42%). </p>
+                <figure>
+                    <graphic n="1004" width="13.726091666666667cm" height="8.737672222222223cm" url="Pictures/37eb9e2b9852f8612833fc59d20c76ae.png" rend="inline"/>
+                    <head>Overview of the distribution of tonal complexity levels (level 1 = low complexity, level 4 = high complexity) for all songs of the Beatles’ album “A Hard Day’s Night” (1964).</head>
+                </figure>
+                <p style="text-align:left; ">These observations reflect the initial notion that the work of the Beatles is extremely heterogeneous, which is also a result of the band’s different composers and their individual musical development. When we look at musical complexity from the perspective of individual composers (cf. Fig. 5), Paul McCartney seems to be the most stable composer, i.e. his complexity curves largely correspond to the overall complexity curves of the Beatles albums (cf. Fig. 3). George Harrison and John Lennon each have several albums where they contribute songs with higher complexity.</p>
+                <figure>
+                    <graphic n="1005" width="16.002cm" height="14.141097222222223cm" url="Pictures/a958f94e4f1f0fca0d29962179110ca7.jpg" rend="inline"/>
+                    <head>Overview of the distribution of tonal complexity levels (level 1 = low complexity, level 4 = high complexity) for the main composers of the Beatles. Note that George Harrison was not involved as a composer for the albums “Please please me”, “A Hard Day’s Night” and “Beatles for Sale” and overall only composed 24 songs.</head>
+                </figure>
+                <p style="text-align:left; ">The absence of a general trend or temporal pattern in musical complexity lead us to present the results of our computational approach in a rather exploratory interface that can be used to look at complexity from different scales. The visualization tool is available online
+                    <note place="foot" xml:id="ftn6" n="6">
+                        <p style="text-align:left;">
+                            <hi style="font-size:9pt">Visualization tool: https://fuchsflo90.github.io/beatles-analysis/#</hi>
+                        </p>
+                    </note> and can be used to explore complexity for both tones and chords, for any album of the Beatles filtered by the main composer. In addition to the complexity scores, it also provides information on the frequencies of different scales and rhythms.
+                </p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Conclusion</head>
+                <p style="text-align:left; ">In this paper we showcased the application of a computational approach to measure musical complexity in a corpus of user-generated transcriptions of Beatles songs. We were able to demonstrate that musical complexity did not consistently increase over time (only a weak correlation was measured) and that high complexity seems to be a situational phenomenon that can occur for single songs rather than for a whole album. The approach presented in this paper can be considered as a case study for further computational studies on musical complexity, thus adding to the branch of computational musicology as part of the Digital Humanities. As next steps we plan to extend the approach to comparative complexity analyses for different bands and genres.</p>
+            </div>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold" style="font-size:10pt">Cohen, J.</hi>
+                        <hi style="font-size:10pt" xml:space="preserve"> (1988). Statistical power analysis for the behavioral sciences. Lawrence Erlbaum Associates Publishers.</hi>
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold" style="font-size:10pt">Cuddy, L. L., Cohen, A. J., &amp; Mewhort, D. J. K.</hi>
+                        <hi style="font-size:10pt" xml:space="preserve"> (1981). Perception of structure in short melodic sequences. Journal of Experimental Psychology: Human Perception and Performance, 7(4), 869–883.</hi>
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold" style="font-size:10pt">Di Giorgi, B., Dixon, S., Zanoni, M. &amp; Sarti, A.</hi>
+                        <hi style="font-size:10pt" xml:space="preserve"> (2017). A data</hi>
+                        <hi style="font-family:Cambria Math;font-size:10pt">‐</hi>
+                        <hi style="font-size:10pt">driven model of tonal chord sequence complexity. IEEE/ACM Transactions on Audio Speech and Language Processing.</hi>
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold" style="font-size:10pt" xml:space="preserve">Eerola, T., North, A. C., &amp; Le, L. </hi>
+                        <hi style="font-size:10pt">(2000). Expectancy</hi>
+                        <hi style="font-family:Cambria Math;font-size:10pt">‐</hi>
+                        <hi style="font-size:10pt">Based Model of Melodic Complexity. Proceedings of the Sixth International Conference on Music Perception and Cognition, (January), 1–7.</hi>
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold" style="font-size:10pt">Everett, W.</hi>
+                        <hi style="font-size:10pt" xml:space="preserve"> (2001). The Beatles as Musicians: The Quarry Men through Rubber Soul. New York: Oxford University Press.</hi>
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold" style="font-size:10pt">Krumhansl, C. L., &amp; Shepard, R. N.</hi>
+                        <hi style="font-size:10pt" xml:space="preserve"> (1979). Quantification of the hierarchy of tonal functions within a diatonic context. Journal of Experimental Psychology. Human Perception and Performance, 5(4), 579–594.</hi>
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold" style="font-size:10pt" xml:space="preserve">MacDonald, I. </hi>
+                        <hi style="font-size:10pt">(1995). Revolution In The Head: The Beatles’ Records and the Sixties. Pimlico.</hi>
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold" style="font-size:10pt">Madsen, S., T. Widmer, G., &amp; Kepler, J.</hi>
+                        <hi style="font-size:10pt" xml:space="preserve"> (2007). Key</hi>
+                        <hi style="font-family:Cambria Math;font-size:10pt">‐</hi>
+                        <hi style="font-size:10pt">Finding with Interval Profiles. ICMC.</hi>
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold" style="font-size:10pt">Martin, G., &amp; Hornsby, J.</hi>
+                        <hi style="font-size:10pt" xml:space="preserve"> (1979). All you need is ears. New York: St. Martin’s.</hi>
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold" style="font-size:10pt">Mason, D.</hi>
+                        <hi style="font-size:10pt" xml:space="preserve"> (2012). The Beatles Genome Project : Cluster Analysis of Popular Music in R. Book of Contributed Abstracts. The R User Conference, useR! 2013, (2010), 2012.</hi>
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold" style="font-size:10pt">Pearson, K.</hi>
+                        <hi style="font-size:10pt" xml:space="preserve"> (1895). Contributions to the Mathematical Theory of Evolution. III. Regres</hi>
+                        <hi style="font-family:Cambria Math;font-size:10pt">‐</hi>
+                        <hi style="font-size:10pt">sion, Heredity, and Panmixia. Philosophical Transactions of the Royal Society A: Mathematical, Physical and Engineering Sciences, 186(0), 254–317.</hi>
+                    </bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

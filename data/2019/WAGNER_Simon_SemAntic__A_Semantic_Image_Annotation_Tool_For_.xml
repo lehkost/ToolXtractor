@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title type="full">
+                    <title type="main">SemAntic: A Semantic Image Annotation Tool For The Humanities</title>
+                    <title type="sub"/>
+                </title>
+                <author>
+                    <persName>
+                        <surname>Wagner</surname>
+                        <forename>Simon</forename>
+                    </persName>
+                    <affiliation>University of Passau, Germany</affiliation>
+                    <email>simon@simon-wagner.eu</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Christoforaki</surname>
+                        <forename>Maria</forename>
+                    </persName>
+                    <affiliation>University of Passau, Germany</affiliation>
+                    <email>maria.christoforaki@uni-passau.de</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Donig</surname>
+                        <forename>Simon</forename>
+                    </persName>
+                    <affiliation>University of Passau, Germany</affiliation>
+                    <email>simon.donig@uni-passau.de</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Handschuh</surname>
+                        <forename>Siegfried</forename>
+                    </persName>
+                    <affiliation>University of St. Gallen, Switzerland</affiliation>
+                    <email>siegfried.handschuh@unisg.ch</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2019-05-08T14:44:07.576638140</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Name, Institution</publisher>
+                <address>
+                    <addrLine>Street</addrLine>
+                    <addrLine>City</addrLine>
+                    <addrLine>Country</addrLine>
+                    <addrLine>Name</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from an OASIS Open Document</p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.22">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Poster</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>neoclassica</term>
+                    <term>image annotation</term>
+                    <term>semantic annotation</term>
+                    <term>annotation tool</term>
+                    <term>ontology</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>art history and design studies</term>
+                    <term>software design and development</term>
+                    <term>ontologies and knowledge representation</term>
+                    <term>linking and annotation</term>
+                    <term>English</term>
+                    <term>computer science and informatics</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <p>Annotation, in computer science, is the act of creating associations between distinct pieces of information (Sanderson et al., 2013). The annotated material can be multimodal (text, images, video, etc.) while annotations can be informal (not machine readable), formal (machine-understandable), and semantic (formal but also have a commonly understood meaning that corresponds to a shared conceptualisation called ontology), (Oren et al., 2006).</p>
+            <p>The concept of annotation, both as a process and an outcome, has long been debated in the Humanities. For a historical viewpoint and an attempt to derive key features for a digital system design, see (Agosti et al., 2007).</p>
+            <p>In this paper we present 
+                <hi rend="italic">SemAntic</hi>, a web-based application for semantically annotating images. It accepts a variety of formats, enables the user to mark parts of the image using circular, rectangular and polygonal regions and to associate them with user loaded RDF ontology classes, and finally, export the resulting annotations in JSON according to the Web Annotation Data Model, a W3C Recommendation (Sanderson et al., 2017).
+            </p>
+            <p>
+                <hi rend="italic">SemAntic</hi> was developed in the context of Neoclassica (Donig et al., 2017), where the automatic image classification component (Donig et al., 2019) required an image corpus annotated according to the specifically developed Neoclassica domain ontology (Donig et al., 2016). The review of the available image annotation tools revealed a lack of up-to-date applications meeting our needs. Requirements like built-in support for ontologies, polygonal annotations, and export format were not met by most, while the most sophisticated required a steep learning curve and/or or a login at the developer's servers, which we could not use since some of our images do not have a permissive license, i.e., they are either proprietary, or forbid redistribution.
+            </p>
+            <p>The architecture of 
+                <hi rend="italic">SemAntic</hi> comprises of a server component written in Java and a web front-end, based on the popular Bootstrap (
+                <ref target="https://getbootstrap.com/">https://getbootstrap.com</ref>) and VueJS (
+                <ptr target="https://vuejs.org/"/>) frameworks. The component used for drawing the actual annotations makes heavy use of the Fabric.js (
+                <ref target="http://fabricjs.com/">http://fabricjs.com</ref>) HTML5 canvas library. Data persistence for storing the ontology and annotation data is realized through a MongoDB database. The current high-level server architecture is illustrated in Figure 1. There is an ongoing effort to migrate the existing codebase over to the Java Spring framework (
+                <ptr target="https://spring.io/"/>) to reduce complexity.
+            </p>
+            <p>
+                <figure>
+                    <graphic url="Pictures/522bf7c21fe6d37f8b38ad047b82971d.png"/>
+                </figure>
+            </p>
+            <p>
+                <hi rend="bold">Figure 1.SemAntic </hi>high-level server architecture
+            </p>
+            <p>Figure 2. illustrates the webinterface. In addition to basic CRUD (Create, Read, Update and Delete) annotation features, the frontend also supports undo and redo. It furthermore allows users to browse ontologies in a tree view supporting class labels in multiple languages, as well as,a search function covering class names, labels in all languages used, and class definitions (recorded as RDF comments).</p>
+            <p>
+                <figure>
+                    <graphic url="Pictures/9e7eba0840f16d57ce99f85f9e8111cd.png"/>
+                </figure>
+            </p>
+            <p>
+                <hi rend="bold">Figure 2. SemAntic web interface</hi>
+            </p>
+            <p>Additionally, SemAntic
+                <hi rend="italic"> </hi>provides an import function for annotations created using other software where the already assigned labels are mapped to the ontology classes presently loaded in the tool. In case that is not possible, (e.g., there is a typo in the imported label, there is no corresponding class, etc.) the Levenshtein distance (Navarro, 2001), is used to determine which ontology class is more likely to be an appropriate match . (. Support for new import formats can be added easily by supplying a class implementing a single Java interface.
+            </p>
+            <p>All images and their corresponding annotations are stored on the server and can be exported to an archive containing the binary image as well as the JSON annotation data, with just a single mouse click.</p>
+            <p>The development of the tool is almost complete in its basic functions described above. Currently, we are developing features like annotation layering and advanced capabilities in specifying the annotation areas (e.g. drawing “holes” in polygons), while at the same time we are improving the stability of the backend and the ergonomics of the user interface.</p>
+            <p>
+                <hi rend="italic">SemAntic</hi> has not yet been given to external users for evaluation as it has primarily been developed to service the need of the Neoclassica project. As of now, it was mainly used by domain experts. However, it is designed as a generic tool that can admit any kind of ontology. We plan to conduct an evaluation in the near future. As soon as the evaluation stage is finished, we intend to release SemAntic under an open source license.
+            </p>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl>Agosti, M., Bonfiglio-Dosio, G. and Ferro, N. (2007). A historical and contemporary study on annotations to derive key features for systems design. 
+                        <hi rend="italic">International Journal on Digital Libraries</hi>, 8(1): 1–19 doi:10.1007/s00799-007-0010-0.
+                    </bibl>
+                    <bibl>Donig, S., Christoforaki, M. and Handschuh, S. (2016). Neoclassica – A Multilingual Domain Ontology.Representing Material Culture from the Era of Classicism in the Semantic Web. In Bozic, B., Mendel-Gleason, G., Debruyne, C. and O’Sullivan, D. (eds.) ,
+                        <hi rend="italic">Computational History and Data-Driven Humanities. </hi>Springer International Publishing, pp. 41–53 doi:10.1007/978-3-319-46224-0_5.
+                    </bibl>
+                    <bibl>Donig, S., Christoforaki, M., Bermeitinger, B. and Handschuh, S. (2017). Neoclassica – an open framework for research in Neoclassicism. 
+                        <hi rend="italic">Digital Humanities 2014: Conference Abstracts. </hi>Montreal, Canada:https://dh2017.adho.org/abstracts/384/384.pdf (accessed 23 November 2018).
+                    </bibl>
+                    <bibl>Donig, S., Christoforaki, M., Bermeitinger, B. and Handschuh, S. (2019). Towards a Classification of Neoclassical Objects in Interior Scenes. In Hastik, C. and Hegel, P. (eds), 
+                        <hi rend="italic">Bilddaten in Den Digitalen Geisteswissenschaften</hi>. (Episteme in Bewegung). Wiesbaden: Harrasowitz.
+                    </bibl>
+                    <bibl>Navarro, G. (2001). A guided tour to approximate string matching. 
+                        <hi rend="italic">ACM Computing Surveys</hi>, 33(1): 31–88 doi:10.1145/375360.375365.
+                    </bibl>
+                    <bibl>Oren, E., Möller, K., Scerri, S., Handschuh, S. and Sintek, M. (2006). What are semantic annotations. 
+                        <hi rend="italic">Relatório Técnico</hi>. DERI Galway, 9(62).
+                    </bibl>
+                    <bibl>Sanderson, R., Ciccarese, P. and Van de Sompel, H. (2013). Designing the W3C open annotation data model. 
+                        <hi rend="italic">Proceedings of the 5th Annual ACM Web Science Conference</hi>.
+                        <hi rend="color(#000000) background-color(#ffffff)"> Paris, France: </hi> ACM, pp. 366–375.
+                    </bibl>
+                    <bibl>Sanderson, R., Paolo Ciccarese and Young, B. (eds). (2017). Web Annotation Data Model. https://www.w3.org/TR/annotation-model/ (accessed 22 November 2018).</bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

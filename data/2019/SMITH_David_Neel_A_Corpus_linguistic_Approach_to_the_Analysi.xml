@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title type="full">
+                    <title type="main">A Corpus-linguistic Approach to the Analysis of Latin Morphology</title>
+                    <title type="sub"/>
+                </title>
+                <author>
+                    <persName>
+                        <surname>Smith</surname>
+                        <forename>David Neel</forename>
+                    </persName>
+                    <affiliation>College of the Holy Cross, United States of America</affiliation>
+                    <email>nsmith@holycross.edu</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2019-03-28T14:59:35.292796000</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Name, Institution</publisher>
+                <address>
+                    <addrLine>Street</addrLine>
+                    <addrLine>City</addrLine>
+                    <addrLine>Country</addrLine>
+                    <addrLine>Name</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from an OASIS Open Document</p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.22">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Short Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>latin</term>
+                    <term>morphology</term>
+                    <term>corpus linguistics</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>classical studies</term>
+                    <term>corpus and text analysis</term>
+                    <term>natural language processing</term>
+                    <term>scholarly editing</term>
+                    <term>linguistics</term>
+                    <term>English</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <p>The study of a historical language like Latin requires a corpus-linguistic perspective. Since we cannot appeal to native speakers of Ciceronian Latin, medieval Latin or pre-classical dialects known from early inscriptions, our knowledge of the language depends on the surviving documents we choose to study.</p>
+            <p>Several excellent Latin morphological parsers already exist. (In addition to the list at 
+                <ptr target="https://wiki.digitalclassicist.org/Morphological_parsing_or_lemmatising_Greek_and_Latin"/>, note also LatMor 
+                <ptr target="http://www.cis.uni-muenchen.de/~schmid/tools/LatMor/"/> and Parsley 
+                <ptr target="https://github.com/goldibex/parsley-core"/>.) All of them are designed as comprehensive systems applicable to "Latin" generally, however. Some support adding new vocabulary items, but scholars and teachers studying texts with "non-standard" morphology or orthography have few options. "Normalizing" the text directly contradicts the corpus-linguistic mandate to understand the language as it is attested. Forking one of the existing open-source systems (whether Python, C, Java or a finite state transducer notation like LatMor's SFST-PL) will appeal to few Latinists.
+            </p>
+            <p>This paper describes an alternate methodology. It differs from current approaches in two ways: by automating the building of parsers tailored to particular corpora, and by identifying all components of a parser's output with canonically citable URN values.</p>
+            <p>While it would be possible to build a parser covering all known digital Latin texts, parsers targeted at the language and orthography of specific corpora can reduce the ambiguity of analyses to instances of true morphological ambiguity. In a corpus of Plautus, for example, the surface form "anime" can only be the vocative singular of "animus" (urn:cite2:hmt:ls:n2636 in the citable version of the Lewis-Short dictionary from Furman University). In a diplomatic edition of manuscripts of the Latin Psalms, "e" might represent the orthographic equivalent of classical "ae" so that "anime" could be genitive singular, dative singular, nominative plural or vocative plural of "anima" (urn:cite2:hmt:ls:n2612). A comprehensive morphological parser would have to accept all these possibilities for analyses of "anime". A classical Latin parser, on the other hand, could accept only "ae" as valid first-declension endings; the lexicon for a Latin parser of the Psalms does not need an entry for "animus", since that word does not appear in the Psalms, so the only ambiguity it would identify is the identical form of four case-number combinations of the first-declension noun "anima".</p>
+            <p>By using URNs to identify all components of an analysis, we can readily combine analyses from multiple parsers. CITE2 URNs identify collections of discrete objects. (See 
+                <ptr target="http://cite-architecture.org/cite2urn/"/> At the time of this writing, the CITE2 URN scheme is in expert review with the IETF's URN working group). Since we do not use string values to identify forms or lexical entities, when we analyze Plautus with a classical Latin parser and a diplomatic edition of the Psalms with a parser specific to that corpus, the analyses of each parser can identify the lexical item "anima" with the URN urn:cite2:hmt:ls:n2612. Our parsers can thus recognize that "anime" in the Psalms and "animae" in Plautus are equivalent forms of the same lexical entity, but the token "anime" represents different lexical entities in the two corpora.
+            </p>
+            <p>This approach opens up new possibilities for research and pedagogy.</p>
+            <p>For editors of diplomatic editions, automated morphological analysis is invaluable for validating manually edited texts, but it is only possible when the orthography, lexica of stems and inflectional rules can all be defined for the corpus being edited.</p>
+            <p>Morphological data can enrich familiar analytical models such as social networks. Parsing of named entities is often limited because they are precisely the kind of vocabulary missing from standard lexica. If we construct a social network of persons appearing in the same passage and associate with each name its grammatical case, the resulting graph not only distinguishes clusters of co-occuring figures, but indicates what syntactic role they fulfill in relation to each other.</p>
+            <p>The approach described here invites a beginning-language pedagogy preparing students to read a particular corpus. It is customary to analyze a digital text in order to determine what vocabulary should be stressed in introductory language courses. In deciding how best to sequence topics, we can also analyze the frequencies of forms and of specific inflectional rules. If supine forms are rare in our target corpus, we might choose not to emphasize them. But we can go further, and evaluate which particular inflectional classes should be emphasized. Does every variation of third-declensions i-stems appear in the corpus we're preparing students to read, or should we devote more time to other topics?</p>
+            <p>In this approach, the central technological component is not a Latin parser, but an open-source system for building corpus-specific parsers. It is modelled in part on the Kanónes system for building Greek morphological parsers (described in 
+                <hi rend="italic">Bulletin of the Institute for Classical Studies</hi> 59-2, 2016, 89-109), but extends and generalizes some of its ideas. As with Kanónes, a digital humanist manages a set of structured text files. A build process managed with sbt (
+                <ptr target="https://www.scala-sbt.org/"/>) reads the text files, translates them into source code in SFST-PL, and applies the Stuttgart Finite State Transducer tools to compile binary finite state transducers for working with Latin morphology. The package includes a suite of utility scripts in Scala that can be run from the sbt console and parse the SFST output into an object model. They include scripts to parse a wordlist, summarize a corpus morphologically, and export the morphological analyses to a tabular format suitable for use with tools such as a RDBMS.
+            </p>
+            <p>Three data sets define the parser for a corpus. First, a plain text file defines the orthography by enumerating all Unicode codepoints allowed in parseable tokens. Second, a set of delimited-text tables defines a lexicon of "stems," recorded in the defined orthography. Each stem is uniquely identified, and associated with a URN for a lexical entity, as well as an inflectional class (roughly corresponding to traditional inflectional classes such as "2nd declension noun stem"). Third, a further set of delimited-text tables defines the inflectional rules that apply to the corpus. The rule is uniquely identified, includes an "ending" recorded in the defined orthography, and is associated with one of the same inflectional classes used in the tables of stems. Sample data sets illustrating how to organize the data for a complete parser include diplomatic editions of Latin manuscripts, Latin texts digitized from print editions from the Tesserae Project, and a "corpus" comprising all paradigms in Allen and Greenough's 
+                <hi rend="italic">Latin Grammar</hi>.
+            </p>
+            <p>Other than a text editor to create or modify the data files, the system has only two technical requirements (plus their dependencies): sbt (and therefore a Java SDK), and the SFST toolkit (and its required GNU "make" toolchain).</p>
+            <p>Directly using the included scripts is the simplest way to analyze or export results, but the scripts in turn rely on a JVM code library imported by sbt that can be used with any JVM language (including Java, Groovy, Clojure, and Kotlin). DH projects that want to use the parser's output differently can use the code library to ingest the parser's output and have direct access to the data through high-level abstractions (such as a "NounForm", which includes a "Gender" property, which has an enumerated value of "Masculine," "Feminine" or "Neuter").</p>
+            <p>While it is less likely that digital humanists will choose to expand on the set of included transducers, the organization of the SFST system supports this, too. The included transducers are chained in a standard design pattern:</p>
+            <quote>data transducer -&gt; acceptor transducer -&gt; analysis transducers</quote>
+            <p>The data transducer is the Cartesian product of all stems with all rules. The acceptor transducer filters these so that only combinations of rules and stems belonging to the same inflectional class remain. Analysis transducers suppress some categories of information to provide a mapping from an incomplete set of data to a full analysis. A final transducer that suppresses all analytical information and keeps only stem+ending strings therefore maps surface forms to a full analysis (i.e., it provides mappings like "jacio -&gt; first singular present indicative active of urn:cite2:hmt:ls:n25153"). Alternatively, a transducer that suppresses all data except a URN for a lexical entity and symbols for person, number, tense, mood and voice provides mappings like "first singular present indicative active of urn:cite2:hmt:ls:n25153 -&gt; jacio".</p>
+            <p>The theme of DH2019 is "complexities." The approach to morphological analysis presented here respects the complexity of Latin as it is attested in millenia of surviving documents. Managing simple text files to build corpus-specific parsers with analytical output identified by URNs, we can bring a more nuanced corpus-linguistic perspective to research and teaching with digital corpora of Latin.</p>
+        </body>
+    </text>
+</TEI>

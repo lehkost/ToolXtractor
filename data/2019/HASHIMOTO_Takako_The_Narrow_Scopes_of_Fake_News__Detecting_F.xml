@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title type="full">
+                    <title type="main">The Narrow Scopes of Fake News: Detecting Fake News Using Topic Diversity Measures</title>
+                    <title type="sub"/>
+                </title>
+                <author>
+                    <persName>
+                        <surname>Shepard</surname>
+                        <forename>Dave</forename>
+                    </persName>
+                    <affiliation>University of California, Los Angeles, USA</affiliation>
+                    <email>shepard.david@gmail.com</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Hashimoto</surname>
+                        <forename>Takako</forename>
+                    </persName>
+                    <affiliation>Chiba University of Commerce, Japan</affiliation>
+                    <email>takako@cuc.ac.jp</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Shin</surname>
+                        <forename>Kilho</forename>
+                    </persName>
+                    <affiliation>University of Hyogo, Japan</affiliation>
+                    <email>kilhoshin314@gmail.com</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Uno</surname>
+                        <forename>Takeaki</forename>
+                    </persName>
+                    <affiliation>National Institute of Information, Japan,</affiliation>
+                    <email>uno@nii.jp</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Kuboyama</surname>
+                        <forename>Tetsuji</forename>
+                    </persName>
+                    <affiliation>Gakushuin University, Japan</affiliation>
+                    <email>ori-2018conf@tk.cc.gakushuin.ac.jp</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2019-04-07T13:17:05.520276238</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Name, Institution</publisher>
+                <address>
+                    <addrLine>Street</addrLine>
+                    <addrLine>City</addrLine>
+                    <addrLine>Country</addrLine>
+                    <addrLine>Name</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from an OASIS Open Document</p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.22">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Long Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>Fake News</term>
+                    <term>Social Media</term>
+                    <term>Micro Clustering</term>
+                    <term>Data Mining</term>
+                    <term>Topic Extraction</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>content analysis</term>
+                    <term>social media</term>
+                    <term>data mining / text mining</term>
+                    <term>English</term>
+                    <term>computer science and informatics</term>
+                    <term>artificial intelligence and machine learning</term>
+                    <term>communication and media studies</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <div type="div1" rend="DH-Heading">
+                <head>1 Introduction</head>
+                <p>After the East Japan Great Earthquake on 11 March, 2011, rumors about an explosion at a petrochemical complex owned by Cosmo Oil spread rapidly on twitter. Stories of oil tanks exploding and releasing harmful substances into the air caused widespread panic until official government news releases corrected the misinformation the following day. This story demonstrates the importance of fake news detection: while an enormous real disaster (the earthquake) was unfolding, rumors of imaginary disasters spread misinformation and diffused attention on social media to imaginary dangers. </p>
+                <p>The story of the fake Cosmo Oil fire provides an example of a situation in which fake news detection is important, and also provides a test case for studying the characteristics of fake news on twitter. We propose a method for fake news detection based on topic diversity. Our method computes topic diversity by a micro-clustering approach that makes clusters smaller than those produced by conventional clustering methods. We begin by extracting micro-clusters, small sets of keywords that represent topics, using a data polishing algorithm (Uno 2015; Uno 2017) from tweets about the event. Next, we analyze clusters over time using visualization methods to understand how these topics change. We observe that a diversity measure for clusters, a measure of both the number of clusters and the number of words, in one cluster, shows topic transition. This observation has implications in the measure of the truthfulness of a story. Users tweeting about real news stories often show sudden changes in opinions, which causes a drastic increase in the diversity of the opinions expressed. Even if the number of tweets on the topic does not increase, topic diversity rises. On the other hand, users tweeting fake news stories are often not thinking critically about a topic, so there is no change on the number of clusters even as the number of tweets increases.</p>
+                <p>
+                    <figure>
+                        <graphic url="Pictures/ca79e29dd5fc540b01790a2042cc16ab.png"/>
+                        <head>Figure 1: Outline of Our Method</head>
+                    </figure>
+                </p>
+            </div>
+            <div type="div1" rend="DH-Heading">
+                <head>2 Topic Extraction using Micro-Clustering</head>
+                <p>Figure 1 illustrates our method. First, we build a graph of tweets: each tweet is a node, and an edge between two nodes represents two tweets whose Jaccard similarity is greater than 0.3. This is our Input Data. Then, cliques are extracted by micro-clustering using 
+                    <hi rend="italic">Data Polishing</hi> (Uno 2017).
+                </p>
+                <p>Micro-clusters represent small topics within a larger set of tweets. Micro-clusters are groups of records that have high similarity—in our case, tweets that include similar sets of words. To create micro-clusters of similar tweets, we perform maximal clique enumeration (MCE). A maximal clique is a clique included in no other clique within the graph. A maximal clique is not necessarily the largest clique in a graph, so the size of maximal cliques in the same graph can vary significantly. </p>
+                <p>Because there are usually a huge number of maximal cliques in a graph, MCE is a computationally intractable problem. Data polishing reduces the complexity of MCE. It makes an edge between pairs of nodes if they seem to belong to the same cluster, and removes edges between nodes that do not seem to belong to the same cluster. It clarifies the graph's cluster structures, and thus makes MCE far simpler. </p>
+                <p>We eliminate edges using the following procedure. If nodes 
+                    <hi rend="italic">u</hi> and 
+                    <hi rend="italic">v</hi> are in the same clique of size 
+                    <hi rend="italic">k</hi>, 
+                    <hi rend="italic">u</hi> and 
+                    <hi rend="italic">v</hi> have at least 
+                    <hi rend="italic">k − 2</hi> common neighbors. Thus, we have 
+                    <hi rend="italic">|N</hi>
+                    <hi rend="sub italic">u</hi>
+                    <hi rend="italic"> ∩ N</hi>
+                    <hi rend="sub italic">v</hi>
+                    <hi rend="italic">| ≥ k</hi>, so 
+                    <hi rend="italic">u</hi> and 
+                    <hi rend="italic">v</hi> are in a clique of size at least 
+                    <hi rend="italic">k</hi>. If 
+                    <hi rend="italic">u</hi> and 
+                    <hi rend="italic">v</hi> are in a sufficiently large pseudo-clique, they belong to a pseudo-clique with a high probability of being semantically meaningful; otherwise, they do not. To compute these nodes’ similarity, we compute the Jaccard coefficient, 
+                    <hi rend="italic">J</hi>, of their neighbor sets. We set the threshold 
+                    <hi rend="italic">s’</hi> and consider each pair of nodes in the graph. If 
+                    <hi rend="italic">J(N</hi>
+                    <hi rend="sub italic">u</hi>
+                    <hi rend="italic">, N</hi>
+                    <hi rend="sub italic">v</hi>
+                    <hi rend="italic">) &gt; s’</hi>, we add an edge between 
+                    <hi rend="italic">u</hi> and 
+                    <hi rend="italic">v</hi>. Conversely, if 
+                    <hi rend="italic">J(N</hi>
+                    <hi rend="sub italic">u</hi>
+                    <hi rend="italic">, N</hi>
+                    <hi rend="sub italic">v</hi>
+                    <hi rend="italic">) </hi>
+                    <hi rend="italic">&lt;</hi>
+                    <hi rend="italic"> s’</hi>, we remove any edges between them.
+                </p>
+                <p>Micro-clustering produces a set of topics, each made up of one or more clusters. Next, topic transitions are analyzed by calculating the diversity of clusters that constitute the corresponding topic. Micro-clusters are groups of similar or related records. </p>
+                <p>In a graph, micro-clusters correspond to dense subgraphs, and non-edges in the dense subgraphs are ambiguities. We also consider edges not included in any cluster to be ambiguities. Our data polishing approach for micro-clustering consists of adding edges for these non-edges, and removing these edges from the graph. </p>
+            </div>
+            <div type="div1" rend="DH-Heading">
+                <head>3 Target Data</head>
+                <p>Our target data set is the over 200 million tweets sent around the time of the Great East Japan Earthquake on March 11, 2011. We obtained this dataset from the social media monitoring company Hotto link Inc. (Hottolink). Hotto link tracked users who used one of 43 hashtags (including #jishin, #nhk, and #prayforjapan) or one of 21 keywords related to the disaster. Later, they captured all tweets sent by these users between March 9th (2 days prior to the earthquake) and March 29th. This dataset offers a significant document of users’ responses to a crisis, but its size presents a challenge.</p>
+                <p>We show our experimental result for tweets from 00:00 on March 11 to 24:00 on March 15, a total of 120 hours. We began by creating the sequence of tweet-word count matrices for our dataset for every 30 minutes, that means we had 240 slots. For example, the matrix for 30 minutes on March 11 before 14:30 (before the earthquake), contains 60,000-80,000 tweets. On the other hand, the matrix for 30 minutes on March 11 after 15:00 (after the earthquake) contains 300,000-500,000 tweets. The number of tweets increased dramatically after the earthquake. The size of each matrix after 15:00, March 11 is around 15MB and they were all quite sparse. </p>
+            </div>
+            <div type="div1" rend="DH-Heading">
+                <head>4 Target Topic</head>
+                <p>We selected the fake news about the petrochemical complex explosion that happened just after the earthquake. The story can be divided into four stages:</p>
+                <list type="unordered">
+                    <item>Fact: around 15:00 on March 11, just after the earthquake, the Cosmo Petrochemical Complex in Chiba caught fire.</item>
+                    <item>Fake: Around 19:00 on March 11, the following fake stories appeared as tweets and were retweeted frequently:
+                        <list type="unordered">
+                            <item>“Radiation and harmful chemicals are leaking into the air from the petrochemical complex. Be careful!” </item>
+                            <item>“Don’t go out! Because the rain includes radioactivity and harmful materials by the petrochemical complex explosion.” </item>
+                        </list>
+                    </item>
+                    <item>Correction: Around 15:00 on March 12 (the day after the earthquake), the company’s website and the local government’s twitter account explained that there had been no explosion. </item>
+                    <item>Convergence: At night on March 12, the topic was converged. </item>
+                </list>
+                <p>The fake news about the oil tank emitting harmful substances scared users as it spread. Finally, the government released a report correcting the misinformation and the fake news disappeared from Twitter. To evaluate the progress of the target topic, we investigated micro-clusters with the phrase “Cosmo Oil” over time. We examined the target topic transition and the diversity of clusters in each time period to show our method’s effectiveness. </p>
+                <p>
+                    <figure>
+                        <graphic url="Pictures/547bd1c778b812a89bf851d4ebb17900.png"/>
+                        <head>Figure 2: # of Tweets vs # of Micro-Clusters that include the word ”cosmo oil” (base 10 log-log plot)</head>
+                    </figure>
+                </p>
+            </div>
+            <div type="div1" rend="DH-Heading">
+                <head>
+                    <figure>
+                        <graphic url="Pictures/2bef201f3edc109c565cac0ae887d536.png"/>
+                        <head>Figure 3: Topic diversity for all tweets</head>
+                    </figure>5 Fake News Detection
+                </head>
+                <p>The progress of the fake news is shown in Figure 2. The graph shows the relationship between the number of tweets and the number of micro-clusters. Each circle on the graph shows one half-hour time period. </p>
+                <p>Fake news stories show low topic diversity: Figures 2 and 3 illustrate the difference between a real story and a fake story. Both graphs plot the correlation between the number of micro-clusters that contain a phrase and the number of tweets that contain a phrase over each half-hour period. Figure 2 shows the topic diversity of a fake news story, tweets that contain “Cosmo Oil;” in contrast, Figure 3 plots all tweets from our data set during the same time. We use Figure 3 as an index of a known real story, the Great East Japan Earthquake, in contrast to the false rumor of the Cosmo Oil explosion. </p>
+                <p>For a real news story, the relationship between tweet count and micro-cluster count is linear. Figure 3 shows the nearly linear relationship observed on the log-log plot for a real news story, which implies a power law relationship between the number of tweets and the number of micro-clusters. We can make the hypothesis that the line is the upper bound of topic diversity: that is, when a topic emerges independently, the total number of topics is equal to this upper bound. </p>
+                <p>However, for a fake news story, the micro-cluster count is much lower relative to the tweet count in many time periods, and so the relationship is non-linear. In some time periods of Figure 2, highlighted in red, the number of micro-clusters is lower than the expected number. Figure 2 does not show a similar correlation between the number of micro-clusters and the number of tweets that contain the phrase “Cosmo Oil.” We suggest that a fake news story is more likely to have a lower topic diversity because there are fewer facts to report in such a story, and, as such, the story is likely to change little over time.</p>
+                <p>
+                    <figure>
+                        <graphic url="Pictures/1a26ac948201b5f2bfd3b5317c744b74.png"/>
+                        <head>Figure 4: Dynamics of the fake topic transition about ”cosmo oil” (base 10 log-log plot)</head>
+                    </figure>
+                </p>
+                <p>We evaluate the progress of the fake news over time (Figure 4). In Figure 4(a), first, the “fact” topic occurred. Then the “fake” topic appeared as rumors of the explosion spread, shown in Figure 4 (b). Compared to the “fact” and the “correction” periods, the “fake” period shows low diversity: the measurements. Figure 4(c) shows the “correction” period, when the government corrected the fake story and the correction overtook the spread of the rumors. At that time, the number of tweets and the number of clusters grew together, and so the diversity increased. Finally, In Figure 4 (d), the convergence happened: the Cosmo Oil story started to disappear, while gthe diversity stayed high, but gradually the number of tweets decreased. The progress shows the dynamics of the topic transition and a kind of topic life cycle. </p>
+                <p>Through the experiment, we confirmed that our method can extract quality micro-clusters by data polishing. In addition, we realized that micro-clusters can show dynamics of the topic transition using real tweets. </p>
+            </div>
+            <div type="div1" rend="DH-Heading">
+                <head>6 Conclusion</head>
+                <p>This paper proposed a fake news detection method based on micro-clustering using data polishing. It showed that fake news stories follow a certain lifecycle. Furthermore, it suggests that topic diversity measures can help to detect fake news before an official correction is issued, as in the case of the Cosmo Oil story.</p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Acknowledgements</head>
+                <p>This work was partially supported by JST CREST JPMJCR1401, JSPS KAKENHI 19H01133 and 19K12125, 18K1143, and 17H00762.</p>
+            </div>
+        </body>
+    </text>
+</TEI>

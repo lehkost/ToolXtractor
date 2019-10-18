@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title type="full">
+                    <title type="main">Using Visualization to Understand the Complex Spatiality of Mappae Mundi</title>
+                    <title type="sub"/>
+                </title>
+                <author>
+                    <persName>
+                        <surname>Reckziegel</surname>
+                        <forename>Martin</forename>
+                    </persName>
+                    <affiliation>Leipzig University, Germany</affiliation>
+                    <email>reckziegel@informatik.uni-leipzig.de</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Wrisley</surname>
+                        <forename>David Joseph</forename>
+                    </persName>
+                    <affiliation>New York University Abu Dhabi, Abu Dhabi, United Arab Emirates</affiliation>
+                    <email>djw12@nyu.edu</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Hixson</surname>
+                        <forename>Taylor Wright</forename>
+                    </persName>
+                    <affiliation>New York University Abu Dhabi, Abu Dhabi, United Arab Emirates</affiliation>
+                    <email>twh2@nyu.edu</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Jänicke</surname>
+                        <forename>Stefan</forename>
+                    </persName>
+                    <affiliation>Leipzig University, Germany</affiliation>
+                    <email>stjaenicke@informatik.uni-leipzig.de</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2019-04-26T15:45:26.127536451</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Name, Institution</publisher>
+                <address>
+                    <addrLine>Street</addrLine>
+                    <addrLine>City</addrLine>
+                    <addrLine>Country</addrLine>
+                    <addrLine>Name</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from an OASIS Open Document</p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.22">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Long Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>visualization</term>
+                    <term>map warping</term>
+                    <term>distortion</term>
+                    <term>mappae mundi</term>
+                    <term>medieval studies</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>image processing</term>
+                    <term>spatial &amp; spatio-temporal analysis</term>
+                    <term>modeling and visualization</term>
+                    <term>medieval studies</term>
+                    <term>English</term>
+                    <term>geography and geohumanities</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <div type="div1" rend="DH-Heading">
+                <head>Introduction</head>
+                <p>A common practice in spatial humanities is georeferencing historical maps to generate rasters for use in Geographic Information Systems (GIS) (Clifford et al., 2013). This method is typically carried out with different levels of precision and with different goals in mind; for example, spatial humanities practitioners create base maps from historical maps, they extract vector data or they compare spatial representations over time. If we consider both the historical map and the base map as imperfect representations--rather than reflections--of reality, the georeferencing process creates a relation which needs to be critically analyzed (Presner, et al., 2014). This paper aims to expand the modes of visualization available to scholars of cartography interested in exploratory spatial analysis of medieval maps in a way that the complex spatiality of the historical map is not overtaken by that of normative base maps.</p>
+                <p>In the case of historical maps whose coordinates and scales are roughly comparable to modern maps, valuable historical information can be extracted from the georeferencing process (Baiocchi and Lelo, 2005). Furthermore, algorithmic analysis, such as differential distortion, can help identify geometric inaccuracies of so-called “old” maps (Claeys Boùùaert et al, 2016). Visualizing such divergence allows one to analyze historical cartographic technique.</p>
+                <p>In this paper we turn instead to 
+                    <hi rend="italic">very</hi> old maps--examples of so-called “complex” medieval maps that blend conventional T-O structure with pseudo-geographic detail. Historical cartographic studies have emphasized the encyclopedic quality of such maps, their textual sources and their blend of geography and sacred, cosmological detail (Paul, 2018; Edson, 1997). Rather than a modern coordinate system, we find in some of them notions of spatial orientation suggested by the abundance of detail and named entities on the surface of the map. Instead of consistently stretching the map, georeferencing can lead to problems of occultation, that is, to hidden “folds” in the distorted map. Another way of expressing this is that the distances or orientations of places or features on one map representation may not be consistent with another map. Furthermore, a map predating modern coordinate systems may contain non-geographic information. Stretching such a pre-modern map to a contemporary map projection, therefore, might seem counterintuitive. We argue that visualization of purposeful distortion can allow us to understand better the pre-modern organizational structure of maps. In our research we have found that this practice allows us to situate such pre-modern maps on a spectrum between the more topological and the more symbolic.
+                </p>
+            </div>
+            <div type="div1" rend="DH-Heading">
+                <head>Map Projections and Georeferencing</head>
+                <p>The method of drawing a map of the almost spherical earth on a planar surface is called a map projection, a process only possible with distortion of some important geographic properties. One such projection known as the Mercator (Chamberlin et al, 1950), distorts areal scaling inconsistently, so that the areal scaling factor increases as one moves north. In the process of georeferencing, control points on the historic map are manually referenced on the modern map. For each control point in the coordinate system of a scanned historic map image, there is a control point in the coordinate system of the modern map image, which represents the same entity. Several algorithms exist to use this information to project the whole historic image onto the modern coordinate system. In this paper we use the Thin Plate Spline (TPS) method (Duchon, 1977), which maps the control points accurately and interpolates the locations in between, such that the bending energy of an imaginary surface is minimized.</p>
+            </div>
+            <div type="div1" rend="DH-Heading">
+                <head>Existing Visualization Techniques for Showing Distortion</head>
+                <p>The computation and visualization of modern map projection distortion of a globe-to-map setting has been extensively studied. A common approach is to show ellipses on the map, indicating the distortion of infinitesimal circles on the globe. This method is named after French mathematician Tissot (Tissot, 1881) and has been extended to visualize flexion and skewness simultaneously (Goldberg et al., 2007). Further visualization techniques for the globe-to-map scenario have been elaborated (Tobler, 1966; Mulcahy et al, 2001), including the use of color maps and contour lines. Methods to compute and visualize distortion in a map-to-map scenario also exist (Jenny et al, 2007; Claeys Boùùaert et al, 2016). The latter study presents a methodology to visualize areal and angular distortion using differential analysis for every point of the modern map as projected onto the historic map or vice versa, given an arbitrary, differentiable projection function.</p>
+            </div>
+            <div type="div1" rend="DH-Heading">
+                <head>Visualizing Areal Distortion in 
+                    <hi rend="italic">Mappae Mundi</hi>
+                </head>
+                <p>It goes without saying that because medieval maps do not follow the projections used in modern cartography, by georeferencing them as described in section 2 we do not expect a seamless, intuitive result. Instead, when projecting 
+                    <hi rend="italic">mappae mundi</hi> onto modern maps or vice versa, topological inconsistencies are likely to occur. As shown by the control points in Figure 1a, an imaginary place A might be left to a place B on the historic map, while their order is reversed on the modern map. Further, the places C and D remain their order. To resolve this, the TPS method creates a “folded” projection of the historic map on the modern map as shown in Figure 1b. 
+                </p>
+                <p>
+                    <figure>
+                        <graphic url="Pictures/6ab107f9b33b6180a2fff97b9d4d3007.png"/>
+                        <head>Topological inconsistent projection.</head>
+                    </figure>In order to show the pre-modern organizational structure of historical maps, possibly demonstrated by those regions of topological inconsistency, we visualize how the historic map will be scaled and where it will be folded by the TPS method. We base our calculations on an established areal scaling factor formula (Claeys Boùùaert et al., 2016) shown in Eq(1) in Figure 2 which can be simplified to Eq(2). This factor can also be derived by calculating the area A of the parallelogram the partial derivatives span using the shoelace formula (Meister, 1769), shown in Eq(3). The term Â will be negative only if the points of the parallelogram are found in a clockwise direction; in which case the TPS projection is flipped. As such, this property helps us to identify folded regions. The resulting visualization for the historic map of the example outlined above is shown in Figure 1c.
+                </p>
+                <p>Our visualization design can be read like a traditional contour map showing a mountain area: the higher the mountain, the larger the scaling factor of the image. Each contour line in the visualization represents a region where the scaling is identical. The wider such contour line is drawn, the smaller the gradient is, i.e., the smaller the change of scaling is at that location. To remain independent from units, we normalize that factor between the minimal and maximal occuring scales. Black contour lines represent mean scaling. The more saturated the lines are, the larger the magnification or shrinkage is with respect to the mean. The color blue indicates a factor smaller, respectively the color red a factor greater than the mean. Turquoise indicates shrinkage, and yellow, magnification in a folded region, that is, where the orientation of features of the historic map is flipped. A white line represents the crease of the fold. In addition to the contour lines, we identify the regions which will overlap in the projected image and draw those darker, resulting in “shadows” around folded areas. The result of applying the projection on the visualization itself can be seen in Figure 1d.</p>
+                <p>
+                    <figure>
+                        <graphic url="Pictures/c4c856b22d6c1ecdec8cfa8a8eb3381b.png"/>
+                        <head>Areal scaling factor calculation.</head>
+                    </figure>
+                </p>
+            </div>
+            <div type="div1" rend="DH-Heading">
+                <head>Discussion</head>
+                <p>At this stage of our research, we have used three medieval 
+                    <hi rend="italic">mappae mundi</hi>: the Ebstorf map made in Northern Germany around 1235, the Cotton Anglo-Saxon map created at Canterbury between 1025 and 1050 and the Hanss Rüst woodcut map made in Augsburg around 1480. The abovementioned distortion techniques for medieval maps provide us with important insight into the particular blend of pseudo-geographic and non-geographic features found in each document. Results of this visualization are shown in Figure 3.
+                </p>
+                <p>The Ebstorf map is the most detailed of our three examples. The key distortion, located around the map center, is due to the seal with Christ indicating Jerusalem, a symbolic, rather than geographic, placement. Other distortion is visible around Sicily, Crete, Cologne and cities of the Alexander legends. In the Cotton Anglo-Saxon map, no folds were produced given the chosen control points. On the other hand, we observed significant scalar expansion relative to the mean in the regions of Barbary and North Africa as well as the Western Mediterranean and the Black seas. Shrinkage of scale was observed particularly in two directions: along the axis Jerusalem-Babilonia-India as well as over Scotland and the Hebrides. The Hanss Rüst map exhibited the least geographic realism of all three.</p>
+                <p>
+                    <figure>
+                        <graphic url="Pictures/e0b62b13edd7ae69f1e9b06aae67e3f2.jpg"/>
+                        <head>Visualization results. From top to bottom: The historic map image, the historic map including our visualization and the historic map projected onto a mercator map.</head>
+                    </figure>The folds created by map distortion, visualized in our design, provide strong visual stimuli for understanding the continuum of pseudo-geographic features of old maps, that is, for the critical evaluation of the spatiality of such maps on their own terms.
+                </p>
+                <p>Whereas for the TPS method used in this paper we chose control points based on written geographic information (names of provinces, cities, images of walled cities), other choices for control points could lead to contradictory results. In future work, we intend not only to expand the set of maps that we can annotate, but also expand and develop our visualization methods. Finally, we intend to alter our mode of annotation, by choosing, as in classic modes of georeferencing, features on the map, such as peninsulas, mountains or rivers, instead of text or in combination with text to assess what different results we might obtain.</p>
+            </div>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl>
+                        <hi rend="bold">Anglo-Saxon World Map</hi> (11th century). British Library. 
+                        <ptr target="https://www.bl.uk/collection-items/anglo-saxon-world-map"/> (accessed 4.25.19).
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Baiocchi, V., Lelo, K.</hi> (2005). Georeferencing the Historical Maps of Rome Between the Seventeenth and Eighteenth Centuries, in: CIPA 2005 XX International Symposium, 26 September – 01 October, 2005, Torino, Italy.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Chamberlin, W., Grosvenor, G.H.</hi> (1950). The Round Earth on Flat Paper: Map Projections Used by Cartographers. National Geographic Society, Washington.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Claeys Boùùaert, M., De Baets, B., Vervust, S., Neutens, T., De Maeyer, P., Van de Weghe, N.</hi> (2016). Computation and Visualisation of the Accuracy of Old Maps Using Differential Distortion Analysis. International Journal of Geographical Information Science 30, 1255–1280.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Clifford, J., MacFadyen, J., Macfarlane, D.</hi> (2013). Georeferencing in QGIS 2.0. Programming Historian. 
+                        <ptr target="https://programminghistorian.org/en/lessons/georeferencing-qgis"/> (accessed 4.25.19).
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Duchon, J.</hi> (1977). Splines Minimizing Rotation-Invariant Semi-Norms in Sobolev Spaces, in: Schempp, W., Zeller, K. (Eds.), Constructive Theory of Functions of Several Variables, Lecture Notes in Mathematics. Springer Berlin Heidelberg, pp. 85–100.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Ebstorfer World Map</hi> (13th century). 
+                        <ptr target="https://commons.wikimedia.org/wiki/File:Ebstorfer-stich2.jpg"/> (accessed 4.25.19).
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Edson, E.</hi> (1997). Mapping Time and Space: How Medieval Mapmakers Viewed Their World. British Library.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Goldberg, D.M., Gott, J.R.</hi> (2007). Flexion and Skewness in Map Projections of the Earth. Cartographica: The International Journal for Geographic Information and Geovisualization 42, 297–318.
+                        <ref target="https://doi.org/10.3138/carto.42.4.297"> </ref>
+                        <ptr target="https://doi.org/10.3138/carto.42.4.297"/>
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Jenny, B., Weber, A., Hurni, L.</hi> (2007). Visualizing the Planimetric Accuracy of Historical Maps with MapAnalyst. Cartographica 42, 89–94.
+                        <ref target="https://doi.org/10.3138/carto-v42-1-089"> </ref>
+                        <ptr target="https://doi.org/10.3138/carto-v42-1-089"/>
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Mappa mundi : “Das ist die mapa mu[n]di un alle land un kungk reich wie sie ligend in der ga[n]tze welt”</hi> (15th century). The Morgan Library &amp; Museum. 
+                        <ptr target="https://www.themorgan.org/incunables/145336"/> (accessed 4.25.19).
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Meister, A.L.F.</hi> (1769). Generalia de genesi figurarum planarum et inde pendentibus earum affectionibus. Göttingen.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Mulcahy, K.A., Clarke, K.C.</hi> (2001). Symbolization of Map Projection Distortion: A Review. Cartography and Geographic Information Science 28, 167–182.
+                        <ref target="https://doi.org/10.1559/152304001782153044"> </ref>
+                        <ptr target="https://doi.org/10.1559/152304001782153044"/>
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Paul, N.L.</hi> (2018). Introducing the Oxford Outremer Map. Fordham Medieval Digital Projects. 
+                        <ptr target="https://medievalomeka.ace.fordham.edu/exhibits/show/oxford-outremer-map/mpcontext"/> (accessed 4.25.19).
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Presner, T.S., Shepard, D., Kawano, Y.</hi> (2014). Hypercities: Thick Mapping in the Digital Humanities. Harvard University Press, Cambridge.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Tissot, N.A.</hi> (1881). Mémoire sur La Représentation des Surfaces et les Projections des Cartes Géographiques. Gauthier-Villars, Paris.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Tobler, W.B.</hi> (1966). Medieval Distortions: The Projections of Ancient Maps. Annals of the Association of American Geographers 56, 351–360.
+                        <ref target="https://doi.org/10.1111/j.1467-8306.1966.tb00562.x"> </ref>
+                        <ptr target="https://doi.org/10.1111/j.1467-8306.1966.tb00562.x"/>
+                    </bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

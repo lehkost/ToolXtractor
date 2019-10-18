@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title type="full">
+                    <title type="main">Collating Medieval Vernacular Texts: Aligning Witnesses, Classifying Variants</title>
+                    <title type="sub"/>
+                </title>
+                <author>
+                    <persName>
+                        <surname>Camps</surname>
+                        <forename>Jean-Baptiste</forename>
+                    </persName>
+                    <affiliation>École nationale des chartes (PSL)</affiliation>
+                    <email>Jean-Baptiste.Camps@chartes.psl.eu</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Ing</surname>
+                        <forename>Lucence</forename>
+                    </persName>
+                    <affiliation>École nationale des chartes (PSL)</affiliation>
+                    <email>lucence.ing@chartes.psl.eu</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Spadini</surname>
+                        <forename>Elena</forename>
+                    </persName>
+                    <affiliation>Université de Lausanne, Switzerland</affiliation>
+                    <email>elena.spadini@unil.ch</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2019-04-21T10:41:19.869381969</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Name, Institution</publisher>
+                <address>
+                    <addrLine>Street</addrLine>
+                    <addrLine>City</addrLine>
+                    <addrLine>Country</addrLine>
+                    <addrLine>Name</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from an OASIS Open Document</p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.22">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Short Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>Textual variants</term>
+                    <term>collation</term>
+                    <term>philology</term>
+                    <term>linguistics</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>corpus and text analysis</term>
+                    <term>medieval studies</term>
+                    <term>scholarly editing</term>
+                    <term>philology</term>
+                    <term>bibliographic methods / textual studies</term>
+                    <term>English</term>
+                    <term>artificial intelligence and machine learning</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <div type="div1">
+                <head>Introduction</head>
+                <p>Aligning different versions of the same work is both a computational and a philological challenge. In particular, the collation of witnesses of an ancient or medieval text poses specific difficulties due to the coexistence of macro-structural and localised variants, including a large number of formal variants.</p>
+                <p>We present an experimental computer-assisted workflow for aligning several witnesses and classifyingvariants. Formal and substantive variants are examples of categories especially relevant for languages which are unstable in their graphic system, as are medieval languages. The case studies are in Old French, and, marginally, Old Spanish. </p>
+                <p>The distinction between formal and substantive variants enables to treat them separately. Stemmatology, for instance, will be mostly interested in the former (even if this has been challenged in Andrews, 2016), while, for linguistic analysis the latter are needed. In automatic collation, based on full transcription of the texts to be compared, the formal variation is generally preserved, but temporarily nullified by means of normalisation or fuzzy match: this enables an accurate alignment of the texts and at the same time the preservation of the original forms.</p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>How to handle variation</head>
+                <p>Medieval texts, especially in vernacular, often exhibit important variation. At the phrases or words levels, syntactic or graphic variations account for diachronic and diatopic differences, varying scribal practices and the plurality of graphematic standards. This makes it difficult to align sequences between texts, when they have very few letters in common, e.g., 
+                    <hi rend="italic">Cait del fuere</hi> | 
+                    <hi rend="italic">Chiet dou fuerre</hi> | 
+                    <hi rend="italic">Kiet du feurre</hi> (‘[The sword] falls of the scabbard’).
+                </p>
+                <p>Difficulties due to spelling or flexional variation only add up to already existing variations in word order or substance. Consider the following example taken from Chrétien de Troye's 
+                    <hi rend="italic">Chevalier au lion</hi> (Meyer, 2006, v. 3701):
+                </p>
+                <quote>
+                    <hi rend="italic">H</hi> Li frans li dolz ou ert il donques
+                </quote>
+                <quote>
+                    <hi rend="italic">P</hi> Li frans li dous ou estoit donques
+                </quote>
+                <quote>
+                    <hi rend="italic">V</hi> Li franz li doz ou ert il donques
+                </quote>
+                <quote>
+                    <hi rend="italic">F</hi> Li frans li dols ou ert il donques
+                </quote>
+                <quote>
+                    <hi rend="italic">G</hi> Li biaux li preuz ou estoit donques
+                </quote>
+                <quote>
+                    <hi rend="italic">A</hi> Li preus li frans u est il donques
+                </quote>
+                <quote>
+                    <hi rend="italic">S</hi> Li preus li frans u ert il donques
+                </quote>
+                <quote>
+                    <hi rend="italic">R </hi>Li frans li dols u ert il donques
+                </quote>
+                <quote>
+                    <hi rend="italic">M</hi> Li frans li preus ou est il donques
+                </quote>
+                <p>Spelling (e.g., 
+                    <hi rend="italic">dolz</hi>, 
+                    <hi rend="italic">dous</hi>, 
+                    <hi rend="italic">doz</hi>, 
+                    <hi rend="italic">dols</hi>) and flexional variants (
+                    <hi rend="italic">est</hi>, 
+                    <hi rend="italic">ert</hi>, 
+                    <hi rend="italic">estoit</hi>) go along with substitutions (
+                    <hi rend="italic">dous</hi> | 
+                    <hi rend="italic">preus</hi> or 
+                    <hi rend="italic">biaux</hi> | 
+                    <hi rend="italic">frans</hi>), additions/deletions (
+                    <hi rend="italic">il</hi>), or permutations (
+                    <hi rend="italic">preuz</hi>). In such a case, clearing out spelling and flexional variation might help in resolving the other difficulties. 
+                </p>
+                <p>This paper offers a new approach to the normalisation task made possible by the developments in the field of NLP and the resources now available for medieval languages, following the steps described in fig. 1.</p>
+                <p>
+                    <figure>
+                        <graphic url="Pictures/866789b86d73595a1fbfcb9dcd65d7fa.png"/>
+                        <head>Processing workflow</head>
+                    </figure>
+                </p>
+                <p>The initial step is the acquisition of the text, from the digital image, done by a combination of manual transcription (for producing ground truth), automated handwritten text recognition, and post-correction. The raw text thus obtained is then structured and stored in an XML/TEI based format. All these tasks are performed before the normalisation step, here represented by lemmatization and linguistic annotation, done with the help of neural network-based taggers/lemmatizers.</p>
+                <p>Traditionally, normalisation consists of the preparation of the texts for alignment and might imply lowercasing, removing punctuation or editorial markup, as well as the temporary removal of formal features (Silva and Love, 1969 ; Robinson, 1989). Our proposal is to move to an automatic normalisation performed using NLP tools. Each token (i.e. word) is annotated with linguistic information such as part of speech, lemma and detailed morphological information. This kind of normalisation is only possible when suitable resources are available. For Old Spanish, Freeling (Padró Stanilovsky, 2012) provides a specific module (Boleda, 2011; Porta et al., 2013). For Old French, we used the data provided by the 
+                    <hi rend="italic">Geste</hi> corpus (Camps et al., 2016), annotated with lemmas, as well as POS and morph tags according to the Cattex scheme (Prevost et al., 2013). With this data, we trained a neural tagger/lemmatizer suitable for variation-rich languages (Kestemont et al., 2017 ; Manjavacas et al., 2019). On the test set, accuracy reached 94.5 and 95% for lemmatization and POS-tagging, and was in the range 94-98.5% for different morphological features.
+                </p>
+                <p>After normalisation, the texts enriched with linguistic information can be used to perform the alignment. Variation in structure, order or content in medieval texts is favoured by the existence of ‘active textual transmission’ (Vàrvaro, 1970) and by processes of rewriting, prosification/versification, etc. Changes in the order of the structural entities (verses, paragraphs, etc.) are also common. In order to collate these displaced entities, a phase of macro-structural alignment might be needed. This process can be done by a combination of direct expertise and tools conceived for detecting paraphrase, text reuse or computing similarities (Büchler et al., 2014; Jänicke and Wrisley, 2018).</p>
+                <p>The very collation is then made by using the collation program CollateX (Dekker et al., 2011 and 2015) in its Python version. CollateX uses multiple alignment algorithms, suitable for the comparison of more than two witnesses (Spadini, 2017); its modular structure, based on the Gothenburg model, enables the user to intervene on each module separately and to add new ones.</p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Automatic categorization of variants</head>
+                <p>All these software bricks can be integrated in a more complex pipeline up to the the final output. The modular structure of CollateX enables us to adjust the alignment and the visualization phases, in order to take into account the linguistic annotations added to each token. The alignment is performed directly on the annotation, used as a normalised form. In the creation of the output, some rules are added to compare the original forms with the annotation and to assign a category to the variant. For example, the category 'formal variant' is assigned to aligned tokens which have the same annotations but different original forms, such as:</p>
+                <p>
+                    <hi rend="italic">mielz</hi> (pos: adverb; lemma: 
+                    <hi rend="italic">mieus</hi>),
+                </p>
+                <p>
+                    <hi rend="italic">miels</hi> (pos: adverb; lemma: 
+                    <hi rend="italic">mieus</hi>),
+                </p>
+                <p>
+                    <hi rend="italic">miaus</hi> (pos: adverb; lemma: 
+                    <hi rend="italic">mieus</hi>).
+                </p>
+                <p>Additional rules can be used for classifying variants into finer-grained categories, using linguistic annotation (fig. 2).</p>
+                <p>
+                    <figure>
+                        <graphic url="Pictures/c5d8831c1071cb1c709e31abf3f5b571.png"/>
+                        <head>Possible classification of variants using linguistic annotation, with examples of possible subcategories and cases. The broad paradigmatic subcategory encompasses synonyms, cohyponyms, hypero-/hyponymes or holo-/meronyms; the semantic subcategory is reserved for lexemes who do not hold this type of relation between them.</head>
+                    </figure>
+                </p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Conclusions and Further research</head>
+                <p>This paper presents some early results of an ongoing research on automatic collation and categorization of variants. Performing normalization using NLP tools not only speeds up the task, but also makes the identification of fine-grained categories possible. The case studies show the strong and weak points of this proposal and of the technical solutions for its implementation. Eventually, this research forces us to reflect upon the importance of having software components which are open and modular, in order to improve them and to include them in computational pipelines.</p>
+            </div>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl>
+                        <hi rend="bold">Andrews, T. L.</hi> (2016). Analysis of Variation Significance in Artificial Traditions Using Stemmaweb. 
+                        <hi rend="italic">Digital Scholarship in the Humanities</hi>, 
+                        <hi rend="bold">31</hi>(3): 523–39 doi:
+                        <ref target="https://doi.org/10.1093/llc/fqu072">10.1093/llc/fqu072</ref>.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Boleda, G.</hi> (2011). Extending the tool, or how to annotate historical language varieties. 
+                        <hi rend="italic">Proceedings of the 5th ACL-HLT Workshop on Language Technology for Cultural Heritage, Social Sciences, and Humanities</hi>. pp. 1–9.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Büchler, M., Burns, P. R., Müller, M., Franzini, E. and Franzini, G.</hi> (2014). Towards a Historical Text Re-use Detection. In Biemann, C. and Mehler, A. (eds), 
+                        <hi rend="italic">Text Mining: From Ontology Learning to Automated Text Processing Applications</hi>. (Theory and Applications of Natural Language Processing). Cham: Springer International Publishing, pp. 221–38 doi:
+                        <ref target="https://doi.org/10.1007/978-3-319-12655-5_11">10.1007/978-3-319-12655-5_11</ref>. 
+                        <ptr target="https://doi.org/10.1007/978-3-319-12655-5_11"/> (accessed 25 April 2019).
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Camps, J.-B., Albarran, E., Cochet, A. and Ing, L.</hi> (2016). 
+                        <hi rend="italic">Jean-Baptiste-Camps/Geste: Geste: Un Corpus de Chansons de Geste, 2016-…</hi>. Zenodo doi:
+                        <ref target="https://doi.org/10.5281/zenodo.2630574">10.5281/zenodo.2630574</ref>. 
+                        <ptr target="https://zenodo.org/record/2630574"/> (accessed 25 April 2019).
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Haentjens Dekker, R., Hulle, D. van, Middell, G., Neyt, V. and Zundert, J. van</hi> (2015). Computer-supported collation of modern manuscripts: CollateX and the Beckett Digital Manuscript Project. 
+                        <hi rend="italic">Digital Scholarship in the Humanities</hi>, 
+                        <hi rend="bold">30</hi>(3): 452–70 doi:
+                        <ref target="https://doi.org/10.1093/llc/fqu007">10.1093/llc/fqu007</ref>.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Haentjens Dekker, R. and Middell, G.</hi> (2010). 
+                        <hi rend="italic">CollateX</hi>. 
+                        <ptr target="http://collatex.net/"/> (accessed 25 April 2019).
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Jänicke, S. and Wrisley, D. J.</hi> (2017). Visualizing Mouvance: Toward a visual analysis of variant medieval text traditions. 
+                        <hi rend="italic">Digital Scholarship in the Humanities</hi>, 
+                        <hi rend="bold">32</hi>(suppl_2): ii106–23 doi:
+                        <ref target="https://doi.org/10.1093/llc/fqx033">10.1093/llc/fqx033</ref>.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Kestemont, M., Pauw, G. de, Nie, R. van and Daelemans, W.</hi> (2017). Lemmatization for variation-rich languages using deep learning. 
+                        <hi rend="italic">Digital Scholarship in the Humanities</hi>, 
+                        <hi rend="bold">32</hi>(4): 797–815 doi:
+                        <ref target="https://doi.org/10.1093/llc/fqw034">10.1093/llc/fqw034</ref>.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Manjavacas, E., Kádár, Á. and Kestemont, Mike, M.</hi> (2019). Improving Lemmatization of Non-Standard Languages with Joint Learning. 
+                        <ref target="https://doi.org/arXiv%20preprint%20arXiv:1903.06939">arXiv preprint arXiv:1903.06939</ref> (accessed 25 April 2019).
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Meyer, K.</hi> (2006). 
+                        <hi rend="italic">Transcription Synoptique Des Manuscrits et Fragments Du Chevalier Au Lion Par Chrétien de Troyes</hi>. Université d’Ottawa: Faculté des Arts, Laboratoire de français ancien 
+                        <ptr target="http://francaisancien.net/activites/textes/kmeyer/kpres.html"/> (accessed 25 April 2019).
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Padró, L. and Stanilovsky, E.</hi> (2012). FreeLing 3.0: Towards Wider Multilinguality. 
+                        <hi rend="italic">Proceedings of the Language Resources and Evaluation Conference (LREC 2012) ELRA. Istanbul, Turkey. May, 2012.</hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Piotrowski, M.</hi> (2012). 
+                        <hi rend="italic">Natural Language Processing for Historical Texts</hi>. San Rafael: Morgan and Claypool.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Porta, J., Sancho, J.-L. and Gómez, J.</hi> (2013). Edit transducers for spelling variation in Old Spanish. 
+                        <hi rend="italic">Proceedings of the Workshop on Computational Historical Linguistics at NODALIDA 2013; May 22-24; 2013; Oslo; Norway. NEALT Proceedings Series 18</hi>. Linköping University Electronic Press, pp. 70–79.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Prévost, S., Guillot, C., Lavrentiev, A. and Heiden, S.</hi> (2013). 
+                        <hi rend="italic">Jeu d’étiquettes Morphosyntaxiques CATTEX2009</hi>. version 2.0 
+                        <ptr target="http://bfm.ens-lyon.fr/IMG/pdf/Cattex2009_2.0.pdf"/> (accessed 25 April 2019).
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Robinson, P. M. W.</hi> (1989). The Collation and Textual Criticism of Icelandic Manuscripts (1): Collation. 
+                        <hi rend="italic">Literary and Linguistic Computing</hi>, 
+                        <hi rend="bold">4</hi>(2): 99–105 doi:
+                        <ref target="https://doi.org/10.1093/llc/4.2.99">10.1093/llc/4.2.99</ref>.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Silva, G. and Love, H.</hi> (1969). The identification of text variants by computer. 
+                        <hi rend="italic">Information Storage and Retrieval</hi>, 
+                        <hi rend="bold">5</hi>(3): 89–108 doi:
+                        <ref target="https://doi.org/10.1016/0020-0271(69)90014-X">10.1016/0020-0271(69)90014-X</ref>.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Spadini, E.</hi> (2017). The role of the base manuscript in the collation of medieval texts. In Boot, P. and alii (eds), 
+                        <hi rend="italic">Advances in Digital Scholarly Editing. Papers Presented at the DiXiT Conferences in The Hague, Cologne, and Antwerp</hi>. Leiden: Sidestone Press, pp. 345–50.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Varvaro, A.</hi> (1970). Critica dei testi classica e romanza. Problemi comuni ed esperienze diverse. 
+                        <hi rend="italic">Rendiconti Dell’Accademia Di Archeologia, Lettere e Belle Arti Di Napoli</hi>, 
+                        <hi rend="bold">XLV</hi>: 73–117.
+                    </bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

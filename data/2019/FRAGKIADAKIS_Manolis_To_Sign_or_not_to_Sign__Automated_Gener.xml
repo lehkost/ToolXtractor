@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>To Sign or not to Sign: Automated Generation of Annotation Slots for Sign Language Videos using Machine Learning</title>
+                <author>
+                    <persName>
+                        <surname>Fragkiadakis</surname>
+                        <forename>Manolis</forename>
+                    </persName>
+                    <affiliation>Leiden University Centre for Linguistics; Leiden Centre of Data Science Research; Leiden University Centre for Digital Humanities</affiliation>
+                    <email>m.fragkiadakis@hum.leidenuniv.nl</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2019-04-24T08:08:00Z</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Name, Institution</publisher>
+                <address>
+                    <addrLine>Street</addrLine>
+                    <addrLine>City</addrLine>
+                    <addrLine>Country</addrLine>
+                    <addrLine>Name</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from a Word document</p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.22">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Short Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>sign language</term>
+                    <term>automatic annotation</term>
+                    <term>machine learning</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>corpus and text analysis</term>
+                    <term>audio</term>
+                    <term>video</term>
+                    <term>multimedia</term>
+                    <term>linguistics</term>
+                    <term>linking and annotation</term>
+                    <term>English</term>
+                    <term>computer science and informatics</term>
+                    <term>artificial intelligence and machine learning</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <div type="div1" rend="DH-Heading1">
+                <head>Introduction</head>
+                <p style="text-align:left; ">Over the last years various corpus projects have started all over the world documenting sign languages. The purposes of such corpora focus primarily on the linguistic study of the languages as well as the preservation of the languages themselves.</p>
+                <p style="text-align:left; ">As Drew and Ney deduct (Dreuw and Ney, 2008), the processing and storing phase of these corpora require a textual representation of the signs. Although different notation systems have been created over the years, gloss notation seems the prevalent one. Instead of using an annotation system with components representing the main formal components of a sign, ID glosses are typically used. These consist of a uniquely identifying spoken language word (written in capitals) that by definition refers to a particular sign form.</p>
+                <p style="text-align:left; ">During the annotation process the researcher has to determine the precise time a sign occurs and properly identify and gloss it. As a result, the annotation process is extremely labor intensive, but it is a condition for a reliable quantitative analysis of the sign language corpora.</p>
+                <p style="text-align:left; ">The focus of this project is the development of a tool for automatic annotation of sign occurrences in video corpora as a first step towards fully automatic annotation. This study presents a new approach to automatic annotation for sign languages using as little data for training as possible and taking advantage of a state-of-the-art pose estimation framework for a robust and unbiased tracking.</p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Literature review</head>
+                <p>Recent developments in the field of sign language recognition depict the advantages of machine and deep learning for tasks related to recognition and classification (Agha et al., 2018; Pigou et al., 2015; Masood et al., 2018). However, they require a vast amount of data to be trained and they are bounded in the sign language they have been trained on (hard to generalize in other sign languages)</p>
+                <p>Additionally, approaches in automatic annotation for sign languages require manual annotation of the hands and body joints prior to the training process of the recognizer models (Pfister et al., 2015; Aitpayev et al., 2016). Furthermore, most studies apply skin color and motion detection algorithms (Kumar, 2017) that are prone to errors and possibly skin color bias. It is also often the case that in order to assist the hand tracking model, corpora are compiled using colored gloves for the subjects (Masood et al., 2018) or captured using Kinect (Pigou et al., 2015) making the result of such studies unusable in real-life conditions in the corpora.</p>
+                <p>Pose estimation, as a technique to detect human figures in images and video, showed enormous improvement over the last years. OpenPose (Cao et al., 2017) is the state-of-the-art framework when it comes to accurately detect human body and hands keypoints. The model takes as input a color image or video and through a 2-branch multi-stage Convolutional Neural Network predicts the 2D locations of keypoints for each person in the image. This framework was chosen to be used in this study as it has been trained on the Multi-Person (MPI) and COCO datasets making it exceptionally robust and fast.</p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Methodology</head>
+                <p>A data-set of 7805 frames in total (approximately 4 minutes of videos) has been compiled and labeled as signing or not signing. The dimensions of the frames were 352 by 288 pixels and were extracted from the Adamorobe and Berbey sign language corpora (Nyst, 2007; Nyst et al., 2012). These corpora portray an additional challenge as they are extremely noisy and low quality. Furthermore, they contain signing from one and two people at the same time. The original data-set was split into a training and testing set of 6150 and 1655 frames respectively. Using OpenPose, the positions of the hands, elbows, shoulders and head were extracted from each frame. The positions of the rest of the body joints were disregarded as most of the time they were out of the frame bounds.</p>
+                <p>It is important to compare the performance of multiple different machine learning algorithms consistently. Thus, four different classification methods were used and optimized, namely: Support Vector Machines, Random Forests, Artificial Neural Networks and XGBoost. The majority of these algorithms have been extensively used in machine learning studies as well as in sign language applications (Agha et al., 2018). Performance was measured using the metric of Area Under the Receiver Operating Characteristics (AUROC).</p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Results</head>
+                <p>All classifiers performed adequately well. However, the best AUC score was found in XGBoost (0.92). Figure 1 presents the AUROC curve after a 10-fold cross-validation. The Artificial Neural Network was found to perform sufficiently well (AUC: 0.88). While the performance of the model is satisfactory, it is important to explore the features that contribute to the classification task. Figure 2 shows the importance of each feature as measured by the classifier. The result is reasonable as the position of the dominant hand (i.e. right) has the highest importance on how the classifier weights the features.</p>
+                <p>To account for multiple people signing in one frame, an extra module was added. The module creates bounding boxes around each person recognized by OpenPose, normalizes the positions of the body joints and runs the classifier. This process makes it possible to classify sign occurrences for multiple people in a frame irrespective of their positions (figure 3).</p>
+                <p>Once all the frames have been classified, the "cleaning up" and annotation phase starts. A sign occurrence is annotated only if at least 12 consecutive frames have been classified as "signing" frames. This way I account for the false positive errors. This sets the stage for the annotation step. By using the PyMpi python library (Lubbers and Torreira, 2013) the classifications are translated into annotations that can be imported directly to ELAN. Figure 4 shows the result of the overall output.</p>
+                <figure>
+                    <graphic n="1001" width="16.002cm" height="8.830027777777778cm" url="Pictures/6b2f2de0fb92e1ba20dab89ec96edc19.png" rend="inline"/>
+                    <head>AUROC curve of XGBoost after a 10-fold cross-validation.</head>
+                </figure>
+                <figure>
+                    <graphic n="1002" width="5.591911111111111cm" height="8.715172222222222cm" url="Pictures/0b70a233687c78cde0848ac7b2409456.png" rend="inline"/>
+                    <head>The importance of each feature based on XGBoost classifier.</head>
+                </figure>
+                <figure>
+                    <graphic n="1003" width="16.002cm" height="13.089819444444444cm" url="Pictures/05d57360f2fe3f723f102f039d527196.png" rend="inline"/>
+                    <head>Recognition module in multiple people.</head>
+                </figure>
+                <figure>
+                    <graphic n="1004" width="16.002cm" height="12.109097222222223cm" url="Pictures/8b3d41bc1f242296a426d0c7c84355b6.png" rend="inline"/>
+                    <head>Final output of the tool as seen in ELAN.</head>
+                </figure>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Conclusion</head>
+                <p>This is the first step towards fully automated sign language annotation. The results show that a frame-to-frame classification using XGBoost is a promising tool for the annotation of sign occurrences in a video. The significance of this study lies on the fact that the tool created can be easily adjusted and used in any kind of sign language corpus regardless of its quality, the sign language presented or the number of people in the video. Furthermore, one needs approximately only 4 minutes of annotated video in order to retrain the model making the process as easy as possible. Finally, the tool has the potential to be extended and used in gestural corpora as well.</p>
+            </div>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl rend="Bibliography">
+                        <hi rend="bold">Agha, R. A., Sefer, M. N. and Fattah, P.</hi> (2018). A Comprehensive Study on Sign Languages Recognition Systems Using (SVM, KNN, CNN and ANN). 
+                        <hi rend="italic">Proceedings of the First International Conference on Data Science, E-Learning and Information Systems</hi>. (DATA ’18). New York: ACM, pp. 28:1–28:6.
+                    </bibl>
+                    <bibl rend="Bibliography">
+                        <hi rend="bold">Aitpayev, K., Islam, S. and Imashev, A.</hi> (2016). Semi-automatic Annotation Tool for Sign Languages. 
+                        <hi rend="italic">2016 IEEE 10th International Conference on Application of Information and Communication Technologies (AICT)</hi>. Baku, Azerbaijan: IEEE, pp. 1–4.
+                    </bibl>
+                    <bibl rend="Bibliography">
+                        <hi rend="bold">Cao, Z., Simon, T., Wei, S. E. and Sheikh, Y.</hi> (2017). Realtime Multi-person 2D Pose Estimation Using Part Affinity Fields. 
+                        <hi rend="italic">2017 IEEE Conference on Computer Vision and Pattern Recognition (CVPR)</hi>. Honolulu, HI: IEEE, pp. 1302–10.
+                    </bibl>
+                    <bibl rend="Bibliography">
+                        <hi rend="bold">Dreuw, P. and Ney, H.</hi> (2008). Towards Automatic Sign Language Annotation for the Elan Tool. 
+                        <hi rend="italic">LREC 3rd Workshop on the Representation and Processing of Sign Languages: Construction and Exploitation of Sign Language Corpora</hi>. Marrakech, Morocco, pp. 50-53
+                    </bibl>
+                    <bibl rend="Bibliography">
+                        <hi rend="bold">Kumar, N.</hi> (2017). Motion Trajectory Based Human Face and Hands Tracking for Sign Language Recognition. 
+                        <hi rend="italic">2017 4th IEEE Uttar Pradesh Section International Conference on Electrical, Computer and Electronics (UPCON)</hi>. Mathura: IEEE, pp. 211–16.
+                    </bibl>
+                    <bibl rend="Bibliography">
+                        <hi rend="bold">Lubbers, M. and Torreira, F.</hi> (2013). 
+                        <hi rend="italic">A Python Module for Processing ELAN and Praat Annotation Files: Dopefishh/Pympi</hi>. https://github.com/dopefishh/pympi.
+                    </bibl>
+                    <bibl rend="Bibliography">
+                        <hi rend="bold">Masood, S., Srivastava, A., Thuwal, H. C. and Ahmad, M.</hi> (2018). Real-Time Sign Language Gesture (Word) Recognition from Video Sequences Using CNN and RNN. In Bhateja, V., Coello Coello, C. A., Satapathy, S. C. and Pattnaik, P. K. (eds), 
+                        <hi rend="italic">Intelligent Engineering Informatics</hi>, vol. 695. Singapore: Springer Singapore, pp. 623–32.
+                    </bibl>
+                    <bibl rend="Bibliography">
+                        <hi rend="bold">Nyst, V. A. S.</hi> (2007). 
+                        <hi rend="italic">A Descriptive Analysis of Adamorobe Sign Language (Ghana)</hi>. (LOT 151). Utrecht: LOT.
+                    </bibl>
+                    <bibl rend="Bibliography">
+                        <hi rend="bold">Nyst, V. A. S., Magassouba, M. M. and Sylla, K.</hi> (2012). Un Corpus de Reference de la Langue des Signes Malienne II. A Digital, Annotated Video Corpus of Local Sign Language Use in the Dogon Area of Mali. Leiden University Centre for Linguistics, Universiteit Leiden.
+                    </bibl>
+                    <bibl rend="Bibliography">
+                        <hi rend="bold">Pfister, T., Simonyan, K., Charles, J. and Zisserman, A.</hi> (2015). Deep Convolutional Neural Networks for Efficient Pose Estimation in Gesture Videos. In Cremers, D., Reid, I., Saito, H. and Yang, M. H. (eds), 
+                        <hi rend="italic">Computer Vision - ACCV 2014</hi>, vol. 9003. Cham: Springer International Publishing, pp. 538–52.
+                    </bibl>
+                    <bibl rend="Bibliography">
+                        <hi rend="bold">Pigou, L., Dieleman, S., Kindermans, P. J. and Schrauwen, B.</hi> (2015). Sign Language Recognition Using Convolutional Neural Networks. In Agapito, L., Bronstein, M. M. and Rother, C. (eds), 
+                        <hi rend="italic">Computer Vision - ECCV 2014 Workshops</hi>. Springer International Publishing, pp. 572–78.
+                    </bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

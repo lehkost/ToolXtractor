@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>Log Analysis Method towards Understanding Detailed IIIF Image Usage</title>
+                <author>
+                    <persName>
+                        <surname>Nishioka</surname>
+                        <forename>Chifumi</forename>
+                    </persName>
+                    <affiliation>Kyoto University, Japan</affiliation>
+                    <email>nishioka.chifumi.2c@kyoto-u.ac.jp</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Nagasaki</surname>
+                        <forename>Kiyonori</forename>
+                    </persName>
+                    <affiliation>The University of Tokyo, Japan</affiliation>
+                    <email>nagasaki@dhii.jp</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2014-12-19T13:50:00Z</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Name, Institution</publisher>
+                <address>
+                    <addrLine>Street</addrLine>
+                    <addrLine>City</addrLine>
+                    <addrLine>Country</addrLine>
+                    <addrLine>Name</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from a Word document</p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.22">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Long Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>IIIF</term>
+                    <term>log analysis</term>
+                    <term>visualization</term>
+                    <term>images</term>
+                    <term>digital archives</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>digital archives and digital libraries</term>
+                    <term>image processing</term>
+                    <term>interface</term>
+                    <term>user experience design</term>
+                    <term>gamification</term>
+                    <term>English</term>
+                    <term>computer science and informatics</term>
+                    <term>library &amp; information science</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <div type="div1" rend="DH-Heading1">
+                <head>Introduction</head>
+                <p style="text-align:left; ">It is important for libraries and museums to analyze and understand how digital collections and their contents have been used for many reasons, e.g., accountability for stakeholders. Results of analysis can be used to improve digital collections (Hughes, 2011). The usage analysis is conducted along with two steps: (1) Selection of a measurement: A measurement that suits for the purpose of the usage analysis is chosen. Then, the measurement is calculated based on data such as server logs. So far, measurements such as the number of accesses to materials (e.g., manuscripts) and images have been widely employed (Jones et al., 2000). (2) Visualization of the result: The result of the usage analysis is visualized to facilitate users to understand. Charts (e.g., line charts) have been used. </p>
+                <p style="text-align:left; ">In these years, a lot of libraries and museums have adopted IIIF (International Image Interoperability Framework) (Snydman et al., 2015), which promotes mutual use of images. IIIF defines a couple of APIs to enable interoperable use. In IIIF-compatible digital collections, images are fetched via IIIF Image API, whose syntax is defined as: </p>
+                <p style="text-align:left; ">{scheme}://{server}{/prefix}/{identifier}/{region}/{size}/{rotation}/{quality}.{format}</p>
+                <p style="text-align:left; ">Every time an image is zoomed and panned on an image viewer, the image is called via IIIF Image APIs with varying values of the region. Thus, it is possible to investigate the detailed image usage by examining which regions have been requested. In this paper, we show a method to analyze image usage and to visualize the analysis result. Specifically, we employ the number of accesses to each pixel as a measurement and visualize by heat maps. Since a pixel is the smallest unit of an image, we enable a fine-grained analysis different from previous studies (Warwick et al., 2008; Jones et al., 2000).</p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Method</head>
+                <p style="text-align:left; ">This section describes how to measure and visualize the detailed usage of images on IIIF-compatible digital collections (Section 2.1) and how to display the visualized result (Section 2.2).</p>
+                <div type="div2" rend="DH-Heading2">
+                    <head>Measurement and visualization</head>
+                    <p style="text-align:left; ">The method is comprised of following two steps: </p>
+                    <list type="ordered">
+                        <item>Measure the number of accesses to each pixel: For each image, an H×W matrix, where all elements are 0, is generated. H and W are height and width of the image in pixel. Each element of a matrix corresponds to each pixel. The height and width of images are retrieved by info.json provided by IIIF Image API. Subsequently, requested images and regions are acquired by parsing logs of IIIF Image API. Based on requested regions, the number of accesses to each pixel is counted and recorded to the matrices. </item>
+                        <item>Generate heat maps: After counting the number of accesses to each pixel, the result is outputted as a heat map. The RGB value of each pixel is calculated considering the minimum and maximum values of the number of accesses to pixel in an image. </item>
+                    </list>
+                    <p style="text-align:left; ">In order to save the memory for the analysis, we count the number of accesses in the unit of N×N pixels, instead of counting the number of accesses to each pixel. In addition, we output heat maps in (H/N)×(W/N) pixels, instead of the same size with the target image, in order to save the storage. </p>
+                </div>
+                <div type="div2" rend="DH-Heading2">
+                    <head>Display of heat maps</head>
+                    <p style="text-align:left; ">Generated heat maps are displayed over corresponding target images, in order to enable users (e.g., administrator of a digital collection) to understand image usage. IIIF Presentation API enables overlay images by specifying two images on a page. Mirador, a popular viewer among IIIF community, implements a function of overlay display, as shown in Figure 1. One can manipulate visibility and opacity for each image in the left side panel.</p>
+                    <figure>
+                        <graphic n="1001" width="6.828025cm" height="4.9147944444444445cm" url="Pictures/cdd9f113fccf674901b68d33584aa149.png" rend="inline"/>
+                    </figure>
+                    <p style="text-align:left; ">Figure 1. Overlay display of a heat map on its target image using Mirador. Photograph courtesy of the Main Library, Kyoto University - 
+                        <ref target="https://rmda.kulib.kyoto-u.ac.jp/en/item/rb00000125">
+                            <hi rend="italic">Konjaku monogatarishuu</hi>
+                        </ref>
+                    </p>
+                </div>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Example and Improvement</head>
+                <p style="text-align:left; ">This section illustrates examples of analysis results and improvements for the analysis method. </p>
+                <div type="div2" rend="DH-Heading2">
+                    <head>Analysis considering probabilities to be accessed</head>
+                    <p style="text-align:left; ">Figure 2 illustrates a typical heat map that represents image usage. The number of accesses close to the center is higher than others. This tendency has been observed in other images. The reason is that pixels close to the center have a higher probability to be accessed. In order to treat each pixel equitably, it is necessary to adjust the number of accesses according to the probability.</p>
+                    <figure>
+                        <graphic n="1002" width="6.380975cm" height="5.415247222222222cm" url="Pictures/9bcb2f600a987c494581c64b45daf079.png" rend="inline"/>
+                    </figure>
+                    <p style="text-align:left; ">Figure 2. Typical heat map. Photograph courtesy of the Main Library, Kyoto University – 
+                        <ref target="https://rmda.kulib.kyoto-u.ac.jp/en/item/rb00021793">
+                            <hi rend="italic">Yashiki-zu (design drawing of a mansion) from Nakai Collection</hi>
+                        </ref>
+                    </p>
+                    <p style="text-align:left; ">We compute the probability to be accessed for a pixel that is a and b pixels from the midpoint of each side of the image as: </p>
+                    <figure>
+                        <graphic n="1003" width="9.97185cm" height="1.1937194444444446cm" url="Pictures/d48bd5799b96bc2e3d91ea6516f35da1.png" rend="inline"/>
+                    </figure>
+                    <p style="text-align:left; ">Then, let c(w,h,a,b) be the number of accesses to a pixel that is a and b pixels from the midpoint of each side of the image. Then, the number of accesses can be adjusted as: </p>
+                    <figure>
+                        <graphic n="1004" width="13.968369444444445cm" height="1.1994444444444445cm" url="Pictures/0d7afc01099642df785814aa28de431e.png" rend="inline"/>
+                    </figure>
+                    <p style="text-align:left; ">
+                        <graphic n="1005" width="5.174072222222223cm" height="0.86805cm" url="Pictures/0944081b414958acaed3ebb01ce52559.png" rend="inline"/> is the probability to be accessed for the center of the image divided by the probability to be accessed for the point, which is a and b pixels from the midpoint of each side. We take logarithm in order to mitigate influence from the adjustment. As a result, the number of accesses for Figure 2 is adjusted as shown in Figure 3. 
+                    </p>
+                    <figure>
+                        <graphic n="1006" width="6.448311111111111cm" height="5.493008333333333cm" url="Pictures/a420bbe4b11ec19fa73dba3ce5e9a6d7.png" rend="inline"/>
+                    </figure>
+                    <p style="text-align:left; ">
+                        <hi style="font-size:10.5pt">Figure 3. Heat map where probabilities to be accessed are considered for Figure 2</hi>
+                    </p>
+                </div>
+                <div type="div2" rend="DH-Heading2">
+                    <head>Referrer of images</head>
+                    <p style="text-align:left; ">As exemplified in Figure 4, we observe images, in which accesses are concentrated in specific regions. Looking into referrers of access logs, it turns out that these regions are referenced by 
+                        <ref target="http://codh.rois.ac.jp/icp/index.html.en">IIIF Curation Platform</ref>. Since IIIF enables mutual use, regions and images have more opportunities to be referenced from other platforms. Referrers show motivation and background behind accesses. If the web site that the referrer indicates is completely disclosed, it is possible to present a link to the web site on a viewer as annotations. So that users can discover regions and images that are highly relevant.
+                    </p>
+                    <figure>
+                        <graphic n="1007" width="6.430930555555555cm" height="5.038697222222222cm" url="Pictures/43ffc08b4b9cb418f5fe70419fc66604.png" rend="inline"/>
+                    </figure>
+                    <p style="text-align:left; ">Figure 4. Example where specific regions get many accesses. Photograph courtesy of the Main Library, Kyoto University - 
+                        <ref target="https://rmda.kulib.kyoto-u.ac.jp/en/item/rb00013189">
+                            <hi rend="italic">The story of Benkei, a tragic warrior</hi>
+                        </ref>
+                    </p>
+                </div>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Applications</head>
+                <p style="text-align:left; ">This section lists possible applications of the result of the usage analysis. </p>
+                <p style="text-align:left; ">
+                    <hi rend="bold">Collaborative research platform</hi>: The data model used in IIIF follows 
+                    <ref target="https://www.w3.org/TR/annotation-model/">Web Annotation Data Model</ref>. Therefore, IIIF facilitates to share not only images but also information accompanying images (e.g., annotations such as transcriptions). For this reason, IIIF-compatible collaborative research platforms have been developed (Sato and Ota, 2017). By presenting heat maps, researchers can understand which regions have not been examined by collaborators and work for these regions.
+                </p>
+                <p style="text-align:left; ">
+                    <hi rend="bold">Transcription Platform</hi>: In the decades, a lot of transcription projects have been launched (Terras, 2016). Transcribers zoom and pan images during generating transcriptions. If a platform is compatible with IIIF, it is possible to verify a pattern such as whether there is a difference in transcription performance (e.g., accuracy) between regions being zoomed and those being not zoomed. If there is a pattern, we can use it to facilitate verification process for transcriptions. 
+                </p>
+                <p style="text-align:left; ">
+                    <hi rend="bold">Selection of thumbnails</hi>: In many cases, images on the first page of materials are used as thumbnails. However, the first image does not necessarily represent the material. We may select the most-viewed region of images in the material as a thumbnail, which can be revealed by the analysis method.
+                </p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Challenges</head>
+                <p style="text-align:left; ">Visualization of access logs is not a problem, if anonymization is conducted. However, anonymization does not make sense in some cases. For instance, for images that are only accessed by researchers in a specific field, colleagues can easily guess who accessed images and regions. Even if anonymization is complete, a series of activities of a researcher on images might reveal his/her viewpoint that would be a key issue of his/her academic outcome. In this case, his/her priority right of discovery may be infringed. Therefore, careful consideration will be necessary to exploit the analysis result as a service. In the future, we would like to consider some guidelines based on the above-mentioned challenges as well as existing policies such as privacy protection.</p>
+            </div>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl style="text-align:left;">
+                        <hi rend="bold" style="font-size:9pt" xml:space="preserve">Hughes, L. </hi>
+                        <hi style="font-size:9pt" xml:space="preserve">(2011). </hi>
+                        <hi rend="italic" style="font-size:9pt">Evaluating and Measuring the Value, Use and Impact of Digital Collections</hi>
+                        <hi style="font-size:9pt" xml:space="preserve">. Facet. </hi>
+                    </bibl>
+                    <bibl style="text-align:left;">
+                        <hi rend="bold" style="font-size:9pt">Jones, S., Cunningham, S. J., McNab, R. and Boddie, S.</hi>
+                        <hi style="font-size:9pt" xml:space="preserve"> (2000). A transaction log analysis of a digital library. </hi>
+                        <hi rend="italic" style="font-size:9pt">International Journal on Digital Libraries</hi>
+                        <hi style="font-size:9pt" xml:space="preserve">, </hi>
+                        <hi rend="bold" style="font-size:9pt">3</hi>
+                        <hi style="font-size:9pt">(2): 152–69 doi:10.1007/s007999900022.</hi>
+                    </bibl>
+                    <bibl style="text-align:left;">
+                        <hi rend="bold" style="font-size:9pt">Sato M. and Ota I.</hi>
+                        <hi style="font-size:9pt" xml:space="preserve"> (2017). Collaboration system based on crowdsourcing with Mirador - Proposal of a system to support analysis and theory in collaborative research of humanities. </hi>
+                        <hi rend="italic" style="font-size:9pt">SIG Technical Reports Computer and Humanities</hi>
+                        <hi style="font-size:9pt" xml:space="preserve">, </hi>
+                        <hi rend="bold" style="font-size:9pt">2017</hi>
+                        <hi style="font-size:9pt">-</hi>
+                        <hi rend="bold" style="font-size:9pt">CH</hi>
+                        <hi style="font-size:9pt">-</hi>
+                        <hi rend="bold" style="font-size:9pt">114</hi>
+                        <hi style="font-size:9pt">(7): 1–6.</hi>
+                    </bibl>
+                    <bibl style="text-align:left;">
+                        <hi rend="bold" style="font-size:9pt">Snydman, S., Sanderson, R. and Cramer, T.</hi>
+                        <hi style="font-size:9pt" xml:space="preserve"> (2015). The International Image Interoperability Framework (IIIF): A community &amp; technology approach for web-based images. </hi>
+                        <hi rend="italic" style="font-size:9pt">Proceedings of the Archiving Conference</hi>
+                        <hi style="font-size:9pt">. Society for Imaging Science and Technology, pp. 16–21.</hi>
+                    </bibl>
+                    <bibl style="text-align:left;">
+                        <hi rend="bold" style="font-size:9pt">Terras, M.</hi>
+                        <hi style="font-size:9pt" xml:space="preserve"> (2016). Crowdsourcing in the Digital Humanities. </hi>
+                        <hi rend="italic" style="font-size:9pt">A New Companion to Digital Humanities</hi>
+                        <hi style="font-size:9pt">: 420–39.</hi>
+                    </bibl>
+                    <bibl style="text-align:left;">
+                        <hi rend="bold" style="font-size:9pt">Warwick, C., Terras, M., Huntington, P. and Pappa, N.</hi>
+                        <hi style="font-size:9pt" xml:space="preserve"> (2008). If You Build It Will They Come? The LAIRAH Study: Quantifying the Use of Online Resources in the Arts and Humanities through Statistical Analysis of User Log Data. </hi>
+                        <hi rend="italic" style="font-size:9pt">Literary and Linguistic Computing</hi>
+                        <hi style="font-size:9pt" xml:space="preserve">, </hi>
+                        <hi rend="bold" style="font-size:9pt">23</hi>
+                        <hi style="font-size:9pt">(1): 85–102 doi:10.1093/llc/fqm045.</hi>
+                    </bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>A deep learning approach to Cadastral Computing</title>
+                <author>
+                    <persName>
+                        <surname>Ares Oliveira</surname>
+                        <forename>Sofia</forename>
+                    </persName>
+                    <affiliation>EPFL, Switzerland</affiliation>
+                    <email>sofia.oliveiraares@epfl.ch</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>di Lenardo</surname>
+                        <forename>Isabella</forename>
+                    </persName>
+                    <affiliation>EPFL, Switzerland</affiliation>
+                    <email>isabella.dilenardo@epfl.ch</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Tourenc</surname>
+                        <forename>Bastien</forename>
+                    </persName>
+                    <affiliation>EPFL, Switzerland</affiliation>
+                    <email>bastien.tourenc@epfl.ch</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Kaplan</surname>
+                        <forename>Frederic</forename>
+                    </persName>
+                    <affiliation>EPFL, Switzerland</affiliation>
+                    <email>frederic.kaplan@epfl.ch</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2014-12-19T13:50:00Z</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Name, Institution</publisher>
+                <address>
+                    <addrLine>Street</addrLine>
+                    <addrLine>City</addrLine>
+                    <addrLine>Country</addrLine>
+                    <addrLine>Name</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from a Word document</p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.22">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Long Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>cadastre</term>
+                    <term>deep-learning</term>
+                    <term>segmentation</term>
+                    <term>transcription</term>
+                    <term>gis</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>image processing</term>
+                    <term>English</term>
+                    <term>computer science and informatics</term>
+                    <term>artificial intelligence and machine learning</term>
+                    <term>OCR and hand-written recognition</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <div type="div1" rend="DH-Heading1">
+                <head>Introduction</head>
+                <p style="text-align:left; ">Among all the diverse typologies of administrative systems, the fiscal-cadastral sources retracing the ownership of lands are undoubtedly the richest and, in a sense, the most coherent records. The need for efficient tax collection processes pushed different administrations and political regimes in the 18th century to develop scale-invariant coherent property tracing system. These systems were progressively generalised at the turn of the 19th century with the abolition of privileges for certain classes of citizens and the establishment of republican administrations for managing cities and countries (Kain and Baigent 1993). The cadastre, by introducing a constant collection of taxes calculated on a fixed percentage, defines a new conception of the city and of the urban space. It marks the transition from the Ancient Regimes to the Modern State. The introduction of a constant, proportional and impartial tax determined a new conception of the city, adapted to statistical computations. In some sense, for the first time, the cadastre transforms the city into a computational object. We use the neologism “cadastral computing” to refer to the operations performed on such primary sources. This article presents a generic approach for processing automatically the information contained in the Napoleonic cadastres. The cadastres established during the first years of the 19th century cover a large part of Europe. For many cities they give one of the first geometrical surveys, linking precise parcels with identification numbers. These identification numbers point to register lines with the names of the parcel’s owners (Fig. 1). As the Napoleonic cadastres include millions of parcels, it therefore offers a detailed snapshot of large part of Europe’s population at the beginning of the 19th century (Clergeot 2007).</p>
+                <figure>
+                    <p style="text-align:left; ">
+                        <graphic n="1001" width="2.942266666666667cm" height="4.2cm" url="Pictures/93438d4ac1179064e4148b4cac01a528.png" rend="inline"/>
+                        <graphic n="1002" width="12.76933611111111cm" height="4.2cm" url="Pictures/dc5fd0c5fa4cc81727d256afde1f9a0c.jpg" rend="inline"/>
+                    </p>
+                    <p rend="Image Caption">Figure 1. Identification numbers in parcels and in the register</p>
+                </figure>
+                <p style="text-align:left; ">To develop a generic approach adapted to the processing of these administrative documents, one needs to solve two difficult challenges: (1) developing algorithms capable of robustly segmenting maps into parcels and administrative tables into cells (2) developing solutions for transcribing handwritten text containing people or places mentions and identification numbers. Until recently, these two problems were considered much beyond the state-of-the-art. The results of this article are based on the important progress recently made on both issues, using deep learning architectures. In 2017, an initial study on cadastre extraction showed promising results in parcel extraction and identifier recognition. However, it was entirely designed as an ad hoc pipeline fine-tuned for a particular cadastre (Ares Oliveira, Lenardo, and Kaplan 2017). A year later, a generic deep-learning segmentation engine, relying on a convolutional neural network (Ares Oliveira, Seguin, and Kaplan 2018) demonstrated that it was possible to design a generic architecture to segment many typologies of documents. In this article we use the genericity of this approach to develop the first fully automatic pipeline to transform the Napoleonic Cadastres into an information system.</p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Method</head>
+                <p style="text-align:left; ">The automatic processing of the cadastre maps aims at extracting the parcels as geometrical shapes and also at transcribing the parcel’s identification numbers. It is composed of three main steps:</p>
+                <p style="text-align:left; ">1. Training of the deep neural network on manually annotated data</p>
+                <p style="text-align:left; ">2. Segmentation of the maps into meaningful regions and objects </p>
+                <p style="text-align:left; ">3. Transcription of the identification numbers </p>
+                <p style="text-align:left; ">Our segmentation network is a fully convolutional neural network inspired by the U-Net architecture (Ronneberger, Fischer, and Brox 2015). It uses a ResNet-50 pretrained network (He et al. 2016) as encoder, which speeds up the training, reduces the amount of training data needed and helps generalization. The full details of the architecture and open-source implementation can be found in (Ares Oliveira, Seguin, and Kaplan 2018). The network is trained to extract the parcel contours and text using annotated data from the Venetian cadastre (Fig. 2). The training data corresponds to roughly 1/3 of one map sheet among the 26 maps of the city of Venice (roughly 800 parcels).</p>
+                <figure>
+                    <graphic n="1003" width="7.5cm" height="4.9006694444444445cm" url="Pictures/a065d7188bec2cf3d2d293ca40f6a7c8.png" rend="inline"/>
+                    <p rend="Image Caption">Figure 2. Sample of training data for cadastre maps segmentation. Parcels contour are in red, text is in green.</p>
+                </figure>
+                <p style="text-align:left; ">The transcription network is a convolutional recurrent neural network (CRNN) (Shi, Bai, and Yao 2017) which produces a chain of characters when given an image segment containing text. The network is trained on samples of numbers from the Venetian archives and on numbers synthetically generated with MNIST digits (LeCun, Cortes, and Burges 1998) (Fig. 3).</p>
+                <figure>
+                    <graphic n="1004" width="10.466255555555556cm" height="2.8cm" url="Pictures/c1b13e29e7fd80028b355d959f40e208.png" rend="inline"/>
+                    <p rend="Image Caption">Figure 3. Example of training data for the transcription system. Left: synthetically generated numbers; right: numbers from the Venetian archives.</p>
+                </figure>
+                <p style="text-align:left; ">The segmentation model obtained after the training is able to predict the parcel contours and text region at pixel level (Fig. 4). Watershed by flooding algorithm (Beucher 1979) is applied on parcel contours predictions, which allows the extraction of parcel objects as polygonal shapes. Text regions are cropped, horizontally aligned and converted into grayscale image segments for further processing by the transcription system.</p>
+                <figure>
+                    <graphic n="1005" width="16.14593888888889cm" height="4.8cm" url="Pictures/3725ac5eefec5763299482ccb9b49b96.png" rend="inline"/>
+                    <p rend="Image Caption">Figure 4. Output of the segmentation network (overlay in purple). Left: text extraction; right: contour extraction.</p>
+                </figure>
+                <p style="text-align:left; ">The image segments containing text are fed to the transcription network, which outputs a prediction of a number, i.e. a chain of digits. Each transcription is then linked to its corresponding parcel. The contours of the parcels (whether they contain an identifier number or not) are saved as polygonal shapes and are exported into JSON format. In our case, since the images have previously been georeferenced, the coordinates are exported as geographical coordinates and can therefore directly be imported in any geographic information system. </p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Results</head>
+                <p style="text-align:left; ">Two evaluations are performed in order to assess the performances of the system: the geographical accuracy of the extracted parcels and the transcription of the identification numbers.</p>
+                <figure>
+                    <graphic n="1006" width="13.210047222222222cm" height="8cm" url="Pictures/c55e0a586addae05d8af01f7235f4663.png" rend="inline"/>
+                    <p rend="Image Caption">Figure 5. Visualization of the results of the automatic extraction of parcels. The red rectangle indicates the parcels used as training data for the segmentation network.</p>
+                </figure>
+                <div type="div2" rend="DH-Heading2">
+                    <head>Geometrical evaluation</head>
+                    <p style="text-align:left; ">The number of geometrical shapes extracted and manually annotated are listed in Tab. 1. After a filtering step, which keeps only shapes which area range from 2 m
+                        <hi rend="superscript">2</hi> to 15000 m
+                        <hi rend="superscript">2</hi>, the total number of extracted parcels is 28711, among which 18138 contain a transcription.
+                    </p>
+                    <table rend="rules">
+                        <head>Table 1. Total number of geometries in the automatic extraction and manual annotation. The first three rows relate to automatically extracted parcels, the two last rows show the statistics for manually annotated parcels.</head>
+                        <row>
+                            <cell>Geometries</cell>
+                            <cell>Number</cell>
+                        </row>
+                        <row>
+                            <cell>Geometries extracted automatically</cell>
+                            <cell>31 342</cell>
+                        </row>
+                        <row>
+                            <cell>Geometries remaining after filtering</cell>
+                            <cell>28 711</cell>
+                        </row>
+                        <row>
+                            <cell> ---- with ID number</cell>
+                            <cell>18 138</cell>
+                        </row>
+                        <row>
+                            <cell>Manually annotated geometries</cell>
+                            <cell>16 946</cell>
+                        </row>
+                        <row>
+                            <cell>---- with ID number</cell>
+                            <cell>15 634</cell>
+                        </row>
+                    </table>
+                    <p style="text-align:left; ">The quality of the parcel’s extraction is evaluated by measuring the intersection over union (IoU) between the geometries produced automatically and almost 17000 manually annotated shapes. Precision and recall with three different IoU thresholds 0.5 (acceptable), 0.7 (good), 0.9 (excellent) are reported in Tab. 2. The recall value shows that a large majority of parcels are extracted (85% in the most strict case). The low precision value is mainly due to the incorrect extraction of streets, squares, canals, etc. that are currently not filtered out (example in Fig. 6).</p>
+                    <figure>
+                        <graphic n="1007" width="8.159494444444444cm" height="6cm" url="Pictures/8ec8f2747a199fc1114aaa3e8e269973.png" rend="inline"/>
+                        <p rend="Image Caption">Figure 6. Example of false extraction of streets and canals (in blue)</p>
+                    </figure>
+                    <table rend="rules">
+                        <head>Table 2. Evaluation of the geometrical shape extraction with different Intersection over Union (IoU) thresholds.</head>
+                        <row>
+                            <cell>IoU</cell>
+                            <cell>Correct parcels</cell>
+                            <cell>Precision</cell>
+                            <cell>Recall</cell>
+                        </row>
+                        <row>
+                            <cell>t=0.5</cell>
+                            <cell>15 999</cell>
+                            <cell>0.557</cell>
+                            <cell>0.944</cell>
+                        </row>
+                        <row>
+                            <cell>t=0.7</cell>
+                            <cell>15 292</cell>
+                            <cell>0.533</cell>
+                            <cell>0.902</cell>
+                        </row>
+                        <row>
+                            <cell>t=0.8</cell>
+                            <cell>14 440</cell>
+                            <cell>0.503</cell>
+                            <cell>0.852</cell>
+                        </row>
+                    </table>
+                </div>
+                <div type="div2" rend="DH-Heading2">
+                    <head>Transcription evaluation</head>
+                    <p style="text-align:left; ">We assess the performance of the transcription of parcel’s identifier numbers by computing the number of correct predictions and report the precision and recall values in Tab. 3. The current method assumes that the identifiers are located within the parcel, thus, identifiers partially or completely outside the geometrical shape are not correctly transcribed (Fig. 7), resulting in a lower recall.</p>
+                    <figure>
+                        <graphic n="1008" width="9.090180555555555cm" height="4.5cm" url="Pictures/71130d34d5bc0e7ae1355c6c1e259264.png" rend="inline"/>
+                        <p rend="Image Caption">Figure 7. Examples of identifiers numbers outside or partially outside the parcel.</p>
+                    </figure>
+                    <p style="text-align:left; ">In order to increase the precision value and since we can assume that spatially close parcels will have numerically close identifiers, we tried to discard false predictions by determining if a transcription was ‘plausible‘ or not, using information from its spatial neighbourhood. Thus, a transcription is considered as an outlier if the (numerical) difference between the predicted number and the median of its 5 neighbouring transcriptions is greater than 10. This results in a significant increase in precision (up to 93%), but at the expense of a decrease in recall.</p>
+                    <table rend="rules">
+                        <head>Table 3. Evaluation of the transcriptions of parcel’s identifiers numbers</head>
+                        <row>
+                            <cell/>
+                            <cell>Correct transcriptions</cell>
+                            <cell>Precision</cell>
+                            <cell>Recall</cell>
+                        </row>
+                        <row>
+                            <cell>Transcriptions</cell>
+                            <cell>11101</cell>
+                            <cell>0.612</cell>
+                            <cell>0.710</cell>
+                        </row>
+                        <row>
+                            <cell>Transcriptions after outlier detection</cell>
+                            <cell>8070</cell>
+                            <cell>0.927</cell>
+                            <cell>0.516</cell>
+                        </row>
+                    </table>
+                </div>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Perspectives</head>
+                <p style="text-align:left; ">This initial study demonstrates on a particular case that 90% of the urban geometrical structure and more than 50% of a city population can be automatically remapped with high precision using only generic pipelines. Even if these numbers need to be confirmed on the basis of other case studies, the genericity of the methods used makes us optimistic about the possibility of conducting a large-scale study in the coming years. Such datasets call for a confrontation with the large number of historical hypotheses that have been formulated on the urban society at the beginning of the 19th century based on much smaller sets of evidence. Thanks to the standardisation processes of the Napoleonic administration, we hope in the coming months to extend this systematic processing beyond Venice to a large part of Europe.</p>
+            </div>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl rend="First Paragraph">
+                        <hi rend="bold">Ares Oliveira, Sofia, Isabella di Lenardo, and Frederic Kaplan</hi>. (2017). Machine Vision Algorithms on Cadaster Plans. In 
+                        <hi rend="italic">Premiere Annual Conference of the International Alliance of Digital Humanities Organizations (Dh 2017)</hi>.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Ares Oliveira, Sofia, Benoit Seguin, and Frederic Kaplan</hi>. (2018). DhSegment: A Generic Deep-Learning Approach for Document Segmentation. In 
+                        <hi rend="italic">Proceedings of 16th International Conference on Frontiers in Handwriting Recognition (Icfhr-2018)</hi>.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Beucher, S</hi>. (1979). Use of Watersheds in Contour Detection. 
+                        <hi rend="italic">Proceedings of the International Workshop on Image Processing</hi>. CCETT. 
+                        <ref target="https://ci.nii.ac.jp/naid/10008961959/en/">https://ci.nii.ac.jp/naid/10008961959/en/</ref>.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Clergeot, Pierre</hi> (coord.). (2007). 
+                        <hi rend="italic">Cent Millions de Parcelles En France : 1807, Un Cadastre Pour L’Empire</hi>. Éditions Publi-Topex.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">He, Kaiming, Xiangyu Zhang, Shaoqing Ren, and Jian Sun</hi>. (2016). Deep Residual Learning for Image Recognition. In 
+                        <hi rend="italic">Proceedings of the Ieee Conference on Computer Vision and Pattern Recognition</hi>, 770–78.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Kain, R. J. P., and Elizabeth Baigent</hi>. (1993). 
+                        <hi rend="italic">Cadastral Map in the Service of the State: History of Property Mapping.</hi> Univ. Chicago P.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">LeCun, Yann, Corinna Cortes, and Christopher JC Burges</hi>. (1998). The Mnist Database of Handwritten Digits.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Ronneberger, Olaf, Philipp Fischer, and Thomas Brox</hi>. (2015). U-Net: Convolutional Networks for Biomedical Image Segmentation. In 
+                        <hi rend="italic">International Conference on Medical Image Computing and Computer-Assisted Intervention</hi>, 234–41. Springer.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Shi, Baoguang, Xiang Bai, and Cong Yao</hi>. (2017). An End-to-End Trainable Neural Network for Image-Based Sequence Recognition and Its Application to Scene Text Recognition. 
+                        <hi rend="italic">IEEE Transactions on Pattern Analysis and Machine Intelligence</hi> 39 (11). IEEE: 2298–2304.
+                    </bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title type="full">
+                    <title type="main">Charting the Material Development of Newspapers</title>
+                    <title type="sub"/>
+                </title>
+                <author>
+                    <persName>
+                        <surname>Mäkelä</surname>
+                        <forename>Eetu</forename>
+                    </persName>
+                    <affiliation>University of Helsinki, Finland</affiliation>
+                    <email>eetu.makela@helsinki.fi</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Tolonen</surname>
+                        <forename>Mikko</forename>
+                    </persName>
+                    <affiliation>University of Helsinki, Finland</affiliation>
+                    <email>mikko.tolonen@helsinki.fi</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Kanner</surname>
+                        <forename>Antti</forename>
+                    </persName>
+                    <affiliation>University of Helsinki, Finland</affiliation>
+                    <email>antti.kanner@helsinki.fi</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2019-04-25T08:53:16.214224440</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Name, Institution</publisher>
+                <address>
+                    <addrLine>Street</addrLine>
+                    <addrLine>City</addrLine>
+                    <addrLine>Country</addrLine>
+                    <addrLine>Name</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from an OASIS Open Document</p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.22">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Long Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>newspapers</term>
+                    <term>materiality</term>
+                    <term>metadata</term>
+                    <term>digital history</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>digital archives and digital libraries</term>
+                    <term>history and historiography</term>
+                    <term>metadata</term>
+                    <term>content analysis</term>
+                    <term>data mining / text mining</term>
+                    <term>English</term>
+                    <term>communication and media studies</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <div type="div1" rend="DH-Heading1">
+                <head>Introduction</head>
+                <p>The present day transformation of newspapers from print to digital is not the first time they have evolved drastically. Instead, this change of format reminds of similar transformations when the newspaper first appeared as a distinct material genre. One influential definition separating a newspaper from a newsbook or pamphlet in its early days was that a newspaper was a "sheet of two or four pages, made up in two or more columns" (Hutt 1973: 9). The Dutch had two-column news at the time, while civil war in Britain saw both the rebels and the crown printing their propaganda. It took, nevertheless, centuries before journalism became a profession of its own and newspapers took their particular shape in the mid-nineteenth century (Morison 1932; Allen 1940; Baldasy 1992; Høyer 2005; Kutsch 2008; Pettegree 2014). </p>
+                <p>In the context of digital humanities, newspapers have become an iconic example of “big data” research (cf. Buntinx et al., 2017a; Lansdall-Welfare et al., 2017; Cordell and Smith, 2017; 
+                    <ptr target="https://numapresse.org/"/>). While in localised research (Cristianini et al., 2018; Tilles, 2016) the material can be thought uniform, in the big data approaches it is striking how little attention is paid to what the data consists of. A telling example of waking up to this is the Oceanic Exchanges project (
+                    <ptr target="https://osf.io/wa94s/"/>) where M.H. Beals and Ryan Cordell quickly concluded that mapping metadata across its many datasets is to be one of its most important contributions (
+                    <ptr target="https://twitter.com/ryancordell/status/1001845719341285377"/>).
+                </p>
+                <p>Framed against this background, the idea of this paper is to outline how we developed a tool to uncover and explore the varied materiality of newspapers. As part of the large-scale digitisation, the accessibility of historical newspapers has improved drastically, but at the same time much of the information about the size, shape and feel of the newspapers, that was so central to past readers in understanding what kind of documents they were perusing, has been hidden from view. Interestingly, the digitised versions of the newspapers also allow for large-scale study of their material dimensions – an opportunity that has so far been paid very little attention to.</p>
+                <p>Our analysis of the data shows that the digitised newspapers are by no means uniform in their materiality, and further that changes and aberrations in the material aspects correlate with changes and aberrations in content. Thus, besides allowing to study the material development of newspapers in itself, the information is useful for both the discovery of anomalies as well as partitioning the data into more uniform subsets for content analysis. In short, our argument is that content and form interact, and one cannot be analysed without the other. In this, the paper continues on a path previously charted by for example Moreux, 2016, Tolonen et al. 2018 and Lahti et al. 2019, while providing an orthogonal axis to those expanding study from text to visual elements (Smits, 2017; Wevers et al., 2018).</p>
+                <p>In the following, we describe first in concrete terms how we extract and derive materiality-related information the ALTO XML format commonly used for newspaper data. Then, we evaluate the implications of charting the material development of newspapers.</p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Extracting and deriving material aspects from ALTO XML</head>
+                <p>ALTO (Analyzed Layout and Text Object, 
+                    <ptr target="https://www.loc.gov/standards/alto/"/>) files contain a description of the visual organisation of content on a page, at the core of which are the individual words and their page coordinates. At the same time, the words are also grouped into blocks, often corresponding to paragraphs or columns. The format also contains general layout information, such as the sizes of margins and main printed area.
+                </p>
+                <p>The usefulness of ALTO for analysing materiality crucially depends on the choice of the measurement unit in which all coordinate and size information is given. Unfortunately, many collections such as the Dutch Delpher (
+                    <ref target="https://delpher.nl/">https://delpher.nl</ref>) and French Gallica (
+                    <ref target="https://gallica.bnf.fr/">https://gallica.bnf.fr</ref>) provide their data using pixel coordinates. Luckily, the ALTO files of the National Library of Finland (
+                    <ref target="http://digi.kansalliskirjasto.fi/">http://digi.kansalliskirjasto.fi</ref>) had a MeasurementUnit of mm10 (tenth of a millimeter, directly relating the measurements to physical dimensions).
+                </p>
+                <p>Given this, we easily extract page size, printed area and character and words counts for each page. Directly given are also the fonts used. What proved problematic however was that the National Library of Finland had used altogether 22(!) versions of scanning software, some of which did not differentiate between Fraktur and Antiqua. By using metadata to analyse which newspapers were scanned with which version, we determined that trustable font identification could only be had up to the year 1910.</p>
+                <p>For each page, we also extract all text box coordinates. While these are primarily meant to locate text visually on the page in reader interfaces, they can be processed to yield layout information. First, we extract column counts using a lighter-weight process than the computer vision approach used in Buntinx et al., 2017b. We scan the page from top to bottom, for each Y coordinate counting the number of text boxes present there. This yields a distribution associating all column counts with the area they control on the page.</p>
+                <p>
+                    <figure>
+                        <graphic url="Pictures/0888a1d6b6cbf93f4f773e81a91ae4dd.png"/>
+                        <head>ALTO text blocks overlaid on a newspaper page</head>
+                    </figure>
+                </p>
+                <p>One problem here (shown in Figure 1) is that the text boxes only cover areas with text. This would diminish the number of columns counted for coordinates laying between for example a heading and body text. To counteract this, we expand boxes to meet their neighbours. Another problem is that for tables, usually each column gets counted, sometimes yielding counts of over 40. For this, we have no automated correction. However, in the aggregate, such outliers quickly disappear, while in anomaly detection, they usually are interesting in themselves.</p>
+                <p>
+                    <figure>
+                        <graphic url="Pictures/5280a28c97f6d8b4e09b2758f53fc486.png"/>
+                        <head>Different layouts calculated for the Hufvudstadsbladet newspaper based on paper size and text box coverage. A2 and A1 sizes show two different layouts, necessitating further partitioning.</head>
+                    </figure>
+                </p>
+                <p>We also keep the text boxes, associated with the number of characters each contains. From these we calculate information density distributions for each page, highlighting the role different parts have in holding headlines, advertisements or body text. This information can also be used to visualise how page layouts have changed in time (see Figure 2).</p>
+                <p>Finally, for each issue, we gather page count and date information, from which we derive publication frequency. For analysis, we combine all this with newspaper-level metadata, such as name, publisher, language and place of publication.</p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Materiality explorer interface</head>
+                <p>
+                    <figure>
+                        <graphic url="Pictures/9df671a6aca22a16e075a60d73f93413.png"/>
+                        <head>The materiality explorer</head>
+                    </figure>After gathering the data, we developed an interface that allows it to be explored. Shown in Figure 3, a first view provides overview graphs that allow tracking material changes on long time scales, both for individual papers as well as for larger groups. Here, the materiality information is contrasted with a baseline measure of text per month. By counting the number of characters each newspaper produces in a month without regard to how they are divided between issues or pages, this measure shows how much content needs to be transmitted. As this quantity rises, newspapers must respond with material innovations, whether by increasing page count, page size or publication frequency, or by cramming more material into available space by decreasing font size, line breaks or margins. A second view allows grouping the data by a combination of material dimensions, thereby allowing exploration of archetypal materiality categories. Finally, two views allow the user to explore page and issue-level material anomalies: for example pages which have more text than usual or pages with abnormal layout, or issues with appendices or which appear on the same day as another issue. Common to all views are selectors allowing limiting the newspapers under comparison.
+                </p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Discussion</head>
+                <p>For the Finnish newspapers, the data shows a general order in how they expanded: first, layout was changed to include more words per page; second, page size was increased; third, publication frequency was increased and only after that was the amount of pages increased. This last step often coincides with the introduction of rotary presses, which allowed newspapers to more easily be composed of more than four pages, and also allowed them to move back from large page sizes to more easily handled formats. Simultaneously, the data shows also high variability, where papers not only frequently printed supplements, but could switch back and forth between formats inside a single week, or cram text into a special issue through diminished line breaks. Similar shifts took place also with regard to fonts. Newspapers explored different Fraktur and Antiqua fonts to try out readability, but also because fonts were oftentimes used to signal that the contents was aimed for a particular audience. While there are plenty of exceptions to this, it seems that Fraktur was more often used when dealing with economy and religion, whereas Antiqua was reserved to politics, philosophy and the high arts. To test such hypotheses, we still need more robust statistical information. We also aim to compare fonts used with other factors, such as language frequency and size of newspapers. (For the history of newspaper layout and design, see Broesma 2007; Moen 1989; Olson 1940; Prebey 1929; Sutton 1948; Swansson 2000; Kapr 1993). Compared to earlier studies, our data driven approach gives us a great opportunity to evaluate the main findings of earlier historical studies of newspaper materiality (Moran 1973; Tommila 1998; Myllyntaus 1991; Gustafsson &amp; Rydén 2010; McReynolds 1991; Wilke 2007).</p>
+                <p>What we also aim to do with these patterns is to develop evidence-based archetypal categories of newspapers across history. We are then able to trace and compare these through time and place, but also use them to study the evolution of individual newspapers. These categories will also help us understand the newspapers as objects of intellectual activity, creating a theory of different historical maturity levels of newspapers. This in turn will help us chart the development of public discourse over time.</p>
+                <p>Besides using the data to study the material development of newspapers as a genre in itself, we argue that content and form interact, and thus big data approaches to newspaper analyses also need to pay attention to material differences in order to accurately understand the subdivisions in large corpora.. For example, using the metadata we can create meaningful subsets of the data that are balanced by paper type for for example topic modelling or teaching automated transcription algorithms.</p>
+                <p>Here, Finland makes an intriguing case for digital history because its public sphere is bilingual, with newspapers in both Swedish and Finnish. One interesting phenomena that arises from this are publishers publishing newspapers in both languages. For example, in Kotka there are both Finnish and Swedish newspapers by the same publisher with identical layouts and advertisements. Such could be used to create parallel corpora, interesting for the study of commonalities and differences between the different language public spheres, but also perhaps as material for machine translation.</p>
+            </div>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl>
+                        <hi rend="bold">Allen, J.</hi> (1940). The Modern Newspaper: Its Typography and Methods of News Presentation. Harper.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Baldasty, G.</hi> (1992). The Commercialization of News in the Nineteenth Century. University of Wisconsin Press.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Buntinx, V., Bornet, C. and Kaplan, F.</hi> (2017a). Studying Linguistic Changes over 200 Years of Newspapers through Resilient Words Analysis. 
+                        <hi rend="italic">Frontiers in Digital Humanities</hi>, 
+                        <hi rend="bold">4</hi> doi:10.3389/fdigh.2017.00002.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Buntinx, V., Kaplan, F. and Xanthos, A.</hi> (2017b). Layout analysis on newspaper archives. 
+                        <hi rend="italic">DH2017 Abstracts.</hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Broersma, M. ed.</hi> (2007). Form and Style in Journalism: European Newspapers and the Representation of News 1880–2005, Leuven.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Cordell, R. and Smith, D.</hi> (2017). What News is New?: Ads, Extras, and Viral Texts on the Nineteenth-Century Newspaper Page. 
+                        <hi rend="italic">DH2017 Abstracts</hi>.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Cristianini, N., Lansdall-Welfare, T. and Dato, G. </hi>(2018). Large-scale content analysis of historical newspapers in the town of Gorizia 1873–1914. 
+                        <hi rend="italic">Historical Methods: A Journal of Quantitative and Interdisciplinary History</hi>, 
+                        <hi rend="bold">51</hi>(3): 139–64 doi:10.1080/01615440.2018.1443862.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Gustafsson, K &amp; Rydén, P. </hi>(2010). A History of the Press in Sweden. Nordicom.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Høyer, S.</hi> (2005). Diffusion of the News Paradigm 1850–2000. Nordicom.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Hutt, A.</hi> (1973). The changing newspaper: typographic trends in Britain and America 1622-1972. Gordon Fraser.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Kapr, A.</hi> (1993). Fraktur, Form und Geschichte der gebrochenen Schriften. Verlag Hermann Schmid.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Kutsch, A. (2008).</hi> Journalismus als Profession: Überlegungen zum Beginn des journalistischen Professionalisierungsprozesses in Deutschland am Anfang des 20. Jahrhunderts, in: Astrid Blome et al. (eds.): Presse und Geschichte: Leistungen und Perspektiven der historischen Presseforschung: 289–325.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Lahti, L., Marjanen, J., Roivainen, Tolonen, M. </hi>(Accepted/In press). Bibliographic Data Science and the History of the Book (c. 1500-1800), Cataloging &amp; Classification Quarterly (CCQ).
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Lansdall-Welfare, T., Sudhahar, S., Thompson, J., Lewis, J., FindMyPast Newspaper Team and Cristianini, N. </hi>(2017). Content analysis of 150 years of British periodicals. 
+                        <hi rend="italic">Proceedings of the National Academy of Sciences</hi>, 
+                        <hi rend="bold">114</hi>(4): E457–65 doi:10.1073/pnas.1606380114.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">McReynolds, L.</hi> (1991). The News under Russia's Old Regime: The Development of a Mass-Circulation Press. Princeton University Press.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Moen, D.</hi> (1989). Newspaper layout and design. Iowa University Press.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Moran, J.</hi> (1973). Printing presses: history and development from fifteenth century to modern times. University of California Press.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Moreux, J.-P. </hi>(2016). Innovative Approaches of Historical Newspapers: Data Mining, Data Visualization, Semantic Enrichment. https://hal-bnf.archives-ouvertes.fr/hal-01389455/document.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Morison, S.</hi> (1932). The English Newspaper, 1622-1932: An Account of the Physical Development of Journals Printed in London. Cambridge University Press.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Myllyntaus, T.</hi> (1991). Suomen Graafisen Teollisuuden kasvu. 1860-1905. Helsinki.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Olson, K. </hi>(1940). Typography and Mechanics of the Newspaper. D. Appelton &amp;co.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Olson, K.</hi> (1966). The history makers: The press of Europe from its beginnings through 1965. Louisiana State University Press.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Pettegree, A.</hi> (2014). The Invention of News: How the World Came to Know about Itself. Yale University Press.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Presbey, F. </hi>(1929). The history and development of advertising. Doubleday.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Smits, T.</hi> (2017). Illustrations to Photographs: Using computer vision to analyse news pictures in Dutch newspapers, 1860-1940. 
+                        <hi rend="italic">DH2017 Abstracts</hi>.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Sutton, A. </hi>(1948). Design and Makeup of the Newspaper. Prentice-Hall.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Swanson, G.</hi> (2000). Graphic Design and Reading: explorations of an uneasy relationship. Allworth Press.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Tilles, D.</hi> (2016). The Use of Quantitative Analysis of Digitised Newspapers to Challenge Established Historical Narratives. 
+                        <hi rend="italic">Roczniki Kulturoznawcze</hi>, 
+                        <hi rend="bold">7</hi>(1): 83–97 doi:10.18290/rkult.2016.7.1-4.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Wevers, M., Smits, T. and Impett, L.</hi> (2018). Modeling the Genealogy of Imagetexts: Studying Images and Texts in Conjunction using Computational Methods. 
+                        <hi rend="italic">DH2018 Abstracts</hi>.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Tolonen, M. S., Lahti, L., Marjanen, J. P., &amp; Roivainen, H. H. M.</hi> (Accepted/In press). Quantitative approach to book-printing in Sweden and Finland, 1640-1828. 
+                        <hi rend="italic">Historical Methods</hi>. DOI: 10.1080/01615440.2018.1526657
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Tommila, P. et al. </hi>(1988). Suomen lehdistön historia, 1-10. Otava.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Wilke, J. </hi>(2007). Belated Modernization: Form and Style in German Journalism 1880–1980, in: Marcel Broersma (ed.): Form and Style in Journalism: European Newspapers and the Representation of News 1880–2005. Leuven: 47–60.
+                    </bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

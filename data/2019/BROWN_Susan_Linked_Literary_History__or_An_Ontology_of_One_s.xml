@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>Linked Literary History, or An Ontology of One’s Own: The Canadian Writing Research Collaboratory Ontology</title>
+                <author>
+                    <persName>
+                        <surname>Brown</surname>
+                        <forename>Susan</forename>
+                    </persName>
+                    <affiliation>University of Guelph, Canada</affiliation>
+                    <email>sbrown@uoguelph.ca</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Cummings</surname>
+                        <forename>Joel</forename>
+                    </persName>
+                    <affiliation>University of Guelph, Canada</affiliation>
+                    <email>jcumming@uoguelph.ca</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Drudge-Willson</surname>
+                        <forename>Jasmine</forename>
+                    </persName>
+                    <affiliation>University of Guelph, Canada</affiliation>
+                    <email>jdrudgew@uoguelph.ca</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Lemak</surname>
+                        <forename>Abigel</forename>
+                    </persName>
+                    <affiliation>University of Guelph, Canada</affiliation>
+                    <email>alemak@uoguelph.ca</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Martin</surname>
+                        <forename>Kim</forename>
+                    </persName>
+                    <affiliation>University of Guelph, Canada</affiliation>
+                    <email>kmarti20@uoguelph.ca</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Mo</surname>
+                        <forename>Alliyya</forename>
+                    </persName>
+                    <affiliation>University of Guelph, Canada</affiliation>
+                    <email>alliyya@mail.uoguelph.ca</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Stacey</surname>
+                        <forename>Deb</forename>
+                    </persName>
+                    <affiliation>University of Guelph, Canada</affiliation>
+                    <email>dastacey@uoguelph.ca</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2019-04-28T13:42:00Z</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Name, Institution</publisher>
+                <address>
+                    <addrLine>Street</addrLine>
+                    <addrLine>City</addrLine>
+                    <addrLine>Country</addrLine>
+                    <addrLine>Name</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from a Word document</p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.22">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Long Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>ontology design; semantic web; feminist theory</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>ontologies and knowledge representation</term>
+                    <term>cultural studies</term>
+                    <term>semantic web and linked data</term>
+                    <term>standards and interoperability</term>
+                    <term>English</term>
+                    <term>feminist studies</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <div type="div1" rend="DH-Heading1">
+                <head>Introduction</head>
+                <p>Creating an ontology for feminist literary history with a view to its extensibility to other literary and cultural work involves significant decisions. The ontology described here supports the linked open data (LOD) strategy of the 
+                    <ref target="https://cwrc.ca/">Canadian Writing Research Collaboratory</ref> (CWRC)’s online platform. CWRC launched in 2016 as “An online infrastructure for literary research in and about Canada designed to meet the challenges and embrace the opportunities of the digital turn” (About CWRC, 2018). It pursues this mission in part through contributing LOD to the Semantic Web initiative to make Web resources more discoverable, shareable, and interoperable by making them machine-readable (Oldman, Doerr, and Gradmann, 2016; Smith, 2012). It promotes linking amongst CWRC-hosted projects through use of LOD identifiers both in metadata and within XML documents through an online XML editor and Web Annotation creator, CWRC-Writer (Brown et al., 2019). The next step is to push its LOD extracted from CWRC content into the Web. The 
+                    <ref target="http://www.artsrn.ualberta.ca/orlando/">Orlando Project</ref> (Brown, Clements, and Grundy, 2019) is our pilot dataset for extracting more complex LOD.
+                </p>
+                <p>The Orlando Project has published since 2006 
+                    <ref target="http://orlando.cambridge.org/">Orlando: Women’s Writing in the British Isles from the Beginnings to the Present</ref> (Brown, Clements, and Grundy, 2006-2019), an online textbase for the research and discovery of women’s writing. Its 8 million words of richly-encoded text describe writers’ lives, careers, and contexts using a bespoke XML schema. The textbase has been acclaimed as initiating a new breed of information resource and for having “changed the parameters of the scholarship and teaching of British women’s writing” (Bowers, 2012). However, its utility is impeded by its data structure and paywall. LOD offers a means to make much of the knowledge embedded in Orlando more accessible and interoperable.
+                </p>
+                <p>The first requirement was an ontology. No single extant ontology covers the range of biographical and literary relationships that CWRC needs to represent. We therefore sought to adapt as much as we could from elsewhere while filling gaps through an ontology of our own (to echo Virginia Woolf [1929], whose ground-breaking feminist analysis inspired the Orlando project’s name). We embrace Gruber’s widely accepted definition of a computational ontology as “A specification of a representational vocabulary for a shared domain of discourse”; an “explicit specification of a conceptualization”, where a conceptualization is understood as “an abstract, simplified view of the world that we wish to represent for some purpose” (Gruber, 1993). We outline here some key aspects of our ontological strategy, many of which are more fully described in the published preamble to the ontology itself (Brown et al, 2019).</p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Ontology Design Process</head>
+                <p>Our process was pragmatic: we aimed to mobilize the data as soon as feasible, adopting where we could in accordance with best practices and extending or creating where we could not. In using other ontologies we sometimes importing (e.g. the Organization Ontology [Reynolds, 2014]), sometimes cherry-pick terms or relationships, and sometimes base definitions on external ones and cite them (e.g. 
+                    <ref target="https://wiki.dbpedia.org/">DBpedia</ref>, 
+                    <ref target="https://www.getty.edu/research/tools/vocabularies/index.html">Getty</ref>) so we can relate terms to each other within our structure. The ontologies from which CWRC draws include 
+                    <ref target="http://xmlns.com/foaf/spec/">FOAF</ref>,
+                    <ref target="https://www.w3.org/TR/vocab-org/" xml:space="preserve"> Organization</ref>, 
+                    <ref target="https://www.loc.gov/bibframe/">BIBFRAME</ref>, 
+                    <ref target="https://www.w3.org/TR/owl-time/">TIME</ref>, 
+                    <ref target="https://www.w3.org/TR/annotation-model/">Web Annotation</ref>, 
+                    <ref target="http://dublincore.org/documents/dcmi-terms/">Dublin Core</ref>, 
+                    <ref target="https://www.w3.org/TR/prov-overview/">PROV</ref>, and 
+                    <ref target="http://www.cidoc-crm.org/">CIDOC-CRM</ref>, as well as the 
+                    <ref target="https://www.w3.org/TR/skos-reference/">SKOS</ref> vocabulary.
+                </p>
+                <p>The ontology is designed to support open-world datasets like Orlando‘s: we develop terms on an as-needed basis rather than trying to be exhaustive. We are not trying to map the world but to represent what we have. The ontology is dynamic, expanding as needed, and the development process iterative. In some respects, this ontology strategy resembles lean startup and agile development processes (Cummings and Stacey, 2018).</p>
+                <p>We here outline the major principles and decisions that have informed the work thus far.</p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Antifoundationalism and representationality</head>
+                <p>The ontology reflects what Alan Liu calls a “lightly antifoundationalist” epistemology; it emerges from feminist theory and science and technology studies, with an emphasis on situated knowing and a wariness of the consequences of classification (Liu, 2016; Haraway, 1991; Braidotti, 2006; Bowker and Star, 1999; see also Smithies, 2014). Ontologies can be understood as approximating the world and “thus capturing some truth about it, without enjoying a one-to-one correspondence with categories of entities as they exist completely independently of human languages or human practices” (Alcoff, 2000). Rather than viewing ontologies as involving “reality representation” (Smith, 2004), we understand the CWRC ontology as deeply representational. Structuring it with the Web Ontology Language (OWL) and devising Shape Constraint Language (SHACL) rules for our data will provide our data with the tactical benefits of ontological rules including intelligibility, error detection, processability, inferencing, and interoperability.</p>
+                <p>This work aims to intervene, with experimental models, in the knowledge structures of our time. We therefore need to accommodate some aspects of those structures in order to make an argument and to be intelligible, even if the aim is to move beyond some categories. So we take as our touchstone the core concerns of the datasets themselves. Some priorities were covered by existing ontologies, but sometimes there was nothing to approximate what we needed, so we invested significant resources there.</p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Deferred upper-level ontology</head>
+                <p>The team considered and debated adopting an upper-level ontology that lays out categories and relationships at the most general level. After reviewing leading candidates, we held off because none align closely with our approach. DOLCE Light is closest, but orphaned, and the CIDOC-CRM is very event-oriented, whereas much of our data is not. We are therefore deferring the question to see whether it seems necessary and until we have a wider range of use-cases, including ones related to space and time, so as to better evaluate the implications (cf. Posner, 2015 on Cartesian representation).</p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Provenance and citation</head>
+                <p>Every LOD assertion links back to the encoded source (in this pilot instance, the Orlando textbase), connecting it to nuanced prose as well as the specific XML markup from which the relationship was extracted. The data is also designed to point to the specific scholarly sources from which claims within the source text are derived.</p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Annotation</head>
+                <p>The Web Annotation Data Model (Sanderson et al, 2017) links identifications of entities to their source, as noted above. We also use the WA model to characterize the properties associated with a writer as descriptions of that person, refuting positivist claims. Framing claims as annotations motivated by description is important, given that the creators of the markup did not anticipate this use of the data, and given that only dates have any kind of certainty value attached to them.</p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Ambiguity, diversity, and nuance</head>
+                <p>Rather than being disambiguated, leaky cultural categories are generously documented and represented as mutually constitutive with specific discursive frameworks or “Context” classes of annotations (Brown et al., 2017). “Textual labels” group together related terms emerging from different discourses. Rather than mash complex and contested terms into a single identity, the ontology retains distinctions made between them within the encoding and groups them together with these labels – so, for instance, the jewishLabel instance and different constructions of Jewishness are linked using the relationship “represents”.</p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Linking to legacy terms</head>
+                <p>The labelling strategy and “represents” predicate help handle problematic legacy terms, along with another custom predicate called hasFunctionalRelation, which signifies that a term has served in a parallel way in other datasets, but has no semantic commensurability with our term. Gender and sex are definitively different, so the OWL sameAs relationship does not work to link terms for sex to womanLabel and manLabel. However, sex can map (inadequately) to gender terms in existing datasets, which often employ the ISO 5218 categories for sex (“ISO/IEC”). The “hasFunctionalRelation” predicate creates a complex but still processable bridge between Orlando data and datasets of women’s writing that employ ISO 5218 values.</p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Challenges</head>
+                <p>We conclude by demonstrating a couple of challenges arising from this work with visualizations of extracted data using the HuViz LOD explorer (described in a parallel paper). First is the tension between complexity and nuance, on the one hand, and readability and processability on the other. As Rob Sanderson and David Newbury stress, we need Linked Open Usable Data (2017). The Orlando LOD dataset is verbose and complex, raising concerns that it may be incomprehensible and unwieldy despite the ontology. Second is the tension between standards and bespoke terms. Staying close to the Orlando data has meant, for instance, devising a genre ontology (CWRC Genre Ontology) rather than adopting a partially suitable one, making CWRC data more of an island in the LOD stream than it might otherwise be. However, standards can also have unfortunate consequences: adopting the Web Annotation framework means that our assertions are now less direct and easily comprehensible by non-specialists than in our initial model for our data.</p>
+                <p>The CWRC ontology aligns with the strain of critical DH that applies humanities epistemologies to create digital representations: the CWRC ontology works not with data but with capta (Drucker, 2011). The millions of triples in the Orlando Project’s British Women’s Writing Dataset will advance feminist digital literary history, and experiments with the CWRC ontology will help refine strategies for writing feminist literary history, among other complicated stories, into the Web.</p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Works Cited</head>
+                <p>
+                    <hi rend="bold">About CWRC</hi> (2018). 
+                    <hi rend="italic">Canadian Writing Research Collaboratory</hi>. 
+                    <ref target="https://cwrc.ca/about">https://cwrc.ca/about</ref>.
+                </p>
+                <p>
+                    <hi rend="bold">Alcoff, Linda Martín</hi> (2000). Who’s Afraid of Identity Politics? In Moya, Paula M. L. and Hames-García
+                    <hi rend="italic" xml:space="preserve">, </hi>Michael R. (eds.), 
+                    <hi rend="italic">Reclaiming Identity: Realist Theory and the Predicament of Postmodernism</hi>. University of Califormia Press, pp. 312–44.
+                </p>
+                <p>
+                    <hi rend="bold">BIBFRAME</hi> (n.d.). Bibliographic Framework Initiative. Library of Congress. 
+                    <ref target="https://www.loc.gov/bibframe/">https://www.loc.gov/bibframe/</ref>.
+                </p>
+                <p>
+                    <hi rend="bold">Bowers, Toni</hi> (2012). Exploring the Richardson Circle Using the Orlando Database. 
+                    <hi rend="italic">The Scriblerian</hi> 44-45 (2,1): 56–58.
+                </p>
+                <p>
+                    <hi rend="bold">Bowker, Geoffrey C., and Susan Leigh Star</hi> (1999). 
+                    <hi rend="italic">Sorting Things Out Classification and Its Consequences</hi>. MIT Press.
+                </p>
+                <p>
+                    <hi rend="bold">Braidotti, Rosi</hi> (2006). Posthuman, All Too Human: Towards a New Process Ontology. 
+                    <hi rend="italic">Theory, Culture &amp; Society</hi> 23(8): 197–208. doi:10.1177/0263276406069232.
+                </p>
+                <p>
+                    <hi rend="bold" xml:space="preserve">Brown, Susan, et al. </hi>(2019). CWRC Ontology Preamble. Canadian Writing Research Collaboratory. 
+                    <ref target="http://sparql.cwrc.ca/ontologies/cwrc-preamble-EN.html">
+                        <hi rend="color(1155CC)">http://sparql.cwrc.ca/ontologies/cwrc-preamble-EN.html</hi>
+                    </ref>.
+                </p>
+                <p>
+                    <hi rend="bold">Brown, Susan, James Chartrand, Mihaela Ilovan, Andrew McDonald, Jeffrey Antoniuk, and Michael Brundin</hi> (2019). CWRC-Writer. 
+                    <hi rend="italic">Canadian Writing Research Collaboratory</hi>. 
+                    <ref target="https://cwrc-writer.cwrc.ca/">https://cwrc-writer.cwrc.ca/</ref>.
+                </p>
+                <p>
+                    <hi rend="bold">Brown, Susan, Patricia Clements, and Isobel Grundy</hi> (2019). The Orlando Project: Feminist Literary History and Digital Humanities. 
+                    <ref target="http://www.artsrn.ualberta.ca/orlando/">http://www.artsrn.ualberta.ca/orlando/</ref>.
+                </p>
+                <p>
+                    <hi rend="bold">Brown, Susan, Patricia Clements, and Isobel Grundy</hi> (2006-2019). 
+                    <hi rend="italic">Orlando: Women’s Writing in the British Isles from the Beginnings to the Present</hi>. Cambridge University Press. 
+                    <ref target="http://orlando.cambridge.org/">
+                        <hi rend="underline color(0000FF)">http://orlando.cambridge.org/</hi>
+                    </ref>
+                </p>
+                <p>
+                    <hi rend="bold">Brown, Susan, Abigel Lemak, Colin Faulkner, Kim Martin, and Rob Warren</hi> (2017). Cultural (Re-)Formations: Structuring a Linked Data Ontology for Intersectional Identities. In 
+                    <hi rend="italic">Digital Humanities 2017: Conference Abstracts</hi>. McGill University. 
+                    <ref target="https://dh2017.adho.org/abstracts/580/580.pdf">https://dh2017.adho.org/abstracts/580/580.pdf</ref>.
+                </p>
+                <p>
+                    <hi rend="bold">CIDOC-CRM</hi> (2011). Martin Doerr, Matthew Stiff, Nick Crofts, Stephen Stead, and Tony Gill. CIDOC Conceptual Reference Model V. 5.0.4. 
+                    <ref target="http://www.cidoc-crm.org/">http://www.cidoc-crm.org/</ref>.
+                </p>
+                <p>
+                    <hi rend="bold">Cummings, Joel, and Deborah Stacey</hi> (2018). Lean Ontology Development: An Ontology Development Paradigm Based on Continuous Innovation. In 
+                    <hi rend="italic">Proceedings of the 10th International Joint Conference on Knowledge Discovery, Knowledge Engineering and Knowledge Management - Volume 2: KEOD</hi>, pp. 365-372. DOI: 10.5220/0006963003670374
+                </p>
+                <p>
+                    <hi rend="bold">CWRC Ontology</hi> (2019). Susan Brown et al. Canadian Writing Research Collaboratory. 
+                    <ref target="http://sparql.cwrc.ca/ontologies/cwrc.html">http://sparql.cwrc.ca/ontologies/cwrc.html</ref>.
+                </p>
+                <p>
+                    <hi rend="bold">CWRC Literary Genre Ontology</hi> (2019). Susan Brown et al. Canadian Writing Research Collaboratory. 
+                    <ref target="http://sparql.cwrc.ca/ontologies/genre.html">http://sparql.cwrc.ca/ontologies/genre.html</ref>.
+                </p>
+                <p>
+                    <hi rend="bold">DBpedia</hi> (2017). Leipzig, University, Univerity of Mannheim, and Openlink Software. DBPedia. Wikipedia2. 
+                    <ref target="https://wiki.dbpedia.org/">https://wiki.dbpedia.org/</ref>.
+                </p>
+                <p>
+                    <hi rend="bold">DCMI (</hi>2012). Board, DCMI Usage. Dublin Core Metadata Initiative. Dublin Core Metadata Initiative. 
+                    <ref target="http://dublincore.org/documents/dcmi-terms/">http://dublincore.org/documents/dcmi-terms/</ref>.
+                </p>
+                <p>
+                    <hi rend="bold">DOLCE</hi> (2006). Claudio Masolo, Stefano Borgo, Aldo Gangemi, Nicola Guarino, Alessandro Oltramari. Wonder Web. Laboratory for Applied Ontology. Internet Archive. 
+                    <ref target="https://web.archive.org/web/20190121172907/http://www.loa.istc.cnr.it/old/DOLCE.html">https://web.archive.org/web/20190121172907/http://www.loa.istc.cnr.it/old/DOLCE.html</ref>
+                </p>
+                <p>
+                    <hi rend="bold">Drucker, Johanna</hi> (2011). Humanities Approaches to Graphical Display. 
+                    <hi rend="italic">Digital Humanities Quarterly</hi> 5(1). 
+                    <ref target="http://www.digitalhumanities.org/dhq/vol/5/1/000091/000091.html">http://www.digitalhumanities.org/dhq/vol/5/1/000091/000091.html</ref>.
+                </p>
+                <p>
+                    <hi rend="bold">FOAF</hi> (2014). Dan Brickley and Libby Miller. FOAF Vocabulary Specification 0.99. Friend of a Friend. 
+                    <ref target="http://xmlns.com/foaf/spec/">http://xmlns.com/foaf/spec/</ref>.
+                </p>
+                <p>
+                    <hi rend="bold" xml:space="preserve">Getty </hi>(2018). Getty Vocabularies. The J. Paul Getty Trust. 
+                    <ref target="https://www.getty.edu/research/tools/vocabularies/index.html">
+                        <hi rend="underline color(0000FF)">https://www.getty.edu/research/tools/vocabularies/index.html</hi>
+                    </ref>.
+                </p>
+                <p>
+                    <hi rend="bold">Gruber, Thomas R.</hi> (1993). A Translation Approach to Portable Ontology Specifications. 
+                    <hi rend="italic">Knowledge Acquisition</hi> 5(2): 199–220.
+                </p>
+                <p>
+                    <hi rend="bold">Haraway, Donna</hi> (1991). A Cyborg Manifesto : Science, Technology, and Socialist- Feminism in the Late Twentieth Century. In 
+                    <hi rend="italic">Simians, Cyborgs and Women: The Reinvention of Nature</hi>. Routledge, pp. 149–81.
+                </p>
+                <p>
+                    <hi rend="bold">Liu, Alan</hi> (2016). Drafts for 
+                    <hi rend="italic">Against the Cultural Singularity</hi> (book in progress). Alan Liu. 
+                    <ref target="http://liu.english.ucsb.edu/drafts-for-against-the-cultural-singularity/">http://liu.english.ucsb.edu/drafts-for-against-the-cultural-singularity/.</ref>
+                </p>
+                <p>
+                    <hi rend="bold">Oldman, Dominic, Martin Doerr, and Stefan Gradmann</hi> (2016). Zen and the Art of Linked Data: New Strategies for a Semantic Web of Humanist Knowledge. In Schreibman, Susan, Siemens, Ray and Unsworth, John (eds.), 
+                    <hi rend="italic">A New Companion to Digital Humanities</hi>. Wiley-Blackwell, pp. 251-273.
+                </p>
+                <p>
+                    <hi rend="bold">Organization</hi> (2014). Dave Reynolds. Organization Ontology. W3C. 
+                    <ref target="https://www.w3.org/TR/vocab-org/">https://www.w3.org/TR/vocab-org/</ref>.
+                </p>
+                <p>
+                    <hi rend="bold">Orlando British Women's Writing Dataset</hi> (2018). The Canadian Writing Research Collaboratory. 
+                    <ref target="http://sparql.cwrc.ca/releasenotes">http://sparql.cwrc.ca/releasenotes</ref>.
+                </p>
+                <p>
+                    <hi rend="bold">Posner, Miriam</hi> (2015). What’s Next: The Radical, Unrealized Potential of Digital Humanities. 
+                    <hi rend="italic" xml:space="preserve">Miriam Posner’s Blog. </hi>
+                    <ref target="http://miriamposner.com/blog/whats-next-the-radical-unrealized-potential-of-digital-humanities/">http://miriamposner.com/blog/whats-next-the-radical-unrealized-potential-of-digital-humanities/</ref>.
+                </p>
+                <p>
+                    <hi rend="bold" xml:space="preserve">PROV </hi>(2013). Timothy Lebo, Satya Sahoo, and Deborah McGuinness. PROV-O: The PROV Ontology. W3C. 
+                    <ref target="https://www.w3.org/TR/prov-o/">https://www.w3.org/TR/prov-o/</ref>.
+                </p>
+                <p>
+                    <hi rend="bold">Sanderson, Robert, and David Newbury</hi> (2017). Linked.Art &amp; Vocabularies: Linked Open Usable Data. J. Paul Getty Trust. 
+                    <ref target="https://www.getty.edu/research/tools/vocabularies/newbury_sanderson_itwg_2017.pdf">https://www.getty.edu/research/tools/vocabularies/newbury_sanderson_itwg_2017.pdf</ref>
+                </p>
+                <p>
+                    <hi rend="bold">SKOS</hi> (2009). SKOS Simple Knowledge Organization System Reference. Alistair Miles and Sean Bechhofer. W3C. 
+                    <ref target="https://www.w3.org/TR/skos-reference/">https://www.w3.org/TR/skos-reference/</ref>.
+                </p>
+                <p>
+                    <hi rend="bold">Smith, Barry</hi> (2004). Beyond Concepts: Ontology as Reality Representation. In Varzi, Achille C. and Vieu, Laure (eds.), Formal Ontology in Information Systems. OIS Press, pp. 1-12.
+                </p>
+                <p>
+                    <hi rend="bold">Smith, Barry</hi> (2012). On Classifying Material Entities in Basic Formal Ontology. In Interdiscipinary Ontology. Proceedings of the Third Interdisciplinary Ontology Meeting. Keio University Press, pp. 1–13.
+                </p>
+                <p>
+                    <hi rend="bold">Smithies, James</hi> (2014). Digital Humanities, Postfoundationalism, Postindustrial Culture. 
+                    <hi rend="italic">Digital Humanities Quarterly</hi> 8 (1). 
+                    <ref target="http://www.digitalhumanities.org/dhq/vol/8/1/000172/000172.html">http://www.digitalhumanities.org/dhq/vol/8/1/000172/000172.html</ref>.
+                </p>
+                <p>
+                    <hi rend="bold">Web Annotation</hi> (2017). Robert Sanderson, Paolo Ciccarese, and Benjamin Young. Web Annotation Data Model. W3C. 
+                    <ref target="https://www.w3.org/TR/annotation-model/">https://www.w3.org/TR/annotation-model/</ref>.
+                </p>
+                <p>
+                    <hi rend="bold">Woolf, Virginia</hi> (1929). 
+                    <hi rend="italic">A Rooms of One’s Own</hi>. Harcourt, Brace, and Company.
+                </p>
+            </div>
+        </body>
+    </text>
+</TEI>

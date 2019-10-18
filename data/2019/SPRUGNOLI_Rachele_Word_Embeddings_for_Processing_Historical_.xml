@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>Word Embeddings for Processing Historical Texts</title>
+                <author>
+                    <persName>
+                        <surname>Sprugnoli</surname>
+                        <forename>Rachele</forename>
+                    </persName>
+                    <affiliation>Fondazione Bruno Kessler, Italy</affiliation>
+                    <email>rachele.sprugnoli@unitn.it</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Moretti</surname>
+                        <forename>Giovanni</forename>
+                    </persName>
+                    <affiliation>Fondazione Bruno Kessler, Italy</affiliation>
+                    <email>moretti@fbk.eu</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2014-12-19T13:50:00Z</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Name, Institution</publisher>
+                <address>
+                    <addrLine>Street</addrLine>
+                    <addrLine>City</addrLine>
+                    <addrLine>Country</addrLine>
+                    <addrLine>Name</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from a Word document</p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.22">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Poster</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>word embeddings</term>
+                    <term>historical texts</term>
+                    <term>named entity recognition</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>natural language processing</term>
+                    <term>linguistics</term>
+                    <term>English</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <p>
+                <hi style="font-size:11pt" xml:space="preserve">In the last years, word embeddings have become important resources to deal with many Natural Language Processing (NLP) tasks (Collobert et al., 2011; Maas et al., 2011; Lample et al., 2016). Several pre-trained word vectors have been released generated with different algorithms but all based on a huge amount of contemporary texts, mainly news and Wikipedia pages but also Twitter posts and crawled web pages. </hi>
+            </p>
+            <p>
+                <anchor xml:id="docs-internal-guid-e05750f8-7fff-c2e6-0f"/>
+                <hi style="font-size:11pt" xml:space="preserve">The interest towards this type of distributional approach has recently emerged also in the Digital Humanities community as proved by the organization of dedicated workshops (e.g., </hi>
+                <ref target="http://dariah-tda.github.io/meeting/activity/workshop/2017/12/20/CfP-Workshop-on-Embeddings.html">
+                    <hi style="font-size:11pt">http://dariah-tda.github.io/meeting/activity/workshop/2017/12/20/CfP-Workshop-on-Embeddings.html</hi>
+                </ref>
+                <hi style="font-size:11pt">) and the publication of scientific articles on vectors built from historical or literary texts for tracking semantic shifts (Hamilton et al., 2016; Wohlgenannt et al., 2018; Leavy et al., 2018).</hi>
+            </p>
+            <p>
+                <hi style="font-size:11pt">This submission aims at expanding current research on historical word embeddings by presenting a set of English vectors pre-trained on a sub-part of the Corpus of Historical American English (COHA) (Davies, 2012) with three different algorithms. The subset of COHA we have chosen includes 36,856 texts of all the four available genres (fiction, newspaper, magazine, non-fiction) published between 1860 and 1939 for a total of more than 198 million words. We chose this specific time frame because we have a collection of travel writings of the same period of publication on which we planned to perform several NLP tasks as the one presented in the “Application” section below. In particular, this collection (</hi>
+                <ref target="https://sites.google.com/view/travelwritingsonitaly">
+                    <hi style="font-size:11pt">https://sites.google.com/view/travelwritingsonitaly</hi>
+                </ref>
+                <hi style="font-size:11pt">) contains both travel reports and guides published in a period of radical transformation in travel habits thanks to several technological, economic and sociological factors that led to the decline of the Grand Tour and the emergence of leisure-oriented travels. As for the applied models, we used the GloVe, fastText and Levy &amp; Goldberg's approaches (Pennington et al., 2014; Levy &amp; Goldberg, 2014; Grave et al., 2018). By adopting these three models, we cover different types of word representation: GloVe is based on linear bag-of-words contexts, fastText on a bag of character n-grams, and Levy &amp; Goldberg’s model on dependency parse-trees.</hi>
+            </p>
+            <p>
+                <hi style="font-size:11pt" xml:space="preserve">Before applying these models, we lower-cased all the texts; tokenisation and dependency parsing (required by the Levy &amp; Goldberg approach) were then performed with Stanford CoreNLP (Manning et al., 2014). The training was done by considering all words appearing at least 10 times in the COHA sub-corpus and a context window size of 10. In the first phase, words are mapped to their frequency count, then a context vocabulary is created taking into consideration the context window. Our pre-trained word embeddings (called </hi>
+                <hi rend="italic" style="font-size:11pt">HistoGlove</hi>
+                <hi style="font-size:11pt" xml:space="preserve">, </hi>
+                <hi rend="italic" style="font-size:11pt">HistoFast</hi>
+                <hi style="font-size:11pt" xml:space="preserve"> and </hi>
+                <hi rend="italic" style="font-size:11pt">HistoLevy</hi>
+                <hi style="font-size:11pt">) have 300 dimensions and are publicly available online (</hi>
+                <ref target="http://dh.fbk.eu/technologies/histo">
+                    <hi style="font-size:11pt">http://dh.fbk.eu/technologies/histo</hi>
+                </ref>
+                <hi style="font-size:11pt" xml:space="preserve">). </hi>
+            </p>
+            <table rend="rules">
+                <head>Table 1. Examples of the most 7 similar words as induced by different embeddings</head>
+                <row>
+                    <cell rend="Normal_(Web)"/>
+                    <cell rend="Normal_(Web)">HistoFast</cell>
+                    <cell rend="Normal_(Web)">HistoGlove</cell>
+                    <cell rend="Normal_(Web)">HistoLevy</cell>
+                    <cell rend="Normal_(Web)">Word2Vec</cell>
+                </row>
+                <row>
+                    <cell rend="Normal_(Web)">gay</cell>
+                    <cell rend="Normal_(Web)">merry, gayest, joyous, gaiety, gayly, gayety, light-hearted</cell>
+                    <cell rend="Normal_(Web)">
+                        <hi style="font-size:11pt">merry, bright, joyous, cheerful, brillant, happy, flowers</hi>
+                    </cell>
+                    <cell rend="Normal_(Web)">merry, gorgeous, joyous, rosy, lively, bright, cheerful</cell>
+                    <cell rend="Normal_(Web)">
+                        <hi style="font-size:11pt">lesbian, bisexual, lgbt, lesbians, women, sexual, gays, homoxesual</hi>
+                    </cell>
+                </row>
+                <row>
+                    <cell rend="Normal_(Web)">dancing</cell>
+                    <cell rend="Normal_(Web)">
+                        <hi style="font-size:11pt">dance, danced, dances, dancers, dancer, walzing, dancin</hi>
+                    </cell>
+                    <cell rend="Normal_(Web)">dance, playing, danced, singing, music, dances, dancers</cell>
+                    <cell rend="Normal_(Web)">singing, bathing, skating, swimming, feasting, wrestling, chattering</cell>
+                    <cell rend="Normal_(Web)">dance, singing, dances, songs, dancers, ballroom, featuring</cell>
+                </row>
+                <row>
+                    <cell rend="Normal_(Web)">woman</cell>
+                    <cell rend="Normal_(Web)">
+                        <hi style="font-size:11pt">girl, madwoman, lady, irishwoman, husband, maid, she</hi>
+                    </cell>
+                    <cell rend="Normal_(Web)">girl, man, women, wife, she, husband, mother</cell>
+                    <cell rend="Normal_(Web)">
+                        <hi style="font-size:11pt">girl, man, damsel, gentlewoman, englishwoman, youngster, creature</hi>
+                    </cell>
+                    <cell rend="Normal_(Web)">man, person, girl, child, women, children, men</cell>
+                </row>
+            </table>
+            <p>
+                <hi style="font-size:11pt">Table 1 shows the top 7 similar words, in terms of cosine similarity, of a given set of target words (i.e., “gay”, “dancing”, and “woman”) as found in our three historical word embeddings and in Word2Vec trained on contemporary data (Mikolov et al. 2013). Among the words reported in Table 1, the main meaning shift is observed for “gay”, for which the reference to homosexuality is not present in the historical vectors. As for “dancing”, it is worth noticing that historical vectors brings out typical terms of the considered period (</hi>
+                <hi rend="italic" style="font-size:11pt">walzing</hi>
+                <hi style="font-size:11pt" xml:space="preserve">) and that the dependency-based approach induce similarities having the same syntactic role (that is, other gerunds, i.e. </hi>
+                <hi rend="italic" style="font-size:11pt">singing, bathing, skating, swimming, feasting, wrestling, chattering</hi>
+                <hi style="font-size:11pt" xml:space="preserve">): instead of finding words having high domain similarity, Levy &amp; Goldberg model finds words with high functional similarity (Turney, 2012), thus words behaving like the target word. Terms rarely used in contemporary texts are detected for the target word “woman” as well (see the visualization of the corresponding embeddings in HistoGlove in Figure 1): e.g. </hi>
+                <hi rend="italic" style="font-size:11pt">madwoman, damsel, gentlewoman</hi>
+                <hi style="font-size:11pt" xml:space="preserve">. Social roles such as </hi>
+                <hi rend="italic" style="font-size:11pt">maid</hi>
+                <hi style="font-size:11pt" xml:space="preserve"> and </hi>
+                <hi rend="italic" style="font-size:11pt">wife</hi>
+                <hi style="font-size:11pt" xml:space="preserve"> does not appear in the list of the most similar words in Word2Vec, replaced by the neutral term </hi>
+                <hi rend="italic" style="font-size:11pt">person</hi>
+                <hi style="font-size:11pt">.</hi>
+            </p>
+            <figure>
+                <graphic n="1001" width="15.742708333333333cm" height="11.649605555555556cm" url="Pictures/d53c8fda04d61f572ea4b624dce5fd38.png" rend="inline"/>
+                <head> Visualization of the embeddings of “woman”. Image created with the Embedding Projector 
+                    <ref target="https://projector.tensorflow.org/">https://projector.tensorflow.org/</ref>
+                </head>
+            </figure>
+            <p>
+                <anchor xml:id="docs-internal-guid-6b9aa1d5-7fff-a189-a5"/>
+                <hi style="font-size:16pt">Application</hi>
+            </p>
+            <figure>
+                <graphic n="1002" width="14.869583333333333cm" height="11.486752777777777cm" url="Pictures/41557a4750d1704fd7a5703d41a03f48.png" rend="inline"/>
+                <head> Place names automatically detected and then visualized using Carto, https://carto.com/</head>
+            </figure>
+            <p>
+                <hi style="font-size:11pt">Our embeddings can be useful resources for the development of NLP tools aiming at processing historical texts with neural architectures (Sprugnoli and Tonelli, 2019). For example, we applied them to the recognition of place names of different types (e.g. “Vesuvius”, “Venice”, “Forum Romanum”) in English historical travel writings on Italy (Sprugnoli, 2018). The deep learning architecture we adopted (Reimers and Gurevych, 2017), using a small set of in-domain training data (100,000 tokens), the HistoGlove embeddings and no feature engineering, outperformed both the CoreNLP CRF (</hi>
+                <hi rend="italic" style="font-size:11pt">Conditional random fields)</hi>
+                <hi style="font-size:11pt" xml:space="preserve"> model retrained with the same dataset and the same neural architecture employing bigger vector spaces pre-trained on contemporary texts. Our best model achieves a precision of 86.4, a recall of 88.5 and an F-measure of 87.5. Figure 2 displays the place names, related to the center of Florence, automatically detected in the tenth chapter of “Florence and Northern Tuscany with Genoa” (Hutton, 1908).</hi>
+                <anchor xml:id="docs-internal-guid-3c8ac080-7fff-f98f-de"/>
+            </p>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl>Collobert, R., Weston, J., Bottou, L., Karlen, M., Kavukcuoglu, K. and Kuksa, P. (2011). Natural language processing (almost) from scratch. Journal of Machine Learning Research, 12(Aug), pp.2493-2537.</bibl>
+                    <bibl>Maas, A.L., Daly, R.E., Pham, P.T., Huang, D., Ng, A.Y. and Potts, C. (2011). Learning word vectors for sentiment analysis. In Proceedings of the 49th annual meeting of the association for computational linguistics: Human language technologies-volume 1 (pp. 142-150). Association for Computational Linguistics.</bibl>
+                    <bibl>Lample, G., Ballesteros, M., Subramanian, S., Kawakami, K. and Dyer, C. (2016). Neural Architectures for Named Entity Recognition. In Proceedings of NAACL-HLT (pp. 260-270).</bibl>
+                    <bibl>Pennington, J., Socher, R. and Manning, C. (2014). Glove: Global vectors for word representation. In Proceedings of the 2014 conference on empirical methods in natural language processing (EMNLP) (pp. 1532-1543).</bibl>
+                    <bibl>Grave, E., Bojanowski, P., Gupta, P., Joulin, A. and Mikolov, T. (2018). Learning word vectors for 157 languages. arXiv preprint arXiv:1802.06893.</bibl>
+                    <bibl>Hamilton, W.L., Leskovec, J. and Jurafsky, D., (2016). Diachronic Word Embeddings Reveal Statistical Laws of Semantic Change. In Proceedings of the 54th Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers) (Vol. 1, pp. 1489-1501).</bibl>
+                    <bibl>Wohlgenannt, G., Chernyak, E., Ilvovsky, D., Barinova, A. and Mouromtsev, D. (2018). Relation Extraction Datasets in the Digital Humanities Domain and their Evaluation with Word Embeddings. In Proceedings of CICLING 2018, Hanoi, Vietnam.</bibl>
+                    <bibl>Leavy, S., Wade, K., Meaney, G. and Greene, D. (2018). Navigating Literary Text with Word Embeddings and Semantic Lexicons. In Proceedings of the Workshop on Computational Methods in the Humanities (COMHUM 2018).</bibl>
+                    <bibl>Davies, M. (2012). Expanding horizons in historical linguistics with the 400-million word Corpus of Historical American English. Corpora, 7(2), pp.121-157.</bibl>
+                    <bibl>Levy, O. and Goldberg, Y. (2014). Dependency-based word embeddings. In Proceedings of the 52nd Annual Meeting of the Association for Computational Linguistics (Volume 2: Short Papers) (Vol. 2, pp. 302-308).</bibl>
+                    <bibl>Manning, Christopher D., Mihai Surdeanu, John Bauer, Jenny Finkel, Steven J. Bethard, and David McClosky. (2014). The Stanford CoreNLP Natural Language Processing Toolkit In 
+                        <hi rend="italic">Proceedings of the 52nd Annual Meeting of the Association for Computational Linguistics: System Demonstrations</hi>, pp. 55-60.
+                    </bibl>
+                    <bibl>Mikolov, T., Sutskever, I., Chen, K., Corrado, G. S., &amp; Dean, J. (2013). Distributed representations of words and phrases and their compositionality. In 
+                        <hi rend="italic">Advances in neural information processing systems</hi> (pp. 3111-3119).
+                    </bibl>
+                    <bibl>Peter D. Turney. (2012). Domain and function: A dual-space model of semantic relations and compositions. Journal of Artificial Intelligence Research, 44:533–585.</bibl>
+                    <bibl>Reimers, N., &amp; Gurevych, I. (2017). Reporting Score Distributions Makes a Difference: Performance Study of LSTM-networks for Sequence Tagging. In 
+                        <hi rend="italic">Proceedings of the 2017 Conference on Empirical Methods in Natural Language Processing</hi> (pp. 338-348).
+                    </bibl>
+                    <bibl>Hutton, E. (1908). 
+                        <hi rend="italic">Florence and Northern Tuscany with Genoa</hi>. Methuen.
+                    </bibl>
+                    <bibl>Sprugnoli, R. and Tonelli, S. (2019). Novel Event Detection and Classification for Historical Texts. Computational Linguistics, Vol. 45, No. 2, June 2019, pp.1-38. </bibl>
+                    <bibl>Sprugnoli, Rachele. (2018). Arretium or Arezzo? A Neural Approach to the Identification of Place Names in Historical Texts. In 
+                        <hi rend="italic">Proceedings of the Fifth Italian Conference on Computational Linguistics (CLiC-it 2018)</hi>, Torino, Italy, December 10-11, 2018.
+                    </bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

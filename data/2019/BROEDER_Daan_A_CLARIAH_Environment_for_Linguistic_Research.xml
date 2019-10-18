@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>A CLARIAH Environment for Linguistic Research</title>
+                <author>
+                    <persName>
+                        <surname>Broeder</surname>
+                        <forename>Daan</forename>
+                    </persName>
+                    <affiliation>KNAW/HuC, Netherlands, The</affiliation>
+                    <email>daan.broeder@di.huc.knaw.nl</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Ding</surname>
+                        <forename>QiQing</forename>
+                    </persName>
+                    <affiliation>KNAW/HuC, Netherlands, The</affiliation>
+                    <email>qiqing.ding@di.huc.knaw.nl</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Leenknegt</surname>
+                        <forename>Bas</forename>
+                    </persName>
+                    <affiliation>KNAW/HuC, Netherlands, The</affiliation>
+                    <email>bas.leenknegt@di.huc.knaw.nl</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2014-12-19T13:50:00Z</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Name, Institution</publisher>
+                <address>
+                    <addrLine>Street</addrLine>
+                    <addrLine>City</addrLine>
+                    <addrLine>Country</addrLine>
+                    <addrLine>Name</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from a Word document</p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.22">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Poster</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>virtual research environment</term>
+                    <term>web services</term>
+                    <term>linguistics</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>corpus and text analysis</term>
+                    <term>audio</term>
+                    <term>video</term>
+                    <term>multimedia</term>
+                    <term>metadata</term>
+                    <term>linguistics</term>
+                    <term>digital research infrastructures and virtual research environments</term>
+                    <term>English</term>
+                    <term>library &amp; information science</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <div type="div1" rend="DH-Heading1">
+                <head>Introduction</head>
+                <p>With the rise of digital humanities and research infrastructures many tools and services have become available for linguistic research. However, often these tools and services come with their own dedicated environments, e.g., a specific programming or user interface. In the CLARIAH project (CLARIAH-NL, 2019) a Virtual Research Environment (VRE) is constructed, which unifies the access to these dedicated environments and thus lowers the barier for linguists to apply the new methods coming available in the field of Digital Humanities to their own research. This VRE stands in a tradition to provide researchers with an environment that brings together different services and tools necessary for a researcher to perform her work. An important discussion platform is the RDA VRE Interest Group (RDA, 2018). The main features of this linguistics VRE will include:</p>
+                <list type="unordered">
+                    <item>easy up- and download of a researcher’s own resources;</item>
+                    <item>automatic analysis for known resource types;</item>
+                    <item>automatic indexing of linguistic resources;</item>
+                    <item>profile matching of services and resources;</item>
+                    <item>hide invocation details of different types of services;</item>
+                    <item>storing the provenance track of the resources;</item>
+                    <item>gradually eliciting the resource’s metadata;</item>
+                    <item>persist a resource into a repository.</item>
+                </list>
+                <p style="text-align:left; ">The next sections will highlight some of these features and sketch their implementation.</p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Resources</head>
+                <p style="text-align:left; ">The nextCloud open source file sharing service (nextCloud, 2019) allows users to easily up- and load their resources using a web interface or a native application. The latter also provides good facilities for synchronization and transfer of large files, which can be problematic in a browser environment. The VRE uses nextCloud’s hooks to integate its own backend. Whenever a file is created or changed, events are broadcast to a Apache Kafka message queue (Apache Software Foundation, 2019). Other parts of the system listen to this queue and react appropiately. For example, the resources are examined using the File Information Tool Set (FITS) (Harvard Library, 2019) extended with special probes for domain-specific resource types
+                    <hi rend="bold">.</hi> When the resource type allows the resource is indexed using the Multi Tier Annotation Search indexer (Brouwer, M., Brugman, H. and Kemps-Snijders, M., 2017)
+                    <hi rend="bold" xml:space="preserve">. </hi>This allows to search these resources for relevant linguistic patterns using the Corpus Query Language. It will also become possible to associate resources with component-based metadata. This is a very flexible metadata format easily adapted to specific researchers and projects need. Meta dating is elicited in a non obtrusive way and populated automatically where possible. However, when a resource is ready to be archived metadata has to be complete.
+                </p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Services</head>
+                <p>The linguistic (web) services landscape is fragmented. The european GATE Cloud (University of Sheffield, 2019), CLAM (Van Gompel, 2019), WebLicht (CLARIN-D, 2019) families of services form just a small example of the diversity. Each of these families have their own specification on how to invoke them for a specific resource and retrieve the results. For example, in a CLAM service one creates a project, uploads the input resources, triggers execution, polls asynchronously if execution has finished before downloading the results. The VRE captures such a specific interaction in a recipe, and hides away these details from the user. The service registry contains for each service not only the recipe but also its expected in- and output. This information is used to do profile matching between resources and services. In its simplest form this means a match on MIME type, but more advanced forms of profile matching will also need to look inside resources, e.g., which part-of-speech tag set is used.</p>
+                <p>All events in the VRE are passed through a Kafka message queue and are thus stored in a persistent log. This log can be analysed to reconstruct the provenance of a resource (W3C, 2019). This means that its possible to provide information on what the primary data source was, which services, including versions and parameter values, were invoked to create the resource. Potentially, the VRE can also elicit information from the researcher when it detects updates outside of service invocations, e.g., a manual correction phase. Provenance information can help to semi-automatically complete the metadata, but it is also a valuable addition in reaching the goal of verifiable and reproducable science.</p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Conclusions</head>
+                <p>This VRE for linguistic research provides an increasing rich feature set with the aim to unify access to and lower the barrier to the use of the powerful, yet fragmented, landscape of services for many researchers.</p>
+            </div>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold">Apache Software Foundation</hi> (2019), Apache Kafka, https://kafka.apache.org/ (accessed on April 25 2019.)
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold">Brouwer, M., Brugman, H. and Kemps-Snijders, M.</hi> (2017), MTAS: A Solr/Lucene based Multi Tier Annotation Search solution, 
+                        <hi rend="italic">Selected papers from the CLARIN Annual Conference 2016</hi>, Linköping Electronic Conference Proceedings.
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold">CLARIAH-NL</hi> (2019), 
+                        <hi rend="italic">Common Lab Research Infrastructure for the Arts and Humanities</hi>. http://www.clariah.nl (accessed on 25 April 2019.)
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold">CLARIN-D</hi> (2019), 
+                        <hi rend="italic">WebLicht</hi>, https://weblicht.sfs.uni-tuebingen.de/ (accessed on 25 April 2019.)
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold" xml:space="preserve">Gompel, M. van </hi>(2019), 
+                        <hi rend="italic">CLAM</hi>, http://proycon.github.io/clam/ (accessed on 25 April 2019.)
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold">Harvard Library</hi> (2019), 
+                        <hi rend="italic">File Information Tool Set (FITS)</hi>, https://projects.iq.harvard.edu/fits/ (accessed on 25 April 2019.)
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold">nextCloud</hi> (2019). Nextcloud. https://nextcloud.com/ (accessed on 25 April 2019.)
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold">RDA</hi> (2018). 
+                        <hi rend="italic">VRE Interest Group</hi> https://www.rd-alliance.org/groups/vre-ig.html (accessed on 27 November 2018.)
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold">University of Sheffield</hi> (2019). 
+                        <hi rend="italic">Gate Cloud</hi>, https://cloud.gate.ac.uk/ (accessed on April 25 2019.)
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold">W3C</hi> (2018), 
+                        <hi rend="italic">PROV</hi>, https://www.w3.org/TR/prov-overview (accessed on 27 November 2018.)
+                    </bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

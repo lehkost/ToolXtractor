@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>One More Time With Feeling: Revisiting XPointers to Address the Complexities of Promptbook Encoding</title>
+                <author>
+                    <persName>
+                        <surname>Takeda</surname>
+                        <forename>Joey</forename>
+                    </persName>
+                    <affiliation>University of British Columbia, Canada</affiliation>
+                    <email>joey.takeda@gmail.com</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Roberts-Smith</surname>
+                        <forename>Jennifer</forename>
+                    </persName>
+                    <affiliation>University of Waterloo, Canada</affiliation>
+                    <email>jennifer.roberts-smith@uwaterloo.ca</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2019-05-10T17:54:00Z</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Name, Institution</publisher>
+                <address>
+                    <addrLine>Street</addrLine>
+                    <addrLine>City</addrLine>
+                    <addrLine>Country</addrLine>
+                    <addrLine>Name</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from a Word document</p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.22">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Short Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>Promptbooks</term>
+                    <term>XPointers</term>
+                    <term>performance</term>
+                    <term>TEI</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>digital archives and digital libraries</term>
+                    <term>text encoding and markup languages</term>
+                    <term>film and performing arts studies</term>
+                    <term>scholarly editing</term>
+                    <term>linking and annotation</term>
+                    <term>English</term>
+                    <term>digital humanities (history</term>
+                    <term>theory and methodology)</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <p style="text-align:left; ">Though the Text Encoding Initiative (TEI) has long supported the use of the XML fragment linking mechanism known as XPointers (Grosso et al. 2003; TEI 16), they are seldom implemented or recommended as a method of linking TEI documents. Hugh Cayless has argued that TEI pointers are an underappreciated mechanism, the “victim of a Catch-22”: the specifications are “difficult to grasp, and as a result, most people never bother to try using [them]” (Cayless 2013). Though Cayless’ proposals for new definitions of TEI pointers are compelling, five years later, his diagnosis holds true: the definitions of the pointing schemes have not been updated and there is still a paucity of examples of XPointers in TEI projects. This short paper responds to Cayless by outlining the use of TEI pointers in the Waterloo-based Stratford Festival Online (SFO) project, which aims to encode the Festival’s world-class collection of theatrical promptbooks (Malone 2013; 2018) in TEI. Through this real-world example of the necessity of XPointers in the SFO project, we make the case that they may also be a viable option for other TEI projects. </p>
+            <p style="text-align:left; ">Promptbooks are difficult objects to encode because they are simultaneously both textual artifacts and also instructions for actualizing the aesthetic decisions that define a particular production of a play (Bauman 2001; Kaethler, Roberts-Smith, and Malone 2017). Over the course of a rehearsal process, the stage manager creates a book to remind themselves what they will need to do during each performance (calling technical cues, monitoring actors’ performances, etc.) to ensure the performance is consistent (Shattuck 1965). The stage manager records the “what” of the book (what the stage manager needs to do) along a timeline showing “when” each action needs to happen; the “when” recorded in the book takes the form of words spoken by actors. The text of a promptbook is a performance timeline along which the events of a performance are sequenced for the stage manager’s reference. Promptbooks therefore contain three ontological categories of content: 1) a timeline (words spoken by actors in a play); 2) descriptions of performance events; and 3) annotations made by the stage manager, which link events to the moments on the timeline when each should occur (Roberts-Smith, Kaethler, Malone et al. 2017; Roberts-Smith, Kaethler, Malone et al. forthcoming). Current TEI Guidelines for “Drama” cannot accommodate this ontological complexity (TEI 7; Lavaigno and Mylonas 1995; Bauman 2001; Kaethler, Roberts-Smith and Malone 2017; Roberts-Smith, Kaethler, Malone et al. forthcoming). To complicate matters further, stage managers use a range of idiosyncratic marks to link performance events to moments in the textual timeline, and these “moments” may in turn be literally moments, as brief as the space between two syllables pronounced by an actor, or may conversely be periods as long as several lines of spoken text (Kaethler, Roberts-Smith and Malone 2017; Roberts-Smith, Kaethler, Malone et al. 2017; Roberts-Smith, Kaethler, Malone et al. forthcoming; see figure 1).</p>
+            <figure>
+                <graphic n="1001" width="16.002cm" height="10.922cm" url="Pictures/a3a954eb570b5ddf08900e9fee06ecb0.jpg" rend="inline"/>
+            </figure>
+            <p style="text-align:left; ">Figure 1. Some systems for linking events to moments in the timeline of spoken text in the promptbook from the Stratford Festival’s King Lear (1988). </p>
+            <p style="text-align:left; ">In response to these challenges, our research team is developing an approach to promptbook encoding that uses two data files (one for the performance text and the other for non-verbal performance events [Roberts-Smith, Kaethler, Malone et al. forthcoming]) that are linked by stand-off markup (the advantages and disadvantages of which we do not summarize here; see TEI 16.9; Bański 2010) and XPointers. Our choice to use XPointers derives from earlier experiments with standard techniques of standoff markup. We initially attempted to use &lt;anchor&gt; elements, repurposing the TEI’s double end-point-attachment method (TEI 12.2.2). However, this approach makes the event document unusable without the text document. Since one of the project’s goals is to map events to other electronic versions of the same base text, we rejected &lt;anchor&gt; elements. We also considered tokenizing each character of the text document so that an encoder could specify a range of characters (encoded using the &lt;c&gt; element). This method does not require an encoder to add elements manually to the performance text document and could enable the creation of user-friendly markup interfaces. However, linking to individual &lt;c&gt; elements in the text document requires that the performance text be edited completely before running a tokenizing algorithm, whereas the project’s workflow requires encoding the text and event documents simultaneously; and adding &lt;c&gt; elements significantly increases the size of the document, makes it difficult for human encoders to read and seriously inhibits any further editing of the document. </p>
+            <p style="text-align:left; ">By contrast, the TEI pointer framework provides a non-intrusive and event-centric method of addressing segments of the text document, because it does not rely on the encoding of the text document. There are multiple TEI pointer schemes that can handle stable element ID references, character position references, and string matching. To be sure, using TEI pointers in a standoff document is not a mutually exclusive practice with encoding &lt;anchor&gt;s or tokenizing the source text; instead, TEI pointers offer the project further options for addressing segments of text beyond ID references, including XPath, string matching, range selection, and left and right point selection. For instance, TEI Pointers can take advantage of the match() feature, which allows encoders to specify a string to address based off a canonical reference (for example, canonical line numbers) that two projects share as an interoperable data-point, like a canonical line number. This is not to say that TEI Pointers are inherently more interoperable than other methods,but, instead, provide another mechanism for addressing contiguous and adjacent nodes, which is difficult to do purely with IDREFS. </p>
+            <p style="text-align:left; ">Consequently, we are developing a method, using Apache Ant and an XSLT function library, of parsing TEI pointers and associating the text document with the standoff markup. Since our approach to resolving XPointers requires a two stage process, this paper does not describe how to resolve XPointers in standard “just-in-time” setups; instead, we demonstrate a method of handling XPointers that can be integrated as an intermediate process in a static build pipeline, the infrastructural benefits for creating sustainable and archivable digital projects will be dealt with in further detail elsewhere. Since XPointers address segments that are not necessarily stable or canonical and links between the standoff document and the source document can easily break, we have also developed a suite of diagnostic tests to ensure that the XPointers used in the project are, at minimum, resolvable (Holmes and Takeda 2019). Both the sample implementation and the diagnostic code, along with documentation discussing the development of and differences between XPointers and TEI Pointers, will be available via Github as a proof-of-concept for the feasibility of using XPointers within TEI projects. We hope that other projects—particularly those dealing with standoff annotation structure or other situations where the source text is not available for editing—can make use and, ultimately, improve the TEI Pointer system for use across various domains.</p>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl>Bański, P. (2010). “Why TEI stand-off annotation doesn't quite work: and why you might want to use it nevertheless” 
+                        <hi rend="italic">Proceedings of Balisage: The Markup Conference</hi> 5. https://doi.org/10.4242/BalisageVol5.Banski01.
+                    </bibl>
+                    <bibl>Bauman, S. (2001 April 12). “Re: TEI and drama”. TEI Electronic ListServ. https://listserv.brown.edu/archives/cgi-bin/wa?A2=TEI-L;2973394d.0104</bibl>
+                    <bibl>Bauman, S. (2011). “Interchange vs. Interoperability.” 
+                        <hi rend="italic">Proceedings of Balisage: The Markup Conference</hi> 7. 
+                        <ref target="https://doi.org/10.4242/BalisageVol7.Bauman01">https://doi.org/10.4242/BalisageVol7.Bauman01</ref>.
+                    </bibl>
+                    <bibl>Cayless, H. (2013). “Rebooting TEI Pointers” 
+                        <hi rend="italic">Journal of the Text Encoding Initiative</hi> 6. DOI : 10.4000/jtei.907.
+                    </bibl>
+                    <bibl>Grosso, P., E. Maler, J. Marsh, and N. Walsh, eds. (25 March 2003). “XPointer Framework.” 
+                        <hi rend="italic">W3C</hi>. https://www.w3.org/TR/xptr-framework/
+                    </bibl>
+                    <bibl>Holmes, M., and Takeda, J. (2019). Beyond Validation: Using Programmed Diagnostics to Learn About, Monitor, and Successfully Complete Your DH Project.” 
+                        <hi rend="italic">Digital Scholarship in the Humanities</hi>. DOI: 10.1093/llc/fqz011. 
+                    </bibl>
+                    <bibl>Kaethler, M., Roberts-Smith, J. and Malone, T. (2017). Brave new XML: TEI and the Stratford Promptbooks. Panel: From Theatre Archive to Theatrical Archive: Four Futures for the Festival’s Collections. Shakespearean Theatre Conference. University of Waterloo-Stratford Festival. June 21–24.</bibl>
+                    <bibl>Lavaigno, J. and Mylonas, E. (1995). The Show Must Go on: Problems of Tagging Performance Texts. 
+                        <hi rend="italic" xml:space="preserve">Computers and the Humanities </hi>29: 113-121.
+                    </bibl>
+                    <bibl>Malone, T. (2013). ‘Distract parcels in Combined Sums’: The Stratford Festival Archives’ Stage-Managerial Collections. 
+                        <hi rend="italic" xml:space="preserve">Canadian Theatre Review </hi>156 (fall): 66-71. 
+                    </bibl>
+                    <bibl>Malone, T. (2018). A Digital Parallel-text Approach to Performance Historiography.” In Jenstad, J., Kaethler, M. and J. Roberts-Smith (eds), 
+                        <hi rend="italic">Shakespeare’s Language in Digital Media: Old Words, New Tools</hi>. Abingdon: Routledge, pp. 105-124.
+                    </bibl>
+                    <bibl>Phillips, R, dir. and The. John Gray, stage manager. (1988). 
+                        <hi rend="italic">King Lear</hi>. By William Shakespeare. Promptbook. Stratford Festival Archive. 
+                    </bibl>
+                    <bibl>Roberts-Smith, K, Kaethler, M. and Malone, T. (2017). The Problem With Promptbooks, Or the Problem With TEI? Tagging Time and Space. CSDH/SCHN, Congress. Toronto, 29 May. </bibl>
+                    <bibl>Roberts-Smith, J., Kaethler, M., and Malone, T., with Giffen, L., Holmes, M., Jenstad, J. and Takeda, J. (Forthcoming). Tagging Time and Space: TEI and the Canadian Stratford Festival Promptbooks. Special issue, Boyd, J. and Martin, K. (eds), 
+                        <hi rend="italic">Digital Studies</hi>/
+                        <hi rend="italic" xml:space="preserve">Le champ numérique. </hi>
+                    </bibl>
+                    <bibl>Shattuck, C. H. (1965). 
+                        <hi rend="italic">The Shakespeare Promptbooks: A Descriptive Catalogue</hi>. Urbana: University of Illinois Press.
+                    </bibl>
+                    <bibl>TEI Consortium, eds. (2018 July 23). 
+                        <hi rend="italic">TEI P5: Guidelines for Electronic Text Encoding and Interchange</hi>. 3.4.0. TEI Consortium. http://www.tei-c.org/Guidelines/P5/.
+                    </bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

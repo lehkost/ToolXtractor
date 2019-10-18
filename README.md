@@ -36,6 +36,8 @@ All under CC and retrieved from the ADHO github page: https://github.com/ADHO/
 
 Only for the year [2017](https://github.com/ADHO/dh2017) we used the tool [Grobid](https://github.com/kermitt2/grobid/) to create XML-TEI files.
 
+For the year 2019, the TEI files will soon be online on the [ADHO](https://github.com/ADHO/) repository.
+
 # Example of output
 ```
 $ java -jar target/ToolXtractor-full.jar -byTool -dir data/2015/ -inputTools src/main/resources/tools_teresah.txt -stopwords src/main/resources/stopwords.txt -reverse

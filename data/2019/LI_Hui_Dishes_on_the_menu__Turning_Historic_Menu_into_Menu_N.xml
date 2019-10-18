@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title type="full">
+                    <title type="main">Dishes on the menu: Turning Historic Menu into Menu Network</title>
+                    <title type="sub"/>
+                </title>
+                <author>
+                    <persName>
+                        <surname>Li</surname>
+                        <forename>Hui</forename>
+                    </persName>
+                    <affiliation>Heidelberg University</affiliation>
+                    <email>lhjulie@gmail.com</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2019-03-29T05:37:47.892490842</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Name, Institution</publisher>
+                <address>
+                    <addrLine>Street</addrLine>
+                    <addrLine>City</addrLine>
+                    <addrLine>Country</addrLine>
+                    <addrLine>Name</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from an OASIS Open Document</p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.22">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Short Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>historic menu</term>
+                    <term>formalization</term>
+                    <term>menu network</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>metadata</term>
+                    <term>network analysis and graphs theory</term>
+                    <term>English</term>
+                    <term>digital humanities (history</term>
+                    <term>theory and methodology)</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <p>Introduction</p>
+            <p>The term 
+                <hi rend="italic">restaurant</hi>, in Oxford English Dictionary, is defined as “a place where people pay to eat meals that are cooked and served on the premises” (Oxford, 2018). This word first appeared in 1806 (Merriam-Webster, 2018), and origins from Latin (
+                <hi rend="italic">restaurare</hi>) and French (
+                <hi rend="italic">restaurer</hi>). The term 
+                <hi rend="italic">menu</hi>, is defined as “a list of dishes available in a restaurant” (Oxford, 2018). This word first appeared in French in the 1830s, and origins from the Latin word 
+                <hi rend="italic">minutus </hi>(very small) (Merriam-Webster, 2018). Historical menus provide abundant information about changing regional tastes, the ingredients of popular dishes, the arrangements of different meals, and fascinating stories behind the menu, to name but a few. These menus constitute a significant aspect of culture of diet (Menus, 2018).
+            </p>
+            <p> Recently network analysis has been applied in the fields of digital humanities, e.g., kinship analysis (Kindred, 2018) and correspondence network (Republic, 2018), to explore a variety of relations among different entities effectively and efficiently. However, research upon the modeling, measurement, and analysis of menus network is still at its very beginning. In this paper, we make particular efforts to answer the following questions: can we model the menus network in such a way that we can analyze interesting evolving patterns of cuisine? How can we integrate temporal, geographical, economic, and textual information into the network? In this paper, we aim to propose a menu network that closely resembles today’s social network based on the metadata and content of menus. It is our hypothesis that such a menu network provides a more holistic view of that period of time than what would be perceivable through single menu sheet.</p>
+            <p>Literature Review</p>
+            <p>Historic menus convey detailed information about the trends, styles, culture, and history of diet (Alejandro, 1988). An increasing number of libraries and institutes, e.g. New York Public Library (NY, 2018), Los Angeles Public Library (LA, 2018) and Cornell University Library (Cornell, 2018), devote to digitizing the menus collections and making them accessible to not only academic, but also the general public who are interested in the history of dining. Facilitated by digitization, historic menus embody emerging academic interests from fields such as history study, linguistics, literary study, and nutriology.</p>
+            <p> Researchers are curious to explore more beyond the words on the menu. For instance, Jurafsky et al. (2015) investigated the origin of Sushi and employed state-of-art statistical methods such as linear regression to compare the differences between the language used by low-cost restaurants to expensive ones on their menus. Turnwald et al. (2017) used log-likelihood ratio to reveal that restaurants described healthy dishes with significant less appealing words but more health-related words. However, these studies didn’t propose formal modeling of historic menus. Chahuneau et al. (2012) built a statistical model to predict price and sentiment for restaurants based on menus and customer reviews. However, they didn’t integrate temporal and geographical information in their model.</p>
+            <p>Menu Networks</p>
+            <p>In this section, we present the definition of a menu and propose our menu network model, respectively.</p>
+            <p>
+                <hi rend="bold">Definition 1. </hi>Menu
+                <hi rend="italic">. A menu is represented as a tuple m </hi>= {
+                <hi rend="italic">r, l, t, f, p</hi>}
+                <hi rend="italic">. r </hi>∈ 
+                <hi rend="italic">R denotes the restaurant name. l </hi>∈ 
+                <hi rend="italic">L denotes the restaurant location and t </hi>∈ 
+                <hi rend="italic">T specifies the date when the menu was used. f </hi>∈ 
+                <hi rend="italic">F specifies a dish on the menu. p </hi>∈ 
+                <hi rend="italic">P corresponds to the dish price.</hi>
+            </p>
+            <p>
+                <hi rend="bold">Definition 2. </hi>Menu Network
+                <hi rend="italic">. A menu network is represented as an undirected graph G </hi>= (
+                <hi rend="italic">V,E</hi>)
+                <hi rend="italic">, in which nodes V correspond to menus and labeled edges E correspond to the co-occurrence of dishes on the menus.</hi>
+            </p>
+            <p>Each node has associated attributes {(
+                <hi rend="italic">r, l, t, fd</hi>) | 
+                <hi rend="italic">r </hi>∈ 
+                <hi rend="italic">R, l </hi>∈ 
+                <hi rend="italic">L, t </hi>∈ 
+                <hi rend="italic">T, fd </hi>∈ 
+                <hi rend="italic">F</hi>}. we define a “dish” function 
+                <hi rend="italic">fd </hi>: 
+                <hi rend="italic">V </hi>→ 
+                <hi rend="italic">F </hi>as an attribute for each node to mark the dishes on each menu. 
+                <hi rend="italic">r </hi>∈ 
+                <hi rend="italic">R </hi>corresponds to the restaurant that created a menu. 
+                <hi rend="italic">l </hi>∈ 
+                <hi rend="italic">L </hi>corresponds to the location of the restaurant and 
+                <hi rend="italic">t </hi>∈ 
+                <hi rend="italic">T </hi>denotes the date that a menu was used.
+            </p>
+            <p> Each edge has associated attributes {(
+                <hi rend="italic">d, f, p</hi>) | 
+                <hi rend="italic">d </hi>∈ N
+                <hi rend="italic">, f </hi>∈ 
+                <hi rend="italic">F, p </hi>∈ 
+                <hi rend="italic">P</hi>}. Considering that there might be more than one dish appearing on both menus, we use an index number 
+                <hi rend="italic">d </hi>to differentiate each element in the edge attribute set. For instance, if there are 
+                <hi rend="italic">k </hi>dishes appearing on both menus 
+                <hi rend="italic">i </hi>and 
+                <hi rend="italic">j</hi>, the corresponding edge attribute is: {(1, f
+                <hi rend="sup">1</hi>
+                <hi rend="sub">ij</hi>, p
+                <hi rend="sup">1</hi>
+                <hi rend="sub">ij</hi>), (2, f
+                <hi rend="sup">2</hi>
+                <hi rend="sub">ij</hi>, p
+                <hi rend="sup">2</hi>
+                <hi rend="sub">ij</hi>) ,..., (k, f
+                <hi rend="sup">k</hi>
+                <hi rend="sub">ij</hi>, p
+                <hi rend="sup">k</hi>
+                <hi rend="sub">ij</hi>)}. The number of triplets in the set corresponds to the number of dishes occurring on both menus.
+            </p>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl>Oxford Online English Dictionary: Restaurant.</bibl>
+                    <bibl>https://en.oxforddictionaries.com/definition/restaurant (accessed 23 November 2018).</bibl>
+                    <bibl>Merriam-Webster Online English Dictionary: Restaurant. https://www.merriam-webster.com/dictionary/restaurant (accessed 23 November 2018).</bibl>
+                    <bibl>Oxford Online English Dictionary: Menu. https://www.merriam-webster.com/dictionary/restaurant (accessed 23 November 2018).</bibl>
+                    <bibl>Merriam-Webster Online English Dictionary: Menu. https://www.merriam-webster.com/dictionary/restaurant (accessed 23 November 2018).</bibl>
+                    <bibl>Alejandro, R. (1988). Classic Menu Design: From the Collection of the New York Public Library. New York: Rizzoli International Publications.</bibl>
+                    <bibl>Menus: the Art of Dining. http://digital.library.unlv.edu/collections/menus/early-restaurants-america (accessed 23 November 2018).</bibl>
+                    <bibl>Jurafsky, D. (2015). The Language Of Food: A Linguist Reads The Menu. New York: W. W. Norton &amp; Company.</bibl>
+                    <bibl>Turnwald, B.P. and Jurafksy, D. and Conner, A. and Crum, A. J. (2017). Reading between the Menu Lines: Are Restaurants’ descriptions of “healthy” foods unappealing? Journal of Health Psychology. 36(11): 1034-1037.</bibl>
+                    <bibl>Chahuneau, V. and Gimpel, K. and Routledge, B.R. and Scherlis, L. and Smith, N.A. (2012). Word Salad: Relating Food Prices and Descriptions. Proceedings of the 2012 Joint conference on Empirical Methods in Natural Language Processing and Computational Natural Language Learning. 1357–1367. </bibl>
+                    <bibl>What’s on the Menu. 
+                        <ptr target="http://menus.nypl.org/"/> (accessed 23 November 2018).
+                    </bibl>
+                    <bibl>Menu Collection. https://www.lapl.org/collections-resources/visual-collections/menu-collection (accessed 23 November 2018).</bibl>
+                    <bibl>Menu Collection. https://rare.library.cornell.edu/collections/food-wine/menus (accessed 23 November 2018).</bibl>
+                    <bibl>Mapping the Republic of Letters. 
+                        <ref target="http://republicofletters.stanford.edu/">http://republicofletters.stanford.edu/ </ref>(accessed 23 November 2018).
+                    </bibl>
+                    <bibl>Kindred Britain. 
+                        <ptr target="http://kindred.stanford.edu/"/> (accessed 23 November 2018).
+                    </bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

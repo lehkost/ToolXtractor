@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>An Unsupervised Lemmatization Model for Classical Languages</title>
+                <author>
+                    <persName>
+                        <surname>Gawley</surname>
+                        <forename>James O'Brien</forename>
+                    </persName>
+                    <affiliation>University at Buffalo, United States of America</affiliation>
+                    <email>jamesgaw@buffalo.edu</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2019-05-06T15:22:00Z</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Name, Institution</publisher>
+                <address>
+                    <addrLine>Street</addrLine>
+                    <addrLine>City</addrLine>
+                    <addrLine>Country</addrLine>
+                    <addrLine>Name</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from a Word document</p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.22">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Poster</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>latin</term>
+                    <term>lemmatization</term>
+                    <term>nlp</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>classical studies</term>
+                    <term>corpus and text analysis</term>
+                    <term>natural language processing</term>
+                    <term>digital textualities and hypertext</term>
+                    <term>linguistics</term>
+                    <term>data mining / text mining</term>
+                    <term>English</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <p>The lemmatization task, wherein a computer model must group together inflected forms derived from the same stem, or 'lemma,' is a fundamental problem in language modeling. Software that handles more complex humanistic tasks like authorship attribution or intertextuality detection relies on lemmatization as an early step. </p>
+            <p>
+                <hi style="font-family:Helvetica Neue">In classical languages, the current standard depends on training sophisticated model with supervised data sets (Burns, 2018). These data sets include correct lemmatization tagged by expert readers, a labor intensive task. Modern languages can avoid generating supervised training data by taking advantage of much larger data sets. Moon and Erk (2008), for example, used an aligned corpus of English and German to infer lemmatization schemes without recourse to hand-tagged training data. Classical languages do not feature very large aligned corpora, and may not have access to a database of expert annotation for training new models.</hi>
+            </p>
+            <p>This paper presents a technique for inferring a lemmatization model without training data, and tests the performance of this technique in classical Latin. Performance is on par with both supervised models of Latin, and models of modern languages derived from large, aligned data sets. In ambiguous cases, where a token might derive from more than one lemma, the model identifies the correct choice in roughly 66% of trials, or roughly twice as often as random chance.</p>
+            <p>
+                <hi style="font-family:Helvetica Neue">The technique presented here delivers this performance without including any input but raw text, and can be applied to languages for which such training data is limited or non-existent. The data set used to train the model was provided by the open-source Tesserae project (http://tesserae.caset.buffalo.edu). The test data was supplied by the Classical Language Toolkit (CLTK: http://cltk.org).</hi>
+            </p>
+            <p>
+                <hi style="font-family:Helvetica Neue" xml:space="preserve">The lemmatization model begins by determining the relative frequency of all lemmata found in a given corpus. The underlying assumption is that selecting the more common lemma is the most computationally efficient way of disambiguating between possibilities. To illustrate with an example: in the first line of Vergil’s </hi>
+                <hi rend="italic" style="font-family:Helvetica Neue">Aeneid</hi>
+                <hi style="font-family:Helvetica Neue">, the word ‘Arma’ might stem from the verb ‘armō’, a verb meaning ‘to arm’ or  'arma,' a noun meaning 'weapons' (the latter possiblity is correct). One intuitive way to resolve ambiguity is to select the lemma that appears more frequently in the corpus. But how do we determine the frequency of each lemma, without training data, when the tokens in a given corpus are ambiguous?</hi>
+            </p>
+            <p>
+                <hi style="font-family:Helvetica Neue" xml:space="preserve">To resolve this problem, the present study assumes that all possible lemmata are present in each ambiguous case. </hi>
+                <hi rend="bold" style="font-family:Helvetica Neue">Error! Reference source not found.</hi>
+                <hi style="font-family:Helvetica Neue" xml:space="preserve"> below illustrates this process with three tokens from Vergil's </hi>
+                <hi rend="italic" style="font-family:Helvetica Neue">Aeneid</hi>
+                <hi style="font-family:Helvetica Neue" xml:space="preserve">. </hi>
+            </p>
+            <p>
+                <hi rend="bold" style="font-family:Helvetica Neue">Figure 1</hi>
+                <graphic n="1001" width="16.51cm" height="9.11225cm" url="Pictures/f240f7269309ac13f10ed9e5ed95352e.png" rend="inline"/>
+            </p>
+            <p>As illustrated, the word form 'arma' might come from the verb 'armō' or the verb 'arma' (the latter is correct), but the form 'armis', found later in the poem, might come from the noun 'arma' or the noun 'armus' (again, the latter is correct). Different forms of the noun 'arma' overlap with different lemma, but all of them share 'arma' as a potential stem. In other words, each lemmatization is correct in the same way, but incorrect in a different way. Over several million of tokens in the classical Latin corpus, the wrong answers begin to cancel each other out and the frequency counts in the model gradually begin to reflect the true rate of appearance of each lemma. </p>
+            <p>
+                <hi style="font-family:Helvetica Neue" xml:space="preserve">Once the unsupervised frequency model has been trained, the lemmatizer simply selects the most frequently seen stem in ambiguous cases. Given an inflected form which might come from either of several lemmata, the lemmatizer selects the lemma that is most frequent in the corpus. The example of 'arma' is shown in </hi>
+                <hi rend="bold" style="font-family:Helvetica Neue">Error! Reference source not found.</hi>
+                <hi style="font-family:Helvetica Neue">: because the noun 'arma' was seen more often in the corpus, it is selected as the correct lemmatization here.</hi>
+            </p>
+            <p>Figure 2</p>
+            <figure>
+                <graphic n="1002" width="16.467666666666666cm" height="5.355166666666666cm" url="Pictures/9e73867bceab42d23e6218a30e29ce4a.png" rend="inline"/>
+            </figure>
+            <p>
+                <hi style="font-family:Helvetica Neue">Tested repeatedly against hand-lemmatized Latin text from the CLTK training model, this unsupervised lemmatizer selected the correct stem for roughly 89% of all tokens. This performance is comparable to the more sophisticated models currently in use for Latin lemmatization. It also exceeds the performance of random selection, which identifies the correct stem in only 79% of all tokens. Roughly 73% of Latin tokens are unambiguous.</hi>
+            </p>
+            <p>Languages with greater ambiguity, such as classical Hebrew, may not derive performance at this level. However under-served languages such as Coptic Egyptian might use this model to build reliable lemmatizers without consuming resources in the annotation of training data.</p>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl>
+                        <hi rend="bold" style="font-family:Helvetica Neue">Burns, P.</hi>
+                        <hi style="font-family:Helvetica Neue" xml:space="preserve"> (2018). Backoff Lemmatization for Ancient Greek with the Classical Language Toolkit.</hi>
+                        <hi rend="italic" style="font-family:Helvetica Neue">2018 Digital Classicist London Seminars Series</hi>
+                        <hi style="font-family:Helvetica Neue">. London, England. July 27</hi>
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold" style="font-family:Helvetica Neue">Moon, T. and Erk, K.</hi>
+                        <hi style="font-family:Helvetica Neue" xml:space="preserve"> (2008). Minimally supervised lemmatization scheme induction through bilingual parallel corpora.</hi>
+                        <hi rend="italic" style="font-family:Helvetica Neue">First International Conference on Global Interoperability for Language Resources</hi>
+                        <hi style="font-family:Helvetica Neue">. Hong Kong, China, Jan 9-11</hi>
+                    </bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

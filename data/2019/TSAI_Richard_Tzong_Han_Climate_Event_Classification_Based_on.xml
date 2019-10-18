@@ -1,0 +1,826 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>Climate Event Classification Based on Historical Meteorological Records and Its Presentation on A Spatio-Temporal Research Platform</title>
+                <author>
+                    <persName>
+                        <surname>Wu</surname>
+                        <forename>Shang-Yun</forename>
+                    </persName>
+                    <affiliation>Department of Computer Science and Information Engineering, National Central University; Department of Atmospheric Sciences, National Central University.</affiliation>
+                    <email>shangyunabbie@gmail.com</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Wu</surname>
+                        <forename>Cheng-Han</forename>
+                    </persName>
+                    <affiliation>Department of Computer Science and Information Engineering, National Central University</affiliation>
+                    <email>106552002@cc.ncu.edu.tw</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Pai</surname>
+                        <forename>Pi-Ling</forename>
+                    </persName>
+                    <affiliation>Research Center for Humanities and Social Sciences, Academia Sinica</affiliation>
+                    <email>lingpai@gate.sinica.edu.tw</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Wang</surname>
+                        <forename>Yu-Chun</forename>
+                    </persName>
+                    <affiliation>Dharma Drum Institute of Liberal Arts, Taiwan</affiliation>
+                    <email>ycwang@dila.edu.tw</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Tsai</surname>
+                        <forename>Richard Tzong-Han</forename>
+                    </persName>
+                    <affiliation>Department of Computer Science and Information Engineering, National Central University; Research Center for Humanities and Social Sciences, Academia Sinica</affiliation>
+                    <email>thtsai@csie.ncu.edu.tw</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Fan</surname>
+                        <forename>I-Chun</forename>
+                    </persName>
+                    <affiliation>Research Center for Humanities and Social Sciences, Academia Sinica; Institute of History and Philology, Academia Sinica</affiliation>
+                    <email>fic@mail.ihp.sinica.edu.tw</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2014-12-19T13:50:00Z</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Name, Institution</publisher>
+                <address>
+                    <addrLine>Street</addrLine>
+                    <addrLine>City</addrLine>
+                    <addrLine>Country</addrLine>
+                    <addrLine>Name</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from a Word document</p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.22">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Short Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>Climate Event Classification</term>
+                    <term>Historical Meteorological Records</term>
+                    <term>Spatio-Temporal Research Platform</term>
+                    <term>Clustering</term>
+                    <term>Word Embedding</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>corpus and text analysis</term>
+                    <term>spatial &amp; spatio-temporal analysis</term>
+                    <term>modeling and visualization</term>
+                    <term>English</term>
+                    <term>geography and geohumanities</term>
+                    <term>digital humanities (history</term>
+                    <term>theory and methodology)</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <div type="div1" rend="DH-Heading1">
+                <head>Introduction</head>
+                <p style="text-align:left; ">The impact of climate change has become more and more obvious. How to understand its cause and effect to find a way to deal with it has become an important research topic. To trace the occurrence and impact of climate disasters, many clues can be found in the rich records left by historical materials. "China's Three Thousand Years of Meteorological Records" (2004) extracts meteorological descriptions from 8,228 historical sources and organizes these descriptions by regions and dates. This important work contributes to the analysis of the temporal and spatial characteristics of meteorological phenomena. The "East Asian Historical Climate Database"(P.-K. Wang et al., 2018) is compiled based on chorographies and official histories. This study develops an event classification method based on the meteorological records in the early Qing Dynasty (1644-1795) in this database. By representing classical Chinese texts into word embedding vectors and the k-means algorithm, we overcome the difficulty of analyzing classical Chinese and not having enough training data. We then integrate the classification results with the map and timeline to develop a Spatio-Temporal search interface, which facilitates climatologist to access and analyze data according to the three dimensions of time, area and event categories.</p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Methodology</head>
+                <p style="text-align:left; ">The main task of this study is the meteorological text classification, which is composed of three steps: preprocessing, text representation generation, and k-means clustering. We use 36,123 historical meteorological descriptions in the "East Asian Historical Climate Database" as the input data. As shown in Table 1, each record contains six fields. </p>
+                <p style="text-align:left; ">To make meteorological data more suitable for machine learning semantics and classification of meteorological events, we first pre-process meteorological data, including (1) replacing GanZhi, year, month and number with 
+                    <hi rend="bold">G</hi>,
+                    <hi rend="bold" xml:space="preserve"> Y</hi>, 
+                    <hi rend="bold">M</hi>, and 
+                    <hi rend="bold">N</hi>, respectively (2) removing place names and punctuation symbols because they have nothing to do with classification.
+                </p>
+                <p style="text-align:left; ">Then, we use the word2vec algorithm to convert each meteorological record written in classical Chinese into 200-dimensional embedding vectors and then use the k-means algorithm to divide all embedded vectors into k groups. We use the validation set to find the most suitable k value of 45, and evaluate the clustering results with the labeled 9,530 records. The overall accuracy is 82%. Table 2 details the 45 clusters.</p>
+                <p style="text-align:left; ">From Table 1, we can see that many clusters contain the same climatic events, but after careful examination, these groups are still slightly different. Taking clusters 2 (Table 3), 29 (Table 4) and 37 (Table 5) as examples, although all three clusters can be roughly classified as flood hazards, it is found that most of the texts of cluster 37 refer to seasons. The records of cluster 29 mostly refer to building damage, while the records of the other two groups do not.</p>
+                <p style="text-align:left; text-align:center;">Table 1. The table of the East Asian Historical Climate Database</p>
+                <table rend="rules">
+                    <row>
+                        <cell rend="center">ID</cell>
+                        <cell rend="center">year</cell>
+                        <cell rend="center">province</cell>
+                        <cell rend="center">
+                            <hi style="font-size:10.5pt">county/
+                                <lb/>city
+                            </hi>
+                        </cell>
+                        <cell rend="center">meteorological description</cell>
+                        <cell rend="center">source</cell>
+                    </row>
+                    <row>
+                        <cell rend="left">1795-11</cell>
+                        <cell rend="left">1663</cell>
+                        <cell rend="left">Anhui Province</cell>
+                        <cell rend="left">Guichi County</cell>
+                        <cell rend="left">
+                            <p>秋，池州大水，城井行舟。【鄉父老云：與明萬曆三十六年水相似。】</p>
+                            <p>Flood in Chi-zhou in autumn. Villagers said, "The flood is similar to the one happened in Wanli period in Ming Dynasty (1608)." </p>
+                        </cell>
+                        <cell rend="left">Volume twenty-nine of "Chi-zhou Local Gazetteers", published in Kang-xi period (1711) in Qing Dynasty</cell>
+                    </row>
+                    <row>
+                        <cell rend="left">1795-12</cell>
+                        <cell rend="left">1663</cell>
+                        <cell rend="left">Anhui Province</cell>
+                        <cell rend="left">Huangshan City</cell>
+                        <cell rend="left">
+                            <p>
+                                <hi style="font-size:10pt">七月望，邑令陳恭備建學官，是日雷雨大作，千山如注，田間水數尺，忽浮飛木於縣東門。</hi>
+                            </p>
+                            <p>In mid of July when Chen Gong, the county magistrate, was going to build a school, a thunderstorm happened. Flood was a few feets high, and floodwoods flew at the east gate of the county.</p>
+                        </cell>
+                        <cell rend="left">
+                            <hi style="font-size:10pt">Volume eight of “Tai-ping County record”, published in Chia-ching period in Qing Dynasty</hi>
+                        </cell>
+                    </row>
+                    <row>
+                        <cell rend="left">1795-13</cell>
+                        <cell rend="left">1663</cell>
+                        <cell rend="left">Anhui Province</cell>
+                        <cell rend="left">Shitai County</cell>
+                        <cell rend="left">
+                            <p>秋大水，父老云：與萬曆三十六年水勢相似。</p>
+                            <p>Old man commented about the autumn flood: “It was said to be similar to the one happened in the Wanli period in Ming Dynasty (1608).” </p>
+                        </cell>
+                        <cell rend="left">Volume two of "Shi-di Local Gazetteers", published in Kang-xi period in Qing Dynasty</cell>
+                    </row>
+                    <row>
+                        <cell rend="left">1795-14</cell>
+                        <cell rend="left">1663</cell>
+                        <cell rend="left">Anhui Province</cell>
+                        <cell rend="left">Dongzhi County</cell>
+                        <cell rend="left">
+                            <p>秋大水，十一月始退。</p>
+                            <p>The autumn flood began to recede in November.</p>
+                        </cell>
+                        <cell rend="left">Volume seven of "Dong-Liu Local Gazetteers", published in Qian-long period in Qing Dynasty</cell>
+                    </row>
+                    <row>
+                        <cell rend="left">1795-15</cell>
+                        <cell rend="left">1663</cell>
+                        <cell rend="left">Jiangxi Province</cell>
+                        <cell rend="left">Jiujiang</cell>
+                        <cell rend="left">
+                            <p>大水，潰堤數處，禾黍盡沒。</p>
+                            <p>Flood broke levees and crops were all be drowned. </p>
+                        </cell>
+                        <cell rend="left">Volume fifty-three of "De-Hwa Local Gazetteers", published in Tong-Zhi period in Qing Dynasty</cell>
+                    </row>
+                    <row>
+                        <cell rend="left">1795-16</cell>
+                        <cell rend="left">1663</cell>
+                        <cell rend="left">Jiangxi Province</cell>
+                        <cell rend="left">Ruichang County</cell>
+                        <cell rend="left">
+                            <p>秋八月，大水入城。</p>
+                            <p>Flood crashed the city in August t</p>
+                        </cell>
+                        <cell rend="left">Volume one of "Rui-Chang Local Gazetteers", published in Kang-xi period in Qing Dynasty</cell>
+                    </row>
+                </table>
+                <p style="text-align:left; text-align:center;">Table 2. The 45 clusters and their semantics</p>
+                <table rend="rules">
+                    <row>
+                        <cell rend="center">
+                            <p style="text-align:center;">Cluster_0:</p>
+                            <p style="text-align:center;">Crop Failure</p>
+                        </cell>
+                        <cell rend="center">
+                            <p style="text-align:center;">Cluster_15:</p>
+                            <p style="text-align:center;">Abnormal Animal Behavior</p>
+                        </cell>
+                        <cell rend="center">
+                            <p style="text-align:center;">Cluster_30:</p>
+                            <p style="text-align:center;">Social Problem</p>
+                        </cell>
+                    </row>
+                    <row>
+                        <cell rend="center">
+                            <p style="text-align:center;">Cluster_1:</p>
+                            <p style="text-align:center;">Wind</p>
+                        </cell>
+                        <cell rend="center">
+                            <p style="text-align:center;">Cluster_16:</p>
+                            <p style="text-align:center;">Drought</p>
+                        </cell>
+                        <cell rend="center">
+                            <p style="text-align:center;">Cluster_31:</p>
+                            <p style="text-align:center;">Rain</p>
+                        </cell>
+                    </row>
+                    <row>
+                        <cell rend="center">
+                            <p style="text-align:center;">Cluster_2:</p>
+                            <p style="text-align:center;">Flood</p>
+                        </cell>
+                        <cell rend="center">
+                            <p style="text-align:center;">Cluster_17:</p>
+                            <p style="text-align:center;">Social Problem</p>
+                        </cell>
+                        <cell rend="center">
+                            <p style="text-align:center;">Cluster_32:</p>
+                            <p style="text-align:center;">Famine</p>
+                        </cell>
+                    </row>
+                    <row>
+                        <cell rend="center">
+                            <p style="text-align:center;">Cluster_3:</p>
+                            <p style="text-align:center;">Crop Failure</p>
+                        </cell>
+                        <cell rend="center">
+                            <p style="text-align:center;">Cluster_18:</p>
+                            <p style="text-align:center;">Crop Failure</p>
+                        </cell>
+                        <cell rend="center">
+                            <p style="text-align:center;">Cluster_33:</p>
+                            <p style="text-align:center;">Flood</p>
+                        </cell>
+                    </row>
+                    <row>
+                        <cell rend="center">
+                            <p style="text-align:center;">Cluster_4:</p>
+                            <p style="text-align:center;">Insect</p>
+                        </cell>
+                        <cell rend="center">
+                            <p style="text-align:center;">Cluster_19:</p>
+                            <p style="text-align:center;">Crop Failure</p>
+                        </cell>
+                        <cell rend="center">
+                            <p style="text-align:center;">Cluster_34:</p>
+                            <p style="text-align:center;">Crop Failure</p>
+                        </cell>
+                    </row>
+                    <row>
+                        <cell rend="center">
+                            <p style="text-align:center;">Cluster_5:</p>
+                            <p style="text-align:center;">Rain</p>
+                        </cell>
+                        <cell rend="center">
+                            <p style="text-align:center;">Cluster_20:</p>
+                            <p style="text-align:center;">Drought</p>
+                        </cell>
+                        <cell rend="center">
+                            <p style="text-align:center;">Cluster_35:</p>
+                            <p style="text-align:center;">Crop Failure</p>
+                        </cell>
+                    </row>
+                    <row>
+                        <cell rend="center">
+                            <p style="text-align:center;">Cluster_6:</p>
+                            <p style="text-align:center;">Flood</p>
+                        </cell>
+                        <cell rend="center">
+                            <p style="text-align:center;">Cluster_21:</p>
+                            <p style="text-align:center;">Undetermined</p>
+                        </cell>
+                        <cell rend="center">
+                            <p style="text-align:center;">Cluster_36:</p>
+                            <p style="text-align:center;">Rain</p>
+                        </cell>
+                    </row>
+                    <row>
+                        <cell rend="center">
+                            <p style="text-align:center;">Cluster_7:</p>
+                            <p style="text-align:center;">Famine</p>
+                        </cell>
+                        <cell rend="center">
+                            <p style="text-align:center;">Cluster_22:</p>
+                            <p style="text-align:center;">Social Problem</p>
+                        </cell>
+                        <cell rend="center">
+                            <p style="text-align:center;">Cluster_37:</p>
+                            <p style="text-align:center;">Flood</p>
+                        </cell>
+                    </row>
+                    <row>
+                        <cell rend="center">
+                            <p style="text-align:center;">Cluster_8:</p>
+                            <p style="text-align:center;">Social Problem</p>
+                        </cell>
+                        <cell rend="center">
+                            <p style="text-align:center;">Cluster_23:</p>
+                            <p style="text-align:center;">Famine</p>
+                        </cell>
+                        <cell rend="center">
+                            <p style="text-align:center;">Cluster_38:</p>
+                            <p style="text-align:center;">Undetermined</p>
+                        </cell>
+                    </row>
+                    <row>
+                        <cell rend="center">
+                            <p style="text-align:center;">Cluster_9:</p>
+                            <p style="text-align:center;">Social Problem</p>
+                        </cell>
+                        <cell rend="center">
+                            <p style="text-align:center;">Cluster_24:</p>
+                            <p style="text-align:center;">Rain</p>
+                        </cell>
+                        <cell rend="center">
+                            <p style="text-align:center;">Cluster_39:</p>
+                            <p style="text-align:center;">Flood</p>
+                        </cell>
+                    </row>
+                    <row>
+                        <cell rend="center">
+                            <p style="text-align:center;">Cluster_10:</p>
+                            <p style="text-align:center;">flood Cluster</p>
+                        </cell>
+                        <cell rend="center">
+                            <p style="text-align:center;">Cluster_25:</p>
+                            <p style="text-align:center;">Disease</p>
+                        </cell>
+                        <cell rend="center">
+                            <p style="text-align:center;">Cluster_40:</p>
+                            <p style="text-align:center;">Drought</p>
+                        </cell>
+                    </row>
+                    <row>
+                        <cell rend="center">
+                            <p style="text-align:center;">Cluster_11:</p>
+                            <p style="text-align:center;">Flood</p>
+                        </cell>
+                        <cell rend="center">
+                            <p style="text-align:center;">Cluster_26:</p>
+                            <p style="text-align:center;">Crop Failure</p>
+                        </cell>
+                        <cell rend="center">
+                            <p style="text-align:center;">Cluster_41:</p>
+                            <p style="text-align:center;">Rain</p>
+                        </cell>
+                    </row>
+                    <row>
+                        <cell rend="center">
+                            <p style="text-align:center;">Cluster_12:</p>
+                            <p style="text-align:center;">Flood</p>
+                        </cell>
+                        <cell rend="center">
+                            <p style="text-align:center;">Cluster_27:</p>
+                            <p style="text-align:center;">Insect</p>
+                        </cell>
+                        <cell rend="center">
+                            <p style="text-align:center;">Cluster_42:</p>
+                            <p style="text-align:center;">Crop Failure</p>
+                        </cell>
+                    </row>
+                    <row>
+                        <cell rend="center">
+                            <p style="text-align:center;">Cluster_13:</p>
+                            <p style="text-align:center;">Crop Failure</p>
+                        </cell>
+                        <cell rend="center">
+                            <p style="text-align:center;">Cluster_28:</p>
+                            <p style="text-align:center;">Wind</p>
+                        </cell>
+                        <cell rend="center">
+                            <p style="text-align:center;">Cluster_43:</p>
+                            <p style="text-align:center;">Rain</p>
+                        </cell>
+                    </row>
+                    <row>
+                        <cell rend="center">
+                            <p style="text-align:center;">Cluster_14:</p>
+                            <p style="text-align:center;">Social Problem</p>
+                        </cell>
+                        <cell rend="center">
+                            <p style="text-align:center;">Cluster_29:</p>
+                            <p style="text-align:center;">Flood</p>
+                        </cell>
+                        <cell rend="center">
+                            <p style="text-align:center;">Cluster_44:</p>
+                            <p style="text-align:center;">Crop Failure</p>
+                        </cell>
+                    </row>
+                </table>
+                <p style="text-align:left; text-align:center;">Table 3. Examples of records in Cluster 2.</p>
+                <table rend="rules">
+                    <row>
+                        <cell rend="left">
+                            <p>廣東省，大水</p>
+                            <p>Guangdong Province, Great Flood.</p>
+                        </cell>
+                    </row>
+                    <row>
+                        <cell rend="left">
+                            <p>安徽省，大水</p>
+                            <p>Anhui Province, Great Flood.</p>
+                        </cell>
+                    </row>
+                    <row>
+                        <cell rend="left">
+                            <p>河北省，大水</p>
+                            <p>Hebei Province, Great Flood.</p>
+                        </cell>
+                    </row>
+                    <row>
+                        <cell rend="left">
+                            <p>福建省，六月，大水</p>
+                            <p>Fujian Province, June, Great Flood.</p>
+                        </cell>
+                    </row>
+                    <row>
+                        <cell rend="left">
+                            <p>江西省，七月，大水</p>
+                            <p>Jiangxi Province, July, Great Flood.</p>
+                        </cell>
+                    </row>
+                    <row>
+                        <cell rend="left">
+                            <p>江西省，七月十五，大水</p>
+                            <p>Jiangxi Province, 15th July, Great Flood.</p>
+                        </cell>
+                    </row>
+                    <row>
+                        <cell rend="left">
+                            <p>江西省，七月，大水</p>
+                            <p>Jiangxi Province, July, Great Flood.</p>
+                        </cell>
+                    </row>
+                    <row>
+                        <cell rend="left">
+                            <p>湖南省，五月，大水</p>
+                            <p>Hunan Province, May, Great Flood.</p>
+                        </cell>
+                    </row>
+                    <row>
+                        <cell rend="left">
+                            <p>湖南省，五月，大水</p>
+                            <p>Hunan Province, May, Great Flood.</p>
+                        </cell>
+                    </row>
+                </table>
+                <p style="text-align:left; text-align:center;">Table 4. Examples of records in Cluster 29.</p>
+                <table rend="rules">
+                    <row>
+                        <cell rend="left">
+                            <p>貴州省，四月十二日，大水，壞心心橋欄杆。</p>
+                            <p>Guizhou Province, 12th April, Great Flood, The railing of the bridge was broken.</p>
+                        </cell>
+                    </row>
+                    <row>
+                        <cell rend="left">
+                            <p>福建省，大水，東橋折水至西門橋頭十字街。</p>
+                            <p>Fujian Province, Great flood, The folding water was from the east bridge to Ximen Bridge Crossroad.</p>
+                        </cell>
+                    </row>
+                    <row>
+                        <cell rend="left">
+                            <p>福建省，五月初十日，南鄉大水入城。</p>
+                            <p>Fujian Province, 10th May, Nanxiang water flooded into the city.</p>
+                        </cell>
+                    </row>
+                    <row>
+                        <cell rend="left">
+                            <p>
+                                <hi style="font-size:10pt">廣東省,夏五月，大水，城垣崩陷八處，共六十餘丈。</hi>
+                            </p>
+                            <p>Guangdong Province, in summer and May, Great flood, The eight places of the city, total 60 feet, collapsed.</p>
+                        </cell>
+                    </row>
+                    <row>
+                        <cell rend="left">
+                            <p>江西省，秋八月，大水，蘆溪市宗濂橋圮。</p>
+                            <p>Jiangxi Province, in autumn and August, Great flood, the Zonglian Bridge collapsed in Luxi City.</p>
+                        </cell>
+                    </row>
+                    <row>
+                        <cell rend="left">
+                            <p>
+                                <hi style="font-size:10pt">甘肅省,霪雨，塌傾城垣。</hi>
+                            </p>
+                            <p>Gansu Province, the city walls collapsed after a long period of rain.</p>
+                        </cell>
+                    </row>
+                    <row>
+                        <cell rend="left">
+                            <p>
+                                <hi style="font-size:10pt">江蘇省,泗州城陷沒，漕堤決。</hi>
+                            </p>
+                            <p>Jiangsu Province, the city of Suzhou collapsed, the dike was broken.</p>
+                        </cell>
+                    </row>
+                    <row>
+                        <cell rend="left">
+                            <p>
+                                <hi style="font-size:10pt">廣東省,夏五月，大水，秋溪鯉魚溝堤潰。</hi>
+                            </p>
+                            <p>Guangdong Province, in summer and May, Great flood, Qiuxi carp ditch dike burst.</p>
+                        </cell>
+                    </row>
+                    <row>
+                        <cell rend="left">
+                            <p>
+                                <hi style="font-size:10pt">江西省,秋七月，大水連漲七次，西溪橋鷹咀石俱沖圮。</hi>
+                            </p>
+                            <p>Jiangxi Province, in autumn and July, floods rose seven times, and Yingzui Stone of Xixi Bridge collapsed.</p>
+                        </cell>
+                    </row>
+                    <row>
+                        <cell rend="left">
+                            <p>
+                                <hi style="font-size:10pt">廣東省,大水，城北平地可通舟。</hi>
+                            </p>
+                            <p>Guangdong Province, Great floods, the city flat land was navigable.</p>
+                        </cell>
+                    </row>
+                    <row>
+                        <cell rend="left">
+                            <p>
+                                <hi style="font-size:10pt">河北省,堤下口決。</hi>
+                            </p>
+                            <p>Hebei Province, Breach of the embankment.</p>
+                        </cell>
+                    </row>
+                </table>
+                <p style="text-align:left; text-align:center;">Table 5. Examples of records in Cluster 37.</p>
+                <table rend="rules">
+                    <row>
+                        <cell rend="left">
+                            <p>
+                                <hi style="font-size:10pt">浙江省,秋大水。</hi>
+                            </p>
+                            <p>Zhejiang Province, Autumn, Great flood.</p>
+                        </cell>
+                    </row>
+                    <row>
+                        <cell rend="left">
+                            <p>
+                                <hi style="font-size:10pt">安徽省,夏秋水。</hi>
+                            </p>
+                            <p>Anhui Province, Summer and Autumn, Great flood.</p>
+                        </cell>
+                    </row>
+                    <row>
+                        <cell rend="left">
+                            <p>
+                                <hi style="font-size:10pt">湖南省,秋大水。</hi>
+                            </p>
+                            <p>Hunan Province, Autumn, Great flood.</p>
+                        </cell>
+                    </row>
+                    <row>
+                        <cell rend="left">
+                            <p>
+                                <hi style="font-size:10pt">安徽省,秋大水。</hi>
+                            </p>
+                            <p>Anhui Province, Autumn, Great flood.</p>
+                        </cell>
+                    </row>
+                    <row>
+                        <cell rend="left">
+                            <p>
+                                <hi style="font-size:10pt">江蘇省,秋大水。</hi>
+                            </p>
+                            <p>Jiangsu Province, Autumn, Great flood.</p>
+                        </cell>
+                    </row>
+                    <row>
+                        <cell rend="left">
+                            <p>
+                                <hi style="font-size:10pt">湖南省,夏水。</hi>
+                            </p>
+                            <p>Hunan Province, Summer, Great flood</p>
+                        </cell>
+                    </row>
+                    <row>
+                        <cell rend="left">
+                            <p>
+                                <hi style="font-size:10pt">浙江省,夏秋大水。</hi>
+                            </p>
+                            <p>Zhejiang Province, Summer and Autumn, Great flood.</p>
+                        </cell>
+                    </row>
+                    <row>
+                        <cell rend="left">
+                            <p>
+                                <hi style="font-size:10pt">浙江省,秋大水。</hi>
+                            </p>
+                            <p>Zhejiang Province, Autumn, Great flood.</p>
+                        </cell>
+                    </row>
+                    <row>
+                        <cell rend="left">
+                            <p>
+                                <hi style="font-size:10pt">江西省,春大水。</hi>
+                            </p>
+                            <p>Jiangxi Province, Spring, Great flood.</p>
+                        </cell>
+                    </row>
+                </table>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Front-end interface</head>
+                <p style="text-align:left; ">Then, we use the "Time and Space Infrastructure of Chinese Civilization" (CCTS) to present meteorological events on the map interface based on the year and location of the climate events in the historical meteorological records, providing an interface for researchers (see Figure 1). Our system is located at 
+                    <ref target="http://iisrserv.csie.ncu.edu.tw:5000/English">http://iisrserv.csie.ncu.edu.tw:5000/English</ref>. The main features of the interface include a scrolling timeline, a pop-up condition selection window, and an instant response map. When the user selects the conditions, the map will immediately display the records satisfying the conditions. If the cursor is moved over the location on the map, the page below the map will show the meteorological records of the location in the timeline interval.
+                </p>
+                <figure>
+                    <graphic n="1001" width="15.24cm" height="8.016625cm" url="Pictures/432d42d89b86a8784e1f05e410a6f9b2.jpg" rend="inline"/>
+                </figure>
+                <p style="text-align:left; text-align:center;">Figure 1. System interface.</p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Case Study</head>
+                <p style="text-align:left; ">To show the usage of our system, we look into the meteorological records during 1650 to 1700, which is the late stage of the Little Ice Age, to investigate the phenomenon of climate change in Qing Dynasty of China.</p>
+                <p style="text-align:left; ">First, we choose the “temperature” event category. Among these “temperature” records, there are 68 extreme cold climate records. We can see that this kind of phenomenon was located from tropical zone to tepid zone in China (see Figure 2), therefore, we can conclude that extreme cold records appear not only in middle- to high-latitude areas, but also in lower latitude area.</p>
+                <figure>
+                    <graphic n="1002" width="11.927841666666666cm" height="9.093625cm" url="Pictures/33cef733debb3b86979ce82a74004064.jpg" rend="block"/>
+                </figure>
+                <p style="text-align:left; text-align:center;">Figure 2. Areas with Low-Temperature Record from 1650 to 1700.</p>
+                <p style="text-align:left; ">Extreme cold weather usually comes with disasters. We choose “rain” as our variables as step two. Among the records, there are 379 records related to “snow.” To deeply look into the records, besides directly meteorological phenomena of “snow,” we further collect the indirectly meteorological phenomena data, such as “three days in a row,” “frost-damaged trees,” ...etc (see Table 6). From Table 6, we can see that during the Little Ice Age (1650-1700), the extremely cold climate led to disasters is more frequent than that during Non-Little Ice Age (1745-1795).</p>
+                <p style="text-align:left; text-align:center;">Table 6. Numbers of Data related to “snow” during Little Ice Age and Non-Little Ice Age in Cluster “rain.”</p>
+                <table rend="rules">
+                    <row>
+                        <cell rend="left">Meteorological Phenomena Data</cell>
+                        <cell rend="left">
+                            <hi style="font-size:10pt">Little Ice Age</hi>
+                            <lb/>
+                            <hi style="font-size:10pt">（1650-1700）</hi>
+                        </cell>
+                        <cell rend="left">
+                            <hi style="font-size:10pt">Non-Little Ice Age</hi>
+                            <hi style="font-family:新細明體;font-size:10pt">（</hi>
+                            <hi style="font-size:10pt">1745-1795</hi>
+                            <hi style="font-family:新細明體;font-size:10pt">）</hi>
+                        </cell>
+                    </row>
+                    <row>
+                        <cell rend="left">Rain</cell>
+                        <cell rend="left">3,014</cell>
+                        <cell rend="left">1,618</cell>
+                    </row>
+                    <row>
+                        <cell rend="left">Snow</cell>
+                        <cell rend="left">379</cell>
+                        <cell rend="left">119</cell>
+                    </row>
+                    <row>
+                        <cell rend="left">Snow, more than 10 days /month /ten days in a row three days in a row or more</cell>
+                        <cell rend="left">46</cell>
+                        <cell rend="left">5</cell>
+                    </row>
+                    <row>
+                        <cell rend="left">Snow, frost damaged trees</cell>
+                        <cell rend="left">8</cell>
+                        <cell rend="left">2</cell>
+                    </row>
+                    <row>
+                        <cell rend="left">Snow, birds, animals and human beings freeze to death</cell>
+                        <cell rend="left">17</cell>
+                        <cell rend="left">6</cell>
+                    </row>
+                </table>
+                <p style="text-align:left; ">When investigating the meteorological phenomena during Little Ice Age, we find out rare snow records in Taiwan. As shown in Table 7, these records are in terrain area, such as Chia-Yi county and Tainan City, which could be seen as a strong evidence of the extreme climate during Little Ice Age.</p>
+                <p style="text-align:left; text-align:center;">Table 7. Rare snow records in Taiwan.</p>
+                <table rend="rules">
+                    <row>
+                        <cell rend="left">year</cell>
+                        <cell rend="left">province</cell>
+                        <cell rend="left">
+                            <p>county/</p>
+                            <p>city</p>
+                        </cell>
+                        <cell rend="left">cluster</cell>
+                        <cell rend="left">meteorological description</cell>
+                        <cell rend="left">data sources</cell>
+                    </row>
+                    <row>
+                        <cell rend="left">1683</cell>
+                        <cell rend="left">Taiwan Province</cell>
+                        <cell rend="left">--</cell>
+                        <cell rend="left">
+                            <p>Temperature (including frost and dew), and rain</p>
+                        </cell>
+                        <cell rend="left">
+                            <p>冬十一月，雨雪。是夜冰堅厚寸餘。從來臺灣無雪無冰，此異事也。</p>
+                            <p>In November, winter, it snows and rains. The ice is more than an inch thick that night. It's strange because there has not snowed since ancient times.</p>
+                        </cell>
+                        <cell rend="left">Volume ten of "Taiwan Local Gazetteers", published in Kang-xi period (1685) in Qing Dynasty</cell>
+                    </row>
+                    <row>
+                        <cell rend="left">1683</cell>
+                        <cell rend="left">Taiwan Province</cell>
+                        <cell rend="left">--</cell>
+                        <cell rend="left">Rain, crop failure, temperature (including frost and dew)</cell>
+                        <cell rend="left">
+                            <p>
+                                <hi style="font-size:10pt">五月，大雨。霪雨連月，鄭氏之土田阡陌多被沖陷，有“高岸為谷”之歎。冬始雨雪，冰堅厚寸餘。臺土氣熱，從無霜雪。</hi>
+                            </p>
+                            <p>In May, it rained heavily. After a long period of rain, the fields of Zheng's family were crashed, and the high bank became valley. It began to snow in winter, and the ice was more than an inch thick. Normally the field was hot, and there was no frost and snow in Taiwan.</p>
+                        </cell>
+                        <cell rend="left">Volume nine of "Rebuilt Taiwan Local Gazetteers", published in Kang-xi period in Qing Dynasty</cell>
+                    </row>
+                    <row>
+                        <cell rend="left">1683</cell>
+                        <cell rend="left">Taiwan Province</cell>
+                        <cell rend="left">Chia-yi County</cell>
+                        <cell rend="left">Flood, rain, crop failure, temperature (including frost and dew)</cell>
+                        <cell rend="left">
+                            <p>
+                                <hi style="font-size:10pt">夏五月，大雨水，時霪雨連月，鄭氏土田多沖陷，有“高岸為谷”之歎。冬十一月，始雨雪，冰堅厚寸餘。諸羅有霜無雪，是歲甫入版圖，地氣自北而南，信有矣。</hi>
+                            </p>
+                            <p>In May, it rained heavily. After a long period of rain, the fields of Zheng's family were crashed, and the high bank became valley. In November, Winter, it snowed and iced over. Normally the field was hot, and there was no frost and snow in Tsu-lo (ancient name of Taiwan). It was believed that the climate was from Northern area, starting from the year Tso-lo became Qing’s territory.</p>
+                        </cell>
+                        <cell rend="left">Volume twelve of "Tsu-lo Local Gazetteers", published in Kang-xi period in Qing Dynasty</cell>
+                    </row>
+                    <row>
+                        <cell rend="left">1683</cell>
+                        <cell rend="left">Taiwan Province</cell>
+                        <cell rend="left">Tainan City</cell>
+                        <cell rend="left">
+                            <p>
+                                <hi style="font-size:10pt">Flood, rain, flood, rain, crop failure, temperature (frost and dew), temperature (frost and dew), temperature (frost and dew), drought, rain</hi>
+                            </p>
+                        </cell>
+                        <cell rend="left">
+                            <p>
+                                <hi style="font-size:10pt">春，鯽魚潭涸。夏五月，大雨水，田園多沖陷。六月，澎湖潮水漲四尺。秋八月壬子，鹿耳門潮水漲。冬十有一月，雨雪冰。是臺地氣暖，從無霜雪，是歲八月甫入版圖，冬遂雨雪，冰堅寸許，地氣自北而南，運屬一統故也。</hi>
+                            </p>
+                            <p>In Spring, crucian pond dried up. In May, Summer, it rained a lot, and fields are mostly crashed. In June, the tide at Penghu rose four feet high. On August 18th, the tide at Luermen rose. In November, Winter, it snowed and iced over. Normally the field was hot, and there was no frost and snow in Taiwan. However, started from August when Taiwan was under Qing’s authority, it rained and snowed in Winter, and the ice was more than an inch thick. The climate was from the Northern Area. It is because of territorial unity.</p>
+                        </cell>
+                        <cell rend="left">
+                            <p>
+                                <hi style="font-size:10pt" xml:space="preserve">"Rebuilt Taiwan Local Gazetteers", published in Qian-long period in Qing Dynasty </hi>
+                            </p>
+                        </cell>
+                    </row>
+                </table>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Conclusion</head>
+                <p style="text-align:left; ">Although technology has improved nowadays, it is still hard to predict the weather. In order to understand the impact of climate disasters and find a way to deal with it, tracing the historical climate event could be a solution. This study establishes a principle to classify meteorological phenomena based on "China's Three Thousand Years of Meteorological Records", develops a Spatio-Temporal research platform, and build an instant response front-end interface. By the climate case study, we collect the users’ feedback and improve the front-end interface, as well as enhance the precision of a mass of meteorological data analytics. Although the research platform only contains the meteorological data from 1647 to 1795, we hope to expand the capacity of the database and establish a mature Spatio-Temporal research platform in the future.</p>
+            </div>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold">Chinea-Rios, M., Sanchis-Trilles, G. and Casacuberta, F.</hi> (2015). Sentence clustering using continuous vector space representation. Springer, pp. 432–40.
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold">Dingding Wang, Tao Li, Shenghuo Zhu and Chris Ding</hi> (2008). Multi-document summarization via sentence-level semantic analysis and symmetric matrix factorization Paper presented at the Proceedings of the 31st annual international ACM SIGIR conference on Research and development in information retrieval, Singapore, Singapore.
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold">Gang Qian, Shamik Sural, Yuelong Gu and Sakti Pramanik</hi> (2004). Similarity between Euclidean and cosine angle distance for nearest neighbor queries Paper presented at the Proceedings of the 2004 ACM symposium on Applied computing, Nicosia, Cyprus.
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold">K. M. Hammouda and M. S. Kamel</hi> (2004). Efficient phrase-based document indexing for Web document clustering. 
+                        <hi rend="italic">IEEE Transactions on Knowledge and Data Engineering</hi>, 
+                        <hi rend="bold">16</hi>(10): 1279–96 doi:
+                        <ref target="https://doi.org/10.1109/TKDE.2004.58">10.1109/TKDE.2004.58</ref>.
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold">Ko-Chen, C.</hi> (1973). A preliminary study on the climatic fluctuations during the last 5,000 years in China. 
+                        <hi rend="italic">Scientia Sinica</hi>, 
+                        <hi rend="bold">16</hi>(2): 226–56.
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold">Lili Kotlerman, Ido Dagan, Maya Gorodetsky and Ezra Daya</hi> (2012). Sentence clustering via projection over term clusters Paper presented at the Proceedings of the First Joint Conference on Lexical and Computational Semantics - Volume 1: Proceedings of the main conference and the shared task, and Volume 2: Proceedings of the Sixth International Workshop on Semantic Evaluation, Montr&amp;eacute;al, Canada.
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold">MacQueen, J.</hi> (1967). Some methods for classification and analysis of multivariate observations. (Fifth Berkeley Symposium on Mathematical Statistics and Probability). University of California Press, pp. 281–97.
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold">Mikolov, T., Chen, K., Corrado, G. and Dean, J.</hi> (2013). Efficient estimation of word representations in vector space. 
+                        <hi rend="italic">ArXiv Preprint ArXiv:1301.3781</hi>.
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold">Solomon, S., Qin, D., Manning, M., Averyt, K. and Marquis, M.</hi> (2007). 
+                        <hi rend="italic">Climate Change 2007-the Physical Science Basis: Working Group I Contribution to the Fourth Assessment Report of the IPCC</hi>. . Vol. 4. Cambridge university press.
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold">Wang, P.-K., Lin, K., Liao, Y. C., Liao, H. M., Lin, Y. S., Hsu, C. T., Hsu, S. M., et al.</hi> (2018). Construction of the REACHES Climate Database Based on Historical Documents of China. Scientific Data, in press.
+                    </bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

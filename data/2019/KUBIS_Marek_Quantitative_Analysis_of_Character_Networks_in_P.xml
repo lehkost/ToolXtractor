@@ -1,0 +1,467 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title type="full">
+                    <title type="main">Quantitative Analysis of Character Networks in Polish XIX and XX Century Novels</title>
+                    <title type="sub"/>
+                </title>
+                <author>
+                    <persName>
+                        <surname>Kubis</surname>
+                        <forename>Marek</forename>
+                    </persName>
+                    <affiliation>Adam Mickiewicz University, Poland</affiliation>
+                    <email>mkubis@amu.edu.pl</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2019-04-27T21:06:04.642454504</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Name, Institution</publisher>
+                <address>
+                    <addrLine>Street</addrLine>
+                    <addrLine>City</addrLine>
+                    <addrLine>Country</addrLine>
+                    <addrLine>Name</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from an OASIS Open Document</p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.22">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Long Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>character networks</term>
+                    <term>quantitative literary methods</term>
+                    <term>corpus based methods</term>
+                    <term>natural language processing</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>corpus and text analysis</term>
+                    <term>natural language processing</term>
+                    <term>network analysis and graphs theory</term>
+                    <term>data mining / text mining</term>
+                    <term>English</term>
+                    <term>computer science and informatics</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <div type="div1" rend="DH-Heading">
+                <head>Introduction</head>
+                <p>From qualitative work of Moretti (2013) on Shakespeare's plays and Chinese novels, through quantitative works on the 19th century English literary fiction by Elson et al. (2010) and Jayannavar et al. (2015) to the investigation of dynamic plots of German plays by Fischer et al. (2017), the analysis of social networks induced from literary works became a valuable tool in digital humanities research. 
+                    <anchor type="bookmark-start" xml:id="id___DdeLink__1096_1683460688"/>This paper presents a study on induction and quantitative analysis of character networks inferred from Polish novels. The corpus gathered for this study is an order of magnitude larger than the collection of novels used by Elson et al. (2010) and Jayannavar et al (2015). It contains primarily novels from the second half of the 19th century and the first half of the 20th century. The main goal of this paper is to present novel results on systematic differences between the 19th century and 20th century Polish prose with respect to the collected corpus. The two by-products of this research are: 
+                </p>
+                <list type="ordered">
+                    <item>The development of fully automatized, quantitative pipeline that leads from raw Polish text to the set of testable hypotheses. </item>
+                    <item>The reproduction of the observations of Elson et al. (2010) and Jayannavar et al. (2015) on a larger, more demanding corpus of a different language origin
+                        <ptr type="bookmark-end" target="#id___DdeLink__1096_1683460688"/> that contains both the 19th century and 20th century works.
+                    </item>
+                </list>
+                <p>
+                    <figure>
+                        <graphic url="Pictures/fd30bc9346fcebcef4db749a41ad880e.png"/>
+                    </figure>
+                </p>
+                <p>
+                    <hi rend="bold">Figure 1.</hi> Main characters of 
+                    <hi rend="italic">Lalka</hi> by B. Prus
+                </p>
+            </div>
+            <div type="div1" rend="DH-Heading">
+                <head>Data collection</head>
+                <p>In order to build the corpus I utilized two digital libraries that offer texts in Polish. The Polona digital library (Polona, 2018) which is maintained by the National Library of Poland offers digitized copies of printed books. I have managed to fetch from Polona around 3000 volumes that are in public domain and are available online in a form of OCR-ed text. The multi-volume editions of novels fetched from Polona were merged resulting in ca. 2300 complete pieces of literary fiction. The second source of texts for the corpus is the Wolne Lektury library (Wolne Lektury, 2018) that focuses on school readings and offers carefully revised electronic editions of books that are in public domain. Around 230 novels were available for download from Wolne Lektury at the time of writing.</p>
+                <p> In order to make the corpus representative I decided to select exactly one (the most recent) edition of every novel that has authorship attributed, resulting in 1555 unique pieces of work. Due to the sparsity of available data I restricted my attention to novels created between 1800 and 1945, obtaining 1443 volumes in result. Since the focus of this research is on Polish novels only I have selected from the corpus the books that have Polish origin according to the catalogue of the National Library of Poland (Biblioteka Narodowa, 2018). Thus, the corpus used in this paper consists of 930 novels (392 from the 19th century and 538 from the first half of the 20th century).</p>
+                <p> Before feeding the texts from the corpus into the network induction procedure described in the following section some preliminary processing is required. In case of Polona texts word segmentation errors introduced by OCR have been fixed by a custom normalization script. Furthermore, since the part-of-speech (POS) and named entity recognition (NER) taggers used for the network induction are trained on a corpus of modern Polish language (Przepiórkowski et al., 2012), I have applied a diachronic normalizer (Graliński, 2018; Jassem et al., 2017) in order to contemporize the Polona texts for the purpose of improving the part-of-speech and named entity recognition accuracy. Finally, the novels are split into paragraphs by another script. The texts from Wolne Lektury are checked for errors and contemporized by library editors before publication, hence beside splitting them into paragraphs in accordance to the XML schema no further processing is required.</p>
+                <p>
+                    <figure>
+                        <graphic url="Pictures/da21a3f7d6658b781b7fa2545cafa224.png"/>
+                    </figure>
+                    <hi rend="bold">Figure </hi>
+                    <hi rend="bold">2</hi>
+                    <hi rend="bold">. </hi>Novels in corpus by decade
+                </p>
+            </div>
+            <div type="div1" rend="DH-Heading">
+                <head>
+                    <hi rend="bold">Network induction</hi>
+                </head>
+                <p>Beforethe conversation network can be inferred from a novel, the text has to be passed to the annotation pipeline that appends additional data necessary for the network induction procedure. The annotation pipeline splits the paragraphs of text into sentences and tokens. Then, the text is lemmatized with help of the Polimorf dictionary (Woliński et al., 2012).Afterwards, the text is annotated by POS and NER modules that were trained using the manually annotated 1-million word subcorpus of the NKJP corpus (Przepiórkowski et al., 2012). The final step of the annotation pipeline is the detection of dialog boundaries. A script with hand-crafted rules that take into consideration possible shapes of beginnings, endings and internal paragraphs of dialogs is used for this purpose. The script failed to extract dialogs from 23 books, thus the networks have been inferred for 383 19th century novels and 524 20th century novels, respectively.</p>
+                <p> The network induction procedure iterates over dialogs identified in the novel. The dialog turns are surface parsed in order to detect speakers and distinguish them from other named entities that are referenced in the dialog, but do not talk. Since characters can be referred in text in different ways,
+                    <note xml:id="ftn1" place="foot" n="1">E.g. by their names, surnames, first names, diminutives, honorifics.</note> the detected speaker mentions are passed to the entity resolution module which is responsible for assigning a common identifier to all mentions of the same character on the basis of the dialog history and the plot. Finally, a (conversational) link is created in the network for every pair of identified speakers that participate in the dialog.
+                </p>
+                <p>
+                    <figure>
+                        <graphic url="Pictures/b3b7e64d17a5954ad70f556de757f70a.png"/>
+                    </figure>
+                    <hi rend="bold">Figure 3.</hi> Annotation pipeline
+                </p>
+            </div>
+            <div type="div1" rend="DH-Heading">
+                <head>Results</head>
+                <p>Elson et al. (2010) made a distinction between characters and speakers (characters that took part in at least one conversation). I decided to focus the study on speakers only since the NER module identified many entities that are not relevant to the conversations such as historical figures.
+                    <note xml:id="ftn2" place="foot" n="2">Plus some false positives that definitely are not named entities.</note>
+                </p>
+                <p> The conversation networks induced from the entire corpus have 34 (σ=25.42) characters on average. The mean number of dialogs is 191 and the average number of conversation links between characters is 80. 
+                    <hi rend="bold"> </hi>The average number of conversations that a character is involved into
+                    <note xml:id="ftn3" place="foot" n="3">Average node degree according to graph terminology.</note> is 2.28
+                    <hi rend="bold">.</hi> I have run the Walktrap community detection algorithm (Pons and Latapy, 2005) and found the mean number of communities to be 4.68 and the average size of a community to be 5.68.
+                    <note xml:id="ftn4" place="foot" n="4">Excluding communities of size 1 that are found by the walktrap algorithm.</note>
+                </p>
+                <table rend="frame" xml:id="Table1">
+                    <row role="label">
+                        <cell rend="center bold">Network metric</cell>
+                        <cell rend="center bold">19th century</cell>
+                        <cell rend="center bold">20th century</cell>
+                        <cell rend="center bold">All</cell>
+                    </row>
+                    <row>
+                        <cell rend="center">character count</cell>
+                        <cell>
+                            <p rend="end">36.87</p>
+                            <p rend="end">
+                                <hi rend="color(#222222)">±</hi>27.48
+                            </p>
+                        </cell>
+                        <cell>
+                            <p rend="end">31.48</p>
+                            <p rend="end">
+                                <hi rend="color(#222222)">±</hi>23.56
+                            </p>
+                        </cell>
+                        <cell>
+                            <p rend="end">33.75</p>
+                            <p rend="end">
+                                <hi rend="color(#222222)">±</hi>25.42
+                            </p>
+                        </cell>
+                    </row>
+                    <row>
+                        <cell rend="center">dialog count</cell>
+                        <cell>
+                            <p rend="end">182.60</p>
+                            <p rend="end">
+                                <hi rend="color(#222222)">±</hi>168.07
+                            </p>
+                        </cell>
+                        <cell>
+                            <p rend="end">196.27</p>
+                            <p rend="end">
+                                <hi rend="color(#222222)">±</hi>158.08
+                            </p>
+                        </cell>
+                        <cell>
+                            <p rend="end">190.50</p>
+                            <p rend="end">
+                                <hi rend="color(#222222)">±</hi>162.42
+                            </p>
+                        </cell>
+                    </row>
+                    <row>
+                        <cell rend="center">link count</cell>
+                        <cell>
+                            <p rend="end"> 89.56</p>
+                            <p rend="end">
+                                <hi rend="color(#222222)">± </hi>109.23
+                            </p>
+                        </cell>
+                        <cell>
+                            <p rend="end"> 73.16</p>
+                            <p rend="end">
+                                <hi rend="color(#222222)">±</hi>94.08
+                            </p>
+                        </cell>
+                        <cell>
+                            <p rend="end"> 80.09</p>
+                            <p rend="end">
+                                <hi rend="color(#222222)">±</hi>101.03
+                            </p>
+                        </cell>
+                    </row>
+                    <row>
+                        <cell rend="center">average degree</cell>
+                        <cell>
+                            <p rend="end">2.35</p>
+                            <p rend="end">
+                                <hi rend="color(#222222)">±</hi>1.81
+                            </p>
+                        </cell>
+                        <cell>
+                            <p rend="end">2.23</p>
+                            <p rend="end">
+                                <hi rend="color(#222222)">±</hi>1.52
+                            </p>
+                        </cell>
+                        <cell>
+                            <p rend="end">2.28</p>
+                            <p rend="end">
+                                <hi rend="color(#222222)">±</hi>1.65
+                            </p>
+                        </cell>
+                    </row>
+                    <row>
+                        <cell rend="center">community count</cell>
+                        <cell>
+                            <p rend="end">5.13</p>
+                            <p rend="end">
+                                <hi rend="color(#222222)">±</hi>3.49
+                            </p>
+                        </cell>
+                        <cell>
+                            <p rend="end">4.35</p>
+                            <p rend="end">
+                                <hi rend="color(#222222)">±</hi>2.83
+                            </p>
+                        </cell>
+                        <cell>
+                            <p rend="end">4.68</p>
+                            <p rend="end">
+                                <hi rend="color(#222222)">±</hi>3.14
+                            </p>
+                        </cell>
+                    </row>
+                    <row>
+                        <cell rend="center">community size</cell>
+                        <cell>
+                            <p rend="end">5.83</p>
+                            <p rend="end">
+                                <hi rend="color(#222222)">±</hi>2.94
+                            </p>
+                        </cell>
+                        <cell>
+                            <p rend="end">5.56</p>
+                            <p rend="end">
+                                <hi rend="color(#222222)">±</hi>2.55
+                            </p>
+                        </cell>
+                        <cell>
+                            <p rend="end">5.68</p>
+                            <p rend="end">
+                                <hi rend="color(#222222)">±</hi>2.73
+                            </p>
+                        </cell>
+                    </row>
+                </table>
+                <p>
+                    <hi rend="bold">T</hi>
+                    <hi rend="bold">able 1.</hi> Network properties
+                </p>
+                <p> (Elson et al., 2010) and (Jayannavar et al., 2015) reported that the number of characters in the novel is correlated with the properties of the inferred network. As can be expected the same observation holds for the conversation networks induced from Polish novels. The number of characters is strongly correlated to the number of dialogs (r=0.73) and the number of conversational links (r=0.86). Furthermore, the number of communities is strongly correlated to the number of characters (r=0.83).</p>
+                <p>In contrast to (
+                    <anchor type="bookmark-start" xml:id="id___DdeLink__1090_1683460688"/>Jayannavar et al., 2015
+                    <ptr type="bookmark-end" target="#id___DdeLink__1090_1683460688"/>) I found the number of characters to be positively
+                    <note xml:id="ftn5" place="foot" n="5">Instead of negatively.</note> correlated to the average number of interlocutors that a character has (r=0.44) and the average community size (r=0.43). This result may be due to the definitional differencebetween conversational links used in this paper and interaction links used by Jayannavar et al. 
+                </p>
+                <table rend="frame" xml:id="Table2">
+                    <row role="label">
+                        <cell rend="center bold">Network metric</cell>
+                        <cell rend="center bold">19th century</cell>
+                        <cell rend="center bold">20th century</cell>
+                        <cell rend="center bold">All</cell>
+                    </row>
+                    <row>
+                        <cell rend="center">dialog count</cell>
+                        <cell rend="end">0.74</cell>
+                        <cell rend="end">0.73</cell>
+                        <cell rend="end">0.73</cell>
+                    </row>
+                    <row>
+                        <cell rend="center">link count</cell>
+                        <cell rend="end">0.84</cell>
+                        <cell rend="end">0.88</cell>
+                        <cell rend="end">0.86</cell>
+                    </row>
+                    <row>
+                        <cell rend="center">average degree</cell>
+                        <cell rend="end">0.35</cell>
+                        <cell rend="end">0.54</cell>
+                        <cell rend="end">0.44</cell>
+                    </row>
+                    <row>
+                        <cell rend="center">community count</cell>
+                        <cell rend="end">0.83</cell>
+                        <cell rend="end">0.83</cell>
+                        <cell rend="end">0.83</cell>
+                    </row>
+                    <row>
+                        <cell rend="center">community size</cell>
+                        <cell rend="end">0.40</cell>
+                        <cell rend="end">0.46</cell>
+                        <cell rend="end">0.43</cell>
+                    </row>
+                </table>
+                <p>
+                    <hi rend="bold">Table 2.</hi> Network metrics correlated with character number
+                </p>
+                <p>Having the corpus that contains comparable number of the 19th and 20th century novels, I decided to check if properties of networks change systematically between the centuries. Since network metrics are not normally distributed,
+                    <note xml:id="ftn6" place="foot" n="6">Normality of all network metrics discussed in the paper is rejected according to Shapiro-Wilk test.</note> I have used the Mann-Whitney test to verify the hypothesis that it is equally likely that a randomly selected novel from the 19th century subcorpus has a lower or higher value of the network metric being tested than a randomly selected novel from the 20th century subcorpus. This hypothesis has been rejected in case of the character number, dialog count, link count and community count metrics and maintained in case of the average degree and average community size (cf. Table 3). These results suggest that (at least with regard to the collected corpus) the prose of the first half of the 20th century became richer in dialogue, but at the same time focused on smaller sets of characters.
+                </p>
+                <table rend="frame" xml:id="Table3">
+                    <row role="label">
+                        <cell rend="center bold">Hypo-thesis</cell>
+                        <cell>
+                            <p rend="center bold">19th century</p>
+                            <p rend="center bold">median</p>
+                        </cell>
+                        <cell>
+                            <p rend="center bold">20th century</p>
+                            <p rend="center bold">median</p>
+                        </cell>
+                        <cell rend="center bold">p-value</cell>
+                        <cell rend="center bold">0.95 conf. interval</cell>
+                    </row>
+                    <row>
+                        <cell rend="center">character count</cell>
+                        <cell rend="end"> 30.0</cell>
+                        <cell rend="end"> 26.0</cell>
+                        <cell rend="end bold">0.00098</cell>
+                        <cell rend="end">[2.00, 6.00]</cell>
+                    </row>
+                    <row>
+                        <cell rend="center">dialog count</cell>
+                        <cell rend="end">132.0</cell>
+                        <cell rend="end">161.5</cell>
+                        <cell rend="end bold">0.00671</cell>
+                        <cell rend="end">[-34.0, -6.0]</cell>
+                    </row>
+                    <row>
+                        <cell rend="center">link count</cell>
+                        <cell rend="end"> 54.0</cell>
+                        <cell rend="end"> 43.0</cell>
+                        <cell rend="end bold">0.00370</cell>
+                        <cell rend="end"> [3.00, 15.00]</cell>
+                    </row>
+                    <row>
+                        <cell rend="center">average degree</cell>
+                        <cell rend="end"> 1.9</cell>
+                        <cell rend="end"> 1.9</cell>
+                        <cell rend="end">0.68892</cell>
+                        <cell rend="end">[-0.14, 0.21]</cell>
+                    </row>
+                    <row>
+                        <cell rend="center">comm. count</cell>
+                        <cell rend="end"> 4.0</cell>
+                        <cell rend="end"> 4.0</cell>
+                        <cell rend="end bold">0.00020</cell>
+                        <cell rend="end">[0.000068, 1.00]</cell>
+                    </row>
+                    <row>
+                        <cell rend="center">comm. size</cell>
+                        <cell rend="end"> 5.2</cell>
+                        <cell rend="end"> 5.0</cell>
+                        <cell rend="end">0.26845</cell>
+                        <cell rend="end">[-0.117, 0.49]</cell>
+                    </row>
+                </table>
+                <p>
+                    <hi rend="bold">Table 3. </hi>Network metric change between centuries
+                </p>
+            </div>
+            <div type="div1" rend="DH-Heading">
+                <head>Final Remarks</head>
+                <p>The systematic differences between the 19th and 20th century Polish novels presented in this paper are interesting on their own, but they can also initiate further computational investigations of the character networks. One problem that is not covered by this study and should be examined in the future is the impact of indirect speech on the structure of character networks. Another issue that should be taken into consideration is the verification if the proposed hypotheses still hold in presence of the constantly growing corpus of digitized literary works of Polish origin.
+                    <note xml:id="ftn7" place="foot" n="7">Polona claims to add up to 2000 digital objects such as books, photographs and postcards on the daily basis (Polona, 2018).</note>
+                </p>
+            </div>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl>
+                        <hi rend="bold">Biblioteka Narodowa</hi> (2018). Katalogi Biblioteki Narodowej. Available at: 
+                        <ptr target="http://katalogi.bn.org.pl/"/>(Accessed: 27 November 2018).
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Elson, D. K., Dames, N. and McKeown, K. R.</hi> (2010). Extracting social networks from literary fiction. 
+                        <hi rend="italic">Proceedings of the 48th Annual Meeting of the Association for Computational Linguistics</hi>, pp. 138–47.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Fischer, F., Göbel, M., Kampkaspar, D., Kittel, C. and Trilcke, P</hi>. (2017). Network Dynamics, Plot Analysis: Approaching the Progressive Structuration of Literary Texts. 
+                        <hi rend="italic">Digital Humanities 2017.</hi> Montréal: McGill University, pp. 437-40.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Graliński, F.</hi> (2018). lucene-transducers. Available at: 
+                        <ptr target="https://gonito.net/gitlist/lucene-transducers.git/"/>(Accessed: 27 November 2018).
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Jassem, K., Graliński, F., Obrębski, T.</hi> (2017). Pros and Cons of Normalizing Text with Thrax. 
+                        <hi rend="italic">Proceedings of the 8th Language and Technology Conference</hi>, Poznan, Poland, Fundacja Uniwersytetu im. Adama Mickiewicza, pp. 230-235.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Jayannavar, </hi>
+                        <hi rend="bold">P.</hi>
+                        <hi rend="bold">, Agarwal, A., Ju, M. and Rambow,</hi>
+                        <hi rend="bold">O</hi>
+                        <hi rend="bold">.</hi> (2015). Validating Literary Theories Using Automatic Social Network Extraction. 
+                        <hi rend="italic">Proceedings of NAACL-HLT Fourth Workshop on Computational Linguistics for Literature</hi>, pp. 32–41
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Moretti, F.</hi> (2013). Network Theory, Plot Analysis. 
+                        <hi rend="italic">Distant Reading.</hi> London: Verso.
+                    </bibl>
+                    <bibl>
+                        <hi rend="color(#3b3b3b)">Przepiórkowski, </hi>
+                        <hi rend="color(#3b3b3b)">A.</hi>
+                        <hi rend="color(#3b3b3b)">, Bańko, </hi>
+                        <hi rend="color(#3b3b3b)">M.</hi>
+                        <hi rend="color(#3b3b3b)">, Górski, R. L. </hi>
+                        <hi rend="color(#3b3b3b)">and</hi>
+                        <hi rend="color(#3b3b3b)"> Lewandowska-Tomaszczyk, </hi>
+                        <hi rend="color(#3b3b3b)">B. </hi>
+                        <hi rend="color(#3b3b3b)">(2012).</hi>
+                        <hi rend="color(#3b3b3b)"> (</hi>
+                        <hi rend="color(#3b3b3b)">eds</hi>
+                        <hi rend="color(#3b3b3b)">.) </hi>
+                        <emph>
+                            <hi rend="color(#3b3b3b)">Narodowy Korpus Języka Polskiego. </hi>
+                        </emph>
+                        <emph>
+                            <hi rend="color(#3b3b3b)">Warszawa: </hi>
+                        </emph>
+                        <hi rend="color(#3b3b3b)">Wydawnictwo Naukowe PWN.</hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Polona</hi> (2018). About Polona website. Available at: 
+                        <ptr target="https://polona.pl/page/about-polona/"/> (Accessed: 27 November 2018).
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Pons, P. </hi>
+                        <hi rend="bold">and</hi>
+                        <hi rend="bold"> Latapy, M.</hi> (2005). Computing communities in large networks using random walks, Available at: 
+                        <ptr target="http://arxiv.org/abs/physics/0512106"/> (Accessed: 27 November 2018).
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Woliński, M., Miłkowski, M., Ogrodniczuk, M., Przepiórkowski, A. and Szałkiewicz, Ł.</hi> (2012). PoliMorf: a (not so) new open morphological dictionary for Polish. 
+                        <hi rend="italic">Proceedings of the Eighth International Conference on Language Resources and Evaluation</hi>, Istanbul: ELRA, pp. 860–64
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Wolne Lektury</hi> (2018). About the project. Available at: 
+                        <ptr target="https://wolnelektury.pl/info/o-projekcie/"/>(Accessed: 27 November2018).
+                    </bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

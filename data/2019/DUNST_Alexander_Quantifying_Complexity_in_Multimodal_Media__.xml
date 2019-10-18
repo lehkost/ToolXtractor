@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>Quantifying Complexity in Multimodal Media: Alan Moore and the “Density” of the Graphic Novel</title>
+                <author>
+                    <persName>
+                        <surname>Dunst</surname>
+                        <forename>Alexander</forename>
+                    </persName>
+                    <affiliation>University of Paderborn, Germany</affiliation>
+                    <email>dunst@mail.upb.de</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Hartel</surname>
+                        <forename>Rita</forename>
+                    </persName>
+                    <affiliation>University of Paderborn, Germany</affiliation>
+                    <email>rst@upb.de</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2019-04-29T07:47:00Z</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Name, Institution</publisher>
+                <address>
+                    <addrLine>Street</addrLine>
+                    <addrLine>City</addrLine>
+                    <addrLine>Country</addrLine>
+                    <addrLine>Name</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from a Word document</p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.22">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Long Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>Complexity</term>
+                    <term>comics</term>
+                    <term>multimodality</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>corpus and text analysis</term>
+                    <term>image processing</term>
+                    <term>audio</term>
+                    <term>video</term>
+                    <term>multimedia</term>
+                    <term>cultural studies</term>
+                    <term>English</term>
+                    <term>communication and media studies</term>
+                    <term>cultural analytics</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <div type="div1" rend="DH-Heading1">
+                <head>Introduction</head>
+                <p>In an interview he gave in the year 2000, the well-known comics author Alan Moore made a remarkable observation about the graphic novel. Although he was critical of the term, which is commonly used to refer to book-length comics narratives, Moore acknowledged that canonical titles such as Art Spiegelman’s 
+                    <hi rend="italic">Maus</hi> and his own 
+                    <hi rend="italic">Watchmen</hi> could legitimately be described as novelistic on the basis of their higher “density” (Moore). Moore thus implicitly hypothesized that critical appreciation may have a formal basis. As we understand it, Moore’s brief reference to density—which he does not expand on in the interview—may be reformulated as complexity: the visual and textual cues that make it comparatively easy or difficult to comprehend and interpret a given narrative. Yet, this notion of complexity introduces further complexities for a scholarly understanding: On the one hand, Moore’s hypothesis accords with recent attempts in DH to find a new middle ground between the older formalisms and a cultural studies emphasis on the discursive construction of literary concepts. In practice, this reorientation necessitates a combination of computation and cultural sociology (English &amp; Underwood). On the other hand, anyone who attempts to operationalize a concept such as density in multimodal media also faces technical challenges, in our case the automatic recognition of handwritten comics fonts.
+                </p>
+                <p> In this paper, we describe the operationalization of Moore’s concept of density with the help of six textual and visual measures. We then present a pilot study of 40 graphic novels and memoirs, which are taken from the first representative corpus of English graphic narrative, or GNC (Dunst, Hartel &amp; Laubrock). Six of these can be described as canonical given their frequent discussion in academic scholarship. The relatively small number of titles can be traced to the aforementioned technical hurdles. DH research on comics and visual media more generally has made significant progress in recent years (Dunst, Laubrock &amp; Wildfeuer). Yet, existing computer vision methods still need to be adapted to the structural features of comics, such as individual panels, speech bubbles, and non-perspectival drawn images. Existing OCR software based on static and adaptive character classifiers leads to poor results in recognizing highly individualized and frequently handwritten comics fonts. This paper builds on early results of applying neural network-based automatic text recognition (ATR) to graphic narratives and may constitute the first computational analysis of comics text. </p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Dataset &amp; Methodology</head>
+                <p>The brevity of Moore’s reference to density does not give any indication of his precise understanding of the term. However, our previous research has shown that Shannon entropy, a measure for the visual agitation of a page, and the number of shapes are useful indicators of style in comics (Dunst &amp; Hartel 2018). These measures also capture central elements of basic visual processing, which distinguishes variations in color and brightness and establishes discontinuities between shapes (Lefèvre). In addition, we include the number of individual panels in our formalization. Most comics pages consist of several individual images that are framed by drawn borders or white space to suggest a sequence. Therefore, the number of panels per page indicates whether a page consists of one single image, or is constructed from the complex arrangement of many.</p>
+                <p>We currently achieve the most promising results recognizing comics text with the open-source Tesseract 4 software, which is based on a long short-term memory (LSTM) recurrent neural network (Smith). As described in earlier work (Hartel &amp; Dunst), we use the similarity measure of the “Bag Error Rate” (BER) to decide whether the ATR software produces plausible results for text analysis based on a Bag-of-Words (BOW) approach. For each graphic novel, we manually annotated around 10% of its pages and compared this gold standard to the results of the ATR. Only if the BOW of the gold standard and the recognized texts are similar enough (a BER smaller than 40, for details see Hartel &amp; Dunst), do we consider the graphic novel appropriate for text analysis. Research on the complexity of written texts often uses simple word-based measures. Standardized reading tests such as the Gunning fog index or Flesch-Kincaid count the length of individual words and sentence lengths. While our ATR does not reliably recognize punctuation at this point and is thus unable to count sentence length, we include the number of overall words on a page, word length by number of characters, and normalized type-token ratio in our calculation of textual complexity. In order to weigh all six textual and visual measures equally, we normalized each measure by computing the quotient of the value for each graphic novel and the maximum value for all graphic novels.</p>
+                <p> The designation of certain graphic novels and memoirs in the GNC as canonical is based on the frequency with which they are mentioned in the Bonn Online Bibliography of Comics Research. Figure 1 gives an overview of the 20 titles with the highest number of mentions and includes all six titles that were part of our study (
+                    <hi rend="italic">A Contract with God</hi>, 
+                    <hi rend="italic">Fun Home</hi>, 
+                    <hi rend="italic">Jimmy Corrigan</hi>, 
+                    <hi rend="italic">Maus</hi>, 
+                    <hi rend="italic">V for Vendetta</hi>, 
+                    <hi rend="italic">Watchmen</hi>).
+                </p>
+                <figure/>
+                <p>
+                    <anchor xml:id="axcqujf3u4v9"/>Fig. 1: 20 titles in GNC with the most mentions in Bonn Bibliography of Comics Research
+                </p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>
+                    <anchor xml:id="zig933u2txb1"/>Results &amp; Discussion
+                </head>
+                <p>
+                    <anchor xml:id="goggdqezqoqf"/>Our pilot study provides empirical evidence that supports Moore’s hypothesis that critically esteemed, or canonical, graphic novels are characterized by higher density. Despite the comparatively small number of titles analyzed, figure 2 shows that the results are highly significant, with p&lt;2*10
+                    <hi rend="superscript">-16</hi>. 
+                </p>
+                <figure/>
+                <p>
+                    <anchor xml:id="nzqk3mw81k1a"/>Fig. 2.: Distinction in density between canonical and non-canonical graphic narratives
+                </p>
+                <p>
+                    <anchor xml:id="n8njb0wwo9ei"/>The results introduce a number of finer distinctions that are, by necessity, absent from Moore’s brief mention of density. Figures 3 and 4 compare four genres: the umbrella category graphic fantasy, which includes science fiction, fantasy, horror, and superhero narratives; graphic memoirs; graphic novels in the narrower sense of the word as fictional, literary narratives; and graphic non-fiction. Both information channels present in graphic novels show significant differences for canonical and less celebrated titles. If we look at different genres, we see that graphic memoirs are less complex visually than other titles but show the highest score for textual density. Graphic fantasy emerges as the most visually complex genre.
+                </p>
+                <figure/>
+                <p>Fig. 3: Genre comparison for visual density. All categories show statistically significant distinction, with p 
+                    <hi style="font-size:10pt">&lt;</hi> 0,05. 
+                </p>
+                <figure/>
+                <p>
+                    <anchor xml:id="fahuhiuzgn83"/>Fig. 4: Genre comparison for textual density. The pairings graphic novel–graphic fantasy, graphic novel–graphic memoir, and graphic novel–graphic non-fiction are statistically significant, with p 
+                    <hi style="font-size:10pt">&lt;</hi> 0,05. 
+                </p>
+                <p>
+                    <anchor xml:id="cn8q4kqwzl6z"/>The difference between textual and visual density contributes to our empirical knowledge about narrative. The visual density of graphic fantasy is due to higher entropy and number of shapes. Work in progress indicates that these titles also tend to be more colorful and more irregular in their layout. Titles such as Moore’s 
+                    <hi rend="italic">Watchmen</hi> and 
+                    <hi rend="italic">V for Vendetta</hi> are thus visually highly complex, possibly because of the emphasis on spectacle and entertainment in these genres. In contrast, the textual density of graphic memoirs might contribute to their frequent discussion in academic scholarship, with 
+                    <hi rend="italic">Maus</hi> amassing 15% of all mentions in our corpus. Textual complexity arguably appeals to literary and cultural critics who have been schooled to appreciate titles that allow for ambiguity and subtle interpretations. However, many graphic memoirs (including 
+                    <hi rend="italic">Maus</hi>) are published in black and white—a feature that leads to lower entropy and, in our current operationalization, to somewhat lower visual density. Finally, a combination of high visual and textual density seems to augur well for the success of graphic narratives. As figure 5 shows, four of the six canonical examples included in our study can be found among the highest scoring titles on both counts.
+                </p>
+                <figure/>
+                <p>Fig. 5: Scores for overall density, with canonical titles marked green</p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Conclusion &amp; Outlook</head>
+                <p>We’ve detailed the operationalization of a concept, that of density or complexity, that was anecdotally connected to social processes of canonization by a leading comics author. Similar processes might be at work in multimodal media, including film and television. Generally speaking, higher-level concepts that combine information channels may provide useful research hypotheses for multimodal analysis. In contrast to more exploratory analyses of correlation between verbal and visual measures, these concepts can easily be connected to qualitative scholarship and sociological metadata. In a next step, we will increase the number of titles to the total of 250 included in the GNC. This will allow for a representative overview of graphic narrative. In addition to Tesseract 4, we are currently training Transkribus ATR software (Kahle et al.) on comics fonts and are working on enhanced text spotting, so that we will likely be able to present a more comprehensive version of this study in time for DH 2019.</p>
+            </div>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl>Dunst, A. &amp; Hartel, R. (2018). “Automated Genre and Author Distinction in Comics“ 
+                        <hi rend="italic">DH 2018: Book of Abstracts</hi>, 184-188.
+                    </bibl>
+                    <bibl>Dunst, A. &amp; Hartel, R. (2018). “The Quantitative Study of Comics: Towards a Visual Stylometry of Graphic Narrative”. A. Dunst, Laubrock, J. &amp; Wildfeuer, J. (Ed.), 
+                        <hi rend="italic">Empirical Comics Research: Digital, Cognitive, and Multimodal Methods</hi>. New York: Routledge, 43-61.
+                    </bibl>
+                    <bibl>Dunst, A., Hartel, R. &amp; Laubrock, J. (2017). 
+                        <hi rend="bold">“</hi>The Graphic Narrative Corpus (GNC): Design, Annotation, and Analysis for the Digital Humanities” In: 
+                        <hi rend="italic">Proceedings of the 14th IAPR International Conference on Document Analysis and Recognition 2017</hi>, 15-20.
+                    </bibl>
+                    <bibl>Dunst, A., Laubrock, J. &amp; Wildfeuer, J. (2017). “Comics and Empirical Research: An Introduction”. In: A. Dunst, Laubrock, J. &amp; Wildfeuer, J. (Ed.), 
+                        <hi rend="italic">Empirical Comics Research: Digital, Cognitive, and Multimodal Methods</hi>. New York: Routledge, 1-23.
+                    </bibl>
+                    <bibl>English, J. &amp; Underwood, T. (2016). “Shifting Scales: Between Literature and Social Science.” 
+                        <hi rend="italic">Modern Language Quarterly</hi> 77: 277-295.
+                    </bibl>
+                    <bibl>Hartel, R. &amp; Dunst, A. (2019). “How Good is Good Enough? Establishing Quality Thresholds for the Automatic Text Analysis of Retro-Digitized Comics” In: 
+                        <hi rend="italic">Proceedings of the Multimedia Modeling Conference 2019</hi>, 
+                        <ref target="https://easychair.org/publications/preprint_open/Mdf2">
+                            <hi rend="underline color(1155CC)">https://easychair.org/publications/preprint_open/Mdf2</hi>
+                        </ref>.
+                    </bibl>
+                    <bibl>Kahle, P., Colutto, S., Hackl, G., &amp; Mühlberger, G. (2017). “Transkribus - A Service Platform for</bibl>
+                    <bibl>Transcription, Recognition and Retrieval of Historical Documents”. In: 14th IAPR International Conference on Document Analysis and Recognition (ICDAR): 19-24.</bibl>
+                    <bibl>Lefèvre, P. (2016). “No Content without Form: Graphic Style as the Primary Entrance to a Story.” In: N. Cohn (Ed.). 
+                        <hi rend="italic">The Visual Narrative Reader</hi>. London: Bloomsbury, 72.
+                    </bibl>
+                    <bibl>Moore, A. &amp; Kavanagh, B. “Interview”, 17 October 2000 http://www.blather.net/articles/amoore/alanmoore.txt.</bibl>
+                    <bibl>Smith, R. (2007). “An Overview of the Tesseract OCR Engine.” In: Ninth International Conference on Document Analysis and Recognition (ICDAR): 629-633.</bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

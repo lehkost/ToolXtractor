@@ -1,0 +1,400 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title type="full">
+                    <title type="main">A Workflow For On The Fly Normalisation Of 17th c. French</title>
+                    <title type="sub"/>
+                </title>
+                <author>
+                    <persName>
+                        <surname>Gabay</surname>
+                        <forename>Simon</forename>
+                    </persName>
+                    <affiliation>Université de Neuchâtel, Switzerland</affiliation>
+                    <email>simon.gabay@unine.ch</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Riguet</surname>
+                        <forename>Marine</forename>
+                    </persName>
+                    <affiliation>Université Paris-Sorbonne/Labex Obvil</affiliation>
+                    <email>marineriguet@gmail.com</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Barrault</surname>
+                        <forename>Loïc</forename>
+                    </persName>
+                    <affiliation>Le Mans Université</affiliation>
+                    <email>loic.barrault@univ-lemans.fr</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2019-04-18T09:21:48.590759395</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Name, Institution</publisher>
+                <address>
+                    <addrLine>Street</addrLine>
+                    <addrLine>City</addrLine>
+                    <addrLine>Country</addrLine>
+                    <addrLine>Name</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from an OASIS Open Document</p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.22">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Short Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>Neural machine translation</term>
+                    <term>Rule-based translation</term>
+                    <term>17th c. French</term>
+                    <term>Normalisation</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>corpus and text analysis</term>
+                    <term>philology</term>
+                    <term>machine translation</term>
+                    <term>translation studies</term>
+                    <term>English</term>
+                    <term>OCR and hand-written recognition</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <p>Normalisation can be produced with various solutions (Baron and Rayson, 2008; Bollmann et al., 2011; Pettersson et al., 2013a; Pettersson et al., 2013b; Sánchez-Martínez et al., 2013; Porta et al., 2013; Scherrer and Erjavec, 2013; Pettersson et al., 2014; Bollmann and Søgaard, 2016; Ljubešic et al., 2016; Tjong Kim Sang et al., 2017; Domingo et al., 2017), but recent research have demonstrated that neural machine translation (NMT) is the most efficient (Korchagina, 2017; Domingo and Casacuberta, 2018a). However, moving from test to production of a working tool is not an easy task, because of the amount of training data required for machine learning. This paper present a solution to create a parallel corpus and deliver an NMT-based normaliser for early modern French.</p>
+            <div type="div1" rend="DH-Heading1">
+                <head>A first test corpus</head>
+                <p>A first test has been made with the 1668 edition of 
+                    <hi rend="italic">Andromaque</hi> of Jean Racine (Racine, 1668) and the 1624 edition of the 
+                    <hi rend="italic">Lettres</hi> of Jean-Louis Guez de Balzac (Guez de Balzac, 1624).
+                </p>
+                <table rend="frame" xml:id="Table5">
+                    <row>
+                        <cell/>
+                        <cell>Author</cell>
+                        <cell>Text</cell>
+                        <cell>Date</cell>
+                        <cell>Lines</cell>
+                        <cell>Tokens</cell>
+                        <cell>Characters</cell>
+                    </row>
+                    <row>
+                        <cell>Corpus</cell>
+                        <cell>Guez de Balzac</cell>
+                        <cell rend="italic">Correspondance</cell>
+                        <cell>1624</cell>
+                        <cell>1723</cell>
+                        <cell>49,589</cell>
+                        <cell>298,486</cell>
+                    </row>
+                    <row>
+                        <cell/>
+                        <cell>Racine</cell>
+                        <cell rend="italic">Andromaque</cell>
+                        <cell>1664</cell>
+                        <cell>1756</cell>
+                        <cell>13,884</cell>
+                        <cell>86,612</cell>
+                    </row>
+                    <row>
+                        <cell rend="bold">Total</cell>
+                        <cell/>
+                        <cell/>
+                        <cell/>
+                        <cell>3479</cell>
+                        <cell>63,473</cell>
+                        <cell>385,098</cell>
+                    </row>
+                </table>
+                <p>This proto-corpus is deliberately heterogeneous to test our workflow. Guez’s 
+                    <hi rend="italic">Correspondance</hi> is a collection of short letters in prose using a graphic system from the first half of the 17
+                    <hi rend="sup">th</hi> c. Racine’s 
+                    <hi rend="italic">Andromaque</hi> is a play in verse with a graphic system from the second half of the 17
+                    <hi rend="sup">th</hi> c.
+                </p>
+                <p>Transcriptions have been produced directly from PDF files (Fig. 1) with a model specifically designed for 17
+                    <hi rend="sup">th</hi> c. prints (Gabay, 2019). It has been trained on both low-quality (72 DPI) and high-quality (400 DPI) images of books using various fonts and the extracted text preserves abbreviations (
+                    <hi rend="italic">ẽ</hi>…) and special characters (
+                    <hi rend="italic">ſ…</hi>) but not ligatures (
+                    <hi rend="italic">ﬁ</hi>…).
+                </p>
+                <p>
+                    <figure>
+                        <graphic url="Pictures/36c87aac0e452d564684c9af506f9645.jpg"/>
+                    </figure>Fig. 1 Racine, 
+                    <hi rend="italic">Andromaque</hi>, Paris, BNF, RES-YF-3206, p. 2
+                </p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Pre-processing</head>
+                <p>Following previous successful experiments (Bollmann, 2012), a rule-based system for pre-orthographic French has been developed (Riguet, 2019). It is based on two lexical resources: Morphalou, an open lexical database of inflected forms of contemporary French (Romary et al., 2004), and LGeRM, an open morphological lexicon for middle French (Souvay and Pierrel, 2009) now covering also 17
+                    <hi rend="sup">th</hi> c. French (Diwersy et al., 2017). Based on these two databases, the normaliser applies transformations on each token, before a manual correction of the result.
+                </p>
+                <p>Normalisation consists of aligning 17
+                    <hi rend="sup">th</hi> c. graphic systems (source) to 21
+                    <hi rend="sup">st</hi> c. orthography (target)
+                </p>
+                <table rend="frame" xml:id="Table6">
+                    <row>
+                        <cell>Source</cell>
+                        <cell>Target</cell>
+                    </row>
+                    <row>
+                        <cell>
+                            <hi rend="bold">Sur tout i</hi>e redout
+                            <hi rend="bold">o</hi>is cette Mélancolie
+                        </cell>
+                        <cell>
+                            <hi rend="bold">Surtout j</hi>e redout
+                            <hi rend="bold">a</hi>is cette Mélancolie
+                        </cell>
+                    </row>
+                    <row>
+                        <cell>Où j’a
+                            <hi rend="bold">y</hi> v
+                            <hi rend="bold">eu</hi>
+                            <hi rend="bold">ſ</hi>i long
+                            <hi rend="bold">-</hi>temps v
+                            <hi rend="bold">oſ</hi>tre 
+                            <hi rend="bold">A</hi>me ense
+                            <hi rend="bold">u</hi>elie.
+                        </cell>
+                        <cell>Où j’a
+                            <hi rend="bold">i</hi> v
+                            <hi rend="bold">u</hi>
+                            <hi rend="bold">s</hi>i longtemps v
+                            <hi rend="bold">o</hi>tre 
+                            <hi rend="bold">Â</hi>me ensevelie.
+                        </cell>
+                    </row>
+                    <row>
+                        <cell>
+                            <hi rend="bold">I</hi>e craign
+                            <hi rend="bold">o</hi>is que le Ciel, par 
+                            <hi rend="bold">v</hi>n cruel 
+                            <hi rend="bold">ſ</hi>ecours,
+                        </cell>
+                        <cell>
+                            <hi rend="bold">J</hi>e craign
+                            <hi rend="bold">a</hi>is que le Ciel, par 
+                            <hi rend="bold">u</hi>n cruel 
+                            <hi rend="bold">s</hi>ecours,
+                        </cell>
+                    </row>
+                </table>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>First results with an NMT-based normaliser</head>
+                <p>We have decided to use NMTPYTORCH (Caglayan et al., 2017). The baseline model is composed of a 2-layer bi-directional GRU (Cho et al., 2014) encoder and a 2-layer conditional GRU (Sennrich et al., 2017) decoder with MLP attention (Bahdanau et al., 2015). The encoder and the decoder both have 256 hidden units and their initial hidden state is initialised to 0. The embedding dimensionality is also set to 256. Two versions of the system have been trained. The first one is a word level system and the second one uses the byte pair encoding (BPE) (Sennrich et al., 2015) which operates at the subword level. The corpus has been divided into two parts: 90% of the lines have been used for training and 10% for testing.</p>
+                <table rend="frame" xml:id="Table3">
+                    <row>
+                        <cell/>
+                        <cell>Lines</cell>
+                        <cell>Tokens</cell>
+                        <cell>Characters</cell>
+                    </row>
+                    <row>
+                        <cell>Train</cell>
+                        <cell>3,133</cell>
+                        <cell>5,6825</cell>
+                        <cell>348,098</cell>
+                    </row>
+                    <row>
+                        <cell>Test</cell>
+                        <cell>346</cell>
+                        <cell>5,959</cell>
+                        <cell>37,000</cell>
+                    </row>
+                    <row>
+                        <cell>Total</cell>
+                        <cell>3,479</cell>
+                        <cell>62,784</cell>
+                        <cell>385,098</cell>
+                    </row>
+                </table>
+                <p>Five trainings have been made with different initialisations on the two different models: words and subwords (
+                    <hi rend="italic">i.e.</hi> BPE units). Accuracy of the result is calculated with BLEU scores (Papineni et al., 2002).
+                </p>
+                <table rend="frame" xml:id="Table4">
+                    <row>
+                        <cell>Model</cell>
+                        <cell>Average BLEU</cell>
+                        <cell>Best BLEU</cell>
+                    </row>
+                    <row>
+                        <cell>Words</cell>
+                        <cell>79.27</cell>
+                        <cell>82.960</cell>
+                    </row>
+                    <row>
+                        <cell>BPE</cell>
+                        <cell>75.79</cell>
+                        <cell>77.070</cell>
+                    </row>
+                </table>
+                <p>These BLEU scores still have to be used with extreme care considering the limited size of our corpus. They are however promising enough to engage in the production of a large-scale corpus for a NMT-based normaliser.</p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Future developments</head>
+                <p>To be as universal as possible, our training data must reflect all the lexical and graphic variety of 17
+                    <hi rend="sup">th</hi> c. French. We are therefore engaging in the construction of a representative corpus of early modern French, including excerpts of literary (plays, novel, poems…) and non-literary texts (theology, medicine, law, science…), in verse and in prose, spread diachronically across the century, and taken from original editions, reprints or illegal prints. Along this compilation phase, the OCR model and the rule-based normalising solution will be regularly improved to increase their efficiency before a final open source release.
+                </p>
+                <p>The final corpus, expanded with back translation (Domingo and Casacuberta, 2018b), will be used for the training of an NMT-based solution. On top of words and subwords, character-level NMT will also be tested to provide the most efficient tool. A special model, trained to normalise the results of the rule-based system rather than the raw OCRised text will be tested, to evaluate the efficiency of a hybrid system using both technologies.</p>
+            </div>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl>
+                        <hi rend="bold">Bahdanau, D., Cho, K. and Bengio, Y.</hi> (2015). Neural Machine Translation by Jointly Learning to Align and Translate. 
+                        <hi rend="italic">Proceedings of the International Conference on Learning Representations (ICLR 2015)</hi>. San Diego, CA.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Baron, A. and Rayson, P.</hi> (2008). VARD2 : a Tool for Dealing with Spelling Variation in Historical Corpora. 
+                        <hi rend="italic">Postgraduate Conference in Corpus Linguistics</hi>. Birmingham, UK.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Bollmann, M.</hi> (2012). (Semi-)Automatic Normalization of Historical Texts using Distance Measures and the Norma tool. 
+                        <hi rend="italic">Proceedings of the Second Workshop on Annotation of Corpora for Research in the Humanities (ACRH-2)</hi>. Lisbon, Portugal, pp. 3–14.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Bollmann, M., Petran, F. and Dipper, S.</hi> (2011). Rule-Based Normalization of Historical Texts. 
+                        <hi rend="italic">Proceedings of the Workshop on Language Technologies for Digital Humanities and Cultural Heritage (DigHum 2011)</hi>. Hissar, Bulgaria, pp. 34–42.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Bollmann, M. and Søgaard, A.</hi> (2016). Improving Historical Spelling Normalization With Bi-Directional LSTMs and Multi-Task Learning. 
+                        <hi rend="italic">Proceedings of COLING 2016, the 26th International Conference on Computational Linguistics: Technical Papers</hi>. Osaka, Japan, pp. 131–39.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Caglayan, O., García-Martínez, M., Bardet, A., Aransa, W., Bougares, F. and Barrault, L.</hi> (2017). NMTPY: A Flexible Toolkit for Advanced Neural Machine Translation Systems. 
+                        <hi rend="italic">The Prague Bulletin of Mathematical Linguistics</hi>, 
+                        <hi rend="bold">109</hi>(1): 15–28.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Cho, K., Merrienboer, B. van, Gulcehre, C., Bahdanau, D., Bougares, F., Schwenk, H. and Bengio, Y.</hi> (2014). Learning Phrase Representations using RNN Encoder-Decoder for Statistical Machine Translation. 
+                        <hi rend="italic">Proceedings of the 2014 Conference on Empirical Methods in Natural Language Processing (EMNLP)</hi>. Doha, Qatar, pp. 1724–34.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Diwersy, S., Falaise, A., Lay, M.-H. and Souvay, G.</hi> (2017). Ressources et méthodes pour l’analyse diachronique. 
+                        <hi rend="italic">Langages</hi>, 
+                        <hi rend="bold">N° 206</hi>(2): 21–44.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Domingo, M. and Casacuberta, F.</hi> (2018a). Spelling Normalization of Historical Documents by Using a Machine Translation Approach. 
+                        <hi rend="italic">Proceedings of the 21st Annual Conference of the European Association for Machine Translation (EAMT 2018)</hi>. Alicante, Spain, pp. 129–37.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Domingo, M. and Casacuberta, F.</hi> (2018b). A Machine Translation Approach for Modernizing Historical Documents Using Back Translation. 
+                        <hi rend="italic">Proceedings of the 15th International Workshop on Spoken Language Translation (IWSLT 2018)</hi>. Bruges, Belgium, pp. 39–47.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Domingo, M., Chinea-Rios, M. and Casacuberta, F.</hi> (2017). Historical Documents Modernization. 
+                        <hi rend="italic">The Prague Bulletin of Mathematical Linguistics</hi>, 
+                        <hi rend="bold">108</hi>: 295–306.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Gabay, S.</hi> (2019). OCRising 17th French prints. 
+                        <hi rend="italic">E-Ditiones</hi> https://editiones.hypotheses.org/1958 (accessed 28 April 2019).
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Guez de Balzac, J.-L.</hi> (1624). 
+                        <hi rend="italic">Lettres Du Sieur de Balzac</hi>. Paris: T. Du Bray https://catalogue.bnf.fr/ark:/12148/cb300515241.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Korchagina, N.</hi> (2017). Normalizing Medieval German Texts: from rules to deep learning. 
+                        <hi rend="italic">Proceedings of the NoDaLiDa 2017 Workshop on Processing Historical Language</hi>. Gothenburg, Sweden, pp. 12–17.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Ljubešic, N., Zupan, K., Fišer, D. and Erjavec, T.</hi> (2016). Normalising Slovene data: historical texts vs. user-generated content. 
+                        <hi rend="italic">Proceedings of the 13th Conference on Natural </hi>
+                        <hi rend="italic">Language Processing (KONVENS 2016)</hi>. Bochum, Germany, pp. 146–155.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Papineni, K., Roukos, S., Ward, T. and Zhu, W.-J.</hi> (2002). BLEU: A Method for Automatic Evaluation of Machine Translation. 
+                        <hi rend="italic">Proceedings of the 40th Annual Meeting on Association for Computational Linguistics</hi>. Philadelphia, USA, pp. 311–318.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Pettersson, E., Megyesi, B. and Nivre, J.</hi> (2013a). Normalisation of Historical Text Using Context-Sensitive Weighted Levenshtein Distance and Compound Splitting. 
+                        <hi rend="italic">Proceedings of the 19th Nordic Conference of Computational Linguistics (NoDaLiDa 2013)</hi>. Oslo, Norway, pp. 163–79.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Pettersson, E., Megyesi, B. and Nivre, J.</hi> (2014). A Multilingual Evaluation of Three Spelling Normalisation Methods for Historical Text. 
+                        <hi rend="italic">Proceedings of the 8th Workshop on Language Technology for Cultural Heritage, Social Sciences, and Humanities (LaTeCH)</hi>. Gothenburg, Sweden, pp. 32–41.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Pettersson, E., Megyesi, B. and Tiedemann, J.</hi> (2013b). An SMT approach to automatic annotation of historical text. 
+                        <hi rend="italic">Proceedings of the Workshop on Computational Historical Linguistics at NoDaLiDa 2013</hi>. Oslo, Norway, pp. 54–69.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Porta, J., Sancho, J.-L. and Gomez, J.</hi> (2013). Edit Transducers for Spelling Variation in Old Spanish. 
+                        <hi rend="italic">Proceedings of the Workshop on Computational Historical Linguistics (NoDaLiDa 2013)</hi>. Oslo, Norway, pp. 70–79.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Racine, J.</hi> (1668). 
+                        <hi rend="italic">Andromaque</hi>. Paris: Barbin https://catalogue.bnf.fr/ark:/12148/cb38651697n.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Riguet, M.</hi> (2019). 
+                        <hi rend="italic">Normalisa, Script à Base de Règles Pour Normaliser Les Textes Français Du XVIe Au XIXe Siècle</hi>. https://mriguet.github.io/Normalisa (accessed 28 April 2019).
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Romary, L., Salmon-Alt, S. and Francopoulo, G.</hi> (2004). Standards going concrete: from LMF to Morphalou. 
+                        <hi rend="italic">The 20th International Conference on Computational Linguistics (COLING 2004) - ElectricDict ’04 Proceedings of the Workshop on Enhancing and Using Electronic Dictionaries</hi>. Geneva, Switzerland, pp. 22–28.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Sánchez-Martínez, F., Martínez-Sempere, I., Ivars-Ribes, X. and Carrasco, R. C.</hi> (2013). An open diachronic corpus of historical Spanish: annotation criteria and automatic modernisation of spelling. 
+                        <hi rend="italic">CoRR</hi>, 
+                        <hi rend="bold">abs/1306.3692</hi>.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Scherrer, Y. and Erjavec, T.</hi> (2013). Modernizing Historical Slovene Words with Character-Based SMT. 
+                        <hi rend="italic">4th Biennial Workshop on Balto-Slavic Natural Language Processing (BSNLP 2013)</hi>. Sofia, Bulgaria, pp. 58–62.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Sennrich, R., Firat, O., Cho, K., Birch, A., Haddow, B., Hitschler, J., Junczys-Dowmunt, M., et al.</hi> (2017). Nematus: a Toolkit for Neural Machine Translation. 
+                        <hi rend="italic">Proceedings of the </hi>
+                        <hi rend="italic">EACL 2017 Software Demonstrations</hi>. Valencia, Spain, pp. 65–68.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Sennrich, R., Haddow, B. and Birch, A.</hi> (2015). Neural Machine Translation of Rare Words with Subword Units. 
+                        <hi rend="italic">Proceedings of the 54th Annual Meeting of the Association for Computational Linguistics</hi>. Berlin, Germany, pp. 1715–1725.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Souvay, G. and Pierrel, J.-M.</hi> (2009). LGeRM Lemmatisation des mots en Moyen Français. 
+                        <hi rend="italic">Traitement Automatique Des Langues</hi>, 
+                        <hi rend="bold">50</hi>(2): 149–72.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Tjong Kim Sang, E., Bollman, M., Boschker, R., Casacuberta, F., Dietz, F. M., Dipper, S., Domingo, M., et al.</hi> (2017). The CLIN27 Shared Task : Translating Historical Text to Contemporary Language for Improving Automatic Linguistic Annotation. 
+                        <hi rend="italic">Computational Linguistics in The Netherlands Journal</hi>, 
+                        <hi rend="bold">7</hi>: 53–64.
+                    </bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

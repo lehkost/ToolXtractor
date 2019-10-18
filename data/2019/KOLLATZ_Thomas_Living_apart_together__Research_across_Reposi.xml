@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title type="full">
+                    <title type="main">Living apart together: Research across Repositories</title>
+                    <title type="sub"/>
+                </title>
+                <author>
+                    <persName>
+                        <surname>Kollatz</surname>
+                        <forename>Thomas</forename>
+                    </persName>
+                    <affiliation>Akademie der Wissenschaften und Literatur | Mainz</affiliation>
+                    <email>thomas.kollatz@adwmainz.de</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Grüntgens</surname>
+                        <forename>Max</forename>
+                    </persName>
+                    <affiliation>Akademie der Wissenschaften und Literatur | Mainz</affiliation>
+                    <email>Max.Gruentgens@adwmainz.de</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2019-04-29T23:13:25</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Name, Institution</publisher>
+                <address>
+                    <addrLine>Street</addrLine>
+                    <addrLine>City</addrLine>
+                    <addrLine>Country</addrLine>
+                    <addrLine>Name</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from an OASIS Open Document</p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.22">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Poster</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>RDF</term>
+                    <term>RDF-Lifting</term>
+                    <term>TEI</term>
+                    <term>Webservice</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>gender studies</term>
+                    <term>semantic web and linked data</term>
+                    <term>English</term>
+                    <term>epigraphy and paleography</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <p>Nowadays most Digital Editions are created or at least distributed in TEI-XML as scholarly research data. In epigraphy 
+                <hi rend="italic">EpiDoc: TEI XML for epigraphic documents </hi> is the subset of choice.
+            </p>
+            <p>While consistency within an encoded corpus or collection of sources is enforced via schema files, experience has shown, that different scholars for sensible scholarly reasons decide to encode similar phenomena slightly differently, moving back and forth between a more flat structured as well as data centered approach on the one hand and a more narrative as well as verbose approach on the other hand. </p>
+            <p>RDF as high level data model enables researchers to make statements about scholarly resources as well as their constitutive parts and the relations among them. These RDF statements themselve are formulated in a way abstract enough to transcend the individualized usages essential to TEI XML encoded resources. Thus RDF as a bridge technology provides the means to mirror more individualistically encoded TEI XML resources onto an abstract metadata layer of more easily processable data points (see Brodhun, de la Iglesia, Moretton (2015), Grüntgens, Schrade (2016), 61–62); also compare Ciotti, Tomasi (2016), Ciotti (2018)).</p>
+            <p>Two challenges are associated with RDF from a Humanities point of view:</p>
+            <p>Firstly, statement extraction may degenerate into complex data wrangling tasks done once more by every single scholar. A solution for this may be provided by web services like Torsten Schrade’s XTriples that centralize functionality and provide a relatively low-threshold approach: triple extraction via XPath and triple building via a basic XML configuration file. </p>
+            <p>Secondly, most RDF ontologies are either seen as being to complicated for low-threshold statement building for individual scholarly activity in the Humanities or as capturing the scholarly domain in question not adequately enough. This challenge may be remedied by advising scholars to first build “flat” statements for explorative in-house research. These basic statement patterns, however, have to be none the less formalized and operationalized in regard to their scholarly approach. Thus, after constructing a prototype, the scholars may subsequently lift the prototypical extraction on to a distributable level by means of inclusion of complex ontologies (see Eide, Ore (2019), 194–195).</p>
+            <p>The poster will demonstrate a workflow for easy prototyping of cross-corpus research questions by means of RDF-Lifting from TEI XML via XTriples. The material used comes from two epigraphical collections: DIO and EPIDAT (see Grüntgens, Kollatz (2018), Kollatz (2018)).</p>
+            <p>Both repositories make medieval inscriptions of the German City of Worms available. DIO provides Christian inscriptions in German and Latin, EPIDAT provides inscriptions from the Jewish cemetery “Im Heiligen Sand”, one of the oldest Jewish cemeteries still in existence in Europe. Both repositories provide 
+                <hi rend="italic">EpiDoc: TEI XML for epigraphic Documents</hi>. Therefore XML can serve as a starting point for RDF-Lifting with the XTripels webservice.
+            </p>
+            <p>As a minimal prototype, we want to approach gender distributions in both collections. Information about persons is contained in the data of both repositories (figure1).</p>
+            <p>
+                <figure>
+                    <graphic url="Pictures/385fb97adcdca5c7b00ea917c0c0ff06.png"/>
+                </figure>
+            </p>
+            <p>Figure 1. Gender attribution implicitely given in the sex-attribute within the person-element; full record: http://www.steinheim-institut.de/cgi-bin/epidat?id=wrm-1253-teip5 (1=male, 2=female)</p>
+            <p>The transformation of the “implicit” semantics of XML given into the “explicit” semantics of RDF is done by means of the XTripels webservice (see Grüntgens, Schrade (2016), 54, 56). XTripels has proven itself to be an effiecient and easy-to-use tool to crawl XML-resources and extract RDF-statements. The configuration is based on XPath expressions (figure2). </p>
+            <p>
+                <figure>
+                    <graphic url="Pictures/505467de18205b132ae0a2d72efef448.png"/>
+                </figure>
+            </p>
+            <p>Figure 2. Configuration of the XTripels webservice</p>
+            <p>As soon as the data of both repositories are available as RDF triples, the RDF data as a whole is stored in a triplestore, and queried via SPARQL (figure 3). </p>
+            <p>
+                <figure>
+                    <graphic url="Pictures/342305e5ffca6f2860b8a23413520789.png"/>
+                </figure>
+            </p>
+            <p>Figure 3. SPARQL-Query</p>
+            <p>The result of the above simple SPARQL-query shows that gender distribution in both repositories differ significantly: The proportion of inscriptions about men and women are equally balanced in EPIDAT, whereas in DIO inscriptions about women are outweight by inscriptions about men. (figure 4).</p>
+            <p>
+                <figure>
+                    <graphic url="Pictures/4f44b496b56fa0a75a598e5d2d0b8d27.png"/>
+                </figure>
+            </p>
+            <p>Figure 4. Simple gender distribution in DIO (above) and EPIDAT (below). Visualization realised with RawGraphs 
+                <ref target="http://app.rawgraphs.io/">http://app.rawgraphs.io</ref> 0=unknown; 1=male; 2=female; 9=not defined
+            </p>
+            <div type="div1" rend="DH-Heading">
+                <head>Repositories</head>
+                <p>EPIDAT – research platform for Jewish epigraphy: 
+                    <ptr target="http://www.steinheim-institut.de/cgi-bin/epidat?lang=en"/>
+                </p>
+                <p>DIO – Deutsche Inschriften Online | German Inscriptions Online 
+                    <ref target="http://www.inschriften.net/">
+                        <hi rend="color(#1155cc)">http://www.inschriften.net</hi>
+                    </ref>
+                </p>
+            </div>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl>
+                        <hi rend="color(#000000)bold">Brodhun, M., de la Iglesia, M., Moretto, N.</hi>
+                        <hi rend="color(#000000)"> (2015). Metadaten, LOD und der Mehrwert standardisierter und vernetzter Daten. In Neuroth, H. et al. (eds), </hi>
+                        <hi rend="color(#000000)italic">TextGrid: Von der Community – für die Community</hi>
+                        <hi rend="color(#000000)">, Göttingen: Universitätsverlag Göttingen, pp. 91–102, </hi>
+                        <ptr target="http://dx.doi.org/10.3249/webdoc-3947"/>
+                        <hi rend="color(#000000)"> </hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="color(#000000)bold">Ciotti, F.</hi>
+                        <hi rend="color(#000000)"> (2018). A Formal Ontology for the Text Encoding Initiative. </hi>
+                        <hi rend="color(#000000)italic">Umanistica Digitale</hi>
+                        <hi rend="color(#000000)">, 3, </hi>
+                        <ptr target="https://doi.org/10.6092/issn.2532-8816/8174"/>
+                        <hi rend="color(#000000)"> </hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="color(#000000)bold">Ciotti F. and Tomasi, F.</hi>
+                        <hi rend="color(#000000)"> (2016). Formal Ontologies, Linked Data, and TEI Semantics. </hi>
+                        <hi rend="color(#000000)italic">Journal of the Text Encoding Initiative</hi>
+                        <hi rend="color(#000000)">,</hi>
+                        <hi rend="color(#000000)"> 9, </hi>
+                        <ptr target="http://journals.openedition.org/jtei/1480"/>
+                        <hi rend="color(#000000)"> </hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Eide, Ø., Ore, C.-E.</hi> (2019). 8. Ontologies and Data Modeling. In Flanders, J., Jannidis, F. (eds), 
+                        <hi rend="italic">The Shape of Data in Digital Humanities Modeling Texts and Text-based Resources</hi>. London, pp. 178–196.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">EpiDoc</hi>. 
+                        <hi rend="italic">Epigraphic Documents in TEI XML,</hi>
+                        <ptr target="https://sourceforge.net/projects/epidoc/"/>
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Grüntgens, M., Kollatz, T.</hi> (2018). Korpusbasiertes Arbeiten und epigraphische Datenbanken: Möglichkeiten und Herausforderungen am Beispiel von EPIDAT und DIO. In Gessinger, J. et al. (Eds.) 
+                        <hi rend="italic">Osnabrücker Beiträge zur Sprachtheorie (OBST)</hi>, 92: pp. 157–174.
+                    </bibl>
+                    <bibl>
+                        <hi rend="color(#000000)bold">Grüntgens, M., Schrade, T.</hi>
+                        <hi rend="color(#000000)"> (2016). Data repositories in the Humanities and the Semantic Web: modelling, linking, visualising. In Alessandro, A. et al. (eds), </hi>
+                        <hi rend="color(#000000)italic">Proceedings of the 1st Workshop on Humanities in the Semantic Web co-located with 13th ESWC Conference 2016 (ESWC 2016),</hi>
+                        <hi rend="color(#000000)"> Anissaras, pp. 53–64 URL: </hi>
+                        <ptr target="http://ceur-ws.org/Vol-1608/paper-07.pdf"/>
+                    </bibl>
+                    <bibl>
+                        <hi rend="color(#000000)bold">Kollatz T. </hi>
+                        <hi rend="color(#000000)">(2018). 18 EPIDAT – Research Platform for Jewish Epigraphy. In Annamaria De Santis, Irene Rossi (Eds.), </hi>
+                        <hi rend="color(#000000)italic">Crossing Experiences in Digital Epigraphy: From Practice to Discipline</hi>
+                        <hi rend="color(#000000)bold"> </hi>
+                        <hi rend="color(#000000)">(pp. 231–239). Warsaw, Poland: De Gruyter.</hi>
+                        <hi rend="color(#000000)bold">  </hi>
+                        <ptr target="https://doi.org/10.1515/9783110607208-019"/>
+                    </bibl>
+                    <bibl>
+                        <hi rend="color(#000000)bold">Schrade, T.</hi>
+                        <hi rend="color(#000000)">(2016). </hi>
+                        <hi rend="color(#000000)italic">XTriples. A generic webservice for RDF lifting from XML resources,</hi>
+                        <hi rend="color(#000000)">  </hi>
+                        <anchor xml:id="id_LPlnk659697"/>
+                        <ptr target="https://zenodo.org/record/2604986#.XMgdp5MzaAw"/>
+                    </bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

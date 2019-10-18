@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>Finding Visual Patterns in Artworks: An Interactive Search Engine to Detect Objects in Artistic Images</title>
+                <author>
+                    <persName>
+                        <surname>Lang</surname>
+                        <forename>Sabine</forename>
+                    </persName>
+                    <affiliation>Heidelberg Collaboratory for Image Processing, Germany</affiliation>
+                    <email>sabine.lang@iwr.uni-heidelberg.de</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Ufer</surname>
+                        <forename>Nikolai</forename>
+                    </persName>
+                    <affiliation>Heidelberg Collaboratory for Image Processing, Germany</affiliation>
+                    <email>nikolai.ufer@iwr.uni-heidelberg.de</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Ommer</surname>
+                        <forename>Björn</forename>
+                    </persName>
+                    <affiliation>Heidelberg Collaboratory for Image Processing, Germany</affiliation>
+                    <email>ommer@uni-heidelberg.de</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2019-04-26T15:00:00Z</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Name, Institution</publisher>
+                <address>
+                    <addrLine>Street</addrLine>
+                    <addrLine>City</addrLine>
+                    <addrLine>Country</addrLine>
+                    <addrLine>Name</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from a Word document</p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.22">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Long Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>interface</term>
+                    <term>object retrieval</term>
+                    <term>large data collections</term>
+                    <term>form analysis</term>
+                    <term>semantic analysis</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>art history and design studies</term>
+                    <term>corpus and text analysis</term>
+                    <term>interface</term>
+                    <term>user experience design</term>
+                    <term>gamification</term>
+                    <term>semantic analysis</term>
+                    <term>content analysis</term>
+                    <term>English</term>
+                    <term>digital humanities (history</term>
+                    <term>theory and methodology)</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <div type="div1" rend="DH-Heading1">
+                <head> Summary</head>
+                <p style="text-align:left; ">Objects are essential to artistic images as they reveal a person’s identity or profession; repetitions then testify to their popularity, reveal processes of reception and artistic relations (Fig.1). Thus it is crucial for art historians to find objects in images. Digitization has produced large image corpora, but manual methods proof to be insufficient to analyse these collections; the collaboration between art history and computer vision provides methods and tools, which enable a comprehensive evaluation of images. The paper presents a user-oriented search engine for object retrieval, thus assisting with art historical research. After presenting specific requirements for retrieval systems, the paper introduces the engine, exemplifies a search and shows qualitative results. We include critical remarks on existing tools and possible issues, which arise when working with artistic data. </p>
+                <figure>
+                    <graphic n="1001" width="9.325680555555556cm" height="5.379861111111111cm" url="Pictures/566c06c4138bbbf70122056c72c5e5f2.jpeg" rend="inline"/>
+                </figure>
+                <p style="text-align:left; ">Figure 1. The detection of objects is crucial for art historians to study reception processes or artistic relations. Here, the skull is shown in artworks of different genres, styles and techniques throughout time. Image by the Computer Vision Group, Heidelberg University </p>
+                <p style="text-align:left; ">Object detection and retrieval have been core tasks in computer vision; results are obtained by using hand-crafted features (Gordo et al., 2016) or learning-based features, favorably used in recent years due to the rise of CNNs (convolutional neural networks) (Tzelepi and Tefas, 2018). Works used a template-based detector to find gestures in manuscripts (Schlecht et al., 2011) or additional curvature information of objects to improve detections (Monroy et al., 2011). A discriminative model based on parts and aggregated compositions was further utilized to propel object detection and scene classification (Eigenstetter et al., 2014). The success of CNNs has triggered research on how objects can be localized more precisely in images (Tolias et al., 2015), also using region-of-interest proposal networks (Ren et al., 2015). Networks were then used to detect objects in artworks (Crowley and Zisserman, 2016), establish visual links between paintings (Seguin et al., 2016) and find patterns in art collections by adapting a deep feature to this task (Shen et al., 2019). These works emphasize the community’s interest in using computational approaches for object detection; however, suggested methods have rarely been implemented in publicly accessible systems and thus cannot be used by art historians in practice. </p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Project description</head>
+                <p style="text-align:left; ">We developed an interface and underlying search engine for object detection based on the workflow and specific requirements imposed by art historical research. Requirements were observed first–hand and formulated by computer scientists and art historians and refer to the handling and functions of retrieval systems. The following aspects were identified as crucial: the interface must be intuitive to use, allow for an interactive experience, is accessible from the outside and provide the possibility to study large and diverse image collections. Systems must be applicable to diverse data, across various media or styles, enable a visual search – this is essential since most images have incomplete, false or missing metadata – and allow to search for entire images and object regions in images. The latter is of relevance to art history because objects provide more information about a depicted person or hint to a specific iconography: the lion as an attribute of Saint Jerome is just one example. The search process should be performed fast, enabling a free exploration of the data. </p>
+                <figure>
+                    <graphic n="1002" width="11.993219444444444cm" height="9.038969444444444cm" url="Pictures/1ffb27cc8799e565ade2c074432a9516.png" rend="inline"/>
+                </figure>
+                <p style="text-align:left; ">Figure 2. The figure shows the initial page of the search engine for object retrieval, where all available collections are displayed. To search for regions, the user can select an existing dataset or upload a new one. Image by the Computer Vision Group, Heidelberg University</p>
+                <p style="text-align:left; ">So far, search engines mostly allow a text or entire image search: ArtPI 1., developed by Ahmed Elgammal and team, uses deep learning methods to perform aforementioned tasks and a recognition of style, artist and genre. The Oxford Painting Search 2. by Oxford’s Visual Geometry Group, enables a text, color and structure-based or entire image search, but does not allow to search for image regions. Replica (Seguin, 2018), (Seguin, Replica, 2018) offers a text, entire image and region-based search, however, only in a given dataset of mostly Venetian art 3. While other systems fulfill some requirements, they are only partly sufficient for art historical research. It was our objective to develop a system, which considers all listed requirements, focusing explicitly on object retrieval to assist with a formal and semantic analysis. </p>
+                <p style="text-align:left; ">
+                    <graphic n="1003" width="5.605638888888889cm" height="6.82625cm" url="Pictures/cd3fdedebdd591fe4a5ceb3d3d542d7a.png" rend="inline"/>
+                    <lb/>Figure 3. The system enables an object search: here a region in a portrait of James Timmins Chance by Joseph Gibbs (c1902) is selected with a bounding box and defined as the search query. Image by the Computer Vision Group, Heidelberg University
+                </p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Introducing the search engine</head>
+                <p style="text-align:left; ">The search engine and corresponding interface was developed in collaboration between computer scientists and art historians, thus considering technical possibilities and art historical requirements. The final engine offers to search for entire images and regions in large datasets. A learning-based approach is used, where an exhaustive search is performed using CNN features to find identical and most similar regions to a user-defined query. The process solely relies on visual input and can be described as follows: after uploading a new or selecting an existing collection (Fig.2), the user selects an image and marks, for example, an object with a rectangular bounding box (Fig.3). This allows to find images of a specific subject, which requires the presence of certain objects, or to study form developments over time and space. The search process is triggered; underlying algorithms operate on CNN features, which demonstrate enormous potential for processing and analyzing large datasets in an unsupervised manner. In contrast to HoG features (Histogram of oriented gradients), used for retrieval tasks in the past, features extracted with CNNs also contain high level information about semantically abstract concepts (i.e. nose or faces) and encode context information, hence are more suitable for object detection. After the search has terminated, </p>
+                <p style="text-align:left; ">
+                    <graphic n="1004" width="14.937097222222222cm" height="7.156175cm" url="Pictures/d847da9122aeb537a4379202d451a4ea.jpeg" rend="inline"/>
+                    <lb/>Figure 4. Retrieval results can be viewed from distance, showing more context information, and in close-up. Images by the Computer Vision Group, Heidelberg University 
+                </p>
+                <p style="text-align:left; ">results are displayed in another window with decreasing similarity. The search engine not only detects identical but also similar regions; finding variances of a motif is relevant, when art historians aim to reconstruct reception processes of a particular object. Other functions add to the usability of the interface: the addition and access of metadata, storage of favorites and alternation between a close-up and distant view of images and retrieved regions (Fig.4). The layout of the interface supports an easy, intuitive navigation through the search process, where each function aims to simplify the workflow for art historians: the simultaneous view of selected favorites, for example, allows for a comparative analysis.</p>
+                <figure>
+                    <graphic n="1005" width="9.276522222222223cm" height="10.8537cm" url="Pictures/3aa5692f0df2eaef0d94e23983b7a603.png" rend="inline"/>
+                </figure>
+                <p style="text-align:left; ">Figure 5. Shows the obtained results, based on the query, which is displayed in the top left corner. Results are arranged with decreasing similarity and show that the system was able to retrieve similar regions to the selected part. Image by the Computer Vision Group, Heidelberg University </p>
+                <figure>
+                    <graphic n="1006" width="11.002355555555555cm" height="8.967305555555555cm" url="Pictures/97968cf78ed9be8a0da242ac0916dd93.png" rend="inline"/>
+                </figure>
+                <p style="text-align:left; ">Figure 6. Shows retrieval results for a query (shown top left) in a dataset of street art. The engine was able to retrieve similar regions to the selected part. Image by the Computer Vision Group, Heidelberg University </p>
+                <p style="text-align:left; ">
+                    <lb/>The system has proven its applicability to diverse datasets, such as medieval prints and pre-modern paintings, addressing different research questions. How conventional is the representation of specific objects? (Fig.5) shows that algorithms were able to retrieve the motif of a hand holding a letter in a challenging dataset of pre-modern paintings. Results indicate a great conventionality, mostly showing portraits of seated men, holding a letter in the right hand, while the left is put loosely on an armrest. Variations are shown in the second and third row, emphasizing that the system also detects variances of motifs; retrievals one and three of row two disregard the pose, the former also displaying a different subject matter. How popular are hats in street artworks? (Fig. 6) shows search results for the query ‘hat’ obtained from a dataset of street art: images highlight that Brazilian street artists OsGemeos often use hats in different shapes and colors for their yellow figures. Eventually, the tool enables a quantitative and qualitative analysis of the data: one might study the formal development of an object over time in a large dataset or fine-grained similarities between objects during a limited time period. Since computer technologies allow to study large image collections in a short amount of time, scholars can explore image sets first and formulate their research questions after they have assessed the structure and content of the data. This is not possible with traditional methods because it is too laborious. So far, a dataset for content-based retrieval in artworks does not exist; therefore we collected a dataset of 1101 historical paintings consisting of various media (i.e. oil, ink, drawing). We compare retrieval results obtained by our and a HoG-based model. Quantitative results are provided in Table 7 and a qualitative retrieval example is presented in Figure 8. Besides introducing the retrieval system, the paper includes (critical) remarks on existing tools and possible issues, which arise when working with art data; some of which have been mentioned, such as only allowing for a text or entire image search. Systems are then often challenged by unknown, often pre-modern object categories, such as medieval clothing, buildings, swords etc., because most networks are trained on ImageNet, a database which was collected without artistic consideration containing only modern object categories. Also deformations of objects and visible brushstrokes, due to the respective style, further challenge algorithms. (Fig.9) illustrates a failure case: the abstract style and the use of ImageNet features, which were used to retrieve a hand in a dataset of modern, abstract portraits, lower the performance of algorithms. Additional issues arise from missing or incomplete metadata or bad-quality reproductions.
+                </p>
+                <p style="text-align:left; ">
+                    <graphic n="1007" width="16.002cm" height="2.8610277777777777cm" url="Pictures/1475c15657f27a5240b2019169679a42.png" rend="inline"/>
+                    <lb/>Table 7. A comparison of precision accuracy for top k retrievals using our and a HoG-based model. We calculated the mean precision of 8 queries from different object categories (i.e. praying hands, cross or grape) 
+                </p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Conclusion</head>
+                <p style="text-align:left; ">The paper presents a system for object retrieval to analyze large image collections, thus assisting with art historical research. It enables a quantitative and qualitative evaluation, supports a form and semantic analysis, allows to study reception processes and artistic relations on large scale. The paper lists requirements for search engines, which were formulated by art historians and computer scientists, and illustrates how these were implemented. Eventually, we provide search examples and results and point to possible challenges when working with art images. The retrieval system is available from the outside: users do not need to install it but can access it online. </p>
+                <figure>
+                    <graphic n="1008" width="12.760925cm" height="10.2cm" url="Pictures/e68ae66f4ebb509471c7465a511fadc1.jpeg" rend="inline"/>
+                </figure>
+                <p>Figure 8. Qualitative example with our search engine. We show top 12 retrievals for one query from four annotated categories. Notice that our system was able to retrieve objects correctly (in blue). The search was performed in the dataset consisting of 1101 historical paintings. Image by the Computer Vision Group, Heidelberg University </p>
+                <p style="text-align:left; ">
+                    <graphic n="1009" width="12.517855555555556cm" height="10.226258333333334cm" url="Pictures/a746b77c1679fa20eb2a7224e3b92ebf.png" rend="inline"/>
+                    <lb/>Figure 9. Shows an example of an erroneous retrieval performance; the abstract style and ImageNet features lower the performance of retrieval systems. Image by the Computer Vision Group, Heidelberg University 
+                </p>
+                <p style="text-align:left; ">Notes</p>
+                <p style="text-align:left; ">1. Link to the search engine ArtPI, developed by Ahmed Elgammal and team, https://www.artpi.co/ (accessed 23 October 2018)</p>
+                <p style="text-align:left; ">2. Link to the Oxford Painting Search by Oxford’s Visual Geometry Group, http://zeus.robots.ox.ac.uk/artsearch/ (accessed 20 November 2018)</p>
+                <p style="text-align:left; ">
+                    <anchor xml:id="GoBack2"/>3. Link to the Replica Search Engine by the École Polytechnique Fédérale de Lausanne, https://diamond.timemachine.eu/ (accessed 12 March 2019)
+                </p>
+            </div>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl style="text-align:left; ">Crowley, E.J. and Zisserman, A. (2016). The Art of Detection. Proceedings of the European Conference on Computer Vision, Amsterdam, pp. 721–737.</bibl>
+                    <bibl style="text-align:left; ">Eigenstetter, A., Takami, M. and Ommer, B. (2014). Randomized Max-Margin Compositions for Visual Recognition. Proceedings of the Conference on Computer Vision and Pattern Recognition, Columbus, Ohio, pp. 
+                        <hi rend="background(white)">3590</hi>–
+                        <hi rend="background(white)" xml:space="preserve">3597. </hi>
+                    </bibl>
+                    <bibl style="text-align:left; ">Gordo, A., Almazan, J., Revaud, J. and Larlus, D. (2016). Deep image retrieval: Learning global representations for image search. Proceedings of the European Conference on Computer Vision, Amsterdam, pp. 241–257.</bibl>
+                    <bibl style="text-align:left; ">Krizhevsky, A., Sutskever, I. and Hinton, G.E. (2012). ImageNet classification with deep convolutional neural networks. Advances in Neural Information Processing Systems, Lake Tahoe, pp. 1097–1105. </bibl>
+                    <bibl style="text-align:left; ">Monroy, A., Eigenstetter, A. and Ommer, B. (2011). Beyond Straight Lines – Object Detection Using Curvature. Proceedings of the International Conference on Image Processing, Brussels, pp. 3561–3564.</bibl>
+                    <bibl style="text-align:left; ">Ren, S., He, K., Girshick, R. and Sun, J. (2015). Faster R-CNN: Towards real-time object detection with region proposal networks. Advances in Neural Information Processing Systems, Montreal, pp. 91–99. </bibl>
+                    <bibl style="text-align:left; ">Schlecht, J., Carqué, B. and Ommer, B. (2011). Detecting Gestures in Medieval Images. Proceedings of the International Conference on Image Processing, Brussels, pp. 1285–1288.</bibl>
+                    <bibl style="text-align:left; ">Seguin, B., Striolo, C., diLenardo, I. and Kaplan, F. (2016). Visual link retrieval in a database of paintings. Proceedings of the European Conference on Computer Vision, workshops, Amsterdam, pp. 753–767. </bibl>
+                    <bibl style="text-align:left; ">Seguin, B. (2018). Making Large Art Historical Photo Archives Searchable. Ph.D. thesis, École Polytechnique Fédérale de Lausanne.</bibl>
+                    <bibl style="text-align:left; ">Seguin, B. (2018). The Replica Project: Building a Visual Search Engine for Art Historians. XRDS: Crossroads, The ACM Magazine for Students, 24(3): 24–29.</bibl>
+                    <bibl style="text-align:left; ">Shen, X., Efros, A. A. and Aubry, M. (2019). Discovering Visual Patterns in Art Collections with Spatially-consistent Feature Learning.  arXiv preprint arXiv:1903.02678.</bibl>
+                    <bibl style="text-align:left; ">Szegedy, C., Liu, W., Jia, Y. et al. (2015). Going Deeper with Convolutions. Proceedings of the Conference on Computer Vision and Pattern Recognition, Boston, pp. 1–9. </bibl>
+                    <bibl style="text-align:left; ">Tolias, G., Sicre, R. and Jégou, H. (2015). Particular object retrieval with integral max-pooling of CNN activations. Proceedings of the International Conference on Learning Representations, San Juan.</bibl>
+                    <bibl style="text-align:left; ">Tzelepi, M. and Tefas, A. (2018). Fully Unsupervised Convolutional Learning for Fast Image Retrieval. Proceedings of the 10th Hellenic Conference on Artificial Intelligence, Patras.</bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

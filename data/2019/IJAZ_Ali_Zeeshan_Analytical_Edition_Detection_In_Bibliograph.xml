@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>Analytical Edition Detection In Bibliographic Metadata</title>
+                <author>
+                    <persName>
+                        <surname>Ijaz</surname>
+                        <forename>Ali Zeeshan</forename>
+                    </persName>
+                    <affiliation>University of Helsinki, Finland</affiliation>
+                    <email>ali.ijaz@helsinki.fi</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Roivainen</surname>
+                        <forename>Hege</forename>
+                    </persName>
+                    <affiliation>University of Helsinki, Finland</affiliation>
+                    <email>hege.roivainen@helsinki.fi</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Lahti</surname>
+                        <forename>Leo</forename>
+                    </persName>
+                    <affiliation>University of Turku</affiliation>
+                    <email>leo.lahti@iki.fi</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2019-04-30T11:16:00Z</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Name, Institution</publisher>
+                <address>
+                    <addrLine>Street</addrLine>
+                    <addrLine>City</addrLine>
+                    <addrLine>Country</addrLine>
+                    <addrLine>Name</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from a Word document</p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.22">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Short Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>information retrieval</term>
+                    <term>metadata</term>
+                    <term>analytical bibliography</term>
+                    <term>data harmonization</term>
+                    <term>editions</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>metadata</term>
+                    <term>English</term>
+                    <term>digital humanities (history</term>
+                    <term>theory and methodology)</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <p style="text-align:left; ">The aim of analytical bibliography is to understand books and other printed objects as artefacts, and, most importantly, how they were produced (Tanselle, 1977). Systematic methods can unlock patterns otherwise hidden and provide an overall view of the publishing history (Eliot and Rose, 2009). Hence, bibliographic metadata can represent important historical trends (Tolonen et al., 2015; Lahti et al., 2018) as well as resolve long standing issues, such as the ordering of editions and impressions of books (Hawsam, 2014).</p>
+            <p style="text-align:left; ">In this paper we present the state of the art analytical approach for determining editions and their ordering. This enhances the applicability of metadata towards bibliographical analysis, and provides a systematic quantitative perspective on early modern publishing. Furthermore, it will be a great aid for projects aiming to do large data set oriented text mining, by providing harmonized data and information on historical developments in book production. Such analysis will be essential for recognizing how books and other textual artifacts have organically evolved over time, and for delivering a broader context for full text mining and interpretation.</p>
+            <div type="div1" rend="DH-Heading1">
+                <head>State-of-the-art</head>
+                <p style="text-align:left; ">Contemporary text mining approaches typically ignore edition level information, or provide very generic solutions that omit many details. Related earlier work includes the “Commonplace Cultures” project (Morrissey, 2016), where large-scale text mining of the ECCO dataset was carried out, though with only the earliest edition information present. Other projects include BookSampo, a semantic portal which draws from FRBRoo ontology (Riva et al., 2008). It covers metadata on Finnish fiction literature, however at the work level and does not have complete edition information (Mäkelä et al., 2011). Additionally, commonly used analysis algorithms such as Latent dirichlet allocation are inherently time agnostic (Blei et al., 2003), and although newer approaches such as Topics over Time can include time spans (Wang and McCallum, 2006), they are not applicable to the problem of edition detection, due to their focus on topics. Hence these methods may not be able to contextualize historical developments in book printing and publishing in a chronological fashion. Effectively, these projects are limited in their scope by providing a simplistic and static view into the nature of book production. </p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Data</head>
+                <p style="text-align:left; ">We have demonstrated these ideas based on The English Short Title Catalogue (ESTC, 2018), which provides a wealth of knowledge with regard to the books, their publication and editions. However, it follows the Machine Readable Cataloging (MARC, 1999) standard, which is unsuitable for research in its raw form. This is a common characteristic of the metadata in general (Nilsson, 2010). To overcome this limitation, we have developed dedicated and semi-automated harmonization techniques that convert free-form textual information into more coherent and consistent entries that are readily amenable for statistical analysis. This required robust handling of differences in title texts, spellings, and more, hence going beyond simple textual comparisons. </p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>The harmonization approach</head>
+                <p style="text-align:left; ">Developed in the popular statistical environment R, our approach begins with cleaning up edition information present in the edition statement field, MARC Field 250, provided by ESTC. Unfortunately, this information is unavailable for the majority of entities and hence the publication date, MARC Field 260, is used to provide a starting point for editions. Next, a new work field is constructed to collect titles into a small collection or work, by using title uniform, which is MARC Field 240, or a cleaned up title of the book. </p>
+                <p style="text-align:left; ">Considering the variety of titles in the ESTC, the spelling variations, and different styles of writing, we developed an algorithm to handle these issues. It iteratively builds up a title for the collection using the initial work field and collects similar books into the collection. The algorithm performs sub string matching using a variety of methods such as grep, fuzzy or exact matching, on a word by word basis. Alongside manual corrections, the algorithm allows for gaps in the matching and uses a coverage metric to determine if two titles are similar. The benefit of this approach is then realized as similar titles are grouped together despite variations in word spellings, title length and more. At the moment, the algorithm is being worked on to improve its applicability across different genres.</p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>In between automatic and manual</head>
+                <p style="text-align:left; ">The project has been supported by manual checking and corrections. While we are looking at the whole of ESTC, our priorities are focused on published books. Considering the scale of the ESTC dataset, with the number of documents going beyond 460,000 (Tolonen et al., 2015), a smaller sample of the works of 7 authors were selected, keeping in mind the diversity present in ESTC as well as the popularity of these authors. The list of authors consisted of William Shakespeare, David Hume, Jonathan Swift, John Locke, Isaac Watts, Alexander Pope and Daniel Defoe. The dataset sample was then used for development of the cleanup techniques and algorithms. Finally, the harmonized entries were manually checked to determine the corrections needed for the cleanup. </p>
+                <p style="text-align:left; ">Different techniques may be required for different genres. Such as the case with works concerning poetry or religious sermons, which contrast significantly with the works consisting of popular books. The issue is further complicated by the fact that different spellings have been used for the same words, titles have been written in different manner across different genres, and therefore may have no universal clear pattern. </p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Validation</head>
+                <p style="text-align:left; ">Validation of the algorithms is essential in order to assess the performance and the ability to generate correct data. In the context of this work, it is imperative that such algorithmic techniques are robust, so as to develop a correct view of the underlying data and obtain reliable conclusions. Therefore, in the interest of reproducibility, a gold standard is developed for the purpose of validating the harmonization process.</p>
+                <p style="text-align:left; ">We sampled a total of 250 authors, each with 5 to 50 publications with unique titles in the ESTC. Then we manually evaluated these samples to determine those titles, which should be grouped together as the same work based on the non-material content of the entries. Each of the records are considered as a distinct impression or edition. This way we did not have to bother ourselves with publication years or page counts signifying reprints: the chronological ordering of the entries computationally is straightforward once the correct grouping is known.</p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Construction of the gold standard for validation</head>
+                <p style="text-align:left; ">We created several edition layers for the gold standard. The first one was a simple straight-forward layer, with all the works with exactly the same content but with spelling mistakes or obvious occasional word replacements in the title defined as a single work. The second layer combined the first print with new revised editions and those with added content as a singular work. Also we connected the multi-volume works with each volume annotated separately together with the works containing all the volumes in the same entry. On the third layer we regarded the same content with differing time periods as one work. This type of layer was required for including calendars designed and marketed for a specific area as the same work, as well as music performance handouts for different dates. </p>
+                <p style="text-align:left; ">We also added yet another level signifying that the work is a collection of other works. Seeking out collections allows to research which part of an author's curriculum actually was revered at a given time. Additionally, we made a rudimentary classification of the genre, so that automating exclusion from subset based on the record type would be possible, even if the genre field had not been annotated for the record. For example, formally structured documents, such as proclamations, court case reports, meeting minutes or dictionaries, in subsets designed for word embeddings would skew the outcome.</p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Conclusion</head>
+                <p style="text-align:left; ">Our overarching aim is to provide a transparent and reproducible ecosystem of bibliographic data and algorithms that can be used to harmonize and analyze various library catalogues. This project complements the overall analysis by investigating the harmonization of the edition field, and by providing the first harmonized version of the data. A quantitative perspective on early modern publishing would be greatly improved by combining the edition level information with publisher data. Accurate description of the publishing network and the various changes it had undergone in the eighteenth century would then become available. Combining the edition level information from ESTC with text mining of large datasets such as ECCO would provide a finer description of what was the first edition of a book as well as the subsequent changes between it and the later editions. This would be supplemented by text reuse approaches, enabling a more detailed account of the evolution of the written text during the early modern period and hence can serve as the foundation for more descriptive analysis.</p>
+            </div>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold">Blei, D.M., Ng, A.Y. and Jordan, M.I.</hi> (2003). Latent dirichlet allocation. Journal of machine Learning research, 3(Jan), pp.993-1022.
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold">Eliot, S. and Rose, J.</hi> (eds.) (2009). A Companion to the History of the Book (Vol. 98). John Wiley &amp; Sons.
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold">ESTC.</hi> (2018). English Short Title Catalogue. http://estc.bl.uk/ (Accessed 27 November 2018).
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold">Howsam, L.</hi> (ed.) (2014). The Cambridge companion to the history of the book. Cambridge University Press.
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold">Lahti, L., Marjanen, J., Roivainen, H. and Tolonen, M.,</hi> (2018). Bibliographic Data Science and the History of the Book (c. 1500–1800). Cataloging &amp; Classification Quarterly, pp.1-19.
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold">Mäkelä, E., Hypén, K. and Hyvönen, E.,</hi> (2011), October. BookSampo—lessons learned in creating a semantic portal for fiction literature. In International Semantic Web Conference(pp. 173-188). Springer, Berlin, Heidelberg.
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold">MARC.</hi> (1999). MARC 21 Format for Bibliographic Metadata. https://www.loc.gov/marc/bibliographic/ (Accessed 27 November 2018).
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold" xml:space="preserve">Morrissey, R. </hi>(2016). Commonplace Cultures: Mining Shared Passages in the 18th Century using Sequence Alignment and Visual Analytics.
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold">Nilsson, M.</hi> (2010). ‘From Interoperability to Harmonization in Metadata Standardization: Designing an Evolvable Framework for Metadata Harmonization’, Doctoral Thesis, KTH School of Computer Science and Communication. https://www.diva-portal.org/smash/get/diva2:369527/FULLTEXT02.pdf (Accessed 27 November 2018).
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold">Riva, P., Doerr, M. and Zumer, M.,</hi> (2008), August. FRBRoo: enabling a common view of information from memory institutions. In World Library and Information Congress: 74th IFLA General Confrence and Council.
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold">Tanselle, G. T.</hi> (1977). ‘Descriptive Bibliography and Library Cataloguing’, Studies in Bibliography, 30: 1-56.
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold" xml:space="preserve">Tolonen, M., Lahti, L. and Ilomäki, N. </hi>(2015). A quantitative study of history in the English short-title catalogue (ESTC), 1470-1800. Liber quarterly.
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold">Wang, X. and McCallum, A.</hi> (2006). August. Topics over time: a non-Markov continuous-time model of topical trends. In Proceedings of the 12th ACM SIGKDD international conference on Knowledge discovery and data mining (pp. 424-433). ACM.
+                    </bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

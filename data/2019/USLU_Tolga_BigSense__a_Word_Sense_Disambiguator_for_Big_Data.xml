@@ -1,0 +1,421 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>BigSense: a Word Sense Disambiguator for Big Data</title>
+                <author>
+                    <persName>
+                        <surname>Uslu</surname>
+                        <forename>Tolga</forename>
+                    </persName>
+                    <affiliation>Goethe University of Frankfurt, Germany</affiliation>
+                    <email>uslu@em.uni-frankfurt.de</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Mehler</surname>
+                        <forename>Alexander</forename>
+                    </persName>
+                    <affiliation>Goethe University of Frankfurt, Germany</affiliation>
+                    <email>mehler@em.uni-frankfurt.de</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Schulz</surname>
+                        <forename>Clemens</forename>
+                    </persName>
+                    <affiliation>Goethe University of Frankfurt, Germany</affiliation>
+                    <email>clemens.schulz@stud.uni-frankfurt.de</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Baumartz</surname>
+                        <forename>Daniel</forename>
+                    </persName>
+                    <affiliation>Goethe University of Frankfurt, Germany</affiliation>
+                    <email>baumartz@stud.uni-frankfurt.de</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2014-12-19T13:50:00Z</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Name, Institution</publisher>
+                <address>
+                    <addrLine>Street</addrLine>
+                    <addrLine>City</addrLine>
+                    <addrLine>Country</addrLine>
+                    <addrLine>Name</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from a Word document</p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.22">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Long Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>word sense disambiguation</term>
+                    <term>big data</term>
+                    <term>wikipedia</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>natural language processing</term>
+                    <term>semantic analysis</term>
+                    <term>English</term>
+                    <term>computer science and informatics</term>
+                    <term>artificial intelligence and machine learning</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <div/>
+            <div type="div1" rend="DH-Heading1">
+                <head>Abstract</head>
+                <p style="text-align:left; ">We describe BigSense, a neural network-based approach for highly efficient word sense disambiguation (WSD). BigSense uses the entire English Wikipedia disambiguation pages to train a model that achieves state-of-the-art results while being many times faster than its competitors. In this way it is possible to disambiguate very large amounts of text data with reference to the largest freely available disambiguation model, while the time complexity of the model remains manageable. Thus, our approach paves the way for large-scale disambiguations in text-related digital humanities.</p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>1. Introduction</head>
+                <p style="text-align:left; ">WSD is an indispensable task in the field of Natural Language Processing (NLP). In this paper, we describe BigSense, a neural network based approach for efficient WSD. This approach is based on a previous model (Anonymous, 2018), which worked well for the German language. BigSense is extended to English using all disambiguation pages of the English Wikipedia. We improved BigSense’s predecessor so that we again achieve state-of-the-art results, despite being much faster than our competitors. In our Wikipedia-based experiment we achieve an F-score of almost 90 %. This enables the use of WSD also for larger corpora and brings us one step closer to the goal of machine reading on the basis of largely disambiguated texts.</p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>2. Related Work</head>
+                <p style="text-align:left; ">The general approach of BigSense was motivated by fastText (Joulin et al., 2016). This is because fastText is a very efficient way to classify data. We transposed fastText to WSD in order to efficiently determine the meaning of ambiguous words. By this we mean scenarios in which hundreds of thousands of different words are ambiguous. </p>
+                <p style="text-align:left; ">(Mihalcea and Csomai, 2007; Ferragina and Scaiella, 2010; Ratinov et al., 2011b; Ratinov et al., 2011a; Agerri et al., 2014; Moro et al., 2014) describe similar tools to BigSense since they perform Entity Linking, where they link text segments to knowledge databases such as Wikipedia. BigSense, however, has its focus on the disambiguation of ambiguous words. </p>
+                <p style="text-align:left; ">The creation of the disambiguation corpus, using Wikipedia’s link structure, was similarly performed by (Mihalcea, 2007). However, they did not use the corpus to disambiguate all ambiguous words, but compared them with the Senseval 2 dataset using a subset of 30 nouns. (Mihalcea et al., 2004; Chaplot et al., 2015) utilize graph based algorithms operating on semantic networks to perform WSD. (Yuan et al., 2016) present two WSD algorithms, achieving the best results by means of a semi-supervised algorithm combining labeled sentences with unlabeled ones and propagating labels based on sentence similarity. (Iacobacci et al., 2016) show that the use of word embeddings achieves an improvement in WSD compared to standard features. (Raganato et al., 2017a; Melamud et al., 2016) define WSD in terms of a sequence learning problem. This is done by means of a bidirectional LSTM-based neural network (Hochreiter and Schmidhuber, 1997). </p>
+                <p style="text-align:left; ">Unlike these approaches, we present a method that can handle big data: in terms of the number of senses to be distinguished and in terms of the number of units to be disambiguated. On the one hand, knowledge driven approaches using, for example, WordNet and related resources are limited in terms of the number of senses distinguished by them. On the other hand, approaches that rely on algorithms like PageRank or classifiers like SVMs or LSTMs are limited in terms of their time efficiency. Their runtime can last up to weeks and months when handling the amounts of data used in this paper (see Table 1). Therefore, we need a versatile and efficient method for WSD, as presented in the next section.</p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>3. Model</head>
+                <div type="div2" rend="DH-Heading2">
+                    <head>3.1. Architecture</head>
+                    <p style="text-align:left; ">The artificial neural network (ANN) used by BigSense builds upon a previous model architecture by adding an additional fully-connected hidden layer and replacing the sigmoid output layer with a dynamically reduced softmax layer (Figure 1). We found out that this additional hidden layer improves performance. Adding more hidden layers did not bring a performance boost anymore, however it slowed down the runtime. Each ambiguous word is assigned a distinct set of senses (i.e. each sense/output class belongs to exactly one word), which are gathered together for all ambiguous words in a training batch and make up the reduced output layer. This enables fast training, despite relying on the computationally more expensive softmax function. Possible senses are chosen based on the word to be disambiguated and are part of the input of the ANN. Instead of using global averaging pooling to combine embedding vectors, their sum is divided by the square root of the number of input words. </p>
+                    <p style="text-align:left; ">We decided against using Dropout, since it did not appear to have any beneficial impact.</p>
+                    <figure>
+                        <graphic n="1001" width="9.67408611111111cm" height="8.000955555555555cm" url="Pictures/60c03c71af4ddccf5f64b3e09a7cdd83.png" rend="inline"/>
+                    </figure>
+                    <p style="text-align:left; text-align:center;">Figure 1: Model architecture of BigSense.</p>
+                </div>
+                <div type="div2" rend="DH-Heading2">
+                    <head>3.2. Data</head>
+                    <p style="text-align:left; ">Training and test corpora are generated using links of Wikipedia articles. Disambiguation page titles are used to find ambiguous words. Each title is simplified (i.e. lowercased, no leading articles, and no trailing text in parentheses) and assigned as word to a new sense group. Titles of redirects to disambiguation pages are also added. </p>
+                    <p style="text-align:left; ">Sense groups combine similar ambiguous words which can assume the same set of senses. Senses are URLs to Wikipedia articles that can refer to full articles or single sections. A sense may only belong to exactly one sense group, to ensure the same subset of senses are always present in a reduced output layer of the ANN. Therefor the same URL may be used for multiple senses (see Figure 2).</p>
+                    <figure>
+                        <graphic n="1002" width="9.562286111111112cm" height="5.177463888888889cm" url="Pictures/1b641a1e08d382b23888ea89375c00a7.png" rend="inline"/>
+                    </figure>
+                    <p style="text-align:left; text-align:center;">Figure 2: Relationships between words, sense groups, senses and article URLs.</p>
+                    <p style="text-align:left; ">Senses are found using two methods: First, links on disambiguation pages are added as senses to the assigned sense group of the page. Links in section 
+                        <hi rend="bold">See also</hi> and links that do not contain the simplified disambiguation page title are ignored. Second, if there is an article or section that is linked at least five times using a link with the same simplified title as a sense group, it is added as sense to that group. Redirects are resolved before counting. 
+                    </p>
+                    <p style="text-align:left; ">Each paragraph in Wikipedia is used as a training example for the senses corresponding to the article or section it is from. In addition, any paragraph that contains links is used as example for senses that are assigned to the link destinations. To improve the quality of examples, paragraphs need to contain at least 5 tokens. Paragraphs that contain HTML or Wikicode tags are discarded, as well as tables. Text generated by most templates will simply be ignored. </p>
+                    <p style="text-align:left; ">A training example consists of one tokenized paragraph, a list of possible senses for one ambiguous word and the correct sense. Most paragraphs are assigned to multiple senses in different sense groups and therefor reused multiple times. A sense group needs to have at least one sense or it will be removed as well.</p>
+                </div>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>4. Experiment</head>
+                <p style="text-align:left; ">We applied BigSense to our Wikipedia generated corpus as well as to Senseval and SemEval tasks.</p>
+                <div type="div2" rend="DH-Heading2">
+                    <head>4.1. Wikipedia-based Disambiguation</head>
+                    <p style="text-align:left; ">The large number of articles in the English Wikipedia allowed us to generate 121,275,847 training examples (173,236,161 including test data) from 31,842,587 relevant paragraphs. Our approach yielded 549,770 senses for 478,077 article URLs in 168,546 sense groups. On average a sense group contains 3.3 senses. Around 40% of all sense groups only contain one sense, which is reflected in the MIN baseline (worst-case accuracy). </p>
+                    <p style="text-align:left; ">A wide range of parameter configurations were tested and were able to achieve an F-score of up to 89.5 % (Table 2). Instead of using tokens directly, we exclude punctuation marks, build bi-grams and hash them using 10,000,000 buckets. The embedding and hidden layer both have a size of 25. Micro batches of 32 examples each were used to train the network using gradient decent with exponentially decaying learning rate (starting at 1.0) over 8 epochs.</p>
+                    <table rend="rules">
+                        <row>
+                            <cell rend="DH-Default">Tools</cell>
+                            <cell rend="DH-Default">1,000</cell>
+                            <cell rend="DH-Default">5,000</cell>
+                            <cell rend="DH-Default">all</cell>
+                        </row>
+                        <row>
+                            <cell rend="DH-Default">Wikifier </cell>
+                            <cell rend="DH-Default">16 min 41 s</cell>
+                            <cell rend="DH-Default">1 h 24 min</cell>
+                            <cell rend="DH-Default">≈ 302 days</cell>
+                        </row>
+                        <row>
+                            <cell rend="DH-Default">Illinois</cell>
+                            <cell rend="DH-Default">6 min 53 s</cell>
+                            <cell rend="DH-Default">24 min</cell>
+                            <cell rend="DH-Default">≈ 77 days</cell>
+                        </row>
+                        <row>
+                            <cell rend="DH-Default">IXA</cell>
+                            <cell rend="DH-Default">58 min 49 s</cell>
+                            <cell rend="DH-Default">4 h 47 min</cell>
+                            <cell rend="DH-Default">≈ 3 years</cell>
+                        </row>
+                        <row>
+                            <cell rend="DH-Default">Babelfy</cell>
+                            <cell rend="DH-Default">1 min 50 s</cell>
+                            <cell rend="DH-Default">-</cell>
+                            <cell rend="DH-Default">≈ 33 days</cell>
+                        </row>
+                        <row>
+                            <cell rend="DH-Default">TAGME</cell>
+                            <cell rend="DH-Default">5 min 42 s</cell>
+                            <cell rend="DH-Default">28 min 40 s</cell>
+                            <cell rend="DH-Default">≈ 98 days</cell>
+                        </row>
+                        <row>
+                            <cell rend="DH-Default">BigSense</cell>
+                            <cell rend="DH-Default">10s</cell>
+                            <cell rend="DH-Default">13 s</cell>
+                            <cell rend="DH-Default">16 min 49 s</cell>
+                        </row>
+                    </table>
+                    <p style="text-align:left; text-align:center;">Table 1: Runtime-related evaluation regarding similar tools using 1000, 5000 and all test instances.</p>
+                    <table rend="rules">
+                        <row>
+                            <cell rend="DH-Default">Type</cell>
+                            <cell rend="DH-Default">F1 micro</cell>
+                            <cell rend="DH-Default">F1 macro</cell>
+                        </row>
+                        <row>
+                            <cell rend="DH-Default">BigSense</cell>
+                            <cell rend="DH-Default">0.895</cell>
+                            <cell rend="DH-Default">0.779</cell>
+                        </row>
+                        <row>
+                            <cell rend="DH-Default">MFS Baseline</cell>
+                            <cell rend="DH-Default">0.591</cell>
+                            <cell rend="DH-Default">0.405</cell>
+                        </row>
+                        <row>
+                            <cell rend="DH-Default">MIN Baseline</cell>
+                            <cell rend="DH-Default">0.057</cell>
+                            <cell rend="DH-Default">0.124</cell>
+                        </row>
+                    </table>
+                    <p style="text-align:left; text-align:center;">Table 2: Evaluation of BigSense in the Wikipedia experiment.</p>
+                </div>
+                <div type="div2" rend="DH-Heading2">
+                    <head>4.2. Senseval and SemEval related Disambiguation</head>
+                    <p style="text-align:left; ">SemCor 3.0 (Mihalcea, 2016) was used to train models to evaluate Senseval and SemEval related tasks. We used the same parameters as we did for the Wikipedia data, except for gradient clipping, which we had to enable, because the learning rate of 1.0 was too high. Training duration was also extended, to suit the smaller data set. We evaluated models on the test data after each epoch until the moving average of the cost function did no longer improve. In some of these experiments we had lemma and part-of-speech (POS) information, which we also considered as parameters. Table 3 lists the results for Senseval 2 (English all-words) (SE2) and Senseval 3 (English all-words) (SE3).</p>
+                    <table rend="rules">
+                        <row>
+                            <cell rend="DH-Default"/>
+                            <cell rend="DH-Default">NG</cell>
+                            <cell rend="DH-Default">Epochs</cell>
+                            <cell rend="DH-Default">SE2</cell>
+                            <cell rend="DH-Default">SE3</cell>
+                        </row>
+                        <row>
+                            <cell rend="DH-Default">Token</cell>
+                            <cell rend="DH-Default">1</cell>
+                            <cell rend="DH-Default">95</cell>
+                            <cell rend="DH-Default">0.718</cell>
+                            <cell rend="DH-Default">-</cell>
+                        </row>
+                        <row>
+                            <cell rend="DH-Default">Token</cell>
+                            <cell rend="DH-Default">2</cell>
+                            <cell rend="DH-Default">79</cell>
+                            <cell rend="DH-Default">0.710</cell>
+                            <cell rend="DH-Default">-</cell>
+                        </row>
+                        <row>
+                            <cell rend="DH-Default">Lemma</cell>
+                            <cell rend="DH-Default">1</cell>
+                            <cell rend="DH-Default">73</cell>
+                            <cell rend="DH-Default">0.708</cell>
+                            <cell rend="DH-Default">-</cell>
+                        </row>
+                        <row>
+                            <cell rend="DH-Default">Lemma</cell>
+                            <cell rend="DH-Default">2</cell>
+                            <cell rend="DH-Default">88</cell>
+                            <cell rend="DH-Default">0.706</cell>
+                            <cell rend="DH-Default">-</cell>
+                        </row>
+                        <row>
+                            <cell rend="DH-Default">Token + PoS</cell>
+                            <cell rend="DH-Default">1</cell>
+                            <cell rend="DH-Default">66</cell>
+                            <cell rend="DH-Default">0.709</cell>
+                            <cell rend="DH-Default">0.688</cell>
+                        </row>
+                        <row>
+                            <cell rend="DH-Default">Token + PoS</cell>
+                            <cell rend="DH-Default">2</cell>
+                            <cell rend="DH-Default">87</cell>
+                            <cell rend="DH-Default">0.705</cell>
+                            <cell rend="DH-Default">0.693</cell>
+                        </row>
+                        <row>
+                            <cell rend="DH-Default">Lemma + PoS</cell>
+                            <cell rend="DH-Default">1</cell>
+                            <cell rend="DH-Default">76</cell>
+                            <cell rend="DH-Default">0.709</cell>
+                            <cell rend="DH-Default">0.702</cell>
+                        </row>
+                        <row>
+                            <cell rend="DH-Default">Lemma + PoS</cell>
+                            <cell rend="DH-Default">2</cell>
+                            <cell rend="DH-Default">100</cell>
+                            <cell rend="DH-Default">0.708</cell>
+                            <cell rend="DH-Default">0.694</cell>
+                        </row>
+                    </table>
+                    <p style="text-align:left; text-align:center;">Table 3: F1-score for Senseval tests. (NG = n-grams, Ep. = epochs)</p>
+                    <p style="text-align:left; ">Table 4 lists results for SemEval-2013 Task 12 (SE13), and SemEval-2015 Task 13 (SE15). Some test cases require the classification of senses that are not included in the training data. However, the neural network cannot predict classes it has never seen before. In these cases we proceed by classifying the most frequent sense in WordNet.</p>
+                    <table rend="rules">
+                        <row>
+                            <cell rend="DH-Default"/>
+                            <cell rend="DH-Default">NG</cell>
+                            <cell rend="DH-Default">Epochs</cell>
+                            <cell rend="DH-Default">SE13</cell>
+                            <cell rend="DH-Default">SE15</cell>
+                        </row>
+                        <row>
+                            <cell rend="DH-Default">Token</cell>
+                            <cell rend="DH-Default">1</cell>
+                            <cell rend="DH-Default">64</cell>
+                            <cell rend="DH-Default">0.682</cell>
+                            <cell rend="DH-Default">0.697</cell>
+                        </row>
+                        <row>
+                            <cell rend="DH-Default">Token</cell>
+                            <cell rend="DH-Default">2</cell>
+                            <cell rend="DH-Default">76</cell>
+                            <cell rend="DH-Default">0.685</cell>
+                            <cell rend="DH-Default">0.708</cell>
+                        </row>
+                        <row>
+                            <cell rend="DH-Default">Token + PoS</cell>
+                            <cell rend="DH-Default">1</cell>
+                            <cell rend="DH-Default">47</cell>
+                            <cell rend="DH-Default">0.642</cell>
+                            <cell rend="DH-Default">-</cell>
+                        </row>
+                        <row>
+                            <cell rend="DH-Default">Token + PoS</cell>
+                            <cell rend="DH-Default">2</cell>
+                            <cell rend="DH-Default">52</cell>
+                            <cell rend="DH-Default">0.623</cell>
+                            <cell rend="DH-Default">-</cell>
+                        </row>
+                    </table>
+                    <p style="text-align:left; text-align:center;">Table 4: F1-score for SemEval tests. (NG = n-grams, Ep. = epochs)</p>
+                    <p style="text-align:left; ">We also conducted an experiment where we ignored all test classes that did not occur in training set (see Table 5). In this way, we can find out what classification quality we achieve for a subset of the test set for which we have training data available.</p>
+                    <table rend="rules">
+                        <row>
+                            <cell rend="DH-Default"/>
+                            <cell rend="DH-Default">SE2</cell>
+                            <cell rend="DH-Default">SE3</cell>
+                            <cell rend="DH-Default">SE13</cell>
+                            <cell rend="DH-Default">SE15</cell>
+                        </row>
+                        <row>
+                            <cell rend="DH-Default">BigSense*</cell>
+                            <cell rend="DH-Default">0.906</cell>
+                            <cell rend="DH-Default">0.889</cell>
+                            <cell rend="DH-Default">0.842</cell>
+                            <cell rend="DH-Default">0.788</cell>
+                        </row>
+                    </table>
+                    <p style="text-align:left; text-align:center;">Table 5: F-score of BigSense, when ignoring unknown test cases.</p>
+                </div>
+                <div type="div2" rend="DH-Heading2">
+                    <head>4.3. Discussion</head>
+                    <p style="text-align:left; ">We have successfully developed a classifier that can not only efficiently disambiguate huge amounts (see Table 1) of data, but can also compete with the state-of-theart. In order to compare with other WSD methods, we have carried out Senseval and SemEval tests. Here we were able to show that we can keep up with state-ofthe-art methods and even surpass them in some fields (see Table 6). In addition, we have shown that we can achieve 90% F-score if we only consider senses that were included in the training set (see Table 5).</p>
+                    <table rend="rules">
+                        <row>
+                            <cell rend="DH-Default">Model</cell>
+                            <cell rend="DH-Default">SE2</cell>
+                            <cell rend="DH-Default">SE3</cell>
+                            <cell rend="DH-Default">SE13</cell>
+                            <cell rend="DH-Default">SE15</cell>
+                        </row>
+                        <row>
+                            <cell rend="DH-Default">Iacobacci, 2016</cell>
+                            <cell rend="DH-Default">0.634</cell>
+                            <cell rend="DH-Default">0.653</cell>
+                            <cell rend="DH-Default">0.673</cell>
+                            <cell rend="DH-Default">0.715</cell>
+                        </row>
+                        <row>
+                            <cell rend="DH-Default">Yuan, 2016</cell>
+                            <cell rend="DH-Default">0.736</cell>
+                            <cell rend="DH-Default">0.692</cell>
+                            <cell rend="DH-Default">0.670</cell>
+                            <cell rend="DH-Default">-</cell>
+                        </row>
+                        <row>
+                            <cell rend="DH-Default">Chaplot, 2015</cell>
+                            <cell rend="DH-Default">0.605</cell>
+                            <cell rend="DH-Default">0.586</cell>
+                            <cell rend="DH-Default">-</cell>
+                            <cell rend="DH-Default">-</cell>
+                        </row>
+                        <row>
+                            <cell rend="DH-Default">Raganato, 2017</cell>
+                            <cell rend="DH-Default">0.720</cell>
+                            <cell rend="DH-Default">0.702</cell>
+                            <cell rend="DH-Default">0.669</cell>
+                            <cell rend="DH-Default">0.724</cell>
+                        </row>
+                        <row>
+                            <cell rend="DH-Default">Melamud, 2016</cell>
+                            <cell rend="DH-Default">0.718</cell>
+                            <cell rend="DH-Default">0.691</cell>
+                            <cell rend="DH-Default">0.656</cell>
+                            <cell rend="DH-Default">0.719</cell>
+                        </row>
+                        <row>
+                            <cell rend="DH-Default">BigSense</cell>
+                            <cell rend="DH-Default">0.718</cell>
+                            <cell rend="DH-Default">0.702</cell>
+                            <cell rend="DH-Default">0.685</cell>
+                            <cell rend="DH-Default">0.708</cell>
+                        </row>
+                    </table>
+                    <p style="text-align:left; text-align:center;">Table 6: Comparison of BigSense to state-of-the-art methods.</p>
+                </div>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>5. Conclusion</head>
+                <p style="text-align:left; ">We presented a novel approach called BigSense for disambiguating large amounts of data. In order to present the efficiency and quality of BigSense, we have created a huge disambiguation corpus using the English Wikipedia. Here we have classified almost 550,000 senses with an F-score of 89.5 % (see Table 2). In Senseval and SemEval tests we can keep up with state-of-the-art methods and in some cases even surpass them. In future work we will analyze the influence of topic classifiers on BigSense. </p>
+            </div>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl style="text-align:left; ">Agerri, R., Bermudez, J., and Rigau, G. (2014). IXA pipeline: Efficient and Ready to Use Multilingual NLP tools. In LREC, volume 2014, pages 3823– 3828. </bibl>
+                    <bibl style="text-align:left; ">Chaplot, D. S., Bhattacharyya, P., and Paranjape, A. (2015). Unsupervised word sense disambiguation using markov random field and dependency parser. In AAAI, pages 2217–2223. </bibl>
+                    <bibl style="text-align:left; ">Ferragina, P. and Scaiella, U. (2010). Tagme: onthe-fly annotation of short text fragments. In Proceedings of the 19th ACM international conference on Information and knowledge management, pages 1625–1628. ACM. </bibl>
+                    <bibl style="text-align:left; ">Hochreiter, S. and Schmidhuber, J. (1997). Long short-term memory. Neural computation, 9(8):1735– 1780.</bibl>
+                    <bibl style="text-align:left; ">Iacobacci, I., Pilehvar, M. T., and Navigli, R. (2016). Embeddings for word sense disambiguation: An evaluation study. In Proceedings of the 54th Annual Meeting of the Association for Computational Linguistics, ACL 2016, August 7-12, 2016, Berlin, Germany, Volume 1: Long Papers.</bibl>
+                    <bibl style="text-align:left; ">Joulin, A., Grave, E., Bojanowski, P., and Mikolov, T. (2016). Bag of tricks for efficient text classification. arXiv preprint arXiv:1607.01759. </bibl>
+                    <bibl style="text-align:left; ">Melamud, O., Goldberger, J., and Dagan, I. (2016). context2vec: Learning Generic Context Embedding with Bidirectional LSTM. In CoNLL, pages 51–61. </bibl>
+                    <bibl style="text-align:left; ">Mihalcea, R. and Csomai, A. (2007). Wikify!: linking documents to encyclopedic knowledge. In Proceedings of the sixteenth ACM conference on Conference on information and knowledge management, pages 233–242. ACM. </bibl>
+                    <bibl style="text-align:left; ">Mihalcea, R., Tarau, P., and Figa, E. (2004). Pagerank on semantic networks, with application to word sense disambiguation. In Proceedings of the 20th international conference on Computational Linguistics, page 1126. Association for Computational Linguistics. </bibl>
+                    <bibl style="text-align:left; ">Mihalcea, R. (2007). Using wikipedia for automatic word sense disambiguation. In HLT-NAACL, pages 196–203. </bibl>
+                    <bibl style="text-align:left; ">Mihalcea, R. (2016). SemCor. http://web.eecs. umich.edu/˜mihalcea/downloads.html#semcor. Accessed: 2016-12-05. </bibl>
+                    <bibl style="text-align:left; ">Moro, A., Raganato, A., and Navigli, R. (2014). Entity linking meets word sense disambiguation: a unified approach. Transactions of the Association for Computational Linguistics, 2:231–244. </bibl>
+                    <bibl style="text-align:left; ">Raganato, A., Bovi, C. D., and Navigli, R. (2017a). Neural sequence learning models for word sense disambiguation. In Proceedings of the 2017 Conference on Empirical Methods in Natural Language Processing, pages 1167–1178. </bibl>
+                    <bibl style="text-align:left; ">Raganato, A., Camacho-Collados, J., and Navigli, R. (2017b). Word sense disambiguation: A unified evaluation framework and empirical comparison. In Proc. of EACL, pages 99–110. </bibl>
+                    <bibl style="text-align:left; ">Ratinov, L., Roth, D., Downey, D., and Anderson, M. (2011b). Local and global algorithms for disambiguation to wikipedia. In Proceedings of the 49th Annual Meeting of the Association for Computational Linguistics: Human Language TechnologiesVolume 1, pages 1375–1384. Association for Computational Linguistics. </bibl>
+                    <bibl style="text-align:left; ">Yuan, D., Doherty, R., Richardson, J., Evans, C., and Altendorf, E. (2016). Word sense disambiguation with neural language models. arXiv preprint arXiv:1603.07012.</bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

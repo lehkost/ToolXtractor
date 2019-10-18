@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title type="full">
+                    <title type="main">Calculating Sameness: Identifying Image Reuse In Early Modern books</title>
+                    <title type="sub"/>
+                </title>
+                <author>
+                    <persName>
+                        <surname>Kräutli</surname>
+                        <forename>Florian</forename>
+                    </persName>
+                    <affiliation>Max Planck Institute for the History of Science, Germany</affiliation>
+                    <email>fkraeutli@mpiwg-berlin.mpg.de</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Valleriani</surname>
+                        <forename>Matteo</forename>
+                    </persName>
+                    <affiliation>Max Planck Institute for the History of Science, Germany</affiliation>
+                    <email>valleriani@mpiwg-berlin.mpg.de</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Lockhorst</surname>
+                        <forename>Daan</forename>
+                    </persName>
+                    <affiliation>Max Planck Institute for the History of Science, Germany</affiliation>
+                    <email>dlockhorst@mpiwg-berlin.mpg.de</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2019-04-11T14:09:35.569488298</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Name, Institution</publisher>
+                <address>
+                    <addrLine>Street</addrLine>
+                    <addrLine>City</addrLine>
+                    <addrLine>Country</addrLine>
+                    <addrLine>Name</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from an OASIS Open Document</p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.22">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Short Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>image analysis</term>
+                    <term>visualisation</term>
+                    <term>diagram</term>
+                    <term>annotation</term>
+                    <term>workflow</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>image processing</term>
+                    <term>spatial &amp; spatio-temporal analysis</term>
+                    <term>modeling and visualization</term>
+                    <term>bibliographic methods / textual studies</term>
+                    <term>English</term>
+                    <term>digital humanities (history</term>
+                    <term>theory and methodology)</term>
+                    <term>history of science</term>
+                    <term>cultural analytics</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <p>Our research is concerned with the dissemination and transformation of scientific knowledge across Europe. The basis of our investigations forms a corpus of, to date, 343 books that have been printed between 1472 and 1650. We assembled the corpus around a specific text: the 
+                <hi rend="italic">Tractatus de Sphaera</hi> by Johannes de Sacrobosco. This 13th century treatise on cosmology describes the spheres of the universe according to the geocentric worldview. Up until the 17th century it has been repeatedly published as part of university textbooks. In these the treatise is included in original, commented or translated form, and accompanied by other texts that were seen as relevant for the study of cosmology from disciplines such as medicine, astronomy or mathematics. As many of these textbooks were part of the mandatory curriculum at European universities, we regard their contents as representative for the scientific knowledge that was being taught and seen as relevant at the time of publication of the books.
+            </p>
+            <p>We extract several markers from the individual books that form the material evidence of our research. In addition to bibliographic data such as publishers, printers, date and place of publication, etc., we identified for every book the content structure: which texts it contains and, if applicable, wether the texts are commented or translated versions of existing texts. In doing so we can not only identify how the content of the books changed and – by extension – how certain disciplines gained and lost in importance, but also which publishers might be responsible for certain changes.</p>
+            <p>The books also contain various types of visuals: diagrams, illustrations, decorative elements, etc. In the same way as texts, these visuals can offer insights into the kind of knowledge that is being distributed. By identifying and analyzing recurring images, we can evaluate the 'success' of certain imagery. If we find the same images being used by different printers, for example, that might be telling of one printer being influenced by another, or even indicate a physical exchange of wooden printing blocks.</p>
+            <p>In this paper we present our approach for analyzing the more than 16.000 illustrations that we have annotated in our corpus. We employ an image hashing algorithm for identifying recurring images and existing visualization tools for analyzing the results. As the algorithm we use is independent of the visual material and – unlike machine learning algorithms – does not need to be trained, it can readily be used on arbitrary image collections. As part of this paper we will offer the entire analysis and visualization workflow for others to reuse.</p>
+            <p>
+                <figure>
+                    <graphic url="Pictures/2bd0fb3d528b87a85afa25ab411bcc98.png"/>
+                </figure>
+            </p>
+            <p>
+                <hi rend="color(#aaaaaa)">The algorithm organises the images into groups of same or similar ones. While most of the groupings are correct, some diagrams may incorrectly be assigned the same group (e.g. third row from the top)</hi>
+            </p>
+            <div type="div1">
+                <head>Process</head>
+                <p>The images we analyses are being manually annotated by a team of student assistants using the Mirador IIIF viewer and classified as either Content Illustrations, Initials, Frontispieces, Printer's Marks, Title Page Illustrations or Decorations. They are stored in RDF as annotations on the digitised pages of the books, along with the remaining metadata that we gather in the project and store according to a CIDOC-CRM data model in a Blazegraph database. For processing, the respective regions of the original pages are downloaded to a local machine via a IIIF API.</p>
+                <p>We want to identify which of the illustrations and diagrams appear several times in our corpus of books. In other words, we want to organise the total set of images into groups that are duplicates or near duplicates of each other. Duplicate detection in a set of digital images can be achieved through an Image Hashing algorithm, as proposed by Venkatesan et al.(2000). A hash function takes an arbitrary sized input and deterministically produces an output of a fixed size, the so-called 
+                    <hi rend="italic">digest</hi>. For an introduction to hash functions see Knuth (1998). In order to identify images that are not duplicates but variations of each other, a particular type of image hashing algorithm is required. A perceptual image algorithm (Zauner, 2010) is designed to take an arbitrary image as input and produce a digest that bears a deterministic relationship to the input image. We use the difference hash, or dHash, algorithm (Kravetz, 2013) in an implementation for the Python programming language (Buchner, 2017). The algorithm works by scaling down and converting the input image to grayscale, and then produce a digest based on each pixel's difference in brightness to its neighboring pixels. The similarity between two images can then be expressed as the difference – the Hamming distance (Hamming, 1950) – between two digests.
+                </p>
+                <p>For analyzing the output of the algorithm we make use of a tool initially developed to visualize a collection of coins (Gortana et al., 2018). The web app, which is freely available on GitHub, allows us to visually inspect the entire set of images and evaluate quality of the identified groupings.</p>
+            </div>
+            <div type="div1">
+                <head>Results</head>
+                <p>After experimenting with different values for the threshold and rescaling resolution we found the ones that are optimal for our particular image collection, resulting in match found for 66% of the images in our set. We use a two-pass process in which the images that have not been matched in the first pass are processed again using adjusted settings.</p>
+                <p>The resulting image groups have given us immediate new insights into the reuse of images within this particular corpus of publications. We were able to discriminate clear patterns in the use of certain images, such as, which images have been published throughout the print history of our corpus – there are two – as well as which images have changed context from one text to the other – only one.</p>
+                <p>In contrast to more 'sophisticated' methods of image analysis using pre-trained neural networks, the method used works in a transparent fashion and independent of the material at hand. Only two parameters need to be adjusted – threshold and scaled image resolution – to optimise the output for a given image collection. The algorithm as well as the visualisation tool employed here can be applied on any given image collection.</p>
+                <p>
+                    <figure>
+                        <graphic url="Pictures/2360c6755aa13e12b64ce6a33d886b0c.png"/>
+                    </figure>
+                </p>
+                <p>
+                    <hi rend="color(#aaaaaa)">Visualizing the identified image groups against date of publication reveals patterns in the use of certain visuals. The large groups of images at the top represents those that have not been assigned a group. Visualization tool: Coins by Flavio Gortana, </hi>
+                    <ptr target="http://github.com/Flave/Muenzkabinett"/>
+                </p>
+            </div>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl>Buchner, J. (2017). imagehash. online Available at: https://github.com/JohannesBuchner/imagehash Accessed 6 Aug. 2018.</bibl>
+                    <bibl>Gortana, F., Tenspolde, von, F., Guhlmann, D. and Dörk, M., (2018). Off the Grid: Visualizing a Numismatic Collection as Dynamic Piles and Streams. Open Library of Humanities, 4(2), pp.1245–26.</bibl>
+                    <bibl>Hamming, R.W. (1950). Error Detecting and Error Correcting Codes. Bell System Technical Journal, 29(2), pp.147–160.</bibl>
+                    <bibl>Knuth, D. (1998). The art of computer programming, Volume 3: Sorting and searching. Upper Saddle River, NJ: Addison Wesley.</bibl>
+                    <bibl>Kravetz, N. (2013). Kind of Like That. Online. hackerfactor.com. Available at: http://www.hackerfactor.com/blog/index.php?/archives/529-Kind-of-Like-That.html Accessed 6 Aug. 2018.</bibl>
+                    <bibl>Venkatesan, R., Koom, S.M., Jakubowski, M. and Moulin, P. (2000). Robust image hashing. In: Proceedings of IEEE ICIP. Vancover: IEEE.</bibl>
+                    <bibl>Zauner, C. (2010). Implementation and Benchmarking of Perceptual Image Hash Functions. Master's thesis, Upper Austria University of Applied Sciences, Hagenberg Campus, pp.1–107.</bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

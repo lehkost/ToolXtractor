@@ -1,0 +1,321 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>The CHQL Query Language for Conceptual History Relying on Google Books</title>
+                <author>
+                    <persName>
+                        <surname>Willkomm</surname>
+                        <forename>Jens</forename>
+                    </persName>
+                    <affiliation>Department of Informatics, Karlsruhe Institute of Technology</affiliation>
+                    <email>jens.willkomm@kit.edu</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Schmidt-Petri</surname>
+                        <forename>Christoph</forename>
+                    </persName>
+                    <affiliation>Department of Humanities, Karlsruhe Institute of Technology</affiliation>
+                    <email>christoph.schmidt-petri@kit.edu</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Schäler</surname>
+                        <forename>Martin</forename>
+                    </persName>
+                    <affiliation>Department of Informatics, Karlsruhe Institute of Technology</affiliation>
+                    <email>martin.schaeler@kit.edu</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Schefczyk</surname>
+                        <forename>Michael</forename>
+                    </persName>
+                    <affiliation>Department of Humanities, Karlsruhe Institute of Technology</affiliation>
+                    <email>michael.schefczyk@kit.edu</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Böhm</surname>
+                        <forename>Klemens</forename>
+                    </persName>
+                    <affiliation>Department of Informatics, Karlsruhe Institute of Technology</affiliation>
+                    <email>klemens.boehm@kit.edu</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2019-04-26T15:10:00Z</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Name, Institution</publisher>
+                <address>
+                    <addrLine>Street</addrLine>
+                    <addrLine>City</addrLine>
+                    <addrLine>Country</addrLine>
+                    <addrLine>Name</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from a Word document</p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.22">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Long Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>Temporal text corpora</term>
+                    <term>query algebra</term>
+                    <term>conceptual history</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>corpus and text analysis</term>
+                    <term>information retrieval and query languages</term>
+                    <term>philosophy</term>
+                    <term>data mining / text mining</term>
+                    <term>English</term>
+                    <term>computer science and informatics</term>
+                    <term>cultural evolution</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <div type="div1" rend="DH-Heading1">
+                <head>Introduction</head>
+                <p style="text-align:left; ">The digitization of large time-labeled bibliographies has resulted in corpora such as the Google Ngram data set (Lin et al., 2012). Such corpora extremely accurately reflect how individual words are used over time. They are expected to reveal novel insights into the evolution of language and society, provided adequate analysis systems are available. In this context, developing a comprehensive query algebra that allows domain experts to formalize complex hypotheses would be a major contribution to successfully unlock this potential.</p>
+                <p style="text-align:left; ">The case of conceptual history serves as our example from the humanities. In conceptual history, researchers examine the evolution of concepts represented by words such as “peace” or “freedom”. In exploring the history of a concept, scholars commonly make use of, but are not restricted to, word-usage frequencies, word contexts, sentiment analysis, how words refer and relate to and contrast with each other, or they look for word pairs or word families whose usage is correlated (Brunner et al., 2004; Ritter and Gründer, 1971). Consider our example: how the words “East” and “West” change from merely cardinal directions to politically charged concepts after 1945.</p>
+                <p style="text-align:left; ">In this paper, we present a query algebra for empirical analyses of temporal text corpora, the Conceptual History Query Language (CHQL). A 
+                    <hi rend="bold">temporal text corpus</hi> in our sense is a set of words and word chains, i.e., ngrams, together with their usage frequency at various points of time. Our query language is meant to be useful for domain experts, i.e., be descriptive and complete (match all actual and potential hypotheses of conceptual history), and bear optimization potential to allow fast query processing on large data sets. We focus on an algebra inspired by the German tradition of 
+                    <hi rend="bold">Begriffsgeschichte</hi> (conceptual history), as exemplified by the work of Reinhart Koselleck (Olsen, 2012).
+                </p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Related Work</head>
+                <p style="text-align:left; ">Existing query algebras, like the one for the Structured Query Language (SQL), do not feature specific support for analyses of the kind we envisage. Other approaches from the literature, e.g., the Contextual Query Language (The Library of Congress, 2013), the Corpus Query Language (Jakubíček et al., 2010), or the ANNIS Query Language (Zeldes et al., 2009), have similar issues. The common relational algebra (Maier, 1983; Abiteboul et al., 1994), does not contain sufficiently specific operators, e.g., temporal or linguistic operators. Extensions exist to add temporal operators (Snodgrass, 1987; Snodgrass, 1995), but not linguistic operators. To query relations between words, there are special-purpose query languages. For example, SQWRL is a language to query an ontology (O'Connor and Das, 2009). Querying word relations, e.g., from an ontology, does not include all required linguistic relationships. Further, ontologies do not provide temporal information. SQWRL does not contain any temporal operator. All of these algebras have in common that they do not cover both linguistic and temporal operators required for research on conceptual history.</p>
+                <p style="text-align:left; ">Related work in the digital humanities mainly consists of data processing and the analysis of text corpora (Warwick et al., 2012; Hai-Jew, 2017). Some frameworks focus on linguistic and reflective properties as well as their evolution such as (Hamilton et al., 2016a; Hamilton et al., 2016b; Prabhakaran et al., 2016; Englhardt et al., 2019). Respective systems cannot output the required information to conduct research on conceptual history in a comprehensive way. In addition, such systems do not provide a sufficiently 
+                    <hi rend="bold">abstract</hi> interface, a reason why experts are reluctant in using them (Hai-Jew, 2017).
+                </p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Concept Types and Operators</head>
+                <p style="text-align:left; ">This section shows in the abstract how the operators of CHQL allow searching for concept types. A formal definition of all of our operators is given in (Willkomm et al., 2018) and will be presented at DH2019.</p>
+                <p style="text-align:left; ">Conceptual history claims that pragmatic properties of historical, cultural and economic relevance are incorporated in concepts, irrespectively of whether individual users are aware of this or not. It attempts to track changes of particular concepts (such as “socialism”) over time to determine how their pragmatic relevance changes (it might mostly express generic hopes at some moment and mostly specific fears at some other). Thus, concepts will be categorized as belonging to a particular 
+                    <hi rend="bold">concept type</hi> at a particular moment in time.
+                </p>
+                <p style="text-align:left; ">Conceptual historians typically read and interpret large masses of texts which provide a variety of information types (e.g. word frequencies, what words appear in the context, how these words function pragmatically (individually as well as in sentences etc.)) which help to determine the concept type. Because we want to do the same using 
+                    <hi rend="bold">Distant Reading</hi> techniques (Moretti, 2013), these information types need to be translated into observable data characteristics for which individual operators in the query language are defined. Finding an adequate number of helpful information types, structuring them and converting them into computable and combinable items is the main challenge of our project.
+                </p>
+                <p style="text-align:left; ">Since there is no accepted formal specifications of information types, we describe an interpretation of Koselleck’s information types in order to map them on to data characteristics. Data characteristics are quantitative feature either directly present in our data (e.g., the usage frequency of the word “socialism” in 1848), or a derived piece of information (e.g. the difference between the usage frequency of words “socialism” and “communism” from 1848 to 1989). We describe which data characteristics are needed to simulate Koselleck’s information needs and explain our realization of all data characteristics and their implementation as operators.</p>
+                <figure>
+                    <graphic n="1001" width="15.48cm" height="6.64cm" url="Pictures/d7d2103d7f8ad8f32ef03ab87cacb5e7.png" rend="inline"/>
+                    <head>The relationship between concept types, information types, data characteristics and operators to hypothesize concept types</head>
+                </figure>
+                <p style="text-align:left; ">One of Koselleck’s implicit assumptions is that each concept type has specific characteristics. In our terminology: any concept type can be described using a specific combination of information types. For example, Koselleck may plausibly be read as claiming that words that form a 
+                    <hi rend="bold">parallel concept</hi> (concept type) would have “similar” 
+                    <hi rend="bold">word frequencies</hi> and have a significant number of identical 
+                    <hi rend="bold">surrounding words</hi> (information types). By contrast, 
+                    <hi rend="bold">counter concepts</hi> would also have similar word frequencies yet their surrounding words would behave differently. For instance, if “enlightenment” and “reason” are parallel concepts for a particular period, their relative word frequencies should be similar, and if “emancipation” occurs near “enlightenment”, it should occur near “reason” too, and both concepts should be endorsed rather than criticized (in some sense). By contrast, if “East” and “West” are counter concepts, their word contexts should contain different words, and there should be some sort of contrast in attitude between them.
+                </p>
+                <p style="text-align:left; ">If every concept type has its own specific linguistic and pragmatic properties and hence should be representable by a specific 
+                    <hi rend="bold">combination</hi> of information types, it should be possible to develop a system that finds these information types in large corpora that are not amenable to conventional close reading. To this end, we need a formal definition of any information type which is observable and quantifiable.
+                </p>
+                <p style="text-align:left; ">We present a selection of some of the data characteristics with the information type they are intended to represent:</p>
+                <list type="unordered">
+                    <item>
+                        <hi rend="italic">Individual Context:</hi> This requires two data characteristics: a set of surrounding words for a target word, i.e., the linguistic context, and the sentiment for this context, by summing up the sentiment values of the words of the context. Our 
+                        <hi rend="bold">surroundingwords</hi> operator and 
+                        <hi rend="bold">sentiment</hi> operator implement this.
+                    </item>
+                    <item>
+                        <hi rend="italic">Topic Grouping:</hi> Using 
+                        <hi rend="bold">topic modeling</hi>, groups of words may be classified as belonging to a particular topic (e.g. geography or politics).
+                    </item>
+                    <item>
+                        <hi rend="italic">Sentence Structure:</hi> This again requires two data characteristics: the function of a word, i.e., differentiate between parts of speech, and completing phrases, i.e., search for missing words in a phrase. The first data characteristic is implemented by our operator 
+                        <hi rend="bold">pfilter</hi>. We implement the second one as a pattern-matching operator which we call 
+                        <hi rend="bold">textsearch</hi>.
+                    </item>
+                    <item>
+                        <hi rend="italic">Frequency Data:</hi> Neologisms, which might be evidence for radical changes, would display abrupt increases in word-usage frequency over time. To find this and similar characteristics, we propose an operator 
+                        <hi rend="bold">time series-based selection</hi> that compares the time-series values with a constant. To allow for a temporal restriction, we also provide a 
+                        <hi rend="bold">subsequence</hi> operator that limits the selection to an arbitrary time interval. The combination of both operators facilitates the search for neologisms.
+                    </item>
+                    <item>
+                        <hi rend="italic">Sentiment Analysis:</hi> Using well-proven resources such as LIWC (Wolf et al., 2008) or customized dictionaries, our 
+                        <hi rend="bold">sentiment</hi> operator represents the emotions associated with a concept, relying on the words in its context.
+                    </item>
+                </list>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Results</head>
+                <p style="text-align:left; ">Using CHQL, we have tested the hypotheses that (1) “East” and “West” have acquired a political context after 1945, whereas “North” and “South” haven’t, and that (2) the former have turned into counter concepts in the political sphere, their contexts expressing diverging attitudes, whereas the latter have remained parallel concepts in the geographical sphere. The operator trees 1 and 2 shown in Figures 2 and 4 illustrate how CHQL allows combining the operators mentioned to perform a single search, yielding the results shown in Figures 3 and 5.</p>
+                <figure>
+                    <graphic n="1002" width="9.11cm" height="6.5cm" url="Pictures/7325b31cf91fc2ec9a262031a0327a39.png" rend="inline"/>
+                    <head>Formalisation of hypothesis 1 in CHQL</head>
+                </figure>
+                <figure>
+                    <graphic n="1003" width="13.24cm" height="8.37cm" url="Pictures/34b85bd493b0e415040cafef4812433d.png" rend="inline"/>
+                    <head>The result of Query 1 on the Google Books Ngram Corpus</head>
+                </figure>
+                <figure>
+                    <graphic n="1004" width="15.74cm" height="7.95cm" url="Pictures/1028b1c0418e2c933abb0f1434997015.png" rend="inline"/>
+                    <head>Formalisation of hypothesis 2 in CHQL</head>
+                </figure>
+                <figure>
+                    <graphic n="1005" width="13.08cm" height="8.37cm" url="Pictures/f2cc92aeb6050bf992f4dd1c817148e4.png" rend="inline"/>
+                    <head>The result of Query 2 on the Google Books Ngram Corpus</head>
+                </figure>
+            </div>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl>
+                        <hi rend="bold" style="font-size:12pt">Abiteboul, S., Hull, R. and Vianu, V.</hi>
+                        <hi style="font-size:12pt" xml:space="preserve"> (1994). </hi>
+                        <hi rend="italic" style="font-size:12pt">Foundations of Databases: The Logical Level</hi>
+                        <hi style="font-size:12pt">. Pearson.</hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold" style="font-size:12pt">Brunner, O., Conze, W. and Koselleck, R. (eds).</hi>
+                        <hi style="font-size:12pt" xml:space="preserve"> (2004). </hi>
+                        <hi rend="italic" style="font-size:12pt">Geschichtliche Grundbegriffe (Volumes 1-8)</hi>
+                        <hi style="font-size:12pt">. Klett-Cotta Verlag.</hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold" style="font-size:12pt">Englhardt, A., Willkomm, J., Schäler, M. and Böhm, K.</hi>
+                        <hi style="font-size:12pt" xml:space="preserve"> (2019). Improving Semantic Change Analysis by Combining Word Embeddings and Word Frequencies. </hi>
+                        <hi rend="italic" style="font-size:12pt">International Journal on Digital Libraries</hi>
+                        <hi style="font-size:12pt">.</hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold" style="font-size:12pt">Hai-Jew, S. (ed).</hi>
+                        <hi style="font-size:12pt" xml:space="preserve"> (2017). </hi>
+                        <hi rend="italic" style="font-size:12pt">Data Analytics in Digital Humanities</hi>
+                        <hi style="font-size:12pt">. Springer-Verlag GmbH.</hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold" style="font-size:12pt">Hamilton, W., Leskovec, J. and Jurafsky, D.</hi>
+                        <hi style="font-size:12pt" xml:space="preserve"> (2016a). Cultural Shift or Linguistic Drift? Comparing Two Computational Measures of Semantic Change. </hi>
+                        <hi rend="italic" style="font-size:12pt">Proceedings of the Conference on Empirical Methods in Natural Language Processing (EMNLP ’16)</hi>
+                        <hi style="font-size:12pt">. pp. 2116–2121.</hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold" style="font-size:12pt">Hamilton, W., Leskovec, J. and Jurafsky, D.</hi>
+                        <hi style="font-size:12pt" xml:space="preserve"> (2016b). Diachronic Word Embeddings Reveal Statistical Laws of Semantic Change.</hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold" style="font-size:12pt">Jakubíček, M., Kilgarriff, A., McCarthy, D. and Rychlý, P.</hi>
+                        <hi style="font-size:12pt" xml:space="preserve"> (2010). Fast syntactic searching in very large corpora for many languages. </hi>
+                        <hi rend="italic" style="font-size:12pt">Proceedings of the 24th Pacific Asia Conference on Language, Information and Computation (PACLIC 24)</hi>
+                        <hi style="font-size:12pt">. pp. 741–747.</hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold" style="font-size:12pt">Lin, Y., Michel, J.-B., Aiden, E. L., Orwant, J., Brockman, W. and Petrov, S.</hi>
+                        <hi style="font-size:12pt" xml:space="preserve"> (2012). Syntactic annotations for the Google Books Ngram Corpus. </hi>
+                        <hi rend="italic" style="font-size:12pt">Proceedings of the ACL 2012 System Demonstrations (ACL ’12)</hi>
+                        <hi style="font-size:12pt">. Association for Computational Linguistics, pp. 169–174.</hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold" style="font-size:12pt">Maier, D.</hi>
+                        <hi style="font-size:12pt" xml:space="preserve"> (1983). </hi>
+                        <hi rend="italic" style="font-size:12pt">Theory of Relational Databases</hi>
+                        <hi style="font-size:12pt">. Computer Science Press.</hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold" style="font-size:12pt">Moretti, F.</hi>
+                        <hi style="font-size:12pt" xml:space="preserve"> (2013). </hi>
+                        <hi rend="italic" style="font-size:12pt">Distant Reading</hi>
+                        <hi style="font-size:12pt">. Verso Books.</hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold" style="font-size:12pt">O’Connor, M. and Das, A.</hi>
+                        <hi style="font-size:12pt" xml:space="preserve"> (2009). SQWRL: a query language for OWL. </hi>
+                        <hi rend="italic" style="font-size:12pt">Proceedings of the 6th International Conference on OWL: Experiences and Directions (OWLED ’09)</hi>
+                        <hi style="font-size:12pt">. pp. 208–215.</hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold" style="font-size:12pt">Olsen, N.</hi>
+                        <hi style="font-size:12pt" xml:space="preserve"> (2012). </hi>
+                        <hi rend="italic" style="font-size:12pt">History in the Plural: An Introduction to the Work of Reinhart Koselleck</hi>
+                        <hi style="font-size:12pt">. Berghahn Books Inc.</hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold" style="font-size:12pt">Prabhakaran, V., Hamilton, W., McFarland, D. and Jurafsky, D.</hi>
+                        <hi style="font-size:12pt" xml:space="preserve"> (2016). Predicting the Rise and Fall of Scientific Topics from Trends in their Rhetorical Framing. </hi>
+                        <hi rend="italic" style="font-size:12pt">Proceedings of the 54th Annual Meeting of the Association for Computational Linguistics (ACL ’16)</hi>
+                        <hi style="font-size:12pt">. Association for Computational Linguistics, pp. 1170–1180 doi:10.18653/v1/p16-1111.</hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold" style="font-size:12pt">Ritter, J. and Gründer, K. (eds).</hi>
+                        <hi style="font-size:12pt" xml:space="preserve">(1971). </hi>
+                        <hi rend="italic" style="font-size:12pt">Historisches Wörterbuch Der Philosophie (13 Volume Set)</hi>
+                        <hi style="font-size:12pt">. Schwabe.</hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold" style="font-size:12pt">Snodgrass, R.</hi>
+                        <hi style="font-size:12pt" xml:space="preserve"> (1987). The temporal query language TQuel. </hi>
+                        <hi rend="italic" style="font-size:12pt">ACM Transactions on Database Systems</hi>
+                        <hi style="font-size:12pt" xml:space="preserve">, </hi>
+                        <hi rend="bold" style="font-size:12pt">12</hi>
+                        <hi style="font-size:12pt">(2): 247–298 doi:10.1145/22952.22956.</hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold" style="font-size:12pt">Snodgrass, R. (ed).</hi>
+                        <hi style="font-size:12pt" xml:space="preserve"> (1995). </hi>
+                        <hi rend="italic" style="font-size:12pt">The TSQL2 Temporal Query Language</hi>
+                        <hi style="font-size:12pt">. . Vol. 330. (The Springer International Series in Engineering and Computer Science). Springer US.</hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold" style="font-size:12pt">The Library of Congress</hi>
+                        <hi style="font-size:12pt" xml:space="preserve"> (2013). </hi>
+                        <hi rend="italic" style="font-size:12pt">The Contextual Query Language</hi>
+                        <hi style="font-size:12pt">. http://www.loc.gov/standards/sru/cql/.</hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold" style="font-size:12pt">Warwick, C., Terras, M. and Nyhan, J. (eds).</hi>
+                        <hi style="font-size:12pt" xml:space="preserve"> (2012). </hi>
+                        <hi rend="italic" style="font-size:12pt">Digital Humanities in Practice</hi>
+                        <hi style="font-size:12pt">. Facet Publishing.</hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold" style="font-size:12pt">Willkomm, J., Schmidt-Petri, C., Schäler, M., Schefczyk, M. and Böhm, K.</hi>
+                        <hi style="font-size:12pt" xml:space="preserve"> (2018). A Query Algebra for Temporal Text Corpora. </hi>
+                        <hi rend="italic" style="font-size:12pt">Proceedings of the 18th ACM/IEEE on Joint Conference on Digital Libraries (JCDL ’18)</hi>
+                        <hi style="font-size:12pt">. ACM Press, pp. 183–192 doi:10.1145/3197026.3197044.</hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold" style="font-size:12pt">Wolf, M., Horn, A., Mehl, M., Haug, S., Pennebaker, J. and Kordy, H.</hi>
+                        <hi style="font-size:12pt" xml:space="preserve"> (2008). Computergestützte quantitative Textanalyse. </hi>
+                        <hi rend="italic" style="font-size:12pt">Diagnostica</hi>
+                        <hi style="font-size:12pt">: 85–98 doi:10.1026/0012-1924.54.2.85.</hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold" style="font-size:12pt">Zeldes, A., Lüdeling, A., Ritz, J. and Chiarcos, C.</hi>
+                        <hi style="font-size:12pt" xml:space="preserve"> (2009). </hi>
+                        <hi rend="italic" style="font-size:12pt">ANNIS: A Search Tool for Multi-Layer Annotated Corpora</hi>
+                        <hi style="font-size:12pt">. Humboldt-Universität zu Berlin, Philosophische Fakultät II doi:10.18452/13437.</hi>
+                    </bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

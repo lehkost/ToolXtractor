@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title type="full">
+                    <title type="main">Relational Search in Cultural Heritage Linked Data: A Knowledge-based Approach</title>
+                    <title type="sub"/>
+                </title>
+                <author>
+                    <persName>
+                        <surname>Hyvönen</surname>
+                        <forename>Eero</forename>
+                    </persName>
+                    <affiliation>Aalto University, Finland; University of Helsinki (HELDIG)</affiliation>
+                    <email>eero.hyvonen@aalto.fi</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Rantala</surname>
+                        <forename>Heikki</forename>
+                    </persName>
+                    <affiliation>Aalto University, Finland; University of Helsinki (HELDIG)</affiliation>
+                    <email>heikki.rantala@aalto.fi</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2019-04-16T11:51:18.661062602</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Name, Institution</publisher>
+                <address>
+                    <addrLine>Street</addrLine>
+                    <addrLine>City</addrLine>
+                    <addrLine>Country</addrLine>
+                    <addrLine>Name</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from an OASIS Open Document</p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.22">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Long Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>linked data</term>
+                    <term>knowledge dicovery</term>
+                    <term>relational search</term>
+                    <term>semantic web</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>information retrieval and query languages</term>
+                    <term>metadata</term>
+                    <term>ontologies and knowledge representation</term>
+                    <term>semantic web and linked data</term>
+                    <term>English</term>
+                    <term>library &amp; information science</term>
+                    <term>digital humanities (history</term>
+                    <term>theory and methodology)</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <p>
+                <hi rend="bold">Abstract. </hi>This paper presents a new knowledge-based approach for finding serendipitous semantic relations between resources in a knowledge graph. The idea is to characterize the notion of "interesting connection" in terms of generic ontological explanation rule patterns that are applied to an underlying linked data repository to instantiate connections. In this way, 1) semantically uninteresting connections can be ruled out effectively, and 2) natural language explanations about the connections can be created for the end-user. The idea has been implemented and tested based on a knowledge graph of biographical data extracted from life stories of 13100 prominent historical persons in Finland, enriched by data linking to collection databases of museums, libraries, and archives. The demonstrator is in use as part of the semantic portal BiographySampo of interlinked biographies.
+            </p>
+            <div type="div1" rend="DH-Heading1">
+                <head>Approaches to relational search</head>
+                <p>
+                    <anchor xml:id="id_docs-internal-guid-ee06f7f0-7fff-e917-0291-81ccb33c70c5"/>
+                    <hi rend="color(#000000)">Serendipitous knowledge discovery (Baker et al., 2007) is one of the grand promises and challenges of the Semantic Web. This paper concerns on the problem of discovering serendipitous relations (a.k.a connections, associations) in semantically rich, linked Cultural Heritage (CH) data (Hyvönen, 2012), i.e., Knowledge Graphs (KG). In particular, we focus on the problem of finding "interesting" (Silberschatz and Tuzhilin, 1995) connections between the resources in a KG, such as persons, places, and other named entities. Here the query</hi>
+                    <hi rend="color(#000000)"> </hi>
+                    <hi rend="color(#000000)">consists of two or more resources, and the task is to find semantic relations, i.e., the query results, between them that are of interest to the user.</hi>
+                </p>
+                <p>This problem has been addressed before in different domains. The approaches reported in the literature (Cheng et al., 2017) differ in terms of the query formulation, underlying KG, methods for finding connections, and representation of the results. Some sources of inspiration for our paper are shortly reviewed below. In (Sheth et al., 2005) the idea is applied to association finding in national security domain. Within the CH domain, CultureSampo (Hyvönen et al., 2009)(Mäkelä et al., 2012) contains an application perspective where connections between two persons were searched using a breath-first algorithm, and the result was a list of arc chains (such as student-of, patron-of, etc.), connecting the persons based on the Getty ULAN knowledge graph of historical persons. In RelFinder (Lohmann et al., 2010)(Heim et al., 2010)(Heim et al., 2009), based on the earlier "DBpedia Relationship Finder" (Lehmann et al., 2007), the user selects two or more resources, and the result is a minimal visualized graph showing how the query resources are related with each other, e.g., how is Albert Einstein related to Kurt Gödel in DBpedia/Wikipedia. Both gentlemen, e.g., worked at the Princeton University. In WiSP (Tartari and Hogan, 2016), several paths with a relevance measure between two resources in the WikiData KG can be found, based on different weighted shortest path algorithms. The query results are represented as graph paths. Some applications, such as RelFinder and Explass (Cheng et al., 2014), allow filtering relations between two entities with facets.</p>
+                <p>From a methodological perspective, the main challenge in these systems is how to select and rank the interesting paths, since there are exponentially many possible paths between the query resources in a KG. This problem can be approached by focusing only on "simple paths" that do not repeat nodes, on only restricted node and arc types in the graph (e.g., social connections between persons), and by assuming that shorter, possibly weighted paths are more interesting than longer ones. For weighting paths, measures such as page rank of nodes and commonness of arcs can be used.</p>
+                <p>The graph-based works above make use of generic traversal algorithms that are application domain agnostic. In contrast, this paper suggests an alternative, knowledge-based approach to finding interesting connections in a KG. The idea is to formalize  the notion of "interestingness" (Silberschatz and Tuzhilin, 1995) in the application domain using general explanation patterns that can be instantiated in a KG by using graph traversal queries, e.g., SPARQL. The benefits of this approach are: 1) non-sense relations between the query resources can be ruled out effectively, and 2) the explanation patterns can be used for creating natural language explanations for the connections, not only graph paths to be interpreted by the end user. The price to be paid is the need for crafting the patterns and queries manually, based on application domain knowledge, as customary in knowledge-based system.</p>
+                <p>In the following, a case study of applying this approach is presented in the Cultural Heritage domain by using a KG of biographical data. In conclusion, lessons learned are discussed, and further research suggested.</p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>
+                    <lb/>Finding semantic relations in a biographical knowledge graph
+                </head>
+                <p>In historical research, one is often interested in finding out relations between certain types of things or persons, such as Finnish novelists, and larger areas, such as South America. Our tool, Faceted Relator, can be used for solving such problems. Faceted Relator combines ideas of faceted search (Tunkelang, 2009) and relational search. The idea is to transform a KG into a set of instances of interesting relations for faceted analysis. A relation instance has the following core properties: 1) a literal natural language expression that explains the connection in a human readable form. 2) a set of properties that explicate the resources that are connected. For example, the following illustrative example of a tertiary relation &lt;X, Y, Z&gt; connects Leonardo da Vince to Vince and to year 1452 based on the explanation pattern “Person X was born in place Y in Z” for birth events:</p>
+                <quote>:c123 a :BirthConnection;</quote>
+                <quote>:explanation "Leonardo da Vinci was born in Vince in 1452";</quote>
+                <quote>:place :vince;</quote>
+                <quote>:time 1452;</quote>
+                <quote>:person :Leonardo_da_Vince .</quote>
+                <quote>:BirthConnection rdfs:label "Person X was born in place Y in time Z" .</quote>
+                <quote/>
+                <p>Relation instances like this can be searched for in a natural way using faceted search, where the facets are based on the properties of the instances, that can often be organized hierarchically. In this case, there would be a facet for explanation types (such as :BirthConnection), and facets for places (in a partonomy), persons (that may be organized into a hierarchy based on, e.g., occupation or nationality), and times (in a partonomy). By making selections on the facet hierarchies, the result set is filtered accordingly and hit counts in facets recalculated.</p>
+                <p>This method was tested in the context of BiographySampo (Hyvönen et al., 2019), a linked data service and semantic portal aggregating and serving biographical data. The knowledge graph of this system includes several interlinked datasets:</p>
+                <p>
+                    <anchor xml:id="id_docs-internal-guid-12eea0b0-7fff-e79e-3e5b-90b755e2447d"/>Biographical data extracted in RDF form from 13144 Finnish biographies. The data includes, e.g., 51937 family relations, 4953 places, 3101 occupational titles, and 2938 companies.
+                </p>
+                <list type="ordered">
+                    <item>HISTO ontology of Finnish history including more than one thousand historical events. Data for the events includes people and places related to the event. The data was available in RDF format.</item>
+                    <item>The Fennica National Bibliography is an open database of Finnish publications since 1488. The metadata includes, among other things, the author of the book and the subject matter of the book, which can include places.</item>
+                    <item>BookSampo data covering virtually all Finnish fiction literature in RDF format, maintained by the Finnish Public Libraries consortium Kirjastot.fi.</item>
+                    <item>The Finnish National Gallery has published the metadata about the works of art in their collections. The metadata is described using Dublin Core standard and was available in JSON and XML format.</item>
+                    <item>The collected works of the J. V. Snellman portal includes the texts written by J. V. Snellman, the national philosopher of Finland. The data includes, e.g., 1500 letters. We transformed the data into RDF.</item>
+                </list>
+                <p>The focus in our demonstrator is on finding relation instances describing connections between people and places in Finnish cultural history. The relations listed in Figure 1 were created using SPARQL CONSTRUCT queries with natural language explanations. For example, the following template is used for explaining artistic creation relations related to painting collections:</p>
+                <p>"&lt;
+                    <hi rend="bold">person name</hi>&gt; has created a work of art called &lt;
+                    <hi rend="bold">painting name</hi>&gt; in the year &lt;
+                    <hi rend="bold">year</hi>&gt; that depicts &lt;
+                    <hi rend="bold">place name</hi>&gt;."
+                </p>
+                <p>
+                    <figure>
+                        <graphic url="Pictures/3af69ec3d5314b0710a550bd4a81b965.png"/>
+                        <head>
+                            <lb/>Relational instances extracted from the data
+                        </head>
+                    </figure>
+                </p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Demonstrator at work</head>
+                <p>Faceted Relator was published as part of the BiographySampo portal, and is in use as a separate application perspective in it. Figure 2 depicts the user interface of the application. The data and interface are in Finnish, but there is a Google Translate button in the right upper corner of the interface for foreign users available.</p>
+                <p>Faceted Relator can be used for filtering relations with selections in four facets seen on the left: 1) person names, 2) occupations, 3) places, and 4) relation types. The system shows a hit list of the relation instances that fit the selected filtering criteria in the facets. The user is not required to first input a person and a place, but can limit the search at any time with any facet. This allows searching for relations between groups of people and larger areas instead of single places. Each relation instance is represented in a row that shows first a natural language explanation of the relation, then the related person, place, and data source as links to further information, and finally the relation type. Different types of relations are highlighted in different colors and have their own symbols in order to give the user a visual overview of relations found. At any point, the distribution of the hit counts in categories along each facet can be visualized using a pie chart—one of them can be seen in the left upper corner of Figure 2.</p>
+                <p>
+                    <figure>
+                        <graphic url="Pictures/e98db42ab332a1cd6c30a7a7bd3985b6.png"/>
+                        <head>
+                            <lb/>View of the user interface
+                        </head>
+                    </figure>
+                </p>
+                <p>For example, the question "How are Finnish painters related to Italy?" is solved by selecting "Italy" from the hierarchical place facet and "painter" from the occupation facet. Any selection automatically includes its subcategories in the facet. For example, places such as Florence and Rome are in Italy, and Vatican further in Rome. The result set in this case contains 140 connections of different types whose distribution and hit counts can be seen on the connection type facet. In the same way, the person facet shows the hit count distribution along the person facet. Any facet could be used to filter the results further, if needed. In this case the 140 hits include, e.g., connection "Elin Danielson-Gambogi received in 1899 the Florence City Art Award" and "Robert Ekman created in 1844 the painting 'Landscape in Subiaco' depicting a place in Italy". In a similar way, the question "Who has got most awards in Germany" can be solved by selecting the connection type "Received an award in a place" and "Germany" from the place facet. The hit distribution along the person facet shows that general Carl Gustaf Mannerheim is the winner with eight German awards.</p>
+                <p>The demonstrator is based on an architecture with the server side consisting of a Apache Jena Fuseki graph store and the client side consisting of an application written with AngularJS. The faceted search was implemented with the SPARQL Faceter (Koho et al., 2016) tool.</p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Discussion</head>
+                <p>An informal initial evaluation and testing of the demonstrator showed that it works as expected in test cases, and that a layman can potentially learn new information by using the system. However, more testing is needed to find out how interesting and surprising the results are for an expert of CH and how a system like this can be used for DH research. We also found out needs to improve the usability of the system. For example, the demonstrator now sorts results based on firstly the name of the person and secondly on the name of the place. The user should probably be offered the possibility to sort the relations freely along any facet.</p>
+                <p>
+                    <hi rend="bold">Acknowledgements</hi> Our research was supported by the Severi project, funded mainly by Business Finland. The authors wish to acknowledge CSC – IT Center for Science, Finland, for computational resources.
+                </p>
+            </div>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl>
+                        <hi rend="color(#000000)bold">Baker, C. and Cheung, K</hi>
+                        <hi rend="color(#000000)">., editors (2007). </hi>
+                        <hi rend="color(#000000)italic">Semantic Web—Revolutionizing Knowledge Discovery in the Life Sciences</hi>
+                        <hi rend="color(#000000)">. Springer, 2007.</hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="color(#000000)bold">Cheng, G., Shao, F. and Qu, Y. </hi>
+                        <hi rend="color(#000000)">(2017). An empirical evaluation of techniques for ranking semantic associations. </hi>
+                        <hi rend="color(#000000)italic">IEEE Transactions on Knowledge and Data Engineering</hi>
+                        <hi rend="color(#000000)">, </hi>
+                        <hi rend="color(#000000)bold">29</hi>
+                        <hi rend="color(#000000)">(11):1, 08.</hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="color(#000000)bold">Cheng, G., Zhang, Y. and Qu, Y.</hi>
+                        <hi rend="color(#000000)"> </hi>
+                        <hi rend="color(#000000)">(2014). Explass: exploring associations between entities via top-k ontological patterns and facets. In </hi>
+                        <hi rend="color(#000000)italic">Proceedings of the International Semantic Web Conference (ISWC)</hi>
+                        <hi rend="color(#000000)">, pages 422–437. Springer.</hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="color(#000000)bold">Heim, P., Hellmann, S., Lehmann, J., Lohmann, S. and Stegemann, T.</hi>
+                        <hi rend="color(#000000)"> </hi>
+                        <hi rend="color(#000000)">(2009). RelFinder: Revealing relationships in rdf knowledge bases. In </hi>
+                        <hi rend="color(#000000)italic">Proceedings of the 4th International Conference on Semantic and Digital Media Technologies (SAMT 2009)</hi>
+                        <hi rend="color(#000000)">. Springer.</hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="color(#000000)bold">Heim, P., Lohmann, S. and Stegemann, T. </hi>
+                        <hi rend="color(#000000)">(2010). Interactive relationship discovery via the semantic web. In </hi>
+                        <hi rend="color(#000000)italic">Proceedings of the 7th Extended Semantic Web Conference (ESWC 2010)</hi>
+                        <hi rend="color(#000000)">, Springer.</hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="color(#000000)bold">Hyvönen, E.</hi>
+                        <hi rend="color(#000000)"> </hi>
+                        <hi rend="color(#000000)">(2012). </hi>
+                        <hi rend="color(#000000)italic">Publishing and Using Cultural Heritage Linked Data on the Semantic Web</hi>
+                        <hi rend="color(#000000)">. Morgan &amp; Claypool, Palo Alto, California.</hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="color(#000000)bold">Hyvönen, E., Mäkelä, E., Kauppinen, T., Alm, O., Kurki, J. Ruotsalo, T., Seppälä, K., Takala, J., Puputti, K., Kuittinen, H., Viljanen, K., Tuominen, J., Palonen, T., Frosteus, M., Sinkkilä, R., Paakkarinen, P., Laitio, J. and Nyberg, K. </hi>
+                        <hi rend="color(#000000)">(2009). CultureSampo – </hi>
+                        <hi rend="color(#000000)">Finnish culture on the Semantic Web 2.0. Thematic perspectives for the end-user. In </hi>
+                        <hi rend="color(#000000)italic">Museums and the Web 2009, Proceedings</hi>
+                        <hi rend="color(#000000)">. Archives and Museum Informatics, Toronto.</hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="color(#000000)bold">Hyvönen E., Leskinen, P., Tamper, M., Rantala, H., Ikkala, E., Tuominen, J. and Keravuori, K.</hi>
+                        <hi rend="color(#000000)"> </hi>
+                        <hi rend="color(#000000)">(2019) BiographySampo – Publishing and Enriching Biographies on the Semantic Web for Digital Humanities Research. In </hi>
+                        <hi rend="color(#000000)italic">Proceedings of Extended Semantic Web Conference ESWC 2019</hi>
+                        <hi rend="color(#000000)">. Springer.</hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="color(#000000)bold">Koho, M., Heino, E. and Hyvönen, E. </hi>
+                        <hi rend="color(#000000)">(2016). SPARQL Faceter – Client-side faceted search based on SPARQL. In</hi>
+                        <hi rend="color(#000000)"> </hi>
+                        <hi rend="color(#000000)italic">Joint Proceedings of the 4th International Workshop on Linked Media and the 3</hi>
+                        <hi rend="color(#000000)italic">rd</hi>
+                        <hi rend="color(#000000)"> </hi>
+                        <hi rend="color(#000000)italic">Developers Hackshop</hi>
+                        <hi rend="color(#000000)">. CEUR Workshop Proceedings, vol. 1615.</hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="color(#000000)bold">Lehmann, J., Schüppel, J. and Auer, S. </hi>
+                        <hi rend="color(#000000)">(2010). Discovering unknown connections—the DBpedia relationship finder. In </hi>
+                        <hi rend="color(#000000)italic">Proc. of the 1st Conference on Social Semantic Web (CSSW 2007)</hi>
+                        <hi rend="color(#000000)">, pages 99–110. CEUR Workshop Proceedings, vol. 113.</hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="color(#000000)bold">Lohmann, S., Heim, P., Stegemann, T. and Ziegler, J.</hi>
+                        <hi rend="color(#000000)"> </hi>
+                        <hi rend="color(#000000)">(2010). The RelFinder user interface: Interactive exploration of relationships between objects of interest. In </hi>
+                        <hi rend="color(#000000)italic">Proceedings of the 14</hi>
+                        <hi rend="color(#000000)italic">th</hi>
+                        <hi rend="color(#000000)"> </hi>
+                        <hi rend="color(#000000)italic">International Conference on Intelligent User Interfaces (IUI 2010</hi>
+                        <hi rend="color(#000000)">), pages 421–422. ACM, New York.</hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="color(#000000)bold">Mäkelä, E., Ruotsalo, T. and Hyvönen, E.</hi>
+                        <hi rend="color(#000000)"> </hi>
+                        <hi rend="color(#000000)">(2012). How to deal with massively heterogeneous cultural heritage data—lessons learned in CultureSampo. </hi>
+                        <hi rend="color(#000000)italic">Semantic Web – Interoperability, Usability, Applicability</hi>
+                        <hi rend="color(#000000)">, </hi>
+                        <hi rend="color(#000000)bold">3</hi>
+                        <hi rend="color(#000000)">(1).</hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="color(#000000)bold">Sheth, A., Aleman-Meza, B., Arpinar, I. B., Bertram, C., Warke, Y., Ramakrishnan, C., Halaschek, C. Anyanwu, K., Avant, D., Arpinar, F. S. and Kochut, K. </hi>
+                        <hi rend="color(#000000)">(2005). Semantic association identification and knowledge discovery for national security applications. </hi>
+                        <hi rend="color(#000000)italic">Journal of Database Management on Database Technology</hi>
+                        <hi rend="color(#000000)">, </hi>
+                        <hi rend="color(#000000)bold">16</hi>
+                        <hi rend="color(#000000)">(1):33–53.</hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="color(#000000)bold">Silberschatz, A. and Tuzhilin, A. </hi>
+                        <hi rend="color(#000000)">(1995). On subjective measures on interestingness in knowledge discovery. In </hi>
+                        <hi rend="color(#000000)italic">Proceedings of the First International Conference on Knowledge Discovery and Data Mining (KDD-1995)</hi>
+                        <hi rend="color(#000000)">. AAAI Press.</hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="color(#000000)bold">Tartari, G. and Hogan, A.</hi>
+                        <hi rend="color(#000000)"> </hi>
+                        <hi rend="color(#000000)">(2018). WiSP: Weighted shortest paths for RDF graphs. In </hi>
+                        <hi rend="color(#000000)italic">Proceedings of VOILA 2018</hi>
+                        <hi rend="color(#000000)">. CEUR Workshop Proceedings, vol. 2187.</hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="color(#000000)bold">Tunkelang, D. </hi>
+                        <hi rend="color(#000000)">(2009). </hi>
+                        <hi rend="color(#000000)italic">Faceted search</hi>
+                        <hi rend="color(#000000)">. Morgan and Claypool Publishers.</hi>
+                    </bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title type="full">
+                    <title type="main">A Database of Islamic Scientific Manuscripts — Challenges of Past and Future</title>
+                    <title type="sub"/>
+                </title>
+                <author>
+                    <persName>
+                        <surname>Casties</surname>
+                        <forename>Robert</forename>
+                    </persName>
+                    <affiliation>Max Planck Institute for the History of Science, Germany</affiliation>
+                    <email>casties@mpiwg-berlin.mpg.de</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2019-05-05T19:45:41.961401811</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Name, Institution</publisher>
+                <address>
+                    <addrLine>Street</addrLine>
+                    <addrLine>City</addrLine>
+                    <addrLine>Country</addrLine>
+                    <addrLine>Name</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from an OASIS Open Document</p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.22">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Short Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>islamicate</term>
+                    <term>history of science</term>
+                    <term>database</term>
+                    <term>manuscripts</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>databases &amp; dbms</term>
+                    <term>data models and formal languages</term>
+                    <term>near eastern studies</term>
+                    <term>English</term>
+                    <term>history of science</term>
+                    <term>sustainability and preservation</term>
+                    <term>manuscripts description and representation</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <div type="div1" rend="DH-Heading1">
+                <head>The ISMI project</head>
+                <p>The Islamic Scientific Manuscript Initiative (ISMI) project was founded in 2005 to make accessible information on all Islamic manuscripts in the exact sciences (astronomy, mathematics, optics, mathematical geography, music, mechanics, and related disciplines), whether in Arabic, Persian, Turkish, or other languages from the 9
+                    <hi rend="sup">th</hi> to the 19
+                    <hi rend="sup">th</hi> century
+                    <note xml:id="ftn1" place="foot" n="">ISMI website: 
+                        <ptr target="https://ismi.mpiwg-berlin.mpg.de/"/>
+                    </note> The ISMI project limits itself to “scientific” manuscripts but it tries to encompass all such manuscripts worldwide regardless of their current location and it tries to record as much information about these manuscripts as available, including reader and ownership marks, annotations and illustrations, making it possible to learn more about structures and practices of knowledge in the islamicate world (Ragep et al., 2008).
+                </p>
+                <div type="div2" rend="DH-Heading2">
+                    <head>The database</head>
+                    <p>The database of the ISMI project is a cooperation project by the Max Planck Institute for the History of Science and the Institute of Islamic Studies at McGill University in Montreal. The database has been built up over more than ten years starting from an early personal database project by the involved scholars, extended by corrected information from catalog works like MAMS (Matvievskaya et al., 
+                        <emph>1983</emph>
+                        <emph>)</emph> and personal research by the scholars in the project and outside. It currently contains information about over 4700 texts in 15000 witnesses in 8000 codices and 2500 persons and an accompanying secondary bibliography of 2700 titles and it is constantly being extended.
+                    </p>
+                    <p>The database development started in 2006 with a new data model based on the idea of a network of flexible objects and relations. Objects can have arbitrary attributes and the relations between objects are also like objects and can have attributes.</p>
+                    <p>
+                        <figure>
+                            <graphic url="Pictures/b78eb750f60ee5a3e17f52f8c1f2067b.png"/>
+                            <head>Part of current ISMI data model showing relations between text, witness, person and codex objects.</head>
+                        </figure>
+                    </p>
+                    <p>The basic objects in the data model are for example the TEXT which is abstract, the WITNESS which is a concrete material manuscript and the PERSON (real or imaginary). These objects are connected by relations like 
+                        <hi rend="italic">is_exemplar_of</hi> which connects a text and its witnesses and 
+                        <hi rend="italic">was_created_by</hi> which connects a text and a person as its author (see Figure 1). The same person can at the same time also be connected to other witnesses as a copyist or as a dedicatee. This very flexible data model was regularly modified and extended to accommodate changes and refinements that were developed in close cooperation with the scholars entering the data as their understanding of the source material and the technical possibilities of the system changed. Examples of theses unique additions are the possibility to record misattributions of authorship and misidentifications of witnesses in existing literature as well as documented reading events and changes of ownership.
+                    </p>
+                    <p>This concept of a network of objects with flexible relations, an attribute-graph, exists today in database products like Neo4J
+                        <note xml:id="ftn2" place="foot" n="">Neo4J: 
+                            <ptr target="https://neo4j.com/"/>
+                        </note> but those were not available in 2006 which led to the development of a custom database called "OpenMind". The database software is Open Source, written in Java, uses a conventional SQL database backend and a Web-based frontend.
+                    </p>
+                    <p>A first version of a public website presenting a limited set of 130 codices by the Staatsbibliothek Berlin with digitalizations was published in 2015.</p>
+                </div>
+                <div type="div2" rend="DH-Heading2">
+                    <head>Towards new standards</head>
+                    <p>The current database system OpenMind was a custom development which was necessary at the time of its creation but has not aged well and burdens the future development of the project with limited flexibility and high maintenance for software development. The data model was also not created based on existing ontologies due to a lack of usable tools at the time. Both features were acceptable during the development of the project but they pose a problem to the continued maintenance of the project and the reusability of its data.</p>
+                    <p>Currently both software and data are migrated to new standard tools in two phases:</p>
+                    <p>In the first phase data is still entered in the legacy OpenMind backend but there is a new public web frontend based on the Drupal CMS that is fed by an XML export from the legacy backend. The XML data is also fed into a Neo4J graph database for additional queries and visualisations. This is the architecture for the beta launch in September 2018 and the public launch end of November 2018.</p>
+                    <p>In the second phase the data model will be migrated to the CIDOC-CRM
+                        <note xml:id="ftn0" place="foot" n="">CIDOC-CRM: 
+                            <ptr target="http://www.cidoc-crm.org/"/>
+                        </note> reference ontology using the FRBRoo
+                        <note xml:id="ftn6" place="foot" n="">FRBRoo: 
+                            <ptr target="https://www.ifla.org/publications/node/11240"/>
+                        </note> model and other extensions. All data is converted to RDF following the new data model and a frontend based on the ResearchSpace
+                        <note xml:id="ftn7" place="foot" n="">ResearchSpace: 
+                            <ptr target="https://www.researchspace.org/"/>
+                        </note> software and a triple store backend is created for data entry and specialized queries and visualisations. This process is currently under way.
+                    </p>
+                </div>
+                <div type="div2" rend="DH-Heading2">
+                    <head>The new ISMI website</head>
+                    <p>The new public website presents data on 650 persons (selected chronologically following MAMS), 2300 texts, 6900 witnesses and related objects, representing authors from before 1350CE. The website will be public starting end of November 2018. Additional data publications are in preparation.</p>
+                    <p>The new web frontend provides browsable lists of all major object types (persons, texts/works, witnesses, codices, places,…) as well as a general search and searches for specific object types. All objects on the pages are linked which makes it easy to get from a person to all their works and their witnesses as well as to the commentaries on the titles and their supercommentaries.</p>
+                    <p>The search has a simple normalization for Arabic and a special normalization for romanized Arabic and is specially tuned to be very forgiving for differences in spelling especially for Arabic names. Feedback for the search and navigation during the beta test phase was very positive.</p>
+                    <p>The website also shows currently 104 freely available digitized codices using the IIIF
+                        <note xml:id="ftn8" place="foot" n="">IIIF: 
+                            <ptr target="https://iiif.io/"/>
+                        </note> image standard and the Diva.js
+                        <note xml:id="ftn9" place="foot" n="">Diva.js: 
+                            <ptr target="https://ddmal.github.io/diva.js/"/>
+                        </note> viewer (see Figure 2). Most of the codices were scanned by the MPIWG in a cooperation with the Staatsbibliothek Berlin but some exemplars from the Gallica project of the Bibliothéque Nationale de France and the Qatar Digital Library are also present to demonstrate the potential of public IIIF image sources in an area that has been plagued in the past with proprietary data silos and restrictive access conditions making global electronic manuscript databases nearly impossible. We hope to expand the amount of scanned codices in the future.
+                    </p>
+                    <p>
+                        <figure>
+                            <graphic url="Pictures/9ce4f599b657c0a3210f783f9ee5cedc.png"/>
+                            <head>Display of scanned manuscript (Codex Petermann I 671, Staatsbibliothek Berlin)</head>
+                        </figure>
+                    </p>
+                    <p>The experimental “ISMI Lab” section of the site offers access to the “Query Builder” tool which allows to construct custom queries to the database based on objects, attributes and relations and a full Neo4J graph database console with access to all published data (see Figure 3). These additional tools are very powerful but require some technical expertise and familiarity with the ISMI data model. There is some documentation but this section is more of an experimental offer to also get in contact with interested scholars in the hope that interesting queries and research questions can be exchanged and new, easier to use, tools can be developed in the future.</p>
+                    <p>
+                        <figure>
+                            <graphic url="Pictures/5f4a31f9768fd43c7e54231948dff640.png"/>
+                            <head>Experimental Neo4J console showing partial graph of commentary relations.</head>
+                        </figure>
+                    </p>
+                </div>
+                <div type="div2" rend="DH-Heading2">
+                    <head>A never ending project?</head>
+                    <p>The history of the project in the last ten years has shown the difficulties of developing and maintaining a project of this complexity – organisationally, in terms of hardware, software, and scholarly support. We think this project shows the potential for a unifying manuscript database that is not limited to singular collections and presents the continually updated and expanded current knowledge of scholars in the field. We hope that scholars in the future will not have to figure out errors in decades-old printed catalogues individually again and again but that they can participate in a common database and share and enhance their individual findings. The collaborative phase of the ISMI database is only beginning and we would like to start the discussion now. We think we have laid the technical foundations to make the database maintainable and adaptable and the data shareable and linkable but the long term value of a shared resource lies in its users and its contributors.</p>
+                </div>
+            </div>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl>Ragep, Jamil F., and Sally P. Ragep. 
+                        <hi rend="italic">The Islamic Scientific Manuscript Initiative (ISMI) Towards a Sociology of the Exact Sciences in Islam.</hi> In A Shared Legacy: Islamic Science East and West. Homage to Professor J. M. Millàs Vallicrosa, edited by Emilia Calvo, Mercè Comes, Roser Puig, and Monica Rius, 15–21. Barcelona: University of Barcelona, 2008. 
+                        <ptr target="https://www.rasi.mcgill.ca/ISMI_SharedLegacy.pdf"/>
+                    </bibl>
+                    <bibl>G. P. Matvievskaya and B. A. Rosenfeld, 
+                        <hi rend="italic">Matematiki i astronomi musulmanskogo srednevekovya i ikh trudi</hi> (VIII-XVII vv.) [Mathematicians and Astronomers of the Muslim Middle Ages and Their Works (VIII-XVII centuries)], 3 vols. (Moscow: Nauka, 1983), later extended as 
+                        <emph>Boris A. Rosenfeld and </emph>
+                        <emph>Ekmeleddin İhsanoğlu</emph>
+                        <emph>, Mathematicians, astronomers and other scholars of Islamic civilization and their works (7th-19th c.)</emph>
+                    </bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

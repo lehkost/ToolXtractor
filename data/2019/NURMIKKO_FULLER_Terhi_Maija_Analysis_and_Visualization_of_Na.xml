@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>Analysis and Visualization of Narrative in Shanhaijing Using Linked Data</title>
+                <author>
+                    <persName>
+                        <surname>Wang</surname>
+                        <forename>Qian</forename>
+                    </persName>
+                    <affiliation>Centre for Digital Humanities Research, Australian National University, Australia</affiliation>
+                    <email>qian.wang1@anu.edu.au</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Nurmikko-Fuller</surname>
+                        <forename>Terhi</forename>
+                    </persName>
+                    <affiliation>Centre for Digital Humanities Research, Australian National University, Australia</affiliation>
+                    <email>terhi.nurmikko-fuller@anu.edu.au</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Swift</surname>
+                        <forename>Ben</forename>
+                    </persName>
+                    <affiliation>College of Engineering and Computer Science, Australian National University, Australia</affiliation>
+                    <email>ben.swift@anu.edu.au</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2019-04-29T07:02:00Z</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Name, Institution</publisher>
+                <address>
+                    <addrLine>Street</addrLine>
+                    <addrLine>City</addrLine>
+                    <addrLine>Country</addrLine>
+                    <addrLine>Name</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from a Word document</p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.22">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Long Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>ontology</term>
+                    <term>Chinese literature</term>
+                    <term>mythology</term>
+                    <term>linked data</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>multilingual / multicultural approaches</term>
+                    <term>ontologies and knowledge representation</term>
+                    <term>etnography and folklore</term>
+                    <term>semantic web and linked data</term>
+                    <term>English</term>
+                    <term>oriental and asian studies</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <div type="div1" rend="DH-Heading1">
+                <head>Introduction</head>
+                <p style="text-align:left; ">Existing Linked Data (LD) literature contains several examples (such as those based on Propp’s 
+                    <hi rend="italic">Morphology of the Folktale</hi> (Peinado et al., 2004) or on ancient Sumerian mythologies (Nurmikko-Fuller, 2014)) where the fabula and syuzhet of Western folktales have been represented, and information regarding the stories themselves have been published in machine-readable formats such as RDF. However, similar (linked) datasets and analyses are largely non-existent for equivalent stories from Chinese mythology. This paper seeks to bridge that gap by creating, analyzing and publishing a case study example—the classic 
+                    <hi rend="italic">Shanhaijing</hi> (
+                    <hi rend="italic">the Classic of Mountains and Seas</hi>
+                    <hi style="font-family:PingFang SC Regular">山海</hi>经). We recount the complexities of representing ancient Chinese literary narratives, captured in unstructured data, using tools developed from Western perspectives and for complete and largely homogeneous, highly-structured data. 
+                </p>
+                <p style="text-align:left; ">
+                    <hi rend="italic">Shanhaijing</hi> is an ancient encyclopedia. Its origins can be traced back to the pre-Qin period of China (4th century BC), its development continuing through to the early Han Dynasty (1st century AD). It covers broad areas such as ancient mythology, geography, witchcraft, religion, medicine, and other aspects (Hu, 2003). 
+                    <hi rend="italic">Shanhaijing</hi> occupies a significant position in the literary and mythological corpora of the East, and is representative of a wider spectrum of Eastern mythologies. Over thousands of years, numerous Chinese novels, literary fictions and dramas have been derived from the book, such as 
+                    <hi rend="italic">Zhuangzi</hi> (
+                    <hi style="font-family:PingFang SC Regular">庄子</hi>) (Zhuangzi and Palmer, 1996) and 
+                    <hi rend="italic">Strange Tales of Liaozhai</hi> (
+                    <hi style="font-family:PingFang SC Regular">聊</hi>斋志异) (Pu et al., 1995). Mythologies from other Asian countries were influenced by it, e.g. 
+                    <hi rend="italic">Kaiki Choju Zukan</hi> (Wang, 2018) and 
+                    <hi rend="italic">Hyakki Yagyō</hi> (Tanaka, 2007), both examples of Japanese folklore. 
+                </p>
+                <p style="text-align:left; ">In this paper, we report on the state of existing work combining LD methodologies and approaches with literary compositions (Section II), and summarize the narrative of the 
+                    <hi rend="italic">Shanhaijing</hi> (Section III). We outline our chosen methodology in Section IV. The custom-built user-interface (UI) is demonstrated in Section V, and we conclude the paper with a discussion of the complexities of the process in Section VI. 
+                </p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Related work</head>
+                <p style="text-align:left; ">In the domain of literature, several publicly available datasets have been published as LD. For example, the Book-Sampo project (Mäkelä et al., 2011), which provides information on fiction literature published in Finland going back to the 15th century, alongside rich descriptions of both content and context (Mäkelä et al., 2013), or the Perseids Project (Almas and Beaulieu, 2013), which provides a platform for creating, publishing, and sharing research data, in the form of textual transcriptions, annotations and analysis (Almas, 2017). Other essential work in this space include the Brothers Grimm project (Franzini et al., 2016), an ontology for Greek mythology (Syamili and Rekha, 2018), and the Aarne-Thompson’s Motif-Index project (Declerck et al., 2017). </p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Classic of mountains and seas, 山海经 </head>
+                <p style="text-align:left; ">The present version of 
+                    <hi rend="italic">Shanhaijing</hi> contains 18 chapters, approximately 31,000 words in total. It records ancient Chinese mythologies, where numerous monsters with fanciful descriptions are portrayed as possessing magical powers or as related to ancestor (totem) worship (Li and Chan, 2012), such as the monster Lushu (
+                    <hi style="font-family:PingFang SC Regular">鹿蜀</hi>) , which looks like a horse with a white head, a scarlet tail and tiger’s markings, and lives on Mount Niuyang (纽阳之山). Whoever wears its fur will have a greater number of descendants.
+                </p>
+                <p style="text-align:left; ">We focused exclusively on the capture of the data for the monsters in 
+                    <hi rend="italic">Shanhaijing</hi>. The reason for this is that the fascinating and detailed accounts of these creatures overwhelm the other aspects of the story; and these descriptions account for a notable proportion of instances of literary borrowings and inspirations in other cultures, increasing the likelihood of reuse and inter-linking with other ontologies. 
+                </p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Methodology</head>
+                <p style="text-align:left; ">The first stage of the project focused exclusively on the cornucopia of monsters (a total of 277). Through a close reading in both English and classical Chinese, we extracted structured data from the unstructured narrative. </p>
+                <p style="text-align:left; ">In the second stage, we designed an ontological structure to model the domain (Pan et al., 2017). After considering several pre-existing ontology software libraries, we concluded that the suitability of these vocabularies and resources for the representation of 
+                    <hi rend="italic">Shanhaijing</hi> was limited. This necessitated the building of a new ontology, which captures data types and represents the relationships between them as .TTL file.
+                </p>
+                <p style="text-align:left; ">The ontology represents the characteristics of the monsters and the complex relationships between them. It contains a taxonomy of body parts, the characteristics, and the habitats of all monsters. We used a combination of top-down and bottom-up ontologies and schemas to identify Class and Property hierarchies, captured through 
+                    <hi style="font-family:Courier New;font-size:11.5pt">rdfs:subClassOf</hi> and 
+                    <hi style="font-family:Courier New;font-size:11.5pt">rdfs:subPropertyOf</hi> and reused existing vocabularies such as DBPedia Ontology, BioTopOntology (Whetzel et al., 2011), Mahabarata Ontology, RDFS, and XML Schema. This approach enabled us to capture the specifics of the data (bottom-up approach), but also maximize the benefit from other well-developed and rich ontologies. 
+                </p>
+                <p style="text-align:left; ">All concepts related to monsters were collected, then split into terms. A term is considered as a Class if it has attributes pointing to other classes or literals, or it is a Superclass of other classes. Otherwise, it is defined as a property. For example, the term 
+                    <hi style="font-family:Courier New;font-size:11.5pt">Monster</hi> is defined as a Class because it has attributes linking it to other Classes, such as 
+                    <hi style="font-family:Courier New;font-size:11.5pt">Mountain</hi>, through the property 
+                    <hi style="font-family:Courier New;font-size:11.5pt">livesIn</hi>. However, term 
+                    <hi style="font-family:Courier New;font-size:11.5pt">Noise</hi> is not a Class because it is not the domain of any attribute. Hence, it is considered as a property 
+                    <hi style="font-family:Courier New;font-size:11.5pt">hasSameNoiseAs</hi> with 
+                    <hi style="font-family:Courier New;font-size:11.5pt">Monster</hi> as its domain, and a literal as its range. The class 
+                    <hi style="font-family:Courier New;font-size:11.5pt">Monster</hi> is defined as a subclass of 
+                    <hi style="font-family:Courier New;font-size:11.5pt">Character</hi> in FRBRoo, allowing the use of FRBRoo to represent the relations of works. Figure 1 demonstrates a graphic version of the Shanhaijing Ontology. 
+                </p>
+                <figure>
+                    <graphic n="1001" width="15.948838888888888cm" height="13.260916666666667cm" url="Pictures/97980faae6e392547ec5ceb2310cb3d2.png" rend="inline"/>
+                    <head>Figure 1: The Shanhaijing Ontology</head>
+                </figure>
+                <p style="text-align:left; ">Instance-level data was normalized by mapping it to the ontology, and the Silk-Link Discovery Framework (Volz et al., 2009) was used to automatically link appropriately matched resources to external datasets (DBpedia, Wikidata and Schema.org) using 
+                    <hi style="font-family:Courier New;font-size:11.5pt">owl:sameAs</hi>, 
+                    <hi style="font-family:Courier New;font-size:11.5pt">owl:equivalentClass</hi> and 
+                    <hi style="font-family:Courier New;font-size:11.5pt">owl:equivalentProperty</hi>. 
+                </p>
+                <p style="text-align:left; ">An interactive data explorer software tool (
+                    <hi style="font-family:Courier New;font-size:11.5pt">iSHJ</hi>) was built for visualizing, querying (through a SPARQL interface) and analyzing the data. The dataset, ontology, and source code are available via GitHub (https://github.com/aaasteria/chinesemonster).
+                </p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>User interface</head>
+                <p style="text-align:left; ">
+                    <hi style="font-family:Courier New;font-size:11.5pt">iSHJ</hi> was built as a domain specific application for 
+                    <hi rend="italic">Shanhaijing</hi>. This tool has “Browse”, “Search” and “Visualization” interaction modes. Users are provided with quick search functions to explore the data by clicking buttons and inputting keywords rather than writing SPARQL queries directly, although they can be when more flexible and variable searches are needed (see Figure 2). The results are displayed both in plain text and charts for visualization (see Figure 3). We also provide a graphical version of 
+                    <hi rend="italic">Shanhaijing</hi>, where mountains are placed to represent the locations described in the book, the monsters correspondingly placed on the mountains where they live. A video of the UI is available at YouTube (https://youtu.be/oyZGIoTb78k).
+                </p>
+                <figure>
+                    <graphic n="1002" width="16.002cm" height="9.001125cm" url="Pictures/965a58bd7b60deb5d2e73552e24a3b40.png" rend="inline"/>
+                    <head>Figure 2: Results of Quick Search Example "monster" in "Browse" Section in 
+                        <hi style="font-family:Courier New;font-size:11.5pt">iSHJ</hi>
+                    </head>
+                </figure>
+                <figure>
+                    <graphic n="1003" width="16.002cm" height="9.001125cm" url="Pictures/32368e3131d612c4068482f4619bfbe2.png" rend="inline"/>
+                    <head>Figure 3: SPARQL Query Sample of Monster's Tail Number with Visualization Results in 
+                        <hi style="font-family:Courier New;font-size:11.5pt">iSHJ</hi>
+                    </head>
+                </figure>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Discussion</head>
+                <p style="text-align:left; ">Despite the work on the narrative of separate regions of some prominent Western myths, projects focused on Chinese literature within this interdisciplinary field are rare. Existing LD methods have been developed almost exclusively in the context of Western culture, and predominantly for highly structured data. When facing ancient Chinese mythologies, there are two main unsolved challenges: non-existent structured datasets and the unavailability of reusable ontologies. </p>
+                <p style="text-align:left; ">Before LD methods can be applied to the narrative of Chinese myths, a structured dataset capturing in-depth knowledge of Chinese mythologies must be constructed. However, the full potential of this pioneering project can only be tapped into once a greater number of external, disparate, but complementary datasets are published using the LD paradigm. That is to say, until other projects focusing on the analysis of Chinese literature engage in LD, there are limited opportunities for outward linkage. </p>
+                <p style="text-align:left; ">The protagonists of Eastern and Western mythologies are not entirely similar. For example, in many ancient Chinese mythologies (such as 
+                    <hi rend="italic">Shanhaijing</hi>), numerous gods and creatures are described as a monstrous combination of different animals, falling somewhere between, for example, the human-like (both physically and emotionally) gods and heroes of Greek myths and the anthropomorphized animals of Aesop’s tales. Although there are some complementary aspects – e.g. in the Aarne-Thompson’s Motif-Index, the Nine-tailed Fox (
+                    <hi style="font-family:PingFang SC Regular">九 尾狐</hi> ) (Kiyoshi, 1961; Lee, 2011; Chen, 1995), is recorded as B15.7.7.1; other motifs are the four-eyed tiger (B15.4.1.2.) and serpent with a jewel in its mouth (B103.4.2.) – These ontologies neither contain the narrative of Chinese myths nor are they created for Chinese folktales. Ultimately, the existing overlaps are insufficient. 
+                </p>
+                <p style="text-align:left; ">Based on the differences in the narratives, most ontologies created for Western folktales are not completely suitable for the representation of ancient Chinese mythic classics and could not adequately demonstrate the characteristics of these gods and monsters in the 
+                    <hi rend="italic">Shanhaijing</hi>. 
+                </p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Conclusion </head>
+                <p style="text-align:left; ">We used LD methods for textual analyses and visualization of a book of Chinese mythology, 
+                    <hi rend="italic">Shanhaijing</hi>. We created and published a structured dataset, relevant LD, and an interactive explorer to represent the monsters within the text. An extensive review of existing ontologies for literary motifs and mythological creatures revealed that there was insufficient overlap between them and the needs of the dataset, necessitating the development of a new ontology. 
+                </p>
+                <p style="text-align:left; ">Future work will see us expand this analysis to all the contents of 
+                    <hi rend="italic">Shanhaijing</hi>. New ontologies will be generated from the one in this paper, and structures will be 
+                    <anchor xml:id="OLE_LINK5"/>
+                    <anchor xml:id="OLE_LINK6"/>redetermined and improved to adapt to other mythologies. Other ontologies could be reused or interlinked to, increasing the number of linked elements. 
+                </p>
+                <p style="text-align:left; ">We will also test the suitability of our ontology on other mythologies, ranging from Chinese mythologies appearing before and after 
+                    <hi rend="italic">Shanhaijing</hi> to other Asian mythologies such as Japanese tales. We will also apply our ontology to Western mythologies to assess the similarities and differences between Eastern and Western folk tales. 
+                </p>
+            </div>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl>
+                        <hi rend="bold" style="font-size:12pt">Almas, B.</hi>
+                        <hi style="font-size:12pt" xml:space="preserve"> (2017). Perseids: Experimenting with Infrastructure for Creating and Sharing Research Data in the Digital Humanities. </hi>
+                        <hi rend="italic" style="font-size:12pt">Data Science Journal</hi>
+                        <hi style="font-size:12pt" xml:space="preserve">, </hi>
+                        <hi rend="bold" style="font-size:12pt">16</hi>
+                        <hi style="font-size:12pt">: 19 doi:10.5334 /dsj-2017-019.</hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold" style="font-size:12pt">Almas, B. and Beaulieu, M.-C.</hi>
+                        <hi style="font-size:12pt" xml:space="preserve"> (2013). Developing a New Integrated Editing Platform for Source Documents in Classics. </hi>
+                        <hi rend="italic" style="font-size:12pt">Literary and Linguistic Computing</hi>
+                        <hi style="font-size:12pt" xml:space="preserve">, </hi>
+                        <hi rend="bold" style="font-size:12pt">28</hi>
+                        <hi style="font-size:12pt">(4): 493–503 doi:10.1093/llc/fqt046.</hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold" style="font-size:12pt">Chen, H.</hi>
+                        <hi style="font-size:12pt" xml:space="preserve"> (1995). 狐狸精原型的文化阐释 http://www.cnki.com.cn/Article/CJFDTotal-BFLC502.009.htm (accessed 21 April 2019).</hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold" style="font-size:12pt">Declerk, T., Koštová, A. and Schäfer, L.</hi>
+                        <hi style="font-size:12pt">(2017). Towards a Linked Data Access to Folktales classified by Thompson’s Motifs and Aarne-Thompson-Uther’s Types. : 3.</hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold" style="font-size:12pt">Franzini, E., Franzini, G., Rotari, G. and Büchler, M.</hi>
+                        <hi style="font-size:12pt" xml:space="preserve"> (2016). The Digital Breadcrumbs of Brothers Grimm. doi:10.13140/rg.2.1.1290.1365. http://rgdoi.net/10.13140/ RG.2.1. 1290.1365 (accessed 21 April 2019).</hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold" style="font-size:12pt">Hu, Y.</hi>
+                        <hi style="font-size:12pt" xml:space="preserve"> (2003). 纵观海内外《山海经》研究五十年. 福建师大福清分校学报, </hi>
+                        <hi rend="bold" style="font-size:12pt">1</hi>
+                        <hi style="font-size:12pt">doi:10.3969/j.issn.1008-3421.2003.z1.012. http://www.cnki.com.cn/Article/CJFDTO TAL-FJFQ2003S1012.htm (accessed 21 April 2019).</hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold" style="font-size:12pt">Kiyoshi, N.</hi>
+                        <hi style="font-size:12pt" xml:space="preserve"> (1961). </hi>
+                        <hi rend="italic" style="font-size:12pt">Kitsuné: Japan’s Fox of Mystery, Romance &amp; Humor</hi>
+                        <hi style="font-size:12pt">. Hokuseido Press.</hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold" style="font-size:12pt">Lee, S.-A.</hi>
+                        <hi style="font-size:12pt" xml:space="preserve"> (2011). Lures and Horrors of Alterity: Adapting Korean Tales of Fox Spirits. </hi>
+                        <hi rend="italic" style="font-size:12pt">International Research in Children’s Literature</hi>
+                        <hi style="font-size:12pt" xml:space="preserve">, </hi>
+                        <hi rend="bold" style="font-size:12pt">4</hi>
+                        <hi style="font-size:12pt">(2): 135–50 doi:10.3366/ircl.2011. 0022.</hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold" style="font-size:12pt">Li, E. and Chan, Y. K.</hi>
+                        <hi style="font-size:12pt" xml:space="preserve"> (2012). </hi>
+                        <hi rend="italic" style="font-size:12pt">Chinese Literature</hi>
+                        <hi style="font-size:12pt">. Singapore: Asiapac Books.</hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold" style="font-size:12pt">Mäkelä, E., Hypén, K. and Hyvönen, E.</hi>
+                        <hi style="font-size:12pt" xml:space="preserve"> (2011). BookSampo-Lessons Learned in Creating a Semantic Portal for Fiction Literature. In Aroyo, L., Welty, C., Alani, H., Taylor, J., Bernstein, A., Kagal, L., Noy, N. and Blomqvist, E. (eds), </hi>
+                        <hi rend="italic" style="font-size:12pt">The Semantic Web – ISWC 2011</hi>
+                        <hi style="font-size:12pt">, vol. 7032. Berlin, Heidelberg: Springer Berlin Heidelberg, pp. 173–88 doi:10.1007/978-3-642-25093-4_12. http://link.springer.com/10.1007/978-3-642-2509 3-4_12 (accessed 21 April 2019).</hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold" style="font-size:12pt">Mäkelä, E., Hypén, K. and Hyvönen, E.</hi>
+                        <hi style="font-size:12pt" xml:space="preserve"> (2013). Fiction Literature as Linked Open Data-the BookSampo Dataset. </hi>
+                        <hi rend="italic" style="font-size:12pt">Semantic Web</hi>
+                        <hi style="font-size:12pt">(3): 299–306 doi:10.3233/SW-120093.</hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold" style="font-size:12pt">Nurmikko-Fuller, T.</hi>
+                        <hi style="font-size:12pt" xml:space="preserve"> (2014). Assessing the Suitability of Existing OWL Ontologies for the Representation of Narrative Structures in Sumerian Literature. </hi>
+                        <hi rend="italic" style="font-size:12pt">Current Practice in Linked Open Data for the Ancient World</hi>
+                        <hi style="font-size:12pt">: ISAW Papers, 7.</hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold" style="font-size:12pt">Pan, J. Z., Vetere, G., Gomez-Perez, J. M. and Wu, H.</hi>
+                        <hi style="font-size:12pt" xml:space="preserve"> (2017). </hi>
+                        <hi rend="italic" style="font-size:12pt">Exploiting Linked Data and Knowledge Graphs in Large Organisations</hi>
+                        <hi style="font-size:12pt">. Cham: Springer International Publishing Imprint : Springer http://ezproxy.uniandes.edu.co:8080/login?url=http://dx.doi.org/ 10.1007/978-3-319- 45654-6 (accessed 21 April 2019).</hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold" style="font-size:12pt">Peinado, F., Gervás, P. and Díaz-Agudo, B.</hi>
+                        <hi style="font-size:12pt">(2004). A Description Logic Ontology for Fairy Tale Generation. : 6.</hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold" style="font-size:12pt">Pu, S., Lu, Y., Chen, T., Yang, L. and Yang, Z.</hi>
+                        <hi style="font-size:12pt" xml:space="preserve"> (1995). </hi>
+                        <hi rend="italic" style="font-size:12pt">Strange Tales of Liaozhai</hi>
+                        <hi style="font-size:12pt">.</hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold" style="font-size:12pt">Syamili, C. and Rekha, R. V.</hi>
+                        <hi style="font-size:12pt" xml:space="preserve"> (2018). Developing an ontology for Greek mythology. </hi>
+                        <hi rend="italic" style="font-size:12pt">The Electronic Library</hi>
+                        <hi style="font-size:12pt" xml:space="preserve">, </hi>
+                        <hi rend="bold" style="font-size:12pt">36</hi>
+                        <hi style="font-size:12pt">(1): 119–32 doi:10.1108/EL-02-2017-0030.</hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold" style="font-size:12pt">Tanaka, T.</hi>
+                        <hi style="font-size:12pt" xml:space="preserve"> (2007). </hi>
+                        <hi rend="italic" style="font-size:12pt">Hyakki yagyō emaki o yomu: zusetsu</hi>
+                        <hi style="font-size:12pt">. Shinsōban. (Fukurō no hon). Tōkyō: Kawade Shobō Shinsha.</hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold" style="font-size:12pt">Volz, J., Bizer, C., Gaedke, M. and Kobilarov, G.</hi>
+                        <hi style="font-size:12pt" xml:space="preserve"> (2009). Silk - A Link Discovery Framework for the Web of Data. </hi>
+                        <hi rend="italic" style="font-size:12pt">LDOW</hi>
+                        <hi style="font-size:12pt">.</hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold" style="font-size:12pt">Wang, X.</hi>
+                        <hi style="font-size:12pt" xml:space="preserve"> (2018). 山海百灵: 《山海经》里的神人鸟兽鱼.</hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold" style="font-size:12pt">Whetzel, P. L., Noy, N. F., Shah, N. H., Alexander, P. R., Nyulas, C., Tudorache, T. and Musen, M. A.</hi>
+                        <hi style="font-size:12pt" xml:space="preserve"> (2011). BioPortal: enhanced functionality via new Web services from the National Center for Biomedical Ontology to access and use ontologies in software applications. </hi>
+                        <hi rend="italic" style="font-size:12pt">Nucleic Acids Research</hi>
+                        <hi style="font-size:12pt" xml:space="preserve">, </hi>
+                        <hi rend="bold" style="font-size:12pt">39</hi>
+                        <hi style="font-size:12pt">(suppl): W541–45 doi:10.1093/nar/gkr469.</hi>
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold" style="font-size:12pt">Zhuangzi and Palmer, M. J.</hi>
+                        <hi style="font-size:12pt" xml:space="preserve"> (2006). </hi>
+                        <hi rend="italic" style="font-size:12pt">The Book of Chuang Tzu</hi>
+                        <hi style="font-size:12pt">. London: Penguin https://www.overdrive.com/search?q=507F1FF6-34F5-4433-A94A-50D563425827 (accessed 21 April 2019).</hi>
+                    </bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

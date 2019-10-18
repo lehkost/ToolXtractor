@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>Overcoming the Challenges of Optical Music Recognition of Early Music with Machine Learning</title>
+                <author>
+                    <persName>
+                        <surname>Vigliensoni</surname>
+                        <forename>Gabriel</forename>
+                    </persName>
+                    <affiliation/>
+                    <email/>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Daigle</surname>
+                        <forename>Alex</forename>
+                    </persName>
+                    <affiliation/>
+                    <email/>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Liu</surname>
+                        <forename>Eric</forename>
+                    </persName>
+                    <affiliation/>
+                    <email/>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Calvo-Zaragoza</surname>
+                        <forename>Jorge</forename>
+                    </persName>
+                    <affiliation/>
+                    <email/>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Regimbal</surname>
+                        <forename>Juliette</forename>
+                    </persName>
+                    <affiliation/>
+                    <email/>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Nguyen</surname>
+                        <forename>Minh Anh</forename>
+                    </persName>
+                    <affiliation/>
+                    <email/>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Baxter</surname>
+                        <forename>Noah</forename>
+                    </persName>
+                    <affiliation/>
+                    <email/>
+                </author>
+                <author>
+                    <persName>
+                        <surname>McLennan</surname>
+                        <forename>Zoe</forename>
+                    </persName>
+                    <affiliation/>
+                    <email/>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Fujinaga</surname>
+                        <forename>Ichiro</forename>
+                    </persName>
+                    <affiliation/>
+                    <email/>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2019-04-09T19:29:00Z</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Name, Institution</publisher>
+                <address>
+                    <addrLine>Street</addrLine>
+                    <addrLine>City</addrLine>
+                    <addrLine>Country</addrLine>
+                    <addrLine>Name</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from a Word document</p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.22">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>ADHO Bursary Application</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>digital archives and digital libraries</term>
+                    <term>software design and development</term>
+                    <term>English</term>
+                    <term>computer science and informatics</term>
+                    <term>artificial intelligence and machine learning</term>
+                    <term>digital humanities (history</term>
+                    <term>theory and methodology)</term>
+                    <term>OCR and hand-written recognition</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <p>
+                <hi rend="bold" style="font-size:12pt">Abstract</hi>
+            </p>
+            <p>Several centuries of manuscript music sit on the shelves of libraries, churches, and museums around the globe. On-line digitization programs are opening these collections to a global audience, but digital images are only the beginning of true accessibility since the musical content of these images cannot be searched by computers. In the SIMSSA (Single Interface for Music Score Searching and Analysis) project (Fujinaga, Hankinson, and Cumming, 2014) we aim at teaching computers to read music and assemble the data on a single website. However, the automatic retrieval and encoding of music from score images has many complexities. In this paper, we describe our current workflow to perform end-to-end optical music recognition (OMR) of early music sources. </p>
+            <p>
+                <hi rend="bold" style="font-size:12pt">1 Introduction</hi>
+            </p>
+            <p>The process of reading, extracting, and encoding the content from digitized images of music documents is called optical music recognition (OMR). Despite more than 50 years of research, OMR is still a complex problem. Some characteristics of music notation—such as the graphical properties of musical objects and the layout and superimposition of musical features—make OMR a remarkably difficult problem (Bainbridge and Bell, 2001). The slow development in OMR, particularly when dealing with early music, also lies in the variability of documents. Since most OMR systems have been developed using heuristic approaches, they usually do not generalize well to documents of a different type. </p>
+            <p>
+                <hi rend="bold" style="font-size:12pt">2 End-to-end OMR workflow for medieval and renaissance music</hi>
+            </p>
+            <p>For high scalability, we are taking a machine learning-based approach to OMR. The computer is trained with a large number of examples for each category of musical element to be classified and creates a model. Once a model is created, it is used to classify new examples that the computer has not yet seen. We have implemented this approach in a workflow that performs OMR in medieval and renaissance music scores images. The workflow is divided into four stages: document analysis, symbol classification, music reconstruction and encoding, and symbolic score generation and correction. The entire workflow is depicted in Figure 
+                <hi rend="color(FF1923)">1</hi>. 
+            </p>
+            <figure>
+                <graphic n="1001" width="16.002cm" height="3.8152916666666665cm" url="Pictures/7c41907040f8c26d0c64b2a6e138e779.png" rend="inline"/>
+            </figure>
+            <p>
+                <hi style="font-size:10pt" xml:space="preserve">Figure 1. End-to-end optical music recognition workflow for early music. Boxes indicate the software applications on each step. Human symbols indicate interactive, adaptive stages. </hi>
+            </p>
+            <p>
+                <hi rend="bold" style="font-size:12pt">2.1 Document analysis</hi>
+            </p>
+            <p>Digitized music scores are the input to the system and document analysis is applied to segment the music document into layers. We developed Pixel.js (Saleh et al., 2017), an open source, web-based, pixel-level classification application to label pixels into their corresponding category or to correct the output of other image segmentation processes. We use this tool interactively with a convolutional neural network (Calvo-Zaragoza et al., 2018) to segment the document into a number of user-defined layers. After a few iterations of training and classification for optimizing the classifier, we obtain a number of image files corresponding to the segmented layers of the original score. For example, these layers may contain notes, staff lines, lyrics, annotations, or ornamental letters. The recognition of the music symbols and the analysis of their relationship is achieved once the symbols are isolated and classified in the found layers.</p>
+            <p>
+                <hi rend="bold" style="font-size:12pt">2.2 Symbol classification</hi>
+            </p>
+            <p>The application we developed for the symbol classification stage is called Interactive Classifier (IC). IC is a web-based version of the Gamera classifier (Droettboom, MacMillan, and Fujinaga, 2003). We use it to automatically group the connected components of a specific layer into glyphs. Then, we manually label a series of these musical glyphs into classes. For neume music notation we implement neume-based and neume component-based classification. In either case, IC will extract a set of features for describing each of the neume or neume component classes and will model a classifier. With this model, new glyphs will be classified based on k-nearest neighbours. Once the symbols of the score are classified, we proceed to add their musical context and encode them into a symbolic music format. </p>
+            <p>
+                <hi rend="bold" style="font-size:12pt">2.3 Music reconstruction and encoding</hi>
+            </p>
+            <p>We obtain the pitches of neumes or neume components by finding their absolute position in the corresponding staves and use the recognized clef of each system to assign a relative pitch (Vigliensoni et al., 2011). The output of IC conveys the position and size of each musical element in the original image, and so we add this information to the estimated pitch as well as the staff number to which each neume belongs. Finally, this musical information is encoded into the Music Encoding Initiative (MEI) machine-readable symbolic music format (Roland, 2002). </p>
+            <p>
+                <hi rend="bold" style="font-size:12pt">2.4 Symbolic score generation and correction</hi>
+            </p>
+            <p>The last two stages of our OMR workflow, music reconstruction and encoding and symbolic score generation have a common interactive breakpoint for visualizing and correcting the output of the automatized OMR process. This human-driven checkpoint is embedded as a web-based interface called Neon (Neume Editor Online) (Burlet et al., 2012). Neon overlays the original music score image and the rendered version of the output of the OMR process. By visual inspection, the user can assess the differences between the layers, and manually add, edit, or delete music symbols in the browser. So far, however, corrections entered by the user are not fed back into the learning system, but they change the encoded music file output. </p>
+            <p>
+                <hi rend="bold" style="font-size:12pt">2.5 Workflow management system</hi>
+            </p>
+            <p>All the constituent parts of our OMR workflow are handled by Rodan (Hankinson, 2015), a distributed, collaborative, and networked adaptive workflow management system that allows specifying interactive and non-interactive tasks. </p>
+            <p>
+                <hi rend="bold" style="font-size:12pt" xml:space="preserve">3 Future work </hi>
+            </p>
+            <p>In future iterations of the project we will focus on: (i) implementing a non-heuristic, machine learning-based approach for pitch finding (similar to the approach proposed by Pacha and Calvo-Zaragoza (2018)); (ii) appending neumes to syllables (since most neume notation is used to set music to an existing text); and (iii) devising a way of feeding back into the workflow the corrected output in Neon. We hope that this infrastructure, in combination with the proper teaching strategies and tactics developed by human teachers in the interfaces for training OMR systems (Vigliensoni, Calvo-Zaragoza, and Fujinaga, 2018), will enable the end-to-end recognition and encoding of music from music score images.</p>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl>
+                        <hi rend="bold">Bainbridge, D. and Bell, T.</hi> (2001). The challenge of optical music recognition. 
+                        <hi rend="italic">Computers and the Humanities</hi>, 
+                        <hi rend="bold">35</hi>(2): 95–121.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Burlet, G., Porter, A., Hankinson, A. and Fujinaga, I.</hi> (2012). Neon.js: Neume editor online. 
+                        <hi rend="italic">Proceedings of the 13</hi>
+                        <hi rend="italic superscript">th</hi>
+                        <hi rend="italic" xml:space="preserve"> International Society for Music Information Retrieval Conference</hi>, pp. 121–6.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Calvo-Zaragoza, J., Castellanos, F. J., Vigliensoni, G. and Fujinaga, I.</hi> (2018). Deep neural networks for document processing of music score images. 
+                        <hi rend="italic">Applied Sciences</hi>, 
+                        <hi rend="bold">8</hi>(5): 654–74. 
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Droettboom, M., Macmillan, K. and Fujinaga, I.</hi> (2003). The Gamera framework for building custom recognition systems. 
+                        <hi rend="italic">Proceedings of the 2003 Symposium on Document Image Understanding Technologies</hi>, pp. 275–86. 
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Fujinaga, I., Hankinson, A. and Cumming, J. E.</hi> (2014). Introduction to SIMSSA (Single Interface for Music Score Searching and Analysis). 
+                        <hi rend="italic">Proceedings of the 1st International Workshop on Digital Libraries for Musicology</hi>, pp. 1–3.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Hankinson, A.</hi> (2015). Optical music recognition infrastructure for large-scale music document analysis. Ph.D. Dissertation. McGill University, Montréal, QC.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Pacha, A. and Calvo-Zaragoza, J.</hi> (2018). Optical Music Recognition in Mensural Notation with Region-Based Convolutional Neural Networks. 
+                        <hi rend="italic">Proceedings of the 19</hi>
+                        <hi rend="italic superscript">th</hi>
+                        <hi rend="italic" xml:space="preserve"> International Society for Music Information Retrieval Conference</hi>, pp. 23–7.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Roland, P.</hi> (2002). The music encoding initiative (MEI). 
+                        <hi rend="italic">Proceedings of the First International Conference on Musical Applications Using XML</hi>, pp. 55–9.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Saleh, Z., Zhang, K., Calvo-Zaragoza, J., Vigliensoni, G. and Fujinaga, I.</hi> (2017). Pixel.js: Web-based pixel classification correction platform for ground truth creation. 
+                        <hi rend="italic">Proceedings of the 14th IAPR International Conference on Document Analysis and Recognition</hi>, pp. 39–40. 
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Vigliensoni, G., Burgoyne, J. A., Hankinson, A. and Fujinaga, I.</hi> (2011). Automatic pitch recognition in printed square-note notation. 
+                        <hi rend="italic">Proceedings of the 12</hi>
+                        <hi rend="italic superscript">th</hi>
+                        <hi rend="italic" xml:space="preserve"> International Society for Music Information Retrieval Conference</hi>, pp. 423–8.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Vigliensoni, G., Calvo-Zaragoza, J. and Fujinaga, I.</hi> (2018). An environment for machine pedagogy: Learning how to teach computers to read music. 
+                        <hi rend="italic">Proceedings of the IUI Workshop on Music Interfaces for Listening and Creation</hi>.
+                    </bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

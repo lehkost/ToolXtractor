@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>Enlightenment Legacies: Sequence Alignment and Text-Reuse at Scale</title>
+                <author>
+                    <persName>
+                        <surname>Roe</surname>
+                        <forename>Glenn H</forename>
+                    </persName>
+                    <affiliation>Sorbonne University, France</affiliation>
+                    <email>glenn.roe@sorbonne-universite.fr</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Gladstone</surname>
+                        <forename>Clovis</forename>
+                    </persName>
+                    <affiliation>University of Chicago, USA</affiliation>
+                    <email>clovisgladstone@uchicago.edu</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Olsen</surname>
+                        <forename>Mark</forename>
+                    </persName>
+                    <affiliation>University of Chicago, USA</affiliation>
+                    <email>markymaypo57@gmail.com</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Morrissey</surname>
+                        <forename>Robert</forename>
+                    </persName>
+                    <affiliation>University of Chicago, USA</affiliation>
+                    <email>rmorriss@uchicago.edu</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2019-04-03T13:58:00Z</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Name, Institution</publisher>
+                <address>
+                    <addrLine>Street</addrLine>
+                    <addrLine>City</addrLine>
+                    <addrLine>Country</addrLine>
+                    <addrLine>Name</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from a Word document</p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.22">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Long Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>Intertextuality</term>
+                    <term>Sequence Alignment</term>
+                    <term>Enlightenment</term>
+                    <term>Big Data</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>corpus and text analysis</term>
+                    <term>literary studies</term>
+                    <term>french studies</term>
+                    <term>linking and annotation</term>
+                    <term>data mining / text mining</term>
+                    <term>English</term>
+                    <term>cultural analytics</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <p style="text-align:left; ">The recent appearance of Steven Pinker’s 
+                <hi rend="italic">Enlightenment Now</hi> is a topical reminder of the enduring importance of 18th-century legacies in contemporary thought, culture, and politics. Considered pernicious or positive, French intellectuals began assessing the legacy of 
+                <hi rend="italic">les Lumières</hi> almost from the outset of the events of 1789 and continued this polemic throughout the 19th century. While the study of pro- and anti-Enlightenment or Revolution writers active during the 19th century is certainly of great value, our work in this project aims to examine the complexities of Enlightenment legacies using new “distant reading” approaches (Underwood, 2017). To this end, and in conjunction with the Observatoire de la Vie Littéraire (OBVIL) at Sorbonne Université, we have developed a new generation of sequence alignment software that detects reused passages in very large corpora; we use this software to compare several important collections of 18th-century texts to the Très Grande Bibliothèque (TGB) corpus of 19th-century printed materials made available by the Bibliothèque Nationale de France (BNF). Following an overview of the datasets and software developed for this effort, we will sketch some preliminary results arising from this project and conclude with an outline of further work we will carry out based on this database. 
+            </p>
+            <p style="text-align:left; ">We used three different text collections for this project. The 18th-century sample is drawn from the holdings of the ARTFL Project and includes the 
+                <hi rend="italic">Encyclopédie</hi> of Diderot and d’Alembert as well as 1,367 17th-18th century texts from the ARTFL Frantext database.
+                <note place="foot" xml:id="ftn1" n="1">
+                    <p style="text-align:left; "> See http://encyclopedie.uchicago.edu/ and http://artfl-project.uchicago.edu/content/artfl-frantext/.</p>
+                </note> Both are well-curated collections and provide solid samples of Enlightenment discourse. For the 19th century, we were able to employ selections of the TGB collection released by the BNF in conjunction with OBVIL. The collection consists of 128,441 documents by more than 58,000 authors almost all of which have metadata drawn from the BNF catalogue. The vast majority of the collection was published during the 19th century, though this includes a significant number of reprints of older texts. The collection contains a broad selection of themes and subjects with 35,710 documents listed as 
+                <hi rend="italic">Littérature</hi>, 28,885 as 
+                <hi rend="italic">Histoire de la France</hi> and 23,776 
+                <hi rend="italic">Droit</hi>. As expected, the quality of the raw data – based on uncorrected Optical Character Recognition – varies widely depending on a range of factors, including age, preservation status and print quality. In order to identify those texts that were originally published before 1800, we used a series of heuristics based on the metadata provided by the BNF to eliminate duplicates and near-duplicate texts. This left 112,907 documents in our working TGB sample.
+            </p>
+            <p style="text-align:left; ">While the ARTFL Project has developed text alignment packages in the past (Horton et al., 2010; Roe, 2012), this system is less-suited for very large-scale comparisons, e.g., those in 100,000+ document range. Detecting identical or similar passages requires a one-to-one document comparison of every text in the dataset (Gladstone and Cooney, 2020). Given the scale of the TGB dataset, we developed the TextPAIR system to address limitations of the previous model using new technologies. Installed as a Python package, it includes a text preprocessing component written in Python, a sequence aligner written in Go to maximize speed and scalability, and a single-page web application written with the VueJS framework to guarantee maximum interactivity when text alignments are deployed in the browser. The package is available as open-source code on Github, with accompanying documentation meant to assist other research groups in installing and running their own text-reuse experiments.
+                <note place="foot" xml:id="ftn2" n="2">
+                    <p style="text-align:left; "> See https://github.com/ARTFL-Project/text-pair.</p>
+                </note>
+            </p>
+            <p style="text-align:left; ">The sequence alignment of the pre 19th-century sample of Frantext and the 
+                <hi rend="italic">Encyclopédie</hi> against the 112,000 documents of the TGB produced a large number of resulting 
+                <hi rend="bold">passage pairs</hi>, our basic unit of analysis. Figure One shows a typical alignment pair, in this case a passage from the famous 
+                <hi rend="italic">Discours Préliminare</hi> reused with some indication of the source in Peignot’s 1801 
+                <hi rend="italic" xml:space="preserve">Dictionnaire raisonné de bibliologie. </hi>It is important to note that TextPAIR can detect similar passages with considerable variations which can arise from textual insertions, deletions or modifications along with data capture errors, differences in spellings and word order changes. Figure 1 uses the “show differences” feature to highlight the variations between the passage pair.
+            </p>
+            <figure>
+                <graphic n="1001" width="16.002cm" height="15.201194444444445cm" url="Pictures/590f6b0f683ba2b6d4dcd34feeb3f9b5.png" rend="inline"/>
+            </figure>
+            <p style="text-align:left; text-align:center;">
+                <hi rend="italic">Figure 1</hi>
+            </p>
+            <p style="text-align:left; ">Each record of the result database stores metadata for each document of the pair from the TEI headers, byte locations and offsets in the corresponding text data files, the passages in question, the size of the alignments, and whether or not the alignment is considered “banal” or uninteresting. The databases are loaded into a PostgreSQL relational database with a dedicated interface to allow users to query the document pairs, get summary results and navigate to the original documents at will. Figure 2 shows the query form of the 
+                <hi rend="italic">Encyclopédie</hi> to TGB alignment database, which supports metadata queries to allow the user to focus on specific questions, in this case a search for all aligned passages from articles written by Rousseau.
+            </p>
+            <figure>
+                <graphic n="1002" width="16.002cm" height="7.6005972222222224cm" url="Pictures/6d15d84381ac645eef6962251c245775.png" rend="inline"/>
+            </figure>
+            <p style="text-align:left; text-align:center;">
+                <hi rend="italic">Figure 2. Searching for similar passages from articles by Rousseau in the Encyclopédie</hi>
+            </p>
+            <p style="text-align:left; ">The query returns 611 passages, as shown in Figure 3, where the first reused passage in this query is his article “Accolade”, which is found almost verbatim in a dictionary of music from 1825. The query interface makes extensive use of facets, allowing the user to consult frequencies broken down by different criteria. Looking at the reuses of Rousseau’s contributions to the 
+                <hi rend="italic">Encyclopédie</hi>, it is interesting to note that while most of Rousseau’s entries in the 
+                <hi rend="italic">Encyclopédie</hi> were about music, it is his political philosophy article “ECONOMIE” that is most reused in the 19th century.
+            </p>
+            <figure>
+                <graphic n="1003" width="16.002cm" height="9.600847222222223cm" url="Pictures/ae2174736e1553acd299f6bac859ee51.png" rend="inline"/>
+            </figure>
+            <p style="text-align:left; text-align:center;">Figure 3</p>
+            <p style="text-align:left; ">The interface also supports the generation of time series graphs of the results. Figure 4 shows that reuses of the article “ECONOMIE” was fairly consistent through the 19th century. </p>
+            <figure>
+                <graphic n="1004" width="16.002cm" height="11.900958333333334cm" url="Pictures/b201b6eca6036a9d84cd68275b0820ef.png" rend="inline"/>
+            </figure>
+            <p style="text-align:left; text-align:center;">Figure 4</p>
+            <p style="text-align:left; ">The Baron d’Holbach presents another interesting case. As one of the 
+                <hi rend="italic" xml:space="preserve">philosophes </hi>with the most notorious reputation as a free-thinking materialist he contributed some of the most controversial articles to the 
+                <hi rend="italic">Encyclopédie</hi>, such as “Représentants” and “Prêtres”. As shown in Figure 5, it was however his work on chemistry, mineralogy, and German history that is most reused in the 19th century. Instead of his scandalous article on “Prêtres” being cited, as one would expect, you find resonances of the rather orthodox article “EVÊQUE” which outlines the historical background of elector Bishops under the Holy Roman Empire. In fact, not one reuse of d’Holbach’s controversial material was found in the TGB, which sheds new light on our vision of d’Holbach as not simply an atheist propagandist, but as a man of science whose articles in various domains continued to be cited and used well into the 19th century. This is an image of d’Holbach that rarely, if ever, occurs in modern intellectual and literary histories.
+            </p>
+            <figure>
+                <graphic n="1005" width="5.302808333333333cm" height="12.616358333333332cm" url="Pictures/18d981df482930a812c1c7153a7612ab.png" rend="inline"/>
+            </figure>
+            <p style="text-align:left; text-align:center;">Figure 5</p>
+            <p style="text-align:left; ">The 19th-century reuses of passages from the 17 texts by Rousseau found in ARTFL Frantext, show a similar combination of expected and unexpected avenues of influence. It is not particularly surprising to find the nearly 1,500 instances of passages from his 
+                <hi rend="italic">Contrat social</hi> in works dealing with political theory even if they are used in a negative fashion. As shown in Figure 6, the most frequent reuse is in Pierre Landes’ attack on the 
+                <hi rend="italic">philosophe</hi> in his 
+                <hi rend="italic">Principes du droit politique, mis en opposition avec ceux de J.-J. Rousseau sur le contrat social</hi> followed by numerous expositions of Rousseau’s political thought.
+            </p>
+            <figure>
+                <graphic n="1006" width="16.002cm" height="11.601097222222222cm" url="Pictures/5450e8aa70e697cb563d948762a2525f.png" rend="inline"/>
+            </figure>
+            <p style="text-align:left; text-align:center;">Figure 6</p>
+            <p style="text-align:left; ">By contrast, as shown in Figure 7, the over 10,000 reuses of Rousseau’s work more generally seem to focus on his reputation as a prose stylist, with the most frequent reuses found in various dictionaries and grammatical works. It is important to note the various vectors through which particular texts or authors can exert influence, even if it is indirect.</p>
+            <figure>
+                <graphic n="1007" width="16.002cm" height="9.801930555555556cm" url="Pictures/19e5ec344bec4bd4c0407ea790b81c5c.png" rend="inline"/>
+            </figure>
+            <p style="text-align:left; text-align:center;">Figure 7</p>
+            <p style="text-align:left; ">
+                <anchor xml:id="gjdgxs"/>We believe that we can begin to use these techniques and these sorts of large-scale databases to refashion literary history, to give a more expansive vision of literary culture by identifying various forms of intertextual activity, from reuse to referencing, in a broadened set of 18th-century corpora and to eventually make use of various visualisation tools to navigate the output. While our interpretive work on this set of reuses is still in its initial phases, we have already been able to identify significant findings that challenge our understanding of the impact of the 
+                <hi rend="italic">Lumières</hi> in the 19th century. 
+                <anchor xml:id="piobtfrwmi"/>
+                <anchor xml:id="uhteoumxqzhs"/>Our full paper will expand on our observations above and begin the systematic exposition of the various complexities of identifying text reuse at such an unprecedented scale. We are aware, however, that these larger questions are well beyond the ability of any small group of researchers to explore, and thus invite interested parties to consult the alignment databases themselves.
+                <note place="foot" xml:id="ftn3" n="3">
+                    <p style="text-align:left; "> See http://artfl-project.uchicago.edu/legacy_eighteenth.</p>
+                </note>
+            </p>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold">Gladstone, G. and Cooney, C.</hi> (2020) Opening New Paths for Scholarship: Algorithms to Track Text Reuse in ECCO. In Digitizing Enlightenment: Digital Humanities and the Transformation of Eighteenth-Century Studies. Liverpool: Oxford University Studies in the Enlightenment (forthcoming).
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold">Horton, R., Olsen, M., and Roe, G</hi>. (2010). Something Borrowed: Sequence Alignment and the Identification of Similar Passages in Large Text Collections. Digital Studies / Le Champ numérique, 2.1. http://doi.org/10.16995/dscn.258 (accessed 2 April 2019).
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold">Roe, G.</hi> (2012). Intertextuality and Influence in the Age of Enlightenment: Sequence Alignment Applications for Humanities Research. In Digital Humanities 2012. Hamburg: University of Hamburg, pp. 345-47. 
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold">Underwood, T.</hi> (2017). A Genealogy of Distant Reading. Digital Humanities Quarterly, 11.2. http://www.digitalhumanities.org/dhq/vol/11/2/000317/000317.html (accessed 2 April 2019).
+                    </bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

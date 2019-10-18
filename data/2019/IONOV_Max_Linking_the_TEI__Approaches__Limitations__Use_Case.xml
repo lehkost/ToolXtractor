@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>Linking the TEI: Approaches, Limitations, Use Cases</title>
+                <author>
+                    <persName>
+                        <surname>Chiarcos</surname>
+                        <forename>Christian</forename>
+                    </persName>
+                    <affiliation>Goethe University Frankfurt</affiliation>
+                    <email>chiarcos@informatik.uni-frankfurt.de</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Ionov</surname>
+                        <forename>Max</forename>
+                    </persName>
+                    <affiliation>Goethe University Frankfurt</affiliation>
+                    <email>ionov@informatik.uni-frankfurt.de</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2014-12-19T13:50:00Z</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Name, Institution</publisher>
+                <address>
+                    <addrLine>Street</addrLine>
+                    <addrLine>City</addrLine>
+                    <addrLine>Country</addrLine>
+                    <addrLine>Name</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from a Word document</p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.22">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Long Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>linked data</term>
+                    <term>TEI</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>text encoding and markup languages</term>
+                    <term>semantic web and linked data</term>
+                    <term>linking and annotation</term>
+                    <term>standards and interoperability</term>
+                    <term>English</term>
+                    <term>digital humanities (history</term>
+                    <term>theory and methodology)</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <div type="div1" rend="DH-Heading1">
+                <head>Background</head>
+                <p style="text-align:left; ">We provide a survey over the main strategies to harmonize and to integrate TEI/XML documents and Linked Open Data resources. As a highly popular community standard, the Text Encoding Initiative (TEI) provides a the most frequently adopted model for the semantic markup of text data in the Digital Humanities. Likewise, applications of Linked Open Data technologies and resources in Digital Humanities are manifold, and where commonly used LOD and RDF technology is employed, the scientific challenges involved are comparable to those in other areas of application. A scientific problem specific to Digital Humanities is, however, how these technologies can be related to the TEI as the current de facto standard for computational philology. </p>
+                <p style="text-align:left; ">While benefits of LOD technologies have long been recognized in the DH community, and lead to the formation of a LOD SIG in 2014, there is no agreement on possible technological bridges between TEI/XML and LOD technology. With this paper, we provide an overview over existing solutions and their characteristics, and contribute to the discussion of the further standardization — and possibly, revision — of these possibilities. We focus on in-line XML, because Web Annotation (Sanderson et al., 2017) already provides a convenient and established W3C standard for establishing LOD as a standoff layer over XML documents.</p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Complementary Intentions: The Text Encoding Initiative and Linguistic Linked Open Data</head>
+                <p style="text-align:left; ">Founded in 1987, the TEI is the authoritative body that develops and maintains an XML-based interchange format for textual data, in particular for the electronic edition of printed (or printable) publications. Beyond its historical focus on literary science and linguistics, the current edition of the TEI guidelines, P5, represents a de facto standard for the entire field of Digital Humanities.</p>
+                <p style="text-align:left; ">The TEI defines an XML format that aims to provide a compromise between a formal description of layout elements (e.g., italics) and their abstract function (e.g., emphasis): Its markup elements are given interpretable names, but the provided definitions are informative only, not normative, as the TEI standardizes only their form, context and structure using standards such as modular DTDs, Schematron or RelaxNG. For practical applications, the TEI thus takes a document-centric, and text-driven approach: the form, content and structure of the underlying text is preserved, and are enriched by markup elements. Markup elements can be validated with respect to syntactic constraints, but not directly with respect to their semantics. </p>
+                <p style="text-align:left; ">In application to objects of linguistic and philological interest, Linked Open Data and RDF technology have been applied with increasing intensity in the last years – as manifested in the Linguistic Linked Open Data (LLOD) cloud
+                    <note place="foot" xml:id="ftn1" n="1">
+                        <p rend="footnote text"> See 
+                            <ref target="http://linguistic-lod.org/">http://linguistic-lod.org/</ref> for the LLOD diagram; for specifications for lexical data, see 
+                            <ref target="https://www.w3.org/2016/05/ontolex/">https://www.w3.org/2016/05/ontolex/</ref>; for annotations, see 
+                            <ref target="https://www.w3.org/TR/annotation-vocab">https://www.w3.org/TR/annotation-vocab</ref>.
+                        </p>
+                    </note>, — but with a clear emphasis on semantics and data structures rather than markup: The original sequential structure of a document can only be preserved in RDF if explicit data structures (relations) are being created. In opposition to that, sequential structure is inherent to and implicit in XML. 
+                </p>
+                <p style="text-align:left; ">The focus of XML technologies on structure (rather than semantics) also affect its modes of validation: XML technology is capable of validating structure, and semantic information can only be validated in terms of constraints for their occurrence. In opposition to that, LOD technology, on the other hand, is based on knowledge representation by means of ontology languages (RDFS, OWL, SKOS) and graph technology (RDF, ShEx, SHACL), and allows to perform inferences (and, by extension, validation), resp. pattern validation over semantic data structures — regardless of their sequential and hierarchical organization.</p>
+                <p style="text-align:left; ">In this regard, LOD and XML can be considered complementary approaches for the digital philologies. Not in the sense of contradiction, but in the sense that they specialize in different aspects and that synergies can be expected from their harmonization. Such a harmonization, however, requires the development of interfaces, and the re-interpretation or the modification of TEI vocabulary elements whose introduction preceded the emergence of Linked Open Data.</p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Three Paths to Go, and How to Choose</head>
+                <p style="text-align:left; ">As it has previously been extended by necessary modules as they were needed, the TEI today provides a very rich vocabulary of markup elements, in the current TEI P5 guidelines (literally, ‘proposal’) covering 569 XML elements and 231 attributes. The analogy-driven extension of semantics and syntax of markup elements (‘tag abuse’) is a common strategy to counter the unrestricted growth of the TEI vocabulary. However, this is not a recommended practice, as it leads to compatibility issues (as the same information can be represented in different ways) and semantic indeterminism (if the same markup is used for two distinct functions, the intended meaning cannot be automatically recovered). In addition to TEI-native strategies to represent RDF and Linked Data, we thus describe an alternative approach whose first implementation was reported in 2018: The generic extension of TEI with W3C-recommended vocabulary elements to represent RDF in XML attributes (RDFa).</p>
+                <p style="text-align:left; ">We will give an overview over these three common strategies to formalize LOD references and data within the TEI, we present their original use cases, inherent limitations for each of them, and the implications of these limitations for future use. For reasons of brevity, this is summarized in in bullet points, only:</p>
+                <list type="ordered">
+                    <item>Representing LOD references with TEI attributes, e.g., 
+                        <hi rend="italic">@ref</hi> in the “Text Database and Dictionary of Classic Mayan” (Diehr et al., 2017)
+                    </item>
+                    <item>Emulating RDF triples with TEI elements, e.g., 
+                        <hi rend="italic">&lt;relation&gt;</hi> in “Sharing Ancient Wisdoms” (Tupman, 2013)
+                    </item>
+                    <item>TEI+RDFa: extending att.global.linking with 
+                        <hi rend="italic">@about</hi>, 
+                        <hi rend="italic">@property</hi>, and 
+                        <hi rend="italic">@resource</hi>, e.g., in the “Diachronic Spanish Sonnet Corpus” (Ruiz Fabo et al., 2018)
+                    </item>
+                </list>
+                <p style="text-align:left; ">We analyze these approaches along two main dimensions: TEI P5 compliance and LOD expressivity and discuss implications and advantages of the respective limitations for prospective use cases, with main results as given in the following table:</p>
+                <figure>
+                    <graphic n="1001" width="16.002cm" height="5.625405555555556cm" url="Pictures/f8de72ac8cd38b4d89b765fe5c96fec6.png" rend="inline"/>
+                </figure>
+                <p style="text-align:left; ">Strategy 1 allows to refer to LOD resources, it does not support typed links.</p>
+                <p style="text-align:left; ">Strategy 2 allows to refer to LOD resources with typed links (i.e., to emulate RDF triples), but is not compliant with LOD standards or technologies.</p>
+                <p style="text-align:left; ">Strategy 3 allows to publish LOD data directly as TEI, and to provide an LOD view on TEI data within a single data source.</p>
+                <p style="text-align:left; ">In the following table we present different strategies to encode triples in the TEI:</p>
+                <figure>
+                    <graphic n="1002" width="16.002cm" height="3.063875cm" url="Pictures/3398a3fd83612d93a53a12fa2fcc6585.png" rend="inline"/>
+                </figure>
+                <p style="text-align:left; ">In our presentation, we discuss the impact of the different modelling choices in terms of their support by existing infrastructures, off-the-shelf databases and APIs.</p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Acknowledgements</head>
+                <p style="text-align:left; ">We would like to thank the anonymous reviewers for valuable insights and feedback. This abstract is a result of discussions that have been on-going in the TEI community for about a decade already, and to which the first author contributed since 2013. We would like to thank the members of the TEI discussion list (TEI-L@listserv.brown.edu) for their input and feedback to our earlier inquiries about the topic. The research presented in this paper was primarily conducted in the context of the independent research group “Linked Open Dictionaries (LiODi)”, funded 2015-2020 from the eHumanities programme of the German Federal Ministry of Education and Science (BMBF).</p>
+            </div>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold">Burnard, L.</hi> (1988). Report of workshop on Text Encoding Guidelines, Literary and Linguistic Computing 3(2), 131.
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold">Ciotti, F., Silvio P., Francesca T. and Fabio V.</hi> (2016). An OWL 2 formal ontology for the Text Encoding Initiative. 
+                        <hi rend="italic">Digital Humanities 2016</hi>, Kraków, Poland, 2016.
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold">Diehr, F., Brodhun, M., Gronemeyer, S., Diederichs, K., Prager, C., Wagner, E. and Grube, N.</hi> (2018). Ein digitaler Zeichenkatalog als Organisationssystem für die noch nicht entzifferte Schrift der Klassischen Maya. 
+                        <hi rend="italic">Proceedings of Wissensorganisation 2017: 15. Tagung der Deutschen Sektion der Internationalen Gesellschaft für Wissensorganisation (ISKO) (WissOrg17)</hi>. Berlin, Germany, November 2018.
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold">Eide, O., Felicetti, A., Ore, C., D’Andrea, A. and Holmen, J.</hi> (2008). Encoding cultural heritage information for the Semantic Web. Procedures for data integration through CIDOC-CRM mapping. In Arnold, D., Niccolucci, F., Pletinckx, D., Van Gool, L. (eds.) 
+                        <hi rend="italic">Proceedings of the EPOCH Conference on Open Digital Cultural Heritage Systems</hi> (EPOCH/3D-COFORM Publication, Congresso Rospigliosi, Rome, 2008), pp. 47–53
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold">Ide, N.M. and Sperberg-McQueen, C.M.</hi> (1995). The TEI: History, goals, and future. In 
+                        <hi rend="italic">Text Encoding Initiative: Background and Context</hi>. Ide N., Véronis, J. (eds.) (Springer Netherlands, Dordrecht, 1995), pp. 5–15.
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold">Ruiz Fabo, P., Bermúdez Sabel, H., Martínez Cantón, C., González-Blanco, E. and Navarro Colorado, B.</hi> (2018), The Diachronic Spanish Sonnet Corpus (DISCO): TEI and Linked Open Data encoding, data distribution and metrical findings. 
+                        <hi rend="italic">Digital Humanities 2018</hi>. Puentes-Bridges. Mexico City, Mexico, June 2018.
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold">Sanderson, R., Ciccarese, P. and Young, B.</hi> (2017). Web Annotation Data Model. W3C Recommendation 23 February 2017. 
+                        <ref target="https://www.w3.org/TR/annotation-model/">https://www.w3.org/TR/annotation-model/</ref>
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold">Tittel S., Bermúdez-Sabel, H. and Chiarcos C.</hi> (2018). Using RDFa to Link Text and Dictionary Data for Medieval French. 
+                        <hi rend="italic">Proceedings of the 6th Workshop on Linked Data in Linguistics (LDL-2016): Towards Linguistic Data Science</hi>. Miyazaki, Japan, May 2018.
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold">Tupman, C.</hi> (2013). TEI for Gnomologia, version of 2013-07-17. 
+                        <ref target="http://www.ancientwisdoms.ac.uk/method/guidelines/">http://www.ancientwisdoms.ac.uk/method/guidelines/</ref>
+                    </bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

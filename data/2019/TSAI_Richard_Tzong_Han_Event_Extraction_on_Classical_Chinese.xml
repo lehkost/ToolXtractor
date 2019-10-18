@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>Event Extraction on Classical Chinese Historical Texts: A Case Study of Extracting Tributary Events from the Ming Shilu</title>
+                <author>
+                    <persName>
+                        <surname>Tsai</surname>
+                        <forename>Richard Tzong-Han</forename>
+                    </persName>
+                    <affiliation>Department of Computer Science and Information Engineering, National Central University; Research Center for Humanities and Social Sciences, Academia Sinica</affiliation>
+                    <email>thtsai@csie.ncu.edu.tw</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Lu</surname>
+                        <forename>Yi-Hsuan</forename>
+                    </persName>
+                    <affiliation>Department of Computer Science and Information Engineering, National Taiwan University</affiliation>
+                    <email>r02944029@csie.ntu.edu.tw</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Wang</surname>
+                        <forename>Yu-Chun</forename>
+                    </persName>
+                    <affiliation>Dharma Drum Institute of Liberal Arts, Taiwan</affiliation>
+                    <email>ycwang@dila.edu.tw</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Fan</surname>
+                        <forename>I-Chun</forename>
+                    </persName>
+                    <affiliation>Institute of History and Philology, Academia Sinica</affiliation>
+                    <email>fic@mail.ihp.sinica.edu.tw</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2019-04-17T08:57:00Z</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Name, Institution</publisher>
+                <address>
+                    <addrLine>Street</addrLine>
+                    <addrLine>City</addrLine>
+                    <addrLine>Country</addrLine>
+                    <addrLine>Name</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from a Word document</p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.22">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Long Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>Event Extraction</term>
+                    <term>Classical Chinese Historical Texts</term>
+                    <term>Tributary Events</term>
+                    <term>Ming Shilu</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>corpus and text analysis</term>
+                    <term>history and historiography</term>
+                    <term>natural language processing</term>
+                    <term>data mining / text mining</term>
+                    <term>English</term>
+                    <term>digital humanities (history</term>
+                    <term>theory and methodology)</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <div type="div1" rend="DH-Heading1">
+                <head>Introduction</head>
+                <p style="text-align:left; ">Events are important historical research targets. Major events are composed of a series of smaller atomic events that involves several people and their interactions at a specific time and location. For investigating Chinese historical events, imperial historical records are one of the most reliable sources. There are two main challenges of studying imperial historical records. The first is that the records are usually quite lengthy. To systematically trace the evolution of an event or a subject such as “Qing conquest of the Ming,” historians need to mark up all mentions in relevant paragraphs in the 
+                    <hi rend="italic">Ming Shilu</hi>,
+                    <note place="foot" xml:id="ftn1" n="1">
+                        <p rend="footnote text"> The Ming Shilu (traditional Chinese: 明實錄; simplified Chinese: 明实录; literally: "Veritable Records of the Ming") contains the imperial annals of the Ming emperors (1368–1644).</p>
+                    </note> which is a tedious, time-consuming job. The second obstacle is that there is no publicly available text-mining tool that can extract person, location, time, and event mentions from Ming dynasty historical records. The aim of this work is to begin development of text-mining tools that tackle these two challenges.
+                </p>
+                <p style="text-align:left; ">One common way to represent an atomic event is as an event frame containing an event trigger and several event arguments. An event trigger, or “predicate”, is a key action that evokes the event. An event argument is a word/phrase in the sentence related to the predicate. Event frames are therefore called predicate-argument structures (PAS) in computational linguistics. Event arguments are distinguished from one another by their relations to the event trigger. Such relations are referred to as semantic roles, including main arguments such as 
+                    <hi rend="italic">agent</hi> and 
+                    <hi rend="italic">patient</hi>, as well as adjunct arguments, such as 
+                    <hi rend="italic">time</hi>, 
+                    <hi rend="italic">manner</hi>, and 
+                    <hi rend="italic">location</hi>. Every predicate has its own frameset, that is, the set of sematic roles. The sentence “大寶法王 差 喃哈鎖南” can be represented by a PAS in which 差 (dispatch) is the predicate, 大寶法王(Karmapa) is the sender, and 喃哈鎖南(Nanhasuonan) is the person sent. 
+                </p>
+                <p style="text-align:left; ">The task of marking up atomic events in texts can be treated as a PAS recognition problem. PAS recognition comprises two steps: (1) locating the event trigger; (2) recognizing arguments and labeling them with semantic roles. Since the second step is the key, PAS recognition is referred to as semantic role labeling (SRL).</p>
+                <p style="text-align:left; ">In this paper, we aim to identify tributary events in the 
+                    <hi rend="italic">Ming Shilu</hi> automatically by using SRL techniques. We first compile a set of tributary verbs and define framesets for each verb. Then, we formulate SRL as a sequence labeling task and employ the state-of-the-art algorithm, conditional random fields (CRF) 
+                    <?biblio ADDIN EN.CITE <EndNote><Cite><Author>Lafferty</Author><RecNum>25</RecNum><DisplayText>(Lafferty)</DisplayText><record><rec-number>25</rec-number><foreign-keys><key app="EN" db-id="5d2trzte1s5sxdetzd2v2e02tsvrtp9stv9w" timestamp="1511840845">25</key></foreign-keys><ref-type name="Conference Proceedings">10</ref-type><contributors><authors><author>John D. Lafferty</author></authors></contributors><titles><title>Conditional Random Fields: Probabilistic Models for Segmenting and Labeling Sequence Data</title><secondary-title>ICML01</secondary-title></titles><dates></dates><urls></urls></record></Cite></EndNote>?>(Lafferty), to tackle this task. This work represents the first machine-learning-based attempt to extract atomic historical events from Classical Chinese as well as the first effort to solve this problem using SRL.
+                </p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Predicate Selection and Frameset Construction</head>
+                <p style="text-align:left; ">Selecting predicates and defining their framesets are the prerequisites of SRL. To reduce human effort, we first employ the clustering-based classification method 
+                    <?biblio ADDIN EN.CITE <EndNote><Cite><Author>Tsai</Author><RecNum>22</RecNum><DisplayText>(Tsai)</DisplayText><record><rec-number>22</rec-number><foreign-keys><key app="EN" db-id="5d2trzte1s5sxdetzd2v2e02tsvrtp9stv9w" timestamp="1511533391">22</key></foreign-keys><ref-type name="Conference Proceedings">10</ref-type><contributors><authors><author>Richard Tsai</author></authors></contributors><titles><title>WeisoEvent: A Ming-Weiso Event Analytics Tool with Named Entity Markup and Spatial-Temporal Information Linking</title><secondary-title>DH2017</secondary-title></titles><dates></dates><urls></urls></record></Cite></EndNote>?>(Tsai) to identify paragraphs related to tributary events. Next, to facilitate the selection of predicates and their corresponding framesets, we label these paragraphs with NEs. We select 12 tributary verbs as predicate candidates. Manually defining the frameset for a verb requires linguistic expertise and is time consuming. We base our framesets on those in PropBank,
+                    <note place="foot" xml:id="ftn2" n="2">
+                        <p rend="footnote text"> http://verbs.colorado.edu/chinese/cpb/</p>
+                    </note> the most widely used frameset database, revising them according to verbs’ appearance in the 
+                    <hi rend="italic">Ming Shilu</hi>. For each verb 
+                    <hi rend="italic">v</hi>, we revise its PropBank frameset by checking on average 100 tributary paragraphs containing 
+                    <hi rend="italic">v</hi> and NEs. 
+                </p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Semantic Role Labeling </head>
+                <p style="text-align:left; ">After compiling the frameset database for tributary verbs, we perform SRL for such verbs. First, we search all tributary paragraphs for these verbs to locate event triggers. Our SRL system then recognizes arguments with semantic roles from such paragraphs. The SRL task here is formulated as a sequence labeling problem in which the system should output the most probable sequence of labels when given a sequence of tokens (each Han character is regarded as a token). Although deep learning methods such as 
+                    <?biblio ADDIN EN.CITE <EndNote><Cite><Author>Qian</Author><Year>2017</Year><RecNum>283</RecNum><DisplayText>(Qian et al., 2017)</DisplayText><record><rec-number>283</rec-number><foreign-keys><key app="EN" db-id="ses2d9xdmf5resertsn509tsdae209re5rfs" timestamp="1543374162">283</key></foreign-keys><ref-type name="Conference Proceedings">10</ref-type><contributors><authors><author>Qian, Feng</author><author>Sha, Lei</author><author>Chang, Baobao</author><author>Liu, LuChen</author><author>Zhang, Ming</author></authors></contributors><titles><title>Syntax Aware LSTM model for Semantic Role Labeling</title><tertiary-title>Proceedings of the 2nd Workshop on Structured Prediction for Natural Language Processing</tertiary-title></titles><pages>27-32</pages><dates><year>2017</year></dates><publisher>Association for Computational Linguistics</publisher><label>W17-4305</label><urls><related-urls><url>http://aclweb.org/anthology/W17-4305</url><url>http://dx.doi.org/10.18653/v1/W17-4305</url></related-urls></urls><electronic-resource-num>10.18653/v1/W17-4305</electronic-resource-num></record></Cite></EndNote>?>(Qian et al., 2017) have demonstrated their effectiveness in the SRL task for modern Chinese, they are still impractical for classical Chinese because there are no word and sentence segmentation tools available for the Ming-Shilu. Without segmented sentences, we cannot train a word embedding model, making deep-SRL impossible. Therefore, we employ the CRF model, which achieves the competitive performance in the SRL task for modern Chinese 
+                    <?biblio ADDIN EN.CITE <EndNote><Cite><Author>Tan</Author><Year>2009</Year><RecNum>282</RecNum><DisplayText>(Tan et al., 2009)</DisplayText><record><rec-number>282</rec-number><foreign-keys><key app="EN" db-id="ses2d9xdmf5resertsn509tsdae209re5rfs" timestamp="1543373963">282</key></foreign-keys><ref-type name="Conference Proceedings">10</ref-type><contributors><authors><author>Y. Tan</author><author>X. Wang</author><author>Y. Chen</author></authors></contributors><titles><title>Chinese semantic role labeling using CRFs and SVMs</title><secondary-title>2009 International Conference on Natural Language Processing and Knowledge Engineering</secondary-title><alt-title>2009 International Conference on Natural Language Processing and Knowledge Engineering</alt-title></titles><pages>1-5</pages><keywords><keyword>computational linguistics</keyword><keyword>information retrieval</keyword><keyword>support vector machines</keyword><keyword>Chinese semantic role labeling</keyword><keyword>CRF</keyword><keyword>SVM</keyword><keyword>document retrieval</keyword><keyword>machine translation</keyword><keyword>question answering</keyword><keyword>information extraction</keyword><keyword>Labeling</keyword><keyword>Natural languages</keyword><keyword>Data mining</keyword><keyword>Gold</keyword><keyword>Performance evaluation</keyword><keyword>Text recognition</keyword><keyword>Teeth</keyword><keyword>Tracking</keyword><keyword>Semantic Role Labeling</keyword><keyword>Conditional Random Fields</keyword></keywords><dates><year>2009</year><pub-dates><date>24-27 Sept. 2009</date></pub-dates></dates><urls></urls><electronic-resource-num>10.1109/NLPKE.2009.5313827</electronic-resource-num></record></Cite></EndNote>?>(Tan et al., 2009) and does not require segmentation information
+                </p>
+                <p style="text-align:left; ">We use the relative position in a chunk and that in an NE as features because these types of information are very informative for predicting semantic role tags. For this step, we use Tsai et al.’s NER system 
+                    <?biblio ADDIN EN.CITE <EndNote><Cite><Author>Tsai</Author><RecNum>22</RecNum><DisplayText>(Tsai)</DisplayText><record><rec-number>22</rec-number><foreign-keys><key app="EN" db-id="5d2trzte1s5sxdetzd2v2e02tsvrtp9stv9w" timestamp="1511533391">22</key></foreign-keys><ref-type name="Conference Proceedings">10</ref-type><contributors><authors><author>Richard Tsai</author></authors></contributors><titles><title>WeisoEvent: A Ming-Weiso Event Analytics Tool with Named Entity Markup and Spatial-Temporal Information Linking</title><secondary-title>DH2017</secondary-title></titles><dates></dates><urls></urls></record></Cite></EndNote>?>(Tsai). Since there is no chunking tool or annotated corpora for classical Chinese, we design a chunking algorithm that requires no training data:
+                </p>
+                <list type="ordered">
+                    <item>NER is used to mark NEs in all paragraphs. NEs and strings between NEs are treated as chunks. All chunks with their counts are recorded in a list 
+                        <hi rend="italic">l</hi>. 
+                    </item>
+                    <item>For each chunk 
+                        <hi rend="italic">c</hi>
+                        <hi rend="italic subscript">i</hi> and its superstring with the same prefix or suffix 
+                        <hi rend="italic">c</hi>
+                        <hi rend="italic subscript">j</hi>, if 
+                        <hi rend="italic">c</hi>
+                        <hi rend="italic subscript">i</hi>’s count is larger than 
+                        <hi rend="italic">c</hi>
+                        <hi rend="italic subscript">j</hi>’s over a threshold 
+                        <hi rend="italic">N</hi>, 
+                        <hi rend="italic">c</hi>
+                        <hi rend="italic subscript">i</hi>’s count is increased by 1 and 
+                        <hi rend="italic">c</hi>
+                        <hi rend="italic subscript">i</hi> is cut off from 
+                        <hi rend="italic">c</hi>
+                        <hi rend="italic subscript">j</hi>.
+                    </item>
+                    <item>Step 2 is repeated until there is no new chunk generated.</item>
+                    <item>For each paragraph, all strings between NEs are segmented by the maximum matching algorithm with the final 
+                        <hi rend="italic">l</hi> as the reference dictionary.
+                    </item>
+                </list>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Experiments</head>
+                <p style="text-align:left; ">We select 500 paragraphs from the 2,874 paragraphs containing tributary events in the
+                    <hi rend="italic" xml:space="preserve"> Ming Shilu</hi> for our experimental dataset. 12 verbs are selected as event triggers. All paragraphs are labeled with PAS’s by two experts (inner annotator agreement 
+                    <?biblio ADDIN EN.CITE <EndNote><Cite><Author>Cohen</Author><Year>1960</Year><RecNum>26</RecNum><DisplayText>(Cohen, 1960)</DisplayText><record><rec-number>26</rec-number><foreign-keys><key app="EN" db-id="5d2trzte1s5sxdetzd2v2e02tsvrtp9stv9w" timestamp="1517717004">26</key></foreign-keys><ref-type name="Journal Article">17</ref-type><contributors><authors><author>Cohen, Jacob</author></authors></contributors><titles><title>A Coefficient of Agreement for Nominal Scales</title><secondary-title>Educational and Psychological Measurement</secondary-title></titles><periodical><full-title>Educational and Psychological Measurement</full-title></periodical><pages>37</pages><volume>20</volume><number>1</number><keywords><keyword>evaluation inter-annotator-agreement</keyword></keywords><dates><year>1960</year></dates><urls><related-urls><url>http://epm.sagepub.com/cgi/reprint/20/1/37</url></related-urls></urls><custom1>cohen1960</custom1></record></Cite></EndNote>?>(Cohen, 1960) 
+                    <formula>
+                        <mml:math xmlns:mml="http://www.w3.org/1998/Math/MathML">
+                            <mi mathvariant="normal" xmlns="http://www.w3.org/1998/Math/MathML">κ</mi>
+                        </mml:math>
+                    </formula>=.89). All experiments are conducted using 10-fold cross validation.
+                    <note place="foot" xml:id="ftn3" n="3">
+                        <p rend="footnote text"> The data set is divided into 10 subsets, and the holdout method is repeated 10 times. Each time, one of the 10 subsets is used as the test set and the other 9 subsets are put together to form a training set. Then the average error across all 10 trials is computed.</p>
+                    </note> The parameters are set to the default of CRF++.
+                </p>
+                <p style="text-align:left; ">Table 1 shows the argument-recognition performance, which achieves an F1-measure of 82.90%. Table 2 shows the PAS-recognition performance. Our system achieves an F1-measure of 48.45%. Although the argument-recognition performance is satisfactory, correctly identifying every argument in a given PAS is very challenging. Therefore, PAS-recognition performance is somewhat less than ideal, though it is still comparable to the performance of other systems on modern Chinese 
+                    <?biblio ADDIN EN.CITE <EndNote><Cite><Author>Xue</Author><Year>2008</Year><RecNum>23</RecNum><DisplayText>(Xue, 2008)</DisplayText><record><rec-number>23</rec-number><foreign-keys><key app="EN" db-id="5d2trzte1s5sxdetzd2v2e02tsvrtp9stv9w" timestamp="1511534541">23</key></foreign-keys><ref-type name="Journal Article">17</ref-type><contributors><authors><author>Nianwen Xue</author></authors></contributors><titles><title>Labeling Chinese Predicates with Semantic Roles</title><secondary-title>Computational Linguistics</secondary-title></titles><periodical><full-title>Computational Linguistics</full-title></periodical><pages>225-255</pages><volume>34</volume><number>2</number><dates><year>2008</year></dates><urls><related-urls><url>http://www.mitpressjournals.org/doi/abs/10.1162/coli.2008.34.2.225</url></related-urls></urls><electronic-resource-num>10.1162/coli.2008.34.2.225</electronic-resource-num></record></Cite></EndNote>?>(Xue, 2008).
+                </p>
+                <p style="text-align:left; text-align:center;">Table 1: Argument-recognition Performance</p>
+                <table rend="rules">
+                    <row>
+                        <cell rend="DH-Default">Precision</cell>
+                        <cell rend="DH-Default">Recall</cell>
+                        <cell rend="DH-Default">F1-measure</cell>
+                    </row>
+                    <row>
+                        <cell rend="DH-Default">81.08%</cell>
+                        <cell rend="DH-Default">84.79%</cell>
+                        <cell rend="DH-Default">82.90%</cell>
+                    </row>
+                </table>
+                <p style="text-align:left; text-align:center;">Table 2: PAS- recognition Performance</p>
+                <table rend="rules">
+                    <row>
+                        <cell rend="DH-Default">Precision</cell>
+                        <cell rend="DH-Default">Recall</cell>
+                        <cell rend="DH-Default">F1-measure</cell>
+                    </row>
+                    <row>
+                        <cell rend="DH-Default">48.45%</cell>
+                        <cell rend="DH-Default">48.45%</cell>
+                        <cell rend="DH-Default">48.45%</cell>
+                    </row>
+                </table>
+                <div type="div2" rend="DH-Heading2">
+                    <head>Analysis and Application</head>
+                    <p style="text-align:left; ">In this section, we present a detailed breakdown of PAS recognition results for the major predicates to show the practical performance of our system to historians. In the “Analysis—Extracted Tributes and Rewards Items” subsection, we categorize the most common tributary/rewarding items extracted by our system. In the “Analysis—Extracted Envoys” subsection, we show some top-frequent envoys extracted by our system. At last, we briefly illustrate the application of our system to historical studies.</p>
+                    <p style="text-align:left; text-align:center;">Table 3: Tribute Categories</p>
+                    <table rend="rules">
+                        <row>
+                            <cell rend="DH-Default">Category</cell>
+                            <cell rend="DH-Default">Frequency</cell>
+                            <cell rend="DH-Default">Examples</cell>
+                        </row>
+                        <row>
+                            <cell rend="DH-Default">Animals(Slaves </cell>
+                            <cell rend="DH-Default">724</cell>
+                            <cell rend="DH-Default">駝(camel), 羊(sheep) ,馬(horse) ,象(elephant) ,人(human)</cell>
+                        </row>
+                        <row>
+                            <cell rend="DH-Default">Local Products</cell>
+                            <cell rend="DH-Default">178</cell>
+                            <cell rend="DH-Default">方物(local products)</cell>
+                        </row>
+                        <row>
+                            <cell rend="DH-Default">Luxury Goods</cell>
+                            <cell rend="DH-Default">58</cell>
+                            <cell rend="DH-Default">金(gold) ,珊瑚(coral) ,文綺(silk) ,玉石(jade)</cell>
+                        </row>
+                        <row>
+                            <cell rend="DH-Default">Buddhist Items</cell>
+                            <cell rend="DH-Default">40</cell>
+                            <cell rend="DH-Default">香(incense) ,香爐(censer) ,佛像(Buddha statue) ,舍利(sarira)</cell>
+                        </row>
+                        <row>
+                            <cell rend="DH-Default">Weapons</cell>
+                            <cell rend="DH-Default">29</cell>
+                            <cell rend="DH-Default">盔(helmet) ,甲冑(armor) ,劍(sword) ,刀(knife)</cell>
+                        </row>
+                    </table>
+                    <p style="text-align:left; ">For rewards, the extracted 401 terms can be divided into 7 categories, shown in Table 4.</p>
+                    <p style="text-align:left; text-align:center;">Table 4: Reward Categories</p>
+                    <table rend="rules">
+                        <row>
+                            <cell rend="DH-Default">Category</cell>
+                            <cell rend="DH-Default">Frequency</cell>
+                            <cell rend="DH-Default">Examples</cell>
+                        </row>
+                        <row>
+                            <cell rend="DH-Default">Money</cell>
+                            <cell rend="DH-Default">667</cell>
+                            <cell rend="DH-Default">銀兩(silver currency) ,鈔(banknote)</cell>
+                        </row>
+                        <row>
+                            <cell rend="DH-Default">Cloth</cell>
+                            <cell rend="DH-Default">580</cell>
+                            <cell rend="DH-Default">布(cloth) ,紗(yarn) ,素叚(white satin) ,綵緞(colorful satin)</cell>
+                        </row>
+                        <row>
+                            <cell rend="DH-Default">Banquets</cell>
+                            <cell rend="DH-Default">479</cell>
+                            <cell rend="DH-Default">宴(banquet)</cell>
+                        </row>
+                        <row>
+                            <cell rend="DH-Default">Clothing</cell>
+                            <cell rend="DH-Default">318</cell>
+                            <cell rend="DH-Default">衣服(clothes) ,蟒衣(embroidered robe)</cell>
+                        </row>
+                        <row>
+                            <cell rend="DH-Default">Buddhist Items</cell>
+                            <cell rend="DH-Default">53</cell>
+                            <cell rend="DH-Default">佛像(Buddha statue) ,袈裟(kasaya)</cell>
+                        </row>
+                        <row>
+                            <cell rend="DH-Default">Imperial Ceremonial
+                                <lb/>Objects
+                            </cell>
+                            <cell rend="DH-Default">41</cell>
+                            <cell rend="DH-Default">冠帶(coronary band) ,誥印(imperial stamp) ,誥命(imperial mandate)</cell>
+                        </row>
+                        <row>
+                            <cell rend="DH-Default">Animals</cell>
+                            <cell rend="DH-Default">24</cell>
+                            <cell rend="DH-Default">馬(horse) ,駝(camel) ,羊(sheep) ,牛(oxen)</cell>
+                        </row>
+                    </table>
+                </div>
+                <div type="div2" rend="DH-Heading2">
+                    <head>Analysis—Extracted Tributes and Rewards Items</head>
+                    <p style="text-align:left; ">We have analyzed the atomic events whose predicates are related to tributes, such as “朝貢/chao gong、貢/gong、進/jin、獻/xian,” and rewards, such as “賜/ci、賞/shang、給賞/gei shang”. For tributes, the extracted 175 items are classified into five categories, shown in Table 3.</p>
+                    <p style="text-align:left; ">According to Tables 3 and 4, we can see that the tributes are quite different from the rewards. Animals and slaves are the most popular form of tribute, while money is the most common reward. The tributes and rewards reflect the diplomatic and trade relationships between Ming and its tribute states. Interestingly, we found that rewards sometimes included oxen, which was unexpected for tribute states that did not extensively practice agriculture. For example, we examined the paragraphs containing the reward oxen and found that the reward target was泰寧衛/Tai-Ning-Wei, a Ming-allied Mongolian tribe that lived a nomadic lifestyle. This reward of oxen is evidence suggesting that Tai-Ning-Wei may have practiced agriculture due to Ming influence 
+                        <?biblio ADDIN EN.CITE <EndNote><Cite><Author>Yingtai</Author><RecNum>24</RecNum><DisplayText>(Yingtai)</DisplayText><record><rec-number>24</rec-number><foreign-keys><key app="EN" db-id="5d2trzte1s5sxdetzd2v2e02tsvrtp9stv9w" timestamp="1511799110">24</key></foreign-keys><ref-type name="Book Section">5</ref-type><contributors><authors><author>Gu Yingtai</author></authors></contributors><titles><title>Mingshijishi benmo (The Major Events of Ming History)</title></titles><volume>20</volume><dates></dates><urls></urls></record></Cite><Cite><Author>Yingtai</Author><RecNum>24</RecNum><record><rec-number>24</rec-number><foreign-keys><key app="EN" db-id="5d2trzte1s5sxdetzd2v2e02tsvrtp9stv9w" timestamp="1511799110">24</key></foreign-keys><ref-type name="Book Section">5</ref-type><contributors><authors><author>Gu Yingtai</author></authors></contributors><titles><title>Mingshijishi benmo (The Major Events of Ming History)</title></titles><volume>20</volume><dates></dates><urls></urls></record></Cite></EndNote>?>(Yingtai).
+                    </p>
+                </div>
+                <div type="div2" rend="DH-Heading2">
+                    <head>Analysis—Extracted Envoys</head>
+                    <p style="text-align:left; ">There are 4,002 tributary events which contain 3,064 envoys. 塔卜歹/Tabudai, a Tai-Ning-Wei chief, visited Ming officials 33 times between 1500 and 1555. The secondly most frequent envoy is升合兒/Shengheer, another Tai-Ning-Wei chief. He paid tribute to the Ming authorities 25 times between 1537 and 1611. This shows that Shengheer lived more than 74 years, and may suggest that he was actually several different men.</p>
+                    <p style="text-align:left; ">In addition, we can also observe chiefs who sent envoys to the Ming in extracted tributary events. There are 488 events in which envoys were sent and 313 distinct senders. The leader who sent envoys the most is孛來罕/Bolaihan, the governor of朵顏三衛/Duo-Yan-Three-Wei. He sent envoys 20 times to the Ming between 1502 and 1537, such as塔卜歹/Tabuda (8 times), 納哈出/Nahachu (3 times), 納挨/Naa (3 times).</p>
+                </div>
+                <div type="div2" rend="DH-Heading2">
+                    <head>Application</head>
+                    <p style="text-align:left; ">With a well-developed SRL tool, historians can quickly identify historical events and terms labeled with roles in events from Classical Chinese literature. The extracted PAS information can be further used to support large-scale analysis of historical events, such as the distribution of events overall or for some person or some place.</p>
+                </div>
+            </div>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl rend="EndNote Bibliography">
+                        <hi rend="bold">COHEN, J.</hi> 1960. A Coefficient of Agreement for Nominal Scales. 
+                        <hi rend="italic">Educational and Psychological Measurement,</hi> 20
+                        <hi rend="bold">,</hi> 37.
+                    </bibl>
+                    <bibl rend="EndNote Bibliography">
+                        <hi rend="bold">LAFFERTY, J. D.</hi> Conditional Random Fields: Probabilistic Models for Segmenting and Labeling Sequence Data. ICML01.
+                    </bibl>
+                    <bibl rend="EndNote Bibliography">
+                        <hi rend="bold">QIAN, F., SHA, L., CHANG, B., LIU, L. and ZHANG, M.</hi> Syntax Aware LSTM model for Semantic Role Labeling. 2017. Association for Computational Linguistics, 27-32.
+                    </bibl>
+                    <bibl rend="EndNote Bibliography">
+                        <hi rend="bold">TAN, Y., WANG, X. and CHEN, Y.</hi> Chinese semantic role labeling using CRFs and SVMs. 2009 International Conference on Natural Language Processing and Knowledge Engineering, 24-27 Sept. 2009 2009. 1-5.
+                    </bibl>
+                    <bibl rend="EndNote Bibliography">
+                        <hi rend="bold">TSAI, R.</hi> WeisoEvent: A Ming-Weiso Event Analytics Tool with Named Entity Markup and Spatial-Temporal Information Linking. DH2017.
+                    </bibl>
+                    <bibl rend="EndNote Bibliography">
+                        <hi rend="bold">XUE, N.</hi> 2008. Labeling Chinese Predicates with Semantic Roles. 
+                        <hi rend="italic">Computational Linguistics,</hi> 34
+                        <hi rend="bold">,</hi> 225-255.
+                    </bibl>
+                    <bibl rend="EndNote Bibliography">
+                        <hi rend="bold">YINGTAI, G.</hi> Mingshijishi benmo (The Major Events of Ming History).
+                        <?biblio ADDIN EN.REFLIST?>
+                    </bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

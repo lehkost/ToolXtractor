@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title type="full">
+                    <title type="main">MAuth - Mining Authoritativeness In Art History</title>
+                    <title type="sub"/>
+                </title>
+                <author>
+                    <persName>
+                        <surname>Daquino</surname>
+                        <forename>Marilena</forename>
+                    </persName>
+                    <affiliation>University of Bologna, Italy</affiliation>
+                    <email>marilena.daquino2@unibo.it</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Daga</surname>
+                        <forename>Enrico</forename>
+                    </persName>
+                    <affiliation>Knowledge Media Institute, Open University, UK</affiliation>
+                    <email>enrico.daga@open.ac.uk</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Tomasi</surname>
+                        <forename>Francesca</forename>
+                    </persName>
+                    <affiliation>University of Bologna, Italy</affiliation>
+                    <email>francesca.tomasi@unibo.it</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2019-04-26T10:16:55</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Name, Institution</publisher>
+                <address>
+                    <addrLine>Street</addrLine>
+                    <addrLine>City</addrLine>
+                    <addrLine>Country</addrLine>
+                    <addrLine>Name</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from an OASIS Open Document</p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.22">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Long Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>Information retrieval</term>
+                    <term>art history</term>
+                    <term>ontologies</term>
+                    <term>authoritativeness</term>
+                    <term>semantic crawling</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>authorship attribution / authority</term>
+                    <term>GLAM: galleries</term>
+                    <term>libraries</term>
+                    <term>archives</term>
+                    <term>museums</term>
+                    <term>semantic web and linked data</term>
+                    <term>data mining / text mining</term>
+                    <term>English</term>
+                    <term>library &amp; information science</term>
+                    <term>digital humanities (history</term>
+                    <term>theory and methodology)</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <div type="div1" rend="DH-Heading1">
+                <head>Introduction</head>
+                <p>Nowadays, historians gather art historical data from secondary sources, such as cataloguing records issued by cultural institutions and multipurpose sources. Online catalogues of art historical photo archives may include detailed information about authorship attributions. However, sources may provide contradictory information. For instance, according to the Zeri’s Foundation the artwork “Three Graces” is ascribed to Peruzzi Baldassarre. Several bibliographic references support the attribution. A discarded attribution to Bernardino Luini’s workshop is also recorded, supported by Christie’s auction firm (https://tinyurl.com/y9mkrh7r). The Berenson library records the same attribution supported by one bibliographic reference (http://id.lib.harvard.edu/via/olvwork634683/catalog). The Frick Art Reference Library records an anonymous artist and the attribution has not been updated since 1952 (http://arcade.nyarc.org/record=b1107496~S7).</p>
+                <p>
+                    <hi rend="italic">Connoisseurs</hi>, i.e. art historians that ascribe artworks to artists, require plenty of documentation for supporting their statements. However, collecting sources is time-consuming and not all of those are relevant. While photo archives often provide details on discarded attributions, museum and gallery catalogues generally do not, and the motivation supporting the accepted attribution is not always evident to final users, who have to compare several sources in order to assess the most authoritative attribution. Furthermore, publishing curated information is expensive for cultural institutions. Lastly, cataloguing records may be affected by information quality issues, such as being incomplete (e.g. Berenson library), not up-to-date (e.g. Frick Art Reference Library), or incorrect.
+                </p>
+                <p>In this paper we argue that we can rely on quantitative methods and Semantic Web technologies to support users and cataloguers’ tasks, such as (1) to retrieve relevant sources of attributions, (2) to compare sources on the basis of Information Quality metrics, and (3) to support users’ decision-making process by leveraging a documentary, evidence-based approach. The result is 
+                    <hi rend="italic">mAuth</hi>, a framework for harvesting art historical Linked Open Data and return the ranked list of authorship attributions related to artworks. mAuth supports scholars’ inquiries such as “
+                    <hi rend="italic">what is the most documented artwork attribution?</hi>”. The proposed methodology and tool make authorships’ argumentations first-class citizen in catalogues and facilitate metadata quality management.
+                </p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Related work</head>
+                <p>Aggregators of art historical data, such as Europeana (https://www.europeana.eu) and Pharos (http://pharosartresearch.org), support users in gathering resources. However, available data models (Doerr et al. 2010; Doerr 2003) do not take into account questionable and potentially contradictory information. In addition, aggregators do not support the assessment of reliability of sources. Despite several Information Quality measures exist (Knight and Burn 2005; Naumann and Rolker 2000) and can be applied to Linked Open Data as well (Zaveri et al. 2016), no bespoke studies on how to measure authoritativeness in the Arts field exist yet. So far, methods modelling and reasoning on arguments (Walton 2013) haven’t been considered as part of cataloguing processes. In fact, existing metadata quality assessment approaches mainly focus on functional aspects of cataloguing data (Park 2009), and no effective solutions for supporting the decision-making process in assessing reliability of statements are available.</p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Ontologies for the Arts domain</head>
+                <p>Existing vocabularies (Doerr et al. 2010; Doerr 2003; Peroni and Shotton 2018; Daquino et al. 2017) and thesauri (Baca and Gill 2015) for the Cultural heritage naturally cover a number of aspects that are peculiar of the Arts. Since most of the statements in the Arts domain are questionable, recording provenance of information is fundamental. The PROV Ontology (PROV-O) (Moreau and Groth 2013) expresses provenance in terms of agents (who produced the object) and derivation (e.g. reuse with modification). Nonetheless, supporting users in assessing reliability of questionable information in the Arts field is an open problem. Aspects such as adopted criteria, the date of the attribution, authority of primary sources and information providers may affect the validity of a statement. </p>
+                <p>To fill this gap, the HiCO Ontology (Daquino and Tomasi 2015) (prefix hico) was proposed as an extension of PROV-O to represent the aspects required to assess reliability of a statement. In the following picture is illustrated an overview of the HiCO ontology. The main class is the hico:InterpretationAct, which is linked to pieces of information required to validate a statement, e.g. the creation of an artwork performed by a certain artist.</p>
+                <p>
+                    <figure>
+                        <graphic url="Pictures/8ee4672eb5236298ec5d02048e5017eb.png"/>
+                        <head>Overview of the HiCO ontology</head>
+                    </figure>
+                </p>
+                <p>We developed an ontology-based ranking model and a proof-of-concept web application that leverages the HiCO Ontology for recommending the most authoritative authorship attributions. So doing, we aim at evaluating its expressivity in a real scenario.</p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>The ranking model of authorship attributions</head>
+                <p>We distinguish two types of authoritativeness. 
+                    <hi rend="italic">Textual authority</hi> (Farahat et al. 2007) refers to the extent to which information is useful, good, current, and accurate. Such features can be quantified and measured by means of a number of Information Quality (IQ) metrics. 
+                    <hi rend="italic">Cognitive authority</hi> (Rieh 2002; Wilson 1983) refers to the extent to which a source is deemed trustworthy. The latter aspect is strongly domain-dependent and can be addressed by using third-party opinions or citation indexes. In this study we rank attributions on the basis of textual authority, and we present citation indexes of scholars cited as primary sources to support users’ evaluation of their credibility.
+                </p>
+                <p>We performed a comparative study on three representative datasets, i.e. the dataset of the Federico Zeri photo archive (
+                    <ref target="http://data.fondazionezeri.unibo.it/">http://data.fondazionezeri.unibo.it</ref>), the Berenson Library collection called “homeless”, and the Frick Art Reference Library collection of Italian anonymous paintings. The aim is to identify and validate dimensions characterising art historical data providers’ hermeneutic approach and obtain a ranking model. The argumentation around attributions is a peculiarity of historical photo archives, that usually record motivations, documentation and annotations. When photo archives document art historians’ work they provide details on discarded attributions. Museum and gallery catalogues generally do not. Therefore, photo archives are the focus of our case study. In detail, our approach includes the following steps.
+                </p>
+                <list type="unordered">
+                    <item>Review of cataloguing standards for collecting requirements (Baca and Harpring 2009; Moro et al. 2017).</item>
+                    <item>Extraction of a controlled vocabulary of criteria supporting attributions from three datasets.</item>
+                    <item>Rating of criteria based on experts’ consultancy.</item>
+                    <item>Validation of the rating by means of a comparative data analysis over three datasets.</item>
+                    <item>Selection of IQ measures (and related metrics) taken from (Naumann and Rolker 2000) that may affect the rating of criteria, namely: reputation (list of trusted providers), completeness (data parsing), timeliness (data parsing), relevance (number of sources in agreement). </item>
+                    <item>Development of bespoke metrics that represent scholars’ impact in the community (the 
+                        <hi rend="italic">artist-related index</hi>) and with regard to a certain artist (the 
+                        <hi rend="italic">acceptance rating</hi>). Such indexes do not affect the final ranking model, instead they are provided as informative source for the end-user.
+                    </item>
+                </list>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Overview of mAuth framework</head>
+                <p>mAuth (
+                    <ptr target="http://purl.org/emmedi/mauth"/>) is a framework based on a semantic crawler that harvests authorship attributions in the Web of Data. The following picture shows an architecture overview.
+                </p>
+                <p>
+                    <figure>
+                        <graphic url="Pictures/6a9d0f3b51653789d586c6e579739240.jpg"/>
+                        <head>Overview of the mAuth framework</head>
+                    </figure>
+                </p>
+                <p>Since the web application is a proof-of-concept, harvested data sources currently include only the three aforementioned datasets, VIAF (
+                    <ptr target="http://data.linkeddatafragments.org/viaf"/>), Dbpedia (
+                    <ptr target="http://fragments.dbpedia.org/"/>), and Wikidata (
+                    <ref target="https://www.wikidata.org/">
+                        <hi rend="color(#1155cc)underline">https://www.wikidata.org</hi>
+                    </ref>). Data fetched are stored in a triplestore and statistics are produced to include citation indexes.
+                </p>
+                <p>The web application allows users to input the URL of an online record from the Zeri photo archive and retrieve the ranked list of attributions. Results include (i) motivations, (ii) dates of attributions, (iii) number of sources in agreement with the same artist, and, eventually, (iv) bibliographic references, (v) names of cited scholars, and (vi) citation indexes.</p>
+                <p>The ranking model and the HiCO ontology were evaluated by means of a user study (
+                    <ptr target="https://goo.gl/forms/xDLwvCCaEFWm4D5h2"/>). Twenty domain experts performed searches by means of mAuth and similar services. We recorded their user satisfaction by using a Likert scale. In detail, they were asked to agree/disagree with the sorting of attributions, and to state whether the highest ranked attribution was deemed correct in three scenarios. Results show that the tool was able to emulate domain experts’ behaviour two out of three times, ranking the most authoritative attribution on top of the list. In one case users were not able to judge the proposed ranking, namely when only contradictory attributions were provided and these were supported by scholars’ opinions only. The scenario shows that reliable citation indexes would be required when other evidences are not available to support the decision.
+                </p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Conclusion and future work</head>
+                <p>In this paper we presented an ontology for describing questionable information, a ranking model for addressing textual authority of art historical data, and web solutions for supporting historians and cataloguers’ decision-making process. We address features of authoritativeness that can be measured by means of an evidence-based approach, hence our approach is potentially applicable to similar information (e.g. provenance of artworks) and fields (e.g. philologists’ critical apparatus in scholarly editions). However, sources that can be deemed authoritative (e.g. museums) but do not provide motivations are penalised in the final ranking. Future works include the harvesting of such Linked Data providers, e.g. members of the PHAROS consortium, and the analysis of citation networks in the Arts and Humanities field to address other ways to assess cognitive authority.</p>
+            </div>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl>
+                        <hi rend="bold">Baca, M. and Gill, M.</hi> (2015). Encoding multilingual knowledge systems in the digital age: the getty vocabularies. 
+                        <hi rend="italic">Knowledge Organization</hi>, 42(4): 232-43.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Baca, M. and Harpring, P. </hi>(2009). Categories for the Description of Works of Art (CDWA). 
+                        <ptr target="https://www.getty.edu/research/publications/electronic_publications/cdwa/index.html"/> (accessed November, 19, 2018).
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Daquino, M., Mambelli, F., Peroni, S., Tomasi, F. and Vitali, F. </hi>(2017). Enhancing semantic expressivity in the cultural heritage domain: exposing the Zeri Photo Archive as Linked Open Data. 
+                        <hi rend="italic">Journal on Computing and Cultural Heritage (JOCCH)</hi>, 10(4): 21.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Daquino M. and Tomasi, F.</hi> (2015) Historical Context Ontology (HiCO): A Conceptual Model for Describing Context Information of Cultural Heritage Objects. In Garoufallou E., Hartley R. and Gaitanou P. (eds), 
+                        <hi rend="italic">Metadata and Semantics Research. MTSR 2015</hi>. Springer, Cham, pp. 424-36.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Doerr, M.</hi> (2003). The CIDOC conceptual reference module: an ontological approach to semantic interoperability of metadata. 
+                        <hi rend="italic">AI magazine</hi>, 24(3): 75-92.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Doerr, M., Gradmann, S., Hennicke, S., Isaac, A., Meghini, C. and Van de Sompel, H. </hi>(2010). The europeana data model (edm). In 
+                        <hi rend="italic">World Library and Information Congress: 76th IFLA general conference and assembly</hi>, pp. 10-15.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Farahat, A. O., Chen, F. R., Mathis, C. R. and Nunberg, G. D.</hi> (2007). Systems and methods for authoritativeness grading, estimation and sorting of documents in large heterogeneous document collections. U.S. Patent No. 7,188,117. Washington, DC: U.S. Patent and Trademark Office.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Knight, S. A. and Burn, J. </hi>(2005). Developing a framework for assessing information quality on the World Wide Web. 
+                        <hi rend="italic">Informing Science</hi>, 8: 159-72.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Moreau, L. and Groth P. </hi>(2013). Provenance: an introduction to prov. 
+                        <hi rend="italic">Synthesis Lectures on the Semantic Web: Theory and Technology</hi>, 3(4): 1-129.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Moro, L., Mancinelli, M. L. and Negri, A.</hi> (2017). Il ruolo dell’ICCD nella diffusione dei modelli descrittivi del patrimonio archeologico. In Serlorenzi M. and Jovine I. (eds), 
+                        <hi rend="italic">Pensare in rete, pensare la rete per la ricerca, la tutela e la valorizzazione del patrimonio archeologico. Atti del IV Convegno di Studi SITAR (Roma, 14 ottobre 2015)</hi>. Edizioni All'Insegna del Giglio, pp. 35-46.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Naumann, F. and Rolker, C.</hi> (2000). Assessment methods for information quality criteria.
+                        <lb/>
+                        <hi rend="italic">Proceedings of 5th International Conference on Information Quality</hi>, pp.148–62.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Park, J. R. </hi>(2009). Metadata quality in digital repositories: A survey of the current state of the art. 
+                        <hi rend="italic">Cataloging &amp; classification quarterly</hi>, 47(3-4): 213-28.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Peroni, S., and Shotton, D.</hi> (2018). The SPAR ontologies. In 
+                        <hi rend="italic">International Semantic Web Conference</hi>. Springer, Cham, pp. 119-36.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Rieh, S. Y.</hi> (2002). Judgment of information quality and cognitive authority in the Web. 
+                        <hi rend="italic">Journal of the American society for information science and technology</hi>, 53(2): 145-61.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Walton, D.</hi> (2013). 
+                        <hi rend="italic">Argumentation schemes for presumptive reasoning</hi>. Routledge.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Wilson, P. </hi>(1983). Second-hand knowledge: An inquiry into cognitive authority. Westport: Greenwood Press.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Zaveri, Amrapali, et al.</hi> (2016). Quality assessment for linked data: A survey. 
+                        <hi rend="italic">Semantic Web</hi>, 7(1): 63-93.
+                    </bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

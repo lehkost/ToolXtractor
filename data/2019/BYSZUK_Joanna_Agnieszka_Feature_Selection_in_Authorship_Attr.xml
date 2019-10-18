@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title type="full">
+                    <title type="main">Feature Selection in Authorship Attribution: Ordering the Wordlist</title>
+                    <title type="sub"/>
+                </title>
+                <author>
+                    <persName>
+                        <surname>Eder</surname>
+                        <forename>Maciej</forename>
+                    </persName>
+                    <affiliation>Institute of Polish Language (Polish Academy of Sciences), Poland</affiliation>
+                    <email>maciejeder@gmail.com</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Byszuk</surname>
+                        <forename>Joanna</forename>
+                    </persName>
+                    <affiliation>Institute of Polish Language (Polish Academy of Sciences), Poland</affiliation>
+                    <email>joanna.byszuk@ijp.pan.pl</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2019-04-16T12:10:09.742011985</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Name, Institution</publisher>
+                <address>
+                    <addrLine>Street</addrLine>
+                    <addrLine>City</addrLine>
+                    <addrLine>Country</addrLine>
+                    <addrLine>Name</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from an OASIS Open Document</p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.22">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Long Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>stylometry</term>
+                    <term>authorship attribution</term>
+                    <term>feature selection</term>
+                    <term>most frequent words</term>
+                    <term>TFIDF</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>literary studies</term>
+                    <term>stylistics and stylometry</term>
+                    <term>authorship attribution / authority</term>
+                    <term>linguistics</term>
+                    <term>data mining / text mining</term>
+                    <term>English</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <div type="div1" rend="DH-Heading1">
+                <head>Introduction</head>
+                <p>Feature selection in machine learning is one of the best covered topics in general statistics literature, and, next to classification algorithm, the most important factor to consider. To name but a few, the techniques of identifying the most efficient features include dimension reduction, shrinkage, or penalization (James et al., 2013). However, in stylometric investigations the selection of best performing style-markers is usually narrowed down to the choice between word frequencies, character n-grams, POS-tag n-grams (Hirst and Feguina, 2007; Stamatatos, 2009), etc., without devoting much attention to their statistical properties. </p>
+                <p>The purpose of this study is somewhat different: apart from identifying meaningful features – or such that facilitate telling apart analyzed classes – we would like to provide some deeper linguistic understanding of the most distinctive features, i.e. discover if words efficient in classification share any linguistic properties. </p>
+                <p>In stylometry, and particularly in authorship attribution, most frequent words (MFWs), or more specifically, their mean frequencies in the corpus, are traditionally claimed to exhibit strong discriminative power. In a vast majority of studies following a seminal study by Mosteller and Wallace (1964), the feature selection procedure starts with preparing a joint frequency list containing words ordered in a decreasing sequence of the number of their occurrences in the entire corpus, from the most to the least frequent. It has been shown that MFWs are mostly function (synsemantic) words, bearing meaning only in the company of other words, which makes it a very plausible theoretical justification for simply taking a considerable number of top words from a frequency list as potential features. Even if the impact of content (autosemantic) words is also considered important, and as claimed in a recent study (Lestrade, 2017) crucial for the Zipfian distribution of words in a dataset, these words are very sensitive to topic, theme, and other factors that might overshadow the authorial signal. </p>
+                <p>However, there is no simple answer to the question how many of MFWs should be taken into consideration. Consequently, there is no consensus between scholars when the choice of MFW vector is concerned, ranging from a very limited number of top words (Juola, 2008) to long vectors of 1,000 or so features (Hoover, 2004). Rybicki and Eder (2011) tested hundreds of combinations for both frequent and not-so-frequent words, and came to a conclusion that there is no universal number of features that would lead to satisfying results: this always depends on language and corpus, although a vector between 100 and 1000 MFWs usually reveals acceptable performance. Further studies (Evert et al., 2017) corroborate these findings using various measures of textual similarity.</p>
+                <p>There are several ways to balance the influence of a certain words in the corpora and lessen the impact of less important ones. Undoubtedly, the most popular is tf-idf (term frequency–inverse document frequency), commonly used in information retrieval systems. It assumes that a word which is attested in few documents, but is yet relatively frequent (e.g.
+                    <hi rend="italic">onto</hi>
+                    <hi rend="italic">, </hi>
+                    <hi rend="italic">upon</hi>
+                    <hi rend="italic">, </hi>
+                    <hi rend="italic">therefore</hi>), contributes much more to the general knowledge of the text than a popular word evenly distributed across the corpus (e.g. 
+                    <hi rend="italic">the, a, an</hi>). This method of weighting by definition culls the most frequent words, and boosts the weights of “keywords”, or unusual words. A possibly unwanted effect is that the “keywords” also include several proper nouns, names, and so on.
+                </p>
+                <p>A different approach assumes that the use of some words – no matter how frequent they actually are – does not differ significantly across the corpus, whereas some others are over- and underused. The 
+                    <hi rend="italic">variability</hi> of a given word in a text collection might then be a good indication of its discriminative power. However, since the standard deviation of a given sequence of numbers strongly depends on their actual values, this also holds for word frequencies. E.g., the standard deviation for the set x= {1, 2, 3, 4} is as high as 1.290994, the standard deviation of the set y= {10, 20, 30, 40} is ten times bigger, which, going back to the realm of word frequencies, would mean that the variability of the word
+                    <hi rend="italic"> the</hi> would be orders of magnitude higher than that of the infrequent words. This can be corrected with the coefficient of variation (CoV), which is the standard deviation of a set of values divided by its arithmetic mean. First attempts to tune the word list according to the CoV were carried out by Hoover (2014).
+                </p>
+                <p>In the following experiments, we explore the above three basic ways of ordering the features: (i) according to their mean frequency in the corpus, (ii) according to their mean TF-IDF score, and (iii) according to their CoV.</p>
+                <p>Machine learning is always burdened with the problem of over- or underfitting the model: using too few features usually makes it difficult to reveal the signal from the corpus, but relying on too many without any pruning might lead to overshadowing the signal with noise. Rather than looking for the optimal length of feature vector, we approach this problem with the intention of a rearrangement of features from the most to the least meaningful, which can help neutralize the issue of unimportant words landing (high) in the number of considered features. While it is possible to balance the impact of particular, not necessarily very important, features with a proper choice of distance measure and classification method, these solutions require advanced knowledge of the existing practices and the ability to critically assess the method and results. Applying a better method of feature selection, more resistant to words that carry importance only for singular works or authors, makes stylometry more accessible to beginners and provides more objectivity, reducing the opportunity and urge for “cherry-picking”.</p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>
+                    <anchor xml:id="id__ipf44gdtqft"/>Dataset
+                </head>
+                <p>We used 4 datasets: 100 Polish, 100 English, and 75 French novels for main analysis, and smaller set of 28 English for test purposes, as the computations were time-consuming. The datasets were retrieved from resources used as benchmark by Computational Stylistics Group and Evert et al. 2017 comparison of Delta measures. The texts in these corpora are balanced for the time period (turn of the 19th and 20th century), number of texts per author (3, with additional 1 book for Polish and English) and to some extent style and topic – all canon literary texts, dealing with social issues, with some influence of history. </p>
+                <table rend="frame" xml:id="Tabela1">
+                    <row>
+                        <cell/>
+                        <cell>TF</cell>
+                        <cell>z-scores</cell>
+                        <cell>TF-IDF</cell>
+                        <cell>z-scored TF-IDF</cell>
+                    </row>
+                    <row>
+                        <cell>mean TF (=MFWs)</cell>
+                        <cell>x</cell>
+                        <cell>x, discussed in detail</cell>
+                        <cell>x</cell>
+                        <cell>x</cell>
+                    </row>
+                    <row>
+                        <cell>TF-IDF</cell>
+                        <cell>x</cell>
+                        <cell>x, discussed in detail</cell>
+                        <cell>x</cell>
+                        <cell>x</cell>
+                    </row>
+                    <row>
+                        <cell>CoV</cell>
+                        <cell>x</cell>
+                        <cell>x, discussed in detail</cell>
+                        <cell>x</cell>
+                        <cell>x</cell>
+                    </row>
+                </table>
+                <p>Table 1: Considered scenarios, out of which z-score weighting discussed in this paper.</p>
+                <p>Although we tested all above-mentioned scenarios, due to limited amount of space in this abstract, we focus on the behavior of various order of features that are next transformed to z-scores, which proved most interesting in terms of the results. Other weights and their combinations with different arrangements of the features will be discussed in the full-length version of this paper.</p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>
+                    <anchor xml:id="id__crmp01dzp06"/>Experiment design
+                </head>
+                <p>In our approach, we performed a series of controlled tests of attribution, using the above-mentioned corpora of known authorship. Over multiple iterations we recorded the number of texts that were correctly attributed by our chosen supervised classifier. To neutralize an impact of any local idiosyncrasies in our corpora, we applied leave-one-out cross-validation scenario, which meant that every single text from a corpus was checked against a slightly altered training set.</p>
+                <p>As for chosen classification method, because of conceptual simplicity and intuitive interpretation of the results, we use 
+                    <hi rend="italic">k</hi>
+                    <hi rend="italic">-NN </hi>supervised lazy learner, with k= 1. In stylometric community, this classifier is well known under the name 
+                    <hi rend="italic">Delta</hi> (Burrows, 2002), and widely used. Since it is somewhat difficult to test multidimensional methods using one feature at a time, we apply a moving window approach, in which for every single feature to be tested, we perform a test in 10-dimensional space for the feature in question and its 9 subsequent features (i.e. a total of 10 words in the order as they appear after 
+                    <hi rend="color(#000000)">the</hi> weighting and ordering procedure). In other words, in each iteration we test the combination of w
+                    <hi rend="sub">i</hi> + w
+                    <hi rend="sub">i</hi>+1 + … + w
+                    <hi rend="sub">i+9</hi> features.
+                </p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>
+                    <anchor xml:id="id__p26mz15k7rz3"/>Results
+                </head>
+                <p>The evaluation of different rearrangements of the list of features starts with a classic MFW-centric approach, or ordering the features according to their mean term frequency (TF). The results turned out to be surprisingly unsurprising: mere word frequencies outperform other approaches (see Fig. 1).</p>
+                <div type="div2">
+                    <head>
+                        <anchor xml:id="id__mhpnk0ughins"/>
+                        <figure>
+                            <graphic url="Pictures/8155c55c579ad34314bd7c188b27c2e5.png"/>
+                        </figure>
+                    </head>
+                    <p>Fig. 1: Attribution scores for the words ordered based on MFWs (mean TF), weighted with z-scores. One circle represents one window of 10 subsequent features.</p>
+                    <p>TF-IDF reveals reasonable predictive power for the features ranked at the top of the list, as evidenced by the first few hundreds of words (Fig. 2). However, the obtained values are significantly lower than for the regular MFWs. Worth noticing is the fact that the end of the feature list spikes up: very frequent function words excluded from the TF-IDF company and clustered at the end of the list actually outperform all the other features in this picture, once again highlighting the relevance of very common and very frequent words for the attribution.</p>
+                    <p>
+                        <figure>
+                            <graphic url="Pictures/26a9450c57e399675a7f39bdd6c91a64.png"/>
+                        </figure>
+                    </p>
+                    <p>Fig. 2: Attribution scores for the words ordered based on mean TF-IDF, weighted with z-scores.</p>
+                    <p>Interesting and counter-intuitive are the results for the coefficient of variation (Fig. 3): the most successful attribution scores alike, or even higher, than those obtained for TF occur only for the features grouped at the end of the considered wordlist. Moreover, the significant features are distributed more densely than in the other case. Essentially, an inverse version of CoV, computed as 1 / CoV, will serve as an efficient feature harvester.</p>
+                    <p>
+                        <figure>
+                            <graphic url="Pictures/3d48205ad9d9abbaaf3f2779db2bdf3e.png"/>
+                        </figure>
+                    </p>
+                    <p>Fig. 3: Attribution scores for the words ordered based on coefficient of variation (CoV), weighed with z-scores.</p>
+                    <p>While general attributive success rates are higher for TF than for CoV, the tail of non-distinctive features is longer in the case of CoV than for the TF-weighted list, which suggests that the two methods can harvest meaningful features quite effectively, despite differences. This brings us to the question: What if we combine their potential to extract the right features? </p>
+                    <p>We propose to simply multiply TF and reverse CoV. Knowing that CoV is in fact the standard deviation of a given feature divided by its mean, we can denote the formula as follows:</p>
+                    <p>
+                        <hi rend="italic">ω</hi>
+                        <hi rend="sub italic">i</hi> = 
+                        <hi rend="italic">μ</hi>
+                        <hi rend="sub italic">i</hi> × (1 / ( 
+                        <hi rend="italic">σ</hi>
+                        <hi rend="sub italic">i</hi> / 
+                        <hi rend="italic">μ</hi>
+                        <hi rend="sub italic">i</hi> ))
+                    </p>
+                    <p>where 
+                        <hi rend="italic">ω</hi>
+                        <hi rend="sub italic">i</hi> is the new weight of a feature 
+                        <hi rend="italic">i</hi>, 
+                        <hi rend="italic">μ</hi>
+                        <hi rend="sub italic">i</hi> – its mean TF, and
+                        <hi rend="italic">σ</hi>
+                        <hi rend="sub italic">i</hi> – its standard deviation. With a little bit of algebra, we observe that:
+                    </p>
+                    <p>
+                        <hi rend="italic">ω</hi>
+                        <hi rend="sub italic">i</hi> = 
+                        <hi rend="italic">μ</hi>
+                        <hi rend="sub italic">i</hi>
+                        <hi rend="sup">2</hi> / 
+                        <hi rend="italic">σ</hi>
+                        <hi rend="sub italic">i</hi>
+                    </p>
+                    <p>which, we believe, will further aggregate meaningful features at the beginning of the wordlist. We additionally tested a similar idea of boosting the meaningful features by simply magnifying TF by standard deviations: 
+                        <hi rend="italic">μ</hi>
+                        <hi rend="sub italic">i</hi> × 
+                        <hi rend="italic">σ</hi>
+                        <hi rend="sub italic">i</hi>. 
+                    </p>
+                    <p>
+                        <figure>
+                            <graphic url="Pictures/03c08304a00e562e6ca9de66c2a82446.png"/>
+                        </figure>
+                    </p>
+                    <p>Fig. 4: Cumulative attribution scores for different scenarios discussed in the paper, for the first 500 features. Inset: an overview of the entire feature set. Results obtained on the test corpus of 28 English novels.</p>
+                    <p>The comparison of the above three plus two newly introduced scenarios is shown in Fig. 4, where cumulative sums of attribution accuracies are presented. If the features were spread randomly on the word list, the observed results would follow the grey dashed line. The higher a given trajectory, the better an order of features from most to least meaningful. An overview of the entire feature set (Fig. 4, inset) exhibits a good performance of TF, but a closer look at the top few dozen features (Fig. 4, main) shows that our newly introduced weighting outperforms the time-proven MFW-centric approach. The suboptimal behavior of CoV (meaningful features clustered at the end of the list, see also Fig. 3) is mirrored by its very low trajectory.</p>
+                </div>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>
+                    <anchor xml:id="id__a9mb9gjth4n1"/>Conclusions
+                </head>
+                <p>In this paper, we experimentally confirmed that the intuition of ordering a list of features according to their decreasing frequencies has solid grounds. An alternative approach – ordering features according to their “keyness”, i.e. TF-IDF scores – turned out to be questionable. The major observation formulated here, however, was that combining the usual MFW approach with an inverse CoV weighting arranges the features even more efficiently.</p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Acknowledgments</head>
+                <p>The study was conducted as part of 
+                    <hi rend="italic">Large-Scale Text Analysis and Methodological Foundations of Computational Stylistics </hi>project (SONATA-BIS 2017/26/E/HS2/01019) funded by the Polish National Science Center (NCN), for whose support we are very grateful.
+                </p>
+            </div>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl>
+                        <anchor xml:id="id_docs-internal-guid-67b9911b-7fff-3762-0107-3bb9351a38e4"/>
+                        <hi rend="bold">Burrows, J. </hi>(1987). Computation into Criticism: a Study of Jane Austen’s Novels and Experiment in Method. Oxford: Clarendon Press.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Burrows, J. </hi>(2002).‘Delta’: a measure of stylistic difference and a guide to likely authorship. 
+                        <hi rend="italic">Literary and Linguistic Computing</hi>, 
+                        <hi rend="bold">17</hi>(3): 267–87.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Eder, M., Rybicki, J. </hi>(2013). Do birds of a feather really flock together, or how to choose training samples for authorship attribution. 
+                        <hi rend="italic">Literary and Linguistic Computing</hi>, 
+                        <hi rend="bold">28</hi>: 229–36.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Eder, M.</hi> (2011). Style-markers in authorship attribution: a cross-language study of authorial fingerprint. 
+                        <hi rend="italic">Studies in Polish Linguistics</hi>, 
+                        <hi rend="bold">6</hi>: 99-114.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Eder, M., Kestemont, M. and Rybicki, J.</hi> (2013). Stylometry with R: a suite of tools. 
+                        <hi rend="italic">Digital Humanities 2013: Conference Abstracts</hi>. Lincoln: University of Nebraska-Lincoln: 487–89.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Evert, S., Proisl, T., Jannidis, F., Reger, I., Pielström, S., Schöch, C., Vitt, T. </hi>(2017). Understanding and explaining Delta measures for authorship attribution. 
+                        <hi rend="italic">Digital Scholarship </hi>
+                        <hi rend="italic">in the </hi>
+                        <hi rend="italic">Humanities</hi>, 
+                        <hi rend="bold">32</hi>: 4–16.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Evert, S., Jannidis, F., Proisl, T., Vitt, T., Schöch, C., Pielström, S., Reger, I. </hi>(2016). Outliers or key profiles? Understanding distance measures for authorship attribution. In 
+                        <hi rend="italic">Digital Humanities 2016: Conference Abstracts</hi>. Kraków, pp. 188–91.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Hirst, G., Feiguina, O. </hi>(2007). Bigrams of syntactic labels for authorship discrimination of short texts. 
+                        <hi rend="italic">Literary and Linguistic Computing</hi>, 
+                        <hi rend="bold">22</hi>: 405–17.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Hoover, D.L. </hi>(2004). Testing Burrows’s Delta. 
+                        <hi rend="italic">Literary and Linguistic Computing</hi>, 
+                        <hi rend="bold">19</hi>: 453–75.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Hoover, D. L.</hi> (2014). Tuning the word frequency list. In 
+                        <hi rend="italic">Digital Humanities 2014: Book of Abstracts</hi>. Lausanne, pp. 200–202.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">James, G., Witten, D., Hastie, T., Tibshirani, R. </hi>(2013). 
+                        <hi rend="italic">An Introduction to Statistical Learning with Applications in R.</hi> New York: Springer.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Juola, P.</hi> (2008). Authorship attribution. 
+                        <hi rend="italic">Foundations and Trends in Information Retrieval</hi>, 
+                        <hi rend="bold">1</hi>: 233–334.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Mosteller, F., Wallace, D.L. </hi>(1964). 
+                        <hi rend="italic">Inference and Disputed Authorship. The Federalist.</hi> Reading, Mass.: Addison-Wesley.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Rybicki, J. and Eder, M.</hi> (2011). Deeper Delta across genres and languages: do we really need the most frequent words? 
+                        <hi rend="italic">Literary and Linguistic Computing</hi>, 
+                        <hi rend="bold">26</hi>(3): 315–21.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Stamatatos, E.</hi> (2009). A survey of modern authorship attribution methods. 
+                        <hi rend="italic">Journal of the Association for Information Science and Technology</hi>, 
+                        <hi rend="bold">60</hi>: 538–56.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Stamatatos, E. </hi>(2013). On the robustness of authorship attribution based on character n-gram features. 
+                        <hi rend="italic">Journal of Law and Policy</hi>, 
+                        <hi rend="bold">21</hi>: 20.
+                    </bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title type="full">
+                    <title type="main">Paleo Codage - A machine-readable way to describe cuneiform characters paleographically</title>
+                    <title type="sub"/>
+                </title>
+                <author>
+                    <persName>
+                        <surname>Homburg</surname>
+                        <forename>Timo</forename>
+                    </persName>
+                    <affiliation>Mainz University Of Applied Sciences, Germany</affiliation>
+                    <email>timo.homburg@gmx.de</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2019-04-24T20:29:16.623991278</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Name, Institution</publisher>
+                <address>
+                    <addrLine>Street</addrLine>
+                    <addrLine>City</addrLine>
+                    <addrLine>Country</addrLine>
+                    <addrLine>Name</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from an OASIS Open Document</p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.22">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Short Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>Cuneiform</term>
+                    <term>Paleography</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>lexicography</term>
+                    <term>natural language processing</term>
+                    <term>software design and development</term>
+                    <term>linguistics</term>
+                    <term>linking and annotation</term>
+                    <term>English</term>
+                    <term>computer science and informatics</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <div type="div1" rend="DH-Heading1">
+                <head>Introduction</head>
+                <p>Cuneiform characters have been described using various systems in the past and the varieties of systems used in the literature as well as in daily work varies from language to discipline. Commonly, sign lists (Borger 1971, Borger 2004, Ruster 1989, Deimel 1947) are created and published in the form of dictionaries in a non-machine-readable form. Similarly, for computers, the only way to distinguish cuneiform characters is currently to assign them different numbers in a list (e.g. Unicode (Unicode Staff, 1991)) and consider a distinction on this level. Therefore we are left with many systems and numbers to describe the same cuneiform sign. (Figure 4). Contrary to listing cuneiform signs, (Gottstein, 2012) took another approach in creating a searchable cuneiform character encoding based on wedge types which would be implemented in applications such as CuneiPainter
+                    <note xml:id="ftn1" place="foot" n="1">
+                        <ptr target="https://github.com/situx/CuneiPainter"/>
+                    </note> (Homburg, 2015). Character image recognition has also been performed in the past (Mara, 2010), but never yielded a machine-readable representation of a cuneiform characters paleographic information which could have been useful as a means of validation for machine learning recognitions. This publication therefore introduces Paleo Codage, a paleographic distinct machine-readable description inspired by the Manuel de Codage encoding (Van den Berg, 1997) for Egyptian Hieroglyphs.
+                </p>
+                <div type="div2" rend="DH-Heading2">
+                    <head>Motivation</head>
+                    <p>A machine-readable paleographic description despite yet representing another encoding scheme could link all systems of cuneiform character descriptions, as it directly describes the characters shape and positioning parameters. Scholars could register newly found characters easily in a machine-readable way and provide the basis for computational analysis on the paleographic shapes of cuneiform characters. Such paleographic information would ideally be integrated into currently emerging Semantic Dictionaries for cuneiform (Homburg, 2017, 2018) to enrich linguistic linked open data and thereby profit the respective scholars. In addition a machine-readable paleographic description provides the basis to capture sign variants of characters currently described in unicode. It is very common for on unicode codepoint to have many sign variants describing the same meaning over the centuries in which cuneiform has been written. Those sign variants have never been assessed digitally (only as sketches in books) and could provide valuable insights for philologists.</p>
+                </div>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Approach</head>
+                <p>Paleo Codage builds on the description of (Gottstein, 2012), by using simple character descriptions for certain wedge types and by extending it with a Manuel de Codage (Van den Berg, 1997) inspired set of relational descriptions.</p>
+                <p>Cuneiform wedges are distinguished as follows:</p>
+                <list type="unordered">
+                    <item>Vertical wedge 𒀸 (a)</item>
+                </list>
+                <list type="unordered">
+                    <item>Horizontal wedge 𒁹 (b)</item>
+                </list>
+                <list type="unordered">
+                    <item>Diagonal wedge 1-4 𒀹,𒀺 (c,d and mirrored e,f)</item>
+                    <item>Winkelhaken 𒌋 (w) </item>
+                </list>
+                <p>The system encodes relations between wedges as shown by the following most frequent examples:</p>
+                <list type="unordered">
+                    <item>Wedges that pass through other wedges situated right to them (-) (e.g. MIN 𒈫 -&gt; a-a , three AŠ 𒐁 → b-b-b )</item>
+                    <item> Wedges that do not pass through other wedges situated right to them (_) (e.g. ŠU 𒋗 -&gt; b:b:b:b:b_a , GIŠ 𒄑 -&gt; b::b_a )</item>
+                    <item>Wedges under another wedge possibly passing through other wedges (:) (e.g. U2 𒌑 → B::B-a-a-a-a , AŠ2 𒀾 → b:b:b:b-a )</item>
+                    <item>Wedges under the current wedge not passing through other wedges (;) (e.g. BAR 𒁇 → ;b-a )</item>
+                    <item>Diagonally under another wedge (.) (e.g. GAM 𒃵 → c.c )</item>
+                    <item>Wedge inversion (!) (e.g. IDIM 𒅂 → !b:b )</item>
+                </list>
+                <p>In addition size variations of cuneiform wedges are common and can be encoded as follows:</p>
+                <list type="unordered">
+                    <item>
+                        <p>Capital letters signify a bigger version (e.g. A instead of a), wedges prefixed with a small s a smaller version (e.g. sa instead of a)</p>
+                        <p>(e.g. 
+                            <anchor type="bookmark-start" xml:id="id___DdeLink__536_29098410601"/>A x A
+                            <ptr type="bookmark-end" target="#id___DdeLink__536_29098410601"/>
+                            <anchor type="bookmark-start" xml:id="id___DdeLink__538_29098410601"/>𒀁
+                            <ptr type="bookmark-end" target="#id___DdeLink__538_29098410601"/> → 
+                            <anchor type="bookmark-start" xml:id="id___DdeLink__540_29098410601"/>a-sa-sa:sa-a:a
+                            <ptr type="bookmark-end" target="#id___DdeLink__540_29098410601"/>, 
+                            <anchor type="bookmark-start" xml:id="id___DdeLink__542_29098410601"/>ŠE
+                            <ptr type="bookmark-end" target="#id___DdeLink__542_29098410601"/>
+                            <anchor type="bookmark-start" xml:id="id___DdeLink__544_29098410601"/>𒊺
+                            <ptr type="bookmark-end" target="#id___DdeLink__544_29098410601"/>→ 
+                            <anchor type="bookmark-start" xml:id="id___DdeLink__546_29098410601"/>W:W-w:w-w:w-w:w-W:W
+                            <ptr type="bookmark-end" target="#id___DdeLink__546_29098410601"/> )
+                            <anchor xml:id="id___DdeLink__554_2909841060"/>
+                            <anchor xml:id="id___DdeLink__546_2909841060"/>
+                        </p>
+                    </item>
+                </list>
+                <p>Lastly, angles of diagonal cuneiform characters may vary between characters which required angle modifiers to be added to the encoding.</p>
+                <list type="unordered">
+                    <item>The angle between the diagonal wedges in (e.g. IR 𒅕 → c;d-a-a-a) is bigger than the angle between the diagonal wedges in (ARKAB 𒀶 → |d;|c_A ). The angle can be halved by using the | operator.</item>
+                </list>
+                <p>While the order in which cuneiform wedges were drawn is not always agreed upon by the respective scholars (Devecchi, 2015), PaleoCodages’ order independent of this dispute is from left to right and then from up to down in order to avoid ambiguities concerning cuneiform sign definitions. In order to facilicate the representation of displaced wedge groups PaleoCodage also includes the following positioning modifiers (/ half the size down, ~ half size to the left, # half size to the right, as well as &lt; and &gt; as rotation modifiers, rotating the whole glyph). Further operators could be added if needed by glyphs which can currently not be modeled.</p>
+                <div type="div2" rend="DH-Heading2">
+                    <head>Proof Of Concept</head>
+                    <p>A proof of concept is provided on a representative subset of 200 cuneiform unicode characters
+                        <note xml:id="ftn2" place="foot" n="2">
+                            <ref target="https://en.wikipedia.org/wiki/Cuneiform%5C_(Unicode%5C_block)">https://en.wikipedia.org/wiki/Cuneiform_(Unicode_block)</ref>
+                        </note> which were analysed to infer the relations described section Approach. Table 1 includes further encoding examples.
+                    </p>
+                    <table rend="frame" xml:id="Table1">
+                        <row>
+                            <cell rend="center">Image</cell>
+                            <cell rend="center">Unicode</cell>
+                            <cell rend="center">Main Transliteration</cell>
+                            <cell rend="center">Borger</cell>
+                            <cell rend="center">Gottstein</cell>
+                            <cell rend="center">Paleo Codage</cell>
+                        </row>
+                        <row>
+                            <cell rend="center">𒁹</cell>
+                            <cell rend="center">U+12079</cell>
+                            <cell rend="center">DIŠ</cell>
+                            <cell rend="center">748</cell>
+                            <cell rend="center">a1</cell>
+                            <cell rend="center">a</cell>
+                        </row>
+                        <row>
+                            <cell rend="center">𒀸</cell>
+                            <cell rend="center">U+12038</cell>
+                            <cell rend="center">AŠ</cell>
+                            <cell rend="center">001</cell>
+                            <cell rend="center">b1</cell>
+                            <cell rend="center">b</cell>
+                        </row>
+                        <row>
+                            <cell rend="center">𒀹</cell>
+                            <cell rend="center">U+12039</cell>
+                            <cell rend="center">AŠ ZIDA tenû</cell>
+                            <cell rend="center">575</cell>
+                            <cell rend="center">C1</cell>
+                            <cell rend="center">c</cell>
+                        </row>
+                        <row>
+                            <cell rend="center">𒀺</cell>
+                            <cell rend="center">U+1203A</cell>
+                            <cell rend="center">AŠ KABA tenû</cell>
+                            <cell rend="center">647?</cell>
+                            <cell rend="center">c1</cell>
+                            <cell rend="center">e</cell>
+                        </row>
+                        <row>
+                            <cell rend="center">𒌋</cell>
+                            <cell rend="center">U+1230B</cell>
+                            <cell rend="center">U</cell>
+                            <cell rend="center">661</cell>
+                            <cell rend="center">d1</cell>
+                            <cell rend="center">w</cell>
+                        </row>
+                        <row>
+                            <cell rend="center">𒈦</cell>
+                            <cell rend="center">U+12226</cell>
+                            <cell rend="center">MAŠ</cell>
+                            <cell rend="center">120</cell>
+                            <cell rend="center">a1b1</cell>
+                            <cell rend="center">:b-a</cell>
+                        </row>
+                        <row>
+                            <cell rend="center">𒁇</cell>
+                            <cell rend="center">U+12047</cell>
+                            <cell rend="center">BAR</cell>
+                            <cell rend="center">121</cell>
+                            <cell rend="center">a1b1</cell>
+                            <cell rend="center">;b-a</cell>
+                        </row>
+                        <row>
+                            <cell rend="center">𒇲</cell>
+                            <cell rend="center">U+121F2</cell>
+                            <cell rend="center">LAL</cell>
+                            <cell rend="center">750</cell>
+                            <cell rend="center">a1b1</cell>
+                            <cell rend="center">a-b</cell>
+                        </row>
+                        <row>
+                            <cell rend="center">𒈨</cell>
+                            <cell rend="center">U+12228</cell>
+                            <cell rend="center">ME</cell>
+                            <cell rend="center">753</cell>
+                            <cell rend="center">a1b1</cell>
+                            <cell rend="center">a-:b</cell>
+                        </row>
+                        <row>
+                            <cell rend="center">𒃵</cell>
+                            <cell rend="center">U+120F5</cell>
+                            <cell rend="center">GAM</cell>
+                            <cell rend="center">576</cell>
+                            <cell rend="center">c2</cell>
+                            <cell rend="center">c.c</cell>
+                        </row>
+                        <row>
+                            <cell rend="center">𒋻</cell>
+                            <cell rend="center">U+122FB</cell>
+                            <cell rend="center">TAR</cell>
+                            <cell rend="center">009</cell>
+                            <cell rend="center">a1c2</cell>
+                            <cell rend="center">c.ca</cell>
+                        </row>
+                        <row>
+                            <cell rend="center">𒌀</cell>
+                            <cell rend="center">U+12300</cell>
+                            <cell rend="center">TIL</cell>
+                            <cell rend="center">114</cell>
+                            <cell rend="center">b1c1</cell>
+                            <cell rend="center">bc</cell>
+                        </row>
+                        <row>
+                            <cell rend="center">𒉽</cell>
+                            <cell rend="center">U+1227D</cell>
+                            <cell rend="center">PAP</cell>
+                            <cell rend="center">092</cell>
+                            <cell rend="center">b1c1</cell>
+                            <cell rend="center">C:d</cell>
+                        </row>
+                        <row>
+                            <cell rend="center">𒂢</cell>
+                            <cell rend="center">U+120A2</cell>
+                            <cell rend="center">EZEN x A</cell>
+                            <cell rend="center">288</cell>
+                            <cell rend="center">a7b6</cell>
+                            <cell rend="center">:sa-:sb::sb-ab;b-:sa-:sa:sa-a-:sb::sb-:sa</cell>
+                        </row>
+                        <row>
+                            <cell rend="center">𒅈</cell>
+                            <cell rend="center">U+12148</cell>
+                            <cell rend="center">IGI RI</cell>
+                            <cell rend="center">726</cell>
+                            <cell rend="center">a4b2d2</cell>
+                            <cell rend="center">:w-a-:b_-:b-a-a-:::w-a </cell>
+                        </row>
+                    </table>
+                    <p>Table 1: Cuneiform Encoding Examples</p>
+                    <p>A generated similarity graph for verification purposes (Figure 2) using the new encoding method shows the applicability of the encoding to identify subglyphs that are included in other glyphs which in turn is useful information to be included in (Semantic) dictionaries. Further similarity measures on the encoding (String Similarity) could reveal additional connections between cuneiform character representations.</p>
+                    <p>
+                        <figure>
+                            <graphic url="Pictures/2c17e9301329769108fa45785cb3d30d.png"/>
+                        </figure>Figure 2: Cuneiform Character relations as graph (excerpt): Only by verification of the encoding the computer can e.g. now recognize that the glyph IMIN3 (b:b:b_b:b:b_b) is contained by the glyph ilimmu3 (b:b:b_b:b:b_b:b:b). Using the Gottstein System such a conclusion could not be made as they would be classified as b7 and b9 respectively.
+                    </p>
+                </div>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Application </head>
+                <p>Given the paleographic information encoded in a standardized way users have the ability to draw a rudimentary shape of the character in order to detect the character they are seeing in front of them (e.g. on a picture or a tablet). This functionality is currently being implemented in CuneiPainter
+                    <note xml:id="ftn3" place="foot" n="3">
+                        <ptr target="https://github.com/situx/CuneiPainter"/>
+                    </note>, improves its accuracy when matching cuneiform characters and will be ready as a showcase for DH2019. A showcase in JavaScript (Figure 3) highlighting all currently encoded characters is already available for testing
+                    <note xml:id="ftn4" place="foot" n="4">
+                        <ptr target="https://github.com/situx/PaleoCodage"/>
+                    </note>, allowing users to verify and create their own encodings easily. In addition, the testing tool allows to export created cuneiform characters as SVG and as OpenType fonts in-browser, creating the basis for an easier automated font creation for cuneiform characters.
+                </p>
+                <p>
+                    <figure>
+                        <graphic url="Pictures/fec41628583074fd014723d18b7ed240.png"/>
+                    </figure>Figure 3: Paleo Codage Input (JavaScript Application)
+                </p>
+                <p>
+                    <figure>
+                        <graphic url="Pictures/c7d4316edcf1759b4aef007293b2e263.png"/>
+                    </figure>Figure 4: Cuneiform Numbering Systems: Semantic Dictionary for Ancient Languages
+                </p>
+            </div>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl>
+                        <hi rend="bold">Biber, D.</hi> (1988). 
+                        <hi rend="italic">Variation Across Speech and Writing.</hi> Cambridge: Cambridge University Press.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Borger, R.</hi> (1971). 
+                        <hi rend="italic">Akkadische zeichenliste</hi>. Neukirchen-Vluyn, Germany.
+                    </bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

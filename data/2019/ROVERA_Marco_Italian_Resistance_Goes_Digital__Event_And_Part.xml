@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title type="full">
+                    <title type="main">Italian Resistance Goes Digital: Event And Participant Extraction From Partisans’ Memoirs</title>
+                    <title type="sub"/>
+                </title>
+                <author>
+                    <persName>
+                        <surname>Rovera</surname>
+                        <forename>Marco</forename>
+                    </persName>
+                    <affiliation>Dipartimento di Informatica, Università di Torino Italy</affiliation>
+                    <email>rovera@hdm-stuttgart.de</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Nanni</surname>
+                        <forename>Federico</forename>
+                    </persName>
+                    <affiliation>Data and Web Science Group, University of Mannheim, Germany</affiliation>
+                    <email>federico@informatik.uni-mannheim.de</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Ponzetto</surname>
+                        <forename>Simone Paolo</forename>
+                    </persName>
+                    <affiliation>Data and Web Science Group, University of Mannheim, Germany</affiliation>
+                    <email>simone@informatik.uni-mannheim.de</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2019-03-29T05:37:47.892490842</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Name, Institution</publisher>
+                <address>
+                    <addrLine>Street</addrLine>
+                    <addrLine>City</addrLine>
+                    <addrLine>Country</addrLine>
+                    <addrLine>Name</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from an OASIS Open Document</p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.22">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Late breaking poster</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>Event Extraction</term>
+                    <term>Entity Linking</term>
+                    <term>Semantic Role Labeling</term>
+                    <term>Public History</term>
+                    <term>Second World War</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>digital archives and digital libraries</term>
+                    <term>history and historiography</term>
+                    <term>natural language processing</term>
+                    <term>data mining / text mining</term>
+                    <term>English</term>
+                    <term>computer science and informatics</term>
+                    <term>public and oral history</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <p>
+                <hi rend="color(#000000)">I</hi>
+                <hi rend="color(#000000)">ntroduction</hi>
+            </p>
+            <p>
+                <hi rend="color(#000000)">In the digitization era, documents provided by historical archives are at prompt disposal of digital humanities researchers that could directly employ them in text mining analyses. However, the high degree of textual variability and domain specificity of such materials pose several methodological and technical issues for scholars aiming to automatically extract information from historical collections </hi>
+                <hi rend="color(#000000)">(Sporleder, 2010, Van Hooland et al., 2013</hi>
+                <hi rend="color(#000000)">, </hi>
+                <hi rend="color(#000000)">Ehrmann et al., 2016)</hi>
+                <hi rend="color(#000000)">. </hi>
+                <hi rend="color(#000000)">This abstract reports on a recently concluded project that develop</hi>
+                <hi rend="color(#000000)">ed</hi>
+                <hi rend="color(#000000)"> a </hi>
+                <hi rend="color(#000000)">system</hi>
+                <hi rend="color(#000000)"> for extracting events, participants and their roles from a digitized corpus of Italian memoirs of Resistance members during the Second World War. In particular, in our work we have adopted and adapted resources, techniques and tools from research literature in information extraction to provide advanced semantic access to the collection. We chose events as structural concept for extracting and representing textual information as they offer a “natural” pivot, keeping together semantic information at different levels (type of the event, time, space, role of the involved entities). We are also encouraged on this way by the findings of a recent work </hi>
+                <hi rend="color(#000000)">(Sprugnoli and Tonelli, 2017)</hi>
+                <hi rend="color(#000000)">, which suggested, </hi>
+                <hi rend="color(#000000)italic">inter alia</hi>
+                <hi rend="color(#000000)">, the necessity to expand the inventory of event types (compared to existing annotation schemas like ACE, ERE </hi>
+                <hi rend="color(#000000)">(Aguilar et al., 2014)</hi>
+                <hi rend="color(#000000)"> or TimeML </hi>
+                <hi rend="color(#000000)">(Pustejovsky et al., 2005)</hi>
+                <hi rend="color(#000000)">). </hi>
+            </p>
+            <p>
+                <hi rend="bold">Textual dataset</hi>
+            </p>
+            <p>
+                <anchor xml:id="id_docs-internal-guid-dae98899-7fff-c2a7-b42f-1bbea167c8cc"/>The textual dataset is composed of 25 digitized memoirs of Italian partisans. Since our pipeline relies upon a pattern-based method for the initial event extraction, we integrate the resource with two other subcorpora on the same topic, obtained from the web: all texts in the Italian Wikipedia category “World War II Resistance movements”
+                <note xml:id="ftn1" place="foot" n="1">
+                    <ptr target="https://it.wikipedia.org/wiki/Categoria:Movimenti_di_resistenza_della_seconda_guerra_mondiale"/>
+                </note> and a set of biographies of Italian partisans from Wikisource
+                <note xml:id="ftn2" place="foot" n="2">
+                    <ptr target="https://it.wikisource.org/wiki/Donne_e_Uomini_della_Resistenza"/>
+                </note>. In addition, three more books have been digitized that compose the “Memoirs-test” subcorpus and are used for evaluation.
+            </p>
+            <p>
+                <figure>
+                    <graphic url="Pictures/7dbcb6d9900d88bbf227c5dbcb5a039c.png"/>
+                    <head>
+                        <lb/>Composition of textual corpus for event extraction.
+                    </head>
+                </figure>
+            </p>
+            <p>Extraction of events, participants and roles</p>
+            <p>
+                <anchor xml:id="id_docs-internal-guid-a2f466b9-7fff-062d-ff7d-fa6de1104d1e"/>The methodology developed in our project combines Named Entity Disambiguation (NED), Semantic Tagging and Role Labeling: as a first step, frame-like event patterns are collected across the whole corpus. Given the domain at hand (war memoirs), we mainly focus on movements of persons and artifacts, conflictual events and events related to organizations.
+            </p>
+            <p>
+                <figure>
+                    <graphic url="Pictures/cbb20c1e5611b4dce5900567f4fc55c3.png"/>
+                    <head>Adopted Semantic Types (plotted by similarity).</head>
+                </figure>
+                <hi rend="color(#000000)">The event extraction </hi>
+                <hi rend="color(#000000)">pipeline</hi>
+                <hi rend="color(#000000)"> consists of two macro-steps: first, NED is performed against a set of three gazetteers of Persons, Places and Organizations; also, all non-named entities (nouns) are tagged with semantic classes (Figure 1) by means of a semantic tagger based on word embeddings.</hi>
+            </p>
+            <p>
+                <anchor xml:id="id_docs-internal-guid-f4a42422-7fff-5fa5-c676-12a290c700ac"/>
+                <hi rend="color(#000000)">The output of this first stage is then used as input for a pattern matching algorithm that, based on a previously collected dictionary of lexico-semantic patterns of argument structures, extracts event mentions from text, classifies them into discrete classes and assigns the detected participants a role with respect to the event itself. The pattern dictionary built for the purpose counts 246 lexical units, i.e., event-denoting lemmas: 124 verbs, 77 nouns and 45 multi-word verbal expressions; such lexical units map overall to 88 Event Classes, where the relationship between lexical units and event classes is many-to-many. The system is designed to separate high and low confidence event mentions based on the number of correctly labeled arguments. </hi>
+                <hi rend="color(#000000)">A detalied account of the adopted methodology can be found in Rovera et al., 2018.</hi>
+            </p>
+            <p>
+                <hi rend="bold">Evaluation</hi>
+            </p>
+            <p>
+                <anchor xml:id="id_docs-internal-guid-05b1a92e-7fff-995f-d3f3-139d6aac79ab"/>
+                <hi rend="color(#000000)">The evaluation of the system is performed on a set of 300 manually annotated sentences taken from the “Memoirs-test” corpus, which has not been used for collecting patterns. In particular, we evaluate the performance of the system for </hi>
+                <hi rend="color(#000000)italic">a) </hi>
+                <hi rend="color(#000000)">event detection, where we achieve .78 Precision and .50 Recall, and </hi>
+                <hi rend="color(#000000)italic">b) </hi>
+                <hi rend="color(#000000)">in event classification, where we score .73 Precision (.89 where only high confidence events are taken into account).</hi>
+            </p>
+            <p>
+                <hi rend="bold">Visualizatio</hi>
+                <hi rend="bold">n</hi>
+            </p>
+            <p>
+                <anchor xml:id="id_docs-internal-guid-f388730f-7fff-d990-26f8-05c3a63e6700"/>In order to display the extracted information, we represent events, participants and roles as a network. Events and entities are represented as nodes (labeled with class and type, respectively) linked by edges, each labeled with the role that the entity plays in the correspondent event.
+            </p>
+            <p>
+                <figure>
+                    <graphic url="Pictures/b2b7f8acc2eacbb0cf5f9b0c2996a2b4.png"/>
+                    <head>
+                        <lb/>Visualization of a network of events, entities and roles.
+                    </head>
+                </figure>
+                <anchor xml:id="id_docs-internal-guid-67444d70-7fff-25f3-5a73-66a8c32f070e"/>
+                <hi rend="color(#000000)">The linking of a relevant number of named entities enables a rich visual representation (Figure 2) of the extracted knowledge, along with the capability to build queries based either on a specific entity, on a class of events, or on a more complex combination of roles, events and entities.</hi>
+            </p>
+            <p>
+                <hi rend="color(#000000)bold">Conclusion</hi>
+            </p>
+            <p>
+                <hi rend="color(#000000)">By presenting our work at the conference we hope to foster the use of event, participants and roles for obtaining a semantically advanced access to historical corpora. </hi>
+            </p>
+        </body>
+    </text>
+</TEI>

@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title type="full">
+                    <title type="main">Kraken - an Universal Text Recognizer for the Humanities</title>
+                    <title type="sub"/>
+                </title>
+                <author>
+                    <persName>
+                        <surname>Kiessling</surname>
+                        <forename>Benjamin</forename>
+                    </persName>
+                    <affiliation>Université PSL, France; Leipzig University</affiliation>
+                    <email>benjamin.kiessling@psl.eu</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2019-04-29T15:21:59.282217198</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Name, Institution</publisher>
+                <address>
+                    <addrLine>Street</addrLine>
+                    <addrLine>City</addrLine>
+                    <addrLine>Country</addrLine>
+                    <addrLine>Name</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from an OASIS Open Document</p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.22">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Short Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>OCR</term>
+                    <term>HTR</term>
+                    <term>layout analysis</term>
+                    <term>digitization</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>English</term>
+                    <term>computer science and informatics</term>
+                    <term>artificial intelligence and machine learning</term>
+                    <term>digital humanities (history</term>
+                    <term>theory and methodology)</term>
+                    <term>open/libre networks and software</term>
+                    <term>OCR and hand-written recognition</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <div type="div1" rend="DH-Heading">
+                <head>Introduction</head>
+                <p>Retrodigitization of both printed and handwritten material is a common prerequisite for a diverse range of research questions in the humanities. While optical character recognition on printed texts is widely considered to be fundamentally solved in academia, with the most commonly used paradigm (Graves et al., 2006) dating back to 2006, this hasn't translated into increased availability of adaptable, libre-licensed OCR engines to the technically inclined humanities scholar.</p>
+                <p>The nature of the material of interest commands a platform that can be altered with minimum effort to achieve optimal recognition accuracy; uncommon scripts, historical languages, complex or archaic page layout, and non-paper writing surfaces are rarily satisfactorily addressed by off-the-shelf commercial solutions. In addition, an open system ameliorates the severe resource constraints of humanities research by enabling sharing of artifacts, such as training data and recognition models, inaccessible with proprietary OCR technology.</p>
+            </div>
+            <div type="div1" rend="DH-Heading">
+                <head>Kraken</head>
+                <p>The Kraken text recognition engine is an extensively rewritten fork of the OCRopus system. It can be used both for handwriting and printed text recognition, is easily (re-)trainable, and great care has been taken to eliminate implicit assumptions on content and layout that complicate the processing of non-Latin and non-modern works.</p>
+                <p>Thus Kraken has been extended with features and interfaces enabling the processing of most scripts, among them full Unicode right-to-left, bidirectional, and vertical writing support, script detection, and multiscript recognition. Processing of scripts not included in Unicode is also possible through a simple JSON interface to the codec mapping numerical model outputs to characters. The same interface provides facilities for efficient recognition of large logographic scripts.</p>
+                <p>Output includes fine-grained bounding boxes down to the character level that may be used to quickly acquire a large number of samples from a corpus to assist in paleographic research. Kraken implements a flexible output serialization scheme utilizing a simple templating language. Templates are available for the most commonly used formats ALTO, hOCR, TEI, and abbyyXML.</p>
+                <p>While including implementations of all the subprocesses needed in a text recognition pipeline, most functional blocks can be accessed separately on the command line, allowing flexible substitution of specially optimized methods. A stable programming interface allows total customization and integration into other software packages.</p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Recognition</head>
+                <p>
+                    <figure>
+                        <graphic url="Pictures/1c3fc65599505037c8cac817a5c72615.png"/>
+                        <head>Network architecture (H: sequence height, W: sequence length, C: alphabet size)</head>
+                    </figure>The recognition engine operates as a segmentation-less sequence classifier using an artificial neural network to map an image of a single line of text, the input sequence, into a sequence of characters, the output sequence. The artificial neural network employed is a hybrid convolutional and recurrent neural network trained with the CTC loss function (Graves et al., 2006) that reduces training data requirements to line-level transcriptions (Figure 3). Regularization is mainly provided by dropout (Hinton et al., 2012) after both convolutional and recurrent layers. User intervention in determining training duration and model selection is largely eliminated through early stopping.
+                </p>
+                <p>Specialized networks, e.g. for particularly complex scripts, can be assembled from building blocks with a simple network specification language although the default architecture shown in Figure 1 is suitable for the vast majority of applications.</p>
+                <p>Processing of dictionaries and library catalogues with extensive semantic markup such as italic, underlining, and bolding, is also possible through specially prepared training data.</p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Layout Analysis and Script Detection</head>
+                <p>
+                    <figure>
+                        <graphic url="Pictures/88bf936743d1a444d5c0d85be2449a0d.jpg"/>
+                        <head>Sample output of the trainable segmentation method.</head>
+                    </figure>Kraken's layout analysis extracts text lines from an input image for later processing by the recognition engine. Apart from a basic segmenter taken from OCRopus a trainable line extractor is in the process of being implemented. Full trainability of layout analysis is of utmost importance to a truly universal OCR system, as text layout and its semantics varies widely across time and space, e.g. hand-crafted methods for printed Latin text are unlikely to work reliably on Arabic text or manuscripts with extensive interlinear annotation.
+                </p>
+                <p>The trainable layout analysis module consists of a two-step instance segmentation method: an initial seed-labelling network operates on the whole page labelling the area between baseline and mean of each line. As the output of the network is a probability of each pixel belonging to a baseline it is binarized using hysteresis thresholding after smoothing with a gaussian filter. The binarized image is then skeletonized and end point are extracted with a discrete convolution. Finally, the vectorized baseline between the endpoints is rectified and a variable environment calculated based on the distance of connected components from the labelled area is extracted.</p>
+                <p>The seed-labelling network is a modified U-net (Ronneberger et al., 2015) on the basis of a 34-layer residual network (He et al., 2016) pretrained on ImageNet. </p>
+                <p>Preliminary results on a page from a publicly available dataset of Arabic and Persian manuscripts (Kiessling et al., 2019) can be seen in Figure 2.</p>
+                <p>Script detection, the basis for multi-script support in the recognizer, is implemented as a segmentation-less sequence classification problem, similar to text recognition. Instead of assigning a unique label to each code point or grapheme cluster we assign all code points of a particular script the same label. The network is then trained to output the correct sequence of script labels (Figure 3). The output sequence is then used to split the line into single-script runs that can be classified with monolingual recognition models (Figure 4).</p>
+                <p>
+                    <figure>
+                        <graphic url="Pictures/b7a30ed8865c06cc82568cbae3750e0e.png"/>
+                        <head>Original and modified ground truth (top: original line, middle: transcription, bottom: assigned script classes)</head>
+                    </figure>
+                </p>
+            </div>
+            <div type="div1" rend="DH-Heading">
+                <head>Results</head>
+                <table rend="frame" xml:id="Table1">
+                    <row>
+                        <cell/>
+                        <cell rend="start color(#000000)bold">Mean character accuracy</cell>
+                        <cell rend="start color(#000000)bold">Standard deviation</cell>
+                        <cell rend="start color(#000000)bold">Maximum accuracy</cell>
+                    </row>
+                    <row>
+                        <cell rend="start color(#000000)bold">Prints</cell>
+                        <cell/>
+                        <cell/>
+                        <cell/>
+                    </row>
+                    <row>
+                        <cell rend="start color(#000000)">Arabic (Kiessling et al., 2017)</cell>
+                        <cell rend="start color(#000000)">99.5%</cell>
+                        <cell rend="start color(#000000)">0.05</cell>
+                        <cell rend="start color(#000000)">99.6%</cell>
+                    </row>
+                    <row>
+                        <cell rend="start color(#000000)">Persian
+                            <note xml:id="ftn4" place="foot" n="1">Mid-20th century printing</note>
+                        </cell>
+                        <cell rend="start color(#000000)">98.3%</cell>
+                        <cell rend="start color(#000000)">0.33</cell>
+                        <cell rend="start color(#000000)">98.7%</cell>
+                    </row>
+                    <row>
+                        <cell rend="start color(#000000)">Syriac
+                            <note xml:id="ftn3" place="foot" n="2">Late-19th century printing in Serṭā form</note>
+                        </cell>
+                        <cell rend="start color(#000000)">98.7%</cell>
+                        <cell rend="start color(#000000)">0.38</cell>
+                        <cell rend="start color(#000000)">99.2%</cell>
+                    </row>
+                    <row>
+                        <cell rend="start color(#000000)">Polytonic Greek
+                            <note xml:id="ftn2" place="foot" n="3">Late-19th century printing</note>
+                        </cell>
+                        <cell rend="start color(#000000)">99.2%</cell>
+                        <cell rend="start color(#000000)">0.26</cell>
+                        <cell rend="start color(#000000)">99.6%</cell>
+                    </row>
+                    <row>
+                        <cell rend="start color(#000000)">Latin (Springmann et al., 2018)</cell>
+                        <cell rend="start color(#000000)">98.8%</cell>
+                        <cell rend="start color(#000000)">0.09</cell>
+                        <cell rend="start color(#000000)">99.3%</cell>
+                    </row>
+                    <row>
+                        <cell rend="start color(#000000)">Latin incunabula (Springmann et al., 2018)</cell>
+                        <cell rend="start color(#000000)">99.0%</cell>
+                        <cell rend="start color(#000000)">0.11</cell>
+                        <cell rend="start color(#000000)">99.2%</cell>
+                    </row>
+                    <row>
+                        <cell rend="start color(#000000)">Fraktur (Springmann et al., 2018)</cell>
+                        <cell rend="start color(#000000)">99.0%</cell>
+                        <cell rend="start color(#000000)">0.31</cell>
+                        <cell rend="start color(#000000)">99.3%</cell>
+                    </row>
+                    <row>
+                        <cell rend="start color(#000000)">Cyrillic</cell>
+                        <cell rend="start color(#000000)">99.3%</cell>
+                        <cell rend="start color(#000000)">0.15</cell>
+                        <cell rend="start color(#000000)">99.6%</cell>
+                    </row>
+                    <row>
+                        <cell rend="start color(#000000)bold">Manuscripts</cell>
+                        <cell/>
+                        <cell/>
+                        <cell/>
+                    </row>
+                    <row>
+                        <cell rend="start color(#000000)">Hebrew
+                            <note xml:id="ftn1" place="foot" n="4">Midrash Tanhuma, BNF Héb 150</note>
+                        </cell>
+                        <cell rend="start color(#000000)">96.9%</cell>
+                        <cell rend="start color(#000000)">-</cell>
+                        <cell rend="start color(#000000)">-</cell>
+                    </row>
+                    <row>
+                        <cell rend="start color(#000000)">Medieval Latin
+                            <note xml:id="ftn0" place="foot" n="5">Josephus Latinus, Bamberg 78 with augmentation</note>
+                        </cell>
+                        <cell rend="start color(#000000)">98.2%</cell>
+                        <cell rend="start color(#000000)">-</cell>
+                        <cell rend="start color(#000000)">-</cell>
+                    </row>
+                </table>
+                <p>
+                    <figure>
+                        <graphic url="Pictures/bd9bbcd5083d643b673c7d8fbec928a0.png"/>
+                        <head>Sample output of the script detection on a bilingual French/Arabic page. Note that Eastern Arabic are always classified as Latin text</head>
+                    </figure>Kraken has been used on a wide variety of writing systems, achieving uniformly high character accuracy (CER). Sample accuracies for a diverse set of scripts spanning across multiple centuries of printing are shown in Table 1.
+                </p>
+                <p>As a special use case we evaluated recognition of text and emphasis in a mixed English and romanized Arabic library catalog on a training set of 350 lines (50 lines in the validation set) resulting in an averaged CER of 99.3% (σ=0.16) over 10 runs with 95.38% CER on cursive and text with increased spacing (σ=1.46). When using only emphasized text accuracy as the stopping criterium mean accuracy rises to 99.03% (σ=0.28).</p>
+            </div>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl>
+                        <hi rend="bold">Graves, A., Fernández, S., Gomez, F. and Schmidhuber, J.</hi> (2006). Connectionist temporal classification: labelling unsegmented sequence data with recurrent neural networks. 
+                        <hi rend="italic">Proceedings of the 23rd International Conference on Machine Learning</hi>. ACM, pp. 369–376.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">He, K., Zhang, X., Ren, S. and Sun, J.</hi> (2016). Deep residual learning for image recognition. 
+                        <hi rend="italic">Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition</hi>. pp. 770–778.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Hinton, G. E., Srivastava, N., Krizhevsky, A., Sutskever, I. and Salakhutdinov, R. R.</hi> (2012). Improving neural networks by preventing co-adaptation of feature detectors. 
+                        <hi rend="italic">ArXiv Preprint ArXiv:1207.0580</hi>.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Kiessling, B., Miller, M. T., Maxim, G., Savant, S. B. and others</hi> (2017). Important New Developments in Arabographic Optical Character Recognition (OCR). 
+                        <hi rend="italic">Al-ʿUṣūr Al-Wusṭā</hi>, 
+                        <hi rend="bold">25</hi>: 1–13.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Kiessling, B., Stoekl Ben Ezra, Daniel and Miller, Matthew Thomas</hi> (2019). BADAM: A Public Dataset for Baseline Detection in Arabic-script Manuscripts.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Ronneberger, O., Fischer, P. and Brox, T.</hi> (2015). U-net: Convolutional networks for biomedical image segmentation. 
+                        <hi rend="italic">International Conference on Medical Image Computing and Computer-Assisted Intervention</hi>. Springer, pp. 234–241.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Springmann, U., Reul, C., Dipper, S. and Baiter, J.</hi> (2018). Ground Truth for training OCR engines on historical documents in German Fraktur and Early Modern Latin. 
+                        <hi rend="italic">ArXiv Preprint ArXiv:1809.05501</hi>.
+                    </bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

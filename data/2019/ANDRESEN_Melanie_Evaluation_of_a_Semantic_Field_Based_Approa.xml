@@ -1,0 +1,336 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>Evaluation of a Semantic Field-Based Approach to Identifying Text Sections about Specific Topics</title>
+                <author>
+                    <persName>
+                        <surname>Adelmann</surname>
+                        <forename>Benedikt</forename>
+                    </persName>
+                    <affiliation>Universität Hamburg, Germany</affiliation>
+                    <email>adelmann@informatik.uni-hamburg.de</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Andresen</surname>
+                        <forename>Melanie</forename>
+                    </persName>
+                    <affiliation>Universität Hamburg, Germany</affiliation>
+                    <email>melanie.andresen@uni-hamburg.de</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Begerow</surname>
+                        <forename>Anke</forename>
+                    </persName>
+                    <affiliation>Hochschule für Angewandte Wissenschaften Hamburg, Germany</affiliation>
+                    <email>anke.begerow@haw-hamburg.de</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Franken</surname>
+                        <forename>Lina</forename>
+                    </persName>
+                    <affiliation>Universität Hamburg, Germany</affiliation>
+                    <email>lina.franken@uni-hamburg.de</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Gius</surname>
+                        <forename>Evelyn</forename>
+                    </persName>
+                    <affiliation>Universität Hamburg, Germany</affiliation>
+                    <email>evelyn.gius@uni-hamburg.de</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Vauth</surname>
+                        <forename>Michael</forename>
+                    </persName>
+                    <affiliation>Technische Universität Hamburg, Germany</affiliation>
+                    <email>michael.vauth@tuhh.de</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2014-12-19T13:50:00Z</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Name, Institution</publisher>
+                <address>
+                    <addrLine>Street</addrLine>
+                    <addrLine>City</addrLine>
+                    <addrLine>Country</addrLine>
+                    <addrLine>Name</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from a Word document</p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.22">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Short Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>semantic fields</term>
+                    <term>topic</term>
+                    <term>hermeneutics</term>
+                    <term>annotation</term>
+                    <term>German</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>corpus and text analysis</term>
+                    <term>semantic analysis</term>
+                    <term>cultural studies</term>
+                    <term>german studies</term>
+                    <term>data mining / text mining</term>
+                    <term>English</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <div type="div1" rend="DH-Heading1">
+                <head>Introduction</head>
+                <p style="text-align:left; ">With the increasing availability of large corpora, humanist scholars gain opportunities to choose their material in a more data-driven way. How can we identify texts or text sections relevant to our research question if we abandon prior knowledge as a determining factor? In this paper, we explore the potential of semantic fields for finding text sections about a topic of interest.
+                    <note place="foot" xml:id="ftn1" n="1">
+                        <p style="text-align:left; "> We use the term “topic” in the sense of “subject of a text”. We do not want this to be confused with the term used for the results of topic modeling methods. By topic, we do not refer to the topic modelling concept (Blei, 2012), but to different subjects in a text.</p>
+                    </note> Additionally, we want to address the major issue of evaluating a task involving a great deal of interpretation.
+                </p>
+                <p style="text-align:left; ">The use case we present is the identification of text sections about body and illness. This is motivated by our larger research project that focuses on health (Gaidys et al., 2017). As test data, we use extracts of about 7,000 words from diverse research domains addressed in our research project:</p>
+                <list type="unordered">
+                    <item>the novel 
+                        <hi rend="italic">Corpus Delicti</hi> (2009) by Juli Zeh;
+                    </item>
+                    <item>the novel 
+                        <hi rend="italic">Ellen Olestjerne</hi> (1903) by Franziska zu Reventlow;
+                    </item>
+                    <item>an interview with a dying patient; and</item>
+                    <item>a protocol from the German Bundestag (federal parliament).</item>
+                </list>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Manually annotating topics</head>
+                <p style="text-align:left; ">Our guidelines for the manual annotation are available in German
+                    <note place="foot" xml:id="ftn2" n="2">
+                        <p style="text-align:left; "> http://doi.org/10.5281/zenodo.2634297</p>
+                    </note>. They determine that we consider a text span to be about illness or body if it is depicted as such by the text. The exact decision of what to annotate remains somewhat arbitrary, as is unavoidable in hermeneutic annotations. In order to agree on a concept of body and illness across disciplines, both were defined in a narrow way. The annotation was carried out by two independent annotators who did not receive any input beyond the guidelines. We used the annotation tool CATMA (Meister et al., 2018).
+                </p>
+                <p style="text-align:left; ">We calculate the agreement between the annotators in order to estimate the difficulty of the task and the quality of our guidelines. For this calculation, we compare the annotations sentence by sentence. If any word was annotated, we consider the whole sentence to be annotated. The objective of the task is to identify text sections and not phrases, so this abstraction is adequate. It also facilitates comparison as we do not need to deal with overlaps. In terms of agreement this is a rather tolerant approach. As a result, the agreement is relatively high, given the interpretative nature of the task. The chance-corrected scores range between 0.54 and 0.90, showing the varying difficulty in the texts and topics. Some of the disagreement could potentially be avoided by further refinement of the guidelines. </p>
+                <table rend="rules">
+                    <row>
+                        <cell rend="DH-Default"/>
+                        <cell rend="DH-Default">Corpus Delicti</cell>
+                        <cell rend="DH-Default">Ellen Olestjerne</cell>
+                        <cell rend="DH-Default">Interview</cell>
+                        <cell rend="DH-Default">Protocol</cell>
+                    </row>
+                    <row>
+                        <cell rend="DH-Default">body</cell>
+                        <cell rend="DH-Default">0.90</cell>
+                        <cell rend="DH-Default">0.86</cell>
+                        <cell rend="DH-Default">0.66</cell>
+                        <cell rend="DH-Default">-</cell>
+                    </row>
+                    <row>
+                        <cell rend="DH-Default">illness</cell>
+                        <cell rend="DH-Default">0.54</cell>
+                        <cell rend="DH-Default">0.71</cell>
+                        <cell rend="DH-Default">0.74</cell>
+                        <cell rend="DH-Default">0.84</cell>
+                    </row>
+                </table>
+                <p style="text-align:left; ">Table 1: Inter-annotator agreement, measured by Kappa (Fleiss, 1971) (no mentions of body in the protocol)</p>
+                <p style="text-align:left; ">For the gold standard, the annotators and two other researchers resolved the discrepancies between the two annotations. Table 2 shows the absolute numbers of annotated sentences.</p>
+                <table rend="rules">
+                    <row>
+                        <cell rend="DH-Default"/>
+                        <cell rend="DH-Default">Corpus Delicti</cell>
+                        <cell rend="DH-Default">Ellen Olestjerne</cell>
+                        <cell rend="DH-Default">Interview</cell>
+                        <cell rend="DH-Default">Protocol</cell>
+                    </row>
+                    <row>
+                        <cell rend="DH-Default">body</cell>
+                        <cell rend="DH-Default">113</cell>
+                        <cell rend="DH-Default">38</cell>
+                        <cell rend="DH-Default">38</cell>
+                        <cell rend="DH-Default">-</cell>
+                    </row>
+                    <row>
+                        <cell rend="DH-Default">illness</cell>
+                        <cell rend="DH-Default">22</cell>
+                        <cell rend="DH-Default">27</cell>
+                        <cell rend="DH-Default">67</cell>
+                        <cell rend="DH-Default">13</cell>
+                    </row>
+                </table>
+                <p style="text-align:left; ">Table 2: Number of annotated sentences for the two topics</p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Semantic field generation</head>
+                <p style="text-align:left; ">We generated semantic fields in the following ways (Adelmann et al., 2019):</p>
+                <list type="ordered">
+                    <item>The German Integrated Authority File 
+                        <hi rend="bold">GND</hi>
+                        <note place="foot" xml:id="ftn3" n="3">
+                            <p style="text-align:left; "> http://www.dnb.de/gnd (accessed April 29, 2019)</p>
+                        </note> (‘Gemeinsame Normdatei’, Wiechmann, 2012) is a controlled vocabulary with a hierarchy of concepts and references. All hyponyms for body (2,704 words) and illness (11,935 words) were extracted.
+                    </item>
+                    <item>
+                        <hi rend="bold">GermaNet</hi> (Hamp and Feldweg, 1997; Henrich and Hinrichs, 2010) is a lexical-semantic net that is structured in hypernym and hyponym relations. We extracted all hyponyms to body (2,170) and illness (2,043). We excluded all hyponyms to illness from the semantic field of body.
+                    </item>
+                    <item>We created 
+                        <hi rend="bold">word embeddings</hi> (WE) with the “gensim” implementation (Řehůřek and Sojka, 2010) of word2vec (Mikolov et al., 2013) on a collection of more than 2,500 full-texts of German literature from around 1900. We took the 100 words most similar (in terms of the cosine similarity of their embedding vectors) to body and illness, respectively.
+                    </item>
+                </list>
+                <p style="text-align:left; ">All words of the semantic fields were expanded by all possible inflection forms using SFST (Schmid, 2005) and the model by (Sennrich and Kunz, 2014). The texts were automatically tagged with the three semantic fields using CATMA’s query function.</p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Evaluation</head>
+                <p style="text-align:left; ">For the evaluation of the semantic field approach we compare it sentence by sentence with the gold standard. Table 3 shows the results for precision, recall and F1 scores. As can be expected for an annotation task involving much interpretation, not even half the scores reach more than 0.5. The GND semantic field has a better recall than precision as it is very large, especially for illness. GermaNet and WE score higher on precision than recall. The combination of all three semantic fields results in a clear improvement for the semantic field of body.</p>
+                <table rend="rules">
+                    <row>
+                        <cell rend="DH-Default"/>
+                        <cell rend="DH-Default" cols="3">illness</cell>
+                        <cell rend="DH-Default" cols="3">body</cell>
+                    </row>
+                    <row>
+                        <cell rend="DH-Default"/>
+                        <cell rend="DH-Default">Precision</cell>
+                        <cell rend="DH-Default">Recall</cell>
+                        <cell rend="DH-Default">F1</cell>
+                        <cell rend="DH-Default">Precision</cell>
+                        <cell rend="DH-Default">Recall</cell>
+                        <cell rend="DH-Default">F1</cell>
+                    </row>
+                    <row>
+                        <cell rend="DH-Default">GND</cell>
+                        <cell rend="DH-Default">0.20</cell>
+                        <cell rend="DH-Default">0.41</cell>
+                        <cell rend="DH-Default">0.31</cell>
+                        <cell rend="DH-Default">0.55</cell>
+                        <cell rend="DH-Default">0.69</cell>
+                        <cell rend="DH-Default">0.62</cell>
+                    </row>
+                    <row>
+                        <cell rend="DH-Default">GermaNet</cell>
+                        <cell rend="DH-Default">0.85</cell>
+                        <cell rend="DH-Default">0.23</cell>
+                        <cell rend="DH-Default">0.54</cell>
+                        <cell rend="DH-Default">0.30</cell>
+                        <cell rend="DH-Default">0.13</cell>
+                        <cell rend="DH-Default">0.21</cell>
+                    </row>
+                    <row>
+                        <cell rend="DH-Default">WE</cell>
+                        <cell rend="DH-Default">0.60</cell>
+                        <cell rend="DH-Default">0.34</cell>
+                        <cell rend="DH-Default">0.47</cell>
+                        <cell rend="DH-Default">0.57</cell>
+                        <cell rend="DH-Default">0.23</cell>
+                        <cell rend="DH-Default">0.40</cell>
+                    </row>
+                    <row>
+                        <cell rend="DH-Default">mean</cell>
+                        <cell rend="DH-Default">0.55</cell>
+                        <cell rend="DH-Default">0.33</cell>
+                        <cell rend="DH-Default">0.44</cell>
+                        <cell rend="DH-Default">0.47</cell>
+                        <cell rend="DH-Default">0.35</cell>
+                        <cell rend="DH-Default">0.41</cell>
+                    </row>
+                    <row>
+                        <cell rend="DH-Default">combination</cell>
+                        <cell rend="DH-Default">0.21</cell>
+                        <cell rend="DH-Default">0.45</cell>
+                        <cell rend="DH-Default">0.33</cell>
+                        <cell rend="DH-Default">0.43</cell>
+                        <cell rend="DH-Default">0.79</cell>
+                        <cell rend="DH-Default">0.61</cell>
+                    </row>
+                </table>
+                <p style="text-align:left; ">Table 3: Results (scores above 0.5 in bold)</p>
+                <p style="text-align:left; ">For example, words like ‘Hand’ (hand) as a part of the body or ‘Virus’ (virus) as an indicator for illness were found both by the manual annotations as by our queries using the semantic fields. Our approach generates false negatives when the topics of interest were mentioned in an indirect way, as it is frequently the case in literature such as ‘zu ihren Füßen’ (at her feet). Additionally, our semantic fields consist of nouns only, so all other parts of speech were neglected. False positives were produced when words about body or illness were used metaphorically as for example ‘aus dem Auge verlieren’ (to lose track of) or mentions of ‘Herz’ (heart) in the context of ‘offenherziges Lächeln’ (open-hearted smile) .</p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Conclusions</head>
+                <p style="text-align:left; ">The identification of specific topics using existing or automatically generated semantic fields does not fully reproduce what human annotators do. Researchers relying on this method should be aware that they systematically lose texts with specific features such as a more indirect style which results in a biased corpus. There are many false positives that can be manually removed. For scenarios with large corpora, an approach like this is still a feasible one. If we apply the method to identify units of text larger than sentences, the results might improve. We intend to conduct experiments to this end in the future.</p>
+                <p style="text-align:left; ">A higher-level question is how we can adequately evaluate tasks involving a great deal of interpretation. There are many possible ways of operationalizing, the topic body and our annotations guidelines represent only one. We consider our contribution to be a rough first approximation to a solution of this issue.</p>
+            </div>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold">Adelmann, B., Franken, L., Gius, E., Krüger, K. and Vauth, M.</hi> (2019). Die Generierung von Wortfeldern und ihre Nutzung als Findeheuristik. Ein Erfahrungsbericht zum Wortfeld „medizinisches Personal“. 
+                        <hi rend="italic">DHd 2019 Digital Humanities: multimedial &amp; multimodal. Konferenzabstracts</hi>. pp. 114–16 doi:10.5281/zenodo.2596095.
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold">Blei, D. M.</hi> (2012). Probabilistic topic models. 
+                        <hi rend="italic">Communications of the ACM</hi>, 
+                        <hi rend="bold">55</hi>(4): 77 doi:10.1145/2133806.2133826.
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold">Fleiss, J. L.</hi> (1971). Measuring nominal scale agreement among many raters. 
+                        <hi rend="italic">Psychological Bulletin</hi>, 
+                        <hi rend="bold">76</hi>(5): 378–82 doi:10.1037/h0031619.
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold">Gaidys, U., Gius, E., Jarchow, M., Koch, G., Menzel, W., Orth, D. and Zinsmeister, H.</hi> (2017). hermA: Automated modelling of hermeneutic processes. 
+                        <hi rend="italic">Hamburger Journal für Kulturanthropologie</hi>(7): 119–23.
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold">Hamp, B. and Feldweg, H.</hi> (1997). GermaNet - a Lexical-Semantic Net for German. 
+                        <hi rend="italic">Automatic Information Extraction and Building of Lexical Semantic Resources for NLP Applications</hi>. pp. 9–15 http://www.aclweb.org/anthology/W97-0802 (accessed 29 April 2019).
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold">Henrich, V. and Hinrichs, E.</hi> (2010). GernEdiT - The GermaNet Editing Tool. 
+                        <hi rend="italic">Proceedings of the Seventh Conference on International Language Resources and Evaluation (LREC 2010)</hi>. Valletta, Malta, pp. 2228–35.
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold">Meister, J.-C., Petris, M., Gius, E., Jacke, J., Horstmann, J. and Bruck, C.</hi> (2018). 
+                        <hi rend="italic">Catma</hi>. doi:10.5281/zenodo.1470119.
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold">Mikolov, T., Chen, K., Corrado, G. and Dean, J.</hi> (2013). Efficient Estimation of Word Representations in Vector Space. https://arxiv.org/abs/1301.3781v3 (accessed 29 April 2019).
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold">Řehůřek, R. and Sojka, P.</hi> (2010). Software Framework for Topic Modelling with Large Corpora. 
+                        <hi rend="italic">Proceedings of LREC 2010 Workshop New Challenges for NLP Frameworks</hi>. University of Malta, pp. 46–50 http://www.fi.muni.cz/usr/sojka/presentations/lrec2010-poster-rehurek-sojka.pdf (accessed 29 April 2019).
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold">Schmid, H.</hi> (2005). A Programming Language for Finite State Transducers. 
+                        <hi rend="italic">Finite-State Methods and Natural Language Processing, 5th International Workshop, FSMNLP 2005, Helsinki, Finland, September 1-2, 2005. Revised Papers</hi>. pp. 308–09 doi:10.1007/11780885_38.
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold">Sennrich, R. and Kunz, B.</hi> (2014). Zmorge: A German Morphological Lexicon Extracted from Wiktionary. 
+                        <hi rend="italic">Proceedings of the Ninth International Conference on Language Resources and Evaluation (LREC’14)</hi>. Reykjavik, Iceland: European Language Resources Association (ELRA), pp. 1063–67.
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold">Wiechmann, B.</hi> (2012). Die Gemeinsame Normdatei (GND): Rückblick und Ausblick. 
+                        <hi rend="italic">Dialog mit Bibliotheken</hi>, 
+                        <hi rend="bold">24</hi>(2): 20–22. urn:nbn:de:101-20130822163.
+                    </bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

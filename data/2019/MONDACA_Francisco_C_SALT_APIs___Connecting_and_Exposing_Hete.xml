@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>C-SALT APIs - Connecting and Exposing Heterogeneous Language Resources</title>
+                <author>
+                    <persName>
+                        <surname>Mondaca</surname>
+                        <forename>Francisco</forename>
+                    </persName>
+                    <affiliation>Universität zu Köln, Germany</affiliation>
+                    <email>f.mondaca@uni-koeln.de</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Rau</surname>
+                        <forename>Felix</forename>
+                    </persName>
+                    <affiliation>Universität zu Köln, Germany</affiliation>
+                    <email>f.rau@uni-koeln.de</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Neuefeind</surname>
+                        <forename>Claes</forename>
+                    </persName>
+                    <affiliation>Universität zu Köln, Germany</affiliation>
+                    <email>c.neuefeind@uni-koeln.de</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Kiss</surname>
+                        <forename>Börge</forename>
+                    </persName>
+                    <affiliation>Universität zu Köln, Germany</affiliation>
+                    <email>b.kiss@uni-koeln.de</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Kölligan</surname>
+                        <forename>Daniel</forename>
+                    </persName>
+                    <affiliation>Universität zu Köln, Germany</affiliation>
+                    <email>d.koelligan@uni-koeln.de</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Reinöhl</surname>
+                        <forename>Uta</forename>
+                    </persName>
+                    <affiliation>Universität zu Köln, Germany</affiliation>
+                    <email>uta.reinoehl@uni-koeln.de</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Sahle</surname>
+                        <forename>Patrick</forename>
+                    </persName>
+                    <affiliation>Universität zu Köln, Germany</affiliation>
+                    <email>sahle@uni-koeln.de</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2019-05-02T14:53:00Z</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Name, Institution</publisher>
+                <address>
+                    <addrLine>Street</addrLine>
+                    <addrLine>City</addrLine>
+                    <addrLine>Country</addrLine>
+                    <addrLine>Name</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from a Word document</p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.22">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Short Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>api rest graphql tei corpus dictionaries south asia</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>information retrieval and query languages</term>
+                    <term>lexicography</term>
+                    <term>software design and development</term>
+                    <term>English</term>
+                    <term>computer science and informatics</term>
+                    <term>sustainability and preservation</term>
+                    <term>oriental and asian studies</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <div type="div1" rend="DH-Heading1">
+                <head>Introduction</head>
+                <p style="text-align:left; ">In this paper, we present a strategy for the integration of existing heterogeneous language resources such as texts and dictionaries by connecting these resources and making them available for internal projects and third-party applications through (Web) APIs. We describe our approach in the context of the C-SALT initiative (
+                    <hi rend="italic">Cologne South Asian Languages and Texts</hi>
+                    <note place="foot" xml:id="ftn1" n="1">
+                        <p rend="footnote text" style="text-align:left;">
+                            <ref target="http://c-salt.uni-koeln.de/">
+                                <hi style="font-size:8pt">http://c-salt.uni-koeln.de</hi>
+                            </ref>
+                        </p>
+                    </note>), which gathers projects and resources hosted at the University of Cologne covering South Asian languages. To illustrate the potential use of our approach, we first introduce VedaWeb, a web-based platform that provides access to ancient Indian texts composed in Vedic Sanskrit, the oldest form of ancient Indo-Aryan. Then we describe the C-SALT APIs for dictionaries
+                    <note place="foot" xml:id="ftn2" n="2">
+                        <p rend="footnote text">
+                            <ref target="https://api.c-salt.uni-koeln.de/">
+                                <hi rend="color(1155CC)" style="font-size:8pt">https://api.c-salt.uni-koeln.de</hi>
+                            </ref>
+                        </p>
+                    </note>. These APIs make several large Pāli and Sanskrit dictionaries available online. Building on that, we present the architecture behind these APIs, and finally we summarize by analyzing the potential role of APIs in Digital Humanities (DH) projects.
+                </p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>About VedaWeb</head>
+                <p style="text-align:left; ">The cornerstone of VedaWeb is a digital edition of the Rigveda, one of the oldest and most important texts of the Indo-European language family, which comprises approx. 160,000 words. VedaWeb can be accessed either via a web application
+                    <note place="foot" xml:id="ftn3" n="3">
+                        <p rend="footnote text">
+                            <ref target="https://vedaweb.uni-koeln.de/rigveda">
+                                <hi style="font-size:8pt">https://vedaweb.uni-koeln.de/rigveda</hi>
+                            </ref>
+                        </p>
+                    </note> or directly via an API
+                    <note place="foot" xml:id="ftn4" n="4">
+                        <p rend="footnote text">
+                            <ref target="https://dh-cologne.github.io/vedaweb/#description-of-the-api">
+                                <hi style="font-size:8pt">https://dh-cologne.github.io/vedaweb/#description-of-the-api</hi>
+                            </ref>
+                        </p>
+                    </note>.  VedaWeb provides several layers of linguistic and philological information, alongside various editions of the text of the Rigveda. A search function with multiple linguistic parameters is available (including lemma, word form, morphological and metric information), which allows to execute queries across different levels of annotation by means of complex, combined search criteria. Besides the annotated version of the text, further layers include the display of translations (including Geldner, 2003; Grassmann, 1876; Griffith, 1896, Renou, 1956-1969) as well as commentaries to the Rigveda (Oldenberg, 1909/1912, Renou, 1956-1969). Parallel to the morphological annotations, all of these additional information layers can be accessed via full-text search as well as a more structured search function. The possibility to combine these multiple layers is crucial for enabling novel perspectives on the data, e.g. by means of quantifying feature combinations or by identifying context-dependent phenomena such as different types of constructions. VedaWeb is meant to advance research in all areas of Vedic studies, for example in syntax (e.g. referential null objects (Keydana &amp; Luraghi 2012), non-configurationality (Reinöhl, 2016)), morphology (e.g. the Vedic 
+                    <hi rend="italic">vr̥kī</hi>-type (Widmer, 2007), 
+                    <hi rend="italic">ya</hi>-presents (Kulikov, 2012)) or word formation (e.g. compounds (Scarlata &amp; Widmer, 2015)). 
+                </p>
+                <figure>
+                    <graphic n="1001" width="15.945555555555556cm" height="11.782777777777778cm" url="Pictures/e4f948667b75779983d770637b2735db.png" rend="inline"/>
+                    <head>A Screenshot of the VedaWeb Application, with two layers selected. Rigveda data and the Dictionaries are proportioned via the C-SALT APIs</head>
+                </figure>
+                <p style="text-align:left; ">An important feature of VedaWeb is the enrichment of the Rigveda text by linking each word with entries from the standard dictionary for the Rigveda by Hermann Grassmann (Grassmann, 1873). Instead of encapsulating the data in the application, our approach is to leave the resource ‘in place’ and obtain the data via the C-SALT APIs for Sanskrit Dictionaries
+                    <note place="foot" xml:id="ftn5" n="5">
+                        <p rend="footnote text">
+                            <ref target="https://cceh.github.io/c-salt_sanskrit_api">
+                                <hi style="font-size:8pt">https://cceh.github.io/c-salt_sanskrit_api</hi>
+                            </ref>
+                        </p>
+                    </note>.
+                </p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>C-SALT APIs for Dictionaries</head>
+                <p style="text-align:left; ">The C-SALT APIs for Dictionaries
+                    <note place="foot" xml:id="ftn6" n="6">
+                        <p rend="footnote text">
+                            <ref target="https://api.c-salt.uni-koeln.de/">
+                                <hi style="font-size:8pt">https://api.c-salt.uni-koeln.de</hi>
+                            </ref>
+                        </p>
+                    </note> have been developed to provide access to existing lexicographic resources in Pāli and Sanskrit without doubling work or hosting efforts. The dictionaries available via these APIs are also accessible through traditional monolithic web applications, like the Critical Pāli Dictionary Online
+                    <note place="foot" xml:id="ftn7" n="7">
+                        <p rend="footnote text">
+                            <ref target="http://cpd.uni-koeln.de/">
+                                <hi style="font-size:8pt">http://cpd.uni-koeln.de</hi>
+                            </ref>
+                        </p>
+                    </note>, and the Cologne Digital Sanskrit Dictionaries
+                    <note place="foot" xml:id="ftn8" n="8">
+                        <p rend="footnote text">
+                            <ref target="http://www.sanskrit-lexicon.uni-koeln.de/">
+                                <hi style="font-size:8pt">http://www.sanskrit-lexicon.uni-koeln.de</hi>
+                            </ref>
+                        </p>
+                    </note>, which are a product of a major Sanskrit digitization project (Kapp &amp; Malten, 1997).
+                </p>
+                <figure>
+                    <graphic n="1002" width="16.002cm" height="8.675169444444444cm" url="Pictures/990478dabe372d5613c5a82299b69125.png" rend="inline"/>
+                    <head>C-SALT APIs Overview</head>
+                </figure>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>API Architecture</head>
+                <p style="text-align:left; ">The basis of the APIs and of the VedaWeb application are versions of the texts and dictionaries encoded in TEI
+                    <note place="foot" xml:id="ftn9" n="9">
+                        <p style="text-align:left;">
+                            <hi style="font-size:8pt" xml:space="preserve"> Text Encoding Initiative: </hi>
+                            <ref target="https://tei-c.org/">https://tei-c.org/</ref>
+                        </p>
+                    </note>-XML
+                    <note place="foot" xml:id="ftn10" n="10">
+                        <p rend="footnote text">
+                            <hi style="font-size:8pt" xml:space="preserve"> Extensible Markup Language</hi>
+                        </p>
+                    </note>. We employ a TEI schema
+                    <note place="foot" xml:id="ftn11" n="11">
+                        <p rend="footnote text"> https://github.com/cceh/c-salt_dicts_schema</p>
+                    </note> developed initially for the three most complex Sanskrit dictionaries (Apte,1920; Böhtlingk &amp; Roth, 1855-1875; Monier-Williams 1899). By using one TEI schema, we not only achieve data persistence, but we also achieve a consistent structure for all dictionaries. While software such as frontend applications or APIs change over time, TEI offers the DH community the safest way to assure data persistence. For this reason, all the data accessed through APIs is ultimately based on TEI files. The different C-SALT projects use different technologies as ‘middleware’ between TEI and endpoints and also different Web API technologies: REST (Fielding, 2009) and GraphQL
+                    <note place="foot" xml:id="ftn12" n="12">
+                        <p style="text-align:left;">
+                            <ref target="https://graphql.org/">
+                                <hi style="font-size:8pt">https://graphql.org/</hi>
+                            </ref>
+                        </p>
+                    </note>. Independently of the technology employed, our APIs focus on performance and on providing well-documented access to curated linguistic data.
+                </p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Summary and Outlook</head>
+                <p style="text-align:left; ">Developing APIs means the separation of concerns. In the specific case of APIs: Well-curated data that should be efficiently accessed, through a clearly defined structure. For web applications this means
+                    <hi rend="color(512DA8)" xml:space="preserve">: </hi>Focusing on a specific user target, employing, if required, multiple APIs. We have described the potential use of APIs for lexicographic resources. There are several advantages to making the data accessible through APIs instead of encapsulating the data within the application. Instead of forcibly homogenizing diverse data sets into a general data model, it is more efficient to provide a common interface for accessing them. This also opens up opportunities to employ the different resources in the context of other applications. The main goal in developing C-SALT is to keep all resources as modular as possible, so that they can be used and reused in different research scenarios. In the case of VedaWeb, this currently applies to the dictionaries involved, but we see the potential to transfer the concept onto the other information layers as well, in particular the Rigveda text and its translations. In general, we believe that an API based approach to digital resources and data in the Digital Humanities provides efficient access to data and encourages the reuse of available resources. It thus facilitates novel uses by other researchers while avoiding repetition of work and unnecessary redundancy of resource instances. Applications are transient, but the knowledge, represented by the data, may stay and be reused.
+                </p>
+            </div>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl>
+                        <hi rend="bold">Apte, V.S</hi> (1920)
+                        <hi rend="superscript">3</hi>. The student's English-Sanskrit dictionary. Pune. 
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Böhtlingk, O. and Roth R.</hi> (1855-1875). Sanskrit-Wörterbuch. St. Petersburg: Kaiserliche Akademie der Wissenschaften.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Fielding, R. T.</hi> (2009). Architectural Styles and the Design of Network-based Software Architectures. Dissertation. Irvine: University of California. URL: 
+                        <ref target="HYPERLINK">
+                            <hi rend="underline color(1155CC)">https://www.ics.uci.edu/~fielding/pubs/dissertation/fielding_dissertation.pdf</hi>
+                        </ref>
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Geldner, K. F.</hi> (2003)[1951-57]. 
+                        <hi rend="italic">Der Rig-Veda. Aus dem Sanskrit ins Deutsche übersetzt und mit einem laufenden Kommentar versehen von Karl Friedrich Geldner</hi>. Cambridge (Mass.): Harvard University Press.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Grassmann, H.</hi> (1873). Wörterbuch zum Rig-veda. Wiesbaden, O. Harrassowitz.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Grassmann, H.</hi> (1876). Rig-veda. Übersetzt und mit kritischen und erläuternden Anmerkungen versehen von Hermann Grassmann. Leipzig: F.A. Brockhaus.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Griffith, R. T. H.</hi> (1896). The Hymns of the Rigveda. Benares: Lazarus.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Kapp, D. and Malten, T.</hi> (1997). Report on the Cologne Sanskrit Dictionary Project. URL: 
+                        <ref target="HYPERLINK">
+                            <hi rend="underline color(1155CC)">http://www.sanskrit-lexicon.uni-koeln.de/CDSL.pdf</hi>
+                        </ref>
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Keydana, G. and Luraghi, S.</hi> (2012). Definite referential null objects in Vedic Sanskrit and Ancient Greek. Acta Linguistica Hafniensia 44 (2):116–28.
+                        <ref target="HYPERLINK" xml:space="preserve"> https://doi.org/10.1080/03740463.2013.776245</ref>.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Kulikov, L.</hi> (2012). The Vedic -ya-Presents: Passives and Intransitivity in Old Indo-Aryan. Amsterdam, Netherlands: Rodopi.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Monier-Williams, M.</hi> (1899). A Sanskrit-English dictionary, new edition. Oxford:Clarendon.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Oldenberg, H.</hi> (1909/1912). R̥gveda. Textkritische und exegetische Noten. Berlin: Weidmann.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Reinöhl, U.</hi> (2016). Grammaticalization and the Rise of Configurationality in Indo-Aryan. Oxford: Oxford University Press
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Renou, L.</hi> (1956-1969). Études védiques et paninéennes. Paris: Boccard.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Scarlata, S. and Widmer, P.</hi> (2015). “Vedische exozentrische Komposita mit drei Relationen”, Indo-Iranian Journal 58(1):26-47.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Widmer, P.</hi> (2007). “Der altindische vrkī́-Typus und hethitisch nakki-: Der indogermanische Instrumental zwischen Syntax und Morphologie”, Zeitschrift für Sprachwissenschaft (1-2):190-208.
+                    </bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

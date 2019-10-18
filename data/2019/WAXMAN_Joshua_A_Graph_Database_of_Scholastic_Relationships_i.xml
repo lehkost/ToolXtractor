@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>A Graph Database of Scholastic Relationships in the Babylonian Talmud</title>
+                <author>
+                    <persName>
+                        <surname>Waxman</surname>
+                        <forename>Joshua</forename>
+                    </persName>
+                    <affiliation>Stern College for Women, Yeshiva University, United States of America</affiliation>
+                    <email>joshwaxman@gmail.com</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2019-04-25T14:15:00Z</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Name, Institution</publisher>
+                <address>
+                    <addrLine>Street</addrLine>
+                    <addrLine>City</addrLine>
+                    <addrLine>Country</addrLine>
+                    <addrLine>Name</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from a Word document</p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.22">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Short Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>named entity recognition</term>
+                    <term>social network graphs</term>
+                    <term>discourse analysis</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>natural language processing</term>
+                    <term>theology and religious studies</term>
+                    <term>digital textualities and hypertext</term>
+                    <term>network analysis and graphs theory</term>
+                    <term>English</term>
+                    <term>computer science and informatics</term>
+                    <term>electronic literature</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <div type="div1" rend="DH-Heading1">
+                <head>Introduction</head>
+                <p style="text-align:left; ">With the rise of the Internet, it has been pointed out that the Babylonian Talmud, with layers of texts commenting and referring to other texts, was an ancient hyper-text (Jerry Waxman, 1993; David Porush, 1998) Now, with the rise of social media, we can start to think of the Talmud as an ancient social network. True, Abaye and Rava did not use Facebook or Twitter. Rava cites Rav Nachman rather than retweeting him or sharing his status update. Although Abaye didn’t “friend” Rava, they studied under a shared teacher, Rabba, both headed the academy at Pumpedita, and they frequently take opposing positions and argue with one another.</p>
+                <p style="text-align:left; ">We set out to create a social network graph of the Babylonian Talmud. Using Named Entity Recognition of a statement-aligned Aramaic / English bitext, we found nodes (rabbis) and edges (scholastic interactions, such as citation). We induced formal scholastic relationships from these interactions, and propagated biographical information across the graph. We highlighted rabbis in the Talmudic text, using color to indicate scholastic generation, and displayed relevant subgraphs to show how the participants on a folio relate to one another both locally and globally.</p>
+                <p style="text-align:left; ">This biographical and scholastic information can aid a student of Talmud in understanding the dynamics of the discourse and why specific rabbis say what they say. For instance, the modern Revadim approach to Talmud (Hayman 2004) study makes great use of which generation a Tanna or Amora lived, which academy he belonged to, and so on. </p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Related Work</head>
+                <p style="text-align:left; ">The study of social network graphs of scholastic relationships has occurred in other, non-Talmudic, contexts. See for example Kofia et al. (2015).</p>
+                <p style="text-align:left; ">For the Babylonian Talmud, many printed works and a few existing digital resources can prove useful to identifying rabbis and their interactions. Satlow (2017) created a spreadsheet with approximately 5000 rabbinic names listed by Aaron Hyman in 
+                    <hi rend="italic">Toldot Tanaʾim ṿe-Amoraʾim</hi> (1910), as an intended first step to performing social network analysis of rabbinic literature. Parker (2009) assembled a database of approximately 250 Tannaim and Amoraim, their scholastic generations, and teacher / student relationships between them. Sefaria is an open and free online library of rabbinic literature. Among the items in their database is a digital version of the Koren Noé Talmud, with the Aramaic and the English translation aligned statement by statement or paragraph by paragraph, and with linked commentary. 
+                </p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Our Approach</head>
+                <p style="text-align:left; ">We performed Named Entity Recognition on the statement-aligned bitext corpus to mark up the scholars and their interactions, in both the Hebrew and English text. Such NER is challenging on purely Hebrew text (due to such ambiguities as where a name begins and ends), but we exploited the aligned text and a transliteration model to attain fairly accurate results. We used customized fuzzy string matching to match these names to those in the Parker database, when the names are spelled differently or have a patronymic. </p>
+                <p style="text-align:left; "> The Talmud consists of 5,894 folio pages, of which we have processed 4965 (84%), to recognize approximately 145,000 named entities and 12,000 interactions. Testing on a small tractate consisting of 59 folio pages, for just the English named entities, we achieve 81% precision, 94% recall, and an F1 score of 87%. For pairs of (English, Hebrew) in the literal text, performance is slightly lower (76% precision, 89% recall, 82% F1). </p>
+                <p style="text-align:left; ">We built two graphs. The first was based on Parker’s data. The second graph was populated from the NER- extracted names and interactions. Rabbis are represented as nodes, and weighted edges exist for each type of interaction (such as inquires, cites, speaks_to, and so on). Where possible, we transfered generational information from the Parker data, which sometimes required disambiguation based on context. For instance, “Rabbi Eleazar” would refer to Rabbi Eleazar ben Shamua in a Mishna or 
+                    <hi rend="italic">brayta</hi> but usually Rabbi Eleazar ben Pedat, an Amora, otherwise.
+                </p>
+                <p style="text-align:left; ">Because many rabbis are not encoded in Parker’s database, our graph includes nodes not marked for scholastic generation. We are exploring a few approaches to bootstrap off our initial generational knowledge, using our detected relationships. As an example, if known scholar A, of generation 3, cites unknown scholar B, then we can assume that B is 
+                    <lb/>probably of generation 1 or 2, that is, a near but previous generation. If known scholar A speaks to unknown scholar B, and B replies, they are probably within a generation of one another. By considering these constraints and iterating, we can propogate generational knowledge across the graph.
+                </p>
+                <p style="text-align:left; ">We have begun to summarize interactions as scholastic relationships (e.g., if A often cites/inquires of B, then A is likely B’s student). Other identifiable relationships are primary teacher, colleague, and frequent disputant. </p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Results and Conclusions</head>
+                <p style="text-align:left; ">The current release version of the system is available at 
+                    <ref target="http://www.mivami.org">www.mivami.org</ref>. Here, we include a few figures to illustrate the system output, drawn from Menachot 2b.
+                </p>
+                <figure>
+                    <graphic n="1001" width="15.998472222222222cm" height="10.63448611111111cm" url="Pictures/84a4bebd98a6fa9c8d689b82a5a080aa.png" rend="inline"/>
+                </figure>
+                <p style="text-align:left; ">
+                    <hi rend="italic bold">Figure 1</hi> is a single Talmudic statement. The literal translation is bolded while the gloss text is not. Rabba is colored red and Abaye green, matching their Amoraic generation as given in a legend (A3 and A4). Rabbi Shimon is colored as a 5th generation Tanna. Hover text presents patronymic and generation. 
+                </p>
+                <figure>
+                    <graphic n="1002" width="15.998472222222222cm" height="11.449402777777777cm" url="Pictures/ed515e712a6bc03d48f48e36ff0b33a8.png" rend="inline"/>
+                </figure>
+                <p style="text-align:left; ">
+                    <hi rend="italic bold">Figure 2</hi> is the teacher/student relationship graph of that statement, again color coded. Circles with outlines are rabbis who appear on the page. Circles without outlines are shared teachers. Thus, we see that Abaye and Rava are contemporaries (A4) and were both students of Rav Yosef and Rav Nahman. 
+                </p>
+                <figure>
+                    <graphic n="1003" width="16.002cm" height="5.9002083333333335cm" url="Pictures/1add39a5f90f816e23141e2e57bd47f3.png" rend="inline"/>
+                </figure>
+                <p style="text-align:left; ">
+                    <hi rend="italic bold">Figure 3</hi> displays local interactions; the bidirectional arrow shows Rabba and Abaye speaking to one another.
+                </p>
+                <figure>
+                    <graphic n="1004" width="15.979069444444445cm" height="12.927541666666666cm" url="Pictures/7877231757ad55861270bbd5e90c5fa5.png" rend="inline"/>
+                </figure>
+                <p style="text-align:left; ">Finally, 
+                    <hi rend="italic bold">Figure 4</hi> shows the rabbis local to the page, as they interact across the entire Talmud. Rava both speaks to and cites Rabba, making it apparent that they interacted face-to-face with Rabba as teacher.
+                </p>
+                <p style="text-align:left; ">Together, these graphs provide valuable insight into the meaning of the texts and dynamics of Talmudic discussions by highlighting relevant biographical information that is not readily accessible on the page of the Talmud. </p>
+            </div>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl style="text-align:left; ">Pinchas Hayman, Uncovering the Layers: The Revadim Method, 
+                        <hi rend="italic">Jewish Educational Leadership, volume 3, 2004</hi>
+                    </bibl>
+                    <bibl style="text-align:left; ">Kofia et al, Social Network: a Cytoscape app for visualizing co-authorship networks, F1000 Research, v.4; 2015</bibl>
+                    <bibl style="text-align:left; ">Joshua Parker, 
+                        <ref target="http://www.joshua-parker.net/sages/">
+                            <hi style="font-size:12pt">http://www.joshua-parker.net/sages/</hi>
+                        </ref>
+                    </bibl>
+                    <bibl style="text-align:left; ">David Porush, Talmud and Hypertext, 1998, 
+                        <ref target="http://kairos.technorhetoric.net/3.1/coverweb/porush/contra4.html">
+                            <hi style="font-size:12pt">http://kairos.technorhetoric.net/3.1/coverweb/porush/contra4.html</hi>
+                        </ref>
+                    </bibl>
+                    <bibl style="text-align:left; ">Michael Satlow, 
+                        <ref target="http://mlsatlow.com/2017/08/08/naming-rabbis-a-digital-list/">http://mlsatlow.com/2017/08/08/naming-rabbis-a-digital-list/</ref>
+                    </bibl>
+                    <bibl style="text-align:left; ">Jerry Waxman, Hypertextual Systems: Antecedents and Implications, AOJS Conference, Spring Glenn N.Y., August 1993</bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

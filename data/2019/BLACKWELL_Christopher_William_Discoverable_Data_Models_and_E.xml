@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>Discoverable Data Models and Extended Text Properties in the CITE Architecture</title>
+                <author>
+                    <persName>
+                        <surname>Blackwell</surname>
+                        <forename>Christopher William</forename>
+                    </persName>
+                    <affiliation>Furman University, United States of America; The Homer Multitext, Center for Hellenic Studies of Harvard University, United States</affiliation>
+                    <email>christopher.blackwell@furman.edu</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Smith</surname>
+                        <forename>David Neel</forename>
+                    </persName>
+                    <affiliation>College of the Holy Cross, United States of America; The Homer Multitext, Center for Hellenic Studies of Harvard University, United States</affiliation>
+                    <email>dnsmith.neel@gmail.com</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2014-12-19T13:50:00Z</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Name, Institution</publisher>
+                <address>
+                    <addrLine>Street</addrLine>
+                    <addrLine>City</addrLine>
+                    <addrLine>Country</addrLine>
+                    <addrLine>Name</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from a Word document</p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.22">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Short Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>citation</term>
+                    <term>urn</term>
+                    <term>images</term>
+                    <term>xml</term>
+                    <term>geojson</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>digital archives and digital libraries</term>
+                    <term>classical studies</term>
+                    <term>corpus and text analysis</term>
+                    <term>data models and formal languages</term>
+                    <term>linking and annotation</term>
+                    <term>English</term>
+                    <term>computer science and informatics</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <p>The CITE Architecture is a generic framework for identification, retrieval, and alignment of information about things humanists study. The challenge of a 
+                <hi rend="bold">generic</hi> framework lies in how it can handle the (literally) innumerable specific kinds of data likely to appear in any non-trivial digital library. CITE allows abstraction of data from specific encodings of that data, while maintaining 
+                <hi rend="bold">scholarly identity</hi>. This allows a digital library an open-ended ability to incorporate new formats or retrieval methods in a self-documenting plain-text serialization that maintains backwards compatibility. This paper will describe the implementation of 
+                <hi rend="bold">Discoverable Data Models</hi> and 
+                <hi rend="bold">Extended Text Property Types</hi> serialized in the CEX format and implemented in applications. Specific examples will be ( a ) geo-spatial data, in which a place can be represented by a URI to a gazetteer, a latitude/longitude pair, or a geoJson string, ( b ) textual data represented as plain-text, Markdown, or as a TEI-XML fragment, and ( c ) image collections, where the same image may be exposed as a JPG on a filesystem, via the IIIF-API, or as a DeepZoom file. CEX, the plain-text exchange format, can serialize collections and allow an application or service to discover these extended types or ignore them gracefully. All tools and data for these examples will be downloadable from GitHub.
+            </p>
+            <p rend="heading 4">Citation of Versioned Collections</p>
+            <p>The acronym in the title of the CITE Architecture stands for Collections, Indices, Texts, and Extensions. ‘Texts’ are CTS-compliant texts, that is, texts canonically citable with machine-actionable CTS URNs because they implement the OHCO2 model, “an ordered hierarchy of citation objects.”(Smith and Weaver) ‘Indices’ are simple URN to URN relationships, subject-verb-object relationships akin to RDF triples, with the proviso that subject, verb, and object are canonically citable by machine-actionable URNs. ‘Collections’ are of data objects and may be ordered or unordered.</p>
+            <p>The CITE Architecture allows collections of objects to be cited at many levels of abstraction and specificity.</p>
+            <p>
+                <hi style="font-family:Menlo">urn:cite2:botcar:catesbySpecimen:</hi> A citation to a notional collection of of botanical specimens collected by Mark Catesby.
+            </p>
+            <p>
+                <hi style="font-family:Menlo">urn:cite2:botcar:catesbySpecimen.2018:</hi> A citation to a specific version of a collection of of botanical specimens collected by Mark Catesby.
+            </p>
+            <p>
+                <hi style="font-family:Menlo">urn:cite2:botcar:catesbySpecimen.2018:223</hi> A citation to a specific specimen in a specific version of the collection.
+            </p>
+            <p>
+                <hi style="font-family:Menlo">urn:cite2:botcar:catesbySpecimen:223</hi> A citation to a specific specimen in 
+                <hi rend="italic">any</hi> version of the collection. This recognizes that the 
+                <hi rend="italic">specimen</hi> is an object of study that might have different expressions in data.
+            </p>
+            <p>A version of a CITE Collection is defined by its properties and their values. Each property is citable by URN:</p>
+            <p>
+                <hi style="font-family:Menlo">urn:cite2:botcar:catesbySpecimen.2018.label:</hi> The 
+                <hi style="font-family:Menlo">label</hi> property in a specific version of a collection.
+            </p>
+            <p>
+                <hi style="font-family:Menlo">urn:cite2:botcar:catesbySpecimen.2018.binomial:</hi> The 
+                <hi style="font-family:Menlo">binomial</hi> property in a specific version of a collection.
+            </p>
+            <p>An notional object is instantiated in a versioned collection by the sum of properties and their values:</p>
+            <p>
+                <hi style="font-family:Menlo">urn:cite2:botcar:catesbySpecimen.2018.label:223</hi> The 
+                <hi style="font-family:Menlo">label</hi> property for object 
+                <hi style="font-family:Menlo">223</hi> in a specific version of a collection.
+            </p>
+            <p>
+                <hi style="font-family:Menlo">urn:cite2:botcar:catesbySpecimen.2018.binomial:223</hi> The 
+                <hi style="font-family:Menlo">binomial</hi> property for object 
+                <hi style="font-family:Menlo">223</hi> in a specific version of a collection.
+            </p>
+            <p>Two versions of a notional collection need not have the same properties.</p>
+            <p>Properties are 
+                <hi rend="italic">typed</hi>, at a very low level. CITE defines valid types as:
+            </p>
+            <p rend="List Paragraph">String (optionally with a controlled vocabulary)</p>
+            <p rend="List Paragraph">Boolean</p>
+            <p rend="List Paragraph">Number</p>
+            <p rend="List Paragraph">Cite2Urn</p>
+            <p rend="List Paragraph">CtsUrn</p>
+            <p rend="heading 4">Compositions of Scholarly Primitives</p>
+            <p>The CITE Architecture defines 
+                <hi rend="bold">scholarly primitives</hi>: texts, or objects in versioned collections. Objects in versioned collections consist of a set of typed properties, with a very limited number of types.
+            </p>
+            <p>This makes the CITE Architecture flexible and relatively simple: libraries for working with two types of URN, libraries for manipulating corpora of texts, and libraries for dealing with objects in collections, libraries for managing relations of URN to URN.</p>
+            <p>All CITE data—texts, objects, and relations—can be expressed in plain text, and CEX, the Cite Exchange format, can serialize a digital library, or a part of a digital library, as plain text. CITE-aware services or applications can load data from CEX. 
+                <ref target="http://www.homermultitext.org/hmt-digital/">
+                    <hi rend="color(3262B2)">the Homer Multitext’s interactive web-application</hi>
+                </ref>, the 
+                <ref target="http://beta.hpcc.uh.edu/hmt/hmt-microservice/">
+                    <hi rend="color(3262B2)">Homer Multitext’s microservice</hi>
+                </ref> and 
+                <ref target="http://folio.furman.edu/cite.html">
+                    <hi rend="color(3262B2)">more specific applications exposing digital libraries for teaching</hi>
+                </ref>, all read CEX files as their input.
+            </p>
+            <p rend="heading 4">Extensions I: Connecting to the Physical World</p>
+            <p>The ‘E’ in CITE is “Extensions”, additional discoverable information providing richer interaction with the basic scholarly primitives.</p>
+            <p>A CITE Collection can describe a collection of images. A very basic image collection might have the properties 
+                <hi style="font-family:Menlo">label</hi>, 
+                <hi style="font-family:Menlo">license</hi>, and 
+                <hi style="font-family:Menlo">caption</hi>.
+            </p>
+            <p>Clearly, while we can serialize this information easily as plain-text in CEX, resolving a URN to binary image data requires a connection to the physical world. A notional ‘image’ might be resolved to a JPG file, to data delivered by the IIIF API, to a DeepZoom file, or to any combination of these.</p>
+            <p>CITE and CEX solve this problem by means of “discoverable data models”, additional data (expressed as generic CITE collections) that can identify specific collections of images as being served by one or more binary image services. In this case, an additional Binary Image Service collection associates a collection with:</p>
+            <p>A type of image service (JPG file, IIIF-API, DeepZoom)</p>
+            <p>A URL to a service hosting images from the collection</p>
+            <p>Filepath information necessary to resolve an image’s URN to files on the server.</p>
+            <p>A working example of this is 
+                <ref target="http://www.homermultitext.org/hmt-digital/?urn=urn:cite2:hmt:vaimg.2017a:VA304VN_0806">
+                    <hi rend="color(3262B2)">the Homer Multitext’s interactive web-application</hi>
+                </ref>. The 
+                <ref target="https://github.com/homermultitext/hmt-archive/blob/master/releases-cex/hmt-2018e.cex">
+                    <hi rend="color(3262B2)">CEX of the HMT’s data release</hi>
+                </ref> identifies image collections as being expose both as DeepZoom files and via the IIIF-API. The web-application takes advantage of both of these to provide thumbnail views and interactive zooming views.
+            </p>
+            <p rend="heading 4">Extensions II: Different Expressions of Textual Data</p>
+            <p>An object in a version of a collection might have a property of type 
+                <hi style="font-family:Menlo">string</hi>, and that is easily discoverable with the basic CITE tools. But of course, a 
+                <hi style="font-family:Menlo">string</hi> might be plain text, Markdown, some form of XML, or some other encoding. It is easy to imagine a project publishing a version of a collection of comments as plain-text, and subsequently publishing a new version that adds some markup to those comments.
+            </p>
+            <p>Because the CITE2 URN allows identification of notional collections, versioned collections, individual properties in versioned collections, in each case across the collection or filtered by an object’s identifier, we can expose additional information about the nature of a property of type 
+                <hi style="font-family:Menlo">string</hi>.
+            </p>
+            <p>By means of a discoverable data model, just as we associated whole collections of images with different binary image services, we can associate properties with different encodings, without losing scholarly identity. This paper will demonstrate a notional Collection of comments on the text of Herodotus, expressed in three different versions: one with comments in plain-text, one with comments formatted as Markdown, and one with comments formatted as TEI-XML fragements. These 
+                <hi rend="italic">discoverable extended string property types</hi> are ignored by any application that is unaware of them, but exploited for human display by applications that are aware of them.
+            </p>
+            <p>As a working example of 
+                <hi rend="bold">discoverable extended string property types</hi>, we can point to a CITE Library of lexicon data, based on the openly licensed XML versions of the 
+                <ref target="http://folio2.furman.edu/lsj/index.html">
+                    <hi rend="color(3262B2)">Liddell-Scott-Jones Greek Lexicon</hi>
+                </ref>, the 
+                <ref target="http://folio2.furman.edu/lewis-short/index.html">
+                    <hi rend="color(3262B2)">Lewis &amp; Short Latin Dictionary</hi>
+                </ref>, and 
+                <ref target="http://folio2.furman.edu/strong/">
+                    <hi rend="color(3262B2)">Strong’s Hebrew Lexicon</hi>
+                </ref>. Data for each of these serialized in a CEX file, and served through a Microservice. Querying the service shows that the lexicon entries, of type 
+                <hi style="font-family:Menlo">StringType</hi> can be read as plain-text: 
+                <ref target="http://folio2.furman.edu/lex/objects/urn:cite2:hmt:lsj.chicago_md:n2389">
+                    <hi rend="color(3262B2)">http://folio2.furman.edu/lex/objects/urn:cite2:hmt:lsj.chicago_md:n2389</hi>
+                </ref>. But because this collection identifies that property as extended by 
+                <hi style="font-family:Menlo">Markdown</hi>, an aware application can process the plain-text expression and apply formatting: 
+                <ref target="http://folio2.furman.edu/lsj/index.html?urn=urn:cite2:hmt:lsj.chicago_md:n2389">
+                    <hi rend="color(3262B2)">http://folio2.furman.edu/lsj/index.html?urn=urn:cite2:hmt:lsj.chicago_md:n2389</hi>
+                </ref>.
+            </p>
+            <p rend="heading 4">Extensions III: Different Expressions of Real World Data</p>
+            <p>Digital Gazetteers such as the Pleiades project[^pleiades] have solved the problem of scholarly identity across historically diverse placenames, so ‘Naulochon’, ‘Smyrna’, and ‘Izmir’, different names for the same place, are canonically citable as 
+                <hi style="font-family:Menlo">https://pleiades.stoa.org/places/550771</hi>. But for very sound technological reasons, we might want to express the location of Izmir by 
+                <hi style="font-family:Menlo">550771</hi>, by its full Pleiades URI, by 
+                <hi style="font-family:Menlo">38.440912, 27.14781</hi>, by 
+                <hi style="font-family:Menlo">27.14781, 38.440912</hi>, by 
+                <hi style="font-family:Menlo">{"type": "FeatureCollection", "features": [{"type": "Feature", "properties": {}, "geometry": {"type": "Point", "coordinates": [27.14781, 38.440912 ] } } ] }</hi>, or by 
+                <hi style="font-family:Menlo">&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;kml xmlns="http://www.opengis.net/kml/2.2"&gt;&lt;Document&gt;&lt;Placemark&gt;&lt;ExtendedData&gt;&lt;/ExtendedData&gt;&lt;Point&gt;&lt;coordinates&gt;27.14781,38.440912&lt;/coordinates&gt;&lt;/Point&gt;&lt;/Placemark&gt;&lt;/Document&gt;&lt;/kml&gt;</hi>.
+            </p>
+            <p>A collection of, for example, “ancient places mentioned in Herodotus”, as a publication should separate the notional scholarly objects—'Sardis', ‘Athens'—from any particular technology for locating those objects on a map. The CITE extended string property types allows different versions of such a collection to record locations in any of a variety of formats, or to mix formats within a single expression, 
+                <hi rend="italic">e.g.</hi> latitude and longitude for a simple point, with geoJson for describing regions. The presentation will include a demonstration dataset illustrating this.
+            </p>
+            <p rend="heading 4">Conclusion</p>
+            <p>CEX, as a line-based, plain-text serialization of diverse data—texts, collections, relations—is a convenient, future-proof, and open means of data exchange for small projects and large project. ( The 
+                <hi rend="italic">Homer Multitext</hi> 2018g release is published as a 73,000 line CEX file. ) With 
+                <hi rend="bold">discoverable-data-models</hi> and 
+                <hi rend="bold">extended-text-property-types</hi>, CEX can serve data in a variety of current and future formats; these formats are discoverable by applications that, but degrade gracefully back to generic, plain-text in generic CITE applications. The talk will point to example CEX files and applications, on GitHub, demonstrating these capabilities with scholarly data.
+            </p>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold">D. Neel Smith and Gabriel Weaver</hi>, “Applying Domain Knowledge from Structured Citation Formats to Text and Data Mining: Examples Using the CITE Architecture,” 
+                        <hi rend="Book_Title">Text Mining Services</hi>, 2009, 129.
+                    </bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

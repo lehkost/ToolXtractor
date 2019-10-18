@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title type="full">
+                    <title type="main">A Layered Digital Library for Cataloguing and Research: Practical Experiences with Medieval Manuscripts, from TEI to Linked Data</title>
+                    <title type="sub"/>
+                </title>
+                <author>
+                    <persName>
+                        <surname>Page</surname>
+                        <forename>Kevin</forename>
+                    </persName>
+                    <affiliation>University of Oxford, United Kingdom</affiliation>
+                    <email>kevin.page@oerc.ox.ac.uk</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Burrows</surname>
+                        <forename>Toby</forename>
+                    </persName>
+                    <affiliation>University of Oxford, United Kingdom</affiliation>
+                    <email>toby.burrows@oerc.ox.ac.uk</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Hankinson</surname>
+                        <forename>Andrew</forename>
+                    </persName>
+                    <affiliation>University of Oxford, United Kingdom</affiliation>
+                    <email>andrew.hankinson@bodleian.ox.ac.uk</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Holford</surname>
+                        <forename>Matthew</forename>
+                    </persName>
+                    <affiliation>University of Oxford, United Kingdom</affiliation>
+                    <email>matthew.holford@bodleian.ox.ac.uk</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Morrison</surname>
+                        <forename>Andrew</forename>
+                    </persName>
+                    <affiliation>University of Oxford, United Kingdom</affiliation>
+                    <email>andrew.morrison@bodleian.ox.ac.uk</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Lewis</surname>
+                        <forename>David</forename>
+                    </persName>
+                    <affiliation>University of Oxford, United Kingdom</affiliation>
+                    <email>david.lewis@oerc.ox.ac.uk</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Velios</surname>
+                        <forename>Athanasios</forename>
+                    </persName>
+                    <affiliation>University of Oxford, United Kingdom; University of the Arts London, United Kingdom</affiliation>
+                    <email>a.velios@arts.ac.uk</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2019-04-29T18:41:48.232349665</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Name, Institution</publisher>
+                <address>
+                    <addrLine>Street</addrLine>
+                    <addrLine>City</addrLine>
+                    <addrLine>Country</addrLine>
+                    <addrLine>Name</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from an OASIS Open Document</p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.22">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Long Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>Linked Data</term>
+                    <term>TEI</term>
+                    <term>catalogues</term>
+                    <term>manuscript provenance</term>
+                    <term>CIDOC CRM</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>medieval studies</term>
+                    <term>ontologies and knowledge representation</term>
+                    <term>GLAM: galleries</term>
+                    <term>libraries</term>
+                    <term>archives</term>
+                    <term>museums</term>
+                    <term>digital research infrastructures and virtual research environments</term>
+                    <term>semantic web and linked data</term>
+                    <term>English</term>
+                    <term>library &amp; information science</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <p>In this paper we report our experiences developing and applying a set of digital infrastructure elements which, in combination, realise a layered digital library (Page et al 2017) for the investigation of manuscript provenance.</p>
+            <p>We describe several related technical contributions: encoding of manuscript catalogue and local authority records as TEI; using Github for version control, issue tracking, and collaboration; automated production of catalogue user interfaces derived from the TEI; an XML processing workflow identifying, extracting, and processing TEI elements for reuse in research; mapping workflow output into a CIDOC-CRM RDF export; reconciliation of RDF entities with external authorities enabling the creation and use of Linked Data bridging multiple datasets.</p>
+            <p>We contextualise the co-evolution of these components and exemplify their use in studies of the provenance of medieval manuscripts. We reflect on the flexibility and extensibility provided by our layered approach, and the independent benefits for catalogers and scholars.</p>
+            <div type="div1" rend="DH-Heading1">
+                <head>
+                    <anchor xml:id="id__32hgfy1sjtik"/>Catalogue implementation and Linked Data workflow
+                </head>
+                <p>The foundation layer of the approach described herein is the TEI encoding of manuscript metadata undertaken by the University of Oxford Bodleian Libraries. TEI has previously been used to encode text-based catalogues of manuscripts
+                    <hi rend="sup">
+                        <note xml:id="ftn1" place="foot" n="1">
+                            <ptr target="https://wiki.tei-c.org/index.php/TEI_manuscript_catalogues"/>
+                        </note>
+                    </hi>, and we briefly reference the particular problems and solutions posed for the Bodleian Libraries previously described elsewhere (Holford, Hankinson, and Morrison, 2018).
+                </p>
+                <p>The digital catalogue records are mostly derived from earlier printed catalogues, though in many cases they have been enhanced and updated for the digital catalogue. More than 9,200 Western medieval manuscripts are described.</p>
+                <p>TEI XML was chosen for this detailed cataloguing of manuscripts because of its rich and flexible syntax: it can encode a complete retrospective conversion of existing catalogue description texts, adding structured markup of specific concepts and identifiers adapted to the various formats of historical catalogues, while allowing a variable degree of comprehensive or selective markup as required or desired.</p>
+                <p>Catalogue records are implemented using a customisation of the TEI P5 manuscript description module
+                    <hi rend="sup">
+                        <note xml:id="ftn2" place="foot" n="2">
+                            <ptr target="http://www.tei-c.org/release/doc/tei-p5-doc/en/html/MS.html"/>
+                        </note>
+                    </hi>, with minor variations for Western, Islamic and Oriental manuscripts. Significant effort has been invested in the creation of local authority files for works, people and places, also using TEI. These have been, in turn, manually reconciled with URIs of records in external authorities such as VIAF, Library of Congress, Bibliothèque nationale de France, Système Universitaire de Documentation, Gemeinsame Normdatei, and WikiData.
+                </p>
+                <p>TEI records are created and edited in the Oxygen editor, and stored in repositories
+                    <hi rend="sup">
+                        <note xml:id="ftn3" place="foot" n="3">
+                            <ptr target="https://github.com/bodleian/medieval-mss"/>
+                        </note>
+                    </hi> using the Git version control system. GitHub provides for issue tracking and collaboration - requests for modifications or additional markup in support of researcher investigations, such as that described in this paper, can be added, trialled, reverted, or otherwise properly and consistently managed without negatively impacting on the traditional library functions of the catalogue.
+                </p>
+                <p>This TEI layer is, therefore, focussed purely on the creation and maintenance of the XML record files, with appropriate support tools and functionality, and which could easily be transferred to an alternative repository systems should the need arise.</p>
+                <p>While the TEI records are freely and openly available via GitHub, the primary interface for library users is a Medieval Manuscripts collections website
+                    <hi rend="sup">
+                        <note xml:id="ftn4" place="foot" n="4">
+                            <ptr target="https://medieval.bodleian.ox.ac.uk/"/>
+                        </note>
+                    </hi>, where the full gamut of traditional searching, browsing and viewing functionalities are provided. The website is built using open source technologies including XSLT, XQuery, Solr and Blacklight
+                    <hi rend="sup">
+                        <note xml:id="ftn5" place="foot" n="5">
+                            <ptr target="http://projectblacklight.org/"/>
+                        </note>
+                    </hi>. Since the website is generated atop a version-controlled check out of the TEI catalogue layer, it too can be developed independently of the other layers.
+                </p>
+                <p>A further benefit of this separation of concerns is the ability to create parallel specialised data layers targeted towards distinct areas of research, supplementing rather than supplanting the canonical TEI catalogue and core digital library functions. Here the flexibility and adaptability offered by TEI is excessive, perhaps counterproductive, for computational processing of the catalogue metadata.</p>
+                <p>Answering specific research questions we instead desire reasoning over logically consistent relationships, such as those in the CIDOC Conceptual Reference Model
+                    <hi rend="sup">
+                        <note xml:id="ftn6" place="foot" n="6">
+                            <p>The CIDOC-CRM 
+                                <ptr target="http://cidoc.ics.forth.gr/"/>
+                            </p>
+                        </note>
+                    </hi>, and an ability to cross-reference multiple corpora and authorities using Linked Data: we create a selective RDF layer derived from the catalogue metadata. While theoretically conversion could be include all available TEI elements and attributes, in practice undertaking the mapping is detailed and complex, and limiting scope according to the investigation engenders progress. RDF complements this approach through data structures well suited to future extensions retaining consistency.
+                </p>
+                <p>The first stage of processing simplifies the TEI records, extracting pertinent information (manuscripts, parts, works, authors and other people, places) using XQuery
+                    <hi rend="sup">
+                        <note xml:id="ftn7" place="foot" n="7">
+                            <ptr target="https://github.com/bodleian/medieval-mss/blob/master/processing/analysis/simplified-xml-for-3m.xquery"/>
+                        </note>
+                    </hi> into a more rigid XML structure. This transforms records into a single file, conforming to desired metadata fields, normalising some data (e.g. languages), referencing authority files, and building URIs.
+                </p>
+                <p>The second stage ingests our simplified XML into the 3M mapping tool (Oldman, Theodoridou and Samaritakis, 2010) for transformation to a data model combining entities and relationships from CIDOC-CRM and FRBRoo
+                    <hi rend="sup">
+                        <note xml:id="ftn8" place="foot" n="8">An object-oriented version of FRBR harmonized with CIDOC-CRM</note>
+                    </hi>. Entities are also reconciled with local and external authorities, and RDF is exported ready for querying against research questions.
+                </p>
+                <p>In creating these two alternate layers atop the TEI encoded catalogue, we serve several distinct but complementary motivations: a robust, maintainable and consistent record system for cataloguing; a visible and discoverable interface for browsing and searching the catalogue; and a malleable data structure for detailed scholarly investigation. These parallel the affordances offered by the layers’ encodings, deploying TEI and RDF (and, similarly Solr/Blacklight) by their strengths. In the remainder of the paper we focus on the last of these motivations.</p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>
+                    <anchor xml:id="id__73f63yn8t3ew"/>Application to manuscript provenance research
+                </head>
+                <p>Having described the infrastructural components and overall workflow, we demonstrate the use of this novel digital library for research into the provenance of medieval manuscripts: their origins and movements, and the collectors and owners involved in their history.</p>
+                <p>As the result of changes in ownership over centuries, European manuscripts are spread across the world in diverse library, museum and gallery collections. Information relating their often-complicated histories is dispersed and fragmented across numerous sources, compelling historians and other researchers to make painstaking and time-consuming searches of printed and online catalogues. Digital tools which can assist in these searches, recording their outcomes, are of great benefit; cross-referencing and reconciliation across catalogues even more so.</p>
+                <p>As such, our ultimate aim is to search across multiple distributed catalogues
+                    <hi rend="sup">
+                        <note xml:id="ftn9" place="foot" n="9">
+                            <ptr target="http://mappingmanuscriptmigrations.org/"/>
+                        </note>
+                    </hi>
+                    <hi rend="sup">,</hi>
+                    <hi rend="sup">
+                        <note xml:id="ftn10" place="foot" n="10">Furthermore, the RDF described here for our manuscript catalogues has already formed part of Linked Data network combining records from the gardens, libraries and museums of the University of Oxford as part of the OXLOD project, including the Ashmolean, Museum of Natural History, and Pitt Rivers Museum.</note>
+                    </hi>, using ontologies to resolve conceptual equivalencies and indirect relationships, overcoming differences in underlying catalogue structures, and so enabling unified searching and interrogation. Here, however, we constrain discussion to our completed implementation at the University of Oxford, noting it provides a template for equivalent layer creation over other catalogue systems, and that the queries below will be equally applicable to a cross-corpora search
+                    <hi rend="sup">
+                        <note xml:id="ftn11" place="foot" n="11">Indeed this reusability and extensibility is one of our primary motivations for using Linked Data.</note>
+                    </hi>.
+                </p>
+                <p>There has been little previous work transforming TEI manuscript catalogues into RDF suitable for the combined data explorations described here. The Medieval Electronic Scholarly Alliance (MESA) published samples of transformations from the Walters Art Museum into the Dublin Core based schema
+                    <hi rend="sup">
+                        <note xml:id="ftn12" place="foot" n="12">
+                            <ptr target="http://wiki.collex.org/index.php/Submitting_RDF"/>
+                        </note>
+                    </hi> of the Advanced Research Consortium (ARC); while Compton and Schwartz (2019) outline the general motivations and benefits of TEI to RDF conversion.
+                </p>
+                <p>For our modelling, we began by considering TEI markup for the manuscripts records themselves, which can be complex and hierarchical, often describing a manuscript divided into several parts each with its own history and containing works-within-works (e.g. a collection of poetry and individual poems). Information about the provenance of a manuscript is sometimes encoded with a single XML element describing the entire history of the manuscript, and sometimes as multiple elements each recounting one event in that history. Dates might be encoded with ‘date’ tags or attributes on the ‘provenance’ element, and so on.</p>
+                <p>Given this inherent complexity within the data, we identified a reduced set of ‘frames of reference’ to practically scope our RDF conversion. Consulting with other manuscript scholars identified archetypal questions required of any data investigation. We include an illustrative selection of these queries here, which we reference to their realisation in TEI, simplified XML, 3M mapping, RDF. and SPARQL:</p>
+                <list type="unordered">
+                    <item>How many manuscripts were produced in Northern Italy and/or Lombardy?</item>
+                    <item>How many manuscripts were produced in London in the 15th century?</item>
+                    <item>How many manuscripts did French collectors acquire from dissolved English monasteries?</item>
+                </list>
+                <p>Our focus on manuscript provenance and associated research questions scoped our choice of elements and attributes to include in the simplified XML: selecting necessary entities, cross-referencing information from local authority files, and creating URIs required for the next stage of processing. The authority files themselves, being essentially flat lists, could be mapped in the 3M tool directly.</p>
+                <p>Within 3M, we show examples of mapping from the TEI customisation to CIDOC-CRM and FRBRoo
+                    <hi rend="sup">
+                        <note xml:id="ftn13" place="foot" n="13">For example, from the catalogue work item (TEI bibl) to F1 Work; msItem to F22 Self-contained Expression; and so on.</note>
+                    </hi>, taking care to separate evidence derived directly from the text from that which embeds institutional knowledge (i.e. inscriptions require interpretation).
+                </p>
+                <p>Finally, we provide examples of SPARQL resolving the research questions, above, paying attention to how data semantics can overcome complexities not immediately apparent in their natural language form. For example, breaking down a query to retrieve “manuscripts from 1550-1600 produced in European countries” entails reasoning over variable temporal constructs, mapping and resolution of external spatial definitions (Getty, Wikidata).</p>
+                <p>
+                    <hi rend="bold">Acknowledgements</hi>: We are grateful for the support and insights provided by our colleagues participating in the wider projects surrounding this work: Prof. Donna Kurtz and Gabriel Hanganu of the Oxford Linked Open Data project (OXLOD); and Mapping Manuscript Migrations project team members at the the University of Pennsylvania Libraries, the Institut de recherche et d’histoire des textes, and the Semantic Computing Group at Aalto University.
+                </p>
+            </div>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl>Holford, M. Hankinson, H. and Morrison, M. ‘Implementing TEI-based manuscript cataloguing at the Bodleian Library: challenges and solutions’. European Association of Digital Humanities conference 2018 (EADH 2019).</bibl>
+                    <bibl>Compton, C. and Schwartz, M. 2018. ‘More Than “Nice to Have”: TEI-to-Linked Data Conversion’. Digital Humanities 2018. 
+                        <ptr target="https://dh2018.adho.org/more-than-nice-to-have-tei-to-linked-data-conversion/"/>
+                    </bibl>
+                    <bibl>Oldman, D., Theodoridou, M., and Samaritakis, G. 2010. Using Mapping Memory Manager (3M) with CIDOC CRM. Version 4g. http://83.212.168.219/DariahCrete/sites/default/files/mapping_manual_version_4g.pdf</bibl>
+                    <bibl>Page, K.R., Bechhofer, S., Fazekas, G, Weigl D.M, and Wilmering, T. 2017. ‘Realising a layered digital library: exploration and analysis of the live music archive through linked data’. Proc. 17th ACM/IEEE Joint Conference on Digital Libraries, pp.89-98.</bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

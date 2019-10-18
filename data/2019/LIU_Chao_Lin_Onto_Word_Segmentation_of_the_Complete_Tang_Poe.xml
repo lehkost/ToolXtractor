@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>Onto Word Segmentation of the Complete Tang Poems</title>
+                <author>
+                    <persName>
+                        <surname>Liu</surname>
+                        <forename>Chao-Lin</forename>
+                    </persName>
+                    <affiliation>National Chengchi University, Taiwan</affiliation>
+                    <email>chaolinliu@gmail.com</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2019-04-23T21:34:00Z</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Name, Institution</publisher>
+                <address>
+                    <addrLine>Street</addrLine>
+                    <addrLine>City</addrLine>
+                    <addrLine>Country</addrLine>
+                    <addrLine>Name</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from a Word document</p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.22">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Long Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>classical Chinese word segmentation</term>
+                    <term>point-wise mutual information</term>
+                    <term>Chinese poetry</term>
+                    <term>Chinese culture</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>corpus and text analysis</term>
+                    <term>literary studies</term>
+                    <term>natural language processing</term>
+                    <term>content analysis</term>
+                    <term>English</term>
+                    <term>oriental and asian studies</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <div type="div1" rend="DH-Heading1">
+                <head>Introduction</head>
+                <p>The research community agrees on the influences and importance of the Tang
+                    <note place="foot" xml:id="ftn1" n="1">
+                        <p rend="footnote text"> Tang is a Chinese dynasty that existed between 618CE and 907CE.</p>
+                    </note> poems for the studies of Chinese literature and linguistics (e.g., Lo, 2005; Tharsen, 2015; Mazanec, 2017; Lee, Kong, and Luo, 2018), and we have seen discussions about the Tang poems in the community of digital humanities (e.g., Lee et al., 2018; Liu, Zhang, Geng, Lai, and Wang, 2017). Chinese is a language that does not place clear markers, e.g., spaces in alphabetic languages, between words in the texts. To study the Chinese contents with digital tools, words are more meaningful units than characters, although using characters is also possible. Unfortunately, it remains difficult to algorithmically segment words in classical Chinese (Huang and Wu, 2018).
+                </p>
+                <p>Chinese word segmentation (
+                    <hi rend="bold color(0000FF)">CWS</hi>) is a key step for computational processing of Chinese texts. CWS for modern vernacular Chinese has achieved good results in international competitions and in practical applications (Zhou, Yu, Zhang, Huang, and Chen, 2017). It is relatively easier to obtain data to train software for CWS of modern Chinese, but there are no known good sources of labelled data for CWS of classical Chinese yet. In fact, even segmenting classical Chinese texts into sentences is an ongoing research topic (Liu and Chang, 2018).
+                </p>
+                <p>We report results of our attempt to segment words in the Complete Tang Poems (
+                    <hi rend="bold color(0000FF)">CTP</hi>). CTP is a representative and arguably the most famous collection of Tang Poems (Peng et al., 2003). To study CWS for CTP, we must acquire poems that are segmented by domain experts. At this moment, we use only regulated pentametric octaves (
+                    <hi rend="bold color(0000FF)">RPO</hi>) and regulated heptametric octaves (
+                    <hi rend="bold color(0000FF)">RHO</hi>) of seven prominent poets.
+                    <note place="foot" xml:id="ftn2" n="2">
+                        <p rend="footnote text"> Notes: (1) Regulated pentametric octaves and regulated heptametric octaves mean五言律詩and七言律詩, respectively. (2) An octave poem has eight lines. (3) The poets are Yuan Zhen(元稹), Li Shangyin(李商隱), Li Bai(李白), Du Mu(杜牧), Du Fu(杜甫), Bai Jyuyi(白居易), Wei Yingwu(韋應物).</p>
+                    </note> The segmentation task was achieved by five assistants who have university-level domain knowledge in Chinese poetry. We have to ignore two poems because they include very rare characters that cannot be handled in our programming environment. We also dropped nine poems when our annotators believed that the poems could be segmented in multiple ways or when our annotators were not sure how to segment them. At this moment, we have 2433 segmented regulated octave (
+                    <hi rend="bold color(0000FF)">RO</hi>) poems.
+                    <note place="foot" xml:id="ftn3" n="3">
+                        <p rend="footnote text"> 1427 regulated pentametric octaves and 1006 regulated heptametric octaves</p>
+                    </note>
+                </p>
+                <p>There is a popular belief, among experienced researchers and readers of classical Chinese poems, about the word boundaries in the RPO and RHO poems (Lo, 2005). A sentence in an RPO poem contains five characters. They can be segmented into two patterns: 2-2-1 or 2-1-2, where 2-2-1 indicates that a sentence is segmented into a two-character word, a two-character word, and a one-character word. Similarly, a sentence in an RHO poem can be segmented into two patterns: 2-2-2-1 and 2-2-1-2.</p>
+                <p>We have 19464 lines in the 2433 RO poems, and found that 96.5% of the lines followed the aforementioned expectation.
+                    <note place="foot" xml:id="ftn4" n="4">
+                        <p rend="footnote text"> An octave poem has eight lines, so we have 2433×8=19464 lines.</p>
+                    </note> Table 1 shows the details. The most common exceptions are due to place or person names in poems, and, in such cases, we observed 2-3 or 2-2-3 patterns. They represent 1.6% of the lines. 
+                </p>
+                <p style="text-align:center;">
+                    <graphic n="1001" width="13cm" height="2.1cm" url="Pictures/a3eb91a1bfa01325b5f7c96d7ee96aec.png" rend="inline"/>
+                    <hi rend="bold">Table 1. Frequencies and percentages of the most frequent patterns in 19464 lines</hi>
+                </p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Weighted Pointwise Mutual Information (
+                    <hi rend="color(0000FF)">PMI</hi>) 
+                </head>
+                <p>The simplest version of a CWS problem is to determine whether we should segment a sequence of three characters, say XYZ, into XY-Z or X-YZ.
+                    <note place="foot" xml:id="ftn5" n="5">
+                        <p rend="footnote text">
+                            <hi rend="bold">Here, an English letter represents a Chinese character.</hi> XYZ could represent “依山盡” in “白日依山盡”, which is a line in one of Li Bai’s poems. Our question is whether we should segment XYZ into XY-Z or X-YZ, i.e., should we choose 依山-盡 or依-山盡.
+                        </p>
+                    </note> We compute the PMI for the competing candidates, and choose the bigram that has a larger PMI. Namely, we choose XY-Z if PMI(XY) is larger than PMI(YZ). The PMI of a bigram, 
+                    <hi rend="italic">AB</hi>, is defined below (Manning and Schütze, 1999).
+                </p>
+                <figure>
+                    <graphic n="1002" width="5.124175cm" height="1.1884083333333333cm" url="Pictures/62c91dd06ef70872ecc81d33165bfe65.png" rend="inline"/>
+                </figure>
+                <p>Normally, we use labelled data in machine learning research for training. However, we have only 2433 segmented poems, and will use them to evaluate our methods for segmentation. Hence, we cannot use 2433 poems for training, and have to train PMI values with other poems to segment the lines based on domain knowledge or heuristics. </p>
+                <p>Consider a line, JKLMNOP, in an RHO poem.
+                    <note place="foot" xml:id="ftn6" n="6">
+                        <p rend="footnote text"> An RHO poem contains seven characters, and, again, we use an English character to represent a Chinese character.</p>
+                    </note> Although we are not sure of the correct segmentation, we can assume that this line may follow either the 2-2-1-2 or 2-2-2-1 pattern as we explained above, and record the occurrences of JK, LM, NO, and P (if 2-2-2-1) or the occurrences of JK, LM, N, and OP (if 2-2-1-2). Since we are not really sure of the correct pattern for a line, we can only assign different weights to JK, LM, N, NO, OP, and P based on certain assumptions. We can then use the weights for unigrams and bigrams to estimate the probability values. 
+                </p>
+                <p>In this running example, we are more confident that we will see the occurrences of JK and LM than the occurrences of NO and OP, so it is reasonable to assign larger weights to JK and LM than to NO and OP. Under the current assumption, KL is unlikely to form a bigram, but we may choose to assign a small weight to its occurrences. This can be done in many different ways, and we will report technical details in DH2019. </p>
+                <p>We can compute the PMI for bigrams with 38580 CTP poems that contain only five or seven characters in their lines. Since there are less than 7500 distinct characters in CTP, we hope that having more than 2.22 million characters in 38580 poems will provide statistics about the PMI values with reasonable reliability. </p>
+                <p>We do not use the poems of the poets whose poems are in our segmented poems for training PMI values because we use the segmented poems as the test data. Hence, it is possible to encounter unseen unigrams and bigrams at test time. In these cases, we adopt a basic smoothing procedure to estimate the unseen instances.</p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Segmentation with Weighted PMI</head>
+                <p>We can measure the quality of segmentation decisions in different ways. The most common measurement is the precision rate, recall rate, and F
+                    <hi rend="subscript">1</hi> measure. Denote the segmentation decisions for a line as an array of either N (for not segmenting) or P (for segmenting). Consider a seven-character line. There are six positions to place segmentation markers between the characters, and the correct decision for a line of 2-2-2-1 pattern is NPNPNP. An array of NPPNPP will produce a 2-1-2-1-1 pattern, and resulting in 2/4, 2/3, and 4/7 in precision, recall, and F
+                    <hi rend="subscript">1</hi>, respectively.
+                </p>
+                <p>Among our 2433 segmented poems, we can find 2009 poems that contain only lines that conform to the four patterns.
+                    <note place="foot" xml:id="ftn7" n="7">
+                        <p rend="footnote text"> These four patterns are 2-2-1 and 2-1-2 for regulated pentametric octaves and 2-2-2-1 and 2-2-1-2 for regulated heptametric octaves.</p>
+                    </note> For these patterns, the segmentation problem is boiled down to choosing either 2-1-2 or 2-2-1 for RPO poems and either 2-2-1-2 or 2-2-2-1 for RHO poems. Hence, we expect to achieve more favorable results when we use these 2009 poems as the test data.
+                </p>
+                <p>Using this prior information in our segmenter, we produce only NPPN or NPNP decisions for RPO poems and NPNPPN or NPNPNP for RHO poems. Running our segmenter with the 2433 poems, we achieved 
+                    <hi rend="bold">89.6%</hi> in F
+                    <hi rend="subscript">1</hi>. When experimenting on the 2009 poems, we achieved 
+                    <hi rend="bold">90.3%</hi> in F
+                    <hi rend="subscript">1</hi>
+                    <anchor xml:id="Ref530984848"/>, which is listed in line in row “
+                    <hi rend="bold">4 patterns + PMI</hi>” in Table 2. 
+                </p>
+                <p>
+                    <graphic n="1003" width="13cm" height="2.68cm" url="Pictures/ce6e104c430c5f71da61934164b4968e.png" rend="inline"/>
+                    <hi rend="bold">Table 2. Quality of Segmentation for different combinations of strategies and datasets (WR: percentage of word recovery; PSP: percentage of perfectly</hi>
+                </p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>More Demanding Measurements</head>
+                <p>An F
+                    <hi rend="subscript">1</hi> of about 90% is an encouraging accomplishment, but it is somewhat clement. A correct segmentation decision does not guarantee the identification of a word. We need two correct decisions on both sides of a word to find the word. Hence, a more practical measure is to calculate the proportions of words recovered by our decisions. Running our segmenter with the 2433 poems and the 2009 poems, we recovered 
+                    <hi rend="bold">85.2%</hi> and 
+                    <hi rend="bold">86.3%</hi> of the words, respectively.
+                </p>
+                <p>Is 90% in F
+                    <hi rend="subscript">1</hi> easy to achieve? Is recovering 86% of the words effortless? If we randomly choose one from NPPN and NPNP for RPO poems and one from NPNPPN and NPNPNP for RHO poems, we achieved only 
+                    <hi rend="bold" xml:space="preserve">78.3% </hi>in F
+                    <hi rend="subscript">1</hi> and recovered only 
+                    <hi rend="bold">69.3%</hi> of the words for the 2433 poems.
+                    <note place="foot" xml:id="ftn8" n="8">
+                        <p rend="footnote text"> Statistics for this method of segmentation is shown in row “
+                            <hi rend="bold">4 patterns, but random</hi>” in Table 2.
+                        </p>
+                    </note>
+                </p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Contributions of More Domain-Dependent Information</head>
+                <p>Domain-dependent information is instrumental. If we do not employ the presumption about the four patterns and make a random guess for every segmentation decision, we would see 
+                    <hi rend="bold">49.7%</hi> in F
+                    <hi rend="subscript">1</hi> and recovered 
+                    <hi rend="bold">19.8%</hi> of the words for the 2433 poems.
+                    <note place="foot" xml:id="ftn9" n="9">
+                        <p rend="footnote text"> Statistics for this method of segmentation is shown in row “
+                            <hi rend="bold">completely random</hi>” in Table 2.
+                        </p>
+                    </note>
+                </p>
+                <p>Researchers found that it is more likely for the middle four lines in RO poems to parallel (Lee et al., 2018). Taking this factor into consideration, our segmenter can segment a pair of lines in the same pattern. We achieved 
+                    <hi rend="bold">89.9%</hi> in F
+                    <hi rend="subscript">1</hi> and recovered 
+                    <hi rend="bold">85.7%</hi> words for the 2433 poems.
+                    <note place="foot" xml:id="ftn10" n="10">
+                        <p rend="footnote text"> Statistics for this method of segmentation is shown in row “
+                            <hi rend="bold">4 patterns + PMI + parallelism</hi>” in Table 2.
+                        </p>
+                    </note>
+                </p>
+                <p>The resulting improvements in F
+                    <hi rend="subscript">1</hi> and word recovery are not very impressive by adding parallelism into consideration. We have to consider an even stricter measurement: the percentage of perfectly segmented poems. Considering the number of correct decisions needed to perfectly segment a poem, this measurement is very challenging. After including the parallelism factor, we raised this percentage from 
+                    <hi rend="bold">14.2%</hi> to 
+                    <hi rend="bold">21.5%</hi> for the 2009 poems (see the last two rows of Table 2).
+                </p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Concluding Remarks and Recent Progress with Word Vectors</head>
+                <p>Table 2 summarizes the experimental results that we have discussed and observed in experiments that considered different combinations of segmentation methods and types of test data. Using the weighted PMI scores and adopting appropriate domain knowledge help the segmenter achieve better results. Our results are based on 2433 poems of seven famous poets. It is intriguing to replace the PMI scores with the cosine similarity that we can compute with the word vectors (Mikolov, Sutskever, Chen, Corrado and Dean, 2013), but we only observed some poor results in few preliminary explorations. More recently, we have increased the amount of labelled data significantly, and were able to apply deep learning, including the LSTM units (long short-term memory) in our classifiers for the CWS task. With the increased data, we have boosted the performance noticeably, and we shall discuss these latest results at DH 2019.</p>
+                <p rend="DH-Heading3" style="font-weight: bold; font-style: italic; ">Acknowledgements</p>
+                <p>The research was supported in part by contracts MOST-104-2221-E-004-005-MY3 and MOST-107-2221-E-004-009-MY3 of the Ministry of Science and Technology of Taiwan and in part by projects 107H121-06, 107H121-08, 108-H121-06, and 108H121-08 of the National Chengchi University. The segmentation task was carried out by five assistants who major in Chinese Literature. We thank Yi-lin Dai, Nai-An Fu, Wei-Ting Huang, and Shuo-Feng Tsai of the University of Taipei and Yu-Ching Song of the National Taipei University. </p>
+            </div>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold">Huang, S. and Wu, J.</hi> (2018). A pragmatic approach for classical Chinese word segmentation. 
+                        <hi rend="italic">Proceedings of Eleventh International Conference on Language Resources and Evaluation</hi>, 1161‒1168.
+                    </bibl>
+                    <bibl rend="footnote text">
+                        <hi rend="bold">Lee, J., Kong, Y. H., and Luo M.</hi> (2018). Syntactic patterns in classical Chinese poems: A quantitative study. 
+                        <hi rend="italic">Digital Scholarship in the Humanities</hi>, 33(1):82–95.
+                    </bibl>
+                    <bibl rend="footnote text">
+                        <hi rend="bold">Liu, C.-L. and Chang, Y.</hi> (2018). Classical Chinese sentence segmentation for tomb biographies of Tang dynasty. 
+                        <hi rend="italic">Proceedings of the 2018 International Conference on Digital Humanities</hi>, 231‒235.
+                    </bibl>
+                    <bibl rend="footnote text">
+                        <hi rend="bold">Liu, C.-L., Zhang, S., Geng, Y., Lai, H.-l., and Wang H.</hi> (2017). Character distributions of classical Chinese literary texts: Zipf’s law, genres, and epochs. 
+                        <hi rend="italic">Proceedings of the 2017 International Conference on Digital Humanities</hi>, 507‒511.
+                    </bibl>
+                    <bibl rend="footnote text">
+                        <hi rend="bold">Lo, F.</hi> (2005). Design and applications of systems for word segmentation and sense classification for Chinese poems. 
+                        <hi rend="italic">Proceedings of the Fourth Conference of Digital Archive Task Force</hi>. (in Chinese)
+                    </bibl>
+                    <bibl rend="footnote text">
+                        <hi rend="bold">Manning, C. D. and Schütze, H.</hi> (1999). 
+                        <hi rend="italic">Foundations of Statistical Natural Language Processing</hi>. The MIT Press.
+                    </bibl>
+                    <bibl rend="footnote text">
+                        <hi rend="bold">Mazanec T. J.</hi> (2017). 
+                        <hi rend="italic">The Invention of Chinese Buddhist Poetry: Poet-Monks in Late Medieval China</hi>, PhD Dissertation, Princeton University, USA.
+                    </bibl>
+                    <bibl rend="footnote text">
+                        <hi rend="bold">Mikolov, T., Sutskever, I., Chen, K., Corrado, G. S., and Dean J.</hi> (2013). Distributed representations of words and phrases and their compositionality. 
+                        <hi rend="italic">Advances in Neural Information Processing Systems</hi> 26, 3111‒3119.
+                    </bibl>
+                    <bibl rend="footnote text">
+                        <hi rend="bold">Peng D.</hi> (1645-1719) et al. eds.
+                        <hi rend="italic" xml:space="preserve"> Quan Tang Shi</hi> 全唐詩 (The Complete Tang Poems). Beijing: Zhonghua Book Company (2003). (in Chinese)
+                    </bibl>
+                    <bibl rend="footnote text">
+                        <hi rend="bold">Tharsen J. R.</hi> (2015) 
+                        <hi rend="italic">Chinese Euphonics: Phonetic Patterns, Phonorhetoric and Literary Artistry in Early Chinese Narrative Texts</hi>. PhD Dissertation, University of Chicago, USA.
+                    </bibl>
+                    <bibl rend="footnote text">
+                        <hi rend="bold">Zhou H., Yu Z., Zhang, Y., Huang, S., Dai, X.-u., and Chen J.</hi> (2017). Word-context character embeddings for Chinese word segmentation. 
+                        <hi rend="italic">Proceedings of the 2017 Conference on Empirical Methods in Natural Language Processing</hi>, 760‒766.
+                    </bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

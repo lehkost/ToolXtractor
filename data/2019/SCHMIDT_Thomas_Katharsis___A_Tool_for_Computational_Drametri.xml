@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>Katharsis – A Tool for Computational Drametrics</title>
+                <author>
+                    <persName>
+                        <surname>Schmidt</surname>
+                        <forename>Thomas</forename>
+                    </persName>
+                    <affiliation>University of Regensburg, Germany</affiliation>
+                    <email>thomas.schmidt@ur.de</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Burghardt</surname>
+                        <forename>Manuel</forename>
+                    </persName>
+                    <affiliation>University of Leipzig, Germany</affiliation>
+                    <email>burghardt@informatik.uni-leipzig.de</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Dennerlein</surname>
+                        <forename>Katrin</forename>
+                    </persName>
+                    <affiliation>University of Würzburg, Germany</affiliation>
+                    <email>katrin.dennerlein@uni-wuerzburg.de</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Wolff</surname>
+                        <forename>Christian</forename>
+                    </persName>
+                    <affiliation>University of Regensburg, Germany</affiliation>
+                    <email>christian.wolff@ur.de</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2014-12-19T13:50:00Z</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Name, Institution</publisher>
+                <address>
+                    <addrLine>Street</addrLine>
+                    <addrLine>City</addrLine>
+                    <addrLine>Country</addrLine>
+                    <addrLine>Name</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from a Word document</p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.22">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Long Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>Drametrics</term>
+                    <term>Drama Mining</term>
+                    <term>Sentiment Analysis</term>
+                    <term>Computational Literary Studies</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>corpus and text analysis</term>
+                    <term>literary studies</term>
+                    <term>natural language processing</term>
+                    <term>content analysis</term>
+                    <term>german studies</term>
+                    <term>data mining / text mining</term>
+                    <term>English</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <div type="div1" rend="DH-Heading1">
+                <head>Introduction</head>
+                <p style="text-align:left; ">With his idea of 'Distant Reading', Moretti (2000) introduced an important 
+                    <hi rend="italic">leitmotif</hi> in the Digital Humanities that has led to an ongoing discussion about quantitative methods in literary and cultural studies (Clement et al., 2008; Crane, 2006). We believe that the literary genre of drama is particularly well suited for quantitative analyses and hence adapt the concept of "Drametrics" (as proposed by Romanska, 2015) as a term for the distant reading of dramatic texts. In addition to the actual dialogs, dramatic texts contain other structural elements that can be easily quantified, such as the characters of the play as well as an explicit act and scene structure. Keeping these features in mind, it is hardly surprising that we find a number of recent studies dedicated to the quantitative analysis of drama (e.g. Ilsemann, 2013; Wilhelm et al., 2013; Nalisnick and Baird, 2013; Trilcke et al., 2015; Dennerlein, 2015; Xanthos et al., 2016; Willand and Reiter, 2017; Krautter, 2018). At the same time, there have been quantitative approaches to the analysis of drama that date far back into the pre-digital age. As an example for early approaches to quantitative analyses of drama, we would like to refer to the ideas of Marcus’ (1973) mathematical poetics, which also contains interesting approaches for quantitative drama analysis.
+                </p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Solomon Marcus’ Mathematical Poetics</head>
+                <p style="text-align:left; ">Marcus suggests the scenic presence of characters as a basic computable measure of a play, which, for each dramatic text, can be visualized by means of a 
+                    <hi rend="italic">configuration matrix</hi> (Marcus, 1973). The matrix (cf. figure 1) contains one row for each character of the play, and one column for each scene. Whenever a character appears on stage, the value 1 is entered into the corresponding cell; if a character is not present in a scene 0 is entered as a value.
+                </p>
+                <figure>
+                    <graphic n="1001" width="11.673908333333333cm" height="4.8828cm" url="Pictures/81cfcaf0d720e5c7ce416aa252443ad7.png" rend="inline"/>
+                </figure>
+                <p style="text-align:left; ">
+                    <hi rend="bold">Figure 1:</hi> An example configuration matrix visualizes the appearances of characters (A-G) throughout the 15 scenes of the play.
+                </p>
+                <p style="text-align:left; ">Configuration matrices can be used to compute various quantitative aspects of a drama, for instance: the 
+                    <hi rend="italic">scenic distance</hi> and 
+                    <hi rend="italic">proximity</hi> of characters and even specific relationships between characters (e.g. 
+                    <hi rend="italic">dominance, alternation, independence</hi> or
+                    <hi rend="italic" xml:space="preserve"> concomitance</hi>) as well as the overall 
+                    <hi rend="italic">configuration density</hi> of plays (Marcus, 1973). The 
+                    <hi rend="italic">configuration density</hi> is calculated by dividing the number of cells holding a 1 by the total number of cells. In other words, the configuration density indicates how many of the potential character appearances have actually been realized. It can be understood as a measure of a play’s 'population density'. When every character appears on the stage in every scene, the play has a theoretical maximum configuration density value of 1.
+                </p>
+                <p style="text-align:left; ">During the 1970s and early 1980s, several studies applied Marcus’ mathematical approach for the analysis of texts, always dealing with very few samples of text (cf. Marcus, 1974; Marcus, 1977; Marcus, 1984). In these studies, configuration matrices proved to be useful in text analysis, as they fasten and simplify the overview of a character’s first or last appearance, co-presence or avoidance with other characters. Some years later, Ilsemann (1998) took on the ideas of Solomon Marcus to explore Shakespeare’s plays in a quantitative way. Ilsemann (1998) used the frequency and lengths of characters’ speeches as further parameters and found that the configuration density is an important aspect of genre-distinct quantitative patterns for comedies, romances, tragedies and history plays. In 2005 and 2008, Ilsemann used the frequencies and distributions of speech lengths to discuss authorship attribution in Shakespeare’s plays. </p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>The 
+                    <hi rend="italic">Katharsis</hi> Tool
+                </head>
+                <p style="text-align:left; ">In order to be able to automatically analyze quantitative aspects of dramatic texts according to Marcus’ character configurations and Ilsemann’s analysis of speech lengths and frequencies, we have created 
+                    <hi rend="italic">Katharsis</hi>, a tool for computational 
+                    <hi rend="italic">drametrics</hi>. The 
+                    <hi rend="italic">Katharsis</hi> tool comprises a 
+                    <hi rend="italic">parsing component</hi> that extracts and calculates various quantitative parameters as suggested by Marcus (1973) and an analysis component that searches for dramatic texts of a certain author, genre, timeframe, etc. Currently, a test corpus of approx. 100 German drama texts from the 
+                    <hi rend="italic">TextGrid Repository</hi>
+                    <note place="foot" xml:id="ftn1" n="1">
+                        <p rend="footnote text">Available online via https://textgridrep.org/ (Note: all URLs mentioned in this article were last checked April 29, 2019)</p>
+                    </note> is available for analysis. The texts are available as TEI-XML, allowing for the extraction of metadata (title, author, year etc.) and speeches with the corresponding speaker and structural information. Note that the tool can be extended with further plays from other authors and genres if the texts are encoded in TEI-XML. Furthermore, the quantitative metrics are independent of the language. Figure 2 shows the 
+                    <hi rend="italic">Katharsis</hi> results for a search for dramatic texts by Friedrich Schiller. Users can download any quantitative information displayed in the screenshot in JSON format for individual analysis.
+                </p>
+                <figure>
+                    <graphic n="1002" width="14.849627777777778cm" height="8.562880555555555cm" url="Pictures/5733dc6654b08409300120f050530ce6.png" rend="inline"/>
+                </figure>
+                <p style="text-align:left; ">
+                    <hi rend="bold">Figure 2:</hi> Summary of quantitative information calculated by Katharsis for dramatic texts by Friedrich Schiller.
+                </p>
+                <p style="text-align:left; ">With the help of 
+                    <hi rend="italic">Katharsis</hi> researchers are able to examine a specific drama in more detail. The tool provides an interactive configuration matrix to explore character appearances and speech statistics for each configuration (figure 3).
+                </p>
+                <figure>
+                    <graphic n="1003" width="13.137447222222223cm" height="5.434272222222222cm" url="Pictures/4abe31a9885c036c6f62962cc50caa5f.png" rend="inline"/>
+                </figure>
+                <p style="text-align:left; ">
+                    <hi rend="bold">Figure 3:</hi>
+                    <hi rend="italic">Katharsis</hi> snippet of the interactive configuration matrix for the play Maria Stuart, by Friedrich Schiller.
+                </p>
+                <p style="text-align:left; ">Furthermore, 
+                    <hi rend="italic">Katharsis</hi> produces a table and several interactive bar charts to analyze the distribution of speakers and speech statistics on the structural levels (act and scene) and the progression of these metrics throughout the course of a play (for an example see figure 4).
+                </p>
+                <figure>
+                    <graphic n="1004" width="11.926044444444445cm" height="7.061919444444444cm" url="Pictures/d4056ded5364852139b2f74ec1d110c5.png" rend="inline"/>
+                </figure>
+                <p style="text-align:left; ">
+                    <hi rend="bold">Figure 4:</hi> Average length of speeches (measured in number of words) throughout all acts of the play 
+                    <hi rend="italic">Maria Stuart</hi> by Friedrich Schiller.
+                </p>
+                <p style="text-align:left; ">Another segment of the tool shows statistics concerning the comparison of speakers like speech statistics and the distributions of scenic presence. Furthermore, following Marcus’ (1973) approach, specific character relations derived from the configuration matrix can be explored. For each character of the play, the tool displays relations to other characters which may be of the type 
+                    <hi rend="italic">dominate/dominated, alternative, independent or concomitant</hi>.
+                </p>
+                <p style="text-align:left; "> The last component concerning the analysis of individual dramatic texts follows Ilsemann’s (2005; 2008) idea to examine the distribution of speech lengths in the play. We calculated the speech length by counting the number of words. Users can analyze an interactive histogram and a curve chart. Different speech lengths can be included in the visualization dynamically to narrow down the range of speech lengths for more in-depth analysis (see figure 5 for an example with a comparison). </p>
+                <p style="text-align:left; "> Finally, 
+                    <hi rend="italic">Katharsis</hi> can be used to analyze and compare self-created collections of plays by means of various quantitative aspects. The comparison of different genres and authors is a pre-configured comparison. Figure 5 illustrates a comparison of speech lengths for Goethe and Schiller showing that Goethe’s most frequent speech length is seven while Schiller’s is rather low with only four words. This might be one reason why the plays of Goethe never were that successful on stage like those of Schiller.
+                </p>
+                <figure>
+                    <graphic n="1005" width="12.712347222222222cm" height="7.741241666666666cm" url="Pictures/be131b3ed3d1b51f6424ffacdaffdec8.png" rend="inline"/>
+                </figure>
+                <p style="text-align:left; ">
+                    <hi rend="bold">Figure 5:</hi> Comparison of the relative distribution of speech lengths for the plays of Goethe and Schiller.
+                </p>
+                <p style="text-align:left; ">The 
+                    <hi rend="italic">Katharsis</hi> tool is available online and can be tested as a live demo in any current web browser: 
+                    <ref target="http://lauchblatt.github.io/Katharsis/index.html">http://lauchblatt.github.io/Katharsis/index.html</ref>
+                </p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Case Studies on Quantitative Drama Analysis</head>
+                <p style="text-align:left; ">In this section, we illustrate the usefulness of 
+                    <hi rend="italic">Katharsis</hi> by means of short case studies: An important computable aspect of dramatic texts are the encounters of characters on stage in different configurations. A case study that used 
+                    <hi rend="italic">Katharsis</hi> on 13 tragedies, 17 comedies, one tragicomedy and one 
+                    <hi rend="italic">Schauspiel</hi> of the German authors Andreas Gryphius, Christian Weise, and Gotthold Ephraim Lessing verified the hypothesis that there is a trend for comedies to have higher configuration densities than tragedies (Dennerlein, 2015). For dramatic German texts from 1600 to 1800 the mean length of speeches in comedies (as compared to tragedies) is lower (see figure 6), whereas the total number of speeches is higher (see figure 7), which means characters in comedies seem to interact in a more dialogic manner.
+                </p>
+                <figure>
+                    <graphic n="1006" width="10.039694444444445cm" height="5.580302777777778cm" url="Pictures/ed8510f7cc39179b8fcf1fff67b7d6b3.png" rend="inline"/>
+                </figure>
+                <p style="text-align:left; ">
+                    <hi rend="bold">Figure 6:</hi> Average length of speeches in comedies and tragedies of the corpus.
+                </p>
+                <figure>
+                    <graphic n="1007" width="10.395475cm" height="6.108097222222222cm" url="Pictures/39e910bd7df958c3d5b2f5019c50c726.png" rend="inline"/>
+                </figure>
+                <p style="text-align:left; ">
+                    <hi rend="bold">Figure 7:</hi> Average number of speeches in comedies and tragedies of the corpus.
+                </p>
+                <p style="text-align:left; ">This seems plausible with regard to some characteristics of tragedies and comedies already known: Tragedies more often feature monologues because they provide the ideal occasion to reflect on jealousy, hatred, guilt, plans of murder, or suicide. A general lack of communication, or communication difficulties, may be associated with the fact that generally fewer characters share the stage. In comedy, however, protagonists more often encounter each other. Typical comic effects such as confusions between characters or characters exchanging roles as well as speeches delivered at spectators, are staged in the presence of several characters and may result in a rather high configuration density.</p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Future Work: Sentiment Analysis for Drama</head>
+                <p style="text-align:left; ">To enhance the applicability of 
+                    <hi rend="italic">Katharsis</hi> as a tool for computational drametrics, we are currently preparing to include basic sentiment analysis techniques (Liu, 2016) as an addition to mere structural parameters. While sentiment analysis has been particularly popular in the field of computational linguistics, the approach is also gaining popularity in literary studies (Alm and Sproat, 2005; Nalisnick and Baird, 2013; Mohammad, 2011). So far, we have evaluated different sentiment analysis techniques for the context of historic, German language plays (Schmidt and Burghard, 2018a; Schmidt and Burghardt, 2018b; Schmidt, Burghardt and Dennerlein, 2018a; Schmidt, Burghardt and Dennerlein, 2018b). A first 
+                    <hi rend="italic">Katharsis</hi> prototype (Schmidt and Burghardt, 2018b; Schmidt, Burghardt and Dennerlein, 2018b) that implements sentiment analysis for 12 German plays by Gotthold Ephraim Lessing is available online: 
+                    <ref target="http://lauchblatt.github.io/Katharsis/sa_selection.html">http://lauchblatt.github.io/Katharsis/sa_selection.html</ref>
+                </p>
+                <p style="text-align:left; ">In the long term, we plan to combine character-to-character sentiment analysis (cf. Nalisnick and Baird, 2013) with the existing configuration matrices, thus not only transferring Marcus’ approach of mathematical drama analysis to a digital tool, but rather enhancing it by using additional parameters such as character sentiment.</p>
+            </div>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold">Alm, C. O. and Sproat, R</hi>. (2005). Emotional sequencing and development in fairy tales. 
+                        <hi rend="italic">International Conference on Affective Computing and Intelligent Interaction.</hi> Berlin: Springer, pp. 668-674.
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold">Clement, T., Steger, S., Unsworth, J. and Uszkalo, K.</hi> (2008). 
+                        <hi rend="italic" xml:space="preserve">How not to read a million books. </hi>Available online at http://people.brandeis.edu/~unsworth/hownot2read.html
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold">Crane, G.</hi> (2006). What do you do with a million books? 
+                        <hi rend="italic">D-Lib Magazine</hi>. Available online at http://www.dlib.org/dlib/march06/crane/03crane.html
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold">Dennerlein, K.</hi> (2015). Measuring the average population densities of plays. A case study of Andreas Gryphius, Christian Weise and Gotthold Ephraim Lessing. 
+                        <hi rend="italic">Semicerchio. Rivista di poesia comparata</hi> LIII: 80–88.
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold">Ilsemann, H.</hi> (1998). 
+                        <hi rend="italic">Shakespeare disassembled. Eine quantitative Analyse der Dramen Shakespeares.</hi> Frankfurt: Peter Lang Pub Inc.
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold">Ilsemann, H.</hi> (2005). Some statistical observations on speech lengths in Shakespeare’s plays. 
+                        <hi rend="italic">Shakespeare Jahrbuch,</hi> 141: 158–68.
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold">Ilsemann, H.</hi> (2008). More statistical observations on speech lengths in Shakespeare’s plays. 
+                        <hi rend="italic">Literary and Linguistic Computing</hi>, 23(4): 397-407.
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold">Ilsemann, H.</hi> (2013). Quantitativ-statistische Dramenanalyse: Welche Aussagekraft haben Häufigkeitsverteilungen der Replikenlängen? 
+                        <hi rend="italic">Forum Computerphilologie</hi>. Available online at http://computerphilologie.digital-humanities.de/jg09/Ilsemann.html
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold">Krautter, B.</hi> (2018). Quantitative microanalysis? Different methods of digital drama analysis in comparison. 
+                        <hi rend="italic">Book of Abstracts, DH 2018</hi>. Mexico-City, Mexico, pp. 225-228.
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold">Liu, B.</hi> (2016). 
+                        <hi rend="italic">Sentiment Analysis. Mining Opinions, Sentiments and Emotions.</hi> New York: Cambridge University Press.
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold">Marcus, S.</hi> (1973). 
+                        <hi rend="italic">Mathematische Poetik</hi>. Frankfurt: Athenäum.
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold" xml:space="preserve">Marcus, S. </hi>(ed.) (1974). Poetics and Mathematics. 
+                        <hi rend="italic">Special issue of the journal POETICS</hi>, 10. 
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold" xml:space="preserve">Marcus, S. </hi>(ed.) (1977). The formal study of drama
+                        <hi rend="italic">. Special issue of the journal POETICS</hi>, 6, 3/4.
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold" xml:space="preserve">Marcus, S. </hi>(ed.) (1984). The formal Study of Drama. II. 
+                        <hi rend="italic">Special issue of the journal POETICS,</hi> 13, 1/2.
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold">Mohammad, S.</hi> (2011). From once upon a time to happily ever after: Tracking emotions in novels and fairy tales. 
+                        <hi rend="italic">Proceedings of the 5th ACL-HLT Workshop on Language Technology for Cultural Heritage, Social Sciences, and Humanities, Association for Computational Linguistics</hi>. Portland, Oregon: Association for Computational Linguistics, pp. 105–114.
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold">Moretti, F.</hi> (2000). Conjectures on World Literature. 
+                        <hi rend="italic">New Left Review</hi> 1: 54–68.
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold">Nalisnick, E. T. and Baird H. S.</hi> (2013). Character-to-Character Sentiment Analysis in Shakespeare’s Plays. 
+                        <hi rend="italic">Proceedings of the 51st Annual Meeting of the Association for Computational Linguistics</hi>, pp. 479–483.
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold">Romanska, M.</hi> (2015). Drametrics: what dramaturgs should learn from mathematicians. In Romanska, M. (ed.), 
+                        <hi rend="italic">The Routledge Companion to Dramaturgy.</hi> Routledge, pp. 472-481.
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold">Schmidt, T. and Burghardt, M.</hi> (2018a). An Evaluation of Lexicon-based Sentiment Analysis Techniques for the Plays of Gotthold Ephraim Lessing. 
+                        <hi rend="italic">Proceedings of the Second Joint SIGHUM Workshop on Computational Linguistics for Cultural Heritage, Social Sciences, Humanities and Literature.</hi> Santa Fe, New Mexico: Association for Computational Linguistics, pp. 139-149.
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold">Schmidt, T. and Burghardt, M.</hi> (2018b). Toward a Tool for Sentiment Analysis for German Historic Plays. In Piotrowski, M. (ed.), 
+                        <hi rend="italic">COMHUM 2018: Book of Abstracts for the Workshop on Computational Methods in the Humanities 2018.</hi> Lausanne, Switzerland: Laboratoire laussannois d'informatique et statistique textuelle, pp. 46-48.
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold">Schmidt, T., Burghardt, M. and Dennerlein, K.</hi> (2018a). Sentiment Annotation of Historic German Plays: An Empirical Study on Annotation Behavior. Sandra Kübler, Heike Zinsmeister (eds.), 
+                        <hi rend="italic">Proceedings of the Workshop on Annotation in Digital Humanities (annDH 2018)</hi> Sofia, Bulgaria, pp. 47-52.
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold">Schmidt, T., Burghardt, M. and Dennerlein, K.</hi> (2018b). „Kann man denn auch nicht lachend sehr ernsthaft sein?“ – Zum Einsatz von Sentiment Analyse-Verfahren für die quantitative Untersuchung von Lessings Dramen. In 
+                        <hi rend="italic">Book of Abstracts, DHd 2018</hi>, Cologne, Germany.
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold">Trilcke, P., Fischer, F. and Kampkaspar, D.</hi> (2015). Digital Network Analysis of Dramatic Texts. 
+                        <hi rend="italic">Book of Abstracts, DH 2015</hi>. Sidney, Australia
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold">Wilhelm, T., Burghardt, M., and Wolff, C.</hi> (2013). “To See or Not to See” - An Interactive Tool for the Visualization and Analysis of Shakespeare Plays. In R. Franken-Wendelstorf, E. Lindinger, and J. Sieck (Eds.), 
+                        <hi rend="italic">Kultur und Informatik: Visual Worlds &amp; Interactive Spaces</hi>. Glückstadt: Verlag Werner Hülsbusch, pp. 175–185.
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold" xml:space="preserve">Willand, M. and Reiter, N. (2017). </hi>Geschlecht und Gattung. Digitale Analysen von Kleists ›Familie Schroffenstein‹. In 
+                        <hi rend="italic">Kleist-Jahrbuch 2018</hi>. Stuttgart: J.B. Metzler, pp.177-195.
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold">Xanthos, A., Pante, I., Rochat, Y and Grandjean, M.</hi> (2016). Visualising the dynamics of character networks. 
+                        <hi rend="italic">Book of Abstracts, DH 2016</hi>. Kraków, Poland, pp. 417-419. 
+                    </bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

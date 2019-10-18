@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>Toward Building Chronicles from Biographies in Local Gazetteers: An Application of Syntactic and Dependency Parsing</title>
+                <author>
+                    <persName>
+                        <surname>Liu</surname>
+                        <forename>Chao-Lin</forename>
+                    </persName>
+                    <affiliation>National Chengchi University, Taiwan</affiliation>
+                    <email>chaolinliu@gmail.com</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Chang</surname>
+                        <forename>Wei-Ting</forename>
+                    </persName>
+                    <affiliation>National Chengchi University, Taiwan</affiliation>
+                    <email>103703046@nccu.edu.tw</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Zheng</surname>
+                        <forename>Ti-Yong</forename>
+                    </persName>
+                    <affiliation>National Chengchi University, Taiwan</affiliation>
+                    <email>ccs96307@gmail.com</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Chiu</surname>
+                        <forename>Po-Sen</forename>
+                    </persName>
+                    <affiliation>National Chengchi University, Taiwan</affiliation>
+                    <email>403180106@gapp.fju.edu.tw</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2019-04-28T13:52:00Z</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Name, Institution</publisher>
+                <address>
+                    <addrLine>Street</addrLine>
+                    <addrLine>City</addrLine>
+                    <addrLine>Country</addrLine>
+                    <addrLine>Name</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from a Word document</p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.22">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Short Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>sentence compression</term>
+                    <term>personal chronicles</term>
+                    <term>local gazetteers</term>
+                    <term>language parsers</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>corpus and text analysis</term>
+                    <term>natural language processing</term>
+                    <term>linguistics</term>
+                    <term>English</term>
+                    <term>oriental and asian studies</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <div type="div1" rend="DH-Heading1">
+                <head>Overview</head>
+                <p style="text-align:left; ">Inspired by the increasing influence of China Biographical Database (CBDB
+                    <note place="foot" xml:id="ftn1" n="1">
+                        <p rend="footnote text" style="text-align:left;"> China Biographical Database: &lt;https://projects.iq.harvard.edu/cbdb/home&gt;</p>
+                    </note>) to historical studies (Huang and Luo, 2018), researchers are building biographical databases for Japan (Born, 2018)
+                    <note place="foot" xml:id="ftn2" n="2">
+                        <p rend="footnote text" style="text-align:left;"> Japan Biographical Database: &lt;https://www.network-studies.org/#!/&gt;.</p>
+                    </note>, Singapore
+                    <note place="foot" xml:id="ftn3" n="3">
+                        <p rend="footnote text" style="text-align:left;"> Singapore Biographical Database on Chinese Pioneers: &lt;http://www.nlb.gov.sg/resourceguides/category/singapore-bio-db-on-chinese-pioneers/&gt;</p>
+                    </note>, and Taiwan
+                    <note place="foot" xml:id="ftn4" n="4">
+                        <p rend="footnote text" style="text-align:left;"> Taiwan Biographical Database: &lt;http://tbdb.ntnu.edu.tw/&gt;.</p>
+                    </note>. We extract information from various types of historical documents, and organize the extracted information for further queries and analyses. In CBDB and the Taiwan Biographical Database (Sie, Ke, and Chang, 2017), data are stored in relational databases. 
+                </p>
+                <p style="text-align:left; ">We report experiences for producing a chronical listing for accounting an individual’s life.
+                    <note place="foot" xml:id="ftn5" n="5">
+                        <p rend="footnote text" style="text-align:left;"> In the Chinese community, this is called 年譜 /nian2 pu3/ or 年表 /nian2 biao3/.</p>
+                    </note> The chronicles record main achievements of individuals in selected years. The statements summarize yearly achievements, and are usually brief and informative. 
+                </p>
+                <p style="text-align:left; ">To this end, we locate descriptions about an individual’s yearly work from source biographies, and aim to produce shorter descriptions for the chronicles. One may accomplish the latter sub-goal with some different techniques including statistics, extractive summarization, abstractive summarization, and sentence compression (Knight and Marcu, 2000; Liu and Liu, 2009). We focus on our experience in sentence compression that utilize parsed structures (Filippova and Strube, 2008). Results of empirical evaluation suggest that we might produce reasonable assisting software for compiling chronicles, but fully automatic compilation of chronicles without large human annotated data can be challenging (Hasegawa, Kikuchi, Takamura, and Okumura, 2017). </p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Data Sources and Main Ideas</head>
+                <p style="text-align:left; ">We use the texts in two volumes of biographies which belong to the official gazetteers that were published by the Taipei city government (Chen, 2017), and we refer to this collection as STCG henceforth. The biography part of STCG includes more than 479 thousand of Chinese characters and punctuation for 319 persons. The biographies have between one and five pages. Although the contents of biographies differ, many of the statements in the biographies follow a typical style
+                    <note place="foot" xml:id="ftn6" n="6">
+                        <p rend="footnote text" style="text-align:left;"> We have opportunities to contact the editorial board of the gazetteers, and was confirmed that the authors did agree on a format that they should follow whenever reasonably possible.</p>
+                    </note>, so it is possible to extract statements about yearly accomplishments from those relatively long biographies. 
+                </p>
+                <p style="text-align:left; ">
+                    <graphic n="1001" width="8.143875cm" height="8.844138888888889cm" url="Pictures/d0eddb4e1b6d4db5122b926b2a3350bc.jpg" rend="inline"/>
+                    <hi rend="bold">Figure 1: a constituency tree</hi>
+                </p>
+                <p style="text-align:left; ">
+                    <graphic n="1002" width="13.3604cm" height="1.4732cm" url="Pictures/d18aec2ef8ffd2914a64f02d5c831832.jpg" rend="inline"/>
+                    <hi rend="bold">Figure 2: a dependency structure</hi>
+                </p>
+                <p style="text-align:left; ">We then process the statements with constituency and dependency parsers.
+                    <note place="foot" xml:id="ftn7" n="7">
+                        <p rend="footnote text"> We use the Stanford package that includes several components, including constituency and dependency parsers. &lt;https://nlp.stanford.edu/software/&gt;</p>
+                    </note> Figures 1 and 2 show the output of the parsers for the statement “
+                    <hi style="font-family:標楷體">張先生擔任臺灣電力公司的銷售經理</hi>”
+                    <note place="foot" xml:id="ftn8" n="8">
+                        <p rend="footnote text"> An English translation for this Chinese statement is “
+                            <hi rend="bold">Mr. Zhang (張先生) served as (擔任) the sales manager (銷售經理) of the Taiwan Power Company (臺灣電力公司).</hi>” We chose not to show the constituency and dependency trees for this English translation mainly because the syntactic grammars (and word orders) of Chinese and English are different. Showing the constituency and dependency trees for the English translation might not really help reviewers and readers who do not read Chinese to appreciate the meaning and applicability of the trees. 
+                        </p>
+                    </note>, respectively.
+                    <note place="foot" xml:id="ftn9" n="9">
+                        <p rend="footnote text"> These figures were produced by the Stanford CoreNLP 3.9.1 GUI (Updated 2018/04/05).</p>
+                    </note> The constituency tree shows the syntactic relationships among the words, and the dependency tree shows the functional relationships among the words. In Figure 1, we can see that the constituency parser recognizes “
+                    <hi style="font-family:標楷體">張先生</hi>” as the main noun phrase (
+                    <hi rend="bold">NP</hi>) and “
+                    <hi style="font-family:標楷體">擔任</hi>” as the main verb of a verb phrase (
+                    <hi rend="bold">VP</hi>). In Figure 2, the dependency parser identifies “
+                    <hi style="font-family:標楷體">張先生</hi>” and “
+                    <hi style="font-family:標楷體">銷售經理</hi>”, respectively, as the subject (
+                    <hi rend="bold">nsubj</hi>) and the object (
+                    <hi rend="bold">dobj</hi>) of the main verb.
+                </p>
+                <p style="text-align:left; ">Given a dependency structure, we may design a computational procedure to shorten the original statement while attempting to keep the core information of the statement. For the above example, if we can identify the main verb in the dependency structure, keep the 
+                    <hi rend="bold">nsubj</hi> and the 
+                    <hi rend="bold">dobj</hi> nodes and the associative 
+                    <hi rend="bold">compound:nn</hi> nodes, and drop all other nodes, we will produce “張先生擔任銷售經理”
+                    <note place="foot" xml:id="ftn10" n="10">
+                        <p rend="footnote text"> The English translation of this compressed sentence is “
+                            <hi rend="bold">Mr. Zhang serves as the sales manager</hi>”.
+                        </p>
+                    </note>, which is a good compressed expression of the original statement. 
+                </p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Empirical Evaluation</head>
+                <p style="text-align:left; ">To evaluate the effectiveness of the main ideas, we implemented a prototype for creating personal chronicles from a given biography. </p>
+                <div type="div2" rend="DH-Heading2">
+                    <head>Extracting Statements about Yearly Achievements</head>
+                    <p style="text-align:left; ">The first step is to extract statements that begin at a time stamp and end at another time stamp. For instance, we can extract the statements between “In 1931” and “In 1932”, and assume that the statements are about the biographee’s status in 1931. Although this assumption might not work for all genres of texts, we actually extracted 4948 such statements from our corpora. </p>
+                    <p style="text-align:left; ">Our current method for identifying time stamps needs to be strengthened. Not all time expressions include numbers, e.g., “next year” and “two years later”. We need to build a full-fledged capability to identify all time stamps and extract the statements perfectly.</p>
+                    <p style="text-align:left; ">
+                        <graphic n="1003" width="16.002cm" height="6.616708333333333cm" url="Pictures/ef06ef14eefa5f9386911830ad10a1c6.jpg" rend="inline"/>
+                        <hi rend="bold">Figure 3: Distribution of sentence lengths</hi>
+                    </p>
+                </div>
+                <div type="div2" rend="DH-Heading2">
+                    <head>Segmenting and Sampling Chinese Sentences</head>
+                    <p style="text-align:left; ">Although modern Chinese texts use a punctuation mark for ending a sentence, such a Chinese sentence may actually be separated by few Chinese commas, and these separated segments may correspond to multiple English sentences. Treating statements that are delimited by Chinese commas and/or Chinese periods as sentences is a common practice. We analyze the numbers of characters in the sentences, and Figure 3 shows the distribution of the sentence lengths.</p>
+                    <p style="text-align:left; ">We chose to work on the sentences that have between 7 and 20 characters, and ignored those that have no verbs or have multiple verbs in the current study. Sentences that are very short do not need to be shorted, and, normally, parsers cannot correctly handle very long Chinese sentences yet. </p>
+                </div>
+                <div type="div2" rend="DH-Heading2">
+                    <head>Sentence Compression using Heuristics</head>
+                    <p style="text-align:left; ">We can employ and evaluate heuristic rules for the compression task. An intuitive rule is to start from the main verb in a sentence. We reserve the 
+                        <hi rend="bold">nsubj</hi> and 
+                        <hi rend="bold">dobj</hi> nodes that connect to the main verb in a dependency structure. Keep the 
+                        <hi rend="bold">amod</hi>, 
+                        <hi rend="bold">compound:nn</hi>, and 
+                        <hi rend="bold">tmod</hi> nodes that are with the 
+                        <hi rend="bold">nsubj</hi> or 
+                        <hi rend="bold">dobj</hi> nodes. Keep also the 
+                        <hi rend="bold">auxpass</hi>, 
+                        <hi rend="bold">case</hi>, and 
+                        <hi rend="bold">neg</hi> nodes because they all carry crucial information, e.g., 
+                        <hi rend="bold">auxpass</hi> indicates the passive voice.
+                        <note place="foot" xml:id="ftn11" n="11">
+                            <p rend="footnote text" style="text-align:left;"> Definitions about the dependency labels are available at &lt;https://nlp.stanford.edu/software/dependencies_manual.pdf&gt;.</p>
+                        </note>
+                    </p>
+                    <p style="text-align:left; ">Alternatively, we compute the word vectors for the words in the corpora with Gensim (Mikolov, Sutskever, Chen, Corrado, and Dean, 2013).
+                        <note place="foot" xml:id="ftn12" n="12">
+                            <p rend="footnote text" style="text-align:left;"> Gensim: https://radimrehurek.com/gensim/: window_size=5, vector size = 250, CBOW</p>
+                        </note> For typical simple sentences, we could find the top level NP and VP (Wang, Chen, and Liu, 2018), and identify the main verb and the main noun for the main VP in a constituency tree. We calculate the average vector for these core words, and select a next word to include to optimize the resulting cosine similarity between the average vector and the sentence vector of the original sentence until the similarity reach 0.95.
+                    </p>
+                </div>
+                <div type="div2" rend="DH-Heading2">
+                    <head>Evaluation</head>
+                    <p style="text-align:left; ">Among the shortened sentences, we randomly chose ten samples for a specific length of sentences, and judged the appropriateness of the sampled sentences ourselves. We repeated the evaluation five times, and accepted 317 instances out of 700 test sentences when we tried the first heuristic. Figure 4 shows the average acceptance.
+                        <note place="foot" xml:id="ftn13" n="13">
+                            <p rend="footnote text" style="text-align:left;"> We list some pairs of the original sentence and the shortened sentence for reader’ reference.</p>
+                            <p rend="footnote text" style="text-align:left;">Accepted: (出任東方出版社董事長職務, 出任董事長職務), (大多演出詼諧逗趣的甘草角色, 演出甘草角色), (總統府頒授特種領綬景星勳章, 總統府頒授景星勳章), (於永和開設東方藝術舞蹈研究社, 開設舞蹈研究社), (中華民國營養學會頒發營養特殊貢獻獎, 營養學會頒發特殊貢獻獎), (板橋林本源家族在大稻埕開設林本源博愛醫院, 本源家族開設博愛醫院)</p>
+                            <p rend="footnote text" style="text-align:left;">Failed: (在台山東菁英籌組中華齊魯工商文教協會, 在菁英籌組文教協會), (于北投中華佛教文化館創辦中華佛學研究所, 佛教文化館創辦佛學研究所), (於該刊發表多篇關於中醫理論與實務的文章, 發表文章), (首度由雨傘節蛇毒分離出甲型雨傘節神經毒素, 分離出神經毒素), (病逝於美國洛杉磯, 病逝), (更進一步進行全國律師界之改革, 進行改革)</p>
+                        </note> We repeated the same procedure to evaluate the effects of using the second heuristic. Figure 5 shows the average acceptance when we asked three different persons to judge the accpetance of the compressed sentences.
+                    </p>
+                    <p style="text-align:left; ">
+                        <graphic n="1004" width="13.701044444444445cm" height="5.618277777777778cm" url="Pictures/c7bb907a629f7024989709a3a1a80e16.jpg" rend="inline"/>
+                        <hi rend="bold">Figure 4. Average acceptance rates of the shortened sentences for the original sentences of varying lengths (The red dash line shows the trend.)</hi>
+                    </p>
+                    <p style="text-align:left; ">
+                        <graphic n="1005" width="13.926205555555555cm" height="6.966261111111111cm" url="Pictures/0f4ed45807a3df8c5f596bff38c9b328.jpg" rend="inline"/>
+                        <hi rend="bold">Figure 5. Average acceptance rates judged by three persons (using the second heuristic; the dash lines show the trends)</hi>
+                    </p>
+                    <p rend="Heading">Acknowledgements</p>
+                    <p style="text-align:left; ">The research was supported in part by contracts MOST-104-2221-E-004-005-MY3 and MOST-107-2221-E-004-009-MY3 of the Ministry of Science and Technology of Taiwan and in part by projects 107H121-08 and 108H121-08 of the National Chengchi University.</p>
+                </div>
+            </div>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold">Born, L.</hi> (2018) Leveraging the Japanese biographical database as a digital resource for education and research, 
+                        <hi rend="italic">Proceedings of the 2018 Annual Meeting of the Japanese Association for Digital Humanities.</hi>
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold">Chen, T.-l.</hi> (Ed.) (2017) A Sequel of Taipei City Gazetteers–Volume 8: Biographies (
+                        <hi style="font-family:標楷體">續修台北市志人物志</hi>), Taipei: Taipei City Government. &lt;https://www.chr.gov.taipei/cp.aspx?n=EEBCFC3935F53838&gt;
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold">Filippova, K. and Strube M.</hi> (2008) Dependency tree based sentence compression. 
+                        <hi rend="italic">Proceedings of the Fifth International Natural Language Generation Conference</hi>, 25–32.
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold">Hasegawa, S., Kikuchi, Y., Takamura, H., and Okumura, M.</hi> (2017) Japanese sentence compression with a large training dataset, 
+                        <hi rend="italic">Proceedings of the Fifty-fifth Annual Meeting of the Association for Computational Linguistics</hi>, 281‒286.
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold" xml:space="preserve">Huang, J. and Luo, T. </hi>(2018) Computing len for exploring the historical people's social network. 
+                        <hi rend="italic">Proceedings of 2018 Sixth International Conference on Future Internet of Things and Cloud Workshops</hi>, 95–101.
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold">Knight, K. and Marcu, D.</hi> (2000) Statistics-based summarization - step one: Sentence compression, 
+                        <hi rend="italic">Proceedings of the Seventeenth National Conference on Artificial Intelligence and Twelfth Conference on Innovative Applications of Artificial Intelligence</hi>, 703–710.
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold">Liu, F. and Liu, Y.</hi> (2009) From extractive to abstractive meeting summaries: Can it be done by sentence compression? 
+                        <hi rend="italic">Proceedings of 2009 ACL-IJCNLP Conference</hi> (short papers), 261–264.
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold">Mikolov, T., Sutskever, I., Chen, K., Corrado, G. S., and Dean J.</hi> (2013). Distributed representations of words and phrases and their compositionality. 
+                        <hi rend="italic">Advances in Neural Information Processing Systems</hi> 26, 3111‒3119.
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold" xml:space="preserve">Sie, S.-H., Ke, H.-R., and Chang, S.-B. </hi>(2017) Development of a text retrieval and mining system for Taiwanese historical people. 
+                        <hi rend="italic">Proceedings of 2017 Pacific Neighborhood Consortium Annual Conference and Joint Meetings</hi>, 56–62.
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold">Wang, Y.-S., Chen, W.-R., and Liu, C.-L.</hi> (2018) Extracting social information and chronicles from personal biographies in Taipei city gazetteers, 
+                        <hi rend="italic">Proceedings of the Ninth International Conference of Digital Archives and Digital Humanities</hi>, 359‒405. (in Chinese)
+                    </bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

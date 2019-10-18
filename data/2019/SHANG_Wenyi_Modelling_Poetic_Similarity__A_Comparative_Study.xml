@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>Modelling Poetic Similarity: A Comparative Study of W. B. Yeats and the English Romantic Poets</title>
+                <author>
+                    <persName>
+                        <surname>Shang</surname>
+                        <forename>Wenyi</forename>
+                    </persName>
+                    <affiliation>Department of Information Management, Peking University, China</affiliation>
+                    <email>shang-wen-yi@pku.edu.cn</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Zhang</surname>
+                        <forename>Jingzhou</forename>
+                    </persName>
+                    <affiliation>Deparment of Chinese Language and Literature, Peking University, China</affiliation>
+                    <email>zhangjingzhou315@pku.edu.cn</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Huang</surname>
+                        <forename>Win-bin</forename>
+                    </persName>
+                    <affiliation>Department of Information Management, Peking University, China</affiliation>
+                    <email>huangwb@pku.edu.cn</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2019-04-29T13:00:00Z</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Name, Institution</publisher>
+                <address>
+                    <addrLine>Street</addrLine>
+                    <addrLine>City</addrLine>
+                    <addrLine>Country</addrLine>
+                    <addrLine>Name</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from a Word document</p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.22">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Short Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>Modelling</term>
+                    <term>Poetic Similarity</term>
+                    <term>Quantification</term>
+                    <term>Digital Humanities</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>corpus and text analysis</term>
+                    <term>literary studies</term>
+                    <term>stylistics and stylometry</term>
+                    <term>english studies</term>
+                    <term>data mining / text mining</term>
+                    <term>English</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <div type="div1" rend="DH-Heading1">
+                <head>Introduction</head>
+                <p style="text-align:left; ">Observing poetic similarity is fundamental for identifying interrelationships and poetic influences among authors. When investigating poetic similarity, intertextuality is always regarded as the most significant factor (Fowler, 1997), and it is also an index that can be calculated computationally (Coffee et al, 2018; Büchler et al., 2018 forthcoming). In terms of verse, homogeneous formal elements like rhyme (Hollander, 1981), the basic rhythmic structure, and meter (Boomsliter et al., 1973) among poems can also act as crucial indicators of poetic similarity.</p>
+                <p style="text-align:left; ">The goal of this research is to design a framework to quantitatively measure poetic similarity with digital methods, which can dig into a vast number of data and suggest the interrelationship of different authors’ works. This research focuses on the world-renounced Irish poet William Butler Yeats (1865-1939). The complex poetic influence he received deserves scrutinized investigations and the possible influence of the English Romantic poets is examined here. In this study, “influence” refers to the shaping power of a precursor poet on a later poet’s poetic style and poetic genre, which can be traced and observed. Specifically, a model is constructed to compare Yeats and the English Romantic poets, exploring their similarities in three aspects: (1) intertextuality; (2) formal elements, including rhyme, meter, and enjambment; (3) sentiment.</p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Methods</head>
+                <figure>
+                    <graphic n="1001" width="15cm" height="7.149877777777778cm" url="Pictures/cbf055162c0985bfe43dc35a53ff9efe.jpg" rend="inline"/>
+                </figure>
+                <p style="text-align:left; text-align:center;">
+                    <hi rend="bold">Fig. 1.</hi> Framework of model
+                </p>
+                <p style="text-align:left; ">As Fig. 1 shows, the model includes a preprocessing stage and four parallel quantifications: intertextuality calculation, rhyme and meter detection, enjambment calculation and sentiment analysis. The raw data are crawled from the Bartleby collection (https://www.bartleby.com/verse), including 130 works of Yeats from three collections, 216 works of Blake, 119 works of Byron, 53 works of Keats and 469 works of Wordsworth. </p>
+                <p style="text-align:left; ">For intertextuality, after tokenization, lemmatization, and filtering stop words (words are lemmatized since it is unnecessary to distinguish different forms of the same word, and stop words are filtered out so as prevent function words that have little lexical meaning from being chosen), considering the remaining lists of words generated from Yeats’s works as target and those generated from the English Romantic poets as source, we compare them in turn in the unit of phrases, a segment of text demarcated by a semicolon or a colon. All source-target phrase-pairs that share at least two distinct words are recorded. Next, each recorded phrase-pair is weighted according to the following formula (Forstall et al., 2014): </p>
+                <figure>
+                    <graphic n="1002" width="15.5cm" height="1.55cm" url="Pictures/5ca65a1705ad8390c132247080b4b28b.png" rend="inline"/>
+                </figure>
+                <p style="text-align:left; ">Here, f(t) and f(s) are the frequency of each matching word in its target and source phrase divided by the length of the phrase respectively, and dt and ds are the distance of the farthest matching word (the number of words between two matching words with the largest distance among all matching words) in their target and source phrase. Phrase-pairs with words of lower frequency and those with closer distance are privileged because these indicate stronger possibility of intertextuality, which is set as the summation of every phrase-pair’s score within them divided by the product of their lengths (number of phrases).</p>
+                <figure>
+                    <graphic n="1003" width="15.539861111111112cm" height="1.215938888888889cm" url="Pictures/6f8d6bc5bd901e9cdf5dadc347ac9a74.png" rend="inline"/>
+                </figure>
+                <p style="text-align:left; ">Finally, the rate of intertextuality of Yeats and each English Romantic poet is defined as the average value of each verse-pair with non-zero value.</p>
+                <p style="text-align:left; ">For formal elements, CMU Pronouncing Dictionary is exploited to identify syllables, stresses and rhyme words (http://www.speech.cs.cmu.edu/cgi-bin/cmudict?in=C+M+U+Dictionary). The results of the identification are recorded as strings and are compared to every standard rhyme type and meter style to calculate their Levenshtein distances (Levenshtein, 1966), and the rhyme and meter types of the target verse are guessed and defined accordingly.</p>
+                <p style="text-align:left; ">For enjambment, after line segmentation, the proportion of enjambments is calculated as the number of the lines divided by the number of the lines that contain “,”/”.”/“!”/“?” immediately before the line breaks.</p>
+                <p style="text-align:left; ">For sentiment analysis, Python library TextBlob (Loria, 2018) is used to define the emotional tendency of the verses. Each verse is inputted into the system, and a parameter ranging from -1 (totally negative sentiment) to 1 (totally positive sentiment) is outputted. The emotional tendency of each poet is calculated as the average of that parameter in all of his works.</p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Results</head>
+                <p style="text-align:left; text-align:center;">
+                    <hi rend="bold">Table 1.</hi> Rates of intertextuality of Yeats and the English Romantic poets
+                </p>
+                <figure>
+                    <graphic n="1004" width="16.002cm" height="1.4135111111111112cm" url="Pictures/3d84a807059442c252f06f37bd5087ea.png" rend="inline"/>
+                </figure>
+                <p style="text-align:left; ">Table 1 shows that the rate of intertextuality between Yeats and Blake is the highest. The results of significance test show that the difference between the rate of intertextuality of Yeats-Blake and Yeats-any other Romantic poet is statistically significant at a significance level of 10-6, which shows that the intertextuality between Yeats and Blake is remarkably higher than those between Yeats and the other English Romantic poets. Since a higher rate of intertextuality shows a stylistic rather than generic imitation (Conte, 1986), the results indicate that Blake may have exerted a stronger influence on Yeats’s poetry than the other poets studied.</p>
+                <p style="text-align:left; text-align:center;">
+                    <hi rend="bold">Table 2.</hi> Formal elements of Yeats and the English Romantic poets (bold character is used to distinguish the closest percentage with that of Yeats)
+                </p>
+                <figure>
+                    <graphic n="1005" width="15.5cm" height="8.473333333333333cm" url="Pictures/17b42b31dd945d5f621129dc2a59e3f5.png" rend="inline"/>
+                </figure>
+                <p style="text-align:left; ">Table 2 shows that the distribution of rhyme types in Wordsworth’s verses is relatively the most similar to that of Yeats, and he also has the closest proportion of enjambment with Yeats (at a significant level of 0.05, the difference between their enjambment proportion is not statistically significant). In terms of meter style, Yeats has a very similar distribution with Blake.</p>
+                <p style="text-align:left; text-align:center;">
+                    <hi rend="bold">Table 3.</hi> Sentiment of Yeats (and his collections) and the English Romantic poets
+                </p>
+                <figure>
+                    <graphic n="1006" width="15.5cm" height="1.8772222222222221cm" url="Pictures/865072b951056045ef9dcb2ad87cb645.png" rend="inline"/>
+                </figure>
+                <p style="text-align:left; text-align:center;">*The abbreviations stand for names of the collections: The Wind among the Reeds, Responsibilities and Other Poems, The Wild Swans at Coole, respectively.</p>
+                <p style="text-align:left; ">After the sentiment analysis, two major findings are observed from Table 3: (1) Yeats has the smallest value, while Blake has the second smallest (at a significant level of 0.05, the difference between their sentiment value is not statistically significant, which is unique contrasting the value between Yeats and the other English Romantic poets); (2) Sentiment parameters of Yeats’s different collections ascend in a chronological order.</p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Conclusion</head>
+                <p style="text-align:left; ">This research successfully builds a model to quantitatively measure poetic similarity. The results show that Blake, among the English Romantic poets, is the most similar to Yeats both in terms of intertextuality and sentiment. With regard to formal elements, Yeats resembles both Blake and Wordsworth. This study’s possible contribution to Yeats scholarship is to quantitatively measure and prove the prominent influence of Blake on Yeats’ poetry, and concretely shows Yeats’ relationship with such movements as Romanticism. Furthermore, the framework designed by this research can be applied to investigate poetic similarity or intertextuality among other poets or poems, thus making contribution to literary studies in general. We believe that by the means of investigating massive data of poetic similarity, the influence of chanciness in literary interpretation can be substantially weakened. Digital methods can serve as powerful tools to detect latent literary attributes, raising significant topics that can inspire further studies.</p>
+            </div>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold">Boomsliter, P. C., Creel, W. and Hastings, G. S.</hi> (1973). Perception and English poetic meter. 
+                        <hi rend="italic">PMLA</hi>, 88(2): 200-08.
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold">Büchler, M., Franzini, G., Franzini, E., Moritz, M. and Bulert, K.</hi> (2018 forthcoming). "TRACER -a Multilevel Framework for Historical Text Reuse Detection." 
+                        <hi rend="italic">Journal of Data Mining and Digital Humanities - Special Issue on Computer-Aided Processing of Intertextuality in Ancient Languages</hi>.
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold">Coffee, N., Koenig, J., Poornima, S., Forstall, C. W., Ossewaarde R. and Jacobson, S. L.</hi> (2013). The Tesserae Project: intertextual analysis of Latin poetry. 
+                        <hi rend="italic">Literary and Linguistic Computing</hi>, 28(2): 221-28.
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold">Conte, G. B.</hi> (1986). 
+                        <hi rend="italic">The Rhetoric of Imitation: Genre and Poetic Memory in Vergil and Other Latin Poets</hi>. Ithaka: Cornell University Press.
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold">Forstall, C., Coffee, N., Buck, T., Roache, K. and Jacobson, S.</hi> (2014). Modeling the scholars: detecting intertextuality through enhanced word-level N-gram matching. 
+                        <hi rend="italic">Literary and Linguistic Computing</hi>, 30(4): 503-15.
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold">Fowler, D.</hi> (1997). On the shoulders of giants: intertextuality and classical studies. 
+                        <hi rend="italic">Materiali e Discussioni per l'Analisi dei Testi Classici</hi>, 39: 13-34.
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold">Hollander, J.</hi> (1981). 
+                        <hi rend="italic">Rhyme’s Reason: a Guide to English Verse</hi>. New Haven and London: Yale University Press.
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold">Levenshtein, V.</hi> (1966). Binary code capable of correcting deletions, insertions and reversals. 
+                        <hi rend="italic">Soviet Physics Doklady</hi>, 10(8): 707-10.
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold">Loria, S.</hi> (2018). 
+                        <hi rend="italic">TextBlob: Simplified Text Processing</hi>. https://textblob.readthedocs.io/en/dev.
+                    </bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

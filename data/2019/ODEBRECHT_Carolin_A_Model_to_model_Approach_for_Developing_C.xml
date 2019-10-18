@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>A Model-to-model Approach for Developing Corpus Metadata. An “Odd” TEI Customization for Encoding Metadata</title>
+                <author>
+                    <persName>
+                        <surname>Odebrecht</surname>
+                        <forename>Carolin</forename>
+                    </persName>
+                    <affiliation>Humboldt-Universität zu Berlin, Germany</affiliation>
+                    <email>carolin.odebrecht@hu-berlin.de</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2019-04-25T06:58:00Z</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Name, Institution</publisher>
+                <address>
+                    <addrLine>Street</addrLine>
+                    <addrLine>City</addrLine>
+                    <addrLine>Country</addrLine>
+                    <addrLine>Name</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from a Word document</p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.22">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Long Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>Metadata</term>
+                    <term>modeling</term>
+                    <term>TEI</term>
+                    <term>documentation</term>
+                    <term>corpora</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>text encoding and markup languages</term>
+                    <term>metadata</term>
+                    <term>data models and formal languages</term>
+                    <term>information architecture and usability</term>
+                    <term>linguistics</term>
+                    <term>English</term>
+                    <term>library &amp; information science</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <div type="div1" rend="DH-Heading1">
+                <head>Why do we need a metamodel for metadata? </head>
+                <p>The Text Encoding Initiative (TEI; TEI-Consortium 2019) environment provides a generic document model. TEI customizations typically follow an explicit or implicit model for text representation. The TEI document model provides modules for encoding text via mark up as well as modules for the metadata referring to the TEI document and the encoded text. The specialized (“odd”) customization presented here follows an explicit Metamodel for Corpus Metadata (MCM) representation and expands the range of applications of the TEI metadata modules to non-TEI corpora. Metadata are defined as “structured information that describes, explains, locates, or otherwise makes it easier to retrieve, use, or manage an information resource.” (NISO 2004: 1). The application scenarios for metadata are diverse, which in turn generates requirements for metadata classifications (c.f. for example Zeng and Qin 2016). Corpus documentation is a typical example of the application of metadata. In order to (re-)use historical corpora, a researcher needs to be able to gain intellectual access to a heterogeneous set of properties of a corpus. Moreover, the reusability of (historical) corpora is an important indicator for their sustainability, following Simons and Bird (2008: 90) who stated that a “[...] resource will be used if it still exists, if it is usable, and if a user finds it relevant.” Historical corpora attest diverse methods and approaches towards corpus creation, exemplified by a variety of existing resources such as 
+                    <hi rend="italic">Referenzkorpus Althochdeutsch</hi> (Donhauser, Gippert and Lühr, 2018, Version 1.1), 
+                    <hi rend="italic">Deutsches Textarchiv</hi> (Berlin-Brandenburgische Akademie der Wissenschaften, 2019), and 
+                    <hi rend="italic">Kasseler Junktionskorpus</hi> (Ágel and Hennig, 2008, Version 1.1). Thus, corpus documentation must cover a complex and heterogeneous field of corpus data. MCM provides a UML-based extensive and extensible metamodel for describing corpora, including their documents, annotations and preparation workflows, to address this complexity and enable intellectual access to corpus data. 
+                </p>
+                <p>In this paper, I will discuss how MCM can serve as a content model for the TEI document model, which in turn is used for a realization of MCM. This way, information is passed from model to model. Following this approach, I will also show how flexibly the TEI framework can be used and how two types of models can interact with each other.</p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>The TEI document model </head>
+                <p>The TEI Guidelines provide an extensive and easily adaptable framework for text encoding of various text types and genres, and for the encoding of metadata (cf. Stührenberg 2012). Especially the digitization and encoding of historical documents are often achieved with the help of the TEI (cf. for example Haaf, Geyken, and Wiegand 2014; Schroeder and Zeldes 2016; Durrell, Ensslin, and Bennett 2007). Figure 1 illustrates the TEI document model, and particularly the relation of data and metadata.</p>
+                <figure>
+                    <graphic n="1001" width="16.002cm" height="5.600347222222222cm" url="Pictures/5a4a3d2fc9ca737586d707b9bbc1b6fd.png" rend="inline"/>
+                    <head>TEI document model with a basic structure containing teiHeader and body. The metadata in the teiHeader refer to the body part as well as to the external source and the TEI document itself. The body part refers as well to source. The source itself can be more complex than indicated here.</head>
+                </figure>
+                <p>A TEI-compliant document
+                    <note place="foot" xml:id="ftn1" n="1">
+                        <p rend="footnote text">
+                            <ref target="http://www.tei-c.org/release/doc/tei-p5-doc/en/html/ref-TEI.html">http://www.tei-c.org/release/doc/tei-p5-doc/en/html/ref-TEI.html</ref> Accessed 2018-11-25.
+                        </p>
+                    </note> contains a body, which ‘contains the whole body of a single text’
+                    <note place="foot" xml:id="ftn2" n="2">
+                        <p rend="footnote text">
+                            <ref target="http://www.tei-c.org/release/doc/tei-p5-doc/en/html/ref-body.html">http://www.tei-c.org/release/doc/tei-p5-doc/en/html/ref-body.html</ref> Accessed 2018-11-25.
+                        </p>
+                    </note>, and a teiHeader
+                    <note place="foot" xml:id="ftn3" n="3">
+                        <p rend="footnote text">
+                            <ref target="http://www.tei-c.org/release/doc/tei-p5-doc/en/html/HD.html">http://www.tei-c.org/release/doc/tei-p5-doc/en/html/HD.html</ref> Accessed 2018-11-25.
+                        </p>
+                    </note> for the metadata records and for the documentation of a TEI document. The metadata in the teiHeader refer to the TEI document itself, the body and the external source (in our case historical texts). The data in the body of the TEI document refer to the source as being the digital surrogate of the source. In this way, metadata and data are integrated in a single document, are defined by the TEI content model, and refer to the same source. The annotation (tag set) of the document is typically not documented in the teiHeader. Instead, it is extracted from, and documented in, the TEI Guidelines, and modeled within the TEI environment.
+                </p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>A model-to-model-based approach for developing corpus metadata </head>
+                <p>The TEI Guidelines can be seen as a content standard, the TEI XML as a file exchange standard which is defined by the TEI modeling tool ‘One Document Does it all’ (ODD, Burnard and Rahtz 2004).
+                    <note place="foot" xml:id="ftn4" n="4">
+                        <p rend="footnote text"> This is an advantage compared to other metadata schemes (e.g. ISO 2015) which do not have such a modeling environment. For a discussion of other approaches see Odebrecht (2018, chapter 5)</p>
+                    </note> By modeling the TEI with the help of the TEI, the TEI is validated within TEI as well. This way, the data creation and documentation is exclusively dependent on the TEI environment. While using the TEI framework enables a high degree of interoperability across disciplines, other formats also mix TEI annotations with other annotations, or do not use the TEI at all. The complexity for corpus data documentation increases when dealing with digital surrogates of different encoding standards, which in turn are based on diverging text, data models, or formats. To handle this complexity, the MCM, by using the Unified Modeling Language (UML, cf. Rumpe 2011)
+                    <note place="foot" xml:id="ftn5" n="5">
+                        <p rend="footnote text">
+                            <ref target="https://www.omg.org/spec/UML/">https://www.omg.org/spec/UML/</ref> Accessed 2018-11-25.
+                        </p>
+                    </note>, identifies common features across diverse corpus data and defines which corpus metadata need to be included in a corpus documentation to enable intellectual access and corpus data reuse (Odebrecht 2018). This kind of documentation needs a stronger focus on information about corpus preparation, because the preparation steps for a historical corpus are not always included in a single environment such as the TEI. Adopting the TEI approach and focusing on the metadata framework, the MCM provides an additional conceptual layer (cf. Figure 2).
+                </p>
+                <figure>
+                    <graphic n="1002" width="16.002cm" height="12.765263888888889cm" url="Pictures/9746c7f64069c81a49b77eda9b98c3fb.png" rend="inline"/>
+                    <head>The model-to-model approach: The MCM provides extended metadata for corpus documentation which are handed over to the TEI modeling environment ODD. Each TEI customization refers to a central corpus documentation part: source (text model), annotation (data model) and creation (workflow model).</head>
+                </figure>
+                <p>The MCM serves as a blue print for metadata modeling and realization in TEI (Odebrecht 2017). It is a format-independent and extensive content model for the application of the TEI to corpus documentation. The realization of the model-to-model approach can explicitly add additional statements and information relationships which go beyond the original TEI model. From a TEI perspective, the document model with a focus on metadata is extended by including non-TEI corpora but looses the close relationship between the source and the TEI document. The customizations adapt the TEI for an originally unintended and novel use case which allows for the documentation of historical corpora of any format and any architecture. This is done via three customizations: One customization describes corpus-internal information such as the text representation which is close to the typical functionality of the TEI. The second customization contains explicit information about all kinds of annotations in the corpus. A third customization describes corpus-external information of the workflow. A concrete application scenario for historical corpora is as follows: TEI or non-TEI corpora which shall be archived in a repository (LAUDATIO
+                    <note place="foot" xml:id="ftn6" n="6">
+                        <p rend="footnote text">
+                            <ref target="http://www.laudatio-repository.org/">http://www.laudatio-repository.org/</ref> Accessed 2019-04-24.
+                        </p>
+                    </note>) can be documented comprehensively and deeply structured. The resulting TEI-XML metadata are then used for metadata search and display in this repository.
+                </p>
+                <p>The TEI customizations represent an innovative perspective on the application of the TEI. The TEI already provides a full metadata structure which is integrated in a document-centric model. With the help of another model – the MCM – the application of the teiHeader can be extended. The MCM can be defined as a concrete and extensive content model for metadata information. The application of the MCM benefits from the TEI environment and its interoperability, and can make use of the modeling tool ODD and its validation mechanism. This approach enables use cases for metadata that were previously separated from the TEI universe and proves that the adaptability and flexibility of the TEI allows reuse scenarios, in this case TEI XML for corpus metadata, which have not been initially intended.</p>
+            </div>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold">Burnard, L. and Sebastian R.</hi> (2004). RelaxNG with Son of ODD. 
+                        <hi rend="italic">Extreme Markup Languages</hi>. http://www.tei-c.org/cms/Talks/extreme2004/paper.html (accessed 2018-11-26).
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold">Donhauser, K., Gippert, J. and Lühr, R.</hi> (2018, Version 1.1
+                        <hi rend="italic">). Referenzkorpus Altdeutsch</hi>, Humboldt-Universität zu Berlin. 
+                        <ref target="http://www.deutschdiachrondigital.de/">http://www.deutschdiachrondigital.de/</ref>. 
+                        <ref target="http://hdl.handle.net/11022/0000-0007-C9C7-6">http://hdl.handle.net/11022/0000-0007-C9C7-6</ref>
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold">Durrell, M., Ensslin, A. and Bennett. P</hi>. (2007). The GerManC project. 
+                        <hi rend="italic">Sprache und Datenverarbeitung</hi> (31): 71–80.
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold">Berlin-Brandenburgischen Akademie der Wissenschaften</hi> (2019). 
+                        <hi rend="italic">Deutsches Textarchiv</hi>. Grundlage für ein Referenzkorpus der neuhochdeutschen Sprache: 
+                        <ref target="http://www.deutschestextarchiv.de/">http://www.deutschestextarchiv.de/</ref> (accessed 2019-04-26).
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold">Haaf, S., Geyken A., and Wiegand, F.</hi> (2014). The DTA “Base Format”: A TEI Subset for the Compilation of a Large Reference Corpus of Printed Text from Multiple Sources. 
+                        <hi rend="italic">Journal of the Text Encoding Initiative</hi> (8). doi:10.4000/jtei.1114.
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold">Ágel, V. and Hennig, M.</hi> (2008, Version 1.1). 
+                        <hi rend="italic">KAJUK</hi>. Justus-Liebig-Universität Gießen. 
+                        <ref target="http://www.uni-giessen.de/kajuk/index.htm">http://www.uni-giessen.de/kajuk/index.htm</ref>. 
+                        <ref target="http://hdl.handle.net/11022/0000-0000-2102-8">http://hdl.handle.net/11022/0000-0000-2102-8</ref>
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold">ISO 24622-1</hi> (2015). 
+                        <hi rend="italic">Language resource management. Component Metadata Infrastructure</hi> (CMDI). 01.140.20. https://www.iso.org/standard/37336.html (accessed 2018-11-26).
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold">NISO</hi> (2004). 
+                        <hi rend="italic">Understanding Metadata</hi>. NISO Press. ISBN: 1-880124-62-9.
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="ng-binding">
+                            <hi rend="bold">Odebrecht, C.</hi> (2017). 
+                            <hi rend="italic">Metadata for Historical Corpora</hi>. Realization of the Metamodel for Corpus Metadata with the help of TEI Customization [Data set]. Zenodo. doi: 
+                        </hi>10.5281/zenodo.2543455
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold">Odebrecht, C.</hi> (2018). 
+                        <hi rend="italic">MKM – ein Metamodell für Korpusmetadaten</hi>. Dokumentation und Wiederverwendung historischer Korpora. Phd Thesis. Humboldt-Universität zu Berlin, Sprach- und literaturwissenschaftliche Fakultät, Berlin. doi: 10.18452/19407.
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold">Rumpe, B.</hi> (2011). 
+                        <hi rend="italic">Modellierung mit UML</hi>. Berlin, Heidelberg: Springer Berlin Heidelberg.
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold">Schroeder, C. T., and Zeldes, A.</hi> (2016). Raiders of the Lost Corpus. 
+                        <hi rend="italic">Digital Humanities Quarterly</hi> 10 (2). http://www.digitalhumanities.org/dhq/vol/10/2/000247/000247.html (accessed 2018-11-26).
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold">Simons, G. and Bird, S.</hi> (2008). Toward a global infrastructure for the sustainability of language resources. In 
+                        <hi rend="italic">Proceedings of the 22nd Pacific Asia Conference on Language, Information and Computation</hi>, pp. 87–100.
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold">Stührenberg, M.</hi> (2012). The TEI and Current Standards for Structuring Linguistic Data. 
+                        <hi rend="italic">Journal of the Text Encoding Initiative</hi> (3). doi: 10.4000/jtei.523
+                    </bibl>
+                    <bibl style="text-align:left;">
+                        <hi rend="bold">TEI Consortium</hi> (2019). 
+                        <hi rend="italic">TEI P5: Guidelines for Electronic Text Encoding and Interchange</hi>.
+                    </bibl>
+                    <bibl style="text-align:left;">
+                        <hi rend="st">Version 3.5.0</hi>, 
+                        <ref target="http://www.tei-c.org/Guidelines/P5">http://www.tei-c.org/Guidelines/P5</ref> (accessed 2019-03-02)
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold">Zeng, M. L., and Qin, J.</hi> (2016). 
+                        <hi rend="italic">Metadata</hi>. Second Edition. London: facet publishing.
+                    </bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

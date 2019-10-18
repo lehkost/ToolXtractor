@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>Active Learning from Scratch in Diverse Humanities Textual Domains: Optimizing Annotation Efficiency for Language-Agnostic NER</title>
+                <author>
+                    <persName>
+                        <surname>Erdmann</surname>
+                        <forename>Alexander</forename>
+                    </persName>
+                    <affiliation>Computational Approaches to Modeling Language Lab, New York University Abu Dhabi, United Arab Emirates; Department of Linguistics, Ohio State University, Ohio, USA</affiliation>
+                    <email>ae1541@nyu.edu</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Wrisley</surname>
+                        <forename>David Joseph</forename>
+                    </persName>
+                    <affiliation>Digital Humanities, New York University Abu Dhabi, United Arab Emirates</affiliation>
+                    <email>djw12@nyu.edu</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Joyeux-Prunel</surname>
+                        <forename>Béatrice</forename>
+                    </persName>
+                    <affiliation>Département d'histoire et de théorie des arts, Ecole normale supérieure, Paris Sciences Lettres, Paris, France</affiliation>
+                    <email>beatrice.joyeux-prunel@ens.fr</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2019-05-10T16:17:00Z</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Name, Institution</publisher>
+                <address>
+                    <addrLine>Street</addrLine>
+                    <addrLine>City</addrLine>
+                    <addrLine>Country</addrLine>
+                    <addrLine>Name</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from a Word document</p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.22">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Long Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>active learning</term>
+                    <term>named entity recognition</term>
+                    <term>machine learning</term>
+                    <term>multilingual corpora</term>
+                    <term>spatial humanities</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>corpus and text analysis</term>
+                    <term>multilingual / multicultural approaches</term>
+                    <term>natural language processing</term>
+                    <term>semantic analysis</term>
+                    <term>English</term>
+                    <term>computer science and informatics</term>
+                    <term>geography and geohumanities</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <p>Interest among Digital Humanities (DH) practitioners in semantic annotation of corpora continues to grow, while at the same time linguistic resources for niche domains or languages underperform, or are simply unavailable. Since DH research often involves multilingual and multi-domain corpora—drawing on different genres, periods and cultures, and ranging in type from unstructured prose to semi-structured text—annotation can require significant time and language skills that not all contributors in research groups have. Annotation in collaborative projects is a case in point (Dossin et al., 2016).</p>
+            <p>Furthermore, off the shelf tools for annotation, despite being trained with language agnostic architectures, only process one language in one domain at a time (Al-Rfou et al., 2014; Lample et al., 2016). Since available tools do not perform well for niche domains (Boeten, 2015; de Naegel, 2015), new semi-automatic semantic annotation solutions must be sought for creating data for downstream DH tasks (de Wilde and Hengchen, 2017). For annotating diverse corpora, we propose a language-agnostic, robust and customizable named entity recognition (NER) resource. It can identify any type of user-specified entities in any textual domain, although here we have largely focused on the annotation of place names for use in the spatial humanities.</p>
+            <p>Instead of relying on pre-existing NER taggers not tailored to the domain of interest, our resource enables humanists to build their own customized NER taggers. Such taggers require manually annotated data to learn to identify named entities automatically. However, since annotation is costly, we propose an active learning pipeline in which the most informative sentences in a corpus are identified prior to annotation. Our approach is to optimize performance while minimizing the time and energy of exclusively manual annotation (Kettunen et al., 2017). </p>
+            <p>To this end, we developed the Humanities Entity Recognizer (HER), which uses the conditional random field (CRF) machine learning architecture, both to identify sentences containing named entities most crucial for annotation and to identify named entities once sufficient manual annotation is completed (Nadeau and Sakine, 2007; Erdmann et al., 2016). 
+                <hi rend="color(222222)">The system is designed to work with unstructured texts in any language, especially humanities texts where entities are unevenly distributed. It assumes no language resources beyond a tokenizer.</hi>
+            </p>
+            <p>Our inspiration comes from related NER research that demonstrates that feature-based architectures like CRFs can, in fact, be language agnostic (Curran and Clark, 2003). However, such systems do not anticipate noisy DH domains. A promising active learning strategy for low resourced neural NER exists (Shen et al., 2018), although it requires computational resources we do not assume to be available to most humanities researchers. Finally, a transfer learning solution has been proposed, whereby a model for the under-resourced Uyghur language leverages better resourced NER models for two related languages (Bharadwaj et al., 2016). This pipeline however, requires access to multiple specific sources of data beyond the average humanities data scenario. </p>
+            <p>Our design merits particular attention for its careful consideration of the workflows of the humanist. Using limited entity lists (for example, placeographies or personographies built from annotated data on the fly), we delexicalize features and introduce other factors to encourage the algorithm to generalize rapidly in identifying new entities with high recall, sorting sentences based on likelihood to contain frequent, previously unannotated named entities. The system learns on its own that capitalization is important in languages where it is, but can ignore capitalization in other languages. Since the textual scholar working with the HER system is actively involved in the iterative annotation and correction, a choice was made to favor recall over precision for the simple reason that 
+                <hi rend="color(222222)">it is easier to remove, or hand correct, an inaccurate entity than to lose one in the “black box</hi>.” The annotation process on the initial seed and successive batches resembles a close reading of the corpus from the perspective of its potential named entities. 
+                <hi rend="color(222222)" xml:space="preserve">At present the scripts work on the command line and subsequent annotation is carried out in a text editor. Integration into community-based, social annotation interfaces is a desirable next step, but beyond the scope of this paper. </hi>
+            </p>
+            <p style="text-align:left; ">Our choice of CRF machine learning stems from a commitment to under-resourced domains, since neural models are 
+                <hi rend="color(222222)">notoriously data hungry. Nonetheless, we tested neural models (BiLSTM-CRF and CNN-BiLSTM) extensively both for active learning and/or for performing the final NER tagging, with the result that CRFs outperform them until the amount of manually annotated data exceeds about 30,000 words. Should the user exceed this threshold, HER also supports use of neural models. Additionally, the interpretability of CRFs allowed us to maximize multiple criteria (uncertainty, representativeness, and diversity) when choosing the best sentences to annotate, whereas the neural models performed poorly for active learning, only capable of predicting sentences’ uncertainty.</hi> We also introduce the notion of an “inclusive” evaluation framework whereby the accuracy of the model is determined by both manual and automatic annotations, rather than “exclusive” frameworks that look only at the final model’s prediction on a held out test set (Erdmann et al., 2019).
+            </p>
+            <figure>
+                <graphic n="1001" width="15.299072222222222cm" height="9.492194444444445cm" url="Pictures/a6845c3724b205a523b0578c90dc2b29.png" rend="inline"/>
+            </figure>
+            <p style="text-align:center;">Figure 1: Inclusive and Exclusive Evaluation of Learning Architectures (shallow and deep) with the Humanities Entity Recognizer (HER)</p>
+            <p>The code and documentation for the Humanities Entity Recognizer (HER) are freely available at http://github.com/alexerdmann/HER. Our research stems from a session of a 2018 NYU-PSL Global Alliance funded workshop devoted to named entities and spatial humanities research. We began with non-English materials already annotated for named entities: the FranText corpus (around 200 works of pre-1920s French prose). We chose six sample texts across very different domains—a travel narrative, a gastronomic treatise, novels, an autobiography and a memoir—of varying named entity densities and distributions. The texts’ proper names were further annotated to distinguish place and person names. Performance of models trained using the HER system for annotation increased significantly. After annotating just 40,000 words, error was reduced 68.6% as compared to annotating 40,000 words from randomly selected sentences. In addition to this previously annotated corpus—not the norm for most DH research—we worked with three other unannotated corpora of significant typological and structural difference:</p>
+            <list type="unordered">
+                <item>A German corpus of approximately 1M words (novels, travel narratives and philosophical texts) from the Weimar period, partially sourced from Project Gutenberg;</item>
+                <item>A medieval French corpus composed of 1.1M words in both prose and verse for which a pre-existing placeography was available (drawing on the Open Medieval French corpus);</item>
+                <item>A Portuguese corpus consisting of approximately 250K words from catalogs of the São Paolo exhibitions (1951-1959) containing a significant amount of structured information (lists of artists’ names, artwork titles, dates, places, etc.) for which a personography and placeography were available from the Artl@s Global Exhibition Catalogues Database.</item>
+            </list>
+            <p>We discuss results using these corpora, as well as challenges encountered using the Humanities Entity Recognizer (HER) across diverse domains and different kinds of entities. We report performance over a learning curve of quantities of manual annotation and qualitatively evaluate predictions in the absence of gold-standard data (van Hooland et al., 2015). We conclude with our key contributions in the development of this system: “whiteboxing” the NER process, handling totally unresourced domains and messy corpora in a language agnostic manner, and designing complete flexibility to granularity and types of entities.</p>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl>
+                        <hi rend="bold">Artl@s Project.</hi> (2019). Artl@s Global Exhibition Catalogues Database. 
+                        <ref target="https://artlas.huma-num.fr/en/">https://artlas.huma-num.fr/en/</ref>
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Bharadwaj, A., Mortensen, D. R., Dyer, C. and Carbonell, J. G.</hi> (2016). Phonologically aware neural model for named entity recognition in low resource transfer settings. 
+                        <hi rend="italic">Proceedings of the 2016 Conference on Empirical Methods in Natural Language Processing (EMNLP).</hi> Austin, Texas: Association for Computational Linguistics, pp. 1462–72.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Boeten, J.</hi> (2015). 
+                        <hi rend="italic">The Herodotos Project (OSU-UGent): Studies in Ancient Ethnography. Barbarians in Strabo’s ‘Geography’ (AbiiIonians) With a Case-Study: The Cappadocians</hi>. Ghent University.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Chen, Y., Lasko, T. A., Mei, Q., Denny, J. C. and Xu, H.</hi> (2015). A study of active learning methods for named entity recognition in clinical text. 
+                        <hi rend="italic">Journal of Biomedical Informatics</hi>, 58: 11–18.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">CNRTL Centre National de Ressources Textuelles et Lexicales</hi>. (2019). Frantext Corpus. 
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Curran, J. R. and Clark, S.</hi> (2003). Language independent NER using a maximum entropy tagger. 
+                        <hi rend="italic">Proceedings of the Seventh Conference on Natural Language Learning at HLT-NAACL 2003 - Volume 4. (CONLL ’03).</hi> Stroudsburg, Pennsylvania: Association for Computational Linguistics, pp. 164–67. 
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Dossin, C., Joyeux-Prunel, B. and Kong, N.</hi> (2017). Applying VGI to collaborative research in the humanities: the case of Artl@s. 
+                        <hi rend="italic">Cartography and Geographic Information Science</hi>, 44(6): 1-18.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Erdmann, A., Brown, C., Joseph, B., Janse, M., Ajaka, P., Elsner, M. and Marneffe, M.-C. de</hi> (2016). Challenges and Solutions for Latin Named Entity Recognition. 
+                        <hi rend="italic">Proceedings of the Workshop on Language Technology Resources and Tools for Digital Humanities (LT4DH)</hi>. Osaka, Japan: The COLING 2016 Organizing Committee, pp. 85–93.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Erdmann, A., Wrisley, D. J., Allen, B., Brown, C., Cohen-Bodénès, S., Elsner, M., Feng, Y., Joseph, B., Joyeux-Prunel, B. and Marneffe, M.-C. de</hi> (2019). Practical, efficient, and customizable active learning for named entity recognition in the digital humanities. Forthcoming in 
+                        <hi rend="italic">Proceedings of the North American Chapter of the Association of Computational Linguistics</hi>. Minneapolis, Minnesota: Association for Computational Linguistics. 
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Hooland, S. van, Wilde, M. de, Verborgh, R., Steiner, T. and Van de Walle, R.</hi> (2015). Exploring entity recognition and disambiguation for cultural heritage collections. 
+                        <hi rend="italic">Digital Scholarship in the Humanities</hi>, 30(2): 262–79.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Humanities Entity Recognizer (HER).</hi> (2019). GitHub. 
+                        <ref target="https://github.com/alexerdmann/HER">https://github.com/alexerdmann/HER</ref>
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Kettunen, K., Mäkelä, E., Ruokolainen, T., Kuokkala, J. and Löfberg, L.</hi> (2017). Old Content and Modern Tools – Searching Named Entities in a Finnish OCRed Historical Newspaper Collection 1771–1910. 
+                        <hi rend="italic">Digital Humanities Quarterly</hi>, 11(3). 
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Lample, G., Ballesteros, M., Subramanian, S., Kawakami, K. and Dyer, C.</hi> (2016). Neural architectures for named entity recognition. 
+                        <hi rend="italic">Proceedings of the 2016 Conference of the North American Chapter of the Association for Computational Linguistics: Human Language Technologies</hi>. San Diego, California: Association for Computational Linguistics, pp. 260–270.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Nadeau, D. and Sekine, S.</hi> (2007). A survey of named entity recognition and classification. 
+                        <hi rend="italic">Lingvisticæ Investigationes</hi> (30.1): 3-26.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold" xml:space="preserve">Naegel, A. de (2015). </hi>
+                        <hi rend="italic">The Herodotos Project (OSU-UGent): Studies in Ancient Ethnography. Barbarians in Strabo’s ‘Geography’ (Isseans - Zygi). With a Case-Study: The Britons.</hi> Ghent University.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Open Medieval French Project.</hi> (2019). 
+                        <hi rend="italic">GitHub</hi>. 
+                        <ref target="https://github.com/OpenMedFr">https://github.com/OpenMedFr</ref>
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Al-Rfou, R., Kulkarni, V., Perozzi, B. and Skiena, S.</hi> (2015). POLYGLOT-NER: massive multilingual named entity recognition. 
+                        <hi rend="italic">Proceedings of the 2015 SIAM International Conference on Data Mining</hi>. Vancouver, British Columbia: Society for Industrial and Applied Mathematics, pp. 586-94.
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Shen, Y., Yun, H., Lipton, Z. C., Kronrod, Y. and Anandkumar, A.</hi> (2017). Deep active learning for named entity recognition. 
+                        <hi rend="italic">Proceedings of the 2nd Workshop on Representation Learning for NLP.</hi> Vancouver, Canada: Association for Computational Linguistics, pp. 252–56.
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold">Wilde, M. de and Hengchen, S.</hi> (2017). Semantic enrichment of a multilingual archive with linked open data. 
+                        <hi rend="italic">Digital Humanities Quarterly</hi>, 11(4).
+                    </bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

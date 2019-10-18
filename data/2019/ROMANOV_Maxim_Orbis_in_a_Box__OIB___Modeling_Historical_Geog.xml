@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>Orbis-in-a-Box (OIB): Modeling Historical Geographical Networks</title>
+                <author>
+                    <persName>
+                        <surname>Romanov</surname>
+                        <forename>Maxim</forename>
+                    </persName>
+                    <affiliation>University of Vienna, Austria</affiliation>
+                    <email>maxim.romanov@univie.ac.at</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Seydi</surname>
+                        <forename>Masoumeh</forename>
+                    </persName>
+                    <affiliation>Leipzig University, Germany</affiliation>
+                    <email>m.seydi@uni-leipzig.de</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Baillie</surname>
+                        <forename>James</forename>
+                    </persName>
+                    <affiliation>University of Vienna, Austria</affiliation>
+                    <email>james.baillie@univie.ac.at</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Grossner</surname>
+                        <forename>Karl</forename>
+                    </persName>
+                    <affiliation>University of Pittsburgh, USA</affiliation>
+                    <email>grossner@pitt.edu</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Simon</surname>
+                        <forename>Rainer</forename>
+                    </persName>
+                    <affiliation>AIT Austrian Institute of Technology, Austria</affiliation>
+                    <email>rainer.simon@ait.ac.at</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Vargha</surname>
+                        <forename>María</forename>
+                    </persName>
+                    <affiliation>University of Vienna, Austria</affiliation>
+                    <email>maria.vargha@univie.ac.at</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2014-12-19T13:50:00Z</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Name, Institution</publisher>
+                <address>
+                    <addrLine>Street</addrLine>
+                    <addrLine>City</addrLine>
+                    <addrLine>Country</addrLine>
+                    <addrLine>Name</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from a Word document</p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.22">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Poster</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>historical geographical networks</term>
+                    <term>travelogues</term>
+                    <term>mapping</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>spatial &amp; spatio-temporal analysis</term>
+                    <term>modeling and visualization</term>
+                    <term>history and historiography</term>
+                    <term>English</term>
+                    <term>geography and geohumanities</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <p style="text-align:left; ">In 2012, researchers at Stanford (led by Walter Scheidel, see Meeks 2015) developed ORBIS (
+                <ref target="http://orbis.stanford.edu/">http://orbis.stanford.edu/</ref>) which offered a complex model of connectivity by reconstructing the duration and financial cost of travel in antiquity. Revealing the true shape of the Roman world, ORBIS provided a unique perspective on premodern history and became an object of envy for scholars working in other historical contexts. Since ORBIS was not designed to be easily adaptable to other contexts, a DH-team at the University of Vienna organized a hackathon, where participants worked on a tool which historians with minimal DH skills could easily install and run, and, by supplying their own data, could explore their own historical networks in ways similar to ORBIS.
+            </p>
+            <p style="text-align:left; ">We used the al-Ṯurayyā Project, 
+                <ref target="https://althurayya.github.io/">https://althurayya.github.io/</ref>, as the sandbox, since it 1) re-uses a significant amount of code written in D3 for ORBIS 2.0; and 2) is modular enough to facilitate experimental development. Whereas the al-Ṯurayyā Project used a modified version of the Dijkstra pathfinding algorithm, we chose to reduce the algorithmic complexity for OIB to the necessary minimum (i.e., dynamic network generation, weight modification, calculation of routes/networks using the “vanilla” Dijkstra algorithm), as not all potential modifications can be foreseen; historians will have full control over their networks through the modification of node/edge properties. With this approach, our application generates a network from supplied data, then continuously reconfigures it for specific queries by applying modifiers to edge weights (based on selected properties) and switching on/off specific nodes/edges; the visualization is then generated from the latest state of the network.
+            </p>
+            <figure>
+                <graphic n="1001" width="15.927916666666667cm" height="6.138333333333334cm" url="Pictures/b72fad8b54095fb2b37c894daf85aeb1.png" rend="inline"/>
+            </figure>
+            <p style="text-align:left; text-align:center;">
+                <hi rend="bold">Figure 1. Modeling routes from Baghdad (Baġdād) to Damascus (Dimašq)</hi>.
+            </p>
+            <p style="text-align:left; ">
+                <hi rend="bold">Figure 1</hi> provides an example. [
+                <hi rend="bold">Left</hi>] al-Ṯurayyā shows two routes: 
+                <hi rend="bold">RED-L</hi> is the shortest route generated with the “vanilla” Dijkstra algorithm; 
+                <hi rend="bold">GREEN-L</hi> is the “optimal” route generated with a modified Dijkstra algorithm, searching for the next shortest route with a higher number of settlements along the way (under the assumption that such a route is safer). [
+                <hi rend="bold">Right</hi>] OIB Sandbox shows two routes generated with the “vanilla” Dijkstra algorithm, but from differently configured networks: the 
+                <hi rend="bold">RED-R</hi> uses the initial network (= 
+                <hi rend="bold">RED-L</hi>); the 
+                <hi rend="bold">GREEN-R</hi> uses a reconfigured network: here, settlement type is applied as a modifier, making route sections that lead to larger settlements “shorter” and therefore preferable for the Dijkstra algorithm. While 
+                <hi rend="bold">GREEN-L</hi> (
+                <hi rend="italic">modified Dijkstra</hi>) offers a better alternative to 
+                <hi rend="bold">RED-L</hi>—the suicidal option through the Syrian desert—
+                <hi rend="bold">GREEN-R</hi> (
+                <hi rend="italic">modified network</hi>) not only avoids the desert, but also runs through all major cities in the region (Samarra/Sāmarrāʾ &gt; Mosul/al-Mawṣil &gt; Raqqah/al-Raqqaŧ &gt; Aleppo/Ḥalab &gt; Emessa/Ḥimṣ), a route usually found in medieval Arabic chronicles. 
+            </p>
+            <p style="text-align:left; ">OIB is being developed as a modular application, whose functionality can be extended without any disruption (in addition to pathfinding, consider itinerary charting, flood networks with single and multiple centers, region modeling, etc.). The OIB requires users to supply CSV data files for edges and nodes, and to modify a YAML settings file. For example, the EDGES file should look as shown in 
+                <hi rend="bold">Figure 2</hi>, where 
+                <hi rend="italic">RouteID</hi>, 
+                <hi rend="italic">Start</hi>, 
+                <hi rend="italic">End</hi>, 
+                <hi rend="italic">Length</hi>, and 
+                <hi rend="italic">Coordinates</hi> are required fields. In the network, 
+                <hi rend="italic">Length</hi> is used by the Dijkstra algorithm to find the shortest route; additional fields—here 
+                <hi rend="italic">Terrain</hi> and 
+                <hi rend="italic">Safety</hi>—provide modifiers to 
+                <hi rend="italic">Length</hi> values for network reconfiguration. 
+            </p>
+            <figure>
+                <graphic n="1002" width="15.927916666666667cm" height="4.198055555555555cm" url="Pictures/6756d630288037cef7665f643340fb6a.png" rend="inline"/>
+            </figure>
+            <p style="text-align:left; text-align:center;">Figure 2. EDGES file example.</p>
+            <p style="text-align:left; ">Additional fields are coded categorically and converted into numerical values via a config file (
+                <hi rend="bold">Figure 3</hi>), through which one adjusts model parameters. Numeric values are used as multipliers for 
+                <hi rend="italic">Length</hi> values. For example, the “weight” of the route section ID3 (25,432) becomes 63,580, if both 
+                <hi rend="italic">Terrain</hi> and 
+                <hi rend="italic">Safety</hi> modifiers are applied; that of the route section ID2 (34,567) becomes 25,925, which makes ID2 “shorter” than ID3, and therefore preferable within the “vanilla” Dijkstra algorithm. In a similar manner, nodes and edges of specific types can be excluded from the network.
+            </p>
+            <figure>
+                <graphic n="1003" width="15.927916666666667cm" height="9.101666666666667cm" url="Pictures/e1db6dabb2ec1f3c45d7c869c2201dee.png" rend="inline"/>
+            </figure>
+            <p style="text-align:left; text-align:center;">Figure 3. YAML Settings File</p>
+            <p style="text-align:left; ">Although this approach puts lots of weight on historians to produce appropriate data, it gives them the utmost freedom in modeling their research questions as well as makes OIB suitable for most use cases without any additional modifications of the tool itself. Much of the OIB Sandbox already works, yet an interface for dynamic network modification needs to be further developed, which we hope will happen in the near future. </p>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold">Meeks E. (2015).</hi> The Design and Implementation of ORBIS: The Stanford Geospatial Network Model of the Roman World, 
+                        <hi rend="italic">Bulletin of the Association for Information Science and Technology</hi>
+                        <hi rend="bold">41/2</hi>, 17–21, https://doi.org/10.1002/bult.2015.1720410206.
+                    </bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

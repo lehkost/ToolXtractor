@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>Lemmatizing Low-resource, Less-researched Languages: The Linked Open Text Reader and Annotator</title>
+                <author>
+                    <persName>
+                        <surname>Ionov</surname>
+                        <forename>Max</forename>
+                    </persName>
+                    <affiliation>Goethe University Frankfurt</affiliation>
+                    <email>ionov@informatik.uni-frankfurt.de</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Chiarcos</surname>
+                        <forename>Christian</forename>
+                    </persName>
+                    <affiliation>Goethe University Frankfurt</affiliation>
+                    <email>chiarcos@informatik.uni-frankfurt.de</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2014-12-19T13:50:00Z</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Name, Institution</publisher>
+                <address>
+                    <addrLine>Street</addrLine>
+                    <addrLine>City</addrLine>
+                    <addrLine>Country</addrLine>
+                    <addrLine>Name</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from a Word document</p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.22">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Poster</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>less-resourced languages</term>
+                    <term>ontolex lemon</term>
+                    <term>dictionary linking</term>
+                    <term>lemmatization</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>corpus and text analysis</term>
+                    <term>philology</term>
+                    <term>linguistics</term>
+                    <term>semantic web and linked data</term>
+                    <term>linking and annotation</term>
+                    <term>English</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <div type="div1" rend="DH-Heading1">
+                <head>Background</head>
+                <p style="text-align:left; ">Lemmatization represents the basis for many experiments and analyses in computational philology and corpus linguistics, and although considered to be solved for modern major languages, producing lemmatized text remains challenging for languages for which little or no language resources are currently in existence. In particular, morphologically rich languages benefit greatly from the sparsity reduction achieved if automated pre-processing, annotation or distributional analyses (be it collocation graphs or correlation studies) are conducted on lemmata rather than the original word forms.</p>
+                <p style="text-align:left; ">We describe experiments and a tool on lemmatizing languages with insufficient resources for state-of-the-art linguistic, or philological work. We introduce LiOTrea, the Linked Open Text Reader and Annotator: Given a text (corpus) and one or more dictionaries or lemma lists, LiOTrea uses the dictionaries to suggest lemmata (resp., links to dictionary entries) and morphological features for words in the corpus. Several linking/lemmatization strategies are implemented. Their suggestions are ranked and can either be used as a 
+                    <hi rend="bold">pre-processing</hi> step in manual annotation, or 
+                    <hi rend="bold">in place</hi> of manual annotation. Furthermore, novel dictionary entries can be created during annotation. The technological innovation is three-fold: (1) A number of lemmatization/linking strategies being implemented, (2) native support for the Ontolex-lemon vocabulary (McCrae et al., 2017) and lexical resources from the Linguistic Linked Open Data cloud, and (3) a language-independent technology.
+                </p>
+                <p style="text-align:left; ">Ontolex-lemon is a standard of growing importance to the DH community (cf. Bellandi et al., 2018), and tools for creating and publishing such datasets are available, but no tool, to the best of our knowledge, that currently uses this technology for analysing philological text.</p>
+                <p style="text-align:left; ">The technology is applicable to any language, for illustration we use real-world studies on languages from the Caucasus, Eurasia and the Near East, conducted in the context of philological research (Armenian and Sumerian, languages with a long and extensive history as a written language) and the documentation of endangered languages and cultures (Batsbi; a minority language spoken in Georgia). The case studies thus cover two important strands of Digital Humanities.</p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Methods</head>
+                <p style="text-align:left; ">Lemmatization is a sub-task of morphological analysis, with three prime strategies:</p>
+                <list type="ordered">
+                    <item>Rule-based annotation: Building a formal grammar for the language in question using tools such as XFST, Foma, etc. Successfully applied for a myriad of languages with rich morphology. Downside: Requires a rich model of the grammar as basis for formalization.</item>
+                    <item>Lookup-based (dictionary-based) annotation: Given a set of paradigmas, annotate only their word forms. This technique (extended to morphs instead of full words) is the basic technique of popular tools in language documentation, ToolBox/FLEx. Downside: Limited coverage.</item>
+                    <item>Pattern induction: Learn morphological regularities from data by means of symbolic (e.g. CSTLemmatizer
+                        <note place="foot" xml:id="ftn1" n="1">
+                            <p rend="footnote text">
+                                <ref target="https://dighumlab.org/cst-lemmatiser/">https://dighumlab.org/cst-lemmatiser/</ref>
+                            </p>
+                        </note>) or machine learning techniques (e.g. UniMorph Shared Tasks
+                        <note place="foot" xml:id="ftn2" n="2">
+                            <p rend="footnote text">
+                                <ref target="https://sigmorphon.github.io/sharedtasks/2018/">https://sigmorphon.github.io/sharedtasks/2018/</ref>
+                            </p>
+                        </note>). Downside: Requires large amounts of data.
+                    </item>
+                </list>
+                <p style="text-align:left; ">We focus on lookup-based methods: For languages without annotated corpora, pattern induction is not applicable. In language documentation, rule-based annotation is normally not possible because the grammar is superficially understood, only. Instead, annotation is used as a scientific device to learn more about the grammar of the language. </p>
+                <p style="text-align:left; ">We generalize over plain lookup techniques by providing a fuzzy matching between dictionary entries and text words. Words get transliterated to IPA characters and then to a list of feature vectors using the PHOIBLE database (Moran et al., 2014). Transliteration is based on models created by language experts. We provide a 
+                    <hi rend="bold">phonological search</hi> with different similarity metrics over these lists identifying the most similar dictionary forms for the word. Ranked lists are presented to the user to be confirmed or overwritten during annotation.
+                </p>
+                <p style="text-align:left; ">We report results for the following lemmatization techniques:</p>
+                <list type="ordered">
+                    <item>WORD (word as lemma): Baseline.</item>
+                    <item>DICT (exact lookup-based annotation): Use a lookup dictionary of word forms for a set of lexemes. If a word form is not found in it, annotate as 
+                        <hi rend="bold">unseen</hi>.
+                    </item>
+                    <item>DICT+WORD: Use DICT, for unseen words, use WORD.</item>
+                    <item>PHON (phonological search): Given a dictionary, annotate every word with the phonologically most similar lexical entries in the dictionary.</item>
+                    <item>DICT+PHON: Use DICT, for unseen words, use PHON.</item>
+                    <item>DICT+PHON+WORD: Use DICT+PHON as long as an (empirically adjusted) threshold is exceeded. Use WORD for unannotated words. We experimented with different thresholds and report the best results.</item>
+                </list>
+                <p style="text-align:left; ">DICT is a simplistic baseline, but it yields acceptable results with a limited amount of annotation time. For PHON, we estimate phonological similarity between the corresponding vectors. For reasons of brevity, we only report results from the best metric.</p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Experiments</head>
+                <p style="text-align:left; ">For reasons of brevity, we report results only for the Eastern Armenian National Corpus
+                    <note place="foot" xml:id="ftn3" n="3">
+                        <p rend="footnote text">
+                            <ref target="http://eanc.net">http://eanc.net</ref>
+                        </p>
+                    </note>, using two evaluation metrics: generalization (number of distinct lemmas in the test corpus), and accuracy (correct lemmas) as predicted from different amounts of previously annotated data.
+                </p>
+                <figure>
+                    <graphic n="1001" width="15.875cm" height="7.9375cm" url="Pictures/845dc589f4491762d8b99a0d05771de0.png" rend="inline"/>
+                </figure>
+                <p style="text-align:left; ">In terms of generalization (Fig. 1), the WORD baseline drastically fails, whereas the other methods converge towards an agreement — but only with a dictionary covering more than 1,000,000 tokens. Combining PHON with WORD provides an analysis which is remarkably robust against overgeneralization.</p>
+                <figure>
+                    <graphic n="1002" width="15.875cm" height="7.9375cm" url="Pictures/f0e83c383edb9ef0842695deb6e05f87.png" rend="inline"/>
+                </figure>
+                <p style="text-align:left; ">Fig. 2 shows that both PHON-enhanced dictionary lookup routines also outperform the baseline DICT in terms of accuracy.</p>
+                <p style="text-align:left; ">In our talk, we argue that these methods can significantly simplify annotation of corpora and creating lexical resources for minority languages with very little time effort, seamlessly providing access to them.</p>
+                <p style="text-align:left; ">Our main contribution is, however, to provide a tool that integrates these lemmatization strategies into an annotation and text analysis workflow, that can be extended with more advanced techniques.</p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>LiOTrea: Linked Open Text Reader and Annotator</head>
+                <p style="text-align:left; ">In order to facilitate linguistic annotation using these methods, we have developed an environment, LiOTrea, that allows a user to display texts and their (automated or manual) annotation, checking and correcting annotations at the same time. It supports using dictionaries represented in RDF in the Ontolex-lemon model as a basis for lemmatization, phonological search lookup functionality against any dictionary, and the enrichment/creation of Ontolex-lemon dictionaries during the annotation process.</p>
+                <p style="text-align:left; ">In our talk, we present this tool, demonstrate its capabilities and discuss scenarios for its use and future extensions. One application includes, for example, the comparison with dictionaries from another language as shown in Fig. 3, where phonological search is applied to detect Georgian loan words in Batsbi text.</p>
+                <figure>
+                    <graphic n="1003" width="15.875cm" height="6.279444444444445cm" url="Pictures/c013f67758709a0d5b9dcb094a56aee5.png" rend="inline"/>
+                </figure>
+                <p style="text-align:left; ">In addition to current applications, which include Eastern Armenian, Batsbi and Sumerian, future applications will include related varieties, including other North-East Caucasian languages and different historical stages of Armenian.</p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Acknowledgements</head>
+                <p style="text-align:left; ">The research presented in this paper was primarily conducted in the context of the independent research group “Linked Open Dictionaries (LiODi)”, funded 2015-2020 from the eHumanities programme of the German Federal Ministry of Education and Science (BMBF). The pilot on Sumerian was conducted in the context of the project “Machine Translation and Automated Analysis of Cuneiform Languages” (MTAAC), funded 2017-2019 in through the Trans-Atlantic Platform (T-AP) Digging into Data Challenge by DFG, NEH and SSHRC.</p>
+            </div>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold">Bellandi, A., Giovannetti, E., and Weingart, A.</hi> (2018). Multilingual and Multiword Phenomena in a lemon Old Occitan Medico-Botanical Lexicon. 
+                        <hi rend="italic">Information</hi>, 9(3), 52.
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold">McCrae, J. P., Bosque-Gil, J., Gracia, J., Buitelaar, P., and Cimiano, P.</hi> (2017). The Ontolex-lemon Model: Development and Applications. 
+                        <hi rend="italic">Proceedings of eLex 2017 Conference</hi>, Leiden, Netherlands, September 2017.
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold">Moran, S. &amp; McCloy, D. &amp; Wright, R.</hi> (2014). PHOIBLE Online, https://phoible.org (accessed 18 November 2018).
+                    </bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

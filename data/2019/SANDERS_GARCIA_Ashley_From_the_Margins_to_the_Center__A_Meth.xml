@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>From the Margins to the Center: A Method to Mine and Model Complex Relational Data from French Language Historical Texts</title>
+                <author>
+                    <persName>
+                        <surname>Sanders Garcia</surname>
+                        <forename>Ashley</forename>
+                    </persName>
+                    <affiliation>University of California, Los Angeles, United States of America</affiliation>
+                    <email>asandersgarcia@g.ucla.edu</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2019-04-29T18:54:00Z</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Name, Institution</publisher>
+                <address>
+                    <addrLine>Street</addrLine>
+                    <addrLine>City</addrLine>
+                    <addrLine>Country</addrLine>
+                    <addrLine>Name</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from a Word document</p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.22">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Short Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>Text Mining</term>
+                    <term>Modeling</term>
+                    <term>Digital Feminisms</term>
+                    <term>Digital Indigenous Studies</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>natural language processing</term>
+                    <term>near eastern studies</term>
+                    <term>network analysis and graphs theory</term>
+                    <term>data mining / text mining</term>
+                    <term>English</term>
+                    <term>indigenous studies</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <p>In humanistic research, Named Entity Recognition is highly useful, but it mines surface data, rather than revealing the complex nature of relationships between these entities. Named Entity Recognition (NER) extracts the names of people, locations, organizations, and, depending on the model, may also extract references to money, percentages, dates, and times, in addition to a miscellaneous class. Although this is certainly useful, NER does not represent the richness of the documents with which we work. For example, consider this fragment from a nineteenth-century French chronicle of Ottoman Algerian history: ‘To further attach himself [to his ally], Pasha Hassan married his [ally’s] daughter, then he launched troops against the rebel…’ (Mercier, 1903: 200) In just this short passage, which is not even a full sentence, we find several people referenced who are unnamed. If we look back at the text, we see that Pasha Hassan’s ally is Ben-El-Kadi of Kuku, Algeria, and the rebel is Abd-El-Aziz, but Ben-El-Kadi’s daughter is never named. This occurs frequently in historical source material. Those who remain unnamed are most often women, servants, slaves, and Indigenous people – the very people about whom scholars are most anxious to know more. This short paper presents a work-in-progress: a digital workflow and Python script to mine and model the relationships between extracted entities from French-language documents in order to grapple with the complexity of human relationships and cultures, as well as the perspectives of authors and their informants. </p>
+            <p>
+                <hi rend="color(222222)" xml:space="preserve">This short presentation </hi>will share the complete information extraction code, its accuracy, the resulting visualizations, and a brief analysis from the case study. The method presented has applications far beyond French language and the history of the Middle East and North Africa. For instance, with some adjustments for language, this method would be highly useful in the analysis of The Twenty-Four Histories of China, the official history of the Chinese dynasties between 3000 B.C.E. and the seventeenth century. More broadly, this approach will be of use to scholars interested in identifying and studying relational data, social positions, and networks of both known and previously unknown actors, particularly those who remain unnamed in the source material.
+            </p>
+            <p>As a test corpus, this project uses four digitized, OCRed, and hand-cleaned nineteenth-century French chronicles of Ottoman Algerian history. The volumes range between 41,341 words and 170,737 words and cover the period 1567 to 1837 with a focus on Constantine, the easternmost province in Algeria. The challenge is to extract not only named entities and their relations to one another, but to extract unnamed persons and their relationships as well. In simple NER, the names Moustafa and Namoun, would be the only extracted data in the following sentence: ‘Moustafa avait épousé une des filles de Namoun,’ but the daughter of Namoun who married Moustafa would not appear. (‘Moustafa married one of Namoun’s daughters.’ Vayssettes, 2003: 52. Author’s translation.) The goal of this project is to uncover the positions and roles of women in Algerian society, so it is essential to locate and retrieve data about unnamed people. </p>
+            <p>The built-in language models and extensibility of the spaCy natural language processing (NLP) library for Python makes it most suitable for this project (Honnibal and Montani, 2017). Specifically, spaCy enables researchers to define entities and build custom information extraction systems. Additionally, spaCy’s library features a French language model that has a built-in tagger, parser, and NER, unlike the Natural Language Toolkit or Stanford’s CoreNLP Open Information Extraction system. </p>
+            <p>To build an information extraction system with spaCy that pulls the desired relational data, we must first identify an extractable pattern by parsing and tracing the dependencies of a sample sentence, as follows:</p>
+            <p>SpaCy’s visualizer also allows us to view the dependency parse tree using the following code and sample sentence. </p>
+            <p>An examination of the parse tree above yields a pattern of parts-of-speech around the keyword ‘épousé’ that we can use to extract the desired information about this relationship. Since we are interested in identifying the relationships between both named and unnamed people, we will look for specific patterns in parts of speech and syntax, as well as the location of proper nouns in relation to keywords. Based on an examination using the concordance method with the sample texts, the following keywords generated the best data: fils, fille, mariage, épous*, gendre, and beau pére (son, daughter, marriage, spouse/to marry, son-in-law, father-in-law). For example, the word ‘fils,’ or ‘son,’ yielded more consistent results for father-son pairs than the word ‘pére,’ or ‘father.’ </p>
+            <p>From an examination of the word ‘fils’ in context, as shown above, general patterns emerged. The patterns for ‘fils’ and the proper output format for each pattern are shown below. These outlines then inform the Python script that uses spaCy’s library to extract the relational data. This script will be made freely available on GitHub following the DH 2019 Conference.</p>
+            <p>Based on the examples and patterns above, the information extraction system derives relational data that easily translates into node and edge lists. In this case study, network analysis of the extracted data highlights how women, marriage, and kinship connections legitimated Ottoman rule. Initial findings suggest that Algerian women were key links in the chain that bound Algeria to the Ottoman Empire. </p>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl>
+                        <hi rend="bold">Honnibal, M. and Montani, I.</hi> (2017). SpaCy 2: Natural Language Understanding with Bloom Embeddings, Convolutional Neural Networks and Incremental Parsing. Python https://spacy.io/usage/ (accessed 27 November 2018).
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Mercier, E.</hi> (1903). Histoire de Constantine. Constantine, Algeria: J. Marle et F. Biron (accessed 25 April 2012).
+                    </bibl>
+                    <bibl>
+                        <hi rend="bold">Vayssettes, E.</hi> (2003). Histoire de Constantine Sous La Domination Turque de 1517 à 1837. (Bibliothèque d’histoire Du Maghreb). Saint-Denis: Bouchene.
+                    </bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

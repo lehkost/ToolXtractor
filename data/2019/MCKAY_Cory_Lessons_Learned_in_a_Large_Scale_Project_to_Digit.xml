@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>Lessons Learned in a Large-Scale Project to Digitize and Computationally Analyze Musical Scores</title>
+                <author>
+                    <persName>
+                        <surname>McKay</surname>
+                        <forename>Cory</forename>
+                    </persName>
+                    <affiliation>Marianopolis College, Canada</affiliation>
+                    <email>cory.mckay@mail.mcgill.ca</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Cumming</surname>
+                        <forename>Julie E.</forename>
+                    </persName>
+                    <affiliation>McGill University, Canada</affiliation>
+                    <email>julie.cumming@mcgill.ca</email>
+                </author>
+                <author>
+                    <persName>
+                        <surname>Fujinaga</surname>
+                        <forename>Ichiro</forename>
+                    </persName>
+                    <affiliation>McGill University, Canada</affiliation>
+                    <email>ichiro.fujinaga@mcgill.ca</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2014-12-19T13:50:00Z</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Name, Institution</publisher>
+                <address>
+                    <addrLine>Street</addrLine>
+                    <addrLine>City</addrLine>
+                    <addrLine>Country</addrLine>
+                    <addrLine>Name</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from a Word document</p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.22">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Long Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>Musicology</term>
+                    <term>MIR</term>
+                    <term>machine learning</term>
+                    <term>OMR</term>
+                    <term>corpus construction</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>musicology</term>
+                    <term>stylistics and stylometry</term>
+                    <term>content analysis</term>
+                    <term>cultural artifacts digitisation - theory</term>
+                    <term>methods and technologies</term>
+                    <term>English</term>
+                    <term>artificial intelligence and machine learning</term>
+                    <term>digital humanities (history</term>
+                    <term>theory and methodology)</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <p style="text-align:left; ">SIMSSA (Single Interface for Music Score Searching and Analysis) is an ambitious project that aims to unite, under a single framework, the ability to: </p>
+            <list type="unordered">
+                <item>Transform images of musical scores into searchable digital symbolic representations using OMR (optical music recognition)</item>
+                <item>Computationally extract meaningful statistical information (features) from symbolic music files</item>
+                <item>Use machine learning and statistical analysis to conduct musicological research using this data</item>
+                <item>Create a framework for searching symbolic scores based on both metadata and musical content</item>
+                <item>Make the resulting information and tools easily accessible to other researchers</item>
+            </list>
+            <p style="text-align:left; ">Much has been accomplished since SIMSSA was first presented at DH (Fujinaga and Hankinson, 2013), but we have also made missteps along the way. Both our successes and failures have provided insights applicable not only to the specialized fields of MIR (Schedl et al., 2014) and digital musicology, but also to the digital humanities in general. This paper is intended to share our experience with the DH community.</p>
+            <p style="text-align:left; ">The proper construction of datasets is one area of central importance. Too often, researchers simply combine digitized data as is, from whatever sources are available, or digitize data themselves without first developing a carefully considered workflow. This can lead to erroneous conclusions, as false patterns may be observed based on inconsistent dataset construction practices rather than on the underlying information itself. Alternatively, meaningful patterns may be obscured by datasets that fail to capture essential information.</p>
+            <p style="text-align:left; ">We encountered such problems when we carried out research on regional differences between Iberian and Franco-Flemish Renaissance music (McKay, 2018): individual transcribers had encoded note durations differently, so rhythm was correlated more with the transcriber than with the underlying music. Problems can also be introduced during the encoding process, as we observed when commercial score editing software confused the encoding of slurs and ties (Nápoles et al., 2018). We therefore developed a set of best practices to help avoid bias when constructing datasets from historical documents (Cumming et al., 2018).</p>
+            <p style="text-align:left; ">Selection of data is also essential. Results can be compromised if a dataset does not represent the full range of relevant instances (e.g., only an artist’s early works) or contains uneven class distributions (e.g., many more works by one artist than another). For example, we observed in machine learning-based research on composer attribution (McKay et al., 2017b) that, if we did not carefully prepare our data, trained models would sometimes perform classifications based on genre rather than compositional style, since the number of masses and motets were not evenly distributed across composers. </p>
+            <p style="text-align:left; ">Judicious application of machine learning is another central area of interest. Most current research emphasizes deep learning, where models are trained on huge datasets, with relatively generic pre-processing. This contrasts with more traditional approaches where training is performed on hand-crafted statistical features that quantify specific qualities of domain interest, or where sub-systems sequentially process data in stages following a pre-defined workflow. Deep learning and more traditional alternatives each have different strengths and weaknesses, which one must understand before choosing which to utilize.</p>
+            <p style="text-align:left; ">The current emphasis on deep learning is understandable, given its widely documented success in many domains. We found, for example, that our OMR performance improved substantially when we switched from a traditional architecture to a deep learning framework that directly processes pixel windows (Calvo-Zaragoza et al., 2018). </p>
+            <p style="text-align:left; ">Deep learning also has important limitations, however. Its need for huge training sets can be a serious limitation when dealing with historical data with limited extant instances, even when clever data augmentation techniques are used. This problem became apparent in our research on automatically harmonically analyzing chorales (Condit-Schultz et al., 2018), for example. Another important limitation is that deep learning, despite recent advances in model transparency, still often results in black-box classifiers. In contrast, feature-based systems (in conjunction with feature-selection algorithms) produce searchable data and directly accessible insights into how features differentiate classes in ways that are meaningful to domain experts. This can be even more important to DH research than class label outputs themselves.</p>
+            <p style="text-align:left; ">As an illustration of the potential advantages of a feature-based approach, we used 1497 features extracted by our jSymbolic software (McKay et al., 2018) not only to train models that could correctly attribute the music of Renaissance composers (McKay et al., 2017b) and identify Renaissance genres (Cumming and McKay, 2018) with high accuracy, but also to gain novel musicological insights into which musical characteristics statistically differentiate these classes. We also empirically tested expert predications about musical style in these studies, 63% of which were found to be inaccurate. There is a particular need for such testing in the humanities, as there are many generally accepted assertions that have never been validated empirically. </p>
+            <p style="text-align:left; ">We also used the jSymbolic features to provide content-based support (McKay et al., 2017a) for composer attribution confidence levels proposed by Rodin and Sapp (2015) based only on historical evidence. This is a nice example of how computational and traditional humanities research can complement one another. </p>
+            <p style="text-align:left; ">It is also essential to consider issues associated with making research data, software and results available, useable and attractive to other researchers in the humanities, including those not yet accustomed to computational approaches. As noted by Wiering (2017), one must consult domain experts about what they need, rather than imposing decisions on them. Other priorities include: clean and consistent interfaces; clear and extensive documentation, including tutorials; adoption of open accepted standards; compatibility with diverse data formats; facilitating extensibility for other researchers; and careful consideration of data and software in the context of intellectual property laws.</p>
+            <p style="text-align:left; ">The better DH researchers become at facilitating the sharing of data and software, the better we will be able to directly compare techniques and results across research groups. This will in turn permit experimental repeatability and validation, as well as encourage iterative refinements across groups. Researchers will be better able to explore data in new ways and subject long-standing assumptions to empirical validation, arguably the two greatest benefits computational approaches bring to the humanities. We believe such steps will further expand the already excellent research underway in the digital humanities.</p>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold">Calvo-Zaragoza, J., Castellanos, F. J., Vigliensoni, G. and Fujinaga, I.</hi> (2018). Deep neural networks for document processing of music score images. 
+                        <hi rend="italic">Applied Science</hi>, 8(5): 654–675.
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold">Condit-Schultz, N., Ju, Y. and Fujinaga, I.</hi> (2018). A flexible approach to automated harmonic analysis: Multiple annotations of chorales by Bach and Praetorius. 
+                        <hi rend="italic">Proceedings of the International Society for Music Information Retrieval Conference.</hi> pp. 66–73.
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold">Cumming, J. and McKay, C.</hi> (2018). Revisiting the origins of the Italian madrigal using machine learning. 
+                        <hi rend="italic">Medieval and Renaissance Music Conference.</hi> p. 35.
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold">Cumming, J., McKay C., Stuchbery, J. and Fujinaga, I.</hi> (2018). Methodologies for creating symbolic corpora of Western music before 1600. 
+                        <hi rend="italic">Proceedings of the International Society for Music Information Retrieval Conference.</hi> pp. 491–498.
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold" xml:space="preserve">Fujinaga, I. and Hankinson, A. </hi>(2013). SIMSSA: Towards full-music search over a large collection of musical scores. 
+                        <hi rend="italic">Conference Abstracts of Digital Humanities.</hi> pp. 187–189.
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold" xml:space="preserve">McKay, C., Cumming, J. and Fujinaga, I. </hi>(2017a). Characterizing composers using jSymbolic2 features. 
+                        <hi rend="italic">Extended Abstracts for the Late-Breaking Demo Session of the 18th International Society for Music Information Retrieval Conference.</hi>
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold" xml:space="preserve">McKay, C., Tenaglia, T., Cumming, J. and Fujinaga, I. </hi>(2017b). Using statistical feature extraction to distinguish the styles of different composers. 
+                        <hi rend="italic">Medieval and Renaissance Music Conference.</hi> p. 111.
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold">McKay, C.</hi> (2018). Performing statistical musicological research using jSymbolic and machine learning. 
+                        <hi rend="italic">The Anatomy of Polyphonic Music around 1500 International Conference.</hi> pp. 34–35.
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold" xml:space="preserve">McKay, C., Cumming J. and Fujinaga, I. </hi>(2018). jSymbolic 2.2: Extracting features from symbolic music for use in musicological and MIR research. 
+                        <hi rend="italic">Proceedings of the International Society for Music Information Retrieval Conference.</hi> pp. 348–354.
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold">Nápoles Lopez, N., Vigliensoni, G. and I. Fujinaga.</hi> (2018). Encoding matters. 
+                        <hi rend="italic">Proceedings of the International Conference on Digital Libraries for Musicology.</hi> pp. 69–73.
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold" xml:space="preserve">Rodin, J.  and Sapp, C. </hi>(2015). The Josquin Research Project, http://josquin.stanford.edu/about/attribution (accessed 13 November 2018).
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold" xml:space="preserve">Schedl, M., Gómez, E. and Urbano, J. </hi>(2014). Music information retrieval: Recent developments and applications. 
+                        <hi rend="italic">Foundations and Trends in Information Retrieval,</hi> 8(2–3): 127–261.
+                    </bibl>
+                    <bibl style="text-align:left; ">
+                        <hi rend="bold" xml:space="preserve">Wiering, F. </hi>(2017). The software of your dreams: Expectations and realities in the use of technology in music research. Congress of the International Musicological Society. pp. 212–213.
+                    </bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>

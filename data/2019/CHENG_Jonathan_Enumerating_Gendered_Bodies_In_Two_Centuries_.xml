@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>Enumerating Gendered Bodies In Two Centuries of English-Language Fiction</title>
+                <author>
+                    <persName>
+                        <surname>Cheng</surname>
+                        <forename>Jonathan</forename>
+                    </persName>
+                    <affiliation>University of Nebraska-Lincoln, United States of America</affiliation>
+                    <email>jonathan.cheng@huskers.unl.edu</email>
+                </author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2019-05-05T13:12:00Z</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <publisher>Name, Institution</publisher>
+                <address>
+                    <addrLine>Street</addrLine>
+                    <addrLine>City</addrLine>
+                    <addrLine>Country</addrLine>
+                    <addrLine>Name</addrLine>
+                </address>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Converted from a Word document</p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <appInfo>
+                <application ident="DHCONVALIDATOR" version="1.22">
+                    <label>DHConvalidator</label>
+                </application>
+            </appInfo>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="ConfTool" n="category">
+                    <term>Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="subcategory">
+                    <term>Long Paper</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="keywords">
+                    <term>Text Analysis</term>
+                    <term>Gender Studies</term>
+                    <term>Body Studies</term>
+                    <term>Cultural Analytics</term>
+                </keywords>
+                <keywords scheme="ConfTool" n="topics">
+                    <term>corpus and text analysis</term>
+                    <term>gender studies</term>
+                    <term>english studies</term>
+                    <term>data mining / text mining</term>
+                    <term>English</term>
+                    <term>cultural analytics</term>
+                </keywords>
+            </textClass>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <div type="div1" rend="DH-Heading1">
+                <head>Introduction</head>
+                <p style="text-align:left; ">Recent computational work has analyzed the significance of gender in characterization, investigating the extent that character descriptions are sorted along a feminine-masculine axis. Matthew Jockers and Gabi Kirilloff, for instance, tabulate pronoun-verb bigrams, exploring the connection between characters’ actions and their gendered representation in nineteenth-century novels (Jockers and Kirilloff, 2016). They show evidence of a stable relationship between gendered characters and the verbs they perform. Ted Underwood, David Bamman, and Sabrina Lee chart a broader range of character descriptions from the past two centuries, measuring the difference between the words describing fictional men and those describing fictional women. They demonstrate that the implicit differences between gendered characters becomes less and less clear as we move towards the twenty-first century. So while the former study argues that characters’ actions reveal gender’s steady prominence, the latter research suggests that those overarching gender divisions might actually be diminishing. But these seemingly disparate arguments should not be taken as contradictory. Rather, these varying conclusions should reinforce a more complicated sense of how “some forms of gender differentiation…are declining while other forms…are on the rise“ (Underwood et al., 2018). To further explore the varying degrees and modes of gender differentiation, I employ quantitative methods to investigate gender’s prominence in the configuration of characters’ bodies.</p>
+                <p style="text-align:left; ">This research contributes to that ongoing research, analyzing characters’ physical depiction throughout a collection of around 15,000 English-language novels. By producing a model of gender based solely on characters’ physical features, I explore the extent that literary embodiment is defined along a feminine-masculine axis. And I pursue two central claims that complicate existing models of character and gender. The first is that bodily description becomes an increasingly prominent aspect of characterization. In fact, an increasing proportion of character description is devoted to detailing the anatomical features of both fictional men and women. Secondly, those characteristics are increasingly deployed along gendered lines. As we move towards the twenty-first century, men and women are more and more embodied using different words. Even seemingly innocuous attributes such as “blue” and “red” function as consistent signs of gender. Those two patterns form a suggestive parallel: as the body became an expanding aspect of characterization, that dimension was increasingly organized along gender stereotypes. </p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Methods and Tools</head>
+                <p style="text-align:left; ">In order to gather characters’ physical descriptions, I needed a way to separate characters from each other and tabulate the words embodying them. Bamman et al.’s BookNLP pipeline has worked well for many similar problems, so I modified it using spaCy libraries. First, it uses coreference resolution to identify character names and cluster them with any synonymous markers in each text. The name “Scout Finch,” for instance, gets clustered with “Scout” and any associated pronouns, treating each of those markers as referring to a single character. Then it uses dependency parsing to tabulate a wide range of words connected to each character. 
+                    <hi rend="color(212121)" xml:space="preserve">By default, BookNLP extracts actions characters perform, actions that they’re the object of, adjectives modifying them, and nouns they govern (such as body parts, like “her hand”). Taken altogether, we get several words used to describe fictional people. For my purposes, however, additional words are extracted to capture each characters’ physical description. Whenever a character’s body part is mentioned, “his hands” for instance, I also gathered the verbs and adjectives modifying their bodily features, such as “his hands grasped,” “took her wrist,” and “her blue eyes.” As a result, for each novel in the corpus, we get a frequency table of words used to describe men and women (relative to the total number of words in that novel). We can then subset that table to see which words pertain to the description of characters’ bodies. In effect, this process tabulates the same characterizing words as BookNLP, but it additionally procures and counts the words attributed to their physical features. </hi>
+                </p>
+                <p style="text-align:left; ">Similar to previous research on gender’s significance in characterization, my method comes with a few methodological challenges. In order to separate characters from each other and assign them gender identities, spaCy will identify proper names, and I use Lincoln Mullen’s 
+                    <hi rend="italic">Gender</hi> package to label those names with a grammatical gender. Mullen’s package uses U.S and North Atlantic census data to accurately predict gender of first names, accounting for shifts in time and geographic location. The problem with using proper names to identify character, however, is that characters referred to by generic nouns are excluded, such as “the baker.” This pipeline attempts to account for this by including characters signaled by stereotypically gendered nouns, such as “the queen” or “the father,” but this does not comprehensively account for majority of generic nouns used to produce characters. Moreover, this study also does not provide any robust solutions to the first-person narrator problem. The pronoun “I” does not consistently connote a particular gender identity, so their bodily configurations are excluded from this essay. In effect, there are certain kinds of characters whose physical features will not be counted in this study. 
+                </p>
+            </div>
+            <div type="div1" rend="DH-Heading1">
+                <head>Analysis</head>
+                <p style="text-align:left; ">Taken altogether, the benefit of this approach is that it accurately assigns gender to named entities and consistently extracts their anatomical features, allowing us to explore the gendered distribution of bodily language. By examining how gender impacted this particular aspect of representation, we can then ask questions about forms of gender contingent upon specific registers of characterization. For example, proportionally speaking, how much space did authors allocate to the physical description of men and women?</p>
+                <p style="text-align:left; ">So to what extent is characterization composed of bodily description? Let’s start by simply taking the number of words that physically describe female characters and divide that by the number of all words describing those characters. Then we perform that calculation for each year. In effect, we’re just plotting the proportion of words that describe women’s bodily features out of all the words characterizing fictive women. The same calculation is done for the fictional men and we compare the proportions. When we perform this calculation for each year, two clear long-term patterns emerge. First, body language becomes a growing aspect of character as we get closer to the twenty-first century. For both female and male characters, more and more words describe bodily features and gestures. Second, physical description consistently tends to be a larger proportion of characterizing women than men. In fact, while women’s bodies are regularly described more than men’s, this gap gets wider the further we move back into the nineteenth century.</p>
+                <figure>
+                    <graphic n="1001" width="16.002cm" height="9.57086111111111cm" url="Pictures/0e536fd0a2b5440cd524eb40178b3e14.jpeg" rend="inline"/>
+                </figure>
+                <p style="text-align:left; ">So, on the one hand, this picture reflects a well-known story: the body becomes a growing aspect of producing characters. These two slopes provide further evidence of Heuser’s and Le-Khac’s claim that the body becomes steadily more important in fiction, showing that it was specifically important to describing characters across the past two centuries (Heuser and Le-Khac, 2012). This isn’t to say that the body was only becoming important during the twentieth century. There’s a lot of evidence to the contrary. Rather, the interest in characters’ physical features, appearances, and actions seems to continually grow over the past two centuries.</p>
+                <p style="text-align:left; ">On the other hand, there is another important trend, characterizing women involves a greater proportion of bodily description than characterizing men. In fact, as we move from the 1850s to the 2000s, that gap remains jarringly stable. The pattern remains intact even when physical characteristics were becoming more prominent for all characters. This suggests that the body has historically played a larger role in representing women. That’s an important facet of literary history, because it underscores the extent that characters’ physical descriptions are imbricated in gender discourses. Feminist scholars have, of course, already captured important parts of this story. Butler’s argument about gendered bodies, for instance, hinges upon her claim that there are “cultural associations of mind with masculinity and body with femininity” (Butler, 12). Figure 2 doesn’t completely verify this alignment of women with the body. Rather, it is congruent with the latter part of Butler’s claim, showing that the representation of women tends to rely more heavily on bodily language.</p>
+                <p style="text-align:left; ">But to what extent were fictive men and women embodied in different ways? In order explore to that question, binary classification methods have proven effective at modelling the weight of ideological categories. At its core, this method tests to see how well individual elements can be sorted into two related categories. In our case, we want to test whether bodily nouns, verbs, adjectives, etc. are consistently attributed to either fictive men or women. This means, first, taking multiple random samples of bodily words from each decade. Then each descriptor is labelled according to a characters’ grammatical gender. By showing a model a large number of these labelled words, we train it to develop a stereotypical sense of what attributes constitute a stereotypically “feminine” or “masculine” body. Finally, we instruct the model to use its sense of gendered bodies to make gender predictions about characters it hasn’t seen yet. If, for instance, physical characteristics are predominantly distributed along gendered lines, this will allow the model to consistently make accurate gender predictions. On the other hand, if body language and gender are generally unrelated, then the model will be less capable of accurately inferring gender from that language.</p>
+                <p style="text-align:left; ">If we train a classifier to see how well it can predict character gender based on physical characteristics, as a proxy for the strength of gender stereotypes, we see two overarching patterns
+                    <hi rend="italic">: First, up until the 1970s, the model gradually has an easier time inferring the gender of characters from their physical characteristics.</hi> During that period, the model’s percentage of correct gender predictions rises from about 76% to about 83%. What this suggests is that words describing the body are becoming increasingly bifurcated along normative gender lines. 
+                    <hi rend="italic">Second, after the 1970s, however, characters’ physical features appear less and less distributed along a feminine-masculine axis.</hi> The percentage of correct predictions drops back down to roughly 77% as we reach the 2000s. By contrast, this seems to indicate that the association between body language and gender is changing, and the bodily differences between fictive men and women has recently diminished.
+                </p>
+                <figure>
+                    <graphic n="1002" width="16.002cm" height="9.232975cm" url="Pictures/f12d763dc2a382c2cdd03bd5aecd7387.jpeg" rend="inline"/>
+                </figure>
+                <p style="text-align:left; ">More quantitative evidence will, of course, be needed to feel confident about these figures, but this approach takes a few steps in order to test the strength of this pattern. This figure was produced by running fifteen different models of physical description within each decade. Each of those models is produced using the physical descriptions within 350 randomly sampled novels, selecting 450 characters at a time (225 men and 225 women), balancing the sample to contain an equal number of men and women’s features, classifying them using the top 330 most commonly occurring words. This winnowing strategy comes at the cost of ignoring less frequent physical descriptions. For example, the adjective “emerald” is sparingly used to describe eye-color, so it is often excluded from each model. These sparsely deployed features can certainly be significant signs of gender, but the benefit of this approach is that it analyzes gender’s prominence within pervasively deployed physical features, such as having a “nose” or being attributed with “brown” hair.</p>
+            </div>
+        </body>
+        <back>
+            <div type="bibliogr">
+                <listBibl>
+                    <head>Bibliography</head>
+                    <bibl style="text-align:left; ">Bamman D., Underwood T., and Smith N. (
+                        <hi rend="italic">
+                            <hi rend="italic" style="font-size:9pt">2014).</hi>
+                        </hi>
+                        <ref target="http://www.cs.cmu.edu/~ark/literaryCharacter/">
+                            <hi style="font-size:9pt">A Bayesian Mixed Effects Model of Literary Character</hi>
+                        </ref>, 
+                        <hi rend="italic">ACL</hi>.
+                    </bibl>
+                    <bibl style="text-align:left; ">Butler J. (1990). 
+                        <hi rend="italic">Gender Trouble: Feminism and the Subversion of Identity</hi>. New York: Routledge.
+                    </bibl>
+                    <bibl style="text-align:left; ">Heuser R, and Le-Khac L. (2012). 
+                        <ref target="https://litlab.stanford.edu/LiteraryLabPamphlet4.pdf">A Quantitative Literary History of 2,958 Nineteenth-Century British Novels: The Semantic Cohort Method</ref>, 
+                        <hi rend="italic">Stanford Literary Lab Pamphlet Series</hi>.
+                    </bibl>
+                    <bibl style="text-align:left; ">Jockers M. And Kirilloff G. (2016). Understanding Gender and Character Agency in the 19th Century Novel, 
+                        <hi rend="italic">Cultural Analytics</hi>.
+                    </bibl>
+                    <bibl style="text-align:left; ">Underwood T., Bamman D., Lee S. (2018) The Transformation of Gender in English-Language Fiction, 
+                        <hi rend="italic">Cultural Analytics</hi>. 
+                    </bibl>
+                </listBibl>
+            </div>
+        </back>
+    </text>
+</TEI>
