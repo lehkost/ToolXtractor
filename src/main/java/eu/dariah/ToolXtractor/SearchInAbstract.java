@@ -30,7 +30,8 @@ public class SearchInAbstract {
         this.debug = debug;
     }
 
-    public void search(List<DHAbstract> dhAbstractList, String toolFilename, String stopwordFilename) throws IOException {
+    public void search(List<DHAbstract> dhAbstractList, String toolFilename, String stopwordFilename,
+                       boolean ignoreCase) throws IOException {
         Set<String> toolnames = ListRetrieverFromFile.getListWordsFromFile(toolFilename);
         Set<String> stopwords = new HashSet<>(0);
         if(stopwordFilename != null) {
@@ -46,7 +47,7 @@ public class SearchInAbstract {
                 if(! stopwords.contains(toolname)) {
                     if(dhAbstract.getTitle().contains(toolname) || dhAbstract.getDescription().contains(toolname)) {
                         String regex = REGEX_FIND_WORD;
-                        if(isMoreUpperCaseAsSpaces(toolname)) { //We should not ignore case
+                        if(isMoreUpperCaseAsSpaces(toolname) && !ignoreCase) { //We should not ignore case
                             regex = REGEX_FIND_WORD_WITH_CASE;
                         }
                         regex = String.format(regex, Pattern.quote(toolname));

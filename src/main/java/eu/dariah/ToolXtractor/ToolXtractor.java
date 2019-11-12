@@ -23,6 +23,8 @@ public class ToolXtractor {
         options.addOption("byTool", false, "Results will be a list of tools with each abstract they are " +
                 "mentioned in");
         options.addOption("inputTools", true, "A txt file with list of the tools (1 tool per line)");
+        options.addOption("ignoreCase", false, "By default, we use case for matching tool names, by using this " +
+                "option, we will ignore the case");
         options.addOption("stopwords", true, "A txt file with list of the stopwords (toolnames that you don't want to" +
                 " use) (1 tool per line)");
         options.addOption("reverse", false, "Reverse the order of the result (by default ascending order)");
@@ -55,7 +57,8 @@ public class ToolXtractor {
                 start = System.currentTimeMillis();
                 System.out.println("Start searching in the files");
                 SearchInAbstract searchInAbstract = new SearchInAbstract(cmd.hasOption("verbose"));
-                searchInAbstract.search(dhAbstracts, cmd.getOptionValue("inputTools"), cmd.getOptionValue("stopwords"));
+                searchInAbstract.search(dhAbstracts, cmd.getOptionValue("inputTools"),
+                        cmd.getOptionValue("stopwords"), cmd.hasOption("ignoreCase"));
                 System.out.println("Finish searching in the files (in " + (System.currentTimeMillis() - start) + "ms)");
                 if(cmd.hasOption("byAbstract"))
                     printResults(searchInAbstract.getLinkAbstractToolList(), cmd.hasOption("reverse"));
