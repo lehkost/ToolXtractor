@@ -5,7 +5,7 @@ Extract tools from TEI-encoded abstracts against a matching list.
 ```mvn clean package```
 
 # Launch the tool
-```java -jar target/ToolXtractor-full.jar -byTool -dir data/2015/ -inputTools src/main/resources/tools_teresah.txt```
+```java -jar target/ToolXtractor-full.jar -byTool -dir data/xml/2015/ -inputTools src/main/resources/tools_teresah.txt```
 
 ## Options
 Usage: ```java -jar ToolXtractor-full.jar```
@@ -40,7 +40,7 @@ For the year 2019, the TEI files will soon be online on the [ADHO](https://githu
 
 # Example of output
 ```
-$ java -jar target/ToolXtractor-full.jar -byTool -dir data/2015/ -inputTools src/main/resources/tools_teresah.txt -stopwords src/main/resources/stopwords.txt -reverse
+$ java -jar target/ToolXtractor-full.jar -byTool -dir data/xml/2015/ -inputTools src/main/resources/tools_teresah.txt -stopwords src/main/resources/stopwords.txt -reverse
 Start parsing the directories
 Finished parsing the directories (in 1849ms)
 Start searching in the files
