@@ -1,0 +1,54 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"
+	"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head><meta http-equiv="content-type" content="text/html; charset=UTF-8"/><meta name="generator" content="ABBYY FineReader 14"/><title>Microsoft Word - 063. Lauscher-SLaTE A System for Labeling Topics with Entities-63.docx</title><link rel="stylesheet" href="063_files/063.css" type="text/css"/>
+</head>
+<body><h1><a name="caption1"></a><a name="bookmark0"></a><span class="font4" style="font-weight:bold;">SLaTE:</span></h1><h1><a name="bookmark1"></a><span class="font4" style="font-weight:bold;">A System for Labeling Topics with Entities</span></h1>
+<p><span class="font6" style="font-weight:bold;">Anne Lauscher</span></p>
+<p><span class="font6"><a href="mailto:anne@informatik.uni-mannheim.de">anne@informatik.uni-mannheim.de</a> University of Mannheim, Germany</span></p>
+<p><span class="font6" style="font-weight:bold;">Federico Nanni</span></p>
+<p><span class="font6"><a href="mailto:federico@informatik.uni-mannheim.de">federico@informatik.uni-mannheim.de</a> University of Mannheim, Germany</span></p>
+<p><span class="font6" style="font-weight:bold;">Simone Paolo Ponzetto</span></p>
+<p><span class="font6"><a href="mailto:simone@informatik.uni-mannheim.de">simone@informatik.uni-mannheim.de</a> University of Mannheim, Germany</span></p>
+<p><span class="font6">In recent years, the Latent Dirichlet allocation (LDA) topic model (Blei, Ng, and Jordan, 2003) has become one of the most employed text mining techniques (Meeks and Weingart 2012) in the digital humanities (DH). Scholars have often noted its potential&nbsp;for text exploration and distant reading analyses, even&nbsp;when it is well known that its results are difficult to&nbsp;interpret (Chang et al, 2009) and to evaluate (Wallach&nbsp;et al, 2009).</span></p>
+<p><span class="font6">At last year's edition of the Digital Humanities conference, we introduced a new corpus exploration method able to produce topics that are easier to interpret and evaluate than standard LDA topic models&nbsp;(Nanni and Ruiz, 2016). We did so by combining two&nbsp;existing techniques, namely Entity linking and Labeled&nbsp;LDA (L-LDA). At its heart, our method first identifies a&nbsp;collection of descriptive labels for the topics of arbitrary documents from a corpus, as provided from the&nbsp;vocabulary of entities found within wide-coverage&nbsp;knowledge resources (e.g., Wikipedia, DBpedia). Then&nbsp;it generates a specific topic for each label. Having a direct relation between topics and labels makes interpretation easier, and using a disambiguated&nbsp;knowledge resource as background knowledge limits&nbsp;label ambiguity. As our topics are described with a limited number of unambiguous labels, they promote in-terpretability, and this may sustain the use of the results as quantitative evidence in humanities research&nbsp;(Lauscher et al, 2016).</span></p>
+<p><span class="font6">The contributions of this poster cover the release of: a) a complete implementation of the processing pipeline for our entity-based LDA approach; b) a three-step evaluation platform that enables its extensive quantitative analysis.</span></p><h2><a name="bookmark2"></a><span class="font3" style="font-weight:bold;">Entity-based Topic Modeling Pipeline</span></h2>
+<p><span class="font6">Figure 1 illustrates the computational pipeline of our system; python classes are represented in rectangles. First of all, a set of text files is imported into the&nbsp;system and several preprocessing steps are applied to</span></p>
+<p><span class="font6">the textual content. Next, the data is sent to the entity</span></p>
+<p><span class="font6">linking system TagMe (Ferragina and Scaiella, 2010), which disambiguates against Wikipedia. As a result of&nbsp;this step, for each document a set of related Wikipedia&nbsp;entities is retrieved. Now, the data is inserted into a&nbsp;MySQL database.</span></p><img src="063_files/063-1.jpg" style="width:227pt;height:170pt;"/>
+<p><span class="font2">Figure 1. Architecture of the pipeline</span></p>
+<p><span class="font6">Afterwards, the TF-IDF measure is computed over the entities, which we use to rank all the entities for&nbsp;each document in descending order. Then, the top k&nbsp;entities as well as their corresponding documents are&nbsp;exported into a comma-separated values file that is&nbsp;given as input to the L-LDA implementation of the&nbsp;</span><span class="font6" style="text-decoration:underline;">Stanford Topic Modeling Toolbox</span><span class="font6">. Finally, after running L-LDA and applying several post-processing&nbsp;steps, we obtain a document-topic distribution saved&nbsp;in the database in which each topic is described by an&nbsp;unambiguous label linked to Wikipedia.</span></p>
+<p><span class="font6">The whole source code is available for public download on </span><span class="font6" style="text-decoration:underline;">Github</span><span class="font6">. Given a working Python, Java,&nbsp;and Scala runtime as well as a running MySQL installation our pipeline is ready directly out-of-the-box. The&nbsp;specific configuration according to the user's needs&nbsp;can be made via a simple text file.</span></p><h2><a name="bookmark3"></a><span class="font3" style="font-weight:bold;">Three-Step Evaluation Platform</span></h2>
+<p><span class="font7">Document Labels</span></p>
+<p><span class="font6">In order to assess the quality of the detected entities as labels we developed a specific browser-based evaluation platform, which permits manual annotations. This platform presents a document on the right&nbsp;of the screen and a set of possible labels on the left (See&nbsp;Figure 2). Annotators are asked to pick labels that precisely describe the content of each document. In case&nbsp;the annotator does not select any label, this is also recorded by our evaluation system.</span></p>
+<p><span class="font7">Entities and Topic Words</span></p>
+<p><span class="font6">In order to establish if the selected entities were the right labels for the topics produced, we developed&nbsp;two additional evaluation steps. Inspired by the topic&nbsp;intrusion task (Chang et al, 2009), we designed a platform that permits to evaluate the relations between labels and topics using two evaluation modes: For one&nbsp;evaluation mode (that we called Label Mode - Figure&nbsp;3), the annotator is asked to choose, when possible, the&nbsp;correct list of topic-words given a label. For the other,&nbsp;he/she was asked to pick the right label given a list of&nbsp;topic words (aee Figure 4). In both cases, the annotator is shown three options: one of them is the correct&nbsp;match, while the other two (be they words or labels)&nbsp;come from other topics related to the same document.</span></p><img src="063_files/063-2.jpg" style="width:230pt;height:129pt;"/>
+<p><span class="font2">Figure 2. Entities as Labels evaluation interface.</span></p><img src="063_files/063-3.jpg" style="width:229pt;height:127pt;"/>
+<p><span class="font2">Figure 3. Label-Mode Evaluation</span></p>
+<table border="1">
+<tr><td>
+<p><span class="font1" style="font-weight:bold;">Option 1: Agriculture</span></p></td><td>
+<p><span class="font1" style="font-weight:bold;">Option 2: Organization</span></p></td><td>
+<p><span class="font1" style="font-weight:bold;">Option 3: Business cycle</span></p></td></tr>
+<tr><td>
+<p></p></td><td>
+<p></p></td><td>
+<p></p></td></tr>
+<tr><td style="vertical-align:bottom;">
+<p><span class="font1" style="font-weight:bold;">A </span><span class="font0" style="font-weight:bold;">HOME &nbsp;&nbsp;&nbsp;«2 LABEL MODE</span></p></td><td>
+<p></p></td><td>
+<p></p></td></tr>
+</table>
+<p><span class="font2">Figure 4. Term-Mode Evaluation</span></p><h2><a name="bookmark4"></a><span class="font3" style="font-weight:bold;">Bibliography</span></h2>
+<p><span class="font5" style="font-weight:bold;">Blei, D. M., Ng, A.Y., and Jordan, M. </span><span class="font5">(2003) &quot;Latent dirichlet allocation.&quot; </span><span class="font5" style="font-style:italic;">Journal of machine Learning research.</span></p>
+<p><span class="font5" style="font-weight:bold;">Chang, J., Boyd-Graber, J.L., Gerrish, S., Wang, C. and Blei,</span></p>
+<p><span class="font5" style="font-weight:bold;">D.M. </span><span class="font5">(2009) &quot;Reading tea leaves: How humans interpret topic models.&quot; </span><span class="font5" style="font-style:italic;">Advances in neural information processing&nbsp;systems.</span><span class="font5"> 21. 288-296.</span></p>
+<p><span class="font5" style="font-weight:bold;">Ferragina, P., and Scaiella, U. </span><span class="font5">(2010) “TAGME: On-the-Fly Annotation of Short Text Fragments (by Wikipedia Entities).” In </span><span class="font5" style="font-style:italic;">Proceedings of the 19th ACM International Conference on Information and Knowledge Management.</span></p>
+<p><span class="font5" style="font-weight:bold;">Lauscher, A., Nanni, F., Ruiz Fabo, P., and Paolo Ponzetto,</span></p>
+<p><span class="font5" style="font-weight:bold;">S. </span><span class="font5">(2016). &quot;Entities as topic labels: combining entity linking and labeled LDA to improve topic interpretability and evaluability.&quot; IJCol-Italian journal of computational&nbsp;linguistics. 2(2): 67-88.</span></p>
+<p><span class="font5" style="font-weight:bold;">Meeks, E., and Weingart, S.B. </span><span class="font5">(2012). &quot;The digital humanities contribution to topic modeling.&quot; </span><span class="font5" style="font-style:italic;">Journal of Digital Humanities</span><span class="font5"> 2.1.</span></p>
+<p><span class="font5" style="font-weight:bold;">Nanni, F., and Ruiz Fabo, P. </span><span class="font5">(2016) &quot;Entities as topic labels: Improving topic interpretability and evaluability combining Entity Linking and Labeled LDA.&quot; </span><span class="font5" style="font-style:italic;">DH2016.</span></p>
+<p><span class="font5" style="font-weight:bold;">Wallach, H. M., Murray, I., Salakhutdinov, R. and Mimno,</span></p>
+<p><span class="font5" style="font-weight:bold;">D. </span><span class="font5">(2009). &quot;Evaluation methods for topic models.&quot; </span><span class="font5" style="font-style:italic;">Proceedings of the 26th Annual International Conference on Machine Learning.</span></p>
+</body>
+</html>

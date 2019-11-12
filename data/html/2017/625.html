@@ -1,0 +1,392 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"
+	"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head><meta http-equiv="content-type" content="text/html; charset=UTF-8"/><meta name="generator" content="ABBYY FineReader 14"/><title>Microsoft Word - 625. Skorinkin-Character-distinguishing features in fictional dialogue-625.docx</title><link rel="stylesheet" href="625_files/625.css" type="text/css"/>
+</head>
+<body>
+<p><span class="font6" style="font-weight:bold;">Character-distinguishing features in fictional&nbsp;dialogue: the case of </span><span class="font5" style="font-weight:bold;font-style:italic;">War&nbsp;and Peace</span></p>
+<p><span class="font8" style="font-weight:bold;">Daniil Skorinkin</span></p>
+<p><span class="font8"><a href="mailto:skorinkin.danil@gmail.com">skorinkin.danil@gmail.com</a></span></p>
+<p><span class="font8">National Research University Higher School of Economics, Russia</span></p><h1><a name="caption1"></a><a name="bookmark0"></a><span class="font4" style="font-weight:bold;">Introduction</span></h1>
+<p><span class="font8">The study of character speech is a topic of fairly consistent interest among digital literary scholars. It is&nbsp;usually acknowledged that voices of characters are essentially different from narrator's own voice and&nbsp;should be treated separately. Some researchers have&nbsp;fictional dialogue removed from the texts they studied&nbsp;before any tools of computational investigation are applied (Hoover, 2004). Quite a lot of effort has been&nbsp;made recently to address the problem of identifying&nbsp;character speech in prose and attributing it to the correct speaker (ccbMku!). One of the outcomes of such</span></p>
+<p><span class="font8">research is the possibility to study voices of different</span></p>
+<p><span class="font8">characters on relatively large scale and apply computational tools that measure their recurring stylistic parameters.</span></p><h1><a name="bookmark1"></a><span class="font4" style="font-weight:bold;">Method</span></h1>
+<p><span class="font8">The study of character speech has traditionally had strong ties to the fields of stylometry and authorship&nbsp;attribution, as their methods proved quite useful for&nbsp;studying idiolect of a fictional speaker. Suffice it to say&nbsp;that one of the seminal works in stylometry, Computation into criticism# by Burrows (Burrows, 1987), was&nbsp;focused on the study of character speech in Jane Austen's novels. The method developed by Burrows grew&nbsp;into what is currently known as Delta, a widely-adopted standard for authorship attribution. Delta has&nbsp;been consistently and successfully applied to identifying the author of an unattributed text of different languages and genres, but at the same time it saw considerable usage as a purely stylometric tool for the study&nbsp;of text where authorship is undisputed. Among other&nbsp;things, this included research into the specific idiolects</span></p>
+<p><span class="font8">of fictional characters (see, for example, Rybicki,</span></p>
+<p><span class="font8">2006).</span></p>
+<p><span class="font8">In our research Delta was used as one of the two possible approaches to studying character voices in&nbsp;Leo Tolstoy's War and peace. Much like in case of&nbsp;Senkewic (Rybicki, 2006), there's certain critical opinion (Eikhenbaum, 2009) that Tolstoy's characters are&nbsp;quite distinct from each other in their speech. Our own&nbsp;experience of carefully reading speech instances extracted from War and peace (for details on extraction&nbsp;procedure see (Skorinkin, Bonch-Osmolovskaya,&nbsp;2015) supports the opinion. So it seemed natural to try&nbsp;and test computational methods that already showed&nbsp;their applicability to precisely such task. We used R&nbsp;package stylo by (Eder </span><span class="font8" style="font-style:italic;">et al,</span><span class="font8"> 2013)</span></p><h1><a name="bookmark2"></a><span class="font4" style="font-weight:bold;">Testing the method on Russian material</span></h1>
+<p><span class="font8">Surprisingly enough, we were unable to find any work that applied Delta to any Russian material.&nbsp;Therefore we felt obliged to conduct a couple of experiments that would test its general applicability to Russian before we proceed with character speech. At the&nbsp;first stage we tried Delta's ability to distinguish between Tolstoy and Dostoevsky. The training set contained one of the six parts of Dostoyevsky's Crime and&nbsp;Punishment and three of the fifteen books of Tolstoy's&nbsp;War and Peace. The remaining 18 pieces of text (5 by&nbsp;Dostoevsky and 13 by Tolstoy) constituted the test set.&nbsp;The results with different settings can be seen in Table&nbsp;1 and Figures 1,2:</span></p>
+<table border="1">
+<tr><td style="vertical-align:middle;">
+<p><span class="font2">N most frequent</span></p></td><td>
+<p><span class="font2">Words</span></p></td><td style="vertical-align:middle;">
+<p><span class="font2">grams</span></p></td><td style="vertical-align:middle;">
+<p><span class="font2">grams</span></p></td><td style="vertical-align:middle;">
+<p><span class="font2">grams</span></p></td></tr>
+<tr><td>
+<p><span class="font2">25</span></p></td><td>
+<p><span class="font2">80% (4/5)</span></p></td><td>
+<p><span class="font2">60% (3/5)</span></p></td><td>
+<p><span class="font2">60% (3/5)</span></p></td><td>
+<p><span class="font2">100% (5/5)</span></p></td></tr>
+<tr><td>
+<p><span class="font2">30</span></p></td><td>
+<p><span class="font2">80% (4/5)</span></p></td><td>
+<p><span class="font2">80% (4/5)</span></p></td><td>
+<p><span class="font2">60% (3/5)</span></p></td><td>
+<p><span class="font2">80% (4/5)</span></p></td></tr>
+<tr><td>
+<p><span class="font2">35</span></p></td><td>
+<p><span class="font2">80% (4/5)</span></p></td><td>
+<p><span class="font2">60% (3/5)</span></p></td><td>
+<p><span class="font2">60% (3/5)</span></p></td><td>
+<p><span class="font2">80% (4/5)</span></p></td></tr>
+<tr><td>
+<p><span class="font2">40</span></p></td><td>
+<p><span class="font2">80% (4/5)</span></p></td><td>
+<p><span class="font2">60% (3/5)</span></p></td><td>
+<p><span class="font2">60% (3/5)</span></p></td><td>
+<p><span class="font2">80% (4/5)</span></p></td></tr>
+<tr><td>
+<p><span class="font2">45</span></p></td><td>
+<p><span class="font2">80% (4/5)</span></p></td><td>
+<p><span class="font2">60% (3/5)</span></p></td><td>
+<p><span class="font2">80% (4/5)</span></p></td><td>
+<p><span class="font2">100% (5/5)</span></p></td></tr>
+<tr><td>
+<p><span class="font2">50</span></p></td><td>
+<p><span class="font2">80% (4/5)</span></p></td><td>
+<p><span class="font2">60% (3/5)</span></p></td><td>
+<p><span class="font2">80% (4/5)</span></p></td><td>
+<p><span class="font2">100% (5/5)</span></p></td></tr>
+<tr><td>
+<p><span class="font2">55</span></p></td><td>
+<p><span class="font2">80% (4/5)</span></p></td><td>
+<p><span class="font2">60% (3/5)</span></p></td><td>
+<p><span class="font2">80% (4/5)</span></p></td><td>
+<p><span class="font2">80% (4/5)</span></p></td></tr>
+<tr><td>
+<p><span class="font2">BO</span></p></td><td>
+<p><span class="font2">100% (5/5)</span></p></td><td>
+<p><span class="font2">60% (3/5)</span></p></td><td>
+<p><span class="font2">80% (4/5)</span></p></td><td>
+<p><span class="font2">80% (4/5)</span></p></td></tr>
+<tr><td>
+<p><span class="font2">65</span></p></td><td>
+<p><span class="font2">100% (5/5)</span></p></td><td>
+<p><span class="font2">60% (3/5)</span></p></td><td>
+<p><span class="font2">80% (4/5)</span></p></td><td>
+<p><span class="font2">80% (4/5)</span></p></td></tr>
+<tr><td>
+<p><span class="font2">70</span></p></td><td>
+<p><span class="font2">80% (4/5)</span></p></td><td>
+<p><span class="font2">60% (3/5)</span></p></td><td>
+<p><span class="font2">80% (4/5)</span></p></td><td>
+<p><span class="font2">100% (5/5)</span></p></td></tr>
+<tr><td>
+<p><span class="font2">75</span></p></td><td>
+<p><span class="font2">80% (4/5)</span></p></td><td>
+<p><span class="font2">80% (4/5)</span></p></td><td>
+<p><span class="font2">80% (4/5)</span></p></td><td>
+<p><span class="font2">80% (4/5)</span></p></td></tr>
+<tr><td style="vertical-align:middle;">
+<p><span class="font2">80</span></p></td><td>
+<p><span class="font2">80% (4/5)</span></p></td><td>
+<p><span class="font2">60% (3/5)</span></p></td><td>
+<p><span class="font2">80% (4/5)</span></p></td><td>
+<p><span class="font2">100% (5/5)</span></p></td></tr>
+<tr><td>
+<p><span class="font2">85</span></p></td><td>
+<p><span class="font2">80% (4/5)</span></p></td><td>
+<p><span class="font2">80% (4/5)</span></p></td><td>
+<p><span class="font2">80% (4/5)</span></p></td><td>
+<p><span class="font2">100% (5/5)</span></p></td></tr>
+<tr><td>
+<p><span class="font2">90</span></p></td><td>
+<p><span class="font2">100% (5/5)</span></p></td><td>
+<p><span class="font2">80% (4/5)</span></p></td><td>
+<p><span class="font2">80% (4/5)</span></p></td><td>
+<p><span class="font2">100% (5/5)</span></p></td></tr>
+<tr><td>
+<p><span class="font2">95</span></p></td><td>
+<p><span class="font2">80% (4/5)</span></p></td><td>
+<p><span class="font2">80% (4/5)</span></p></td><td>
+<p><span class="font2">80% (4/5)</span></p></td><td>
+<p><span class="font2">100% (5/5)</span></p></td></tr>
+<tr><td style="vertical-align:middle;">
+<p><span class="font2">100</span></p></td><td>
+<p><span class="font2">80% (4/5)</span></p></td><td>
+<p><span class="font2">80% (4/5)</span></p></td><td>
+<p><span class="font2">80% (4/5)</span></p></td><td>
+<p><span class="font2">100% (5/5)</span></p></td></tr>
+</table>
+<p><span class="font3">Table 1. Delta authorship attribution, Tolstoy vs Dostoevsky</span></p>
+<p><span class="font0" style="font-weight:bold;">Tolstoy vs Dostoevsky Principal Components Analysis</span></p>
+<table border="1">
+<tr><td colspan="2">
+<p></p></td><td style="vertical-align:middle;">
+<p><span class="font0">Tolstoy_VoinalmirTom4Ch2</span></p>
+<p><span class="font0">Tolstoy_VoinalmlrTom4Ch3</span></p></td></tr>
+<tr><td rowspan="2" style="vertical-align:bottom;">
+<p><span class="font0">Dostoevsky PrestuplenielNakazanieCh2</span></p>
+<p><span class="font0">DosToevsky_PrestuplenielNakazanieCh1</span></p></td><td style="vertical-align:middle;">
+<p><span class="font0">TolstoyJ</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font0">/„¡n,lni?&lt;<sup>t</sup>^:“^.^<sub>irTom2ch2</sub></span></p></td></tr>
+<tr><td>
+<p></p></td><td style="vertical-align:bottom;">
+<p><span class="font0">Tolstoy VoinalmirTom1Ch3</span></p></td></tr>
+<tr><td>
+<p></p></td><td>
+<p></p></td><td style="vertical-align:bottom;">
+<p><span class="font0">Tolstoid<sub>(</sub>S|t5)P!VMiemWfn4Ch4</span></p></td></tr>
+<tr><td>
+<p><span class="font0">Dostoevsky_PrestuplenielNakazanieCh5</span></p></td><td>
+<p></p></td><td style="vertical-align:middle;">
+<p><span class="font0">VoinalmirT^^^'^^OJvolnalmlrTomlChl</span></p></td></tr>
+<tr><td>
+<p></p></td><td>
+<p></p></td><td style="vertical-align:bottom;">
+<p><span class="font0">Tolstoy_VolnalmlrTom2Ch5</span></p></td></tr>
+<tr><td>
+<p><span class="font0">-0.4 &nbsp;&nbsp;&nbsp;-0.2</span></p></td><td style="vertical-align:middle;">
+<p><span class="font0">PC1 (40.9%)</span></p>
+<p><span class="font0">0 MFC 4-grams Culled @ 0%</span></p></td><td>
+<p><span class="font0">0 °-<sup>2</sup></span></p></td></tr>
+</table>
+<p><span class="font3">Fig. 1. Delta PCA on 150 most frequent character 4-grams, Tolstoy vs Dostoevsky</span></p><img src="625_files/625-1.jpg" style="width:238pt;height:177pt;"/>
+<p><span class="font3">Fig. 2. Delta PCA on 100 most frequent words, Tolstoy vs Dostoevsky</span></p>
+<p><span class="font8">The second experiment involved four Russian authors Tolstoy, Dostoevsky, Goncharov and Turgenev. All four represent (roughly) the same epoch of Russian&nbsp;literature and all four are recognized as masters of realistic prose. We used three novels by each author for&nbsp;our experiment. At the first stage two out of each three&nbsp;were placed in the training corpus, and Delta was supposed to attribute the remaining one. All four novels&nbsp;from the test corpus were attributed correctly. At the&nbsp;second stage we reverted the experiment and left only&nbsp;one novel by each author in the training set. In this&nbsp;case Delta consistently showed 7 out of 8 correct attributions (the only mistake being Tolstoy's Family&nbsp;Happiness incorrectly attributed to Dostoevsky.A possible explanation could be that Family Hap-piness is&nbsp;written in first person from the point of view of a&nbsp;young woman, something uncommon for Tolstoy; and&nbsp;the only Dostoevsky's work the training corpus contained was The Insulted and Humiliated , also a firstperson narrative). Fig. 3 shows Delta scores for all the</span></p>
+<p><span class="font8">novels visualized with help of principal component</span></p>
+<p><span class="font8">analysis.</span></p>
+<p><span class="font0" style="font-weight:bold;">XIX century novels Principal Components Analysis</span></p>
+<table border="1">
+<tr><td style="vertical-align:bottom;">
+<p><span class="font0">roHMapo^fii^pa^gph.B</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font0">TypreHeB_flBopnHCKoe rHe3flo</span></p></td></tr>
+<tr><td style="vertical-align:bottom;">
+<p><span class="font0">Tyf</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font0">)reHeB_OTpbi „ fle™</span></p></td></tr>
+<tr><td>
+<p><span class="font0">rOHHapOB_06blKHOBeHHafl MCTOpriB</span></p></td><td>
+<p><span class="font0">TypreHeB_flbiM</span></p></td></tr>
+<tr><td>
+<p></p></td><td>
+<p><span class="font0">ToncToti_BoMHa h wnp</span></p></td></tr>
+<tr><td style="vertical-align:middle;">
+<p><span class="font0">flocToeBCKMM_npecTynneHne u HaKa3aHne</span></p></td><td style="vertical-align:middle;">
+<p><span class="font0">ToncTOu_AHHa KaperinHa</span></p></td></tr>
+<tr><td style="vertical-align:bottom;">
+<p><span class="font0">flocToeBCKkiii_yHki&gt;i&lt;eHHbie m ocuopSreHHbi'</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font0">3</span></p></td></tr>
+<tr><td>
+<p><span class="font0">fl0CT0eBCKnn_5eflHbie moflii</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font0">ToncTori_CeMeiinoe cqacTbe</span></p></td></tr>
+</table>
+<p><span class="font0">-15 &nbsp;&nbsp;&nbsp;-10&nbsp;&nbsp;&nbsp;&nbsp;-5&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;5&nbsp;&nbsp;&nbsp;&nbsp;10&nbsp;&nbsp;&nbsp;&nbsp;15</span></p>
+<p><span class="font0">PC1 (24.1%)</span></p>
+<p><span class="font0">250 MFW Culled @ 0%</span></p>
+<p><span class="font0">Correlation matrix</span></p>
+<p><span class="font3">Fig. 3. Delta PCA for 12 Russian novels of 1850-1870-ies, 250 most frequent words</span></p><h1><a name="bookmark3"></a><span class="font4" style="font-weight:bold;">Applying Delta to Tolstoy's characters</span></h1>
+<p><span class="font8">Having thus shown that Delta is applicable to Russian, we proceeded with our experiment. In the first place we applied the method to top 5 characters by the&nbsp;total number of speech instances. We split the total&nbsp;sets of speeches by each character and then tried authorship attribution The results are shown in Table 2.</span></p>
+<table border="1">
+<tr><td>
+<p><span class="font2">N most frequent</span></p></td><td>
+<p><span class="font2">WocUSs</span></p></td><td>
+<p><span class="font2">cn&amp;mata-</span></p>
+<p><span class="font2">grams</span></p></td><td>
+<p><span class="font2">Cnamei digrams</span></p></td><td>
+<p><span class="font2">uiameca-</span></p>
+<p><span class="font2">grams</span></p></td></tr>
+<tr><td>
+<p><span class="font2">25</span></p></td><td>
+<p><span class="font2">80% (4/5)</span></p></td><td>
+<p><span class="font2">60% (3/5)</span></p></td><td>
+<p><span class="font2">60% (3/5)</span></p></td><td>
+<p><span class="font2">100% (5/5)</span></p></td></tr>
+<tr><td>
+<p><span class="font1">30</span></p></td><td>
+<p><span class="font1">80% (4/5,</span></p></td><td>
+<p><span class="font1">80% (4/5)</span></p></td><td>
+<p><span class="font1">60% (3/5)</span></p></td><td>
+<p><span class="font1">80% (4/5,</span></p></td></tr>
+<tr><td>
+<p><span class="font2">35</span></p></td><td>
+<p><span class="font2">80% (4/5)</span></p></td><td>
+<p><span class="font2">60% (3/5)</span></p></td><td>
+<p><span class="font2">60% (3/5)</span></p></td><td>
+<p><span class="font2">80% (4/5)</span></p></td></tr>
+<tr><td>
+<p><span class="font2">40</span></p></td><td>
+<p><span class="font2">80% (4/5)</span></p></td><td>
+<p><span class="font2">60% (3/5)</span></p></td><td>
+<p><span class="font2">60% (3/5)</span></p></td><td>
+<p><span class="font2">80% (4/5)</span></p></td></tr>
+<tr><td>
+<p><span class="font1">45</span></p></td><td>
+<p><span class="font1">80% (4/5,</span></p></td><td>
+<p><span class="font1">60% (3/5,</span></p></td><td>
+<p><span class="font1">80% (4/5,</span></p></td><td>
+<p><span class="font1">100% (5/5,</span></p></td></tr>
+<tr><td>
+<p><span class="font2">50</span></p></td><td>
+<p><span class="font2">80% (4/5)</span></p></td><td>
+<p><span class="font2">60% (3/5)</span></p></td><td>
+<p><span class="font2">80% (4/5)</span></p></td><td>
+<p><span class="font2">100% (5/5)</span></p></td></tr>
+<tr><td>
+<p><span class="font2">55</span></p></td><td>
+<p><span class="font2">80% (4/5)</span></p></td><td>
+<p><span class="font2">60% (3/5)</span></p></td><td>
+<p><span class="font2">80% (4/5)</span></p></td><td>
+<p><span class="font2">80% (4/5)</span></p></td></tr>
+<tr><td style="vertical-align:middle;">
+<p><span class="font1">60</span></p></td><td>
+<p><span class="font1">100% (5/5)</span></p></td><td>
+<p><span class="font1">60% (3/5,</span></p></td><td>
+<p><span class="font2">80% (4/5)</span></p></td><td>
+<p><span class="font2">80% (4/5)</span></p></td></tr>
+<tr><td>
+<p><span class="font2">65</span></p></td><td>
+<p><span class="font2">100% (5/5)</span></p></td><td>
+<p><span class="font2">60% (3/5)</span></p></td><td>
+<p><span class="font2">80% (4/5)</span></p></td><td>
+<p><span class="font2">80% (4/5)</span></p></td></tr>
+<tr><td>
+<p><span class="font2">70</span></p></td><td>
+<p><span class="font2">80% (4/5)</span></p></td><td>
+<p><span class="font2">60% (3/5)</span></p></td><td>
+<p><span class="font2">80% (4/5)</span></p></td><td>
+<p><span class="font2">100% (5/5)</span></p></td></tr>
+<tr><td>
+<p><span class="font1">75</span></p></td><td>
+<p><span class="font1">80% (4/5)</span></p></td><td>
+<p><span class="font1">80% (4/5)</span></p></td><td>
+<p><span class="font1">80% (4/5,</span></p></td><td>
+<p><span class="font1">8U% (4/5)</span></p></td></tr>
+<tr><td style="vertical-align:middle;">
+<p><span class="font2">80</span></p></td><td>
+<p><span class="font2">80% (4/5)</span></p></td><td>
+<p><span class="font2">60% (3/5)</span></p></td><td>
+<p><span class="font2">80% (4/5)</span></p></td><td>
+<p><span class="font2">100% (5/5)</span></p></td></tr>
+<tr><td>
+<p><span class="font2">85</span></p></td><td>
+<p><span class="font2">80% (4/5)</span></p></td><td>
+<p><span class="font2">80% (4/5)</span></p></td><td>
+<p><span class="font2">80% (4/5)</span></p></td><td>
+<p><span class="font2">100% (5/5)</span></p></td></tr>
+<tr><td>
+<p><span class="font2">90</span></p></td><td>
+<p><span class="font1">1UU% (5/5)</span></p></td><td>
+<p><span class="font2">80% (4/5,</span></p></td><td>
+<p><span class="font2">80% (4/5)</span></p></td><td>
+<p><span class="font2">100% (5/5)</span></p></td></tr>
+<tr><td>
+<p><span class="font2">95</span></p></td><td>
+<p><span class="font2">80% (4/5)</span></p></td><td>
+<p><span class="font2">80% (4/5)</span></p></td><td>
+<p><span class="font2">80% (4/5)</span></p></td><td>
+<p><span class="font2">100% (5/5)</span></p></td></tr>
+<tr><td style="vertical-align:middle;">
+<p><span class="font2">100</span></p></td><td>
+<p><span class="font2">80% (4/5)</span></p></td><td>
+<p><span class="font2">80% (4/5)</span></p></td><td>
+<p><span class="font2">80% (4/5)</span></p></td><td>
+<p><span class="font2">100% (5/5)</span></p></td></tr>
+</table>
+<p><span class="font3">Table 2.</span></p>
+<p><span class="font8">The most common mistakes are between princess Marya Bolkonskaya and Natasha Rostova and between&nbsp;prince Andrew Bolkonsky and Pierre Bezukhov. Their&nbsp;closeness can be seen in Figure 4:</span></p><div>
+<p><span class="font0" style="font-weight:bold;">T op5CharactersDelta Principal Components Analysis</span></p><img src="625_files/625-2.jpg" style="width:247pt;height:139pt;"/>
+<p><span class="font0">-5 &nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;5&nbsp;&nbsp;&nbsp;&nbsp;10</span></p>
+<p><span class="font0">PC1 (34.8%)</span></p>
+<p><span class="font0">100 MFW Culled @0%</span></p>
+<p><span class="font0">Correlation matrix</span></p>
+<p><span class="font3">Fig. 4. Delta PCA for top 5 most talkative characters in War and Peace, 100 most frequent words</span></p></div><br clear="all"/><div>
+<p><span class="font0" style="font-weight:bold;">Topi SCharactersDelta Principal Components Analysis</span></p><img src="625_files/625-3.jpg" style="width:243pt;height:159pt;"/>
+<p><span class="font0">-5 &nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;5&nbsp;&nbsp;&nbsp;&nbsp;10</span></p>
+<p><span class="font0" style="font-weight:bold;">PC1 (19.3%)</span></p>
+<p><span class="font0">100 MFW Culled @ 0%</span></p>
+<p><span class="font0">Correlation matrix</span></p>
+<p><span class="font3">Fig. 6. Delta-based PCA for top 15 most talkative characters in War and Peace, 100 most frequent words</span></p></div><br clear="all"/><div>
+<p><span class="font0" style="font-weight:bold;">TopSCharactersDelta Cluster Analysis</span></p></div><br clear="all"/><div>
+<p><span class="font0">HaTaniaPocTOBa</span></p></div><br clear="all"/><div>
+<p><span class="font0">MapbflEojiKOHCKaa</span></p></div><br clear="all"/><div>
+<p><span class="font0">ribepEe3yxOB</span></p></div><br clear="all"/><div>
+<p><span class="font0" style="font-weight:bold;">AHflpeÜEOJlKOHCKMÜ</span></p></div><br clear="all"/><div>
+<p><span class="font8">One can easily see the clustering of Rostov family, to a lesser extent this applies to Bolkonsky family as&nbsp;well. Dolokhov, Denisov and Kutuzov could constitute&nbsp;the 'war' cluster.</span></p>
+<p><span class="font8">We then made another expansion and moved from 15 to 30 characters. Figure 7 demonstrates PCA of&nbsp;Delta scores for this selection.</span></p></div><br clear="all"/>
+<p><span class="font0">HnnonafiPocTOB</span></p>
+<p><span class="font0">1.5 &nbsp;&nbsp;&nbsp;1.0&nbsp;&nbsp;&nbsp;&nbsp;0.5&nbsp;&nbsp;&nbsp;&nbsp;0.0</span></p>
+<p><span class="font0">100 MFW Culled @0%</span></p>
+<p><span class="font0">Classic Della distance</span></p>
+<p><span class="font3">Fig. 5. Delta-based hierarchical clustering for top 5 most talkative characters in War and Peace, 100 most frequent&nbsp;words</span></p>
+<p><span class="font8">The quality of speech authorship attribution inevitably got worse once we expanded our selection from 5 to 15 characters. The results were still quite tolerable reaching 10 out of 15 with certain settings. The&nbsp;analysis of mistakes showed that a) they're less likely&nbsp;to occur between characters of different gender and b)&nbsp;the mistaken characters have quite a lot of mutual conversations.</span></p>
+<p><span class="font8">Further on, we decided to pay more attention to overall Delta scores of character voices and see if they</span></p>
+<p><span class="font8">give us any meaningful clustering of characters. Figure 6 shows PCA of characters based on Delta.</span></p><img src="625_files/625-4.jpg" style="width:239pt;height:163pt;"/>
+<p><span class="font3">Fig. 7. Delta-based PCA for top 30 most talkative characters in War and Peace, 100 most frequent words</span></p>
+<p><span class="font8">The most striking thing here is the obvious separation of Vera Rostova from the rest of Rostov family. The difference between cold, tempered and rational&nbsp;Vera and her emotional and very sentimental relatives&nbsp;is outspoken and obvious to the reader, but it seems&nbsp;valuable to have this potential quantiative support in&nbsp;the form of different Delta scores. What is even more&nbsp;striking is that Vera is quite close to Berg, a rationalizing careerist who becomes her husband. Note also the</span></p>
+<p><span class="font8">closeness of Boris and Julie Karagine, another pragmatic couple happily united in a marriage of convenience.</span></p><div>
+<p><span class="font0" style="font-weight:bold;">Alternative Features Top 5 Cluster Analysis</span></p></div><br clear="all"/><div>
+<p><span class="font0" style="font-weight:bold;">HuKOJiaAPocTOB</span></p></div><br clear="all"/><h1><a name="bookmark4"></a><span class="font4" style="font-weight:bold;">Applying alternative features</span></h1>
+<p><span class="font8">Having tried Delta, we proceeded with our own set of alternative features for character voice analysis (a&nbsp;typical step, as dectibed in Eder, 2015). These features&nbsp;are not related to the lexical makeup of character&nbsp;speech and attempt to reduce the influence of gender-related morphological features of Russian language&nbsp;and the factor of mutual interactions between characters. At this stage we limited ourselves to four features</span></p>
+<p><span class="font8">only: the average number of words, the ratio of exclamatory sentences, the ratio oa question sentences and the ratio of punctuation marks (latter being a&nbsp;crude approximation of the ‘disruptedness' of speech,&nbsp;which seems rather typical of certain more emotional&nbsp;and lively characters).</span></p>
+<p><span class="font8">When the character set is limited to 5 characters these features even manage to distinguish character&nbsp;speech with some tolerable accuracy (though worse&nbsp;than Delta). However, the analysis of mistakes shows&nbsp;that they capture fundamentally different types of similarities than Delta does. For instance, joyful Natasha&nbsp;in this case is never mistaken for sentimental and melancholic Marya, but rather for her boisterous brother&nbsp;Nikolai. Pierre, on the other hand, is mistaken for&nbsp;Marya rather than for Andrey, who is distinct from&nbsp;them all. Figures 8 and 9 show the results of PCA and&nbsp;hierarchical clustering for these characters based on&nbsp;our own alternative features.</span></p><div><img src="625_files/625-5.jpg" style="width:221pt;height:171pt;"/>
+<p><span class="font3">Fig. 8. PCA for top 5 most talkative characters in War and Peace, 4 alternative features</span></p></div><br clear="all"/>
+<p><span class="font0">HaTawaPocTOBa</span></p>
+<p><span class="font0" style="font-weight:bold;">MapbflBojiKOHCKaa</span></p>
+<p><span class="font8">ribep6e3yxoB</span></p>
+<p><span class="font0">AHflpeiiBonKOHCKMM</span></p>
+<p><span class="font0">0.08 &nbsp;&nbsp;&nbsp;0.06&nbsp;&nbsp;&nbsp;&nbsp;0.04&nbsp;&nbsp;&nbsp;&nbsp;0.02&nbsp;&nbsp;&nbsp;&nbsp;0 00</span></p>
+<p><span class="font0">4 MFW Culled @ 0%</span></p>
+<p><span class="font0">Cosine distance</span></p>
+<p><span class="font3">Fig. 9. Hierarchical clustering for top 5 most talkative characters in War and Peace, 4 alternative features</span></p>
+<p><span class="font8">If we compare figures 8 and 9 to their counterparts from the Delta experiment (figures 4 and 5) we can see&nbsp;that the alternative features ignore gender or mutual&nbsp;interactions/ The hypothesis is that they enable us&nbsp;with a more indepth view of a character personality,&nbsp;his/her emotional type and so on.</span></p>
+<p><span class="font8">Figures 10-12 show data on wider selections of characters using alternative features.</span></p><div>
+<p><span class="font0" style="font-weight:bold;">Alternative Features Top 15 Principal Components Analysis</span></p>
+<table border="1">
+<tr><td colspan="4">
+<p></p></td><td rowspan="2">
+<p><span class="font0" style="font-weight:bold;">tfguOHCKan</span></p></td><td rowspan="2">
+<p><span class="font0" style="font-weight:bold;">rpact&gt;HHHPOCTOBa</span></p></td></tr>
+<tr><td colspan="3" style="vertical-align:middle;">
+<p><span class="font0" style="font-weight:bold;">AHfl pew Bon KOHCKMM</span></p></td><td>
+<p><span class="font0" style="font-weight:bold;">flonox</span></p></td></tr>
+<tr><td>
+<p></p></td><td>
+<p></p></td><td>
+<p></p></td><td>
+<p></p></td><td>
+<p></p></td><td style="vertical-align:middle;">
+<p><span class="font0" style="font-weight:bold;">HiiKOnanPoCTOB</span></p></td></tr>
+<tr><td>
+<p></p></td><td>
+<p></p></td><td>
+<p></p></td><td style="vertical-align:middle;">
+<p><span class="font0" style="font-weight:bold;">KyTy3OB</span></p></td><td>
+<p></p></td><td>
+<p></p></td></tr>
+<tr><td style="vertical-align:middle;">
+<p><span class="font0" style="font-weight:bold;">Bac,</span></p></td><td style="vertical-align:middle;">
+<p><span class="font0" style="font-weight:bold;">&gt;™nKypar<sub>M</sub>H</span></p></td><td style="vertical-align:middle;">
+<p><span class="font0" style="font-weight:bold;">roHKapaTaeB</span></p></td><td>
+<p></p></td><td>
+<p><span class="font0" style="font-weight:bold;">fleHMCOB</span></p></td><td>
+<p></p></td></tr>
+<tr><td>
+<p></p></td><td>
+<p></p></td><td>
+<p></p></td><td>
+<p></p></td><td style="vertical-align:bottom;">
+<p><span class="font0" style="font-weight:bold;">HwKoriaiiBonKO</span></p></td><td>
+<p><span class="font0" style="font-weight:bold;">MnuaPoCTOB</span></p></td></tr>
+</table>
+<p><span class="font3">Fig. 10. PCA for top 15 most talkative characters in War and Peace, alternative features</span></p></div><br clear="all"/><div><img src="625_files/625-6.jpg" style="width:36pt;height:14pt;"/></div><br clear="all"/><img src="625_files/625-7.jpg" style="width:239pt;height:135pt;"/>
+<p><span class="font3">Fig. 11. Hierarchical clustering for top 15 most talkative characters in War and Peace, alternative features</span></p>
+<p><span class="font8">Note that here we do not see any similarity between Andrey and Pierre. Moreover, Andrey is close to Napoleon, which is rather striking given Napoleon is</span></p>
+<p><span class="font8">his hero and role model for a considerable part of the novel.</span></p><img src="625_files/625-8.jpg" style="width:221pt;height:163pt;"/>
+<p><span class="font8">The separation of Vera, on the other hand, is still rather visible - she is far from Moscow-centered Rostov world and close to Saint-Petersburg world of Ku-ragine family and berg.</span></p><h1><a name="bookmark5"></a><span class="font4" style="font-weight:bold;">Bibliography</span></h1>
+<p><span class="font7" style="font-weight:bold;">Ipsum, L. </span><span class="font7">(2017) </span><span class="font7" style="font-weight:bold;">“</span><span class="font7">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut&nbsp;labore et dolore magna aliqua</span><span class="font7" style="font-style:italic;">&quot;. Lorem Ipsum Quarterly.&nbsp;</span><span class="font7">13.1: 27-45</span></p>
+<p><span class="font7" style="font-weight:bold;">Lorem, I. </span><span class="font7">(2014) </span><span class="font7" style="font-weight:bold;">“</span><span class="font7">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut&nbsp;labore et dolore magna aliqua</span><span class="font7" style="font-style:italic;">&quot;. Lorem Ipsum Quarterly.&nbsp;</span><span class="font7">7.1: 46-55</span></p>
+<p><span class="font7" style="font-weight:bold;">Amet, C. </span><span class="font7">(1887) “Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua”. Lorem Ipsum Quarterly.&nbsp;3.1: 56-71</span></p>
+</body>
+</html>

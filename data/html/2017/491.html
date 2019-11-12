@@ -1,0 +1,283 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"
+	"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head><meta http-equiv="content-type" content="text/html; charset=UTF-8"/><meta name="generator" content="ABBYY FineReader 14"/><title>Microsoft Word - 491. Buechel-The Course of Emotion in Three Centuries of German Text--A Methodological Framework-491.docx</title><link rel="stylesheet" href="491_files/491.css" type="text/css"/>
+</head>
+<body>
+<p><span class="font12" style="font-weight:bold;">The Course of Emotion in Three Centuries of German&nbsp;Text— A Methodological&nbsp;Framework</span></p>
+<p><span class="font10" style="font-weight:bold;">Sven Buechel</span></p>
+<p><span class="font10"><a href="mailto:sven.buechel@uni-jena.de">sven.buechel@uni-jena.de</a></span></p>
+<p><span class="font10">JULIE Lab, Friedrich Schiller University Jena, Germany</span></p>
+<p><span class="font10" style="font-weight:bold;">Johannes Hellrich</span></p>
+<p><span class="font10"><a href="mailto:johannes.hellrich@uni-jena.de">johannes.hellrich@uni-jena.de</a></span></p>
+<p><span class="font10">JULIE Lab, Friedrich Schiller University Jena, Germany</span></p>
+<p><span class="font10" style="font-weight:bold;">Udo Hahn</span></p>
+<p><span class="font10"><a href="mailto:udo.hahn@uni-jena.de">udo.hahn@uni-jena.de</a></span></p>
+<p><span class="font10">JULIE Lab, Friedrich Schiller University Jena, Germany</span></p>
+<p><span class="font11" style="font-weight:bold;">Introduction</span></p>
+<p><span class="font10">Texts not only carry factual, but also affective information, such as expressions of joy or grief. In the humanities, especially literary studies, emotion expression and elicitation (often in texts from prior language stages) have been focused on in many contributions&nbsp;(see, e.g., Carroll and Gibson (2011), Poppe (2012),&nbsp;Hillebrand (2011)).</span></p>
+<p><span class="font10">Similarly, in natural language processing (NLP), emotion analytics have developed into an active area&nbsp;of research (Liu, 2015). Nevertheless, there is little&nbsp;previous work explicitly addressing emotion in historical language and the specific methodological problems this raises. Hamilton et al. (2016) as well as Cook&nbsp;and Stevenson (2010) presented methods for identifying amelioration and pejoration of words. Acerbi et al.&nbsp;(2013) and Bentley et al. (2014) demonstrated the potential of emotion analysis for the Digital Humanities&nbsp;(DH) by linking temporal emotion patterns in texts to&nbsp;major sociopolitical events and trends in the 20<sup>th</sup> century.</span></p>
+<p><span class="font10">Our work goes beyond these studies in two ways: we claim to be more adequate as we combine these&nbsp;two approaches to analyze non-contemporary </span><span class="font10" style="font-weight:bold;">text&nbsp;</span><span class="font10">based on time-specific </span><span class="font10" style="font-weight:bold;">lexical </span><span class="font10">resources. We also&nbsp;claim to be more informative as we employ the Valence-Arousal-Dominance (VAD) model of emotion&nbsp;(Bradley and Lang, 1994) instead of simple </span><span class="font10" style="font-weight:bold;">polarity&nbsp;</span><span class="font10">(positiveness/negativeness) alone. We have already&nbsp;shown the latter to be beneficial in DH applications&nbsp;(Buechel et al., 2016a). We hope that our work will be&nbsp;a step towards a new set of tools especially beneficial&nbsp;for areas such as literary studies (e.g., in distant reading (Moretti, 2013)) or history of mind.</span></p>
+<p><span class="font11" style="font-weight:bold;">Methods</span></p>
+<p><span class="font10">The VAD model of emotion assumes that affective states can be described relative to three emotional </span><span class="font10" style="font-weight:bold;">dimensions</span><span class="font10">, i.e., Valence (corresponding to the concept&nbsp;of polarity, see above), Arousal (the degree of excitement or calmness) and Dominance (feeling in or out of&nbsp;control of a social situation). The VAD dimensions allow for a more fine-grained modeling than polarity&nbsp;alone, e.g., words like </span><span class="font10" style="font-style:italic;">orgasm</span><span class="font10"> and </span><span class="font10" style="font-style:italic;">relaxed</span><span class="font10"> have similar&nbsp;Valence but opposing Arousal values (Bradley and&nbsp;Lang, 1999). Formally, the VAD model constitutes a&nbsp;three-dimensional vector space illustrated by Figure 1&nbsp;(Buechel and Hahn, 2016).</span></p>
+<p><span class="font10">The association of words with a VAD score is captured in </span><span class="font10" style="font-weight:bold;">emotion lexicons</span><span class="font10">. These can either be empirically determined by aggregating subjective judgments of several human subjects; or they can be semiautomatically constructed allowing for greater size but reducing accuracy on individual words. For the&nbsp;semi-automatic construction, the typical approach is&nbsp;to expand an existing lexicon (the </span><span class="font10" style="font-weight:bold;">seed lexicon</span><span class="font10">) based&nbsp;on word similarity (see below). There are several competing expansion algorithms. Cook and Stevenson&nbsp;(2010) were the first to describe expansion algorithms&nbsp;for the induction of the emotion value of words for&nbsp;non-contemporary language stages by using word&nbsp;similarity values determined from historical corpora.</span></p><img src="491_files/491-1.jpg" style="width:196pt;height:145pt;"/>
+<p><span class="font3">Valence</span></p>
+<p><span class="font4">Figure 1 : The VAD vector space. For ease of understanding, the positions of six </span><span class="font4" style="font-style:italic;">Basic Emotions</span><span class="font4"> (Ekman, 1992) are&nbsp;given.</span></p>
+<p><span class="font10">Extending this approach, we compared several emotion induction algorithms, viz., those by Turney&nbsp;and Littman (2003), Hamilton et al. (2016), and Bestgen (2008). The former two were slightly modified to&nbsp;make them deal with numerical input values (for a&nbsp;more detailed description of these methods, see</span></p>
+<p><span class="font10">Buechel et al. (2016b) and Hamilton et al. (2016)).</span></p>
+<p><span class="font10">We used point-wise mutual information with singular value decomposition (Levy et al, 2015; SVD</span><span class="font8">PPMI</span><span class="font10">) to measure word similarity, since it turned out to be&nbsp;superior for DH applications in previous work (Hell-rich and Hahn, 2016). We used the German ANGST lexicon (Schmidtke et al., 2014) as seed. The individual&nbsp;algorithms were evaluated by comparing our induced&nbsp;historical lexicons against judgments of knowledgeable PhD students from the humanities. For this task,&nbsp;we asked them to make their assessments </span><span class="font10" style="font-weight:bold;">as if </span><span class="font10">they&nbsp;were contemporary readers from the respective time&nbsp;period. The Turney-Littman algorithm performed best&nbsp;in this set-up and was thus employed for all subsequent analyses.</span></p>
+<p><span class="font11" style="font-weight:bold;">Experiments</span></p>
+<p><span class="font10">For demonstration purposes, we here apply our methodology to the core corpus of the </span><span class="font10" style="font-style:italic;">Deutsches Textarchiv</span><span class="font10"> (DTA; Geyken, 2013, </span><span class="font10" style="text-decoration:underline;">TCF version from May 11,&nbsp;2016)</span><span class="font10"> [German Text Archive], a well-curated and balanced collection of historical German texts. We analyzed texts created between 1690 and 1899, splitting&nbsp;the resulting corpus into seven slices (each spanning&nbsp;30 years) to achieve similarly sized and sufficiently&nbsp;large subcorpora for further processing. We computed&nbsp;word similarities within each of these slices and then&nbsp;applied the Turney-Littman expansion algorithm, thus&nbsp;creating seven distinct emotion lexicons, each describing the emotion of words for its specific period. Given&nbsp;these temporally stratified lexicons, we claim that&nbsp;shifts in emotion association of words can be traced&nbsp;over time by comparing the emotion values a word exhibits in different lexicons. To validate this claim, we&nbsp;selected the words for which we could compute similarity scores in each time step (as these methods are&nbsp;more accurate for high-frequency words, rare words&nbsp;were excluded from our study) and standardized their&nbsp;VAD values for each lexicon and dimension (VAD).</span></p>
+<p><span class="font1">4 -</span></p>
+<p><span class="font1">2 -</span></p>
+<p><span class="font1">0 -</span></p>
+<p><span class="font1">-2 -</span></p>
+<p><span class="font1">-4 -</span></p><img src="491_files/491-2.jpg" style="width:197pt;height:57pt;"/>
+<p><span class="font1">1795</span></p>
+<p><span class="font1">Year</span></p>
+<p><span class="font1">1705</span></p>
+<p><span class="font1">1735</span></p>
+<p><span class="font1">1765</span></p>
+<p><span class="font1">1825</span></p>
+<p><span class="font1">1855</span></p>
+<p><span class="font1">1885</span></p>
+<p><span class="font4">Figure 2: Development of the lexical item </span><span class="font4" style="font-style:italic;">Sünde</span><span class="font4"> [sin] during the study period relative to the VAD dimensions.</span></p>
+<table border="1">
+<tr><td rowspan="2" style="vertical-align:middle;">
+<p><span class="font2">Rank</span></p></td><td colspan="4">
+<p><span class="font2">Lemma and Translation</span></p></td></tr>
+<tr><td colspan="2">
+<p><span class="font2">1690s</span></p></td><td colspan="2">
+<p><span class="font2">1890s</span></p></td></tr>
+<tr><td style="vertical-align:middle;">
+<p><span class="font2">1</span></p></td><td style="vertical-align:middle;">
+<p><span class="font2">todt-</span></p></td><td>
+<p><span class="font2">(German prefix for ‘death’ as in ‘deadly</span></p></td><td style="vertical-align:middle;">
+<p><span class="font2">Lamm</span></p></td><td style="vertical-align:middle;">
+<p><span class="font2">lamb</span></p></td></tr>
+<tr><td>
+<p></p></td><td>
+<p></p></td><td>
+<p><span class="font2">sins’)</span></p></td><td>
+<p></p></td><td>
+<p></p></td></tr>
+<tr><td style="vertical-align:middle;">
+<p><span class="font2">2</span></p></td><td>
+<p><span class="font2">Erzürnung</span></p></td><td>
+<p><span class="font2">infu nation</span></p></td><td>
+<p><span class="font2">hinwegnehmen</span></p></td><td>
+<p><span class="font2">to take away</span></p></td></tr>
+<tr><td>
+<p><span class="font2">3</span></p></td><td>
+<p><span class="font2">läßlich</span></p></td><td>
+<p><span class="font2">minor (clerical)</span></p></td><td>
+<p><span class="font2">Verzeihung</span></p></td><td>
+<p><span class="font2">forgiveness</span></p></td></tr>
+<tr><td>
+<p><span class="font2">4</span></p></td><td>
+<p><span class="font2">beichten</span></p></td><td>
+<p><span class="font2">to confess</span></p></td><td>
+<p><span class="font2">Ausschweifung</span></p></td><td>
+<p><span class="font2">excess</span></p></td></tr>
+<tr><td>
+<p><span class="font2">5</span></p></td><td>
+<p><span class="font2">Nachlaß</span></p></td><td>
+<p><span class="font2">abatement/</span></p>
+<p><span class="font2">inheritance</span></p></td><td>
+<p><span class="font2">Gotte</span></p></td><td>
+<p><span class="font2">god</span></p></td></tr>
+<tr><td style="vertical-align:middle;">
+<p><span class="font2">6</span></p></td><td>
+<p><span class="font2">Grobheit</span></p></td><td>
+<p><span class="font2">crudeness</span></p></td><td>
+<p><span class="font2">Schande</span></p></td><td>
+<p><span class="font2">shame</span></p></td></tr>
+<tr><td>
+<p><span class="font2">7</span></p></td><td>
+<p><span class="font2">verschweigen</span></p></td><td>
+<p><span class="font2">to conceal</span></p></td><td>
+<p><span class="font2">Reue</span></p></td><td>
+<p><span class="font2">repentance</span></p></td></tr>
+<tr><td style="vertical-align:middle;">
+<p><span class="font2">8</span></p></td><td>
+<p><span class="font2">beweinen</span></p></td><td>
+<p><span class="font2">to beweep</span></p></td><td>
+<p><span class="font2">Ärgernis</span></p></td><td>
+<p><span class="font2">nuisance</span></p></td></tr>
+<tr><td>
+<p><span class="font2">9</span></p></td><td>
+<p><span class="font2">pichen</span></p></td><td>
+<p><span class="font2">to pitch</span></p></td><td>
+<p><span class="font2">Laster</span></p></td><td>
+<p><span class="font2">vice</span></p></td></tr>
+<tr><td style="vertical-align:middle;">
+<p><span class="font2">10</span></p></td><td>
+<p><span class="font2">beichten</span></p></td><td>
+<p><span class="font2">to confess</span></p></td><td>
+<p><span class="font2">aufrichtig</span></p></td><td>
+<p><span class="font2">sincere</span></p></td></tr>
+</table>
+<p><span class="font4">Table 1: Top ten collocations of the lexical item </span><span class="font4" style="font-style:italic;">Sünde</span><span class="font4"> [sin] in the DTA corpus comparing the 1690s and the 1890s&nbsp;using pointwise mutual information for scoring. Source:</span></p>
+<p><span class="font4"><a href="http://kaskade.dwds.de/dstar/dta/diacollo/">http://kaskade.dwds.de/dstar/dta/diacollo/</a></span></p>
+<p><span class="font10">We illustrate this approach with an example from</span></p>
+<p><span class="font10">Figure 2. It displays an overall amelioration of </span><span class="font10" style="font-style:italic;">Sünde </span><span class="font10">[sin] whose onset roughly coincides with the age of enlightenment—often understood as the starting point&nbsp;of secularization (Sheehan, 2003), although care must&nbsp;be taken when interpreting these word course graphs&nbsp;since noise can be introduced from various sources&nbsp;(such as word similarity and emotion induction algorithms); both strongly depend on the amount of data&nbsp;available for each time step. This observation is in line&nbsp;with well-known findings from descriptive lexicography (Grimm and Grimm, 1942). The same semantic&nbsp;shift can also be discovered by a more established&nbsp;method, namely collocation analysis.</span></p>
+<p><span class="font10">Table 1 reveals that </span><span class="font10" style="font-style:italic;">Sünde,</span><span class="font10"> at the end of our examination period, has acquired an additional moral-bourgeois meaning facet (implied, e.g., by </span><span class="font10" style="font-style:italic;">Ausschweifung </span><span class="font10">[excess], </span><span class="font10" style="font-style:italic;">Ärgernis</span><span class="font10"> [nuisance] and </span><span class="font10" style="font-style:italic;">Laster</span><span class="font10"> [vice]) which&nbsp;was not present in the beginning. There, only the religious sense is traceable.</span></p>
+<p><span class="font10">Going one step further, we then used these lexicons to examine how emotion is distributed over literary&nbsp;texts in the DTA in the course of time. We employed&nbsp;the </span><span class="font10" style="font-style:italic;text-decoration:underline;">Jena Emotion Analysis System</span><span class="font10" style="font-style:italic;"> </span><span class="font10" style="font-variant:small-caps;">(JEmAS; Buechel and&nbsp;Hahn, 2016), an open-source tool for emotion measurement using a configurable VAD lexicon. We processed each DTA text with the period-aligned lexicon,</span></p><div>
+<p><span class="font10">leading to the main methodological contribution of our work: linking the research areas of automatically&nbsp;inducing historical </span><span class="font10" style="font-weight:bold;">word </span><span class="font10">emotion (e.g., Hamilton et al.,&nbsp;2016) and emotion prediction in historical </span><span class="font10" style="font-weight:bold;">text </span><span class="font10">(e.g.,&nbsp;Acerbi et al., 2013).</span></p>
+<p><span class="font10">We scaled the resulting emotion values within each VAD dimension tracing the development of the three&nbsp;principal literary forms—Narrative, Lyric, and&nbsp;Drama—in German literature between 1690 and&nbsp;1899. For each of the seven 30-year periods (organized in rows), we created three scatterplots (one for&nbsp;each pair of the VAD dimensions; organized in columns) resulting in 21 plots in total (Figure 3). Each&nbsp;data point represents one text—color and shape represent membership to the respective form.</span></p>
+<p><span class="font10">It is evident from the plots how the distinction of the individual forms increases and decreases in emotional terms in the course of time. This application differs from typical stylometric approaches since we employ emotional features instead of word counts. We&nbsp;find the most distinct emotional patterns between&nbsp;1780 to 1809 (approximately covering the Weimar&nbsp;Classicism) and between 1870 to 1899 (covering the&nbsp;late German Realism). Drama displays consistently&nbsp;more Arousal than Lyric and Narrative since 1750,&nbsp;whereas Lyric seems to be the most positive class (Valence) expressing the least control (Dominance). Of&nbsp;course, the examination of the DTA offers many more&nbsp;intriguing findings, however, for brevity, we limit ourselves here to presenting examples.</span></p></div><br clear="all"/><div>
+<p><span class="font7">1690-1719</span></p></div><br clear="all"/><div>
+<p><span class="font7">1720-1749</span></p></div><br clear="all"/><div>
+<p><span class="font7">1750-1779</span></p></div><br clear="all"/><div>
+<p><span class="font7">1780-1809</span></p></div><br clear="all"/><div>
+<p><span class="font7">1810-1839</span></p></div><br clear="all"/><div>
+<p><span class="font7">1840-1869</span></p></div><br clear="all"/><div>
+<p><span class="font7">1870-1899</span></p></div><br clear="all"/><div>
+<p><span class="font0" style="font-weight:bold;">œ</span></p>
+<p><span class="font0" style="font-weight:bold;">=5</span></p>
+<p><span class="font0" style="font-weight:bold;">O</span></p>
+<p><span class="font0" style="font-weight:bold;">&lt;</span></p></div><br clear="all"/><div>
+<p><span class="font0" style="font-weight:bold;">œ</span></p>
+<p><span class="font0" style="font-weight:bold;">=5</span></p>
+<p><span class="font0" style="font-weight:bold;">O</span></p>
+<p><span class="font0" style="font-weight:bold;">&lt;</span></p></div><br clear="all"/><div>
+<p><span class="font0" style="font-weight:bold;">œ</span></p>
+<p><span class="font0" style="font-weight:bold;">=5</span></p>
+<p><span class="font0" style="font-weight:bold;">O</span></p>
+<p><span class="font0" style="font-weight:bold;">&lt;</span></p></div><br clear="all"/><div>
+<p><span class="font0" style="font-weight:bold;">œ</span></p>
+<p><span class="font0" style="font-weight:bold;">=5</span></p>
+<p><span class="font0" style="font-weight:bold;">O</span></p>
+<p><span class="font0" style="font-weight:bold;">&lt;</span></p></div><br clear="all"/><div>
+<p><span class="font0" style="font-weight:bold;">œ</span></p>
+<p><span class="font0" style="font-weight:bold;">=5</span></p>
+<p><span class="font0" style="font-weight:bold;">O</span></p>
+<p><span class="font0" style="font-weight:bold;">&lt;</span></p></div><br clear="all"/><div>
+<p><span class="font0" style="font-weight:bold;">œ</span></p>
+<p><span class="font0" style="font-weight:bold;">=5</span></p>
+<p><span class="font0" style="font-weight:bold;">O</span></p>
+<p><span class="font0" style="font-weight:bold;">&lt;</span></p></div><br clear="all"/><div>
+<p><span class="font0" style="font-weight:bold;">œ</span></p>
+<p><span class="font0" style="font-weight:bold;">=5</span></p>
+<p><span class="font0" style="font-weight:bold;">O</span></p>
+<p><span class="font0" style="font-weight:bold;">&lt;</span></p></div><br clear="all"/><div>
+<p><span class="font2">n—i—i—r</span></p>
+<p><span class="font0">-4 &nbsp;&nbsp;&nbsp;0 2</span></p>
+<p><span class="font2">Valence</span></p></div><br clear="all"/><div><h1><a name="caption1"></a><a name="bookmark0"></a><span class="font6">n.</span></h1></div><br clear="all"/><div>
+<p><span class="font2">n—i—i—r</span></p>
+<p><span class="font0">-4 &nbsp;&nbsp;&nbsp;0 2</span></p>
+<p><span class="font2">Valence</span></p></div><br clear="all"/><div>
+<p><span class="font2">n—i—i—r</span></p>
+<p><span class="font0">-4 &nbsp;&nbsp;&nbsp;0 2</span></p>
+<p><span class="font2">Valence</span></p></div><br clear="all"/><div>
+<p><span class="font10"><sup>V</sup>'<sup>:</sup></span></p>
+<p><span class="font2">T-1-1-1—</span></p>
+<p><span class="font0">-4 &nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;2</span></p>
+<p><span class="font2">Valence</span></p></div><br clear="all"/><div><h1><a name="bookmark1"></a><span class="font6">K</span></h1>
+<p><span class="font10">T-1-1-T“</span></p>
+<p><span class="font0">-4 &nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;2</span></p>
+<p><span class="font2">Valence</span></p></div><br clear="all"/><div>
+<p><span class="font10">*</span></p>
+<p><span class="font10">T-1-1-T</span></p>
+<p><span class="font0">-4 &nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;2</span></p>
+<p><span class="font2">Valence</span></p></div><br clear="all"/><div>
+<p><span class="font0">: X</span></p>
+<p><span class="font10">T-1-1-T</span></p>
+<p><span class="font0">-4 &nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;2</span></p>
+<p><span class="font2">Valence</span></p></div><br clear="all"/><div>
+<p><span class="font0">: &nbsp;&nbsp;&nbsp;X</span></p>
+<p><span class="font2">T—i—i—r</span></p>
+<p><span class="font0">-4 &nbsp;&nbsp;&nbsp;0 2</span></p>
+<p><span class="font2">Valence</span></p></div><br clear="all"/><div><img src="491_files/491-3.jpg" style="width:14pt;height:15pt;"/></div><br clear="all"/><div>
+<p><span class="font2">T—i—i—r</span></p>
+<p><span class="font0">-4 &nbsp;&nbsp;&nbsp;0 2</span></p>
+<p><span class="font2">Valence</span></p>
+<p><span class="font0">o</span></p>
+<p><span class="font0">Q</span></p><img src="491_files/491-4.jpg" style="width:39pt;height:35pt;"/>
+<p><span class="font0">-4 &nbsp;&nbsp;&nbsp;0 2</span></p>
+<p><span class="font2">Valence</span></p></div><br clear="all"/><div>
+<p><span class="font0" style="font-weight:bold;">œ</span></p>
+<p><span class="font0" style="font-weight:bold;">=5</span></p>
+<p><span class="font0" style="font-weight:bold;">O</span></p>
+<p><span class="font0" style="font-weight:bold;">&lt;</span></p></div><br clear="all"/><div><img src="491_files/491-5.jpg" style="width:28pt;height:14pt;"/>
+<p><span class="font10">&lt;</span></p></div><br clear="all"/><div>
+<p><span class="font10">T-1-1-T</span></p>
+<p><span class="font0">-4 &nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;2</span></p>
+<p><span class="font2">Valence</span></p></div><br clear="all"/><div>
+<p><span class="font5">: &lt;■</span></p>
+<p><span class="font10">I-1-1-I<sup>-</sup></span></p></div><br clear="all"/><div>
+<p><span class="font0">-4 &nbsp;&nbsp;&nbsp;0 2</span></p>
+<p><span class="font2">Valence</span></p></div><br clear="all"/><div><img src="491_files/491-6.jpg" style="width:10pt;height:13pt;"/></div><br clear="all"/><div>
+<p><span class="font10">T-1-1-T</span></p>
+<p><span class="font0">-4 &nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;2</span></p>
+<p><span class="font2">Valence</span></p></div><br clear="all"/><div><img src="491_files/491-7.jpg" style="width:12pt;height:17pt;"/></div><br clear="all"/><div>
+<p><span class="font10">T-1-1-T</span></p>
+<p><span class="font0">-4 &nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;2</span></p>
+<p><span class="font2">Valence</span></p></div><br clear="all"/><div>
+<p><span class="font0" style="font-weight:bold;">œ</span></p>
+<p><span class="font0" style="font-weight:bold;">=5</span></p>
+<p><span class="font0" style="font-weight:bold;">O</span></p>
+<p><span class="font0" style="font-weight:bold;">&lt;</span></p></div><br clear="all"/><div>
+<p><span class="font10">z </span><span class="font2" style="font-style:italic;">I</span></p>
+<p><span class="font10">J I I I I I</span></p>
+<p><span class="font0">-3 -1 &nbsp;&nbsp;&nbsp;1</span></p>
+<p><span class="font2">Dominance</span></p></div><br clear="all"/><div>
+<p><span class="font0">: .&lt;</span></p>
+<p><span class="font2">J I I I I I</span></p>
+<p><span class="font0">-3 -1 1 </span><span class="font2">Dominance</span></p><img src="491_files/491-8.jpg" style="width:38pt;height:34pt;"/>
+<p><span class="font0">-3 &nbsp;&nbsp;&nbsp;-1&nbsp;&nbsp;&nbsp;&nbsp;1</span></p>
+<p><span class="font2">Dominance</span></p></div><br clear="all"/><div><img src="491_files/491-9.jpg" style="width:18pt;height:13pt;"/></div><br clear="all"/><div>
+<p><span class="font10">J I I I I I</span></p>
+<p><span class="font0">-3 &nbsp;&nbsp;&nbsp;-1&nbsp;&nbsp;&nbsp;&nbsp;1</span></p>
+<p><span class="font2">Dominance</span></p></div><br clear="all"/><div>
+<p><span class="font0">: #</span></p>
+<p><span class="font2">“*1 I I I I I</span></p>
+<p><span class="font0">-3 -1 1 </span><span class="font2">Dominance</span></p></div><br clear="all"/><div><img src="491_files/491-10.jpg" style="width:12pt;height:13pt;"/></div><br clear="all"/><div>
+<p><span class="font2">J I I I I I</span></p>
+<p><span class="font0">-3 &nbsp;&nbsp;&nbsp;-1&nbsp;&nbsp;&nbsp;&nbsp;1</span></p>
+<p><span class="font2">Dominance</span></p></div><br clear="all"/><div><img src="491_files/491-11.jpg" style="width:19pt;height:17pt;"/></div><br clear="all"/><div>
+<p><span class="font2">J I I I I I</span></p>
+<p><span class="font0">-3 &nbsp;&nbsp;&nbsp;-1&nbsp;&nbsp;&nbsp;&nbsp;1</span></p>
+<p><span class="font2">Dominance</span></p></div><br clear="all"/><div>
+<p><span class="font11" style="font-weight:bold;">Conclusion</span></p></div><br clear="all"/>
+<p><span class="font2">■ Lyric • Narrative </span><span class="font3" style="font-variant:small-caps;">a</span><span class="font2"> Drama</span></p>
+<p><span class="font10">In this contribution, we described a novel methodological framework for quantifying emotion in noncontemporary text. Applying this approach to a 210-years section of the German DTA corpus, we find clear emotional signals for temporally evolving distinctions&nbsp;between the principal literary forms, viz. Narrative,</span></p>
+<p><span class="font10">Lyric, and Drama. All resources and software we developed for this work are </span><span class="font10" style="text-decoration:underline;">publicly available</span><span class="font10">.</span></p>
+<p><span class="font4">Figure 3: Distribution und development of the principal literary forms, Lyric (blue), Drama (green) and Narrative&nbsp;(red), relative to each pair of VAD emotions (in columns)</span></p>
+<p><span class="font4">between 1690 and 1899 (each row representing a 30-year slice).</span></p>
+<p><span class="font11" style="font-weight:bold;">Acknowledgments</span></p>
+<p><span class="font10">This research was partially conducted within the Graduate School “The Romantic Model&quot; supported by&nbsp;grant GRK 2041/1 from the Deutsche Forschungsgemeinschaft (DFG).</span></p><div>
+<p><span class="font11" style="font-weight:bold;">Bibliography</span></p>
+<p><span class="font9" style="font-weight:bold;">Acerbi, A., Lampos, V., Garnett, P. and Bentley, R.A.</span></p>
+<p><span class="font9">(2013). The expression of emotions in 20th century books. </span><span class="font9" style="font-style:italic;">PLoS ONE</span><span class="font9"> 8(3): e59030.</span></p>
+<p><span class="font9" style="font-weight:bold;">Bentley, R.A., Acerbi, A., Ormerod, P. and Lampos, V.</span></p>
+<p><span class="font9">(2014). Books average previous decade of economic misery. </span><span class="font9" style="font-style:italic;">PLoS ONE</span><span class="font9">, 9(1): e83147.</span></p></div><br clear="all"/>
+<p><span class="font9" style="font-weight:bold;">Bradley, M.M. and Lang, P.J. </span><span class="font9">(1994). Measuring emotion: The self-assessment manikin and the semantic differential. </span><span class="font9" style="font-style:italic;">Journal of Behavior Therapy and Experimental Psychiatry,</span><span class="font9"> 25(1): 49-59.</span></p>
+<p><span class="font9" style="font-weight:bold;">Bradley, M.M. and Lang, P.J. </span><span class="font9">(1999). Affective norms for</span></p>
+<p><span class="font9">English words (ANEW): Stimuli, instruction manual and affective Ratings. Report C-1, The Center for Research in&nbsp;Psychophysiology, University of Florida, Gainesville.</span></p>
+<p><span class="font9" style="font-weight:bold;">Bestgen, Y</span><span class="font9">. (2008). Building affective lexicons from specific corpora for automatic sentiment analysis. </span><span class="font9" style="font-style:italic;">Proceedings of&nbsp;the Sixth International Conference on Language Resources and Evaluation,</span><span class="font9"> pp. 496-500.</span></p>
+<p><span class="font9" style="font-weight:bold;">Buechel, S. and Hahn, U. </span><span class="font9">(2016). Emotion analysis as a regression problem: Dimensional models and their implications on emotion representation and metrical evaluation. </span><span class="font9" style="font-style:italic;">Proceedings of the 22nd European Conference on Artificial Intelligence</span><span class="font9">, pp. 1114-22.</span></p>
+<p><span class="font9" style="font-weight:bold;">Buechel, S., Hahn, U., Goldenstein, J., Händschke, S.G.M. and Walgenbach, P. </span><span class="font9">(2016a). Do enterprises have emotions? </span><span class="font9" style="font-style:italic;">Proceedings of the 7th Workshop on Computational&nbsp;Approaches to Subjectivity, Sentiment and Social Media</span></p>
+<p><span class="font9" style="font-style:italic;">Analysis</span><span class="font9">, pp. 147-53.</span></p>
+<p><span class="font9" style="font-weight:bold;">Buechel, S. Hellrich, J. and Hahn, U. </span><span class="font9">(2016b). Feelings</span></p>
+<p><span class="font9">from the past—Adapting affective lexicons for historical emotion analysis. </span><span class="font9" style="font-style:italic;">Proceedings of the Workshop on Language Technology Resources and Tools for Digital Humanities</span><span class="font9">, pp. 54-61.</span></p>
+<p><span class="font9" style="font-weight:bold;">Carroll, N., and Gibson, J</span><span class="font9">. (eds) (2011). </span><span class="font9" style="font-style:italic;">Narrative, Emotion, and Insight.</span><span class="font9"> University Park: Pennsylvania State University Press.</span></p>
+<p><span class="font9" style="font-weight:bold;">Cook, P. and Stevenson, S. </span><span class="font9">(2010). Automatically identifying changes in the semantic orientation of words. </span><span class="font9" style="font-style:italic;">Proceedings of the 7th International Conference on Language Resources and Evaluation</span><span class="font9">, pp. 28-34.</span></p>
+<p><span class="font9" style="font-weight:bold;">Ekman, P. </span><span class="font9">(1992). An argument for basic emotions. </span><span class="font9" style="font-style:italic;">Cognition &amp; Emotion</span><span class="font9">, 6(3-4): 169-200.</span></p>
+<p><span class="font9" style="font-weight:bold;">Geyken, A. </span><span class="font9">(2013). Wege zu einem historischen Referenzkorpus des Deutschen: das Pro- jekt Deutsches Textarchiv. </span><span class="font9" style="font-style:italic;">Perspektiven einer corpusbasierten historischen Linguistik und Philologie</span><span class="font9">, pp. 221- 34.</span></p>
+<p><span class="font9" style="font-weight:bold;">Grimm, J. and Grimm, W. </span><span class="font9">(eds) (1942). Sünde. In: </span><span class="font9" style="font-style:italic;">Deutsches Wörterbuch</span><span class="font9">, volume 20.</span></p>
+<p><span class="font9" style="font-weight:bold;">Hamilton, W.L., Clark K., Leskovec, J. and Jurafsky D.</span></p>
+<p><span class="font9">(2016). Inducing domain-specific sentiment lexicons from unlabeled corpora. In </span><span class="font9" style="font-style:italic;">Proceedings of the 2016 Conference on Empirical Methods in Natural Language Processing,</span><span class="font9"> pp. 595-605.</span></p>
+<p><span class="font9" style="font-weight:bold;">Hellrich, J. and Hahn, U. </span><span class="font9">(2016). Bad company—Neighborhoods in neural embedding spaces considered harmful. In </span><span class="font9" style="font-style:italic;">Proceedings of COLING 2016, the 26th International&nbsp;Conference on Computational Linguistics</span><span class="font9">: Technical Papers, pp. 2785-96.</span></p>
+<p><span class="font9" style="font-weight:bold;">Hillebrand, C. </span><span class="font9">(2011). </span><span class="font9" style="font-style:italic;">Das emotionale Wirkungspotenzial von Erzähltexten: Mit Fallstudien zu Kafka, Perutz und&nbsp;Werfel</span><span class="font9">. Berlin: Akademie Verlag.</span></p>
+<p><span class="font9" style="font-weight:bold;">Levy, O., Goldberg, Y. and Dagan, I. </span><span class="font9">(2015). Improving distributional similarity with lessons learned from word embeddings. </span><span class="font9" style="font-style:italic;">Transactions of the Association for Computational Linguistics</span><span class="font9">, 3: 211-25.</span></p>
+<p><span class="font9" style="font-weight:bold;">Liu, B. </span><span class="font9">(2015). </span><span class="font9" style="font-style:italic;">Sentiment Analysis: Mining Opinion, Sentiments and Emotions</span><span class="font9">. New York: Cambridge University Press.</span></p>
+<p><span class="font9" style="font-weight:bold;">Moretti, F. </span><span class="font9">(2013). </span><span class="font9" style="font-style:italic;">Distant Reading</span><span class="font9">. London: Verso.</span></p>
+<p><span class="font9" style="font-weight:bold;">Poppe, S. </span><span class="font9">(2012). </span><span class="font9" style="font-style:italic;">Emotionen in Literatur und Film</span><span class="font9">. Würzburg: Königshausen &amp; Neumann.</span></p>
+<p><span class="font9" style="font-weight:bold;">Schmidtke, D.S., Schröder, T., Jacobs, A.M. and Conrad, M. </span><span class="font9">(2014). ANGST: Affective norms for German sentiment terms, derived from the affective norms for English&nbsp;words. </span><span class="font9" style="font-style:italic;">Behavior Research Methods</span><span class="font9">, 46(4): 1108-18.</span></p>
+<p><span class="font9" style="font-weight:bold;">Sheehan, J. </span><span class="font9">(2003). Enlightenment, religion, and the enigma of secularization: A review essay. </span><span class="font9" style="font-style:italic;">The American Historical Review</span><span class="font9">, </span><span class="font9" style="font-style:italic;">108</span><span class="font9">(4): 1061-80.</span></p>
+<p><span class="font9" style="font-weight:bold;">Turney, P.D. and Littman, M.L. </span><span class="font9">(2003). Measuring praise</span></p>
+<p><span class="font9">and criticism: Inference of semantic orientation from association. </span><span class="font9" style="font-style:italic;">ACM Transactions on Information Systems</span><span class="font9">,</span></p>
+<p><span class="font9">21(4): 315-46.</span></p>
+</body>
+</html>

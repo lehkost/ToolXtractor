@@ -1,0 +1,296 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"
+	"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head><meta http-equiv="content-type" content="text/html; charset=UTF-8"/><meta name="generator" content="ABBYY FineReader 14"/><title>Microsoft Word - 408. Bamman-Natural Language Processing for the Long Tail-408.docx</title><link rel="stylesheet" href="408_files/408.css" type="text/css"/>
+</head>
+<body><h1><a name="caption1"></a><a name="bookmark0"></a><span class="font3" style="font-weight:bold;">Natural Language Processing for the Long Tail</span></h1>
+<p><span class="font5" style="font-weight:bold;">David Banman</span></p>
+<p><span class="font5"><a href="mailto:dbamman@berkeley.edu">dbamman@berkeley.edu</a></span></p>
+<p><span class="font5">UC Berkeley, United States of America</span></p>
+<p><span class="font5">Natural language processing (NLP) is a research area that stands at the intersection of linguistics and&nbsp;computer science; its focus is the development of&nbsp;automatic methods that can reason about the internal&nbsp;structure of text. This includes </span><span class="font5" style="font-weight:bold;">part-of-speech&nbsp;tagging </span><span class="font5">(which, for a sentence like </span><span class="font5" style="font-style:italic;">John ate the apple,&nbsp;</span><span class="font5">infers that </span><span class="font5" style="font-style:italic;">John</span><span class="font5"> is a noun, and </span><span class="font5" style="font-style:italic;">ate</span><span class="font5"> a verb), </span><span class="font5" style="font-weight:bold;">syntactic&nbsp;parsing </span><span class="font5">(which infers that </span><span class="font5" style="font-style:italic;">John</span><span class="font5"> is the syntactic subject&nbsp;of </span><span class="font5" style="font-style:italic;">ate</span><span class="font5">, and </span><span class="font5" style="font-style:italic;">the apple</span><span class="font5"> its direct object), and </span><span class="font5" style="font-weight:bold;">named&nbsp;entity recognition </span><span class="font5">(which infers that </span><span class="font5" style="font-style:italic;">John</span><span class="font5"> is a </span><span class="font5" style="font-variant:small-caps;">Person,&nbsp;</span><span class="font5">and that </span><span class="font5" style="font-style:italic;">apple</span><span class="font5"> is not, for example, an </span><span class="font5" style="font-variant:small-caps;">Organization of&nbsp;the same name). Beyond these core tasks, NLP also&nbsp;encompasses sentiment analysis, named entity&nbsp;linking, information extraction, and machine&nbsp;translation (among many other applications).</span></p>
+<p><span class="font5">Over the past few years, NLP has become an increasingly important element in computational&nbsp;research in the humanities. Automatic part-of-speech&nbsp;taggers have been used to filter input in topic models&nbsp;(Jockers, 2013) and explore poetic enjambment&nbsp;(Houston, 2014). Syntactic parsers have been used to&nbsp;help select relevant context for concordances (Benner,&nbsp;2014). Named entity recognizers have been used to&nbsp;map the attention given to various cities in American&nbsp;fiction (Wilkens, 2013) and to map toponyms in&nbsp;Joyce's </span><span class="font5" style="font-style:italic;">Ulysses</span><span class="font5"> (Derven et al., 2014) and Pelagios texts&nbsp;(Simon et al., 2014). The sequence tagging models&nbsp;behind many part-of-speech taggers have also been&nbsp;used for identifying genres in books (Underwood et al.,&nbsp;2013).</span></p>
+<p><span class="font5">There is a substantial gap, however, between the quality of the NLP used by researchers in the&nbsp;humanities and the state of the art. Research in natural&nbsp;language processing has overwhelmingly focused&nbsp;much of its attention on English, and specifically on the&nbsp;domain of news (simply as a function of the availability&nbsp;of training data). The Penn Treebank (Marcus et al.,&nbsp;1993)—containing morphosyntactic annotations of&nbsp;the </span><span class="font5" style="font-style:italic;">Wall Street Journal—</span><span class="font5">has driven automatic parsing&nbsp;performance in English above 92% (Andor et al.,&nbsp;2016); part-of-speech tagging on this same data now&nbsp;yields accuracies over 97% (S0gaard, 2011). While a&nbsp;handful of other high-resource languages (German,&nbsp;French, Spanish, Japanese) have attained comparable&nbsp;performance on similar data (Hajic et al., 2009), many&nbsp;languages simply have too few resources (or none&nbsp;whatsoever) to train robust automatic tools. Even&nbsp;within English, out-of-domain performance of many&nbsp;NLP tasks—in which, for example, a syntactic parser&nbsp;trained on the </span><span class="font5" style="font-style:italic;">Wall Street Journal</span><span class="font5"> is used to&nbsp;automatically label the syntax for </span><span class="font5" style="font-style:italic;">Paradise Lost—</span><span class="font5">is&nbsp;bleak. Figure 1 illustrates one sentence from </span><span class="font5" style="font-style:italic;">Paradise&nbsp;Lost</span><span class="font5"> automatically tagged and parsed using a tool&nbsp;trained on the </span><span class="font5" style="font-style:italic;">Wall Street Journal.</span><span class="font5"> Since this model is&nbsp;trained on newswire, it expects newswire as its input;&nbsp;errors in the part-of-speech assignment snowball to&nbsp;bigger errors in syntax.</span></p><img src="408_files/408-1.jpg" style="width:241pt;height:62pt;"/>
+<p><span class="font1">Figure 1: Parsers and part-of-speech taggers trained on the</span></p>
+<p><span class="font1">WSJ expect newswire syntax. Automatically parsed syntactic dependency graph with part-of-speech tags for&nbsp;Long is the way and hard, that out of Hell leads up to light.&nbsp;Errors in part-of-speech tags and dependency arcs are&nbsp;shown in red. Part-of-speech errors snowball into major</span></p>
+<p><span class="font1">syntactic errors.</span></p>
+<p><span class="font5">Table 1 provides a summary of recent research that has investigated the disparity between training data&nbsp;and test data for several NLP tasks (including part-of-speech tagging, syntactic parsing and named entity&nbsp;recognition). While many of these tools are trained on&nbsp;the same fixed corpora (comprised primarily of&nbsp;newswire), they suffer a dramatic drop in&nbsp;performance when used to analyze texts that come&nbsp;from a substantially different domain. Without any&nbsp;form of adaptation (such as normalizing spelling&nbsp;across time spans), the performance of an out-of-the-box part-of-speech tagger can, at worse, be half that of&nbsp;its performance on contemporary newswire. On&nbsp;average, differences in style amount to a drop in&nbsp;performance of approximately 10-20 absolute&nbsp;percentage points across tasks. These are substantial&nbsp;losses.</span></p>
+<table border="1">
+<tr><td style="vertical-align:bottom;">
+<p><span class="font6">Citation</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font6">Task</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font6">In domain</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font6">Accuracy</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font6">Out domain</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font6">Accuracy</span></p></td></tr>
+<tr><td>
+<p><span class="font6">RäüSQRetal. (2007)</span></p></td><td style="vertical-align:middle;">
+<p><span class="font6">POS</span></p></td><td style="vertical-align:middle;">
+<p><span class="font6">English news</span></p></td><td style="vertical-align:middle;">
+<p><span class="font6">97.0%</span></p></td><td style="vertical-align:middle;">
+<p><span class="font6">Shakespeare</span></p></td><td style="vertical-align:middle;">
+<p><span class="font6">81.9%</span></p></td></tr>
+<tr><td>
+<p><span class="font6">§^giW<sub>ft</sub>etal.(2011)</span></p></td><td style="vertical-align:middle;">
+<p><span class="font6">POS</span></p></td><td style="vertical-align:middle;">
+<p><span class="font6">German news</span></p></td><td style="vertical-align:middle;">
+<p><span class="font6">97.0%</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font6">Early Modem German</span></p></td><td style="vertical-align:middle;">
+<p><span class="font6">69.6%</span></p></td></tr>
+<tr><td>
+<p><span class="font6">Moon and Baidridge, (2007)</span></p></td><td style="vertical-align:middle;">
+<p><span class="font6">POS</span></p></td><td style="vertical-align:middle;">
+<p><span class="font6">WSJ</span></p></td><td style="vertical-align:middle;">
+<p><span class="font6">97.3%</span></p></td><td style="vertical-align:middle;">
+<p><span class="font6">Middle English</span></p></td><td style="vertical-align:middle;">
+<p><span class="font6">56.2%</span></p></td></tr>
+<tr><td>
+<p><span class="font6">gfiSUagSidSMiand</span></p>
+<p><span class="font6">Xaa&amp;9dß(2008)</span></p></td><td style="vertical-align:middle;">
+<p><span class="font6">POS</span></p></td><td style="vertical-align:middle;">
+<p><span class="font6">Italian news</span></p></td><td style="vertical-align:middle;">
+<p><span class="font6">97.0%</span></p></td><td style="vertical-align:middle;">
+<p><span class="font6">Dante</span></p></td><td style="vertical-align:middle;">
+<p><span class="font6">75.0%</span></p></td></tr>
+<tr><td>
+<p><span class="font6">l&amp;xsw&amp;et al. (2013b)</span></p></td><td style="vertical-align:middle;">
+<p><span class="font6">POS</span></p></td><td style="vertical-align:middle;">
+<p><span class="font6">WSJ</span></p></td><td style="vertical-align:middle;">
+<p><span class="font6">97.3%</span></p></td><td style="vertical-align:middle;">
+<p><span class="font6">Twitter</span></p></td><td style="vertical-align:middle;">
+<p><span class="font6">73.7%</span></p></td></tr>
+<tr><td>
+<p><span class="font6">Yang and Eisenstein (2016)</span></p></td><td style="vertical-align:middle;">
+<p><span class="font6">POS</span></p></td><td style="vertical-align:middle;">
+<p><span class="font6">WSJ</span></p></td><td>
+<p></p></td><td style="vertical-align:middle;">
+<p><span class="font6">Early Modem English</span></p></td><td style="vertical-align:middle;">
+<p><span class="font6">74.3%</span></p></td></tr>
+<tr><td>
+<p><span class="font0">Südsa(2oon</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font6">PS</span></p>
+<p><span class="font6">parsing</span></p></td><td style="vertical-align:middle;">
+<p><span class="font6">WSJ</span></p></td><td style="vertical-align:middle;">
+<p><span class="font6">86.3 F</span></p></td><td style="vertical-align:middle;">
+<p><span class="font6">Brown corpus</span></p></td><td style="vertical-align:middle;">
+<p><span class="font6">80.6 F</span></p></td></tr>
+<tr><td>
+<p><span class="font6">Lease and CMroM (2005)</span></p></td><td style="vertical-align:middle;">
+<p><span class="font6">PS</span></p>
+<p><span class="font6">parsing</span></p></td><td style="vertical-align:middle;">
+<p><span class="font6">WSJ</span></p></td><td style="vertical-align:middle;">
+<p><span class="font6">89.5 F</span></p></td><td style="vertical-align:middle;">
+<p><span class="font6">GENIA medical texts</span></p></td><td style="vertical-align:middle;">
+<p><span class="font6">76.3 F</span></p></td></tr>
+<tr><td>
+<p><span class="font6">ßjHgaetal. (2013)</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font6">Dep.</span></p>
+<p><span class="font6">parsing</span></p></td><td style="vertical-align:middle;">
+<p><span class="font6">WSJ</span></p></td><td style="vertical-align:middle;">
+<p><span class="font6">88.2%</span></p></td><td style="vertical-align:middle;">
+<p><span class="font6">Patent data</span></p></td><td style="vertical-align:middle;">
+<p><span class="font6">79.6%</span></p></td></tr>
+<tr><td>
+<p><span class="font6">ggjggetal. (2014)</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font6">Dep.</span></p>
+<p><span class="font6">parsing</span></p></td><td style="vertical-align:middle;">
+<p><span class="font6">WSJ</span></p></td><td style="vertical-align:middle;">
+<p><span class="font6">86.9%</span></p></td><td style="vertical-align:middle;">
+<p><span class="font6">Broadcast news</span></p></td><td style="vertical-align:middle;">
+<p><span class="font6">79.4%</span></p></td></tr>
+<tr><td>
+<p></p></td><td>
+<p></p></td><td>
+<p></p></td><td>
+<p></p></td><td style="vertical-align:bottom;">
+<p><span class="font6">Magazines</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font6">77.1%</span></p></td></tr>
+<tr><td>
+<p></p></td><td>
+<p></p></td><td>
+<p></p></td><td>
+<p></p></td><td style="vertical-align:bottom;">
+<p><span class="font6">Broadcast</span></p>
+<p><span class="font6">conversation</span></p></td><td style="vertical-align:middle;">
+<p><span class="font6">73.4%</span></p></td></tr>
+<tr><td>
+<p><span class="font6">QSi«W&amp;et al. (2013a)</span></p></td><td style="vertical-align:middle;">
+<p><span class="font6">NER</span></p></td><td style="vertical-align:middle;">
+<p><span class="font6">CoNLL 2003</span></p></td><td style="vertical-align:middle;">
+<p><span class="font6">89.0 F</span></p></td><td style="vertical-align:middle;">
+<p><span class="font6">Twitter</span></p></td><td style="vertical-align:middle;">
+<p><span class="font6">41.0 F</span></p></td></tr>
+</table>
+<p><span class="font1">Figure 2: Out-of-domain performance for several NLP tasks, including POS tagging, phrase structure (PS) parsing,&nbsp;dependency parsing and named entity recognition.&nbsp;Accuracies are reported in percentages; phrase structure&nbsp;parsing and NER are reported in F1 measure.</span></p>
+<p><span class="font5">While many techniques are currently under development in the NLP community for domain&nbsp;adaptation (Blitzer et al., 2006; Chelba and Acero,&nbsp;2006; Daumé III, 2009; Glorot et al., 2011; Yang and&nbsp;Eisenstein, 2014), including leveraging fortuitous data&nbsp;(Plank, 2016), they often require specialized expertise&nbsp;that can be a bottleneck for researchers in the&nbsp;humanities. The simplest and most empowering&nbsp;solution is often to create </span><span class="font5" style="font-style:italic;">in-domain</span><span class="font5"> data and train&nbsp;NLP methods on it directly; in-domain data can&nbsp;substantially increase performance, almost to levels&nbsp;approaching state-of-the-art on newswire. When&nbsp;adding training data of Early Modern German and&nbsp;adding spelling normalization, Scheible et al. (2011)&nbsp;increase POS tagging accuracy on Early Modern&nbsp;German texts from 69.6% to 91.0%; when Moon and&nbsp;Baldridge (2007) train a POS tagger on Middle English&nbsp;texts, this pushes their accuracy from 56.2% to 93.7%;&nbsp;when Derczynski et al. (2013b) train a POS tagger&nbsp;directly on Twitter data, this increases accuracy from&nbsp;73.7% to 88.4%. In-domain data is astoundingly&nbsp;helpful for many NLP tasks, from part-of-speech&nbsp;tagging and syntactic parsing to temporal tagging&nbsp;(Strotgen and Gertz, 2012).</span></p>
+<p><span class="font5">The difficulty, of course, is that training data is expensive to create at scale since it relies on human&nbsp;judgments; and the cost of this data scales with the&nbsp;complexity of the task, so that morphosyntactic or&nbsp;semantic annotations (which require a holistic&nbsp;understanding of an entire sentence) are often&nbsp;prohibitive. Few projects achieve this scale for&nbsp;domains in the humanities, but when they do, they&nbsp;have real impact - these include WordHoard, which&nbsp;contains part-of-speech annotations for Shakespeare,&nbsp;Chaucer and Spenser (Mueller, 2015); the Penn and&nbsp;York parsed corpora of historical English (Taylor and&nbsp;Kroch, 2000; Kroch et al., 2004; Taylor et al., 2006); the&nbsp;Perseus Greek and Latin treebanks (Bamman and&nbsp;Crane, 2011), which contain morphosyntactic&nbsp;annotations for classical Greek and Latin works; the&nbsp;Index Thomisticus (Passarotti, 2007), which contains&nbsp;morphosyntactic annotations for the works of Thomas&nbsp;Aquinas; the PROIEL treebank (Haug and J0hndal,&nbsp;2008), which contains similar annotations for several&nbsp;translations of the Bible (Greek, Latin, Gothic,&nbsp;Armenian and Church Slavonic); the Tycho Brahe&nbsp;Parsed Corpus of Historical Portuguese (Galves and&nbsp;Faria, 2010); the Icelandic Parsed Historical Corpus&nbsp;(Rognvaldsson et al., 2012), and Twitter, annotated for&nbsp;part-of-speech (Gimpel et al., 2011) and dependency&nbsp;syntax (Kong et al., 2014).</span></p>
+<p><span class="font5">The availability of these annotated corpora means that we have the ability to train NLP tools for some&nbsp;dialects, domains and genres in Ancient Greek, Latin,&nbsp;Early Modern English, historical Portuguese, and a few&nbsp;other languages; this doesn't help the scholar working&nbsp;on John Milton, Virginia Woolf, Miguel Cervantes, or&nbsp;the countless other authors and genres in the long tail&nbsp;of underserved domains that researchers are&nbsp;increasingly finding high-quality NLP useful to help&nbsp;analyze. In this talk, I'll argue for an alternative: an&nbsp;open repository of linguistic annotations that scholars&nbsp;can use to train statistical models for processing&nbsp;natural language in a variety of domains, leveraging&nbsp;information from complementary sources (such as the&nbsp;works of Shakespeare) to perform well on a target&nbsp;domain of interest (such as the works of Christopher&nbsp;Marlowe). What this repository critically relies on is&nbsp;the expertise of the individuals who simultaneously&nbsp;are the consumers of NLP for their long-tail domain&nbsp;and are in the uniquely best position to create&nbsp;linguistic data to support their own work—and in&nbsp;doing so, can help develop an ecosystem that can&nbsp;support the work of others.</span></p>
+<table border="1">
+<tr><td style="vertical-align:bottom;">
+<p><span class="font6">Citation</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font6">Task</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font6">In domain</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font6">Accuracy</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font6">Out domain</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font6">Accuracy</span></p></td></tr>
+<tr><td>
+<p><span class="font6">RäüSQRetal. (2007)</span></p></td><td style="vertical-align:middle;">
+<p><span class="font6">POS</span></p></td><td style="vertical-align:middle;">
+<p><span class="font6">English news</span></p></td><td style="vertical-align:middle;">
+<p><span class="font6">97.0%</span></p></td><td style="vertical-align:middle;">
+<p><span class="font6">Shakespeare</span></p></td><td style="vertical-align:middle;">
+<p><span class="font6">81.9%</span></p></td></tr>
+<tr><td>
+<p><span class="font6">§^giW<sub>ft</sub>etal.(2011)</span></p></td><td style="vertical-align:middle;">
+<p><span class="font6">POS</span></p></td><td style="vertical-align:middle;">
+<p><span class="font6">German news</span></p></td><td style="vertical-align:middle;">
+<p><span class="font6">97.0%</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font6">Early Modem German</span></p></td><td style="vertical-align:middle;">
+<p><span class="font6">69.6%</span></p></td></tr>
+<tr><td>
+<p><span class="font6">Moon and Baidridge, (2007)</span></p></td><td style="vertical-align:middle;">
+<p><span class="font6">POS</span></p></td><td style="vertical-align:middle;">
+<p><span class="font6">WSJ</span></p></td><td style="vertical-align:middle;">
+<p><span class="font6">97.3%</span></p></td><td style="vertical-align:middle;">
+<p><span class="font6">Middle English</span></p></td><td style="vertical-align:middle;">
+<p><span class="font6">56.2%</span></p></td></tr>
+<tr><td>
+<p><span class="font6">gfiSUagSidSMiand</span></p>
+<p><span class="font6">Xaa&amp;9dß(2008)</span></p></td><td style="vertical-align:middle;">
+<p><span class="font6">POS</span></p></td><td style="vertical-align:middle;">
+<p><span class="font6">Italian news</span></p></td><td style="vertical-align:middle;">
+<p><span class="font6">97.0%</span></p></td><td style="vertical-align:middle;">
+<p><span class="font6">Dante</span></p></td><td style="vertical-align:middle;">
+<p><span class="font6">75.0%</span></p></td></tr>
+<tr><td>
+<p><span class="font6">l&amp;xsw&amp;et al. (2013b)</span></p></td><td style="vertical-align:middle;">
+<p><span class="font6">POS</span></p></td><td style="vertical-align:middle;">
+<p><span class="font6">WSJ</span></p></td><td style="vertical-align:middle;">
+<p><span class="font6">97.3%</span></p></td><td style="vertical-align:middle;">
+<p><span class="font6">Twitter</span></p></td><td style="vertical-align:middle;">
+<p><span class="font6">73.7%</span></p></td></tr>
+<tr><td>
+<p><span class="font6">Yang and Eisenstein (2016)</span></p></td><td style="vertical-align:middle;">
+<p><span class="font6">POS</span></p></td><td style="vertical-align:middle;">
+<p><span class="font6">WSJ</span></p></td><td>
+<p></p></td><td style="vertical-align:middle;">
+<p><span class="font6">Early Modem English</span></p></td><td style="vertical-align:middle;">
+<p><span class="font6">74.3%</span></p></td></tr>
+<tr><td>
+<p><span class="font0">Südsa(2oon</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font6">PS</span></p>
+<p><span class="font6">parsing</span></p></td><td style="vertical-align:middle;">
+<p><span class="font6">WSJ</span></p></td><td style="vertical-align:middle;">
+<p><span class="font6">86.3 F</span></p></td><td style="vertical-align:middle;">
+<p><span class="font6">Brown corpus</span></p></td><td style="vertical-align:middle;">
+<p><span class="font6">80.6 F</span></p></td></tr>
+<tr><td>
+<p><span class="font6">Lease and CMroM (2005)</span></p></td><td style="vertical-align:middle;">
+<p><span class="font6">PS</span></p>
+<p><span class="font6">parsing</span></p></td><td style="vertical-align:middle;">
+<p><span class="font6">WSJ</span></p></td><td style="vertical-align:middle;">
+<p><span class="font6">89.5 F</span></p></td><td style="vertical-align:middle;">
+<p><span class="font6">GENIA medical texts</span></p></td><td style="vertical-align:middle;">
+<p><span class="font6">76.3 F</span></p></td></tr>
+<tr><td>
+<p><span class="font6">ßjHgaetal. (2013)</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font6">Dep.</span></p>
+<p><span class="font6">parsing</span></p></td><td style="vertical-align:middle;">
+<p><span class="font6">WSJ</span></p></td><td style="vertical-align:middle;">
+<p><span class="font6">88.2%</span></p></td><td style="vertical-align:middle;">
+<p><span class="font6">Patent data</span></p></td><td style="vertical-align:middle;">
+<p><span class="font6">79.6%</span></p></td></tr>
+<tr><td>
+<p><span class="font6">ggjggetal. (2014)</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font6">Dep.</span></p>
+<p><span class="font6">parsing</span></p></td><td style="vertical-align:middle;">
+<p><span class="font6">WSJ</span></p></td><td style="vertical-align:middle;">
+<p><span class="font6">86.9%</span></p></td><td style="vertical-align:middle;">
+<p><span class="font6">Broadcast news</span></p></td><td style="vertical-align:middle;">
+<p><span class="font6">79.4%</span></p></td></tr>
+<tr><td>
+<p></p></td><td>
+<p></p></td><td>
+<p></p></td><td>
+<p></p></td><td style="vertical-align:bottom;">
+<p><span class="font6">Magazines</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font6">77.1%</span></p></td></tr>
+<tr><td>
+<p></p></td><td>
+<p></p></td><td>
+<p></p></td><td>
+<p></p></td><td style="vertical-align:bottom;">
+<p><span class="font6">Broadcast</span></p>
+<p><span class="font6">conversation</span></p></td><td style="vertical-align:middle;">
+<p><span class="font6">73.4%</span></p></td></tr>
+<tr><td>
+<p><span class="font6">QSi«W&amp;et al. (2013a)</span></p></td><td style="vertical-align:middle;">
+<p><span class="font6">NER</span></p></td><td style="vertical-align:middle;">
+<p><span class="font6">CoNLL 2003</span></p></td><td style="vertical-align:middle;">
+<p><span class="font6">89.0 F</span></p></td><td style="vertical-align:middle;">
+<p><span class="font6">Twitter</span></p></td><td style="vertical-align:middle;">
+<p><span class="font6">41.0 F</span></p></td></tr>
+</table>
+<p><span class="font1">Figure 1. Out-of-domain performance for several NLP tasks, including POS tagging, phrase structure (PS) parsing,&nbsp;dependency parsing and named entity recognition.&nbsp;Accuracies are reported in percentages; phrase structure&nbsp;parsing and NER are reported in F1 measure.</span></p><h2><a name="bookmark1"></a><span class="font2" style="font-weight:bold;">Acknowledgements</span></h2>
+<p><span class="font5">Many thanks to the anonymous reviewers for helpful feedback. This work is supported by a grant by&nbsp;the Digital Humanities at Berkeley initiative.</span></p><h2><a name="bookmark2"></a><span class="font2" style="font-weight:bold;">Bibliography</span></h2>
+<p><span class="font4" style="font-weight:bold;">Andor, D., Alberti, C., Weiss, D., Severyn, A., Presta, A., Ganchev, K., Petrov, S., and Collins, M. </span><span class="font4">(2016). Globally normalized transition-based neural networks. In</span></p>
+<p><span class="font4" style="font-style:italic;">Proceedings of the 54th Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers)</span><span class="font4">, pages 2442-2452, Berlin, Germany, August 2016. Association for Computational Linguistics.</span></p>
+<p><span class="font4" style="font-weight:bold;">Bamman, D., and Crane, G. </span><span class="font4">(2011) The ancient Greek and Latin dependency treebanks. In </span><span class="font4" style="font-style:italic;">Language Technology&nbsp;for Cultural Heritage</span><span class="font4">, pages 79-98. Springer, 2011.</span></p>
+<p><span class="font4" style="font-weight:bold;">Benne, D. C. </span><span class="font4">(2014). Marrying the benefits of print and digital: Algorithmically selecting context for a key word. In </span><span class="font4" style="font-style:italic;">Digital Humanities 2014</span><span class="font4">, 2014.</span></p>
+<p><span class="font4" style="font-weight:bold;">Blitzer, J., McDonald, R., and Pereira, F. </span><span class="font4">(2006) Domain adaptation with structural correspondence learning. In</span></p>
+<p><span class="font4" style="font-style:italic;">Proceedings of the 2006 Conference on Empirical Methods in Natural Language Processing</span><span class="font4">, EMNLP '06, pages</span></p>
+<p><span class="font4">120-128, Stroudsburg, PA, USA, 2006. Association for Computational Linguistics.</span></p>
+<p><span class="font4" style="font-weight:bold;">Burga, A., Codina, J., Ferraro, G., Saggion, H., and Wanner, L. </span><span class="font4">(2013). The challenge of syntactic dependency parsing adaptation for the patent domain. In </span><span class="font4" style="font-style:italic;">ESSLLI-13&nbsp;Workshop on Extrinsic Parse Improvement</span><span class="font4">, 2013.</span></p>
+<p><span class="font4" style="font-weight:bold;">Chelba, C., and Acero, A. </span><span class="font4">(2006). Adaptation of maximum entropy capitalizer: Little data can help a lot. </span><span class="font4" style="font-style:italic;">Computer&nbsp;Speech &amp; Language</span><span class="font4">, 20 (4): 382-399, 2006.</span></p>
+<p><span class="font4" style="font-weight:bold;">Daume, H. </span><span class="font4">(2009) Frustratingly easy domain adaptation.</span></p>
+<p><span class="font4" style="font-style:italic;">arXiv preprint arXiv:0907.1815</span><span class="font4">.</span></p>
+<p><span class="font4" style="font-weight:bold;">Derczynski, L., Maynard, D., Aswani, N., and Bontcheva,</span></p>
+<p><span class="font4" style="font-weight:bold;">K. </span><span class="font4">(2013a) Microblog-genre noise and impact on semantic annotation accuracy. In </span><span class="font4" style="font-style:italic;">Proceedings of the 24th ACM Conference on Hypertext and Social Media</span><span class="font4">, pages&nbsp;21-30. ACM, 2013.</span></p>
+<p><span class="font4" style="font-weight:bold;">Derczynski, L., Ritter, A., Clark, S., and Bontcheva, K</span><span class="font4">.</span></p>
+<p><span class="font4">Twitter part-of-speech tagging for all: Overcoming sparse and noisy data. In </span><span class="font4" style="font-style:italic;">RANLP</span><span class="font4">, pages 198-206,&nbsp;2013b.</span></p>
+<p><span class="font4" style="font-weight:bold;">Derven, C., Teehan, A., and Keating, J. </span><span class="font4">(2014). Mapping and unmapping Joyce: Geoparsing wandering rocks. In&nbsp;</span><span class="font4" style="font-style:italic;">Digital Humanities 2014</span><span class="font4">, 2014.</span></p>
+<p><span class="font4" style="font-weight:bold;">Galves, C., and Faria, P. </span><span class="font4">(2010). Tycho Brahe Parsed Corpus of Historical Portuguese. </span><span class="font4" style="text-decoration:underline;"><a href="http://www.tycho.iel.uni-camp.br/corpus/en/index.html_">http://www.tycho.iel.uni-camp.br/corpus/en/index.html</span><span class="font4"> </a>.</span></p>
+<p><span class="font4" style="font-weight:bold;">Gildea, D. </span><span class="font4">(2001) Corpus variation and parser performance. In </span><span class="font4" style="font-style:italic;">Proceedings of the 2001 Conference on Empirical Methods in Natural Language Processing</span><span class="font4">, pages 167202, 2001.</span></p>
+<p><span class="font4" style="font-weight:bold;">Gimpel, K., Schneider, N., O'Connor, B., Das, D., Mills, D., Eisenstein, J., Heilman, M., Yogatama, D., Flanigan, J.,</span></p>
+<p><span class="font4" style="font-weight:bold;">and Smith, N. A. </span><span class="font4">(2011) Part-of-speech tagging for Twitter: Annotation, features, and experiments. In </span><span class="font4" style="font-style:italic;">Proceedings of the Annual Meeting of the Association for&nbsp;Computational Linguistics, companion volume</span><span class="font4">, Portland,&nbsp;OR, June 2011.</span></p>
+<p><span class="font4" style="font-weight:bold;">Glorot, X., Bordes, A., and Bengio, Y. </span><span class="font4">(2011). Domain adaptation for large-scale sentiment classification: A deep learning approach. In </span><span class="font4" style="font-style:italic;">Proceedings of the 28th International Conference on Machine Learning (ICML-11)</span><span class="font4">, pages&nbsp;513-520, 2011.</span></p><h3><a name="bookmark3"></a><span class="font4" style="font-weight:bold;">Hajic, J., Ciaramita, M., Johansson, R., Kawahara, D., Marti, M. A., Marquez, L., Meyers, A., Nivre, J., Pado,</span></h3>
+<p><span class="font4" style="font-weight:bold;">S., Stepanek, J., et al. </span><span class="font4">(2009) The CoNLL-2009 shared</span></p>
+<p><span class="font4">task: Syntactic and semantic dependencies in multiple languages. In </span><span class="font4" style="font-style:italic;">Proceedings of the Thirteenth Conference</span></p>
+<p><span class="font4" style="font-style:italic;">on Computational Natural Language Learning: Shared</span></p>
+<p><span class="font4" style="font-style:italic;">Task,</span><span class="font4"> pages 1-18. Association for Computational Linguistics, 2009.</span></p>
+<p><span class="font4" style="font-weight:bold;">Haug, D. TT, and J0hndal, M. </span><span class="font4">(2008) Creating a parallel treebank of the old indo-european bible translations. In</span></p>
+<p><span class="font4" style="font-style:italic;">Proceedings of the Language Technology for Cultural Heritage Data Workshop (LaTeCH 2008), Marrakech,&nbsp;Morocco, 1st June 2008</span><span class="font4">, pages 27-34, 2008.</span></p>
+<p><span class="font4" style="font-weight:bold;">Houston, N. </span><span class="font4">(2014) Enjambment and the poetic line: Towards a computational poetics. In </span><span class="font4" style="font-style:italic;">Digital Humanities 2014</span><span class="font4">, 2014.</span></p>
+<p><span class="font4" style="font-weight:bold;">Jockers, M. </span><span class="font4">(2013) “Secret” recipe for topic modeling themes. <a href="http://www.matthewjock-ers.net/2013/04/12/secret-recipe-for-topic-modeling-themes/">http://www.matthewjock-ers.net/2013/04/12/secret-recipe-for-topic-modeling-themes/</a>, April 2013.</span></p>
+<p><span class="font4" style="font-weight:bold;">Kong, L., Schneider, N., Swayamdipta, S., Bhatia, A.,</span></p>
+<p><span class="font4" style="font-weight:bold;">Dyer, C., and Smith, N. A </span><span class="font4">(2014). A dependency parser for tweets. In </span><span class="font4" style="font-style:italic;">Proceedings of the 2014 Conference on Empirical Methods in Natural Language Processing</span></p>
+<p><span class="font4" style="font-style:italic;">(EMNLP)</span><span class="font4">, pages 1001-1012, Doha, Qatar, October 2014. Association for Computational Linguistics.</span></p>
+<p><span class="font4" style="font-weight:bold;">Kroch, A., Santorini, B., and Delfs, L. </span><span class="font4">(2004). Penn-Helsinki parsed corpus of Early Modern English. </span><span class="font4" style="font-style:italic;">Philadelphia: Department of Linguistics, University of Pennsylvania</span><span class="font4">, 2004.</span></p>
+<p><span class="font4" style="font-weight:bold;">Lease, M., and Charniak, E. </span><span class="font4">(2005). Parsing biomedical literature. In </span><span class="font4" style="font-style:italic;">Natural Language Processing-IJCNLP 2005, </span><span class="font4">pages 58-69. Springer.</span></p><h3><a name="bookmark4"></a><span class="font4" style="font-weight:bold;">Marcus, M. P., Santorini, B., and Marcinkiewicz, M. A.</span></h3>
+<p><span class="font4">(1993). Building a large annotated corpus of English: The Penn Treebank. </span><span class="font4" style="font-style:italic;">Computational Linguistics</span><span class="font4">, 19 (2):&nbsp;313-330, 1993.</span></p>
+<p><span class="font4" style="font-weight:bold;">Moon, T., and Baldridge, J. </span><span class="font4">(2007). Part-of-speech tagging for Middle English through alignment and projection of&nbsp;parallel diachronic texts. In </span><span class="font4" style="font-style:italic;">EMNLP-CoNLL</span><span class="font4">, pages 390399, 2007.</span></p>
+<p><span class="font4" style="font-weight:bold;">Mueller, M. </span><span class="font4">(2015). Wordhoard. <a href="http://wordhoard.north-western.edu/">http://wordhoard.north-western.edu/</a>, Accessed 2015.</span></p>
+<p><span class="font4" style="font-weight:bold;">Passarotti. M. </span><span class="font4">(2006), Verso il Lessico Tomistico Bicul-turale. La treebank dell'Index Thomisticus. In Petrilli Raffaella and Femia Diego, editors, </span><span class="font4" style="font-style:italic;">Il filo del discorso. In-trecci testuali, articolazioni linguistiche, composizioni&nbsp;logiche. Atti del XIII Congresso Nazionale della Societa di&nbsp;Filosofia del Linguaggio, Viterbo, Settembre 2006</span><span class="font4">, pages&nbsp;187-205. Roma, Aracne Editrice, Pubblicazioni della Societa di Filosofía del Linguaggio, 2007.</span></p>
+<p><span class="font4" style="font-weight:bold;">Pekar, V., Yu, J., El-karef, M., and Bohnet, B</span><span class="font4">. (2014)Ex-</span></p>
+<p><span class="font4">ploring options for fast domain adaptation of dependency parsers. </span><span class="font4" style="font-style:italic;">SPMRL-SANCL 2014</span><span class="font4">, page 54.</span></p>
+<p><span class="font4" style="font-weight:bold;">Pennacchiotti, M., and Zanzotto, F. M</span><span class="font4">. (2008). Natural language processing across time: An empirical investigation on italian. In </span><span class="font4" style="font-style:italic;">Advances in natural language processing</span><span class="font4">, pages 371-382. Springer.</span></p>
+<p><span class="font4" style="font-weight:bold;">Plank, B. </span><span class="font4">(2016). What to do about non-standard (or noncanonical) language in NLP. In </span><span class="font4" style="font-style:italic;">KONVENZ</span><span class="font4">, 2016.</span></p>
+<p><span class="font4" style="font-weight:bold;">Rayson, P., Archer, D., Baron, A., Culpeper, J., and Smith,</span></p>
+<p><span class="font4" style="font-weight:bold;">N. </span><span class="font4">(2007). Tagging the bard: Evaluating the accuracy of a modern pos tagger on early modern english corpora.</span></p>
+<p><span class="font4">In </span><span class="font4" style="font-style:italic;">Proceedings of Corpus Linguistics (CL2007)</span><span class="font4">.</span></p><h3><a name="bookmark5"></a><span class="font4" style="font-weight:bold;">Rognvaldsson, E., Ingason, A. K., Sigursson, E. F., and</span></h3>
+<p><span class="font4" style="font-weight:bold;">Wallenberg, J. </span><span class="font4">(2012). The Icelandic Parsed Historical Corpus (IcePaHC). In </span><span class="font4" style="font-style:italic;">LREC</span><span class="font4">, pages 1977-1984, 2012.</span></p>
+<p><span class="font4" style="font-weight:bold;">Scheible, S., Whitt, R. J., Durrell, M., and Bennett, P.</span></p>
+<p><span class="font4">(2011). Evaluating an ‘off-the-shelf' POS-tagger on early modern German text. In </span><span class="font4" style="font-style:italic;">Proceedings of the 5th ACL-HLT</span></p>
+<p><span class="font4" style="font-style:italic;">workshop on language technology for cultural heritage, social sciences, and humanities</span><span class="font4">, pages 19-23. Association for Computational Linguistics, 2011.</span></p><h3><a name="bookmark6"></a><span class="font4" style="font-weight:bold;">Simon, R., Barker, E. T. E., de Soto, P., and Isaksen, L.</span></h3>
+<p><span class="font4">(2014). Pelagios 3: Towards the semi- automatic annotation of toponyms in early geospatial documents. In</span></p>
+<p><span class="font4" style="font-style:italic;">Digital Humanities 2014</span><span class="font4">.</span></p>
+<p><span class="font4" style="font-weight:bold;">S0gaard, A. </span><span class="font4">(2011). Semisupervised condensed nearest neighbor for part-of-speech tagging. In </span><span class="font4" style="font-style:italic;">Proceedings of&nbsp;the 49th Annual Meeting of the Association for Computational Linguistics: Human Language Technologies: short&nbsp;papers-Volume 2</span><span class="font4">, pages 48-52. Association for Computational Linguistics, 2011.</span></p>
+<p><span class="font4" style="font-weight:bold;">Strotgen, J., and Gertz, M. </span><span class="font4">(2012). Temporal tagging on different domains: Challenges, strategies, and gold&nbsp;standards. In Nicoletta Calzolari, Khalid Choukri,&nbsp;Thierry Declerck, Mehmet Ugur Dogan, Bente Mae-gaard, Joseph Mariani, Asuncion Moreno, Jan Odijk, and&nbsp;Stelios Piperidis, editors, </span><span class="font4" style="font-style:italic;">Proceedings of the Eight International Conference on Language Resources and Evaluation (LREC'12)</span><span class="font4">, Istanbul, Turkey, may 2012. European&nbsp;Language Resources Association (ELRA). ISBN 978-29517408-7-7.</span></p>
+<p><span class="font4" style="font-weight:bold;">Taylor, A., and Kroch, A.S. </span><span class="font4">(2000) The Penn-Helsinki Parsed Corpus of Middle English. </span><span class="font4" style="font-style:italic;">University of Pennsylvania</span><span class="font4">, 2000.</span></p>
+<p><span class="font4" style="font-weight:bold;">Taylor, A., Nurmi, A., Warner, A., Pintzuk, S., and Neva-lainen, T. </span><span class="font4">(2006). Parsed Corpus of Early English Correspondence. Oxford Text Archive.</span></p>
+<p><span class="font4" style="font-weight:bold;">Underwood, T., Black, M. L., Auvil, L., and Capitanu, B.</span></p>
+<p><span class="font4">(2013). Mapping mutable genres in structurally complex volumes. In </span><span class="font4" style="font-style:italic;">Big Data, 2013 IEEE International Conference on,</span><span class="font4"> pages 95-103. IEEE, 2013.</span></p>
+<p><span class="font4" style="font-weight:bold;">Wilkens, M. </span><span class="font4">(2013). The geographic imagination of Civil War-era American fiction. </span><span class="font4" style="font-style:italic;">American Literary History</span><span class="font4">, 25&nbsp;(4): 803-840, 2013. 10.1093/alh/ajt045.</span></p>
+<p><span class="font4" style="font-weight:bold;">Yang, Y., and Eisenstein, J. </span><span class="font4">(2014). Fast easy unsupervised domain adaptation with marginalized structured dropout. </span><span class="font4" style="font-style:italic;">Proceedings of the Association for Computational Linguistics (ACL), Baltimore, MD</span><span class="font4">, 2014.</span></p>
+<p><span class="font4" style="font-weight:bold;">Yang, Y., and Eisenstein, J. </span><span class="font4">(2016). Part-of-speech tagging for historical English. In </span><span class="font4" style="font-style:italic;">Proceedings of the 2016 Conference of the North American Chapter of the Association for&nbsp;Computational Linguistics: Human Language Technologies</span><span class="font4">, pages 1318-1328, San Diego, California, June 2016.&nbsp;Association for Computational Linguistics.</span></p>
+</body>
+</html>

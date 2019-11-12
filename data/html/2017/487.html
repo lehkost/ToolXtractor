@@ -1,0 +1,164 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"
+	"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head><meta http-equiv="content-type" content="text/html; charset=UTF-8"/><meta name="generator" content="ABBYY FineReader 14"/><title>Microsoft Word - 487. Hellrich-Don't Get Fooled by Word Embeddings--Better Watch their Neighborhood-487.docx</title><link rel="stylesheet" href="487_files/487.css" type="text/css"/>
+</head>
+<body><h1><a name="caption1"></a><a name="bookmark0"></a><span class="font9" style="font-weight:bold;">Don't Get Fooled by Word Embeddings—</span></h1><h1><a name="bookmark1"></a><span class="font9" style="font-weight:bold;">Better Watch their Neighborhood</span></h1>
+<p><span class="font8" style="font-weight:bold;">Johannes Hellrich</span></p>
+<p><span class="font8"><a href="mailto:johannes.hellrich@uni-jena.de">johannes.hellrich@uni-jena.de</a> Friedrich Schiller University Jena, Germany</span></p>
+<p><span class="font8" style="font-weight:bold;">Udo Hahn</span></p>
+<p><span class="font8"><a href="mailto:udo.hahn@uni-jena.de">udo.hahn@uni-jena.de</a></span></p>
+<p><span class="font8">Friedrich Schiller University Jena, Germany</span></p>
+<p><span class="font8">Word embeddings, such as those created by the word2vec family of algorithms (Mikolov et al., 2013),&nbsp;are the current state of the art for modeling lexical semantics in Computational Linguistics. They are also&nbsp;getting more and more popular in the Digital Humanities, especially for diachronic language research (see&nbsp;below). Yet the most common methods for creating&nbsp;word embeddings are ill-suited for deriving qualitative conclusions since they typically involve random&nbsp;processes that severely limit the reliability of results—&nbsp;repeated experiments differ in which words are&nbsp;deemed most similar with each other (Hellrich and&nbsp;Hahn, 2016a,b). We provide a short overview of different embedding methods and demonstrate how this&nbsp;lack of reliability might affect the outcome of experiments. We also recommend a more recent embedding&nbsp;method, SVD</span><span class="font6">PPMI </span><span class="font8">(Levy et al., 2015), which seems immune to these reliability problems and, thus, much&nbsp;better suited (not only) for the Digital Humanities&nbsp;(Hamilton et al., 2016).</span></p>
+<p><span class="font8">Word embeddings are a form of computational distributional semantics for determining a word's meaning &quot;from the company it keeps&quot; (Firth, 1957, p. 11), i.e., the words it co-occurs with. The word2vec algorithms have their origin in heavily trimmed artificial&nbsp;neural networks. Their skip-gram negative sampling&nbsp;(SGNS) variant is widely used because of its high performance and robustness (Mikolov et al., 2013; Levy et&nbsp;al., 2015). Two other word embedding methods were&nbsp;inspired by word2vec: GloVe (Pennington et al., 2014)&nbsp;tries to avoid the opaqueness stemming from&nbsp;word2vec's neural network heritage through an explicit word co-occurrence table, while the more recent</span></p>
+<p><span class="font8">SVD</span><span class="font6">PPMI </span><span class="font8">(Levy et al., 2015) is built upon the classical pointwise mutual information co-occurrence metric&nbsp;(Church and Hanks, 1990) enhanced with pre-processing steps and hyper-parameters from the two&nbsp;aforementioned algorithms.</span></p>
+<p><span class="font8">There are two sources of randomness affecting the training of SGNS and GloVe embeddings: First, the random initialization of all word embedding vectors before any examples are processed. Second, the order in&nbsp;which these examples are processed. Both can be replaced by deterministic alternatives, yet this would&nbsp;simply replace a random distortion with a fixed one,&nbsp;thus providing faux reliability only useful for testing&nbsp;purposes. In contrast, SVD</span><span class="font6">PPMI </span><span class="font8">is conceptually not affected by such reliability problems, as neither random&nbsp;initialization takes place nor is a relevant processing&nbsp;order established.</span></p>
+<p><span class="font8">Word embeddings can be compared with each other to measure the similarity of words (typically by&nbsp;cosine)—an ability by which they are often assessed&nbsp;(see e.g., Baroni et al. (2014) for more details on their&nbsp;evaluation). In the Digital Humanities, they have already been used to directly track diachronic changes&nbsp;in word meaning by comparing representations of the&nbsp;same word at different points in time (Kim et al., 2014;&nbsp;Kulkarni et al., 2015; Hellrich and Hahn, 2016c; Hamilton et al., 2016). They can also be used to track clusters of similar words over time and, thus, model the&nbsp;evolution of topics (Kenter et al., 2015) or compare&nbsp;neighborhoods in embedding spaces for preselected&nbsp;words (Jo, 2016). Besides temporal variations, word&nbsp;embeddings are also suited for analyzing geographic&nbsp;ones, e.g., the distinction between US American and&nbsp;British English variants (Kulkarni et al., 2016). In most&nbsp;of these approaches, the local neighborhood of selected words in the resulting embedding spaces, i.e.,&nbsp;words deemed to be most similar with a word in question, are used to approximate their meaning at a given&nbsp;point in time or in a specific domain. Yet the aforementioned randomness leads to a lack of replicability,&nbsp;since repeated experiments using the same data set&nbsp;and algorithms result in different neighborhoods and&nbsp;might thus mislead researchers.</span></p>
+<p><span class="font8">To investigate this problem, we trained three models each with three embedding methods, i.e., GloVe and SVD</span><span class="font6">PPMI</span><span class="font8">, on the same data set and measured how they&nbsp;differ in their outcomes on word neighborhoods. Our&nbsp;data set consists of 645 German texts from the 19<sup>th</sup></span></p>
+<p><span class="font8">century that are part of the </span><span class="font8" style="font-style:italic;">Deutsches Textarchiv Kernkorpus</span><span class="font8"> (DTA) [German text archive core corpus] (Gey-ken, 2013; Jurish, 2013). The DTA contains manually</span></p>
+<p><span class="font8">transcribed texts selected for their representativeness and cultural importance; we use the orthographically&nbsp;normalized and lemmatized version, with casefolding.&nbsp;We evaluate the word embedding methods by calculating the percentage of neighbors for the most frequent nouns in the DTA on which all three models of&nbsp;each method agree. Overall, SVD</span><span class="font6">PPMI </span><span class="font8">provides perfect&nbsp;reliability, while the other two embedding methods&nbsp;lack reliability, SGNS dramatically so, which is consistent with our prior studies on word2vec (Hellrich&nbsp;and Hahn, 2016a,b).</span></p>
+<p><span class="font8">Figure 1 shows the reliability for each model evaluated against the 1000 most frequent nouns in the DTA&nbsp;when their first ten closest neighbors (from one up to&nbsp;ten) are compared. Larger neighborhood size had a&nbsp;small positive effect on the reliability of SGNS and&nbsp;GloVe, yet is clearly unable to mitigate the inherent unreliability of these methods. A small inverse effect can&nbsp;be observed when the number of the most frequent&nbsp;nouns is modified while keeping a constant neighborhood size of five, as displayed in Figure 2. Finally, Table 1 provides differing neighborhoods for </span><span class="font8" style="font-style:italic;">Herz&nbsp;</span><span class="font8">[heart] as a qualitative example. In this case, though&nbsp;not necessarily in general, SGNS models featured a&nbsp;more anatomical view (e.g., </span><span class="font8" style="font-style:italic;">bluten</span><span class="font8"> [to bleed]), whereas</span></p>
+<p><span class="font8">GloVe models uncovered metaphorical meaning (e.g.,</span></p>
+<p><span class="font8" style="font-style:italic;">gemut</span><span class="font8"> [mind]) and </span><span class="font8" style="font-variant:small-caps;">SVDppmi came out with a mix thereof. Using SGNS or GloVe models to assess a&nbsp;word's meaning can be strongly misleading, as evidenced by e.g., three SGNS models representing three&nbsp;different runs under the same experimental set-up.&nbsp;They lead to completely different semantic characterizations of </span><span class="font8" style="font-style:italic;">Herz</span><span class="font8"> [heart], since two provide negatively&nbsp;connotated words (e.g., </span><span class="font8" style="font-style:italic;">schmerzen</span><span class="font8"> [pain]) as closest&nbsp;neighbors, whereas the third provides a more positive</span></p><img src="487_files/487-1.jpg" style="width:242pt;height:153pt;"/>
+<p><span class="font3">Figure 1: Reliability of different word embeddings as percentage of identical neighbors among the one to ten&nbsp;closest neighbor(s) to the 1000 most frequent nouns.</span></p><div style="border:solid;"><img src="487_files/487-2.jpg" style="width:217pt;height:126pt;"/></div><br clear="all"/><div style="border-top:solid;">
+<p><span class="font3">Figure 2: Reliability of different word embeddings as percentage of identical neighbors among the five closest&nbsp;ones for the 100 to 1000 most frequent nouns.</span></p>
+<table border="1">
+<tr><td>
+<p><span class="font1">Embedding</span></p></td><td>
+<p><span class="font1">First</span></p></td><td>
+<p><span class="font1">Second</span></p></td><td>
+<p><span class="font1">Third</span></p></td><td>
+<p><span class="font1">Fourth</span></p></td><td>
+<p><span class="font1">Fifth</span></p></td></tr>
+<tr><td>
+<p><span class="font1">Model</span></p></td><td>
+<p><span class="font1">Neighbor</span></p></td><td>
+<p><span class="font1">Neighbor</span></p></td><td>
+<p><span class="font1">Neighbor</span></p></td><td>
+<p><span class="font1">Neighbor</span></p></td><td>
+<p><span class="font1">Neighbor</span></p></td></tr>
+<tr><td rowspan="2" style="vertical-align:middle;">
+<p><span class="font1">SGNS 1</span></p></td><td>
+<p><span class="font1">iCtoWWO</span></p></td><td>
+<p></p></td><td>
+<p></p></td><td>
+<p></p></td><td>
+<p></p></td></tr>
+<tr><td>
+<p><span class="font1">[pain|</span></p></td><td>
+<p><span class="font1">[anxious]</span></p></td><td>
+<p><span class="font1">[bosom]</span></p></td><td>
+<p><span class="font1">[to bleed]</span></p></td><td>
+<p><span class="font1">[to caress]</span></p></td></tr>
+<tr><td style="vertical-align:middle;">
+<p><span class="font1">SGNS 2</span></p></td><td>
+<p><span class="font2">WWk</span></p>
+<p><span class="font1">[to bleed]</span></p></td><td>
+<p><span class="font2" style="font-style:italic;">UPfiteoO.</span></p>
+<p><span class="font1">[beating]</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font1">[bosom]</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font1">[anxious]</span></p></td><td>
+<p><span class="font2" style="font-style:italic;">teWW,</span></p>
+<p><span class="font1">[to caress]</span></p></td></tr>
+<tr><td rowspan="2" style="vertical-align:middle;">
+<p><span class="font1">SGNS 3</span></p></td><td>
+<p><span class="font2" style="font-style:italic;">beatM</span></p></td><td>
+<p><span class="font2" style="font-style:italic;">iviea.</span></p></td><td>
+<p><span class="font1">«PAfcOrt</span></p></td><td>
+<p></p></td><td>
+<p><span class="font2" style="font-style:italic;">DIulW.</span></p></td></tr>
+<tr><td>
+<p><span class="font1">[to caress]</span></p></td><td>
+<p><span class="font1">[bosom]</span></p></td><td>
+<p><span class="font1">[beating]</span></p></td><td>
+<p><span class="font1">[anxious]</span></p></td><td>
+<p><span class="font1">[to bleed]</span></p></td></tr>
+<tr><td rowspan="2">
+<p></p></td><td>
+<p><span class="font2" style="font-style:italic;">O&amp;XM</span></p></td><td>
+<p><span class="font1">WO</span></p></td><td>
+<p></p></td><td>
+<p></p></td><td>
+<p><span class="font2">OoM</span></p></td></tr>
+<tr><td>
+<p><span class="font1">[mind]</span></p></td><td>
+<p><span class="font1">[my]</span></p></td><td>
+<p><span class="font1">[soul]</span></p></td><td>
+<p><span class="font1">[love]</span></p></td><td>
+<p><span class="font1">[chest]</span></p></td></tr>
+<tr><td rowspan="2">
+<p></p></td><td>
+<p><span class="font2" style="font-style:italic;">QWV-lk</span></p></td><td>
+<p><span class="font1">WO</span></p></td><td>
+<p></p></td><td>
+<p></p></td><td>
+<p><span class="font2" style="font-style:italic;">l&amp;te</span></p></td></tr>
+<tr><td>
+<p><span class="font1">[mind]</span></p></td><td>
+<p><span class="font1">[my]</span></p></td><td>
+<p><span class="font1">[soul]</span></p></td><td>
+<p><span class="font1">[chest]</span></p></td><td>
+<p><span class="font1">[love]</span></p></td></tr>
+<tr><td rowspan="2">
+<p></p></td><td>
+<p><span class="font2">(KWKit,</span></p></td><td>
+<p><span class="font2">wo</span></p></td><td>
+<p></p></td><td>
+<p></p></td><td>
+<p><span class="font2" style="font-style:italic;">liatK</span></p></td></tr>
+<tr><td>
+<p><span class="font1">[mind]</span></p></td><td>
+<p><span class="font1">[my]</span></p></td><td>
+<p><span class="font1">[soul]</span></p></td><td>
+<p><span class="font1">[chest]</span></p></td><td>
+<p><span class="font1">[love]</span></p></td></tr>
+<tr><td rowspan="2" style="vertical-align:middle;">
+<p><span class="font0" style="font-weight:bold;font-variant:small-caps;">SVDppmi,</span><span class="font1"> all</span></p></td><td>
+<p><span class="font2">toico.</span></p></td><td>
+<p><span class="font2" style="font-style:italic;">iiitiJea.</span></p></td><td>
+<p><span class="font2">(¿ate</span></p></td><td>
+<p></p></td><td>
+<p><span class="font2">«owKPaafta«.</span></p></td></tr>
+<tr><td>
+<p><span class="font1">[bosom]</span></p></td><td>
+<p><span class="font1">[to feel]</span></p></td><td>
+<p><span class="font1">[love]</span></p></td><td>
+<p><span class="font1">[pain]</span></p></td><td>
+<p><span class="font1">[human heart]</span></p></td></tr>
+</table></div><br clear="all"/>
+<p><span class="font10">□</span></p>
+<p><span class="font3">Table 1: Neighborhoods for Herz [heart] as provided by different word embedding models.</span></p>
+<p><span class="font8">The lack of reliability we observed is definitely problematic, as often, especially for illustrations, rather small neighborhoods are used to gauge a word's&nbsp;meaning. Our experimental data lead us to caution&nbsp;when SGNS or GloVe word neighborhoods are used for&nbsp;uncovering lexical semantics. We recommend SVD</span><span class="font6">PPMI&nbsp;</span><span class="font8">instead, as its results are of similar quality yet guaranteed to be reliable (Levy et al., 2015; Hamilton et al.,&nbsp;2016). Consequently, we adapted our ongoing research activities on tracking language change to these&nbsp;insights and replaced the results of earlier work with&nbsp;SGNS (Hellrich and Hahn, 2016c) by data based on&nbsp;SVD </span><span class="font6">PPMI </span><span class="font8">(Hellrich and Hahn, 2017).</span></p><h2><a name="bookmark2"></a><span class="font5" style="font-weight:bold;">Acknowledgements</span></h2>
+<p><span class="font8">This research was conducted within the Graduate School “The Romantic Model&quot; supported by grant GRK&nbsp;2041/1 from the Deutsche Forschungsgemeinschaft&nbsp;(DFG).</span></p><h2><a name="bookmark3"></a><span class="font5" style="font-weight:bold;">Bibliography</span></h2>
+<p><span class="font7" style="font-weight:bold;">Baroni, M., Dinu, G. and Kruszewski, G. </span><span class="font7">(2014). Don't count, predict! A systematic comparison of contextcounting vs. context-predicting semantic vectors. </span><span class="font7" style="font-style:italic;">Proceedings of the 52nd Annual Meeting of the Association for</span></p>
+<p><span class="font7" style="font-style:italic;">Computational Linguistics</span><span class="font7">, volume 1: Long Papers, pp.</span></p>
+<p><span class="font7">238-47.</span></p>
+<p><span class="font7" style="font-weight:bold;">Church, K.W. and Hanks, P. </span><span class="font7">(1990). Word association norms, mutual information, and lexicography. </span><span class="font7" style="font-style:italic;">Computational Linguistics</span><span class="font7"> 16(1): 22-29.</span></p>
+<p><span class="font7" style="font-weight:bold;">Firth, J. R. </span><span class="font7">(1957). A synopsis of linguistic theory, 19301955. </span><span class="font7" style="font-style:italic;">Studies in Linguistic Analysis</span><span class="font7">, pp. 1-32.</span></p>
+<p><span class="font7" style="font-weight:bold;">Geyken, A. </span><span class="font7">(2013). Wege zu einem historischen Referenzkorpus des Deutschen: das Pro- jekt Deutsches Textarchiv. </span><span class="font7" style="font-style:italic;">Perspektiven einer corpusbasierten historischen Linguistik und Philologie</span><span class="font7">, pp. 221- 34.</span></p>
+<p><span class="font7" style="font-weight:bold;">Hamilton, W.L., Leskovec, J. and Jurafsky, D. </span><span class="font7">(2016). Diachronic word embeddings reveal statistical laws of semantic change. </span><span class="font7" style="font-style:italic;">Proceedings of the 54th Annual Meeting of</span></p>
+<p><span class="font7" style="font-style:italic;">the Association for Computational Linguistics</span><span class="font7">, volume 1: Long Papers, pp. 1489-501.</span></p>
+<p><span class="font7" style="font-weight:bold;">Hellrich, J. and Hahn, U. </span><span class="font7">(2016a). An assessment of experimental protocols for tracing changes in word semantics relative to accuracy and reliability. </span><span class="font7" style="font-style:italic;">Proceedings of the</span></p>
+<p><span class="font7" style="font-style:italic;">10th SIGHUM Workshop on Language Technology for Cultural Heritage, Social Sciences, and Humanities @ ACL 2016,</span><span class="font7"> pp. 111-7.</span></p>
+<p><span class="font7" style="font-weight:bold;">Hellrich, J. and Hahn, U. </span><span class="font7">(2016b). Bad company—Neighborhoods in neural embedding spaces considered harmful. </span><span class="font7" style="font-style:italic;">Proceedings of the 26th International Conference on Computational Linguistics,</span><span class="font7"> pp. 2785-96.</span></p>
+<p><span class="font7" style="font-weight:bold;">Hellrich, J. and Hahn, U. </span><span class="font7">(2016c). Measuring the dynamics</span></p>
+<p><span class="font7">of lexico-semantic change since the German Romantic period. </span><span class="font7" style="font-style:italic;">Digital Humanities 2016</span><span class="font7">, pp. 545-7.</span></p>
+<p><span class="font7" style="font-weight:bold;">Hellrich, J. and Hahn, U. </span><span class="font7">(2017). Exploring Diachronic Lexical Semantics with JeSemE. </span><span class="font7" style="font-style:italic;">Proceedings of the 55th Annual Meeting of the Association for Computational Linguistics: System Demonstrations</span><span class="font7">.</span></p>
+<p><span class="font7" style="font-weight:bold;">Jo, E.S. </span><span class="font7">(2016). Diplomatic history by data. Understanding</span></p>
+<p><span class="font7">Cold War foreign policy ideology using networks and NLP. </span><span class="font7" style="font-style:italic;">Digital Humanities 2016</span><span class="font7">, pp. 582-5.</span></p>
+<p><span class="font7" style="font-weight:bold;">Jurish, B. </span><span class="font7">(2013). Canonicalizing the Deutsches Textarchiv. In Hafemann, I. (ed.), </span><span class="font7" style="font-style:italic;">Perspektiven einer corpusbasierten&nbsp;historischen Linguistik und Philologie</span><span class="font7">. pp. 235-44.</span></p>
+<p><span class="font7" style="font-weight:bold;">Kenter, T., Wevers, M., Huijnen, P. and de Rijke, M.</span></p>
+<p><span class="font7">(2015). Ad hoc monitoring of vocabulary shifts over time. </span><span class="font7" style="font-style:italic;">Proceedings of the 24th ACM International Conference on Information and Knowledge Management</span><span class="font7">, pp.&nbsp;1191-200.</span></p>
+<p><span class="font7" style="font-weight:bold;">Kim, Y., Chiu, Y., Hanaki, K., Hegde, D. and Petrov, S.</span></p>
+<p><span class="font7">(2014). Temporal analysis of language through neural</span></p>
+<p><span class="font7">language models</span><span class="font4" style="font-style:italic;">. </span><span class="font7" style="font-style:italic;">Proceedings of the ACL 2014 Workshop on Language Technologies and Computational Social Science</span><span class="font7">, pp. 61-5.</span></p>
+<p><span class="font7" style="font-weight:bold;">Kulkarni, V., Al-Rfou, R., Perozzi, B. and Skiena, S. </span><span class="font7">(2015). Statistically significant detection of linguistic change.</span></p>
+<p><span class="font7" style="font-style:italic;">Proceedings of the 24th International Conference on World Wide Web</span><span class="font7">. pp. 625-35.</span></p>
+<p><span class="font7" style="font-weight:bold;">Kulkarni, V., Perozzi, B. and Skiena, S. </span><span class="font7">(2016). Freshman</span></p>
+<p><span class="font7">or fresher? Quantifying the geographic variation of language in online social media. </span><span class="font7" style="font-style:italic;">Proceedings of the 10th International AAAI Conference on Web and Social Media</span><span class="font7">, pp.</span></p>
+<p><span class="font7">615-8.</span></p>
+<p><span class="font7" style="font-weight:bold;">Levy, O., Goldberg, Y. and Dagan, I. </span><span class="font7">(2015). Improving distributional similarity with lessons learned from word embeddings. </span><span class="font7" style="font-style:italic;">Transactions of the Association for Computational Linguistics</span><span class="font7">, 3: 211-25.</span></p>
+<p><span class="font7" style="font-weight:bold;">Mikolov, T., Sutskever, I., Chen, K., Corrado, G. S. and Dean, J. </span><span class="font7">(2013). Distributed representations of words&nbsp;and phrases and their compositionality. </span><span class="font7" style="font-style:italic;">Advances in Neural Information Processing Systems 26</span><span class="font7">, pp. 3111-9.</span></p>
+<p><span class="font7" style="font-weight:bold;">Pennington, J., Socher, R. and Manning, C.D. </span><span class="font7">(2014). GloVe: Global vectors for word representation. </span><span class="font7" style="font-style:italic;">Proceedings of the 2014 Conference on Empirical Methods in Natural Language Processing</span><span class="font7">, pp. 1532-43.</span></p>
+</body>
+</html>

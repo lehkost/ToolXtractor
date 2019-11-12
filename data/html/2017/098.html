@@ -1,0 +1,190 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"
+	"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head><meta http-equiv="content-type" content="text/html; charset=UTF-8"/><meta name="generator" content="ABBYY FineReader 14"/><title>Microsoft Word - 098. Leavy-Mining the Cultural Memory of Irish Industrial Schools Using Word Embedding and Text Classification-98.docx</title><link rel="stylesheet" href="098_files/098.css" type="text/css"/>
+</head>
+<body>
+<p><span class="font3" style="font-weight:bold;">Mining the Cultural Memory of Irish Industrial Schools&nbsp;Using Word Embedding and&nbsp;Text Classification</span></p>
+<p><span class="font5" style="font-weight:bold;">Susan Leavy</span></p>
+<p><span class="font5"><a href="mailto:susan.leavy@ucd.ie">susan.leavy@ucd.ie</a></span></p>
+<p><span class="font5">University College Dublin, Ireland</span></p>
+<p><span class="font5" style="font-weight:bold;">Emilie Pine</span></p>
+<p><span class="font5"><a href="mailto:emilie.pine@ucd.ie">emilie.pine@ucd.ie</a></span></p>
+<p><span class="font5">University College Dublin, Ireland</span></p>
+<p><span class="font5" style="font-weight:bold;">Mark T. Keane</span></p>
+<p><span class="font5"><a href="mailto:mark.keane@ucd.ie">mark.keane@ucd.ie</a></span></p>
+<p><span class="font5">University College Dublin, Ireland</span></p>
+<p><span class="font1" style="font-weight:bold;">Introduction</span></p>
+<p><span class="font5">The Industrial Memories project aims for new dis</span></p>
+<p><span class="font5">tant (i.e., text analytic) and close readings (i.e., wit</span></p>
+<p><span class="font5">nessing) of the 2009 Ryan Report, the report of the Irish Government's investigation into abuse at Irish&nbsp;Industrial Schools. The project has digitised the Report and used techniques such as word embedding&nbsp;and automated text classification using machine</span></p>
+<p><span class="font5">learning to re-present the Report's key findings in</span></p>
+<p><span class="font5">novel ways that better convey its contents. The</span></p>
+<p><span class="font5">Ryan Report exposes the horrific details of systematic abuse of children in Irish industrial schools between 1920 and 1990. It contains 2,600 pages with over 500,000 words detailing evidence from the 9-year-long investigation. However, the Report's narrative form and its sheer length effectively make</span></p>
+<p><span class="font5">many of it findings quite opaque. The Industrial</span></p>
+<p><span class="font5">Memories project uses text analytics to examine the language of the Report, to identify recurring patterns and extract key findings. The project re</span></p>
+<p><span class="font5">presents the Report via an exploratory web-based</span></p>
+<p><span class="font5">interface that supports further analysis of the text.</span></p>
+<p><span class="font5">The methodology outlined is scalable and suggests</span></p>
+<p><span class="font5">new approaches to such voluminous state docu</span></p>
+<p><span class="font5">ments.</span></p>
+<p><span class="font1" style="font-weight:bold;">Method</span></p>
+<p><span class="font5">A web-based exploratory interface was designed to enable searching and analysis of the contents of&nbsp;the Report represented within a relational database.&nbsp;The relational structure detailed the categories of&nbsp;knowledge contained in the Report along with key&nbsp;information extracted from the text (Figure 1). The&nbsp;Ryan Report is composed of paragraphs containing</span></p>
+<p><span class="font5">an average of 87 words. These paragraphs were represented as database instances and annotations&nbsp;detailing semantic content were linked through the&nbsp;relational structure. Named entities were automatically extracted using NLTK (Looper and Bird, 2002).</span></p><img src="098_files/098-1.jpg" style="width:229pt;height:108pt;"/>
+<p><span class="font0">Figure 1: Knowledge Database Relational Structure</span></p>
+<p><span class="font1">Classifying Paragraphs into Different</span></p>
+<p><span class="font1">Knowledge Categories</span></p>
+<p><span class="font5">The Ryan Report describes key elements of an enduring system of abuse that operated in Irish industrial schools. Its paragraphs tend to focus on&nbsp;particular topics, allowing them to be classified and&nbsp;annotated. For instance, some cover the extent and&nbsp;nature of abuse, others present witness testimony,&nbsp;report on institutional oversight or on how clergy&nbsp;were moved from one school to another in response&nbsp;to allegations. By classifying paragraphs in terms of&nbsp;these high-level knowledge categories it becomes&nbsp;easier to put a shape on many of the report's findings and to analyse it to provide new readings.</span></p>
+<p><span class="font5">Some of these paragraph-categories were identified using automated text classification. Others were extracted using a rule-based search (e.g., excerpts&nbsp;on institutional oversight). In building classification&nbsp;models, a variety feature sets were examined using&nbsp;a random forest classifier along with manually selected test data. A bag-of-words approach to feature&nbsp;selection yielded results that were over-fitted due to&nbsp;the small samples of training data. However, feature&nbsp;selection based on context-specific semantic lexicons generated from a sample of seed-words using a&nbsp;word embedding algorithm was found to yield accurate results. Lexicons were generated using the&nbsp;word2vec algorithm developed by Mikolov (2013)&nbsp;following an approach identifying synonyms outlined by Chanen (2016).</span></p><h2><a name="caption1"></a><a name="bookmark0"></a><span class="font2" style="font-style:italic;">Movements of Staff and Clergy (Transfer Paragraphs)</span></h2>
+<p><span class="font5">An important paragraph-category covers those dealing with the Catholic Church's response to allegations of abuse</span><span class="font5" style="font-style:italic;">.</span><span class="font5"> The typical response to discovered</span></p>
+<p><span class="font5">abuse was to transfer clergy from one institution to</span></p>
+<p><span class="font5">another, only for the abuse to re-occur (e.g., “...</span><span class="font5" style="font-style:italic;">Br</span></p>
+<p><span class="font5" style="font-style:italic;">Adrien was removed from Artane and transferred to</span></p>
+<p><span class="font5" style="font-style:italic;">another institution...” (CICA Vol. 1, Chapter 7, Paragraph 829)).</span><span class="font5"> Such transfers are described in many different ways in language that often obscures what&nbsp;was happening (e.g., transfers out of the Order, effectively sackings, are described as “dispensations&nbsp;to be released from vows”). We carried out a “byhand” analysis to find transfer-paragraphs using&nbsp;verb-searches and then expanded this set using machine-learning classifiers.</span></p>
+<p><span class="font5">Initial readings of the Report suggested a set of verbs frequently used to describe the transfer of&nbsp;staff and clergy, including ‘transfer', ‘dismiss', and&nbsp;‘sack'. The highest-ranking similar words reoccurring over five word2vec models were then identified. Features based on this lexicon, along with&nbsp;names of schools and clergy were extracted from&nbsp;250 training examples (Table 1). A classification&nbsp;model then classified unseen text from the Report.</span></p><div>
+<p><span class="font7" style="font-weight:bold;">Text Category</span></p>
+<p><span class="font7">Direct Speech</span></p>
+<p><span class="font7">Movements of Staff and Clergy</span></p>
+<p><span class="font7">Descriptions of Abusive Events</span></p></div><br clear="all"/>
+<p><span class="font7" style="text-decoration:underline;">Features Extracted</span><span class="font7">_</span></p>
+<p><span class="font7">Reporting verbs, personal pronouns, punctuation (colons, quotation marks, commas, question marks,&nbsp;contractions), newlines</span></p>
+<p><span class="font7">Transfer verbs, names of clergy, schools</span></p>
+<p><span class="font7">Clergy and staff, parts of body, abusive action, emotions and implements associated with abuse</span></p>
+<p><span class="font0">Table 1: Optimal Features Extracted from Report Identifying Witness Testimony</span></p><h2><a name="bookmark1"></a><span class="font2" style="font-style:italic;">Witness Testimony (Witnessing Paragraphs)</span></h2>
+<p><span class="font5">Witness testimonies in the Ryan Report are indicated through reporting verbs and structural speech</span></p>
+<p><span class="font5">markers (e.g., punctuation). Using these features,</span></p>
+<p><span class="font5">Schlor et. al. (2016) gained accuracy of 84.1 percent in automatically classifying direct speech. Reporting&nbsp;verbs in the Ryan Report are often specific to its&nbsp;context such as apology, allegation or concession. To&nbsp;extract these from the text, highest-ranking similar&nbsp;words across multiple word embedding models&nbsp;were identified based on seed terms generated from&nbsp;WordNet, ‘said', ‘told' and ‘explained'. The resulting&nbsp;context-specific synonyms combined with WordNet&nbsp;synonyms formed a lexicon of reporting verbs tailored to the language of the Report (Table 2). A classification model was developed using these features&nbsp;along with punctuation information using 500 training examples.</span></p><div>
+<p><span class="font6" style="text-decoration:underline;">Seed Words</span></p>
+<p><span class="font6">said</span></p>
+<p><span class="font6">told</span></p>
+<p><span class="font6">explained</span></p></div><br clear="all"/><div>
+<p><span class="font6">answered</span></p>
+<p><span class="font6">learned</span></p>
+<p><span class="font6">confirmed</span></p>
+<p><span class="font6">described</span></p>
+<p><span class="font6">say</span></p>
+<p><span class="font6">tell</span></p>
+<p><span class="font6">told</span></p>
+<p><span class="font6">state</span></p>
+<p><span class="font6">posit</span></p>
+<p><span class="font6">posited</span></p>
+<p><span class="font6">submit</span></p>
+<p><span class="font6">submitted</span></p>
+<p><span class="font6">express</span></p>
+<p><span class="font6">expressed</span></p>
+<p><span class="font6">narrate</span></p>
+<p><span class="font6">narrated</span></p>
+<p><span class="font6">recount</span></p>
+<p><span class="font6">recite</span></p>
+<p><span class="font6">recited</span></p></div><br clear="all"/>
+<p><span class="font7" style="text-decoration:underline;">Context Specific Lexicon for</span></p>
+<p><span class="font6">alleged &nbsp;&nbsp;&nbsp;warned</span></p>
+<p><span class="font6">recounted &nbsp;&nbsp;&nbsp;claimed</span></p>
+<p><span class="font6">surmised &nbsp;&nbsp;&nbsp;denied</span></p>
+<p><span class="font6">relieved &nbsp;&nbsp;&nbsp;asserted</span></p>
+<p><span class="font6">protested &nbsp;&nbsp;&nbsp;witnessed</span></p>
+<p><span class="font6">stating &nbsp;&nbsp;&nbsp;called</span></p>
+<p><span class="font6">describes &nbsp;&nbsp;&nbsp;informed</span></p>
+<p><span class="font6">agreed &nbsp;&nbsp;&nbsp;said</span></p>
+<p><span class="font6">admitted &nbsp;&nbsp;&nbsp;explained</span></p>
+<p><span class="font6">convinced &nbsp;&nbsp;&nbsp;advised</span></p>
+<p><span class="font6">presumed &nbsp;&nbsp;&nbsp;assured</span></p>
+<p><span class="font6">screams &nbsp;&nbsp;&nbsp;tells</span></p>
+<p><span class="font6">reported &nbsp;&nbsp;&nbsp;requested</span></p>
+<p><span class="font6">complained &nbsp;&nbsp;&nbsp;heard</span></p>
+<p><span class="font6">asking &nbsp;&nbsp;&nbsp;says</span></p>
+<p><span class="font6">commented &nbsp;&nbsp;&nbsp;confessed</span></p>
+<p><span class="font6">questioned &nbsp;&nbsp;&nbsp;remarked</span></p>
+<p><span class="font6">accepted &nbsp;&nbsp;&nbsp;alleged</span></p>
+<p><span class="font6">recollection &nbsp;&nbsp;&nbsp;suggested</span></p><div>
+<p><span class="font7" style="text-decoration:underline;">Reported Speech</span><span class="font7">_</span></p>
+<p><span class="font6">enounced &nbsp;&nbsp;&nbsp;explained</span></p>
+<p><span class="font6">verbalise &nbsp;&nbsp;&nbsp;believed</span></p>
+<p><span class="font6">verbalised &nbsp;&nbsp;&nbsp;added</span></p>
+<p><span class="font6">assure &nbsp;&nbsp;&nbsp;replied</span></p>
+<p><span class="font6">articulate &nbsp;&nbsp;&nbsp;thought</span></p>
+<p><span class="font6">apologise &nbsp;&nbsp;&nbsp;knew</span></p>
+<p><span class="font6">pardon &nbsp;&nbsp;&nbsp;felt</span></p>
+<p><span class="font6">pardoned &nbsp;&nbsp;&nbsp;recalled</span></p>
+<p><span class="font6">remember &nbsp;&nbsp;&nbsp;saying</span></p>
+<p><span class="font6">articulated &nbsp;&nbsp;&nbsp;told</span></p>
+<p><span class="font6">enounce &nbsp;&nbsp;&nbsp;thinks</span></p>
+<p><span class="font6">condoned remembered condone&nbsp;&nbsp;&nbsp;&nbsp;conceded</span></p>
+<p><span class="font6">saw &nbsp;&nbsp;&nbsp;realised</span></p>
+<p><span class="font6">explicate &nbsp;&nbsp;&nbsp;stated</span></p>
+<p><span class="font6">explicated &nbsp;&nbsp;&nbsp;insisted</span></p>
+<p><span class="font6">apology &nbsp;&nbsp;&nbsp;guarantee</span></p>
+<p><span class="font6">concluded &nbsp;&nbsp;&nbsp;asked</span></p>
+<p><span class="font6">mentioned</span></p></div><br clear="all"/>
+<p><span class="font0">Table 2: Context Specific Synonyms Using Word Embedding</span></p><h2><a name="bookmark2"></a><span class="font2" style="font-style:italic;">Descriptions of Abusive Events (Abuse Paragraphs)</span></h2>
+<p><span class="font5">To evaluate the scale of abuse throughout the industrial school system, excerpts from the Report&nbsp;detailing abusive events were extracted. The language describing abuse incorporates a broad range&nbsp;of linguistic features. A set of seed-words from&nbsp;which to base a semantic lexicon for feature extraction, was not immediately apparent on reading the&nbsp;Report. A support vector machine algorithm was&nbsp;therefore used to extract the most discriminative&nbsp;features based on a sample set of 200 paragraphs.</span></p>
+<p><span class="font5">Analysis of the support vectors showed that terms distinguishing excerpts describing abuse&nbsp;formed five categories: abusive actions, body parts,&nbsp;emotions engendered in the victims, implements&nbsp;and names of staff and clergy. Sample words associated with each category were then used as seed-words to generate word embedding models to extract similar terms from the Report. Features based&nbsp;on these five lexicons, combined with names of clergy and staff were then used to generate a predictive&nbsp;model of abusive events.</span></p>
+<p><span class="font1" style="font-weight:bold;">Findings and Conclusions</span></p>
+<p><span class="font5">This research demonstrates how word embedding can be used to compile context-specific semantic lexicons to extract features for text classification. These features allowed paragraphs for each&nbsp;knowledge category to be automatically classified&nbsp;based on manually selected training data.</span></p><h1><a name="caption2"></a><a name="bookmark3"></a><span class="font9" style="font-weight:bold;">No. Classified Excerpts</span></h1><div>
+<p><span class="font9" style="font-weight:bold;">Classification</span></p></div><br clear="all"/>
+<p><a name="bookmark4"></a><span class="font9"><a href="#bookmark4">Clergy Movements &nbsp;&nbsp;&nbsp;1,340</a></span></p>
+<p><a name="bookmark5"></a><span class="font9"><a href="#bookmark5">Direct Speech &nbsp;&nbsp;&nbsp;1,920</a></span></p>
+<p><a name="bookmark6"></a><span class="font9"><a href="#bookmark6">Abusive Events &nbsp;&nbsp;&nbsp;1,365</a></span></p>
+<p><span class="font0">Table 3: Total Number of Classified Paragraphs</span></p>
+<p><span class="font5">The performance of classifiers was evaluated using 10-fold cross-validation on the training data and&nbsp;showed high levels of accuracy in categorisations&nbsp;(Table 4).</span></p><div>
+<p><span class="font5" style="font-weight:bold;">Classification Precision Recall F-Score Accuracy</span></p>
+<table border="1">
+<tr><td style="vertical-align:bottom;">
+<p><span class="font5">Clergy Movements</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font5">.91</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font5">.91</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font5">.91</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font5">91.2%</span></p></td></tr>
+<tr><td>
+<p><span class="font5">Direct Speech</span></p></td><td>
+<p><span class="font5">.94</span></p></td><td>
+<p><span class="font5">.93</span></p></td><td>
+<p><span class="font5">.93</span></p></td><td>
+<p><span class="font5">93.6%</span></p></td></tr>
+<tr><td>
+<p><span class="font5">Abusive Events</span></p></td><td>
+<p><span class="font5">.93</span></p></td><td>
+<p><span class="font5">.93</span></p></td><td>
+<p><span class="font5">.93</span></p></td><td>
+<p><span class="font5">93.3%</span></p></td></tr>
+</table>
+<p><span class="font0">Table 4: Performance on Training Data: Random Forest Classifier. Weighted Average Results Using 10-fold CrossValidation</span></p></div><br clear="all"/>
+<p><span class="font5">The classification models were applied to unseen data and performance evaluated by manually inspecting classifications of 600 randomly selected&nbsp;excerpts from the Report as shown in Table 5.&nbsp;Though overall accuracy levels remained high, precision of the classifications did fall somewhat, especially in relation to identifying speech and transfers.</span></p>
+<p><span class="font8" style="font-weight:bold;">Classification Precision Recall F-Score Accuracy</span></p>
+<table border="1">
+<tr><td style="vertical-align:bottom;">
+<p><span class="font8">Clergy Movements</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font8">.58</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font8">1.0</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font8">.73</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font8">92%</span></p></td></tr>
+<tr><td>
+<p><span class="font8">Direct Speech</span></p></td><td>
+<p><span class="font8">.84</span></p></td><td>
+<p><span class="font8">.92</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font8">.88</span></p></td><td>
+<p><span class="font8">94%</span></p></td></tr>
+<tr><td style="vertical-align:middle;">
+<p><span class="font8">Abusive Events</span></p></td><td style="vertical-align:middle;">
+<p><span class="font8">.86</span></p></td><td style="vertical-align:middle;">
+<p><span class="font8">.88</span></p></td><td style="vertical-align:middle;">
+<p><span class="font8">.87</span></p></td><td style="vertical-align:middle;">
+<p><span class="font8">95%</span></p></td></tr>
+</table>
+<p><span class="font0">Table 5: Performance on Unseen Text: Classification of Report Evaluated on Random Samples</span></p>
+<p><span class="font5">Error analysis showed that incorrectly classified excerpts (false positives and negatives) were commonly those where the meaning of the language was&nbsp;subtle or vague. Paragraphs incorrectly classified as&nbsp;quoted speech for instance, were in fact quotations&nbsp;from letters and diary entries. Unidentified speech&nbsp;excerpts all consisted of short quoted phrases.</span></p>
+<p><span class="font5">Transfers of clergy were reliably detected. However, there was a high rate of false positives due to the fact that the transfer of children throughout the</span></p>
+<p><span class="font5">school system is described using similar language</span></p>
+<p><span class="font5">(e.g. </span><span class="font5" style="font-style:italic;">“The witness remembered ... when he was leaving Artane at nine years of age...” (CICA Vol. 1, Ch. 7, Paragraph 466))</span><span class="font5">. Classifying excerpts describing&nbsp;abuse yielded few false positives but it also returned&nbsp;the highest levels of false negatives. In these instances, references to abuse was subtle or addressed emotional abuse. As such, it was necessary&nbsp;to manually filter results.</span></p>
+<p><span class="font5">This paper has demonstrated that machine learning can be used to classify text based on a limited number of examples, when used in conjunction&nbsp;with word embedding to generate context-specific&nbsp;semantic lexicons. Re-presenting the Ryan Report in&nbsp;the form of a relational database with a web-based&nbsp;exploratory interface has facilitated comprehensive&nbsp;analysis of the Report, and has exposed new insights&nbsp;about the dynamics of the system of child abuse in&nbsp;Irish industrial schools. In reformulating how the&nbsp;Ryan Report can be presented, this research presents a scalable approach to digital analysis of state&nbsp;reports.</span></p>
+<p><span class="font1" style="font-weight:bold;">Acknowledgements</span></p>
+<p><span class="font5">This research is part of the Industrial Memories project funded by the Irish Research Council under&nbsp;New Horizons 2015.</span></p>
+<p><span class="font4" style="font-weight:bold;">Loper, E. and Bird, S. </span><span class="font4">(2002). NLTK: e Natural Language Toolkit. </span><span class="font4" style="font-style:italic;">Proceedings of the ACL-02 Workshop on Effective Tools and Methodologies for Teaching Natural Language Processing and Computational Linguistics - Volume 1.</span><span class="font4"> (ETMTNLP '02). Stroudsburg, PA, USA: Association for Computational Linguistics, pp. 63-70.</span></p>
+<p><span class="font4" style="font-weight:bold;">Mikolov, T., et al</span><span class="font4">. (2013). Distributed representations of words and phrases and their compositionality. </span><span class="font4" style="font-style:italic;">Advances</span></p>
+<p><span class="font4" style="font-style:italic;">in Neural Information Processing Systems 26 (NIPS2013),</span></p>
+<p><span class="font4">pp. 3111-119.</span></p>
+<p><span class="font4" style="font-weight:bold;">Schoch, C., Schlor, D., Popp, S., Brunner, A., Henny, U., &amp; Tello, J. C. </span><span class="font4">(2016). Straight Talk! Automatic Recognition of Direct Speech in Nineteenth-Century French&nbsp;Novels. In </span><span class="font4" style="font-style:italic;">Digital Humanities 2016</span><span class="font4"> (pp. 346-353).</span></p>
+<p><span class="font1" style="font-weight:bold;">Bibliography</span></p>
+<p><span class="font4" style="font-weight:bold;">Chanen, A. </span><span class="font4">(2016). Deep learning for extracting word-level meaning from safety report narratives. In </span><span class="font4" style="font-style:italic;">Integrated Communications Navigation and Surveillance (ICNS), 2016</span><span class="font4"> (pp. 5D2-1). IEEE.</span></p>
+</body>
+</html>

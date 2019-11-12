@@ -1,0 +1,509 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"
+	"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head><meta http-equiv="content-type" content="text/html; charset=UTF-8"/><meta name="generator" content="ABBYY FineReader 14"/><title>Microsoft Word - 485. Ruiz Fabo-Distant Rhythm-485.docx</title><link rel="stylesheet" href="485_files/485.css" type="text/css"/>
+</head>
+<body>
+<p><span class="font11" style="font-weight:bold;">Distant Rhythm: Automatic Enjambment Detection on&nbsp;Four Centuries of Spanish&nbsp;Sonnets</span></p>
+<p><span class="font8" style="font-weight:bold;">Pablo Ruiz Fabo</span></p>
+<p><span class="font8"><a href="mailto:pabloruizfabo@gmail.com">pabloruizfabo@gmail.com</a></span></p>
+<p><span class="font8">Lattice Lab, CNRS, France</span></p>
+<p><span class="font8" style="font-weight:bold;">Clara Martínez Cantón</span></p>
+<p><span class="font8"><a href="mailto:cimartinez@flog.uned.es">cimartinez@flog.uned.es</a></span></p>
+<p><span class="font8">Universidad Nacional de Educación a Distancia, Spain</span></p>
+<p><span class="font8" style="font-weight:bold;">Thierry Poibeau</span></p>
+<p><span class="font8"><a href="mailto:thierry.poibeau@ens.fr">thierry.poibeau@ens.fr</a></span></p>
+<p><span class="font8">Lattice Lab, CNRS, France</span></p><h1><a name="caption1"></a><a name="bookmark0"></a><span class="font10" style="font-weight:bold;">Introduction</span></h1>
+<p><span class="font8">Enjambment takes place when a syntactic unit is broken up across two lines of poetry (Domínguez Ca-parrós, 2000: 103), giving rise to different stylistic effects (e.g. increased emphasis on elements of the broken-up phrase, or contrast between those elements),&nbsp;or creating double interpretations for the enjambed&nbsp;lines (García-Paje, 1991).</span></p>
+<p><span class="font8">In Spanish poetry, the syntactic configurations under which enjambment takes place have been described extensively, and detailed studies on the use of enjambment by individual authors exist (see Martínez&nbsp;Cantón, 2011 for an overview) including, among others Quilis (1964), Domínguez Caparrós, (2000), Paraíso,&nbsp;(2000), Spang (1983) for a description of enjambment,</span></p>
+<p><span class="font8">and Alarcos (1966), Senabre (1982), Luján (2006), Martínez Fernández (2010) for case-studies on a single author. However, a larger-scale study to identify enjamb-ment across hundreds of authors spanning several centuries, enabling distant reading (Moretti, 2013),&nbsp;was not previously available.</span></p>
+<p><span class="font8">Given that need, we have developed software, based on Natural Language Processing, that automatically identifies enjambment in Spanish, and applied it&nbsp;to a corpus of approx. 3750 sonnets by ca. 1000 authors, from the 15th to the 19th century. What is the&nbsp;interest of such large-scale automatic analyses of en-jambment? First, the literature shows a debate about&nbsp;which specific syntactic units can be considered to&nbsp;trigger enjambment, if split across two lines, and&nbsp;whether lexical and syntactic criteria are sufficient to&nbsp;identify enjambment. Second, the stylistic effects that&nbsp;enjambment permits are also an object of current research (Martínez Fernández, 2010). Systematically&nbsp;collecting large amounts of enjambment examples&nbsp;provides helpful evidence to assess scholars' current&nbsp;claims, and may stimulate novel analyses. Finally, our&nbsp;study complements Navarro's (2016) automatic metrical analyses of Spanish Golden Age sonnets, by covering a wider period and focusing on enjambment.</span></p>
+<p><span class="font8">The abstract is structured thus: First we provide the definition of enjambment adopted. Then, our corpus and system are described, followed by an evaluation of the system. Finally, findings on enjambment in&nbsp;our diachronic sonnet corpus are discussed. The </span><span class="font8" style="text-decoration:underline;">project's website</span><span class="font8"> provides details omitted here for space&nbsp;reasons, including samples for the corpus, results, and&nbsp;other details.</span></p>
+<p><span class="font10" style="font-weight:bold;">Enjambment in Spanish</span></p>
+<p><span class="font8">Syntactic and metrical units often match in poetry. However, this trend has been broken since antiquity&nbsp;for various reasons (Parry (1929) on Homer, or Flores&nbsp;Gómez (1988) on early classical poetry).</span></p>
+<p><span class="font8">In Spanish tradition, enjambment (in Spanish, “encabalgamiento”) is considered to take place when a pause suggested by poetic form (e.g. at the end of a line&nbsp;or across hemistichs) occurs between strongly connected lexical or syntactic units, triggering an unnatural cut between those units.</span></p>
+<p><span class="font8">Quilis (1964) performed poetry reading experiments, proposing that the following strongly connected elements give rise to enjambment, should a poetic-form pause break them up:</span></p>
+<p><span class="font4">• &nbsp;&nbsp;&nbsp;</span><span class="font8" style="font-weight:bold;">Lexical enjambment: </span><span class="font8">Breaking up a word.</span></p>
+<p><span class="font8">We translated “lexical enjambment” from Quilis's terms “encabalgamiento léxico” or&nbsp;“tmesis”.</span></p>
+<p><span class="font4">• &nbsp;&nbsp;&nbsp;</span><span class="font8" style="font-weight:bold;">Phrase-bounded enjambment</span><span class="font8">: Within a&nbsp;phrase, breaking up sequences like “noun +&nbsp;adjective”, “verb + adverb”, “auxiliary verb +&nbsp;main verb”, among others. We translated</span></p>
+<p><span class="font8">“phrase-bounded enjambment” from &nbsp;&nbsp;&nbsp;“en</span></p>
+<p><span class="font8">cabalgamiento sirremático”.</span></p>
+<p><span class="font4">• &nbsp;&nbsp;&nbsp;</span><span class="font8" style="font-weight:bold;">Cross-clause enjambment: </span><span class="font8">Between a&nbsp;noun antecedent and the pronoun heading&nbsp;the relative clause that complements the antecedent. We translated “cross-clause en-jambment” from Quilis's “encabalgamiento&nbsp;oracional”.</span></p>
+<p><span class="font8">The project site includes </span><span class="font8" style="text-decoration:underline;">Quilis's complete list</span><span class="font8"> of syntactic environments that can trigger enjambment,&nbsp;as well as the types identified by our system. Besides&nbsp;the enjambment types above, Spang (1983) noted that&nbsp;if a subject or direct object and their related verbs occur in two different lines of poetry, this can also feel&nbsp;unusual for a reader, even if the effect is less pronounced than in the environments identified by Quilis.&nbsp;To differentiate these cases from enjambment proper,&nbsp;Spang calls these cases “enlace”, translated here as “expansion”.</span></p>
+<p><span class="font8">Quilis (1964) was the only author so far to gather recitation-based experimental evidence on enjamb-ment. His typology is still considered current, and was&nbsp;adopted by later authors, although complementary en-jambment typologies have been proposed, as Martínez&nbsp;Cantón (2011) reviews. Our system identifies Quilis'&nbsp;types, besides Spang's expansion cases.</span></p>
+<p><span class="font10" style="font-weight:bold;">Corpus</span></p>
+<p><span class="font8">The corpus is based on two public online collections from </span><span class="font8" style="text-decoration:underline;">Biblioteca Virtual Cervantes</span><span class="font8"> (García González, R. (ed.), 2006a, 2006b). The first one covers 1088 sonnets by 477 authors from the 15th-17th centuries.&nbsp;The second one contains 2673 sonnets by 685 authors&nbsp;from the 19th century. We created scripts to download&nbsp;the poems, remove HTML and extract dates of birth&nbsp;and death for the authors (About 30% of the 15th to&nbsp;17th century authors had exact dates of birth and death,&nbsp;for the rest only the centuries were available. Among the&nbsp;19th century authors, ca. 45% had exact dates of birth&nbsp;and death). Table 1 shows the distribution of authors&nbsp;and poems by century. The corpus covers canonical as&nbsp;well as minor authors, inspired in distant reading approaches (Moretti, 2007, 2013).</span></p>
+<p><span class="font8">The system has three components: a preprocessing module to format input poems uniformly, an NLP pipeline, and the enjambment-detection module itself.</span></p>
+<p><span class="font8">The NLP pipeline is IXA Pipes (Agerri et al., 2014). Its results for contemporary Spanish are competitive.&nbsp;Our system uses it to obtain part-of-speech tags, syntactic constituency (e.g. verb-phrase, noun-phrase)&nbsp;and syntactic dependencies (e.g. direct object).</span></p>
+<p><span class="font8">The enjambment detection module is rule and dictionary-based, and exploits the information provided by the NLP pipeline. Rules (30 in total) of different&nbsp;characteristics identify enjambed lines, assigning</span></p>
+<p><span class="font8">them a type among a list of 12 types, based on the typology in Section 2 (the </span><span class="font8" style="text-decoration:underline;">full list</span><span class="font8"> of types identified by the system is available on the project site).</span></p>
+<p><span class="font4">• &nbsp;&nbsp;&nbsp;</span><span class="font8">Some rules are very shallow and only take&nbsp;</span><span class="font8" style="font-weight:bold;">parts of speech </span><span class="font8">into account.</span></p>
+<p><span class="font4">• &nbsp;&nbsp;&nbsp;</span><span class="font8">Some rules additionally exploit </span><span class="font8" style="font-weight:bold;">constituency </span><span class="font8">info.</span></p>
+<p><span class="font4">• &nbsp;&nbsp;&nbsp;</span><span class="font8">Some rules use </span><span class="font8" style="font-weight:bold;">dependency </span><span class="font8">information,&nbsp;e.g. to detect “subject / object / verb” relations.</span></p>
+<p><span class="font4">• &nbsp;&nbsp;&nbsp;</span><span class="font8">For any type of rule, </span><span class="font8" style="font-weight:bold;">custom dictionaries&nbsp;</span><span class="font8">can restrict rule application to a set of terms.</span></p>
+<p><span class="font8">E.g. certain verbs govern arguments introduced by one specific preposition; we itemized these verbs and their prepositions in a dictionary, to complement information provided by the NLP pipeline or correct parsing&nbsp;errors.</span></p>
+<p><span class="font8">Enjambment annotations are output in standoff format. Further details can be found on the </span><span class="font8" style="text-decoration:underline;">project's site</span><span class="font8">.</span></p><div>
+<table border="1">
+<tr><td style="vertical-align:middle;">
+<p><span class="font2" style="font-weight:bold;">Period *</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font2" style="font-weight:bold;">Sonnet</span></p>
+<p><span class="font2" style="font-weight:bold;">Count</span></p></td><td style="vertical-align:middle;">
+<p><span class="font2" style="font-weight:bold;">Sonnet %</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font2" style="font-weight:bold;">Author</span></p>
+<p><span class="font2" style="font-weight:bold;">Count</span></p></td><td style="vertical-align:middle;">
+<p><span class="font2" style="font-weight:bold;">Author %</span></p></td></tr>
+<tr><td>
+<p><span class="font1">14.5</span></p></td><td>
+<p><span class="font1">43</span></p></td><td>
+<p><span class="font1">1.14</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font1">2</span></p></td><td>
+<p><span class="font1">0.17</span></p></td></tr>
+<tr><td>
+<p><span class="font1">15</span></p></td><td style="vertical-align:middle;">
+<p><span class="font1">2</span></p></td><td>
+<p><span class="font1">0.05</span></p></td><td style="vertical-align:middle;">
+<p><span class="font1">2</span></p></td><td>
+<p><span class="font1">0.17</span></p></td></tr>
+<tr><td>
+<p><span class="font1">15.5</span></p></td><td style="vertical-align:middle;">
+<p><span class="font1">8</span></p></td><td style="vertical-align:middle;">
+<p><span class="font1">0.21</span></p></td><td>
+<p><span class="font1">5</span></p></td><td>
+<p><span class="font1">0.43</span></p></td></tr>
+<tr><td style="vertical-align:bottom;">
+<p><span class="font1">16</span></p></td><td>
+<p><span class="font1">141</span></p></td><td>
+<p><span class="font1">3.75</span></p></td><td>
+<p><span class="font1">58</span></p></td><td>
+<p><span class="font1">4.99</span></p></td></tr>
+<tr><td>
+<p><span class="font1">16.5</span></p></td><td>
+<p><span class="font1">411</span></p></td><td>
+<p><span class="font1">10.93</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font1">108</span></p></td><td>
+<p><span class="font1">9.29</span></p></td></tr>
+<tr><td>
+<p><span class="font1">17</span></p></td><td>
+<p><span class="font1">478</span></p></td><td>
+<p><span class="font1">12.71</span></p></td><td>
+<p><span class="font1">300</span></p></td><td>
+<p><span class="font1">25.82</span></p></td></tr>
+<tr><td>
+<p><span class="font1">17.5</span></p></td><td>
+<p><span class="font1">5</span></p></td><td>
+<p><span class="font1">0.13</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font1">2</span></p></td><td>
+<p><span class="font1">0.17</span></p></td></tr>
+<tr><td>
+<p><span class="font1">18.5</span></p></td><td>
+<p><span class="font1">13</span></p></td><td>
+<p><span class="font1">0.35</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font1">6</span></p></td><td>
+<p><span class="font1">0.52</span></p></td></tr>
+<tr><td>
+<p><span class="font1">19</span></p></td><td>
+<p><span class="font1">1150</span></p></td><td>
+<p><span class="font1">30.58</span></p></td><td>
+<p><span class="font1">361</span></p></td><td>
+<p><span class="font1">31.07</span></p></td></tr>
+<tr><td>
+<p><span class="font1">19.5</span></p></td><td>
+<p><span class="font1">1510</span></p></td><td>
+<p><span class="font1">40.15</span></p></td><td>
+<p><span class="font1">318</span></p></td><td>
+<p><span class="font1">27.37</span></p></td></tr>
+<tr><td>
+<p><span class="font1" style="font-style:italic;">Total</span></p></td><td>
+<p><span class="font1" style="font-style:italic;">3761</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font1" style="font-style:italic;">100</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font1" style="font-style:italic;">1162</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font1" style="font-style:italic;">100</span></p></td></tr>
+</table>
+<p><span class="font3">Table 1: Distribution of sonnets and authors per period.</span></p>
+<p><span class="font3">* Exact dates of birth and death are available for a minority of authors; often only the century was provided in the corpus&nbsp;sources. Periods ending in “.5” cover authors who lived in&nbsp;two centuries. E.g. period “15.5” covers authors born in the&nbsp;15th and deceased in the 16th century</span></p></div><br clear="all"/><div>
+<p><span class="font10" style="font-weight:bold;">System description</span></p></div><br clear="all"/><h1><a name="bookmark1"></a><span class="font10" style="font-weight:bold;">System evaluation and discussion</span></h1>
+<p><span class="font9">Test-corpus</span></p>
+<p><span class="font8">To evaluate the system, we created two reference-sets (SonnetEvol and Cantos20th), manually annotating enjambment in them.</span></p>
+<p><span class="font8">1. </span><span class="font8" style="font-weight:bold;">SonnetEvol</span><span class="font8">: 100 sonnets (1400 lines) from&nbsp;our diachronic sonnet corpus of ca. 3750&nbsp;sonnets (Table Table). This test-set contains&nbsp;260 pairs of enjambed lines (in other words,&nbsp;if there is an enjambment between lines 1&nbsp;and 2, we consider that as “pair of enjambed&nbsp;lines” in the reference corpus).</span></p>
+<p><span class="font8">2. </span><span class="font8" style="font-weight:bold;">Cantos20th</span><span class="font8">: 1000 lines of 20<sup>th</sup> century poetry (Colinas, 1983), showing natural contemporary syntax. We identified 277 pairs of&nbsp;enjambed lines.</span></p>
+<p><span class="font8">The distribution of enjambment types in the test-corpora is balanced (Table 2). The SonnetEvol diachronic test-corpus is balanced across periods (Table 3). It should be noted that balancing across periods does not apply to the Cantos20th test-corpus: it covers&nbsp;the 20<sup>th</sup> century only.</span></p>
+<p><span class="font8">We annotated the Cantos20th corpus in order to assess the system's performance on contemporary&nbsp;Spanish with natural diction, compared to its behaviour with the SonnetEvol corpus, which includes some&nbsp;archaic constructions and often shows an elevated&nbsp;register.</span></p>
+<p><span class="font8">For the evaluation reported here, each sonnet was annotated by a single annotator. Obtaining multiple&nbsp;annotators' input on the same sonnet to assess interannotator agreement (Artstein and Poesio, 2008) is&nbsp;part of our ongoing work.</span></p>
+<table border="1">
+<tr><td rowspan="2">
+<p></p></td><td colspan="4" style="vertical-align:bottom;">
+<p><span class="font2" style="font-weight:bold;">Test-Corpus</span></p></td></tr>
+<tr><td colspan="2">
+<p><span class="font2" style="font-weight:bold;font-style:italic;">SonnetEvol</span></p></td><td colspan="2">
+<p><span class="font2" style="font-weight:bold;font-style:italic;">Cantos20th</span></p></td></tr>
+<tr><td>
+<p><span class="font2" style="font-weight:bold;">Enjambment Types *</span></p></td><td>
+<p><span class="font2" style="font-weight:bold;">Count</span></p></td><td>
+<p><span class="font2" style="font-weight:bold;">%</span></p></td><td>
+<p><span class="font2" style="font-weight:bold;">Count</span></p></td><td>
+<p><span class="font2" style="font-weight:bold;">%</span></p></td></tr>
+<tr><td>
+<p><span class="font2" style="font-style:italic;">Total Phrase-Bounded</span></p></td><td>
+<p><span class="font2" style="font-style:italic;">104</span></p></td><td>
+<p><span class="font2" style="font-style:italic;">40.00</span></p></td><td>
+<p><span class="font2" style="font-style:italic;">175</span></p></td><td>
+<p><span class="font2">63.78</span></p></td></tr>
+<tr><td>
+<p><span class="font2">adjadv</span></p></td><td style="vertical-align:middle;">
+<p><span class="font2" style="font-style:italic;">2</span></p></td><td>
+<p><span class="font2">0.77</span></p></td><td style="vertical-align:middle;">
+<p><span class="font2">1</span></p></td><td>
+<p><span class="font2">0.36</span></p></td></tr>
+<tr><td>
+<p><span class="font2">adjnoun</span></p></td><td>
+<p><span class="font2">29</span></p></td><td>
+<p><span class="font2">11.15</span></p></td><td>
+<p><span class="font2">54</span></p></td><td>
+<p><span class="font2">19.49</span></p></td></tr>
+<tr><td>
+<p><span class="font2">adj prep</span></p></td><td>
+<p><span class="font2">14</span></p></td><td>
+<p><span class="font2">5.38</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font2">11</span></p></td><td>
+<p><span class="font2">3.97</span></p></td></tr>
+<tr><td>
+<p><span class="font2">advprep</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font2">0</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font2">0</span></p></td><td>
+<p><span class="font2">3</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font2">1.08</span></p></td></tr>
+<tr><td>
+<p><span class="font2">noun prep</span></p></td><td>
+<p><span class="font2">39</span></p></td><td>
+<p><span class="font2">15.00</span></p></td><td>
+<p><span class="font2">85</span></p></td><td>
+<p><span class="font2">30.69</span></p></td></tr>
+<tr><td>
+<p><span class="font2">relword</span></p></td><td style="vertical-align:middle;">
+<p><span class="font2">1</span></p></td><td>
+<p><span class="font2">0.38</span></p></td><td style="vertical-align:middle;">
+<p><span class="font2">2</span></p></td><td>
+<p><span class="font2">0.72</span></p></td></tr>
+<tr><td>
+<p><span class="font2">verbadv</span></p></td><td>
+<p><span class="font2">5</span></p></td><td>
+<p><span class="font2">1.92</span></p></td><td>
+<p><span class="font2">7</span></p></td><td>
+<p><span class="font2">2.53</span></p></td></tr>
+<tr><td>
+<p><span class="font2">verbcprep</span></p></td><td>
+<p><span class="font2">9</span></p></td><td>
+<p><span class="font2">3.46</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font2">2</span></p></td><td>
+<p><span class="font2">0.72</span></p></td></tr>
+<tr><td>
+<p><span class="font2">verb chain</span></p></td><td>
+<p><span class="font2">5</span></p></td><td>
+<p><span class="font2">1.92</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font2">10</span></p></td><td>
+<p><span class="font2">3.61</span></p></td></tr>
+<tr><td>
+<p><span class="font2" style="font-style:italic;">Total Cross-Clause'<sup>2</sup></span></p></td><td>
+<p><span class="font2" style="font-style:italic;">23</span></p></td><td>
+<p><span class="font2">8.85</span></p></td><td>
+<p><span class="font2">37</span></p></td><td>
+<p><span class="font2">77.79</span></p></td></tr>
+<tr><td>
+<p><span class="font2" style="font-style:italic;">Total Expansions</span></p></td><td>
+<p><span class="font2" style="font-style:italic;">133</span></p></td><td>
+<p><span class="font2" style="font-style:italic;">51.15</span></p></td><td>
+<p><span class="font2">77</span></p></td><td>
+<p><span class="font2">25.63</span></p></td></tr>
+<tr><td>
+<p><span class="font2">dobjverb</span></p></td><td>
+<p><span class="font2">65</span></p></td><td>
+<p><span class="font2">25.00</span></p></td><td>
+<p><span class="font2">39</span></p></td><td>
+<p><span class="font2">14.08</span></p></td></tr>
+<tr><td>
+<p><span class="font2">subjverb</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font2">68</span></p></td><td>
+<p><span class="font2">26.15</span></p></td><td>
+<p><span class="font2">32</span></p></td><td>
+<p><span class="font2">11.55</span></p></td></tr>
+<tr><td>
+<p><span class="font2" style="font-style:italic;">Total All Types</span></p></td><td style="vertical-align:middle;">
+<p><span class="font2">260</span></p></td><td>
+<p><span class="font2">700</span></p></td><td>
+<p><span class="font2">277</span></p></td><td>
+<p><span class="font2">700</span></p></td></tr>
+</table>
+<p><span class="font3">Table 2: Distribution of enjambment types in the manually annotated reference corpora, providing counts and each&nbsp;type's percentage of the total enjambments per corpus.</span></p>
+<p><span class="font3">Counts refer to pairs of enjambed lines.</span></p>
+<p><span class="font3">*The project site includes a </span><span class="font3" style="text-decoration:underline;">description of each enjambment type</span><span class="font3">.</span></p>
+<table border="1">
+<tr><td>
+<p><span class="font5" style="font-style:italic;">SonnetEvol</span></p></td><td>
+<p><span class="font5" style="font-weight:bold;">Test-corpus</span></p></td></tr>
+<tr><td>
+<p><span class="font5" style="font-weight:bold;">Period **</span></p></td><td>
+<p><span class="font5" style="font-weight:bold;">Sonnet Count</span></p></td></tr>
+<tr><td>
+<p><span class="font5" style="font-style:italic;">Total 15<sup>,h</sup>-lT<sup>h</sup></span></p></td><td>
+<p><span class="font5">72</span></p></td></tr>
+<tr><td>
+<p><span class="font5">14.5</span></p></td><td>
+<p><span class="font5">3</span></p></td></tr>
+<tr><td>
+<p><span class="font5">15</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font5">2</span></p></td></tr>
+<tr><td>
+<p><span class="font5">15.5</span></p></td><td style="vertical-align:middle;">
+<p><span class="font5">2</span></p></td></tr>
+<tr><td style="vertical-align:bottom;">
+<p><span class="font5">16</span></p></td><td>
+<p><span class="font5">14</span></p></td></tr>
+<tr><td>
+<p><span class="font5">16.5</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font5">21</span></p></td></tr>
+<tr><td>
+<p><span class="font5">17</span></p></td><td>
+<p><span class="font5">27</span></p></td></tr>
+<tr><td>
+<p><span class="font5">17.5</span></p></td><td>
+<p><span class="font5">3</span></p></td></tr>
+<tr><td>
+<p><span class="font5" style="font-style:italic;">Total 19<sup>th</sup></span></p></td><td style="vertical-align:middle;">
+<p><span class="font5" style="font-style:italic;">28</span></p></td></tr>
+<tr><td>
+<p><span class="font5">18.5</span></p></td><td>
+<p><span class="font5">3</span></p></td></tr>
+<tr><td>
+<p><span class="font5">19</span></p></td><td>
+<p><span class="font5">17</span></p></td></tr>
+<tr><td>
+<p><span class="font5">19.5</span></p></td><td style="vertical-align:middle;">
+<p><span class="font5">8</span></p></td></tr>
+<tr><td>
+<p><span class="font5" style="font-style:italic;">Total All Periods</span></p></td><td style="vertical-align:middle;">
+<p><span class="font5" style="font-style:italic;">100</span></p></td></tr>
+</table>
+<p><span class="font3">Table 3: Distribution of sonnets by period in the manually annotated SonnetEvol corpus. The 16th, 17th and 19th&nbsp;centuries cover ca. 30% of the corpus each, and the 15th&nbsp;century covers ca. 10% of the sonnets&nbsp;**Exact dates of birth and death are available for a minority&nbsp;of authors; often only the century was provided in the corpus&nbsp;sources. Periods ending in “.5” cover sonnets for authors&nbsp;who lived in two centuries. E.g. period “15.5” covers sonnets&nbsp;for authors born in the 15th and deceased in the 16th&nbsp;century</span></p>
+<p><span class="font9">Enjambment-detection tasks evaluated </span><span class="font8">We defined two enjambment-detection tasks:</span></p>
+<p><span class="font4">• &nbsp;&nbsp;&nbsp;</span><span class="font8" style="font-weight:bold;">Span-match</span><span class="font8">: the positions of enjambed&nbsp;lines proposed by the system must match the&nbsp;positions in the reference corpus for a correct result to be counted.</span></p>
+<p><span class="font4">• &nbsp;&nbsp;&nbsp;</span><span class="font8" style="font-weight:bold;">Typed span-match</span><span class="font8">: for a correct result,&nbsp;both the positions and the enjambment type&nbsp;assigned by the system to those positions&nbsp;must match the reference.</span></p>
+<p><span class="font9">System results and discussion</span></p>
+<p><span class="font8">Precision, recall and F1 were obtained. The definitions for Precision (P), Recall (R) and F1 were the usual:</span></p>
+<p><span class="font1" style="font-style:italic;">P R</span><span class="font1"> &nbsp;&nbsp;&nbsp;nbr. of correct outputs&nbsp;&nbsp;&nbsp;&nbsp;nbr. of correct outputs</span></p>
+<p><span class="font1" style="font-style:italic;">p-j —</span><span class="font0"> 2_ </span><span class="font1" style="font-style:italic;">• p — _</span><span class="font1" style="font-style:italic;text-decoration:underline;">~</span><span class="font1" style="font-style:italic;"> &nbsp;&nbsp;&nbsp;. p —_</span><span class="font0">2_</span></p>
+<p><span class="font1" style="font-style:italic;">P + R ’ </span><span class="font1">nbr. of system outputs ’ nbr. of reference outputs</span></p>
+<p><span class="font8">Table 4 provides overall results for both corpora. Table 5 provides the per-type results on the diachronic test-corpus (SonnetEvol). The project's site</span></p>
+<p><span class="font8">contains </span><span class="font8" style="text-decoration:underline;">more detailed results</span><span class="font8"> (e.g. per-type results for the Cantos20th corpus, or breakdowns for Sonnet-Evol per period).</span></p>
+<table border="1">
+<tr><td>
+<p><span class="font2" style="font-weight:bold;">Corpus</span></p></td><td>
+<p><span class="font2" style="font-weight:bold;">Task</span></p></td><td>
+<p><span class="font2" style="font-weight:bold;">N</span></p></td><td>
+<p><span class="font2" style="font-weight:bold;">P</span></p></td><td>
+<p><span class="font2" style="font-weight:bold;">R</span></p></td><td>
+<p><span class="font2" style="font-weight:bold;">F1</span></p></td></tr>
+<tr><td rowspan="2" style="vertical-align:middle;">
+<p><span class="font1" style="font-style:italic;">SonnetEvol</span></p></td><td>
+<p><span class="font1" style="font-style:italic;">span-match</span></p></td><td rowspan="2" style="vertical-align:middle;">
+<p><span class="font1">260</span></p></td><td>
+<p><span class="font1">74.18</span></p></td><td>
+<p><span class="font1">87.64</span></p></td><td>
+<p><span class="font1">80.35</span></p></td></tr>
+<tr><td>
+<p><span class="font1" style="font-style:italic;">typed span-match</span></p></td><td>
+<p><span class="font1">61.24</span></p></td><td>
+<p><span class="font1">72.31</span></p></td><td>
+<p><span class="font1">66.31</span></p></td></tr>
+<tr><td rowspan="2" style="vertical-align:middle;">
+<p><span class="font1" style="font-style:italic;">Cantos20th</span></p></td><td>
+<p><span class="font1" style="font-style:italic;">span-match</span></p></td><td rowspan="2" style="vertical-align:middle;">
+<p><span class="font1">277</span></p></td><td>
+<p><span class="font1">84.01</span></p></td><td>
+<p><span class="font1">89.17</span></p></td><td>
+<p><span class="font1">86.51</span></p></td></tr>
+<tr><td>
+<p><span class="font1" style="font-style:italic;">typed span-match</span></p></td><td>
+<p><span class="font1">78.04</span></p></td><td>
+<p><span class="font1">83.39</span></p></td><td>
+<p><span class="font1">80.63</span></p></td></tr>
+</table>
+<p><span class="font3">Table 4: Overall enjambment detection results. Number of test-items, Precision (P), Recall (R) and F1 in our two test-corpora, for the span-match and typed span-match&nbsp;enjambment detection tasks</span></p>
+<table border="1">
+<tr><td style="vertical-align:bottom;">
+<p><span class="font2">Enjambment or Expansion Type *</span></p></td><td style="vertical-align:middle;">
+<p><span class="font2" style="font-weight:bold;">N</span></p></td><td style="vertical-align:middle;">
+<p><span class="font2">P</span></p></td><td style="vertical-align:middle;">
+<p><span class="font2">R</span></p></td><td style="vertical-align:middle;">
+<p><span class="font2">F1</span></p></td></tr>
+<tr><td>
+<p><span class="font2" style="font-style:italic;">Phrase-Bounded (all types)</span></p></td><td>
+<p><span class="font2" style="font-style:italic;">104</span></p></td><td>
+<p><span class="font2" style="font-style:italic;">66.19</span></p></td><td>
+<p><span class="font2" style="font-style:italic;">88.46</span></p></td><td>
+<p><span class="font2">75.72</span></p></td></tr>
+<tr><td>
+<p><span class="font2">adjadv</span></p></td><td style="vertical-align:middle;">
+<p><span class="font2">2</span></p></td><td style="vertical-align:middle;">
+<p><span class="font2">100</span></p></td><td>
+<p><span class="font2">50.00</span></p></td><td>
+<p><span class="font2">66.67</span></p></td></tr>
+<tr><td>
+<p><span class="font2">adjnoun</span></p></td><td>
+<p><span class="font2">29</span></p></td><td>
+<p><span class="font2">54.55</span></p></td><td>
+<p><span class="font2">82.76</span></p></td><td>
+<p><span class="font2">65.75</span></p></td></tr>
+<tr><td>
+<p><span class="font2">adj prep</span></p></td><td>
+<p><span class="font2">14</span></p></td><td>
+<p><span class="font2">58.82</span></p></td><td>
+<p><span class="font2">71.43</span></p></td><td>
+<p><span class="font2">64.52</span></p></td></tr>
+<tr><td>
+<p><span class="font2">noun prep</span></p></td><td>
+<p><span class="font2">39</span></p></td><td>
+<p><span class="font2">55.36</span></p></td><td>
+<p><span class="font2">79.49</span></p></td><td>
+<p><span class="font2">65.26</span></p></td></tr>
+<tr><td>
+<p><span class="font2">relword</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font2">1</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font2">100</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font2">100</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font2">100</span></p></td></tr>
+<tr><td>
+<p><span class="font2">verbadv</span></p></td><td>
+<p><span class="font2">5</span></p></td><td>
+<p><span class="font2">50.00</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font2">100</span></p></td><td>
+<p><span class="font2">66.67</span></p></td></tr>
+<tr><td>
+<p><span class="font2">verb cprep</span></p></td><td>
+<p><span class="font2">9</span></p></td><td>
+<p><span class="font2">83.33</span></p></td><td>
+<p><span class="font2">55.56</span></p></td><td>
+<p><span class="font2">66.67</span></p></td></tr>
+<tr><td>
+<p><span class="font2">verb chain</span></p></td><td>
+<p><span class="font2">5</span></p></td><td style="vertical-align:middle;">
+<p><span class="font2">100</span></p></td><td style="vertical-align:middle;">
+<p><span class="font2">80.00</span></p></td><td>
+<p><span class="font2">88.89</span></p></td></tr>
+<tr><td>
+<p><span class="font2" style="font-style:italic;">Cross-Clause'<sup>2</sup></span></p></td><td>
+<p><span class="font2">23</span></p></td><td>
+<p><span class="font2">76.00</span></p></td><td>
+<p><span class="font2">82.67</span></p></td><td>
+<p><span class="font2" style="font-style:italic;">79.17</span></p></td></tr>
+<tr><td>
+<p><span class="font2" style="font-style:italic;">Expansions (all types)</span></p></td><td>
+<p><span class="font2" style="font-style:italic;">133</span></p></td><td>
+<p><span class="font2">61.54</span></p></td><td>
+<p><span class="font2" style="font-style:italic;">66.17</span></p></td><td>
+<p><span class="font2" style="font-style:italic;">63.77</span></p></td></tr>
+<tr><td>
+<p><span class="font2">dobjverb</span></p></td><td>
+<p><span class="font2">65</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font2">60.00</span></p></td><td>
+<p><span class="font2">69.23</span></p></td><td>
+<p><span class="font2">64.29</span></p></td></tr>
+<tr><td>
+<p><span class="font2">subj verb</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font2">68</span></p></td><td>
+<p><span class="font2">63.24</span></p></td><td>
+<p><span class="font2">63.24</span></p></td><td>
+<p><span class="font2">63.24</span></p></td></tr>
+</table>
+<p><span class="font3">Table 5: Enjambment detection results per type. On the SonnetEvol corpus. Number of items per type, Precision (P),&nbsp;Recall (R) and F1 on the typed span-match enjambment&nbsp;detection task.</span></p>
+<p><span class="font3">* The types are described on our site: </span><span class="font3" style="text-decoration:underline;"><a href="http://sites.google.com/site/spanishenjambment/enjambmen">http://sites.google.com/site/spanishenjambment/enjambmen</a></span></p>
+<p><span class="font3" style="text-decoration:underline;">t-types</span></p>
+<p><span class="font8">For untyped detection (span-match), F1 reaches 80% in the SonnetEvol corpus, whereas F1 for typed&nbsp;detection is 66.31%. For the contemporary Spanish&nbsp;corpus (Cantos20th), F1 is higher: 80.63% typed detection, 86.51% span-match. This reflects additional&nbsp;difficulties posed by archaic language and historical&nbsp;varieties for the NLP system whose outputs our en-jambment detection relies on. Expansions get lower F1&nbsp;than phrase-bounded types overall. But we do not&nbsp;think that the F1 difference between SonnetEvol and&nbsp;Cantos20th is due to the higher proportion of expansions in SonnetEvol (Table 2): Results per-type (see&nbsp;the </span><span class="font8" style="text-decoration:underline;">evaluation page</span><span class="font8"> of the project’s site) show that&nbsp;phrase-bounded enjambment detection is 10 points of&nbsp;F1 lower in SonnetEvol than in Cantos20th. Also,&nbsp;phrase-bounded enjambment results for the 15<sup>th</sup>-17<sup>th</sup>&nbsp;period (with more archaic language) are 10 points of&nbsp;F1 lower than in the 19<sup>th</sup> century.</span></p>
+<p><span class="font8">A common source of error was hyperbaton: the displacement of phrases triggers constituency and dependency parsing errors. Prepositional phrase (PP) attachment also posed challenges: Verbal adjuncts get mistaken for PPs complementing nouns or adjectives.&nbsp;This is a common problem in syntactic parsing, even&nbsp;for contemporary languages (see Agirre et al, 2008, for&nbsp;English). For historical varieties, Stein’s (2016) results&nbsp;for verbal adjuncts and prepositional complements in&nbsp;Old French also suggest the difficulties posed by prepositional phrases.</span></p>
+<p><span class="font8">Creating a reparsing module to manage hyperbaton and improve PP attachment results may be fruitful future work.</span></p>
+<p><span class="font10" style="font-weight:bold;">Scholarly results and discussion</span></p>
+<p><span class="font8">The system’s goal is detecting enjambment to help literary research on the phenomenon, via providing&nbsp;systematic evidence for its analysis.</span></p>
+<p><span class="font8">We consider our untyped enjambed-line detection results helpful, given an F1 of ca. 80% on the diachronic test-set. As an example application, we examined the distribution of enjambment according to position in the poem, particularly in positions across a&nbsp;verse-boundary (lines 4-5, 8-9 and 11-12). Comparing&nbsp;the results for the 15<sup>th</sup>-to-17<sup>th</sup> centuries vs. the 19<sup>th&nbsp;</sup>century (Table 6 and Figure 1), we see that enjamb-ment across the tercets increases clearly in the 19<sup>th&nbsp;</sup>century, with a small increase of enjambment across&nbsp;the quatrains (lines 4-5) and across the octave-sestet&nbsp;divide (lines 8-9). Given the manageable data volume,&nbsp;we validated the counts for enjambment across a verse&nbsp;boundary (Table 6) manually (but not the more voluminous data for all other positions).</span></p>
+<p><span class="font8">The value of the tool is helping perform such analyses on a large corpus. This opens the door for scholars to assess the literary relevance of the findings, and search for the best interpretation.</span></p>
+<table border="1">
+<tr><td rowspan="2">
+<p><span class="font1">Enjambed line positions</span></p></td><td rowspan="2">
+<p><span class="font1">Scholarly</span></p>
+<p><span class="font1">relevance</span></p></td><td colspan="2">
+<p><span class="font1">15<sup>th</sup>-17<sup>th</sup> cent.</span></p></td><td colspan="2">
+<p><span class="font1">19<sup>th</sup> cent.</span></p></td></tr>
+<tr><td>
+<p><span class="font1">Count</span></p></td><td>
+<p><span class="font1">%</span></p></td><td>
+<p><span class="font1">Count</span></p></td><td>
+<p><span class="font1">%</span></p></td></tr>
+<tr><td>
+<p><span class="font1">4-5</span></p></td><td>
+<p><span class="font1">across quatrains</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font1">2</span></p></td><td>
+<p><span class="font1">0.07</span></p></td><td>
+<p><span class="font1">19</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font1">0.26</span></p></td></tr>
+<tr><td>
+<p><span class="font1">8-9</span></p></td><td>
+<p><span class="font1">across octave-sestet</span></p>
+<p><span class="font1">divide</span></p></td><td style="vertical-align:middle;">
+<p><span class="font1">2</span></p></td><td style="vertical-align:middle;">
+<p><span class="font1">0.07</span></p></td><td style="vertical-align:middle;">
+<p><span class="font1">12</span></p></td><td style="vertical-align:middle;">
+<p><span class="font1">0.16</span></p></td></tr>
+<tr><td style="vertical-align:middle;">
+<p><span class="font1">11-12</span></p></td><td>
+<p><span class="font1">across tercets</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font1">20</span></p></td><td>
+<p><span class="font1">0.72</span></p></td><td>
+<p><span class="font1">147</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font1">2.01</span></p></td></tr>
+</table>
+<p><span class="font3">Table 6: Pairs of enjambed lines across verse boundaries in the 15th-17th vs. the 19th centuries: Counts of enjambed&nbsp;line-pairs and percentages over the total number of&nbsp;enjambed line-pairs for each period. An example of the&nbsp;types of analyses stimulated by automatic enjambment&nbsp;detection</span></p>
+<p><span class="font6">15<sup>,h</sup>-17<sup>th</sup> century sonnets &nbsp;&nbsp;&nbsp;<sup>centur</sup>Y sonnets</span></p>
+<p><span class="font6">Percentage of enjambed lines per position &nbsp;&nbsp;&nbsp;Percentage of enjambed lines per position</span></p><img src="485_files/485-1.jpg" style="width:243pt;height:75pt;"/>
+<p><span class="font3">Figure 1: Percentage of enjambments per position in the 15<sup>th</sup>-17<sup>th</sup> centuries vs. the 19<sup>th</sup>.</span></p>
+<p><span class="font3">The y-axis represents line-positions; the x-axis is the percentage of enjambed line-pairs for a position over all&nbsp;enjambed line-pairs in the period. Enjambment across&nbsp;quatrains and across the octave-sestet divide is very rare,&nbsp;with a small increase in the 19<sup>th</sup> century. The division&nbsp;between the tercets blurs in the 19<sup>th</sup> century, in the sense&nbsp;that enjambment across them is clearly higher than in the&nbsp;previous period</span></p><h1><a name="bookmark2"></a><span class="font10" style="font-weight:bold;">Outlook</span></h1>
+<p><span class="font8">The characterization of enjambment in Spanish literary theory has unclear points. Systematically obtaining enjambment examples is helping us find additional evidence to analyze these unclear points. Moreover,&nbsp;we are not aware of a systematic large-sample study&nbsp;of enjambment across periods, literary movements, or&nbsp;versification types in Spanish, or other languages. Automatic detection can help answer interesting questions in verse theory, which would benefit from a&nbsp;quantitative approach, complementing small-sample&nbsp;analyses. e.g.: To what an extent is enjambment used&nbsp;differently in free verse vs. traditional versification?</span></p>
+<p><span class="font8">Students in our metrics classes are currently annotating enjambment for 450 sonnets. These annotations will permit inter-annotator agreement computation.&nbsp;We will also examine the possibility of using supervised machine learning to train a sequence labeling&nbsp;and classification model to complement our current&nbsp;detection rules.</span></p>
+<p><span class="font10" style="font-weight:bold;">Acknowledgements</span></p>
+<p><span class="font8">Pablo Ruiz Fabo was supported by a PhD scholarship from Région Île-de-France. We also thank Clara</span></p>
+<p><span class="font8">Martinez Canton's and Borja Navarro's metrics students for their ongoing sonnet annotation work, and Borja Navarro for introducing his students to the annotations required.</span></p><h1><a name="bookmark3"></a><span class="font10" style="font-weight:bold;">Bibliography</span></h1>
+<p><span class="font7" style="font-weight:bold;">Agerri, R., Bermudez, J. and Rigau, G. </span><span class="font7">(2014). IXA Pipeline:</span></p>
+<p><span class="font7">Efficient and ready to use multilingual NLP tools. In </span><span class="font7" style="font-style:italic;">Proceedings of LREC 2014, the 9<sup>th</sup> International Language Resources and Evaluation Conference</span><span class="font7">. Reykjavik, Iceland.</span></p>
+<p><span class="font7" style="font-weight:bold;">Agirre, E., Baldwin, T. and Martinez, D. </span><span class="font7">(2008). Improving Parsing and PP Attachment Performance with Sense Information. In </span><span class="font7" style="font-style:italic;">Proceedings of ACL 2008, Conference of the&nbsp;Association for Computational Linguistics</span><span class="font7">, 317-325. Columbus, Ohio, US.</span></p>
+<p><span class="font7" style="font-weight:bold;">Alarcos Llorach, E. </span><span class="font7">(1966). </span><span class="font7" style="font-style:italic;">La Poesía de Blas de Otero [por] E. Alarcos Llorach.</span><span class="font7"> Madrid, Anaya.</span></p>
+<p><span class="font7" style="font-weight:bold;">Artstein, R., and Poesio, M. </span><span class="font7">(2008). Inter-coder agreement for computational linguistics. </span><span class="font7" style="font-style:italic;">Computational Linguistics</span></p>
+<p><span class="font7" style="font-style:italic;">34.4</span><span class="font7">: 555-596.</span></p>
+<p><span class="font7" style="font-weight:bold;">Colinas, A. </span><span class="font7">(1983). </span><span class="font7" style="font-style:italic;">Noche más allá de la noche</span><span class="font7">. Madrid, Visor</span></p>
+<p><span class="font7">Libros.</span></p>
+<p><span class="font7" style="font-weight:bold;">Domínguez Caparrós, J. </span><span class="font7">(2000). </span><span class="font7" style="font-style:italic;">Métrica española.</span><span class="font7"> UNED, Spain.</span></p>
+<p><span class="font7" style="font-weight:bold;">García González, R. </span><span class="font7">(ed.) (2006a). </span><span class="font7" style="font-style:italic;">Sonetos del siglo XV al</span></p>
+<p><span class="font7" style="font-style:italic;">XVII</span><span class="font7">. Alicante, Biblioteca Virtual Miguel de Cervantes. Retrieved &nbsp;&nbsp;&nbsp;from&nbsp;&nbsp;&nbsp;&nbsp;http://www.cervan-</span></p>
+<p><span class="font7">tesvirtual.com/nd/ark:/59851/bmc2r439</span></p>
+<p><span class="font7" style="font-weight:bold;">García González, R. </span><span class="font7">(ed.) (2006b). </span><span class="font7" style="font-style:italic;">Sonetos del siglo XIX</span><span class="font7">. Alicante, Biblioteca Virtual Miguel de Cervantes. Retrieved from&nbsp;&nbsp;&nbsp;&nbsp;http://www.cervan-</span></p>
+<p><span class="font7">tesvirtual.com/nd/ark:/59851/bmc4q861</span></p>
+<p><span class="font7" style="font-weight:bold;">García-Page, M. </span><span class="font7">(1991) En torno al encabalgamiento. Pausa virtual y duplicidad de lecturas. </span><span class="font7" style="font-style:italic;">Revista de literatura</span></p>
+<p><span class="font7">53.105: 595-618.</span></p>
+<p><span class="font7" style="font-weight:bold;">Flores Gómez, M. E. </span><span class="font7">(1988). Coincidencia y distorsión (encabalgamiento) de la unidad rítmica verso y las unidades sintácticas. </span><span class="font7" style="font-style:italic;">Estudios clásicos, 30</span><span class="font7">(94): 23-42.</span></p>
+<p><span class="font7" style="font-weight:bold;">Luján Atienza, Á. L. </span><span class="font7">(2006). </span><span class="font7" style="font-style:italic;">Desde las márgenes de un río: la poesía coral de Diego Jesús Jiménez</span><span class="font7">. Córdoba, Litopress.</span></p>
+<p><span class="font7" style="font-weight:bold;">Martínez Cantón, C. </span><span class="font7">(2011). </span><span class="font7" style="font-style:italic;">Métrica y poética de Antonio Colinas</span><span class="font7"> (PhD Dissertation from UNED, Spain). Sevilla, Padilla Libros.</span></p>
+<p><span class="font7" style="font-weight:bold;">Martínez Fernández, J. E. </span><span class="font7">(2010): </span><span class="font7" style="font-style:italic;">La voz entrecortada de los versos.</span><span class="font7"> Barcelona, Davinci Continental.</span></p>
+<p><span class="font7" style="font-weight:bold;">Moretti, F. </span><span class="font7">(2007). </span><span class="font7" style="font-style:italic;">Graphs, Maps, Trees. Abstract Models for Literary History.</span><span class="font7"> Verso.</span></p>
+<p><span class="font7" style="font-weight:bold;">Moretti, F. </span><span class="font7">(2013). </span><span class="font7" style="font-style:italic;">Distant Reading.</span><span class="font7"> Verso.</span></p>
+<p><span class="font7" style="font-weight:bold;">Navarro-Colorado, Borja, Lafoz, M. R. and Sánchez, N.</span></p>
+<p><span class="font7">(2016). Metrical Annotation of a Large Corpus of Spanish</span></p>
+<p><span class="font7">Sonnets: Representation, Scansion and Evaluation. </span><span class="font7" style="font-style:italic;">Proceedings of LREC, Tenth International Conference on Language Resources and Evaluation:</span><span class="font7"> 4630-4634. Portoroz,</span></p>
+<p><span class="font7">Slovenia.</span></p>
+<p><span class="font7" style="font-weight:bold;">Paraíso, I. </span><span class="font7">(2000). </span><span class="font7" style="font-style:italic;">La métrica española en su contexto románico.</span><span class="font7"> Madrid, Arco Libros.</span></p>
+<p><span class="font7" style="font-weight:bold;">Parry, M. </span><span class="font7">(1929). The distinctive character of enjambement in Homeric verse. In </span><span class="font7" style="font-style:italic;">Transactions and Proceedings of the&nbsp;American Philological Association</span><span class="font7"> (60: 200-220). Johns&nbsp;Hopkins University Press, American Philological Association.</span></p>
+<p><span class="font7" style="font-weight:bold;">Quilis, A. </span><span class="font7">(1964). </span><span class="font7" style="font-style:italic;">La estructura del encabalgamiento en la métrica española: Contribución a su estudio experimental.&nbsp;</span><span class="font7">Consejo Superior de Investigaciones Científicas.</span></p>
+<p><span class="font7" style="font-weight:bold;">Senabre, R. </span><span class="font7">(1992). El encabalgamiento en la poesía de Fray Luis de León. </span><span class="font7" style="font-style:italic;">Revista de Filología Española, 62(1)</span><span class="font7">.&nbsp;Consejo Superior de Investigaciones Científicas.</span></p>
+<p><span class="font7" style="font-weight:bold;">Spang, K. </span><span class="font7">(1983). </span><span class="font7" style="font-style:italic;">Ritmo y versificación. Teoría y práctica del análisis métrico.</span><span class="font7"> Universidad de Murcia, Spain.</span></p>
+<p><span class="font7" style="font-weight:bold;">Stein, A. </span><span class="font7">(2016). Old French dependency parsing: Results of two parsers analyzed from a linguistic point of view. In&nbsp;</span><span class="font7" style="font-style:italic;">Proceedings of LREC the 11th International Language Resources and Evaluation Conference:</span><span class="font7"> 707-713. Portoroz,</span></p>
+<p><span class="font7">Slovenia.</span></p>
+<p><span class="font7" style="font-weight:bold;">Ipsum, L. </span><span class="font7">(2017) </span><span class="font7" style="font-weight:bold;">“</span><span class="font7">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut&nbsp;labore et dolore magna aliqua</span><span class="font7" style="font-style:italic;">&quot;. Lorem Ipsum Quarterly.&nbsp;</span><span class="font7">13.1: 27-45</span></p>
+<p><span class="font7" style="font-weight:bold;">Lorem, I. </span><span class="font7">(2014) </span><span class="font7" style="font-weight:bold;">“</span><span class="font7">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut&nbsp;labore et dolore magna aliqua</span><span class="font7" style="font-style:italic;">&quot;. Lorem Ipsum Quarterly.&nbsp;</span><span class="font7">7.1: 46-55</span></p>
+<p><span class="font7" style="font-weight:bold;">Amet, C. </span><span class="font7">(1887) “Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua”. Lorem Ipsum Quarterly.&nbsp;3.1: 56-71</span></p>
+</body>
+</html>

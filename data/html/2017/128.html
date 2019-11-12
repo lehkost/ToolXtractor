@@ -1,0 +1,269 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"
+	"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head><meta http-equiv="content-type" content="text/html; charset=UTF-8"/><meta name="generator" content="ABBYY FineReader 14"/><title>Microsoft Word - 128. Buechler-A Ten-Year Summary of a SOA-based Micro-services Infrastructure-128.docx</title><link rel="stylesheet" href="128_files/128.css" type="text/css"/>
+</head>
+<body><h1><a name="caption1"></a><a name="bookmark0"></a><span class="font2" style="font-weight:bold;">A Ten-Year Summary of a</span></h1><h1><a name="bookmark1"></a><span class="font2" style="font-weight:bold;">SOA-based Micro-services</span></h1><h1><a name="bookmark2"></a><span class="font2" style="font-weight:bold;">Infrastructure for Linguistic Services</span></h1><h2><a name="bookmark3"></a><span class="font4" style="font-weight:bold;">Marco Büchler</span></h2>
+<p><span class="font4"><a href="mailto:mbuechler@etrap.eu">mbuechler@etrap.eu</a></span></p>
+<p><span class="font4">University of Goettingen, Germany</span></p>
+<p><span class="font4" style="font-weight:bold;">Greta Franzini</span></p>
+<p><span class="font4"><a href="mailto:gfranzini@etrap.eu">gfranzini@etrap.eu</a></span></p>
+<p><span class="font4">University of Goettingen, Germany</span></p>
+<p><span class="font4" style="font-weight:bold;">Emily Franzini</span></p>
+<p><span class="font4"><a href="mailto:efranzini@etrap.eu">efranzini@etrap.eu</a></span></p>
+<p><span class="font4">University of Goettingen, Germany</span></p>
+<p><span class="font4" style="font-weight:bold;">Thomas Eckart</span></p>
+<p><span class="font4"><a href="mailto:teckart@informatik.uni-leipzig.de">teckart@informatik.uni-leipzig.de</a></span></p>
+<p><span class="font4">Universität Leipzig, Germany</span></p><h2><a name="bookmark4"></a><span class="font1" style="font-weight:bold;">Introduction</span></h2>
+<p><span class="font4">In the mid 1990s, the Natural Language</span></p>
+<p><span class="font4">Processing Group at the University of Leipzig began</span></p>
+<p><span class="font4">work on the </span><span class="font4" style="text-decoration:underline;">Wortschatz project</span><span class="font4"> which aims to provide corpora in hundreds of languages and in&nbsp;different size-normalisations, be that 100K, 300K or&nbsp;1M sentences. As the resources grew in size, so did&nbsp;the number of requests for the data. In the early&nbsp;stages of the project a specific dump was created,&nbsp;parts of which even came with a small user-interface.&nbsp;The database dump was shared with interested&nbsp;researchers and partners in the business sector.</span></p>
+<p><span class="font4">After some time, however, the personnel costs of this kind of collaboration became unsustainable. For&nbsp;this reason, a new plan was put into motion in 2004,&nbsp;consisting of the development of a SOAP-based API -the </span><span class="font4" style="font-style:italic;">Leipzig Linguistic Services</span><span class="font4"> (LLS) - that enabled&nbsp;any interested person to access the data of the&nbsp;</span><span class="font4" style="font-style:italic;">Wortschatz</span><span class="font4"> databases in any provided language&nbsp;(Quasthoff et al. 2006, Eckart et al. 2012). Overall 20&nbsp;services were provided, delivering specific&nbsp;information such as baseform, category&nbsp;classifications, and thesaurus data. The aim of the&nbsp;LLS was to establish a </span><span class="font4" style="font-style:italic;">Service Oriented Architecture&nbsp;</span><span class="font4">(SOA) for linguistic resources based on small and&nbsp;atomic micro-services that could be combined by&nbsp;users for particular needs. Users were then not only&nbsp;able to browse through the </span><span class="font4" style="font-style:italic;">Wortschatz</span><span class="font4"> website, but&nbsp;also to integrate those services with their own&nbsp;existing digital ecosystems.</span></p>
+<p><span class="font4">In 2005 these services were made publicly</span></p>
+<p><span class="font4">available and by September 2006 all requests were systematically logged. In July 2014 the number of&nbsp;logged requests reached nearly one billion. While at&nbsp;the beginning the use was limited to academia, over&nbsp;time the services were increasingly used by the&nbsp;private and business sectors as well.</span></p><img src="128_files/128-1.jpg" style="width:234pt;height:156pt;"/>
+<p><span class="font0">Figure 2. Four workflow modes with separation of concern: editing (yellow); managing, compiling and&nbsp;deploying (red); hosting and operating (blue); using the&nbsp;LLS infrastructure (green).</span></p>
+<p><span class="font1" style="font-weight:bold;">The Leipzig Linguistic Services</span></p>
+<p><span class="font4">The intention of the overall LLS architecture was to be as simple and generic as possible. A generic&nbsp;architecture can be reused in different scenarios but&nbsp;tends to have too many parameters and options,&nbsp;while a simple architecture claims usability and&nbsp;guarantees a faster learning curve. In the following,&nbsp;we briefly describe the architecture of the LLS.</span></p>
+<p><span class="font4">In order to create the server-side Java code for a specific webservice, a data-set needed to be added to&nbsp;the webservice management (yellow zone in figure&nbsp;1). The necessary edits contain, besides others,&nbsp;information on the name and type of the webservice&nbsp;(see also table 1) or parameters. </span><span class="font4" style="font-style:italic;">Apache Ant</span><span class="font4"> was&nbsp;used as the central tool for generating the back-end&nbsp;services and deploying them in a </span><span class="font4" style="font-style:italic;">Tomcat</span><span class="font4"> server (see&nbsp;red zone in figure 1). The blue zone illustrates the&nbsp;operations of the </span><span class="font4" style="font-style:italic;">Wortschatz</span><span class="font4"> databases. Using the&nbsp;generic description of the webservice in the WSDL-files a number of wrappers of generated source code&nbsp;were created and made publicly available by LLS&nbsp;users such as for C# as part of </span><span class="font4" style="text-decoration:underline;">.NET</span><span class="font4">, </span><span class="font4" style="text-decoration:underline;">Perl</span><span class="font4">, </span><span class="font4" style="text-decoration:underline;">Python</span><span class="font4">,&nbsp;Delphi, </span><span class="font4" style="text-decoration:underline;">PHP</span><span class="font4">, </span><span class="font4" style="text-decoration:underline;">Ruby</span><span class="font4"> and </span><span class="font4" style="text-decoration:underline;">JavaScript</span><span class="font4"> (see green zone in&nbsp;figure 1).</span></p>
+<p><span class="font4">Independently from the underlying programming languages, over the past ten years we have observed&nbsp;different uses in research, business and in the private&nbsp;sector. In research, the LLS were used in the areas of&nbsp;text profiles and author classification (Borchardt&nbsp;2005). The services were also used as data resources&nbsp;for sentiment analysis or for query expansion. Users&nbsp;from the business field were mainly interested in&nbsp;using </span><span class="font4" style="font-style:italic;">Baseform</span><span class="font4"> or </span><span class="font4" style="font-style:italic;">Synonym</span><span class="font4"> services for improving&nbsp;internal search indexes. The LLS data was also used&nbsp;for information retrieval tasks in portals for&nbsp;weighting words in a word cloud or to display&nbsp;enriching information. Private users accessed the&nbsp;LLS to complete crossword puzzles. A dedicated&nbsp;service was installed upon request just for this&nbsp;purpose (see also table 1), since it was possible to&nbsp;query a pattern of an incomplete word with a given&nbsp;word length limitation. From 2008 the SOA-based</span></p>
+<p><span class="font4">cyberinfrastructure of LLS was re-used in Digital</span></p>
+<p><span class="font4">Humanities projects such as eAQUA and </span><span class="font4" style="text-decoration:underline;">eTRACES </span><span class="font4">(Buchler et al. 2008).</span></p>
+<p><span class="font1" style="font-weight:bold;">Results</span></p>
+<p><span class="font4">Table 1 provides an overview of the 20 services offered with a breakdown of the requests and the&nbsp;responses. Over half of the requests (</span><span class="font4" style="font-style:italic;">64.6%</span><span class="font4">) were&nbsp;made to the </span><span class="font4" style="font-style:italic;">Baseform</span><span class="font4"> service. Similarly, services&nbsp;with high-quality and often manually-curated data,&nbsp;such as the </span><span class="font4" style="font-style:italic;">Thesaurus</span><span class="font4"> and </span><span class="font4" style="font-style:italic;">Synonyms</span><span class="font4"> services, were&nbsp;requested more often than the quantitatively-computed </span><span class="font4" style="font-style:italic;">Similarity</span><span class="font4"> service, which provided&nbsp;similarly used words by assuming the distributional&nbsp;hypothesis (Harris 1954), and thus compared the cooccurrence vectors of two words. Even if the&nbsp;coverage for this service, </span><span class="font4" style="font-style:italic;">66.02%</span><span class="font4">, is significantly&nbsp;higher than, for example, the </span><span class="font4" style="font-style:italic;">Category</span><span class="font4"> (</span><span class="font4" style="font-style:italic;">35.92%</span><span class="font4">) or&nbsp;the </span><span class="font4" style="font-style:italic;">Synonyms</span><span class="font4"> (</span><span class="font4" style="font-style:italic;">4.47%</span><span class="font4">) services, users appeared to&nbsp;prefer precision over recall for their end-user&nbsp;applications.</span></p>
+<table border="1">
+<tr><td>
+<p><span class="font5" style="font-style:italic;">Service</span></p></td><td>
+<p></p></td><td>
+<p><span class="font5" style="font-style:italic;">Requests</span></p></td><td>
+<p><span class="font5" style="font-style:italic;">Requests</span></p>
+<p><span class="font5" style="font-style:italic;">(%)</span></p></td><td>
+<p><span class="font5" style="font-style:italic;">Non-empty</span></p>
+<p><span class="font5" style="font-style:italic;">responses</span></p></td><td>
+<p><span class="font5" style="font-style:italic;">Coverage</span></p>
+<p><span class="font5" style="font-style:italic;">(%)</span></p></td><td>
+<p></p></td><td style="vertical-align:bottom;">
+<p><span class="font5" style="font-style:italic;">Fields</span></p></td><td>
+<p><span class="font5" style="font-style:italic;">Webservice</span></p>
+<p><span class="font5" style="font-style:italic;">Type</span></p></td><td>
+<p><span class="font5" style="font-style:italic;">Access level</span></p></td><td>
+<p><span class="font5" style="font-style:italic;">Installation</span></p></td></tr>
+<tr><td>
+<p><span class="font5">Baseform</span></p>
+<p><span class="font5">Category</span></p>
+<p><span class="font5">Thesaurus</span></p>
+<p><span class="font5">Synonyms</span></p>
+<p><span class="font5">Sentences</span></p>
+<p><span class="font5">Wordforms</span></p>
+<p><span class="font5">Frequencies</span></p>
+<p><span class="font5">LeftCollocationFinder</span></p>
+<p><span class="font5">RightCollocationFinder</span></p>
+<p><span class="font5">Cooccurrences</span></p>
+<p><span class="font5">RightNeighbours</span></p>
+<p><span class="font5">LeftNeighbours</span></p>
+<p><span class="font5">Similarity</span></p>
+<p><span class="font5">Cooccurrences All ExperimentalSynonyms&nbsp;Crossword puzzling&nbsp;MARSService</span></p>
+<p><span class="font5">NGrams</span></p>
+<p><span class="font5">NGramReferences Common co-occurrence</span></p></td><td>
+<p></p></td><td>
+<p><span class="font5">624,275,884</span></p>
+<p><span class="font5">120,476,452</span></p>
+<p><span class="font5">69,573,648</span></p>
+<p><span class="font5">60,745,973</span></p>
+<p><span class="font5">60,087,714</span></p>
+<p><span class="font5">12,671,302</span></p>
+<p><span class="font5">11,932,213</span></p>
+<p><span class="font5">1,416,001</span></p>
+<p><span class="font5">1,379,356</span></p>
+<p><span class="font5">1,057,722</span></p>
+<p><span class="font5">959,560</span></p>
+<p><span class="font5">731,449</span></p>
+<p><span class="font5">467,809</span></p>
+<p><span class="font5">20,852</span></p>
+<p><span class="font5">20,779</span></p>
+<p><span class="font5">2,902</span></p>
+<p><span class="font5">616</span></p>
+<p><span class="font5">564</span></p>
+<p><span class="font5">409</span></p>
+<p><span class="font5">55</span></p></td><td>
+<p><span class="font5">64.636%</span></p>
+<p><span class="font5">12.473%</span></p>
+<p><span class="font5">7.203%</span></p>
+<p><span class="font5">6.289%</span></p>
+<p><span class="font5">6.221%</span></p>
+<p><span class="font5">1.311%</span></p>
+<p><span class="font5">1.235%</span></p>
+<p><span class="font5">0.146%</span></p>
+<p><span class="font5">0.142%</span></p>
+<p><span class="font5">0.109%</span></p>
+<p><span class="font5">0.099%</span></p>
+<p><span class="font5">0.075%</span></p>
+<p><span class="font5">0.048%</span></p>
+<p><span class="font5">0.002%</span></p>
+<p><span class="font5">0.002%</span></p>
+<p><span class="font5">&lt; 0.001%</span></p>
+<p><span class="font5">&lt; 0.001%</span></p>
+<p><span class="font5">&lt; 0.001%</span></p>
+<p><span class="font5">&lt; 0.001%</span></p>
+<p><span class="font5">&lt; 0.001%</span></p></td><td>
+<p><span class="font5">315,724,185</span></p>
+<p><span class="font5">43,276,840</span></p>
+<p><span class="font5">37,151,565</span></p>
+<p><span class="font5">2,719,544</span></p>
+<p><span class="font5">11,536,172</span></p>
+<p><span class="font5">4,309,791</span></p>
+<p><span class="font5">8,095,420</span></p>
+<p><span class="font5">295,714</span></p>
+<p><span class="font5">235,323</span></p>
+<p><span class="font5">629,795</span></p>
+<p><span class="font5">567,870</span></p>
+<p><span class="font5">473,600</span></p>
+<p><span class="font5">308,877</span></p>
+<p><span class="font5">20,848</span></p>
+<p><span class="font5">14,860</span></p>
+<p><span class="font5">1,306</span></p>
+<p><span class="font5">616</span></p>
+<p><span class="font5">149</span></p>
+<p><span class="font5">87</span></p>
+<p><span class="font5">43</span></p></td><td>
+<p><span class="font5">50.57%</span></p>
+<p><span class="font5">35.92%</span></p>
+<p><span class="font5">53.39%</span></p>
+<p><span class="font5">4.47%</span></p>
+<p><span class="font5">19.19%</span></p>
+<p><span class="font5">34.01%</span></p>
+<p><span class="font5">67.84%</span></p>
+<p><span class="font5">20.88%</span></p>
+<p><span class="font5">17.06%</span></p>
+<p><span class="font5">59.54%</span></p>
+<p><span class="font5">59.18%</span></p>
+<p><span class="font5">64.74%</span></p>
+<p><span class="font5">66.02%</span></p>
+<p><span class="font5">99.98%</span></p>
+<p><span class="font5">71.51%</span></p>
+<p><span class="font5">45.00%</span></p>
+<p><span class="font5">100.00%</span></p>
+<p><span class="font5">26.41%</span></p>
+<p><span class="font5">21.27%</span></p>
+<p><span class="font5">78.18%</span></p></td><td>
+<p></p></td><td>
+<p><span class="font5">W</span></p>
+<p><span class="font5">W</span></p>
+<p><span class="font5">W, L</span></p>
+<p><span class="font5">W, L</span></p>
+<p><span class="font5">W, L</span></p>
+<p><span class="font5">W, L</span></p>
+<p><span class="font5">W</span></p>
+<p><span class="font5">W, PoS, L</span></p>
+<p><span class="font5">W, PoS, L</span></p>
+<p><span class="font5">W, ST, L</span></p>
+<p><span class="font5">W, L</span></p>
+<p><span class="font5">W, L</span></p>
+<p><span class="font5">W, L</span></p>
+<p><span class="font5">W, ST, L</span></p>
+<p><span class="font5">W, L</span></p>
+<p><span class="font5">W, WL, L</span></p>
+<p><span class="font5">W, L</span></p>
+<p><span class="font5">P, L</span></p>
+<p><span class="font5">P, L</span></p>
+<p><span class="font5">Wl, W2, L</span></p></td><td>
+<p><span class="font5">MySQLSelect</span></p>
+<p><span class="font5">MySQLSelect</span></p>
+<p><span class="font5">MySQLSelect</span></p>
+<p><span class="font5">MySQLSelect</span></p>
+<p><span class="font5">MySQLSelect</span></p>
+<p><span class="font5">MySQLSelect</span></p>
+<p><span class="font5">MySQLSelect</span></p>
+<p><span class="font5">MySQLSelect</span></p>
+<p><span class="font5">MySQLSelect</span></p>
+<p><span class="font5">MySQLSelect</span></p>
+<p><span class="font5">MySQLSelect</span></p>
+<p><span class="font5">MySQLSelect</span></p>
+<p><span class="font5">MySQLSelect</span></p>
+<p><span class="font5">MySQLSelect</span></p>
+<p><span class="font5">MySQLSelect</span></p>
+<p><span class="font5">MySQLSelect</span></p>
+<p><span class="font5">MARS</span></p>
+<p><span class="font5">MySQLSelect</span></p>
+<p><span class="font5">MySQLSelect</span></p>
+<p><span class="font5">MySQLSelect</span></p></td><td>
+<p><span class="font5">FREE</span></p>
+<p><span class="font5">FREE</span></p>
+<p><span class="font5">FREE</span></p>
+<p><span class="font5">FREE</span></p>
+<p><span class="font5">FREE</span></p>
+<p><span class="font5">FREE</span></p>
+<p><span class="font5">FREE</span></p>
+<p><span class="font5">FREE</span></p>
+<p><span class="font5">FREE</span></p>
+<p><span class="font5">FREE</span></p>
+<p><span class="font5">FREE</span></p>
+<p><span class="font5">FREE</span></p>
+<p><span class="font5">FREE</span></p>
+<p><span class="font5">INTERN</span></p>
+<p><span class="font5">FREE</span></p>
+<p><span class="font5">FREE</span></p>
+<p><span class="font5">INTERN</span></p>
+<p><span class="font5">FREE</span></p>
+<p><span class="font5">FREE</span></p>
+<p><span class="font5">INTERN</span></p></td><td>
+<p><span class="font5">04/2005</span></p>
+<p><span class="font5">04/2005</span></p>
+<p><span class="font5">04/2005</span></p>
+<p><span class="font5">04/2005</span></p>
+<p><span class="font5">04/2005</span></p>
+<p><span class="font5">04/2005</span></p>
+<p><span class="font5">04/2005</span></p>
+<p><span class="font5">10/2005</span></p>
+<p><span class="font5">10/2005</span></p>
+<p><span class="font5">04/2005</span></p>
+<p><span class="font5">04/2005</span></p>
+<p><span class="font5">04/2005</span></p>
+<p><span class="font5">10/2005</span></p>
+<p><span class="font5">05/2009</span></p>
+<p><span class="font5">12/2009</span></p>
+<p><span class="font5">10/2005</span></p>
+<p><span class="font5">10/2006</span></p>
+<p><span class="font5">08/2011</span></p>
+<p><span class="font5">08/2011</span></p>
+<p><span class="font5">10/2005</span></p></td></tr>
+<tr><td>
+<p><span class="font5">TOTAL</span></p></td><td>
+<p></p></td><td>
+<p><span class="font5">965,821,260</span></p></td><td>
+<p></p></td><td>
+<p><span class="font5">425,362,605</span></p></td><td>
+<p></p></td><td>
+<p></p></td><td>
+<p></p></td><td>
+<p></p></td><td>
+<p></p></td><td>
+<p></p></td></tr>
+</table>
+<p><span class="font0">Table 1. Overview of requests made to LLS between 2006-2014, in descending order. The Responses columns&nbsp;only list responses whose value was not empty. For space</span></p>
+<p><span class="font0">constraints, the values in the Input Fields column are abbreviated: Word (W.), Limit (L.), Pa</span></p>
+<p><span class="font4">Low coverage is also caused by requests to German language databases, especially by&nbsp;compound nouns that cannot all be included in a&nbsp;</span><span class="font4" style="font-style:italic;">Baseform</span><span class="font4"> or </span><span class="font4" style="font-style:italic;">Category</span><span class="font4"> service. Many multi-word&nbsp;units (MWU) were also requested. Out of all the&nbsp;requests, </span><span class="font4" style="font-style:italic;">84,760,875</span><span class="font4"> (</span><span class="font4" style="font-style:italic;">8.78%</span><span class="font4">) were MWUs. With&nbsp;regard to the distribution of the webservice usage,&nbsp;only the two most frequently requested services,&nbsp;</span><span class="font4" style="font-style:italic;">Baseform</span><span class="font4"> and </span><span class="font4" style="font-style:italic;">Category</span><span class="font4">, were queried more often&nbsp;than the total count of the MWU requests. This&nbsp;speaks to the impact of MWUs.</span></p>
+<p><span class="font4">The less frequently used webservices in table 1 were primarily limited to internal uses, to newly&nbsp;installed services or, as was the case for the&nbsp;Crossword Puzzling service, to manual usage instead&nbsp;of automatic bulk requests.</span></p>
+<p><span class="font4">The following questions are discussed in the paper:</span></p>
+<p><span class="font4">1. &nbsp;&nbsp;&nbsp;Geographical distribution and spread of&nbsp;requests</span></p>
+<p><span class="font4">2. &nbsp;&nbsp;&nbsp;Requested languages distribution</span></p>
+<p><span class="font4">3. &nbsp;&nbsp;&nbsp;Requests by cleanliness in terms of broken&nbsp;encodings or sending HTML code</span></p>
+<p><span class="font4">4. &nbsp;&nbsp;&nbsp;Temporal distribution including lessons&nbsp;learnt from incompatibility issues of used&nbsp;software and their new versions causing a&nbsp;decrease in service usage</span></p>
+<p><span class="font4">5. &nbsp;&nbsp;&nbsp;Identified service chains of the atomic LLS&nbsp;micro-services that users built on the&nbsp;client-side</span></p>
+<p><span class="font4">6. &nbsp;&nbsp;&nbsp;Experiences for load balancing of linguistic&nbsp;services</span></p>
+<p><span class="font4">7. &nbsp;&nbsp;&nbsp;Interoperability issues of programming&nbsp;languages and interpreting the WSDL-files&nbsp;differently</span></p>
+<p><span class="font4">8. &nbsp;&nbsp;&nbsp;Comparisons of SOAP- and REST-based&nbsp;webservices</span></p><h2><a name="bookmark5"></a><span class="font1" style="font-weight:bold;">Conclusion</span></h2>
+<p><span class="font4">“If you build it, they will come“ is an infrastructure mantra that we can answer given the&nbsp;atomic micro-services of the LLS (more critical view&nbsp;by van Zundert 2012). However, with regard to easy-to-integrate and atomic micro-services we found&nbsp;that users were generally very pragmatic as they&nbsp;requested everything that they had found in texts or&nbsp;on webpages, such as RGB colour-sets, URLs and&nbsp;other meta-information. Based on the log-files, we&nbsp;conclude that it is easier to request a token and look&nbsp;for a match in the LLS database of millions of words&nbsp;rather than to invest only little time in conventional&nbsp;pre-processing and pre-selection on the client-side.&nbsp;Similarly, users repeatedly requested function&nbsp;words, sometimes only a few minutes apart. This&nbsp;user behaviour entailed a significant server load and&nbsp;user control over the requests. This type of recurring&nbsp;request on unchanged data could only be considered&nbsp;as spam.</span></p>
+<p><span class="font4">We found that providing an infrastructure like the LLS over the course of a decade challenges the&nbsp;compatibility of used software components.</span></p>
+<p><span class="font4">Moreover, from a Natural Language Processing (NLP) standpoint, the results contribute to existing&nbsp;conversations about the difficulty of building&nbsp;balanced and representative corpora. In fact, user</span></p>
+<p><span class="font4">interests detected in the LLS log-files can help to enrich corpora by adding further topics. The&nbsp;contribution also touches upon discussions about&nbsp;qualitative and manually-curated data versus&nbsp;automatically-computed&nbsp;&nbsp;&nbsp;&nbsp;and&nbsp;&nbsp;&nbsp;&nbsp;quantitatively-</span></p>
+<p><span class="font4">available results of language technology algorithms. Notwithstanding the improvement of NLP&nbsp;algorithms, our results show that users prefer&nbsp;qualitative data and that they often request these&nbsp;services even if the domain and concept coverage is&nbsp;relatively low. The conclusion we draw from the user&nbsp;behaviour observed in almost one billion requests is</span></p>
+<p><span class="font4">that research fields, including the Digital</span></p>
+<p><span class="font4">Humanities, should share their data -no matter how small- through large infrastructure initiatives like&nbsp;DARIAH and CLARIN in order to increase the textual&nbsp;coverage of linguistic resources.</span></p><h2><a name="bookmark6"></a><span class="font1" style="font-weight:bold;">Bibliography</span></h2>
+<p><span class="font3" style="font-weight:bold;">Borchardt, S. </span><span class="font3">(2005) </span><span class="font3" style="font-style:italic;">Generierbarkeit einer XML Topic Map aus E-Mails unter Verwendung von Text-Mining-Methoden und Nutzung von Web Services</span><span class="font3">. Bachelor&nbsp;thesis.</span></p>
+<p><span class="font3" style="font-weight:bold;">Büchler, M., Heyer, G., Gründer, S. </span><span class="font3">(2008) </span><span class="font3" style="font-style:italic;">Bringing Modern Text Mining Approaches to Two Thousand&nbsp;Years Old Ancient Texts e-Humanities</span><span class="font3"> At: Workshop in&nbsp;the 4th IEEE International Conference on e-Science.</span></p>
+<p><span class="font3" style="font-weight:bold;">Eckart, T., Quasthoff, U., and Goldhahn, D. </span><span class="font3">(2012) </span><span class="font3" style="font-style:italic;">Language Statistics-Based Quality Assurance for Large&nbsp;Corpora</span><span class="font3">, Proceedings of Asia Pacific Corpus&nbsp;Linguistics Conference.</span></p>
+<p><span class="font3" style="font-weight:bold;">Harris, Z</span><span class="font3">. (1954) Distributional structure, Word, 10, 2-3, pp. 146162.</span></p>
+<p><span class="font3" style="font-weight:bold;">Quasthoff, U., Richter, M., and Biemann, C. </span><span class="font3">(2006) </span><span class="font3" style="font-style:italic;">Corpus Portal for Search in Monolingual Corpora&nbsp;</span><span class="font3">Proceedings of the Fifth International Conference on&nbsp;Language Resources and Evaluation (LREC).</span></p>
+<p><span class="font3" style="font-weight:bold;">Van Zundert, J. </span><span class="font3">(2012) , </span><span class="font3" style="font-style:italic;">If You Build It, Will We Come? Large Scale Digital Infrastructures as a Dead End for&nbsp;Digital Humanities</span><span class="font3">, Historical Social Research /&nbsp;Historische Sozialforschung, vol. 37, no. 3, pp. 165-86.</span></p>
+</body>
+</html>

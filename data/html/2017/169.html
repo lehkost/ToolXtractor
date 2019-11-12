@@ -1,0 +1,184 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"
+	"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head><meta http-equiv="content-type" content="text/html; charset=UTF-8"/><meta name="generator" content="ABBYY FineReader 14"/><title>Microsoft Word - 169. Ares Oliveira-Machine Vision Algorithms On Cadaster Plans-169.docx</title><link rel="stylesheet" href="169_files/169.css" type="text/css"/>
+</head>
+<body><h1><a name="caption1"></a><a name="bookmark0"></a><span class="font3" style="font-weight:bold;">Machine Vision algorithms</span></h1><h1><a name="bookmark1"></a><span class="font3" style="font-weight:bold;">on cadaster plans</span></h1>
+<p><span class="font8" style="font-weight:bold;">Sofia Ares Oliveira</span></p>
+<p><span class="font8"><a href="mailto:sofia.oliveiraares@epfl.ch">sofia.oliveiraares@epfl.ch</a></span></p>
+<p><span class="font8">École Polytechnique Fédérale de Lausanne, Switzerland</span></p>
+<p><span class="font8" style="font-weight:bold;">Frederic Kaplan</span></p>
+<p><span class="font8"><a href="mailto:frederic.kaplan@epfl.ch">frederic.kaplan@epfl.ch</a>,</span></p>
+<p><span class="font8">École Polytechnique Fédérale de Lausanne, Switzerland</span></p>
+<p><span class="font8" style="font-weight:bold;">Isabella di Lenardo</span></p>
+<p><span class="font8"><a href="mailto:isabella.dilenardo@epfl.ch">isabella.dilenardo@epfl.ch</a></span></p>
+<p><span class="font8">p, Switzerland</span></p>
+<p><span class="font2" style="font-weight:bold;">Introduction</span></p>
+<p><span class="font8">Cadaster plans are cornerstones for reconstructing dense representations of the history&nbsp;of the city (di Lenardo and Kaplan, 2015). They&nbsp;provide information about the city urban shape,&nbsp;enabling to reconstruct footprints of most important&nbsp;urban components (buildings, streets, canals,&nbsp;bridges) as well as information about the urban&nbsp;population and city functions (census information,&nbsp;property, rent prices, etc.) (Noizet et al, 2013).&nbsp;Cadaster plans are usually the results of coordinated&nbsp;campaigns with standardized methods of&nbsp;measurement and representation. This means that&nbsp;large sets of documents follow the same&nbsp;representation conventions. This regularity opens&nbsp;the possibly of efficient automated process for&nbsp;analyzing them and possibly transforming the&nbsp;information they contain in geo-referenced&nbsp;databases that can be used as part of historical&nbsp;geographical information systems (Gregory et al,&nbsp;2001).</span></p>
+<p><span class="font8">However, as some of these handwritten documents are more than 200 years old, the&nbsp;establishment of a processing pipeline for&nbsp;interpreting them remains extremely challenging.&nbsp;This may explain why, to our knowledge, no such&nbsp;system exists in the literature. This article reports&nbsp;our effort in this domain, presenting the first&nbsp;implementation of a fully automated process capable&nbsp;of segmenting and interpreting Napoleonic Cadaster&nbsp;Maps of the Veneto Region dating from the beginning&nbsp;of the 19th century. Our system extracts the&nbsp;geometry of each of the drawn parcels, and classifies,&nbsp;reads and interprets the handwritten labels. We&nbsp;believe the general principle of technologies used in&nbsp;the process could be adapted to other cadastral&nbsp;funds, although this has not been tested in the&nbsp;present study.</span></p>
+<p><span class="font2" style="font-weight:bold;">Methodology</span></p>
+<p><span class="font8">Literature on map processing includes works on many different types of maps, from roads to&nbsp;topographic maps, including hydrographic and&nbsp;cadastral maps. Most studies focus on particular&nbsp;problems and features and thus develop techniques&nbsp;that are highly map specific (Chiang et al, 2014).</span></p>
+<p><span class="font8">Our work addresses the particular case of the Napoleonic cadaster of Venice dated 1808, but aims&nbsp;at developing a method highly adaptable to other&nbsp;cadasters with little extra effort.</span></p>
+<p><span class="font8">We propose a system that segments the cadastral map, identifies and extract segmented objects such&nbsp;as parcels and identifiers and recognizes the&nbsp;extracted hand-written digits. A demo code with&nbsp;examples of the results can be found at&nbsp;<a href="https://github.com/dhlab-epfl/cadasters">https://github.com/dhlab-epfl/cadasters</a>.</span></p>
+<p><span class="font8">The method is summarized in Fig. 1.</span></p><img src="169_files/169-1.jpg" style="width:228pt;height:66pt;"/>
+<p><span class="font1">Figure 1: Overview of the system</span></p>
+<p><span class="font2">Preprocessing</span></p>
+<p><span class="font8">Usually, the processed images are ancient documents that have been digitized. To deal with the&nbsp;natural ageing of paper and eventual spots on the&nbsp;map without losing details, we use a non-local means&nbsp;de-noising method (Buades et al, 2005) to smooth&nbsp;the image.</span></p>
+<p><span class="font2">Segmentation</span></p>
+<p><span class="font8">We address the task of extracting the desired information from the document as a segmentation&nbsp;problem, which is a recurrent problem in image&nbsp;processing. A graph-based segmentation approach is&nbsp;adopted, which models the image as a weighted&nbsp;undirected graph. This allows to process the pixels&nbsp;or regions in the spatial domain of the image but also&nbsp;to use higher level information such as connections,&nbsp;similarities and dependencies between the elements.</span></p>
+<p><span class="font8">Because a group of pixels sharing some similarities are more perceptually meaningful than a&nbsp;simple pixel, we use SLIC method (Achanta et al,&nbsp;2012) to create superpixels. Superpixels are clusters&nbsp;of pixels that share similarities and spatial proximity&nbsp;and have the advantage of reducing the complexity&nbsp;of image processing tasks.</span></p>
+<p><span class="font8">A graph is a mathematical structure composed of vertices and edges, representing a system of&nbsp;connections or interrelations among a set of objects.&nbsp;It is widely used to model relations, to study&nbsp;information systems or to organize data. In our case,&nbsp;the graph representing the image is initialized with&nbsp;superpixels as vertices. Its edges connect&nbsp;neighboring vertices (superpixels) and each edge has&nbsp;a weight which is a measure of the dissimilarity&nbsp;between neighboring elements. The distance (or&nbsp;dissimilarity) metric is based on color and&nbsp;edge/ridge features.</span></p>
+<p><span class="font8">The oversegmentation of the image resulting from superpixel generation is then reduced by&nbsp;grouping superpixels into homogeneous regions and&nbsp;merging the corresponding graph vertices. Our&nbsp;approach uses global homogeneity, meaning that the&nbsp;method minimizes intragroup dissimilarity and&nbsp;maximizes intergroup dissimilarity. The ‘dispersion'&nbsp;of edge weights (i.e standard deviation within a&nbsp;region) allows to spot high-weighted edges within a&nbsp;group and thus disconnect dissimilar vertices (i.e&nbsp;remove their edge) to end up with independent&nbsp;homogeneous regions.</span></p>
+<p><span class="font2">Region Classification</span></p>
+<p><span class="font8">The merged regions are classified into 3 classes: text, contour/delimitations and background (smooth&nbsp;textures such as parcels or streets) using a SVM&nbsp;classifier. The training data is composed of manually&nbsp;annotated samples of maps coming from the&nbsp;Napoleonic cadaster of Venice.</span></p>
+<p><span class="font2">Parcel Extraction</span></p>
+<p><span class="font8">The classification results allow the determination possible parcels candidates. A flood fill algorithm is&nbsp;applied, using a ridge detector to indicate&nbsp;boundaries. The chosen ridge detector was originally&nbsp;developed as a vessel enhancement filter (Frangi et&nbsp;al, 1998) and looks for multiscale second order local&nbsp;structures of the image that can be considered&nbsp;tubular. The obtained measure indicates how similar&nbsp;the structure is to a tube, and so it is able to detect&nbsp;ridges. Starting from one point in the regions labeled&nbsp;as background (seed point), the flood fill algorithm&nbsp;floods each zone, i.e parcels, streets, etc. and stops at&nbsp;the boundaries (output of the ridge detector).</span></p>
+<p><span class="font8">Each parcel of the image is extracted as a polygonal shape and the polygon's corner points are&nbsp;stored in GeoJSON format. If the image file is geo-referenced and contains geographical information (a&nbsp;GTIFF file for instance), polygons are exported&nbsp;according to the spatial reference system provided.&nbsp;This allows a fast and easy integration of the shapes&nbsp;into a geographic information system (GIS) and&nbsp;geographic information on the parcels can easily be&nbsp;collected.</span></p>
+<p><span class="font2">Digit Extraction</span></p>
+<p><span class="font8">The parcel identifier is usually contained within the parcel. This observation and the extracted&nbsp;polygons' information can be used to correct&nbsp;misclassified text regions and improve identifier&nbsp;extraction. Elements labeled as text regions are&nbsp;localized, delimited by bounding boxes and grouped&nbsp;so that neighboring characters are extracted&nbsp;together. Again, information from polygons is used&nbsp;to determine whether neighboring digits belong to&nbsp;the same identifier or not (i.e whether neighboring&nbsp;digits are located in the same parcel/polygon). Boxes&nbsp;that do not correspond to identifiers or digits are&nbsp;removed according to specific criteria. Finally, the&nbsp;boxes containing the parcels' identifiers are&nbsp;extracted.</span></p>
+<p><span class="font8">Since the digit recognition step requires horizontally oriented digits to output accurate&nbsp;prediction, the identifiers' boxes are rotated. A&nbsp;principal analysis component is applied to the binary&nbsp;image of the extracted numbers to determine the&nbsp;angle of the rotation.</span></p>
+<p><span class="font2">Digit Recognition</span></p>
+<p><span class="font8">The horizontally oriented numbers are separated into digits that are processed individually. A good&nbsp;digit segmentation is primordial since connected or&nbsp;overlapping digits lead to incorrect recognition. A&nbsp;Convolutional Neural Network (CNN) with two&nbsp;convolutional layers, two fully connected layers and&nbsp;a final softmax layer for multiclass classification is&nbsp;used to predict the identifiers. The CNN is trained on&nbsp;a mixed dataset composed of MNIST dataset (LeCun&nbsp;et al, 1998) and digit samples from Sommarioni&nbsp;register and has a performance of 99.1%. When&nbsp;predicting the numbers, the network outputs the&nbsp;inferred number with a confidence level indicating&nbsp;the reliability of the result.</span></p>
+<p><span class="font2" style="font-weight:bold;">Results</span></p>
+<p><span class="font8">The proposed approach shows promising results in parcel extraction and identifier recognition. We&nbsp;performed the first ‘proof-of-concept' evaluations on&nbsp;manually labeled data taken from different cadaster&nbsp;samples. The total number of annotated objects are&nbsp;shown in Table 1.</span></p>
+<p><span class="font8">Most parcels and identifiers were correctly extracted (Table 2 &amp; 3), which assured us of the&nbsp;feasibility of their automatic extraction. The&nbsp;precision can still be increased for example by using&nbsp;feedback from digit recognition results, i.e, the&nbsp;prediction and its confidence level permit the&nbsp;discarding regions where no reliable identifier has&nbsp;been recognized.</span></p><img src="169_files/169-2.jpg" style="width:189pt;height:198pt;"/>
+<p><span class="font0" style="font-style:italic;">i7bi</span></p>
+<p><span class="font1" style="font-style:italic;">mb</span></p>
+<p><span class="font9">277/</span></p>
+<p><span class="font8">-J</span></p>
+<p><span class="font1">Figure 2: Sample of results: (a) original image, (b) polygon approximation of parcels, (c) extracted parcels and (d)&nbsp;identifier localization</span></p>
+<table border="1">
+<tr><td style="vertical-align:middle;">
+<p><span class="font8">Parcels with labels</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font8">810</span></p></td></tr>
+<tr><td>
+<p><span class="font8">All parcels (with and without lab els)</span></p></td><td>
+<p><span class="font8">1185</span></p></td></tr>
+<tr><td>
+<p><span class="font8">Parcels' numbers</span></p></td><td>
+<p><span class="font8">736</span></p></td></tr>
+</table>
+<p><span class="font1">Table 1: Count of ground-truth objects</span></p>
+<table border="1">
+<tr><td>
+<p></p></td><td colspan="3">
+<p><span class="font5">Labelled parcels</span></p></td><td colspan="3">
+<p><span class="font5">All parcels</span></p></td></tr>
+<tr><td style="vertical-align:middle;">
+<p><span class="font10">IßJi</span></p></td><td style="vertical-align:middle;">
+<p><span class="font5">&gt; 0.6</span></p></td><td style="vertical-align:middle;">
+<p><span class="font5">&gt; 0.7</span></p></td><td style="vertical-align:middle;">
+<p><span class="font5">&gt; 0.8</span></p></td><td style="vertical-align:middle;">
+<p><span class="font5">&gt; 0.6</span></p></td><td style="vertical-align:middle;">
+<p><span class="font5">&gt; 0.7</span></p></td><td style="vertical-align:middle;">
+<p><span class="font5">&gt; 0.8</span></p></td></tr>
+<tr><td>
+<p><span class="font5">Recall</span></p></td><td>
+<p><span class="font5">0.77</span></p></td><td>
+<p><span class="font5">0.76</span></p></td><td>
+<p><span class="font5">0.72</span></p></td><td>
+<p><span class="font5">0.72</span></p></td><td>
+<p><span class="font5">0.69</span></p></td><td style="vertical-align:middle;">
+<p><span class="font5">0.60</span></p></td></tr>
+<tr><td>
+<p><span class="font5">Precision</span></p></td><td>
+<p><span class="font5">0.55</span></p></td><td>
+<p><span class="font5">0.54</span></p></td><td>
+<p><span class="font5">0.51</span></p></td><td>
+<p><span class="font5">0.75</span></p></td><td>
+<p><span class="font5">0.71</span></p></td><td style="vertical-align:middle;">
+<p><span class="font5">0.62</span></p></td></tr>
+<tr><td>
+<p><span class="font5">Ground-truth</span></p></td><td colspan="3" style="vertical-align:middle;">
+<p><span class="font5">810</span></p></td><td colspan="3">
+<p><span class="font5">1185</span></p></td></tr>
+<tr><td>
+<p><span class="font5">Total extracted</span></p></td><td colspan="6">
+<p><span class="font5">1144</span></p></td></tr>
+</table>
+<p><span class="font1">Table 2: Results of parcel extraction with different Intersection over Union (IoU) thresholds</span></p>
+<p><span class="font8">Concerning the digit recognition, only 10% of the identifiers had their digits correctly recognized.&nbsp;Since the models used have shown good&nbsp;performance on nicely detached digits, this is not the&nbsp;fault of the recognition algorithm itself but rather of&nbsp;the digit segmentation procedure. The current&nbsp;segmentation is the main hindrance to an efficient&nbsp;digit recognition, thus, further work should focus on&nbsp;a better number processing algorithm. Another&nbsp;alternative is to avoid the segmentation problem and&nbsp;use a recurrent neural network such as LTSM to&nbsp;process the number as a sequence.</span></p>
+<p><span class="font2" style="font-weight:bold;">Perspectives</span></p>
+<p><span class="font8">Our work shows promising results for easing and accelerating cadaster processing, especially given&nbsp;our method's efficient parcel segmentation and digit&nbsp;identification. Moreover, the export of a parcel's&nbsp;geometry into GeoJSON format opens up further&nbsp;perspectives to efficiently geo-reference ancient&nbsp;maps. The system can be extended and integrated&nbsp;into a user interface to take better advantage from&nbsp;the results, for example by allowing the user to&nbsp;correct or add information about parcels and&nbsp;identifiers.</span></p>
+<table border="1">
+<tr><td>
+<p><span class="font6">Inter</span></p></td><td>
+<p><span class="font6">&gt; 0.5</span></p></td><td>
+<p><span class="font6">&gt; 0.7</span></p></td><td>
+<p><span class="font6">&gt; 0.9</span></p></td></tr>
+<tr><td>
+<p><span class="font6">Recall</span></p></td><td>
+<p><span class="font6">0.90</span></p></td><td>
+<p><span class="font6">0.87</span></p></td><td style="vertical-align:middle;">
+<p><span class="font6">0.81</span></p></td></tr>
+<tr><td>
+<p><span class="font6">Precision</span></p></td><td>
+<p><span class="font6">0.58</span></p></td><td>
+<p><span class="font6">0.55</span></p></td><td>
+<p><span class="font6">0.51</span></p></td></tr>
+<tr><td>
+<p><span class="font6">Ground-truth</span></p></td><td colspan="3">
+<p><span class="font6">736</span></p></td></tr>
+<tr><td>
+<p><span class="font6">Total localized</span></p></td><td colspan="3">
+<p><span class="font6">1152</span></p></td></tr>
+</table>
+<p><span class="font1">Table 3: Results of parcels' number localization with different Intersection (overlapping percentage)&nbsp;thresholds.</span></p>
+<table border="1">
+<tr><td rowspan="2">
+<p></p></td><td rowspan="2">
+<p><span class="font4">Correct number</span></p></td><td colspan="4">
+<p><span class="font4">Partial number</span></p></td></tr>
+<tr><td>
+<p><span class="font4">4 digits</span></p></td><td>
+<p><span class="font4">3 digits</span></p></td><td>
+<p><span class="font4">2 digits</span></p></td><td>
+<p><span class="font4">1 digit</span></p></td></tr>
+<tr><td>
+<p><span class="font4">MNIST</span></p></td><td>
+<p><span class="font4">58 (.09)</span></p></td><td>
+<p><span class="font4">17 (.03)</span></p></td><td>
+<p><span class="font4">105 (.16)</span></p></td><td>
+<p><span class="font4">94 (.14)</span></p></td><td>
+<p><span class="font4">165 (0.25)</span></p></td></tr>
+<tr><td>
+<p><span class="font4">MNIST-Sommarioni</span></p></td><td>
+<p><span class="font4">66 (.10)</span></p></td><td>
+<p><span class="font4">20 (.03)</span></p></td><td>
+<p><span class="font4">90 (.14)</span></p></td><td>
+<p><span class="font4">103 (.16)</span></p></td><td>
+<p><span class="font4">163 (.26)</span></p></td></tr>
+<tr><td>
+<p><span class="font4">Total localized</span></p></td><td colspan="5">
+<p><span class="font4">637</span></p></td></tr>
+</table>
+<p><span class="font1">Table 4: Results of parcels' number recognition</span></p>
+<p><span class="font8">The proposed method creates a bridge between previously seperate two data types: the raster object&nbsp;and the vector object. Currently, web-mapping tools&nbsp;consider vector objects as separate layers on the&nbsp;raster maps, and each object needs to be manually&nbsp;redesigned. The automatic vectorization process&nbsp;enables us to perform the visualization and&nbsp;annotation processes directly on the cartographic&nbsp;source without the prerequisite of complex skills. It&nbsp;should greatly facilitate large scale exploitation of&nbsp;such kinds of documents.</span></p>
+<p><span class="font7">features,” in Document Analysis and Recognition, 1993., Proceedings of the Second Interna- tional&nbsp;Conference on, pp. 577-580, IEEE.</span></p>
+<p><span class="font7" style="font-weight:bold;">Chen, Y.-K. and Wang, J.-F. </span><span class="font7">(2000). “Segmentation of</span></p>
+<p><span class="font7">single-or multiple-touching handwritten numeral string using background and foreground analysis,”</span></p>
+<p><span class="font7">Pattern Analysis and Machine Intelligence, IEEE</span></p>
+<p><span class="font7">Transactions on, vol. 22, no. 11, pp. 1304-1317.</span></p>
+<p><span class="font2" style="font-weight:bold;">Bibliography</span></p>
+<p><span class="font7" style="font-weight:bold;">di Lenardo, I. and Kaplan, F. </span><span class="font7">(2015) “Venice time machine: Recreating the density of the past,” in Digital&nbsp;Humanities 2015, no. EPFL-CONF-214895.</span></p>
+<p><span class="font7" style="font-weight:bold;">Noizet, H., Bove, B., and Costa, L. </span><span class="font7">(2013) “Paris de parcelles en pixels.”</span></p>
+<p><span class="font7" style="font-weight:bold;">Gregory, I. N., Kemp, K. K., and Mostern, R. </span><span class="font7">(2001). “Geographical information and historical research:</span></p>
+<p><span class="font7">Current progress and future directions,” History and</span></p>
+<p><span class="font7">Computing, vol. 13, no. 1, pp. 7-23.</span></p>
+<p><span class="font7" style="font-weight:bold;">Chiang, Y.-Y., Leyk, S., and Knoblock, C. A. </span><span class="font7">(2014). “A survey of digital map processing techniques,” ACM</span></p>
+<p><span class="font7">Computing Surveys (CSUR), vol. 47, no. 1, p. 1, 2014.</span></p>
+<p><span class="font7" style="font-weight:bold;">Buades, A., Coll, B., and Morel, J.-M. </span><span class="font7">(2005). “A non-local</span></p>
+<p><span class="font7">algorithm for image denoising,” in Computer Vision</span></p>
+<p><span class="font7">and Pattern Recognition, 2005. CVPR 2005. IEEE</span></p>
+<p><span class="font7">Computer Society Conference on, vol. 2, pp. 60-65,</span></p>
+<p><span class="font7">IEEE.</span></p>
+<p><span class="font7" style="font-weight:bold;">Achanta, R., Shaji, A., Smith, K., Lucchi, A., Fua, P., and Susstrunk, S. </span><span class="font7">(2012). “Slic superpixels com- pared to&nbsp;state-of-the-art superpixel methods,” Pattern Analysis&nbsp;and Machine Intelligence, IEEE Transactions on, vol.&nbsp;34, no. 11, pp. 2274-2282.</span></p>
+<p><span class="font7" style="font-weight:bold;">Frangi, A. F., Niessen, W. J., Vincken, K. L., and Viergever, M. A</span><span class="font7">.&nbsp;&nbsp;&nbsp;&nbsp;(1998).&nbsp;&nbsp;&nbsp;&nbsp;“Multiscale vessel</span></p>
+<p><span class="font7">enhancement filtering,” in Medical Image Computing</span></p>
+<p><span class="font7">and Computer-Assisted Interventa- tion—MICCAI'98,</span></p>
+<p><span class="font7">pp. 130-137, Springer.</span></p>
+<p><span class="font7" style="font-weight:bold;">LeCun, Y., Cortes, C., and Burges, C. J. </span><span class="font7">(1998). “The mnist database of handwritten digits”.</span></p>
+<p><span class="font7" style="font-weight:bold;">Strathy, N.W., C. Y. Suen, C.Y., and Krzyzak. A</span><span class="font7">. (1993).</span></p>
+<p><span class="font7">“Segmentation of handwritten digits using contour</span></p>
+</body>
+</html>

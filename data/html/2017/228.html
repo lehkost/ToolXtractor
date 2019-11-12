@@ -1,0 +1,195 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"
+	"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head><meta http-equiv="content-type" content="text/html; charset=UTF-8"/><meta name="generator" content="ABBYY FineReader 14"/><title>Microsoft Word - 228. Fornes-Transcription of Encoded Manuscripts with Image Processing Techniques-228.docx</title><link rel="stylesheet" href="228_files/228.css" type="text/css"/>
+</head>
+<body><h1><a name="caption1"></a><a name="bookmark0"></a><span class="font10" style="font-weight:bold;">Transcription of Encoded Manuscripts with Image&nbsp;Processing Techniques</span></h1>
+<p><span class="font5" style="font-weight:bold;">Alicia Fornés</span></p>
+<p><span class="font5"><a href="mailto:afornes@cvc.uab.es">afornes@cvc.uab.es</a></span></p>
+<p><span class="font5">Universität Autónoma de Barcelona, Spain</span></p>
+<p><span class="font5" style="font-weight:bold;">Beáta Megyesi</span></p>
+<p><span class="font5"><a href="mailto:beata.megyesi@lingfil.uu.se">beata.megyesi@lingfil.uu.se</a> Uppsala University, Sweden</span></p>
+<p><span class="font5" style="font-weight:bold;">Joan Mas</span></p>
+<p><span class="font5"><a href="mailto:jmas@cvc.uab.es">jmas@cvc.uab.es</a></span></p>
+<p><span class="font5">Universitat Autónoma de Barcelona, Spain</span></p>
+<p><span class="font9" style="font-weight:bold;">Introduction</span></p>
+<p><span class="font5">Historical hand-written manuscripts are an important source of information for our cultural&nbsp;heritage, and automatic processing of these can help&nbsp;exploring their content faster and easier.</span></p>
+<p><span class="font5">A special type of hand-written manuscripts that are relatively common in archives and libraries are&nbsp;encrypted, secret documents, so called ciphers.&nbsp;Ciphers may contain and hide important information&nbsp;for the history of science, religion or diplomacy and&nbsp;therefore shall be decrypted and made accessible. The&nbsp;automatic decryption of historical hand-written&nbsp;ciphers is the main focus of the project </span><span class="font5" style="font-style:italic;text-decoration:underline;">DECODE:&nbsp;Automatic decoding of historical manuscripts.</span><span class="font5"> In order&nbsp;to reveal the content of these secret messages, we&nbsp;collect and digitize ciphertexts and keys from Early&nbsp;Modern times, build a database, and develop software&nbsp;tools for (semi-)automatic decryption by crossdisciplinary research involving computer science,&nbsp;language technology, linguistics and philology.</span></p>
+<p><span class="font5">Ciphers use a secret method of writing, often by transposition or substitution of characters, special&nbsp;symbols, already existing alphabets, digits, or a&nbsp;mixture of these. The encoded sequences are usually&nbsp;meticulously written and often segmented character&nbsp;by character to avoid any kind of ambiguity for the&nbsp;receiver to be able to decode the content, but&nbsp;continuous writing of some sequences where the&nbsp;symbols are connected also exists. In addition, the&nbsp;cipher sequences might be embedded in cleartext, i.e.</span></p>
+<p><span class="font5">texts in a known natural language, as illustrated in the picture below (Archivio Segreto Vaticano, 2016).</span></p>
+<p><span class="font5" style="font-style:italic;">1^1)7^111.7^ joifonC u-L,<sub>7</sub>^fo &nbsp;&nbsp;&nbsp;7^ 1^-^1-7-01411^61.71 ¡11.7</span></p>
+<p><span class="font7" style="font-weight:bold;font-style:italic;">1.1.11^7^617^71 ¡1.1-7 &lt;140^^ ,7 C 6 Vllf Q f„ &nbsp;&nbsp;&nbsp;7</span></p>
+<p><span class="font5" style="font-style:italic;">^1,111^.1 it</span></p>
+<p><span class="font5" style="font-style:italic;">‘¡171711,61 ,7171^6^71.1.^7.7^^ S 611^71-111, if</span></p>
+<p><span class="font5">The first step for deciphering and making accessible the secret writing is their digitization and&nbsp;transcription. Transcription can be performed either&nbsp;by hand where a person types in the encrypted text&nbsp;symbol by symbol, or by (semi-)automatic means with&nbsp;a possible post editing by manual validation. Manual&nbsp;transcription is time-consuming and expensive, and&nbsp;prone to errors. Automatic methods applied to ease&nbsp;the transcription process are preferable. However,&nbsp;image processing techniques developed so far for&nbsp;historical text manuscripts, such as the ones from the&nbsp;project </span><span class="font5" style="font-style:italic;text-decoration:underline;">TransScriptorium,</span><span class="font5"> are not fully adequate for&nbsp;dealing with encrypted documents for several&nbsp;reasons. First, the transcribing system cannot benefit&nbsp;from any lexicon or language model because the key is,&nbsp;a priori, unknown. Consequently, the use of an optical&nbsp;model alone is prone to errors, especially when there&nbsp;are ambiguities in the shape of digits/characters.&nbsp;Second, many ciphers contain a mixture of plaintext&nbsp;and encrypted text (ciphertext), which requires&nbsp;specifically adapted handwriting recognition&nbsp;methods. Third, the arcane nature of the symbols used&nbsp;calling for semiotic analysis, which requires the study&nbsp;of techniques closer to hand-drawn symbol&nbsp;recognition rather than handwriting recognition ones.</span></p>
+<p><span class="font5">In this paper, we study the feasibility of the current image processing techniques in order to digitize&nbsp;ciphers by recognizing and transferring the symbols&nbsp;into a computer-readable format. For this purpose, we&nbsp;present a semi-automatic transcription method based&nbsp;on Deep Neural Networks, followed by a manual&nbsp;validation. We compare the results with a complete&nbsp;manual transcription, and analyze the human time&nbsp;effort of the two scenarios.</span></p>
+<p><span class="font9" style="font-weight:bold;">Image Processing Methodology</span></p>
+<p><span class="font5">The handwriting recognition system has the following steps: First, each document has been&nbsp;binarized, deskewed, and the text lines have been&nbsp;segmented using projection profiles. The images of the&nbsp;text lines are the input of the Multi-Dimensional Long&nbsp;Short-Term Memory Blocks Neural Networks (MD-LSTMs) (Graves and Schmidhuber, 2008; Voigtlaender&nbsp;and Doetsch, 2016). Contrary to previous techniques&nbsp;applied for recognition (e.g. HMMs), MD-LSTMs obtain&nbsp;good results without the need of computing feature&nbsp;vectors from the image.</span></p>
+<p><span class="font5">For each text line, the output of the network is a sequence of digits. The system also detects when a&nbsp;digit has a dot above or below. Whenever the&nbsp;confidence of the system when transcribing a certain&nbsp;digit is low, the symbol “?” is used. This denotes that&nbsp;an expert user must check it.</span></p>
+<p><span class="font5">In this work, the networks were trained using 15 cipher pages from six different ciphers (with six&nbsp;different handwritings) in order to learn the&nbsp;handwriting style variability. For validation set, we&nbsp;used 5 cipher pages from the same ciphers as in the&nbsp;training set but different pages. It must be noted that&nbsp;the amount of training pages is not enough for the&nbsp;transcription of cleartext, so all text words appearing&nbsp;in the document are denoted as “x”. The transcription&nbsp;must be performed by an expert.</span></p>
+<p><span class="font5">Finally, and with the aim of improving the visualization of the results and facilitating the&nbsp;posterior validation and correction task, we used force&nbsp;alignment between the result of the neural network&nbsp;and the input image.</span></p>
+<p><span class="font9" style="font-weight:bold;">Manual vs. Automatic Transcription and Correction</span></p>
+<p><span class="font5">For the tests, we chose 14 new unseen cipher pages, of which 12 pages were taken from four ciphers&nbsp;in the training set, and two pages came from two new,&nbsp;previously unseen ciphers, which means that these&nbsp;handwriting styles have not been learned during&nbsp;training. In this way, we can also analyze the&nbsp;generalization and scalability degree of the method for&nbsp;new handwriting styles.</span></p>
+<p><span class="font5">To compare the speed of automatic versus manual transcription in a fair way, each manuscript was&nbsp;manually transcribed by one person, whereas the&nbsp;output from the automatic transcription was&nbsp;corrected and validated by a different person.</span></p>
+<p><span class="font5">In the manual transcription, the transcriber opened the image of the cipher, and transcribed it symbol by&nbsp;symbol in a text file. Contrary, for validation, the&nbsp;transcriber opened the output from the automatic&nbsp;transcription as a picture where the cipher page was&nbsp;segmented line by line and the suggested transcription&nbsp;was reproduced below. As it can be observed in the&nbsp;figures below, the symbol “?” appears when the system&nbsp;is not confident on the transcribed digit. Also, if the&nbsp;system detects a dot above the digit, then the&nbsp;transcription also contains the dot.</span></p>
+<p><span class="font0">15 &nbsp;&nbsp;&nbsp;4&nbsp;&nbsp;&nbsp;&nbsp;2&nbsp;&nbsp;&nbsp;&nbsp;2&nbsp;&nbsp;&nbsp;&nbsp;62&nbsp;&nbsp;&nbsp;&nbsp;52&nbsp;&nbsp;&nbsp;&nbsp;07&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="font6">11&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="font0">2??4&nbsp;&nbsp;&nbsp;&nbsp;9&nbsp;&nbsp;&nbsp;&nbsp;7&nbsp;&nbsp;&nbsp;&nbsp;1 0&nbsp;&nbsp;&nbsp;&nbsp;7&nbsp;&nbsp;&nbsp;&nbsp;6&nbsp;&nbsp;&nbsp;&nbsp;.8&nbsp;&nbsp;&nbsp;&nbsp;7&nbsp;&nbsp;&nbsp;&nbsp;4&nbsp;&nbsp;&nbsp;&nbsp;1&nbsp;&nbsp;&nbsp;&nbsp;2&nbsp;&nbsp;&nbsp;&nbsp;33 77&nbsp;&nbsp;&nbsp;&nbsp;2&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="font6">1</span></p>
+<p><span class="font2" style="font-style:italic;">e &nbsp;&nbsp;&nbsp;¿'¿a</span><span class="font1" style="font-style:italic;">V?</span></p>
+<p><span class="font3" style="font-weight:bold;">7? 2000 &nbsp;&nbsp;&nbsp;6 2&nbsp;&nbsp;&nbsp;&nbsp;8&nbsp;&nbsp;&nbsp;&nbsp;2&nbsp;&nbsp;&nbsp;&nbsp;39&nbsp;&nbsp;&nbsp;&nbsp;72&nbsp;&nbsp;&nbsp;&nbsp;3200&nbsp;&nbsp;&nbsp;&nbsp;7&nbsp;&nbsp;&nbsp;&nbsp;2&nbsp;&nbsp;&nbsp;&nbsp;3252&nbsp;&nbsp;&nbsp;&nbsp;22&nbsp;&nbsp;&nbsp;&nbsp;15200&nbsp;&nbsp;&nbsp;&nbsp;2</span></p>
+<p><span class="font5">The results obtained by manual transcription and validated transcription from automatic output were&nbsp;compared and shown in Table 1. In average, the&nbsp;automatic system transcribes the digits with an&nbsp;average accuracy of 88 %. However, one of the ciphers&nbsp;(Francia_18_3_233r), written by a writer whose&nbsp;handwriting was not represented in the training set,&nbsp;was more difficult to the system to automatically&nbsp;transcribe and accuracy decreased to 61%.</span></p>
+<table border="1">
+<tr><td style="vertical-align:middle;">
+<p><span class="font8" style="font-weight:bold;">Cipher</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font8" style="font-weight:bold;">No. of lines per page</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font8" style="font-weight:bold;">Manual</span></p>
+<p><span class="font8" style="font-weight:bold;">(mins)</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font8" style="font-weight:bold;">Validation</span></p>
+<p><span class="font8" style="font-weight:bold;">(mins)</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font8" style="font-weight:bold;">Accuracy</span></p>
+<p><span class="font8" style="font-weight:bold;">automatic</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font8" style="font-weight:bold;">Manual</span></p>
+<p><span class="font8" style="font-weight:bold;">mins/line</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font8" style="font-weight:bold;">Validation</span></p>
+<p><span class="font8" style="font-weight:bold;">mins/line</span></p></td></tr>
+<tr><td style="vertical-align:bottom;">
+<p><span class="font8">Francia 4 1 221r</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font8">3</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font8">5</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font8">4</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font8">92%</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font8">1.67</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font8">1.33</span></p></td></tr>
+<tr><td style="vertical-align:bottom;">
+<p><span class="font8">Francia 6 1 236r</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font8">31</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font8">50</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font8">47</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font8">92%</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font8">1.61</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font8">1.52</span></p></td></tr>
+<tr><td style="vertical-align:bottom;">
+<p><span class="font8">Francia 18 2 206v</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font8">24</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font8">45</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font8">41</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font8">81%</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font8">1.88</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font8">1.71</span></p></td></tr>
+<tr><td style="vertical-align:bottom;">
+<p><span class="font8">Francia 18 3 233r</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font8">20</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font8">45</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font8">30</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font8">61%</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font8">2,25</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font8">1.50</span></p></td></tr>
+<tr><td style="vertical-align:bottom;">
+<p><span class="font8">Francia 64 2 040v</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font8">24</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font8">25</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font8">30</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font8">92%</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font8">1.04</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font8">1.25</span></p></td></tr>
+<tr><td style="vertical-align:bottom;">
+<p><span class="font8">Francia 64 4 056v</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font8">26</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font8">20</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font8">52</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font8">87%</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font8">0.77</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font8">2.00</span></p></td></tr>
+<tr><td style="vertical-align:bottom;">
+<p><span class="font8">Francia 64 5 060v</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font8">25</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font8">20</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font8">26</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font8">94%</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font8">0.80</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font8">1.04</span></p></td></tr>
+<tr><td style="vertical-align:bottom;">
+<p><span class="font8">Francia 64 6 064v</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font8">16</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font8">10</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font8">13</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font8">94%</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font8">0.63</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font8">0.81</span></p></td></tr>
+<tr><td style="vertical-align:bottom;">
+<p><span class="font8">Spagna 423 2 297r</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font8">8</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font8">15</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font8">4</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font8">98%</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font8">1.88</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font8">0.50</span></p></td></tr>
+<tr><td style="vertical-align:bottom;">
+<p><span class="font8">Spagna 423 3 300v</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font8">2</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font8">3</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font8">3</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font8">74%</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font8">1.50</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font8">1.50</span></p></td></tr>
+<tr><td style="vertical-align:bottom;">
+<p><span class="font8">Spagna 423 4 374r</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font8">10</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font8">15</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font8">10</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font8">85%</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font8">1.50</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font8">1.00</span></p></td></tr>
+<tr><td style="vertical-align:bottom;">
+<p><span class="font8">Spagna 423 6 388v</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font8">21</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font8">35</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font8">15</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font8">95%</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font8">1.67</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font8">0.71</span></p></td></tr>
+<tr><td style="vertical-align:bottom;">
+<p><span class="font8">Spagna 423 7 391r</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font8">13</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font8">15</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font8">8</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font8">97%</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font8">1.15</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font8">0.62</span></p></td></tr>
+<tr><td style="vertical-align:bottom;">
+<p><span class="font8">Spagna 423 9 491v</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font8">21</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font8">25</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font8">20</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font8">93%</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font8">1.19</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font8">0.95</span></p></td></tr>
+<tr><td style="vertical-align:bottom;">
+<p><span class="font8" style="font-weight:bold;">Average</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font8" style="font-weight:bold;">17.43</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font8" style="font-weight:bold;">23.43</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font8" style="font-weight:bold;">21.6</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font8" style="font-weight:bold;">88%</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font8" style="font-weight:bold;">1.39</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font8" style="font-weight:bold;">1.17</span></p></td></tr>
+</table>
+<p><span class="font2">Table 1. Summary of results per line and cipher given the time in minutes for manual transcription, as well as the&nbsp;validation and correction of automatic transcription; the</span></p>
+<p><span class="font2">accuracy of automatic transcription, and the average rate of manual transcription and validation per line. Rows in red&nbsp;color denote those where the manual transcription is faster.</span></p>
+<p><span class="font5">The results show that in most cases manual transcription is 15% slower on average compared to&nbsp;the automatic transcription with post-editing if the&nbsp;accuracy of the image processing is above 90%. When&nbsp;accuracy is lower, validation time usually increases&nbsp;because the more transcription errors we find, the&nbsp;more effort it takes to localize both the wrong&nbsp;symbol(s) in the picture and in the transcription file.&nbsp;For each error, the user usually starts to read the line&nbsp;from the beginning.</span></p>
+<p><span class="font5">It is also noteworthy that we do not count the time it takes to prepare and train the automatic&nbsp;transcription models, including the preprocessing of&nbsp;the images (cut the margins, clean the bleed through,&nbsp;etc.) and the time for training the models. We also&nbsp;noted that the validators would have benefited from a&nbsp;user-friendly transcription tool where transcription&nbsp;suggested by the model was aligned with the original&nbsp;symbol in the picture. However, the automatic</span></p>
+<p><span class="font5">transcription clearly helped to differentiate between two different symbols written similarly, thereby&nbsp;helping the user to identify the symbol set represented&nbsp;in the cipher.</span></p><div>
+<p><span class="font4" style="font-style:italic;">Conference on Frontiers in Handwriting Recognition, </span><span class="font4">2016.</span></p></div><br clear="all"/>
+<p><span class="font9" style="font-weight:bold;">Conclusion</span></p>
+<p><span class="font5">We have shown that image processing can be used as base for transcription followed by a post-processing&nbsp;step with user validation and correction. Even though&nbsp;image processing techniques need to be trained today&nbsp;on individual handwritings to reach high(er) accuracy,&nbsp;they might be of great help to identify the symbol set&nbsp;represented in the manuscript and to make clear&nbsp;distinctions between symbols, hence can be used as a&nbsp;support tool for the transcriber.</span></p>
+<p><span class="font5">In this work, we focused on ciphers without any esoteric or other symbol sets, which might be more&nbsp;difficult for an automatic recognition system. Also, we&nbsp;have identified only cipher sequences; cleartext was&nbsp;only detected without any further transcription.</span></p>
+<p><span class="font5">In the future, we would like to test combining image processing and automatic decryption in one&nbsp;step to skip the time-consuming transcription step and&nbsp;create synergy effects as both image processing and&nbsp;automatic decryption tools rely on language models&nbsp;that could be used simultaneously. Another&nbsp;alternative is image processing for validation of the&nbsp;manual transcription, which might be an interesting&nbsp;alternative to investigate in the future.</span></p>
+<p><span class="font9" style="font-weight:bold;">Acknowledgement</span></p>
+<p><span class="font5">This work has been partially supported by the Spanish project TIN2015-70924-C2-2-R, the Swedish&nbsp;Research Council DECODE project grant E0067801,&nbsp;and the Ramon y Cajal Fellowship RYC-2014-16831.</span></p>
+<p><span class="font9" style="font-weight:bold;">Bibliography</span></p>
+<p><span class="font4" style="font-weight:bold;">Segr.di.Stato/Portogallo/1A/16v@2016</span><span class="font4">. &nbsp;&nbsp;&nbsp;Archivio</span></p>
+<p><span class="font4">Segreto Vaticano. The picture has been reproduced by the kind permission of Archivio Segreto Vaticano, all&nbsp;rights reserved.</span></p>
+<p><span class="font4" style="font-weight:bold;">Frinken, V., and Bunke, H </span><span class="font4">(2014). Continuous Handwritten</span></p>
+<p><span class="font4">Script Recognition. In </span><span class="font4" style="font-style:italic;">Handbook of Document Image</span></p>
+<p><span class="font4" style="font-style:italic;">Processing and Recognition.</span><span class="font4"> Springer-Verlag, 2014.</span></p>
+<p><span class="font4" style="font-weight:bold;">Graves, A., and Schmidhuber, J. </span><span class="font4">(2008). “Offline handwriting recognition with multidimensional&nbsp;recurrent neural networks”. </span><span class="font4" style="font-style:italic;">Neural Information&nbsp;Processing Systems,</span><span class="font4"> 2008.</span></p>
+<p><span class="font4" style="font-weight:bold;">Voigtlaender, P. and Doetsch, H </span><span class="font4">(2016). Ney. Handwriting Recognition with Large Multidimensional Long ShortTerm Memory Recurrent Neural Networks. </span><span class="font4" style="font-style:italic;">International</span></p>
+</body>
+</html>

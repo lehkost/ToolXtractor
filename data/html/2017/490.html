@@ -1,0 +1,111 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"
+	"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head><meta http-equiv="content-type" content="text/html; charset=UTF-8"/><meta name="generator" content="ABBYY FineReader 14"/><title>Microsoft Word - 490. Sari-Tracing the Colors of Clothing in Paintings with Image Analysis-490.docx</title><link rel="stylesheet" href="490_files/490.css" type="text/css"/>
+</head>
+<body><h1><a name="caption1"></a><a name="bookmark0"></a><span class="font5" style="font-weight:bold;">Tracing the Colors of Clothing in Paintings with&nbsp;Image Analysis</span></h1>
+<p><span class="font8" style="font-weight:bold;">Cihan Sari</span></p>
+<p><span class="font8"><a href="mailto:cihan.sari@boun.edu.tr">cihan.sari@boun.edu.tr</a></span></p>
+<p><span class="font8">Bogazici University, Turkey</span></p>
+<p><span class="font8" style="font-weight:bold;">Albert Ali Salah</span></p>
+<p><span class="font8"><a href="mailto:salah@boun.edu.tr">salah@boun.edu.tr</a> Bogazici University, Turkey</span></p>
+<p><span class="font8" style="font-weight:bold;">Alkim Almila Akdag Salah</span></p>
+<p><span class="font8"><a href="mailto:almilasalah@sehir.edu.tr">almilasalah@sehir.edu.tr</a> Istanbul Sehir University, Turkey</span></p><h2><a name="bookmark1"></a><span class="font4" style="font-weight:bold;">Introduction</span></h2>
+<p><span class="font10">The history of color is full of instances of how and why certain colors come to be associated with certain&nbsp;concepts, ideas, politics, status and power. Sometimes&nbsp;the connotations occur arbitrarily, like in the instance&nbsp;when pink was assigned to baby girls, and blue started&nbsp;to be associated with baby boys at the turn of 19</span><span class="font0"><sup>th</sup> </span><span class="font10">Century [Paoletti, 1987]. Sometimes though, color associations have very tangible reasons, such as in the case of&nbsp;Marian blue, reserved only for painting Virgin Mary</span></p>
+<p><span class="font10">over the centuries. The reason is found in the scarcity of</span></p>
+<p><span class="font10">the rock lapis lazuli -even more valuable than gold-from which the blue pigments were extracted. Individual colors have convoluted and contested histories, since they have been attached to many symbols at any&nbsp;given time. John Gage, an art historian who has devoted 30 years of research on the topic of color, explains the conundrum of what he terms “politics of&nbsp;color” in a simple fashion: “The same colors, or combinations of colors can, for example, be shown to have&nbsp;held quite antithetical connotations in different periods&nbsp;and cultures, and even at the same time and in the same&nbsp;place.”[Gage, 1990].</span></p>
+<p><span class="font10">The purpose of the present study is to introduce a method for automatically extracting color distributions&nbsp;and main colors of paintings, as well as color schemes&nbsp;of people in paintings. By visualizing these over time for&nbsp;cross-referencing with historical data, this study will reveal changes in how particular colors were used in a&nbsp;given time period and culture. In this study, we will look&nbsp;at artworks to find out whether certain colors or tones&nbsp;are associated with a specific sex, and if these connotations change over time. To that end, we apply algorithmic tools to process very large datasets automatically,&nbsp;and information visualization tools to depict the findings.</span></p><h2><a name="bookmark2"></a><span class="font4" style="font-weight:bold;">Related Work</span></h2>
+<p><span class="font8">Today, major cultural heritage collections are available online. Digitization and preservation of artworks is an important occupation of museums and cultural&nbsp;heritage institutions, as well as many Digital Humanities projects. Portions of of such digitized collections&nbsp;are made available to further computer vision research in order to scrutinize art historical questions.&nbsp;Such collections are usually enriched with meticulously tagged metadata describing the origins of each&nbsp;artwork. However, these datasets do not provide comprehensive gender annotations. For example, Rijksmu-seum's arts database has a wide selection of categories&nbsp;with rich metadata that is primarily about the art objects themselves (see Table 1 - the quantity of meta</span></p>
+<p><span class="font8">information and context vary between different</span></p>
+<p><span class="font8">art samples), but without any reference to what these artworks hold [Mensink and Van Gemert, 2014].&nbsp;Automatically determining whether a sitter of a portrait is female or male in a painting is not an easy task.</span></p>
+<table border="1">
+<tr><td>
+<p><span class="font9" style="font-weight:bold;">Title</span></p></td><td>
+<p><span class="font9" style="font-weight:bold;">Date</span></p></td><td>
+<p><span class="font9" style="font-weight:bold;">Subject</span></p></td></tr>
+<tr><td>
+<p><span class="font1">RxuWftlvan Jan</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font1">1660</span></p></td><td>
+<p><span class="font1">VAlcWUxuXflA, Jan</span></p></td></tr>
+<tr><td>
+<p><span class="font1">gjMKeivan aftajftnsa,man</span></p></td><td>
+<p><span class="font1">1675 -</span></p></td><td>
+<p><span class="font1">Alphen, Simon van</span></p></td></tr>
+<tr><td>
+<p><span class="font1">G&amp;ffilHendrik SteaHusU</span></p></td><td>
+<p><span class="font1">1804</span></p></td><td>
+<p></p></td></tr>
+<tr><td>
+<p><span class="font1">Camel van ego toaisis</span></p></td><td>
+<p><span class="font1">1623</span></p></td><td>
+<p><span class="font1">— ’ &quot;</span></p></td></tr>
+<tr><td>
+<p><span class="font1">ítOítteivan ashman</span></p></td><td>
+<p><span class="font1">1540 -</span></p></td><td>
+<p><span class="font1">-</span></p></td></tr>
+</table>
+<p><span class="font3">Table 1: Sample from Rijksmuseum meta data</span></p>
+<p><span class="font10">Several publications have appeared in recent years with the aim of automatic gender recognition. The survey by Ng et al. described a variety of approaches to&nbsp;gender recognition in natural images [Ng et al., 2012].&nbsp;Xiong and De la Torre (2013) proposed a practical and&nbsp;effective method for automatically detecting faces in&nbsp;natural or man-made images. Once the face is detected, a supervised classifier is used to determine&nbsp;whether it belongs to a male or female. This requires&nbsp;the ground truth annotation of a large number of face&nbsp;images, from which the automatic classifier learns the&nbsp;visual boundary between these two classes.</span></p>
+<p><span class="font10">There has been focused studies to address face recognition tasks on artistic images [Srinivasan et al.,&nbsp;2015]. For the purposes of face detection, mainstream&nbsp;algorithms perform sufficiently well on paintings that&nbsp;are of interest for this study. Automatic male/female&nbsp;classification is not perfect, it will occasionally get&nbsp;confused and produce an incorrect label. However, over&nbsp;thousands of images, a small number of individual errors will not prevent us from seeing the general patterns of color usage with males and females.</span></p><h2><a name="bookmark3"></a><span class="font4" style="font-weight:bold;">Methodology</span></h2>
+<p><span class="font10">In this study, the aim is to analyze the trends of clothing color in different periods, separately for males&nbsp;and females. For this purpose, we work on a database of&nbsp;paintings, for which the era (or date) is provided, and&nbsp;we seek to annotate each image with the gender of the&nbsp;depicted person, as well as a rough segmentation of the&nbsp;area of the clothing. The general workflow of the proposed approach is depicted in Figure 1.</span></p><img src="490_files/490-1.jpg" style="width:230pt;height:194pt;"/>
+<p><span class="font3">Figure 1. The workflow of the proposed approach.</span></p><h3><a name="bookmark4"></a><span class="font4">Database</span></h3>
+<p><span class="font8">The Rijksmuseum is a Dutch national museum dedicated to arts and history in Amsterdam. The Rijksmuseum database contains 112.039 high-resolution images with extended meta data [Mensink and Van Ge-mert, 2014]. However, as mentioned previously in Section 2, the Rijksmuseum database has neither gender nor clothing color information embedded into its&nbsp;metadata. We describe briefly how we determine the&nbsp;missing information.</span></p><h3><a name="bookmark5"></a><span class="font4">Gender Classification</span></h3>
+<p><span class="font10">We have performed classification of the perceived</span></p>
+<p><span class="font10">sex from the face images. This process is commonly</span></p>
+<p><span class="font10">called Gender classification in computer vision - not to be mixed with characteristics of masculinity, femininity or sex organs, but what is perceived solely from the&nbsp;face crops on the paintings.</span></p>
+<p><span class="font10">For this purpose we have prepared a test dataset of face images from Rijksmuseum paintings and three&nbsp;training datasets of face images: 10k US Adult&nbsp;Faces[Bainbridge et al., 2013], Labeled faces in the&nbsp;wild[Huang et al., 2007] and in an approach similar to&nbsp;Jia's work [Jia and Cristianini, 2015], we have gen- erated our own IMDB dataset. IMDB dataset images are&nbsp;collected using the Google Image search, using actor&nbsp;and actress names as queries. In total, 5600 male and&nbsp;5300 female faces were downloaded.</span></p>
+<p><span class="font10">None of the datasets have gender annotations, and hence we have performed face detection and facial landmark extraction methods in [Xiong and De la Torre,&nbsp;2013], first, then hand-clean face detection and landmark extraction results against false positives and validate gender information (for all 10k US Adult Faces dataset and LFW dataset we had to manually annotate&nbsp;each image, but also Google Image search results for&nbsp;IMDB dataset are not perfectly robust, hence the IMDB&nbsp;dataset also had to be verified). Then we have aligned&nbsp;the faces to a mean shape [Gower, 1975], and extract&nbsp;features that are resistant to illumi- nation effects&nbsp;[Ojala et al., 2002]. We then train a classifier using the&nbsp;sequential minimal optimization (SMO) method [Platt&nbsp;et al., 1998].</span></p>
+<p><span class="font10">The biggest challenge for evaluating gender recognition performance on the paintings is to make sure the ground-truth gender data are actually correct [Mathias&nbsp;et al., 2014]. From our experience, this demanding task&nbsp;requires a full view of the painting, rather than just the&nbsp;detected face. Results of some combinations of the datasets are given in Table 2. We could reach above 75%&nbsp;accuracy on paintings, just by using photographs of actors and actresses in the training of the system. Some of&nbsp;misclassification examples are given in figure 2.</span></p>
+<p><span class="font2">IMDB &nbsp;&nbsp;&nbsp;IMDB and 10k IMDB, 10k and LFW</span></p>
+<p><span class="font2">Female &nbsp;&nbsp;&nbsp;62.16%&nbsp;&nbsp;&nbsp;&nbsp;62.32%&nbsp;&nbsp;&nbsp;&nbsp;57.11%</span></p>
+<p><span class="font2">Male &nbsp;&nbsp;&nbsp;84.51%&nbsp;&nbsp;&nbsp;&nbsp;83.40%&nbsp;&nbsp;&nbsp;&nbsp;85.79%</span></p>
+<p><span class="font2">Total &nbsp;&nbsp;&nbsp;77.21%&nbsp;&nbsp;&nbsp;&nbsp;76.41%&nbsp;&nbsp;&nbsp;&nbsp;76.28%</span></p>
+<p><span class="font3">Table 2. Gender recognition performance on Rijksmuseum. All results are com- parable and best (by small margin) is&nbsp;acquired when only the IMDB dataset is used.</span></p><img src="490_files/490-2.jpg" style="width:225pt;height:47pt;"/>
+<p><span class="font1">(a) Female Sitters, classified as Male</span></p><img src="490_files/490-3.jpg" style="width:225pt;height:47pt;"/>
+<p><span class="font1">(b) Male Sitters, classified as Female</span></p>
+<p><span class="font3">Figure 2. Misclassified paintings</span></p><h3><a name="bookmark6"></a><span class="font4">Clothing color information</span></h3>
+<p><span class="font10">Portrait paintings that are completely focused on the sitter's face have still a lot of background noise that&nbsp;disrupt the color representation of the paintings (see&nbsp;Figure 3). Our hypothesis is that color representation,&nbsp;when focused on the clothing of the model, will still reflect the color scheme that is associated with the gender of the sitter.</span></p><div><img src="490_files/490-4.jpg" style="width:200pt;height:49pt;"/></div><br clear="all"/><div><img src="490_files/490-5.jpg" style="width:83pt;height:39pt;"/>
+<p><span class="font1">(a) Portrait of Margaret of Austria, Consort of Philip III,</span></p>
+<p><span class="font1">Frans II Pourbus, c. 1600</span></p></div><br clear="all"/><div>
+<p><span class="font6">®</span></p></div><br clear="all"/><div><img src="490_files/490-6.jpg" style="width:86pt;height:105pt;"/>
+<p><span class="font1">(c) Portrait of Ambrogio Spinola, Michiel Jansz can Mierevelt, 1609</span></p></div><br clear="all"/><div>
+<p><span class="font1">(b) Willem IV (1711-51), prins van Oranje-Nassau,</span></p>
+<p><span class="font1">Maria Machteld van Sypesteyn, 1748</span></p><img src="490_files/490-7.jpg" style="width:87pt;height:105pt;"/>
+<p><span class="font1">(d) Portret van Margaretha van de Eeckhout.echtgenote van&nbsp;Pieter van de Poel,</span></p>
+<p><span class="font1">Arnold Boonen, 1690 - 1729</span></p></div><br clear="all"/>
+<p><span class="font3">Figure 3. Four paintings from the Rijksmuseum collection, classified and segmented in terms of colors.</span></p>
+<p><span class="font10">In order to extract the color information of an outfit we need to do a coarse segmentation of the clothing. We used the GrabCut approach [Rother et al., 2004]. In this method, a user defines an area of interest, as well as foreground and background seeds&nbsp;for the segmentation. In our study, background and&nbsp;foreground seeds are initialized based on the detected face landmarks.</span></p>
+<p><span class="font10">Figure 4 provides an initial visualization of the dominant color distributions for each era, for males&nbsp;and females. Concentric circles have thickness associated with the frequency of the color. Bright colors are&nbsp;relatively rare, as the paintings in our tagged collection are generally dark, with the occasional shaft of&nbsp;light illuminating part of the painting. But a very distinct pattern can be observed in that females wear&nbsp;lighter colors compared to males, and show higher&nbsp;variance over the years. Some painting examples are&nbsp;given in Figure 5.</span></p><div><img src="490_files/490-8.jpg" style="width:242pt;height:161pt;"/>
+<p><span class="font3">Figure 4. Clothing colors over time. Females wear</span></p></div><br clear="all"/><div><img src="490_files/490-9.jpg" style="width:233pt;height:105pt;"/>
+<p><span class="font1">(a) Sample female paintings between 1700 - &nbsp;&nbsp;&nbsp;1850</span></p></div><br clear="all"/><div><img src="490_files/490-10.jpg" style="width:218pt;height:94pt;"/>
+<p><span class="font3">Figure 5. Paintings of males and females from the Rijksmuseum database over time. Best viewed in color.</span></p></div><br clear="all"/><h2><a name="bookmark7"></a><span class="font4" style="font-weight:bold;">Conclusions</span></h2>
+<p><span class="font10">Every period and location has certain dominant color associations and symbolism. To investigate hundreds of thousands paintings in a single sweep requires automatic analysis tools. Our main objective in&nbsp;this work in progress is to perform an analysis on the&nbsp;usage of color for different genders along the centuries, and to develop tools for establishing semantic associations of colors for each particular period of study.&nbsp;With the increased popularity of open-art, this study&nbsp;can be extendedsignificantly byintroducingmore databases alongside Rijksmuseum, for example, drawing&nbsp;on the Europeana collection [Doerr et al., 2010].</span></p>
+<p><span class="font7" style="font-weight:bold;">Bainbridge, W. A., Isola, P., and Oliva, A. </span><span class="font7">(2013). The in-trin- sic memorability of face photographs. </span><span class="font7" style="font-style:italic;">Journal of Experimental Psychology: General</span><span class="font7">, 142(4):1323.</span></p>
+<p><span class="font7" style="font-weight:bold;">Doerr, M., Gradmann, S., Hennicke, S., Isaac, A., Meghini, C., and van de Sompel, H. </span><span class="font7">(2010). The europeana data</span></p>
+<p><span class="font7">model (edm). In </span><span class="font7" style="font-style:italic;">World Library and Information Congress:</span></p>
+<p><span class="font7" style="font-style:italic;">76th IFLA general conference and assembly,</span><span class="font7"> pages 10-15.</span></p>
+<p><span class="font7" style="font-weight:bold;">Gage, J. </span><span class="font7">(1990). Color in western art: An issue? </span><span class="font7" style="font-style:italic;">The Art Bulletin</span><span class="font7">, 72(4):518-541.</span></p>
+<p><span class="font7" style="font-weight:bold;">Gower, J. C. </span><span class="font7">(1975). Generalized procrustes analysis. </span><span class="font7" style="font-style:italic;">Psy-</span></p>
+<p><span class="font7" style="font-style:italic;">chometrika</span><span class="font7">, 40(1):33-51.</span></p>
+<p><span class="font7" style="font-weight:bold;">Huang, G. B., Ramesh, M., Berg, T., and Learned-Miller, E.</span></p>
+<p><span class="font7">(2007). Labeled faces in the wild: A database for studying face recognition in unconstrained environments. Technical Report 07-49, University of Massachusetts,&nbsp;Amherst.</span></p>
+<p><span class="font7" style="font-weight:bold;">Srinivasan, R., Rudolph, C., and Roy-Chowdhury, A. K.</span></p>
+<p><span class="font7">(2015). Computerized face recognition in renaissance portrait art: A quantitative measure for identifying uncertain subjects in ancient portraits. </span><span class="font7" style="font-style:italic;">Signal Processing&nbsp;Magazine, IEEE</span><span class="font7">, 32(4):85-94.</span></p>
+<p><span class="font7" style="font-weight:bold;">Xiong, X. and De la Torre, F. </span><span class="font7">(2013). Supervised de- scent method and its applications to face alignment. In </span><span class="font7" style="font-style:italic;">IEEE</span></p>
+<p><span class="font7" style="font-style:italic;">Conference on Com- puter Vision and Pattern Recognition</span></p>
+<p><span class="font7" style="font-style:italic;">(CVPR)</span><span class="font7">.</span></p>
+<p><span class="font7" style="font-weight:bold;">Jia, S. and Cristianini, N. </span><span class="font7">(2015). Learning to classify gender from four million images. </span><span class="font7" style="font-style:italic;">Pattern Recognition Letters</span><span class="font7">, 58:35-41.</span></p>
+<p><span class="font7" style="font-weight:bold;">Mathias, M., Benenson, R., Pedersoli, M., and Van Gool, L.</span></p>
+<p><span class="font7">(2014). Face detection without bells and whistles. In</span></p>
+<p><span class="font7" style="font-style:italic;">Computer Vision-ECCV2014,</span><span class="font7"> pages 720-735. Springer.</span></p>
+<p><span class="font7" style="font-weight:bold;">Mensink, T. and Van Gemert, J. </span><span class="font7">(2014). The ri- jksmuseum</span></p>
+<p><span class="font7">challenge: Museum-centered visual recognition. In </span><span class="font7" style="font-style:italic;">Proceedings of Inter- national Conference on Multimedia Retrieval</span><span class="font7">, page 451. ACM.</span></p>
+<p><span class="font7" style="font-weight:bold;">Ng, C. B., Tay, Y. H., and Goi, B.-M. </span><span class="font7">(2012). Recognizing human gen- der in computer vision: a survey. In </span><span class="font7" style="font-style:italic;">PRICAI 2012: Trends in Artificial Intelligence</span><span class="font7">, pages 335-346.&nbsp;Springer.</span></p>
+<p><span class="font7" style="font-weight:bold;">Ojala, T., Pietikainen, M., and Maenpaa, T. </span><span class="font7">(2002). Multi-resolu- tion gray-scale and rotation invariant texture classification with local binary patterns. </span><span class="font7" style="font-style:italic;">IEEE Transactions on pattern analysis and machine intelligence</span><span class="font7">,&nbsp;24(7):971-987.</span></p>
+<p><span class="font7" style="font-weight:bold;">Paoletti, J. B. </span><span class="font7">(1987). Clothing and gender in America: Children's fashions, 1890-1920. </span><span class="font7" style="font-style:italic;">Signs</span><span class="font7">, 13(1):136-143.</span></p>
+<p><span class="font7" style="font-weight:bold;">Platt, J. et al. </span><span class="font7">(1998). Sequential minimal optimization: A</span></p>
+<p><span class="font7">fast algorithm for training support vector machines. </span><span class="font7" style="font-style:italic;">Technical Report MSR-TR-98-14, Microsoft Research</span><span class="font7">.</span></p>
+<p><span class="font7" style="font-weight:bold;">Rother, C., Kolmogorov, V., and Blake, A. </span><span class="font7">(2004). Grabcut:</span></p>
+<p><span class="font7">In- teractive foreground extraction using iterated graph cuts. In </span><span class="font7" style="font-style:italic;">ACM transactions on graphics (TOG)</span><span class="font7">, volume 23,</span></p>
+</body>
+</html>

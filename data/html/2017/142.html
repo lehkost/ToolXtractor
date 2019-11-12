@@ -1,0 +1,134 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"
+	"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head><meta http-equiv="content-type" content="text/html; charset=UTF-8"/><meta name="generator" content="ABBYY FineReader 14"/><title>Microsoft Word - 142. Moritz-An Automated Approach to Model the Transformation Process-142.docx</title><link rel="stylesheet" href="142_files/142.css" type="text/css"/>
+</head>
+<body><h1><a name="caption1"></a><a name="bookmark0"></a><span class="font3" style="font-weight:bold;">An Automated Approach to Model the Transformation&nbsp;Process of the Reuse in</span></h1><h1><a name="bookmark1"></a><span class="font3" style="font-weight:bold;">Bernard de Clairvaux: How</span></h1><h1><a name="bookmark2"></a><span class="font3" style="font-weight:bold;">Do Lexical Resources Help?</span></h1><h2><a name="bookmark3"></a><span class="font6" style="font-weight:bold;">Maria Moritz</span></h2>
+<p><span class="font6"><a href="mailto:mmoritz@etrap.eu">mmoritz@etrap.eu</a></span></p>
+<p><span class="font6">University of Goettingen, Germany</span></p>
+<p><span class="font6" style="font-weight:bold;">Marco Buchler</span></p>
+<p><span class="font6"><a href="mailto:mbuechler@etrap.eu">mbuechler@etrap.eu</a></span></p>
+<p><span class="font6">University of Goettingen, Germany</span></p><h2><a name="bookmark4"></a><span class="font2" style="font-weight:bold;">Abstract</span></h2>
+<p><span class="font6">To fortify the research of automated, historical text reuse detection, it is necessary to investigate the&nbsp;way in which a text is reused (e.g., verbatim,&nbsp;paraphrased) in order to understand the broader&nbsp;context of a reuse. Our long-term goal is to build a&nbsp;formal theory behind reuse transformations. We&nbsp;have previously investigated two datasets of Bible&nbsp;reuse to analyze how reuse is modified and how&nbsp;linguistic resources support this. In this work, we&nbsp;investigate the ratio of non-literal text reuse, and we&nbsp;measure to which extent the Ancient Greek&nbsp;WordNet—which also contains Latin WordNet—&nbsp;and BabelNet can support identifying lexical&nbsp;relations in Latin reuse excerpts. In doing so, we also&nbsp;show the lack and need of resources for ancient data.</span></p><h2><a name="bookmark5"></a><span class="font2" style="font-weight:bold;">Introduction</span></h2>
+<p><span class="font6">The automated detection of historical text reuse is still in its early stages. To reinforce its research, it&nbsp;is necessary to investigate the way a text is reused in&nbsp;order to understand the broader context. Here is&nbsp;where the necessity of lexical resources supporting&nbsp;this task comes in, especially when a text is nonliterally reused, and words are substituted with&nbsp;semantic equivalents, such as synonyms or other&nbsp;semantically similar words. Our long-term goal is to&nbsp;formally model reuse transformations. The analysis&nbsp;of the amount and type of substitutions of words&nbsp;with lexically related words enables insights into&nbsp;how text is reused. Applying these insights into&nbsp;future development of detection methods helps to&nbsp;improve them. We have previously investigated two&nbsp;datasets of Bible reuse, trying to understand how&nbsp;reuse is modified (when operations are performed&nbsp;on word pairs) and how linguistic resources support&nbsp;this task. To achieve this, we need to study more and&nbsp;different cases of reuse. In this short paper, we&nbsp;propose and report on work that extends the&nbsp;number of reuse excerpts we investigated in&nbsp;previous work (Moritz et al., 2016), and take another&nbsp;linguistic resource, BabelNet into account. We aim at&nbsp;investigating the current state of lexical resources'&nbsp;support for a Latin reuse dataset. We compare the&nbsp;support we can get from an additional lexical&nbsp;resource to previous results. Specifically, we&nbsp;investigate BabelNet (BN) (Navigli and Ponzetto,&nbsp;2012), a multiple resource network pulling from&nbsp;different sources, and we compare the reuse&nbsp;detection support (how many words are covered)&nbsp;between BN and Ancient Greek WordNet (AGWN)&nbsp;(Bizzoni et al., 2014), which also contains Latin&nbsp;WordNet (Minozzi, 2009). Both are recently&nbsp;developed resources and the most common for the&nbsp;Latin language. BabelNet is produced from a range of&nbsp;different, contemporary sources, such as Wikipedia&nbsp;and Wikidata. We are interested in the extent to&nbsp;which BabelNet is able to cover words and relations&nbsp;from an ancient reuse dataset. We are especially&nbsp;curious about what words are still supported by&nbsp;current resources. Our ultimate goal is to simulate a&nbsp;transformation process that also supports nonliteral reuse. This can help to model the changes that&nbsp;were applied to an ancient text during its reuse&nbsp;history.</span></p>
+<p><span class="font2" style="font-weight:bold;">Background</span></p>
+<p><span class="font6">The field of automatically detecting historical text</span></p>
+<p><span class="font6">reuse is still in its early stages. To date, Buchler (2013) combines state-of-the-art NLP techniques to&nbsp;address reuse detection scenarios for historical&nbsp;texts, ranging from near copies to text excerpts with&nbsp;a minimal overlap, using a method, which selects n-grams from an upfront pre-segmented corpus. While&nbsp;the approach can discover historical and modern&nbsp;text reuse language-independently, it requires a&nbsp;minimal text similarity. Recognizing modified reuse&nbsp;is difficult in general. Alzahrani et al. (2012) study&nbsp;plagiarism detection techniques, such as n-gram-,&nbsp;syntax-, and semantics-based approaches. However,&nbsp;as soon as reused text is modified (e.g., word&nbsp;substitution), most systems fail. Finally, lexical&nbsp;resources support the identification of relationships&nbsp;between words, but they are not free from issues&nbsp;(Jing, 1998) that can appear when they are used to&nbsp;adapt a general lexicon to a specific domain (Miller&nbsp;et al., 1990).</span></p>
+<p><span class="font2" style="font-weight:bold;">Data</span></p>
+<p><span class="font6">Our dataset contains excerpts from twelve works—mainly sermons and treaties (Literature)—&nbsp;and two work collections—sermons and letters—&nbsp;from the Latin writer Bernard of Clairvaux (c.f.,</span></p>
+<p><span class="font6">Moritz et al., 2016). All those texts come from the</span></p>
+<p><span class="font6" style="font-style:italic;">Sources Chrétiennes</span><span class="font6"> collection (c.f., Mellerin, 2014) (changes in format and orthography may be inserted&nbsp;by the editor). The Biblindex project (Mellerin,&nbsp;2014) extracted over thousand Bible reuse exerpts&nbsp;from these works, each of which points to a Bible&nbsp;verse. We use the Latin Bible from Biblindex, called&nbsp;</span><span class="font6" style="font-style:italic;">Biblia sacra juxta vulgatam versionem</span><span class="font6"> (Weber R.,&nbsp;1969) to link the excerpts to the respective Bible&nbsp;verses. We come up with 1,128 unique reuse-to-bible-verse pairs. Table 1 shows one example.</span></p>
+<table border="1">
+<tr><td colspan="2">
+<p><span class="font7">Bible verse</span></p></td><td colspan="2">
+<p><span class="font7">Bernard reuse</span></p></td></tr>
+<tr><td>
+<p><span class="font7">Proverbs 18 3</span></p></td><td>
+<p><span class="font7">impius cum in profundum venerit peccatorum contemnit sed sequitur eum ignominia et obprobrium</span></p></td><td>
+<p><span class="font7">Impius , cum venerit in profundurr contemnit</span></p></td><td>
+<p><span class="font7">i malorum .</span></p></td></tr>
+<tr><td rowspan="2">
+<p><span class="font7">English</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font7">The wicked man, when he has come into the depth of sin</span></p></td><td colspan="2" style="vertical-align:bottom;">
+<p><span class="font7">s, The wicked man, when he has come into the</span></p></td></tr>
+<tr><td>
+<p><span class="font7">despises: but ignominy and reproach follow him.</span></p></td><td>
+<p><span class="font7">depth of evils, despises</span></p></td><td>
+<p></p></td></tr>
+</table>
+<p><span class="font1">Table 1: Example of reuse</span></p><h2><a name="bookmark6"></a><span class="font2" style="font-weight:bold;">Methodology</span></h2>
+<p><span class="font6">We use AGWN, which is automatically constructed from Greek-English digitized lexicons,&nbsp;which again were provided by the Perseus Project&nbsp;(Crane, 1985) and also aligns to Minozzis Latin</span></p>
+<p><span class="font6">WordNet (Minozzi, 2009). BabelNet (Navigli and Ponzetto, 2012) is a multilingual semantic network&nbsp;that integrates lexicographic and encyclopedic&nbsp;knowledge from WordNet (Fellbaum, 1998),&nbsp;Wikipedia, and others. We further use lemma lists&nbsp;from the Biblindex project, as well as the Latin&nbsp;lemma list from the Classical Language Toolkit&nbsp;(CLTK), which is available in the online GitHub&nbsp;repository of the CLTK (Johnson et al., 2014 2016),&nbsp;to increase the hit rate when querying both&nbsp;resources.</span></p>
+<p><span class="font6">To model the transformation in-between two text excerpts, we define replacement operations (OPs)&nbsp;(see Table 2) that represent the transformation of a&nbsp;reuse to the Bible verse it refers to, as well as an&nbsp;algorithm that identifies those operations between&nbsp;word pairs of a reuse and a Bible verse in a&nbsp;prioritized order. Our algorithm first finds all&nbsp;possible operations for a reuse word, and then&nbsp;applies the most literal operation using the&nbsp;counterpart Bible verse word, which fulfills this&nbsp;operation. This means that if no perfectly or&nbsp;lemmatized matching word is found, relationships of&nbsp;semantic closeness (such as synonyms) for a given&nbsp;word are retrieved. We call the group of semantic&nbsp;operations non-literal operations (c.f., Table 3). We&nbsp;apply our algorithm (which identifies the&nbsp;operations) on Bernard's reuse, first using the&nbsp;relationships queried from AGWN and second, using&nbsp;BabelNet. Afterwards, we show which operations&nbsp;are identified, and calculate a support value for both&nbsp;processes.</span></p><div>
+<p><span class="font4">operation</span></p></div><br clear="all"/><div>
+<p><span class="font4" style="font-style:italic;">NOP(reuse-Word, orig-word) upperf reuse-word, orig-word)&nbsp;lower(reuse-word, orig-word)&nbsp;lem(reuse-word, orig-word)&nbsp;repLsyn(reuse-Word, orig-word)&nbsp;repLhyper(reuse-word, orig-word)&nbsp;repl-hypo(reuse-word, orig-word)&nbsp;repl-co-hypo(reuse-word, orig-word)</span></p></div><br clear="all"/>
+<p><span class="font4">description</span></p>
+<p><span class="font4">Original and reuse word are equal.</span></p>
+<p><span class="font4">Word is lowercase in reuse and uppercase in original.</span></p>
+<p><span class="font4">Word is uppercase in reuse and lowercase in original. Lemmatization leads to equality of reuse and original.</span></p>
+<p><span class="font4">Reuse word replaced with a synonym to match original word. Word in bible verse is a hyperonym of the reused word.</span></p>
+<p><span class="font4">Word in bible verse is a hyponym of the reused word.</span></p>
+<p><span class="font4">Reused word and original have the same hyperonym.</span></p>
+<p><span class="font4" style="font-style:italic;">lemnut-missingfreuse-word, orig-word)</span><span class="font4"> Lemma unknown for reuse or original word.</span></p>
+<p><span class="font4" style="font-style:italic;">no^elfoundfreuse word, orig-word)</span><span class="font4"> Relation for reuse or original word not found in word net.</span></p><div>
+<p><span class="font4">example</span></p>
+<p><span class="font4" style="font-style:italic;">NOP(maledictus, maledictus) upper(filio, Filio)&nbsp;lowerfGloriam, gloriam)&nbsp;lem)pénétrât, pene trahit)&nbsp;repLsyn)magnificavit, glorificavit)&nbsp;hyperfcupit, Habens)&nbsp;hypo(dederit, toilet)&nbsp;repl-co-hypo(magnificavit, fecit)</span></p></div><br clear="all"/><div>
+<p><span class="font4" style="font-style:italic;">lemma-missing(tentari, inlectus) no je I found) gloria, arguitur)</span></p></div><br clear="all"/>
+<p><span class="font1">Table 2: List of operations and corresponding examples (cf. Moritz et al., 2016)</span></p><h2><a name="bookmark7"></a><span class="font2" style="font-weight:bold;">Results</span></h2>
+<p><span class="font6">Table 3 shows the identified operations. Using</span></p>
+<p><span class="font6">AGWN, we encounter a high ratio of synonyms (repl_syn), a lot of co-hyponyms and a significant&nbsp;number of hyperonyms and hyponyms. With&nbsp;BabelNet these figures are about a tenth as high.&nbsp;Table 3 shows that the values for </span><span class="font6" style="font-weight:bold;">NOP</span><span class="font6">, </span><span class="font6" style="font-weight:bold;">lower </span><span class="font6">and&nbsp;</span><span class="font6" style="font-weight:bold;">lem </span><span class="font6">(matching words, and words with same lemma)&nbsp;slightly differ in-between both word nets. This is&nbsp;caused by a design decision of our algorithm, which&nbsp;pragmatically permits to reassign a word when it&nbsp;already was used in an association with an earlier&nbsp;word.</span></p>
+<table border="1">
+<tr><td colspan="3" style="vertical-align:bottom;">
+<p><span class="font7">literal</span></p>
+<p><span class="font7">NOP upper lower lem |</span></p></td><td colspan="2" style="vertical-align:bottom;">
+<p><span class="font7">non-literal</span></p>
+<p><span class="font7">repl-syn repLhyper repLhypo repLco-hypo | </span><span class="font0" style="font-style:italic;">r</span></p></td><td colspan="2" style="vertical-align:bottom;">
+<p><span class="font7">unclassified</span></p>
+<p><span class="font7">io rel-found lenunissing</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font7">total</span></p></td></tr>
+<tr><td style="vertical-align:bottom;">
+<p><span class="font7">AGWN 4521</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font7">1 &nbsp;&nbsp;&nbsp;396</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font7">770 1</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font7">397 &nbsp;&nbsp;&nbsp;125&nbsp;&nbsp;&nbsp;&nbsp;124</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font7">316</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font7">2470</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font7">450</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font7">19570</span></p></td></tr>
+<tr><td>
+<p><span class="font7">BN &nbsp;&nbsp;&nbsp;4524</span></p></td><td>
+<p><span class="font7">1 &nbsp;&nbsp;&nbsp;397</span></p></td><td>
+<p><span class="font7">771</span></p></td><td>
+<p><span class="font7">25 &nbsp;&nbsp;&nbsp;21&nbsp;&nbsp;&nbsp;&nbsp;36</span></p></td><td style="vertical-align:middle;">
+<p><span class="font7">112</span></p></td><td>
+<p><span class="font7">3233</span></p></td><td>
+<p><span class="font7">450</span></p></td><td>
+<p><span class="font7">9570</span></p></td></tr>
+</table>
+<p><span class="font1">Table 3: Absolute numbers of operations identified</span></p>
+<p><span class="font6">Fig. 1 shows that AGWN outperforms BabelNet in identifying semantic relations, which represent nonliteral text reuse, because these ratios are much&nbsp;lower for BabelNet than for AGWN. We further&nbsp;encounter three significant descents: between 0%&nbsp;and 10%, 30% and 40%, and 50% and 60%. Looking&nbsp;into samples deeply, we find three patterns: i) the&nbsp;more semantic related words are replaced in a reuse,&nbsp;the more likely it is an allusion or analogy, and the&nbsp;less paraphrased or verbatim it is; ii) short allusions&nbsp;are better covered by the Latin synsets than&nbsp;paraphrases with a high ratio of semantic related&nbsp;words; iii) paraphrases with a high literal ratio are&nbsp;covered best. We summarize that both word nets&nbsp;cover paraphrased reuse to a certain extent of&nbsp;replaced words, and AGWN better identifies&nbsp;allusions.</span></p><img src="142_files/142-1.jpg" style="width:220pt;height:98pt;"/>
+<p><span class="font8">ratio of non-literal operations in reuse in %</span></p>
+<p><span class="font1">Figure 1: Ratio of non-literal (semantic) operations, aggregated in 10%-steps in relation to the whole reuse&nbsp;length. The reuse number is displayed logarithmically due&nbsp;to clarity reasons.</span></p>
+<p><span class="font6">Lastly, we calculate a support value, which determines the ratio of non-literal operations (c.f.,&nbsp;Table 3) compared to them including unsuccessful&nbsp;resource look-ups (no_rel_found) in both, AGWN and</span></p>
+<p><span class="font6">BN. For AGWN this value is about 28%, for BabelNet about 6%. Both values are to be understood as lower&nbsp;bounds, because often there is no reasonable&nbsp;relationship in-between two words.</span></p>
+<p><span class="font6">Even if BN coverage is poor, its results tell us, which words of a dataset of medieval, Biblical Latin&nbsp;and Latin of the church fathers are prevailed in a&nbsp;current resource. Some examples are words such as&nbsp;</span><span class="font6" style="font-weight:bold;">gloria </span><span class="font6">(glory) (contained in 17 synsets), </span><span class="font6" style="font-weight:bold;">corona&nbsp;</span><span class="font6">(crown) (contained in 10 synsets), or </span><span class="font6" style="font-weight:bold;">nemo&nbsp;</span><span class="font6">(nobody) (contained in 4 synsets).</span></p>
+<p><span class="font2" style="font-weight:bold;">Conclusion</span></p>
+<p><span class="font6">We identified the ratio of non-literal reuse in a Latin dataset and showed the support of two lexical&nbsp;resources. Our results show that language resources&nbsp;for Latin reuse are limited and that only a small part&nbsp;of the required coverage is supported. This result&nbsp;raises awareness for the lack of resources for ancient&nbsp;data, despite the growth of language resources for&nbsp;modern languages. Our future work includes&nbsp;refining our operation set, analyzing more&nbsp;languages, increasing the size of our datasets, and&nbsp;investigating probability measures for those data in&nbsp;lexical hierarchies. Since lexical resources will never&nbsp;completely cover the vocabulary at hand, we further&nbsp;consider the application of a form of word&nbsp;embedding.</span></p>
+<p><span class="font2" style="font-weight:bold;">Acknowledgements</span></p>
+<p><span class="font6">We thank Laurence Mellerin for providing the dataset we used, and for advice on its content. Our&nbsp;work is funded by the German Federal Ministry of&nbsp;Education and Research (grant 01UG1509).</span></p>
+<p><span class="font2" style="font-weight:bold;">Bibliography</span></p>
+<p><span class="font5" style="font-weight:bold;">Alzahrani, S. M., Salim, N., and Abraham, A. </span><span class="font5">(2012).</span></p>
+<p><span class="font5">Understanding plagiarism linguistic patterns, textual</span></p>
+<p><span class="font5">features, and detection methods. Trans. Sys. Man</span></p>
+<p><span class="font5">Cyber Part C, 42(2):133-149.</span></p>
+<p><span class="font5" style="font-weight:bold;">Bizzoni, Y., Boschetti, F., Diakoff, H., Del Gratta, R.,</span></p>
+<p><span class="font5" style="font-weight:bold;">Monachini, M., and Crane, G. </span><span class="font5">(2014). The making of</span></p>
+<p><span class="font5">Ancient Greek WordNet. In Proceedings of the Ninth</span></p>
+<p><span class="font5">International Conference on Language Resources and</span></p>
+<p><span class="font5">Evaluation (LREC'14), Reykjavik, Iceland. European</span></p>
+<p><span class="font5">Language Resources Association (ELRA).</span></p>
+<p><span class="font5" style="font-weight:bold;">Büchler, M. </span><span class="font5">(2013). Informationstechnische Aspekte des Historical Text Re-use (English: Computational&nbsp;Aspects of Historical Text Re-use. Ph.D. thesis, Leipzig&nbsp;University, Germany).</span></p>
+<p><span class="font5" style="font-weight:bold;">Crane, &nbsp;&nbsp;&nbsp;G.&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="font5">(1985).&nbsp;&nbsp;&nbsp;&nbsp;Perseus digital library.</span></p>
+<p><span class="font5"><a href="http://www.perseus.tufts.edu/hopper/">http://www.perseus.tufts.edu/hopper/</a>.</span></p>
+<p><span class="font5" style="font-weight:bold;">Fellbaum, C. </span><span class="font5">(1998). WordNet: An electronic lexical database: Bradford book.</span></p>
+<p><span class="font5" style="font-weight:bold;">Jing, H. </span><span class="font5">(1998). Usage of WordNet in natural language generation. In Proceedings of the Workshop on Usage&nbsp;of WordNet in Natural Language Processing Systems&nbsp;(COLING-ACL'98). Columbia University Academic&nbsp;Commons.</span></p>
+<p><span class="font5" style="font-weight:bold;">Johnson, K.P., Burns P.J., Hollis, L., Pozzi, M., Shilo, A.,</span></p>
+<p><span class="font5" style="font-weight:bold;">Margheim, S., Badger, G., and Bell, E. </span><span class="font5">(2014-2016).</span></p>
+<p><span class="font5">Cltk: The classical language toolkit. <a href="https://github.com/cltk/cltk">https://github.com/cltk/cltk</a>.</span></p>
+<p><span class="font5" style="font-weight:bold;">Mellerin, L. </span><span class="font5">(2014). New ways of searching with</span></p>
+<p><span class="font5">Biblindex, the online index of biblical quotations in early Christian literature. In Claire Clivaz, Andrew</span></p>
+<p><span class="font5">Gregory, and David Hamidovic, editors, Digital</span></p>
+<p><span class="font5">Humanities in Biblical, Early Jewish and Early Christian Studies, chapter 11, pages 175-192. Brill,&nbsp;Leiden.</span></p>
+<p><span class="font5" style="font-weight:bold;">Miller, G.A., Beckwith, R., Fellbaum, C., Gross, D., and Miller, K.J. </span><span class="font5">(1990). Introduction to WordNet: An online lexical database. International Journal of&nbsp;Lexicography (special issue), 3(4):235-312.</span></p>
+<p><span class="font5" style="font-weight:bold;">Minozzi, S. &nbsp;&nbsp;&nbsp;</span><span class="font5">(2009).&nbsp;&nbsp;&nbsp;&nbsp;Innsbrucker Beitrge zur</span></p>
+<p><span class="font5">Sprachwissenschaft, volume 137, chapter The Latin WordNet Project, pages 707-716. Institut für</span></p>
+<p><span class="font5">Sprachen und Literaturen der Universität Innsbruck, Innsbruck.</span></p>
+<p><span class="font5" style="font-weight:bold;">Moritz, M., Wiederhold, A., Pavlek, B., Bizzoni, Y., and</span></p>
+<p><span class="font5" style="font-weight:bold;">Büchler, M. </span><span class="font5">(2016). Non-literal text reuse in historical</span></p>
+<p><span class="font5">texts: An approach to identify reuse transformations and its application to bible reuse. In Empirical&nbsp;Methods in Natural Language Processing (EMNLP'16),&nbsp;Austin, TX, USA. Association for Computational&nbsp;Linguistics.</span></p>
+<p><span class="font5" style="font-weight:bold;">Navigli, R., and Ponzetto, S. P</span><span class="font5">. (2012). Babelnet: The</span></p>
+<p><span class="font5">automatic construction, evaluation and application of a wide-coverage multilingual semantic network. Artif.&nbsp;Intell. 193:217-250.</span></p>
+<p><span class="font5" style="font-weight:bold;">Weber, R., Gribomont, J., Fischer, B., </span><span class="font5">Eds. (1969) 1969,</span></p>
+<p><span class="font5">1994, 2007. Biblia Sacra Juxta Vulgata Versionen. Deutsche Bibelgesellschaft.</span></p>
+</body>
+</html>

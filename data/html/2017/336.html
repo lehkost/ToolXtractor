@@ -1,0 +1,123 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"
+	"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head><meta http-equiv="content-type" content="text/html; charset=UTF-8"/><meta name="generator" content="ABBYY FineReader 14"/><title>Microsoft Word - 336. Tonra-Personae-336.docx</title><link rel="stylesheet" href="336_files/336.css" type="text/css"/>
+</head>
+<body><h1><a name="caption1"></a><a name="bookmark0"></a><span class="font6" style="font-weight:bold;">Person«: A Character-Visualisation Tool for Dramatic Texts</span></h1><h2><a name="bookmark1"></a><span class="font8" style="font-weight:bold;">Justin Tonra</span></h2>
+<p><span class="font8"><a href="mailto:justin.tonra@nuigalway.ie">justin.tonra@nuigalway.ie</a></span></p>
+<p><span class="font8">National University of Ireland Galway, Ireland</span></p><h2><a name="bookmark2"></a><span class="font8" style="font-weight:bold;">David Kelly</span></h2>
+<p><span class="font8"><a href="mailto:author.email@domain.com">author.email@domain.com</a></span></p>
+<p><span class="font8">National University of Ireland Galway, Ireland</span></p><h2><a name="bookmark3"></a><span class="font8" style="font-weight:bold;">Lindsay Reid</span></h2>
+<p><span class="font8"><a href="mailto:lindsay.reid@nuigalway.ie">lindsay.reid@nuigalway.ie</a></span></p>
+<p><span class="font8">National University of Ireland Galway, Ireland</span></p><h2><a name="bookmark4"></a><span class="font9" style="font-weight:bold;">Introduction</span></h2>
+<p><span class="font8">This paper explores the development of the </span><span class="font8" style="font-style:italic;font-variant:small-caps;text-decoration:underline;">Persons</span><span class="font8"> tool (code available on </span><span class="font8" style="text-decoration:underline;">Github</span><span class="font8">), an interactive&nbsp;resource for exploring patterns of speeches by and&nbsp;mentions of characters in dramatic texts. Initially&nbsp;developed to examine works by Shakespeare, the tool&nbsp;has broad application to dramatic texts.</span></p>
+<p><span class="font8">Visualising the frequency, extent, and position of dialogue relating to a particular character presents&nbsp;users with a simple and immediate measure of that&nbsp;character’s prominence within the play. The </span><span class="font8" style="font-style:italic;font-variant:small-caps;">Persons&nbsp;</span><span class="font8">tool enables users to select and visualise individual&nbsp;characters’ involvement, producing a novel means of&nbsp;exploring large-scale structural, narrative, or&nbsp;character-focused patterns within the text.</span></p>
+<p><span class="font8">The tool is intended to facilitate character-based analysis and reveal structural patterns at the scale of&nbsp;the play. The tool was conceived with exploratory&nbsp;potential in mind, and is designed to allow users to&nbsp;customise the visualisation according to their&nbsp;particular interests or to follow a more speculative and&nbsp;disinterested reading of the play’s character-based&nbsp;features.</span></p>
+<p><span class="font8">This deliberate aim emerged from the heuristic development process described below, and a desire to&nbsp;produce an extensible exploratory tool for dramatic&nbsp;texts. From an initial focus on using digital tools to&nbsp;visualise the tangling and disentangling of character&nbsp;names and identities in </span><span class="font8" style="font-style:italic;font-variant:small-caps;">THe ComeDy oF Errors,</span><span class="font8"> our&nbsp;interest broadened into exploring the potential for&nbsp;using character data to visualise larger structural and&nbsp;narrative patterns.</span></p>
+<p><span class="font8">We were also motivated by the use of network analysis and visualisation for scholarship on&nbsp;Shakespearean and other literary texts, including work&nbsp;by Yose et al (2016), Grandjean (2015), Moretti&nbsp;(2011), and Stiller, et al. (2003). These analyses are&nbsp;similarly character-based and have yielded many&nbsp;interesting insights. But in the reduction of the textual&nbsp;data to nodes and edges (characters and their&nbsp;interactions), network analysis has obscured the&nbsp;temporal. The work of Xanthos, et al. (2016) maintains&nbsp;this temporal dimension, while exploring the&nbsp;dynamics of the character networks as they evolve. In&nbsp;contrast, by visualising the characters at the level of&nbsp;the play as a whole, we aim to preserve characters’&nbsp;locations within the space of the text, thereby enabling&nbsp;analysis of the dramatic time and structural duration&nbsp;of the play.</span></p>
+<p><span class="font9" style="font-weight:bold;">Tool Development</span></p>
+<p><span class="font8">Tool development took part in two phases. First, the data was extracted and transformed into a suitable&nbsp;format. The user interface was then designed using an&nbsp;iterative process that enabled the exploration of&nbsp;various approaches to data presentation and&nbsp;interaction.</span></p>
+<p><span class="font9">Data Preparation</span></p>
+<p><span class="font8">The tool uses data contained in </span><span class="font8" style="text-decoration:underline;">XML files</span><span class="font8"> provided in the New Variorum Shakespeare editions of </span><span class="font8" style="font-style:italic;font-variant:small-caps;">THe&nbsp;ComeDy oF Errors</span><span class="font8"> and </span><span class="font8" style="font-style:italic;font-variant:small-caps;">THe Winter's TaLe.</span></p>
+<p><span class="font8">Data was extracted using a custom-developed Python script which iterates through each play’s XML&nbsp;file extracting character and name data, along with line&nbsp;number, scene and act identifiers. The data as output&nbsp;as JSON, which reduces the complexity of using it with&nbsp;the JavaScript-based user interface.</span></p>
+<p><span class="font9">User Interface Design</span></p>
+<p><span class="font8">The tool’s web-based user interface (Figure 1) was developed using the open source Javascript library, D3&nbsp;(Bostock et al, 2011). </span><span class="font8" style="font-style:italic;font-variant:small-caps;">Persons</span><span class="font8"> developed from a fixed&nbsp;and static visualisation of </span><span class="font8" style="font-style:italic;font-variant:small-caps;">THe ComeDy oF Errors</span><span class="font8"> to a&nbsp;more interactive and exploratory tool. In the heuristic&nbsp;spirit of the tool itself, we describe here its various&nbsp;iterations, the stages of its development, and the&nbsp;motivations for various changes to its design and&nbsp;functionality throughout the process.</span></p><div><img src="336_files/336-1.jpg" style="width:39pt;height:139pt;"/></div><br clear="all"/><div><img src="336_files/336-2.jpg" style="width:21pt;height:7pt;"/></div><br clear="all"/><div>
+<p><span class="font1">The Comedy of Errors</span></p>
+<p><span class="font0" style="font-weight:bold;">Text Visualisation of Speakers</span></p><img src="336_files/336-3.jpg" style="width:94pt;height:49pt;"/>
+<p><span class="font3">Figure 1: </span><span class="font3" style="font-style:italic;">Persons</span><span class="font3"> Character Visualisation Interface - From the First to the Second Iteration</span></p></div><br clear="all"/>
+<p><span class="font9">Expanding the Second Iteration</span></p>
+<p><span class="font8">The second iteration of the tool adopted the circular layout of the tool to plot character&nbsp;involvement across the entire play, as shown in Figure&nbsp;3. At this point, the tool was still static, and its focus on&nbsp;the two pairs of twin characters in </span><span class="font8" style="font-style:italic;">THe ComeDy of&nbsp;Errors</span><span class="font8"> represented a desire to deploy visualisation for&nbsp;a particular exploratory purpose. The play operates on&nbsp;the basis of identity and confusion, as Antipholus and&nbsp;Dromio of Syracuse are mistaken for their Ephesian&nbsp;counterparts, and vice versa. Our aim was to plot the&nbsp;speeches of these four characters to see if the&nbsp;visualisation revealed any insights into how the&nbsp;identity question was introduced and managed at a&nbsp;structural level.</span></p>
+<p><span class="font8" style="font-style:italic;">Persona's</span><span class="font8"> focus on character and temporal visualisation is present in the first iteration of the tool&nbsp;(Figure 2). Speeches and mentions are plotted along a&nbsp;timeline, with a tabular view switching between the&nbsp;five acts of the play. All speeches and mentions are&nbsp;colour-coded, resulting in some interesting patterns&nbsp;and densities at certain parts of the text, but lacking&nbsp;the facility for isolating chosen characters. In addition,&nbsp;the tabular view of the five acts lacked the desired&nbsp;holistic view of the entire play.</span></p>
+<p><span class="font0" style="font-weight:bold;">A timeline-based visualisation of stage entrances, speakers, names mentioned, and stage exits</span></p>
+<p><span class="font0" style="font-weight:bold;">Act 1 Act 2 Act 3 Act 4 Act 5</span></p>
+<table border="1">
+<tr><td>
+<p><span class="font0" style="font-weight:bold;">Line Number</span></p></td><td>
+<p><span class="font0" style="font-weight:bold;">Stage Entrance</span></p>
+<p><span class="font0" style="font-weight:bold;">••</span></p></td><td style="vertical-align:middle;">
+<p><span class="font0" style="font-weight:bold;">Speaker</span></p>
+<p><span class="font0" style="font-weight:bold;">•</span></p>
+<p><span class="font5">1</span></p></td><td style="vertical-align:middle;">
+<p><span class="font0" style="font-weight:bold;">Mentions &nbsp;&nbsp;&nbsp;Stage Exit</span></p>
+<p><span class="font0" style="font-weight:bold;">•</span></p>
+<p><span class="font5">1</span></p>
+<p><span class="font0" style="font-weight:bold;">•</span></p>
+<p><span class="font0" style="font-weight:bold;">•</span></p></td></tr>
+<tr><td>
+<p><span class="font0" style="font-weight:bold;">80</span></p></td><td>
+<p></p></td><td style="vertical-align:middle;">
+<p><span class="font3">•</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font0" style="font-weight:bold;">•</span></p>
+<p><span class="font0" style="font-weight:bold;">•</span></p>
+<p><span class="font0" style="font-weight:bold;">•</span></p></td></tr>
+<tr><td style="vertical-align:middle;">
+<p><span class="font0" style="font-weight:bold;">140</span></p></td><td>
+<p></p></td><td>
+<p><span class="font3">•</span></p>
+<p><span class="font3">•</span></p></td><td style="vertical-align:bottom;">
+<p><span class="font0" style="font-weight:bold;">•</span></p>
+<p><span class="font0" style="font-weight:bold;">•</span></p></td></tr>
+<tr><td style="vertical-align:middle;">
+<p><span class="font0" style="font-weight:bold;">160</span></p></td><td style="vertical-align:middle;">
+<p><span class="font4" style="font-style:italic;">—</span></p></td><td style="vertical-align:middle;">
+<p><span class="font3">•</span></p></td><td>
+<p><span class="font0" style="font-weight:bold;">•</span></p>
+<p><span class="font0" style="font-weight:bold;">•</span></p>
+<p><span class="font0" style="font-weight:bold;">•</span></p></td></tr>
+<tr><td style="vertical-align:middle;">
+<p><span class="font0" style="font-weight:bold;">180</span></p></td><td>
+<p></p></td><td style="vertical-align:middle;">
+<p><span class="font5">1</span></p></td><td>
+<p></p></td></tr>
+<tr><td style="vertical-align:middle;">
+<p><span class="font0" style="font-weight:bold;">200</span></p></td><td style="vertical-align:middle;">
+<p><span class="font4" style="font-style:italic;">•</span></p></td><td>
+<p><span class="font3">•</span></p>
+<p><span class="font3">•</span></p></td><td style="vertical-align:middle;">
+<p><span class="font0" style="font-weight:bold;">•</span></p></td></tr>
+<tr><td>
+<p><span class="font0" style="font-weight:bold;">220</span></p></td><td>
+<p></p></td><td style="vertical-align:middle;">
+<p><span class="font5">!</span></p>
+<p><span class="font5">1</span></p></td><td style="vertical-align:middle;">
+<p><span class="font0" style="font-weight:bold;">•</span></p></td></tr>
+<tr><td>
+<p></p></td><td>
+<p></p></td><td>
+<p><span class="font5">i</span></p></td><td style="vertical-align:middle;">
+<p><span class="font0" style="font-weight:bold;">•</span></p></td></tr>
+<tr><td>
+<p></p></td><td style="vertical-align:bottom;">
+<p><span class="font3">Figure 2:</span></p></td><td colspan="2" style="vertical-align:bottom;">
+<p><span class="font3">First iteration design</span></p></td></tr>
+</table><img src="336_files/336-4.jpg" style="width:75pt;height:25pt;"/><img src="336_files/336-5.jpg" style="width:113pt;height:93pt;"/>
+<p><span class="font3">Figure 3: Second iteration design</span></p>
+<p><span class="font8">Indeed, the visualisation presents several clustered scenes of engagement between the pairs of twins&nbsp;through which various errors and misunderstandings&nbsp;are played out. The tell-tale single appearance of&nbsp;Dromio of Syracuse's orange marker in Act 1, Scene 2&nbsp;precisely represents the beginnings of the error and&nbsp;confusion: “What now? How chance thou art returned&nbsp;so soon?”</span></p>
+<p><span class="font8">An additional avenue of exploration in the second iteration of the tool was the geographical mapping of&nbsp;locations mentioned in the play. </span><span class="font8" style="font-style:italic;">THe ComeDy of Errors&nbsp;</span><span class="font8">is known for including the only mention of America in&nbsp;Shakespeare's plays, among several other placenames&nbsp;in its text. In some respects, this visualisation gives a&nbsp;false impression of </span><span class="font8" style="font-style:italic;">THe ComeDy of Errors</span><span class="font8"> as a worldly&nbsp;play. While eighteen locations are mentioned in the&nbsp;text, several of these are ironically located by Dromio&nbsp;of Syracuse on Nell the kitchen-maid's body, because&nbsp;“she is sphericall, like a globe: I could find out /&nbsp;Countries in her” (Act 3, Scene 2).</span></p>
+<p><span class="font9">The final interface</span></p>
+<p><span class="font8">As useful as this view of the play proved, we felt at this point that a more dynamic and interactive&nbsp;interface was required to allow users to test&nbsp;hypotheses like our own, or to undertake more&nbsp;exploratory and experimental visualisations of the&nbsp;data, as illustrated in Figure 4. The circular layout was&nbsp;retained, as it provided a useful method of presenting&nbsp;the play as a whole, while maintaining the temporal&nbsp;dimension of the character interactions. The&nbsp;character-selection menu and the scene-divisions in&nbsp;the outer ring were thus added in the final stage of&nbsp;development.</span></p><img src="336_files/336-6.jpg" style="width:225pt;height:169pt;"/>
+<p><span class="font3">Figure 4: Final interface design</span></p>
+<p><span class="font8">Also added were visualisations of higher level metrics to illustrate the number of times a character&nbsp;speaks, and the number of lines they speak.</span></p><h2><a name="bookmark5"></a><span class="font9" style="font-weight:bold;">Conclusion</span></h2>
+<p><span class="font8">A major part of the tool's value is its extensibility. It may be used to create character visualisations for any&nbsp;play which is XML-encoded according to quite minimal&nbsp;specifications, and offer the opportunity to undertake&nbsp;comparative analysis of structural, narrative, and&nbsp;character-based patterns in different plays. Indeed,&nbsp;while the development of the tool focused on </span><span class="font8" style="font-style:italic;">THe&nbsp;ComeDy oF Errors,</span><span class="font8"> a similar visualisation of </span><span class="font8" style="font-style:italic;font-variant:small-caps;">THe&nbsp;Winter's TaLe</span><span class="font8"> (Figure 5) was generated from New&nbsp;Variorum Shakespeare XML files with no revision to&nbsp;our code.</span></p>
+<p><span class="font10">Highlight Speakers</span></p>
+<p><span class="font1">The Winter's Tale</span></p>
+<p><span class="font0" style="font-weight:bold;">Text Visualisation of Speakers</span></p>
+<p><span class="font0" style="font-weight:bold;">□ &nbsp;&nbsp;&nbsp;Gaoler</span></p>
+<p><span class="font0" style="font-weight:bold;">□ &nbsp;&nbsp;&nbsp;Ladies</span></p><img src="336_files/336-7.jpg" style="width:180pt;height:27pt;"/>
+<p><span class="font0" style="font-weight:bold;">Toggle Checkboxes</span></p>
+<p><span class="font3">Figure 5: Visualisation of The Winter's Tale</span></p>
+<p><span class="font8">The trajectory of </span><span class="font8" style="font-style:italic;font-variant:small-caps;">Persona's</span><span class="font8"> development from fixity to interactivity represents a conclusion that we&nbsp;drew in the course of this project: that a visualisation&nbsp;tool developed for a particular purpose need not be&nbsp;confined to its use for that objective alone. The&nbsp;modular and open-source principles of software&nbsp;development have contributed to a rich and fruitful&nbsp;habit of sharing within the field of Digital Humanities,&nbsp;and we hope that others will build upon the tool that&nbsp;we have developed here.</span></p>
+<p><span class="font8">Indeed, we have plans for further developments and improvements to </span><span class="font8" style="font-style:italic;font-variant:small-caps;">Persons.</span><span class="font8"> Working towards a tool&nbsp;which will enable structural and thematic comparison&nbsp;of the thirty-six plays in the First Folio, the next phase&nbsp;will test for structural correlations in a thematic&nbsp;grouping of five additional Shakespearean plays. This&nbsp;development will strengthen </span><span class="font8" style="font-style:italic;font-variant:small-caps;">Persona's</span><span class="font8"> potential for&nbsp;generating insights into macro-level structural&nbsp;analysis of dramatic texts, while testing its technical&nbsp;extensibility by incorporating XML files from another&nbsp;source, </span><span class="font8" style="font-style:italic;font-variant:small-caps;text-decoration:underline;">THe BoDLeian First Folio.</span></p><h2><a name="bookmark6"></a><span class="font9" style="font-weight:bold;">Bibliography</span></h2>
+<p><span class="font7" style="font-weight:bold;">Bostock, M., Ogievetsky, V., and Heer, J</span><span class="font7">. (2011) &quot;D3: Data-</span></p>
+<p><span class="font7">Driven Documents.&quot; </span><span class="font7" style="font-style:italic;">IEEE TraNsactioNS </span><span class="font7" style="font-style:italic;font-variant:small-caps;">on</span><span class="font7" style="font-style:italic;"> VisualizatioN aND CoMputer GrapHics</span><span class="font7"> 17.12 (2011): 2301-2309. Web.</span></p>
+<p><span class="font7" style="font-weight:bold;">Grandjean, M. </span><span class="font7">(2015) “Network Visualization: Mapping</span></p>
+<p><span class="font7">Shakespeare's Tragedies.” Martin Grandjean. N.p., 23</span></p>
+<p><span class="font7">Dec. Web. 26 Oct. 2016.</span></p>
+<p><span class="font7" style="font-weight:bold;">Moretti, F. </span><span class="font7">(2011). “Network Theory, Plot Analysis.” New</span></p>
+<p><span class="font7">Left Review 68: 80-102. Print.</span></p>
+<p><span class="font7" style="font-weight:bold;">Stiller, J., Nettle, D., and Dunbar, R. </span><span class="font7">(2003) &quot;The Small World of Shakespeare’s Plays.&quot; </span><span class="font7" style="font-style:italic;font-variant:small-caps;">Human Nature</span><span class="font7"> 14.4: 397408. Print</span></p>
+<p><span class="font7" style="font-weight:bold;">Xanthos, A., Pante, I., Rochat, Y., Grandjean, M. </span><span class="font7">(2016). “Visualising the Dynamics of Character Networks.”&nbsp;</span><span class="font7" style="font-style:italic;font-variant:small-caps;">Digital Humanities</span><span class="font7" style="font-style:italic;"> 2016: </span><span class="font7" style="font-style:italic;font-variant:small-caps;">Conference Abstracts.&nbsp;</span><span class="font7">Jagiellonian University &amp; Pedagogical University,&nbsp;Krakow, 2016. 417-419. Print.</span></p>
+<p><span class="font7" style="font-weight:bold;">Yose, J., Kenna, R., Carron, P. M, Platini, T., and Tonra, J.</span></p>
+<p><span class="font7">(2016). “A Networks-Science Investigation into the Epic Poems of Ossian.” </span><span class="font7" style="font-style:italic;font-variant:small-caps;">Advances in CompLex Systems</span><span class="font7"> (2016):&nbsp;1650008. Web. 26 Oct. 2016.</span></p>
+</body>
+</html>

@@ -1,0 +1,78 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"
+	"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head><meta http-equiv="content-type" content="text/html; charset=UTF-8"/><meta name="generator" content="ABBYY FineReader 14"/><title>Microsoft Word - 411. Jannidis-Making topic modeling easy A programming library in Python-411.docx</title><link rel="stylesheet" href="411_files/411.css" type="text/css"/>
+</head>
+<body><h1><a name="caption1"></a><a name="bookmark0"></a><span class="font7" style="font-weight:bold;">Making topic modeling easy: A programming library in&nbsp;Python</span></h1><h2><a name="bookmark1"></a><span class="font4" style="font-weight:bold;">Fotis Jannidis</span></h2>
+<p><span class="font4"><a href="mailto:fotis.jannidis@uni-wuerzburg.de">fotis.jannidis@uni-wuerzburg.de</a></span></p>
+<p><span class="font4">University of Würzburg, Germany</span></p><h2><a name="bookmark2"></a><span class="font4" style="font-weight:bold;">Steffen Pielström</span></h2>
+<p><span class="font4"><a href="mailto:pielstroem@biozentrum.uni-wuerzburg.de">pielstroem@biozentrum.uni-wuerzburg.de</a></span></p>
+<p><span class="font4">University of Würzburg, Germany</span></p><h2><a name="bookmark3"></a><span class="font4" style="font-weight:bold;">Christof Schöch</span></h2>
+<p><span class="font4"><a href="mailto:hristof.schoech@uni-wuerzburg.de">hristof.schoech@uni-wuerzburg.de</a></span></p>
+<p><span class="font4">University of Würzburg, Germany</span></p><h2><a name="bookmark4"></a><span class="font4" style="font-weight:bold;">Thorsten Vitt</span></h2>
+<p><span class="font4"><a href="mailto:thorsten.vitt@uni-wuerzburg.de">thorsten.vitt@uni-wuerzburg.de</a></span></p>
+<p><span class="font4">University of Würzburg, Germany</span></p>
+<p><span class="font4">Topic modeling, a method for the semantic analysis of large text collections, has been in the focus of interest in digital literary studies during the recent years.&nbsp;The method uses probabilistic procedures to generate&nbsp;probability distributions for words out of a collection&nbsp;of texts, sorting many single word distributions into&nbsp;distinct semantic groups called ‘topics'. These topics&nbsp;constitute groups of semantically related words, and&nbsp;the contribution of each topic to the composition of&nbsp;each text can be quantified mathematically (Blei 2012,&nbsp;Steyvers und Griffiths 2006). In digital literary studies,&nbsp;topic models can be interesting in themselves. For example their dynamic development either during the&nbsp;plot of single literary texts or over multiple texts in a</span></p>
+<p><span class="font4">stage of literary history can be analyzed (Jockers 2013,</span></p>
+<p><span class="font4">Blevins 2012, Rhody 2012, Schoch to appear), though comparing literary themes and the probabilistic concept of ‘topics' described here is obviously not unproblematic. And topic models can also be interesting features for classifying or clustering texts (Blei 2012).&nbsp;There are currently two state-of-the-art implementations of the relevant algorithms: ‘Mallet' (McCallum&nbsp;2002) and ‘Gensim' (Rehurek 2010). But usually more&nbsp;is required than simply running a topic modeling algorithm (Fig. 1):</span></p>
+<p><span class="font5">• &nbsp;&nbsp;&nbsp;</span><span class="font4">Longer texts like novels need to be split into&nbsp;smaller parts (e.g. paragraphs, scenes, or a&nbsp;fixed amount of characters or words).</span></p>
+<p><span class="font5">• &nbsp;&nbsp;&nbsp;</span><span class="font4">NLP based preprocessing is necessary</span></p>
+<p><span class="font5">• &nbsp;&nbsp;&nbsp;</span><span class="font4">To achieve optimal results, texts must be&nbsp;reduced to content words, either by filtering&nbsp;out function words with stopword lists, or by&nbsp;using a part-of-speech tagger to exclude&nbsp;unwanted word classes.</span></p>
+<p><span class="font5">• &nbsp;&nbsp;&nbsp;</span><span class="font4">Similarly, lemmatization and elimination of&nbsp;proper names can be useful.</span></p>
+<p><span class="font5">• &nbsp;&nbsp;&nbsp;</span><span class="font4">After the topics have been generated, results&nbsp;are usually visualized based on the relevant&nbsp;metadata.</span></p>
+<p><span class="font5">• &nbsp;&nbsp;&nbsp;</span><span class="font4">Results need to be evaluated with regard to&nbsp;internal or external criteria rather than just&nbsp;being left to interpretation.</span></p>
+<p><span class="font4">The aim of our work is to provide digital literary scholars with a consistent, extensive and well documented programming library that allows them to do&nbsp;the necessary preprocessing, to generate topic models&nbsp;relying on the existing implementations, and to visualize and evaluate results within a single convenient&nbsp;scripting environment. We want to empower users&nbsp;with little or no previous experience and programming skills to create custom workflows mostly using&nbsp;predefined functions within a familiar environment&nbsp;(see the current stage of development on </span><span class="font4" style="text-decoration:underline;">Github</span><span class="font4">).&nbsp;Hereby, we want to lower the access threshold to topic&nbsp;modeling as a method, facilitating researchers in&nbsp;spending time experimenting with topic modeling and&nbsp;understanding how it generates results, rather than&nbsp;spending it for acquiring advanced technical skills before being able to try topic modeling at all.</span></p>
+<p><span class="font4">The library will be developed for the programming language ‘Python' that is well suited for NLP and data&nbsp;analysis tasks, and popular among digital literary&nbsp;scholars already. In addition, development can be partially based on functions from, and experiences made&nbsp;with a previous Python-based implementation of a&nbsp;</span><span class="font4" style="text-decoration:underline;">topic modeling workflow</span><span class="font4"> developed by Christof&nbsp;Schoch et al., that can be regarded as a proof of concept.</span></p>
+<p><span class="font4">A convenient tool for NLP analysis during preprocessing does exist in the </span><span class="font4" style="text-decoration:underline;">DARIAH-DKPro-Wrapper </span><span class="font4">(DDW) that covers a wide range of NLP tasks for many&nbsp;different languages and generates annotations in a Python-Pandas compatible format easily usable within&nbsp;our library.</span></p>
+<p><span class="font4">Evaluating the results of topic modeling is not a trivial task but has proven to be rather challenging&nbsp;(Wallach et al. 2009, Chang et al. 2009). In order to&nbsp;evaluate topics we will provide functions for intrinsic&nbsp;evaluations, for example perplexity, and external evaluations, for example path length in a resource like&nbsp;wordnet. We will also support task based evaluation&nbsp;where topics are used for a classification task and evaluated on the basis of the results.</span></p>
+<p><span class="font4">For the visualization of the results we can build on the tmw library mentioned above and provide plots of&nbsp;topics over time (or other dimensions), distribution of&nbsp;topics over texts using heat maps and others.</span></p>
+<p><span class="font4">Functions will be designed with consistent syntax and in a way that allows users to grasp easily what&nbsp;they do and why, so users can combine them into&nbsp;scripts to implement their own project ideas with minimal learning effort. The ability to customize workflows will be facilitated by a thorough tutorial describing all functions, outputs and potential combinations&nbsp;in&nbsp;&nbsp;&nbsp;&nbsp;detail&nbsp;&nbsp;&nbsp;&nbsp;(see&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="font4" style="text-decoration:underline;">https://www.pen-</span></p>
+<p><span class="font4" style="text-decoration:underline;">flip.com/c.schoech/tmw-tutorial</span><span class="font4"> as an example for what we are planning).</span></p>
+<table border="1">
+<tr><td colspan="2">
+<p><span class="font6" style="font-weight:bold;">Preprocessing</span></p></td><td rowspan="3" style="vertical-align:bottom;">
+<p><span class="font2">X</span></p></td></tr>
+<tr><td rowspan="3">
+<p></p></td><td style="vertical-align:bottom;">
+<p><span class="font6" style="font-weight:bold;">Corpus</span></p></td></tr>
+<tr><td rowspan="2" style="vertical-align:bottom;">
+<p><span class="font6" style="font-weight:bold;">\</span></p>
+<p><span class="font6" style="font-weight:bold;">Formatting</span></p>
+<p><span class="font6" style="font-weight:bold;">_I_</span></p></td></tr>
+<tr><td>
+<p><span class="font6" style="font-weight:bold;">NLP-Analysis</span></p></td></tr>
+<tr><td rowspan="2">
+<p><span class="font6" style="font-weight:bold;">Modelling</span></p></td><td>
+<p><span class="font2">+</span></p></td><td>
+<p></p></td></tr>
+<tr><td style="vertical-align:bottom;">
+<p><span class="font6" style="font-weight:bold;">Topic Modeling - Algorithm</span></p>
+<p><span class="font6" style="font-weight:bold;">I &nbsp;&nbsp;&nbsp;\</span></p></td><td>
+<p></p></td></tr>
+<tr><td style="vertical-align:bottom;">
+<p><span class="font6" style="font-weight:bold;">Postprocessing</span></p></td><td>
+<p></p></td><td style="vertical-align:bottom;">
+<p><span class="font2">X</span></p></td></tr>
+<tr><td>
+<p></p></td><td style="vertical-align:middle;">
+<p><span class="font6" style="font-weight:bold;">Visualization</span></p></td><td>
+<p><span class="font6" style="font-weight:bold;">Evaluation</span></p></td></tr>
+</table>
+<p><span class="font0">Figure 1: Topic modeling project workflow</span></p>
+<p><span class="font3" style="font-weight:bold;">Jockers, M. L. </span><span class="font3">(2013). </span><span class="font3" style="font-style:italic;">Macroanalysis - Digital Methods and Literary History</span><span class="font3">. Champaign, IL: University of Illinois&nbsp;Press.</span></p>
+<p><span class="font3" style="font-weight:bold;">McCallum, A. K. </span><span class="font3">(2002): </span><span class="font3" style="font-style:italic;">MALLET: A Machine Learning for Language Toolkit.</span><span class="font3"> </span><span class="font3" style="text-decoration:underline;">http: //mallet.cs.umass.edu</span><span class="font3">.</span></p>
+<p><span class="font3" style="font-weight:bold;">Rehurek, R., and Sojka, P. </span><span class="font3">(2010): &quot;Software framework for topic modelling with large corpora.&quot; </span><span class="font3" style="font-style:italic;">In Proceedings of&nbsp;the LREC 2010 Workshop on New Challenges for NLP&nbsp;Frameworks.</span></p>
+<p><span class="font3" style="font-weight:bold;">Rhody, L. M. </span><span class="font3">(2012): „Topic Modeling and Figurative Language“. </span><span class="font3" style="font-style:italic;">Journal of Digital Humanities</span><span class="font3"> 2.1. </span><span class="font3" style="text-decoration:underline;"><a href="http://jour-nalofdigitalhumanities.org/2-1/topic-modeling-and-fig-">http://jour-nalofdigitalhumanities.org/2-1/topic-modeling-and-fig-</a></span></p>
+<p><span class="font3" style="text-decoration:underline;">urative-language-by-lisa-m-rhody/</span></p>
+<p><span class="font3" style="font-weight:bold;">Schoch, C. </span><span class="font3">(to appear): „Topic Modeling Genre: An Exploration of French Classical and Enlightenment Drama“. </span><span class="font3" style="font-style:italic;">Digital Humanities Quarterly.</span><span class="font3"> &nbsp;&nbsp;&nbsp;</span><span class="font3" style="text-decoration:underline;">http: //digitalhumani-</span></p>
+<p><span class="font3" style="text-decoration:underline;">ties.org/dhq</span><span class="font3">. &nbsp;&nbsp;&nbsp;Preprint:&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="font3" style="text-decoration:underline;">https://zenodo.org/rec-</span></p>
+<p><span class="font3" style="text-decoration:underline;">ord/48356</span><span class="font3">.</span></p>
+<p><span class="font3" style="font-weight:bold;">Steyvers, M., and Griffiths, T. </span><span class="font3">(2006). „Probabilistic Topic Models“. In </span><span class="font3" style="font-style:italic;">Latent Semantic Analysis: A Road to Meaning</span><span class="font3">,&nbsp;herausgegeben von T. Landauer, D. McNamara, S. Dennis, und W. Kintsch. Laurence Erlbaum.</span></p>
+<p><span class="font3" style="font-weight:bold;">Wallach, H. M. </span><span class="font3">(2009)et.al.: Evaluation Methods for Topic Models. In: Proceedings of the 26th International Conference on Machine Learning, Montreal, Canada, 2009.</span></p><h2><a name="bookmark5"></a><span class="font1" style="font-weight:bold;">Bibliography</span></h2>
+<p><span class="font3" style="font-weight:bold;">Blei, D. M. </span><span class="font3">(2012): „Probabilistic Topic Models“. </span><span class="font3" style="font-style:italic;">Communication of the ACM</span><span class="font3"> 55, Nr. 4 (2012): &nbsp;&nbsp;&nbsp;77-84.</span></p>
+<p><span class="font3">doi:10.1145/2133806.2133826.</span></p>
+<p><span class="font3" style="font-weight:bold;">Blevins, C. </span><span class="font3">(2010): „Topic Modeling Martha Ballard's Diary“. </span><span class="font3" style="font-style:italic;">Historying.</span><span class="font3">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="font3" style="text-decoration:underline;">http: //historying.org/2010/04/01 /topic-</span></p>
+<p><span class="font3">modeling-martha-ballards-diary/.</span></p>
+<p><span class="font3" style="font-weight:bold;">Chang, J. </span><span class="font3">(2009): Reading Tea Leaves: How Humans Interpret Topic Models. In: Y. Bengio et al.: Advances in Neural Information Processing Systems 22, 288--296.</span></p>
+</body>
+</html>
