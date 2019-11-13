@@ -30,6 +30,9 @@ Usage: ```java -jar ToolXtractor-full.jar```
  
  ```-verbose```
  Add extra verbose information
+ 
+ ```-ignoreCase```
+ By default, we use case for matching tool names, by using this option, we will ignore the case
 
 # Dataset
 All under CC and retrieved from the ADHO github page: https://github.com/ADHO/
