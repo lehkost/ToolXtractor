@@ -1,0 +1,254 @@
+What Changed When Andy Weir's The Martian Got Edited?
+
+Erik Ketzan
+
+eketza01 @mail.bbk.ac.uk
+
+Birkbeck, University of London, United Kingdom
+
+Christof Schoch
+
+christof.schoech@uni-wuerzburg.de University of Wurzburg, Germany
+
+Introduction
+
+The Martian is a best-selling science fiction novel by Andy Weir that became a
+hit film in 2015. The novel exists in two versions, or variants: Weir
+self-published The Martian on his personal website in 2011 (hereafter, 
+“Martianl”) and began selling it on Amazon.com in 2012. Crown Publishing
+subsequently bought the rights, edited the book, and re-released it (hereafter,
+“Martian2”).
+
+The research presented here investigates what exactly changed when The Martian
+got edited. At first glance, the two versions appear essentially the same, with
+no major changes to plot, character, or structure. A closer look using a
+combination of quantitative and qualitative methods, however, reveals a number
+of noteworthy changes, as well as notable changes that result from thousands of
+seemingly minor copyedits. Aims
+
+The aim of our research is to identify what changed between the two variants of
+The Martian using a combination of close reading and digital methods, analyze
+why those changes are important, and propose a methodology for comparing
+self-published and later-edited novels, an increasingly common phenomenon. We
+hypothesize that the editing process of a leading publishing house results in a
+novel that is more "mainstream", i.e. socialised, domesticated, and appealing
+to a general audience. In order to test this hypothesis, we explore a range of
+aspects, including style, content, and character. Our research also aims
+to bring a critical perspective to the strengths and weaknesses of a variety of
+qualitative and technical methods in identifying the edits and assessing
+their importance.
+
+Related Work
+
+In addition to work in digital genetic criticism (e.g. van Hulle 2008), a small
+number of studies use digital methods to explore variants of contemporary
+fiction. Yufang Ho (2011) compared the 1966 and revised 1977 versions of John
+Fowles’s novel The Magus, while Martin Paul Eve (2016) looked at differences in
+the US and UK versions of David Mitchell’s Cloud Atlas. As both Ho and Eve use
+different methods from one another and from us, it appears that no
+standard method has emerged so far for this type of research. Data
+
+The data used for this research is primarily two plain text files of the
+variants of The Martian. Martianl was obtained in PDF format from Andy Weir’s
+website. Martian2 was obtained by scanning a print copy, performing OCR with
+manual corrections. We consider this our best option given the legal issues
+regarding text protected by copyright.
+
+Methods and Results
+
+Basic collation
+
+We used the Wdiff frontend to the “diff” algorithm (Hunt & McIlroy 1975) to
+produce a collated version of Martianl and Martian2 and assess the number
+and extent of the edits. We then used bespoke Python scripts to classify the
+edits identified by Wdiff.
+
+We found a total of 5146 edits were made to the novel. While 92% of the 101,000
+words in Martianl remain unchanged in Martian2, the remaining 8% of the words
+undergo some type of edit, whether they are deleted or modified (Figure 1). The
+sheer number of edits calls for automatic means to classify them and detect any
+patterns.
+
+120000 - 120000 —
+
+[317-1]
+
+Figure 1: Visualization of edits to The Martian as grouped by Wdiff.
+
+Automatic Classification of Edits
+
+Edits were automatically classified into two broad categories:
+script-detectable copyedits, and all other edits. Script-detectable copyedits
+includes changes in capitalization, whitespace, hyphenation, spelling
+of numbers, abbreviations, or combinations thereof (Figure 2). All other edits
+were classified as insertion, deletion, expansion or condensation and as
+“minor” or “major”, depending on the Levenshtein distance (Figure 3). Of the
+5146 edits, 2863 (or 55%) were script-detectable copyedits, while 2283 (or 45%)
+ comprised the rest. The code used as well as the collation data obtained are
+available on GitHub.
+
+[317-2]
+
+Figure 2: Script-identifiable copyedits to The Martian.
+
+[317-3]
+
+Figure 3: All other edits to The Martian.
+
+narration or in sections written in the third person (Figure 4). When Watney
+narrates, the hundreds of misspellings, numerals, and scientific abbreviations
+in Martianl support the fiction that he is a scientist working in extreme
+conditions. Martian2 increases readability but eliminates the stylistic realism
+of Watney’s text. When Weir uses, for instance, numerals in the dialogue of
+other characters, the effect can be jarring. Martian2 corrects this for the
+better.
+
+┌─────────────────────────────────────┬───────────────────────────────────────┐
+│Martianl                             │Martian2                               │
+├─────────────────────────────────────┼───────────────────────────────────────┤
+│My idea is to make 600L of water     │My idea is to make 600 liters of water │
+│(limited by the hydrogen 1 can get   │(limited by the hydrogen I can get from│
+│from the Hydrazine). That means I'll │the hydrazine). That means I'll need   │
+│need 300L of liquid 02.              │300 liters of liquid 02.               │
+│                                     │                                       │
+│1 can create the 02 easily enough. It│I can create the 02 easily enough. It  │
+│takes 20 hours for the MAV fuel plant│takes twenty hours for the MAV fuel    │
+│to fill Its 10L tank with CO2.       │plant to fill its 10-liter tank with   │
+│                                     │CO2.                                   │
+├─────────────────────────────────────┼───────────────────────────────────────┤
+│"What's the biggest gap in coverage  │"Whafs the biggest gap in coverage we  │
+│we have on Watney right now?"        │have on Watney right now?"             │
+│                                     │                                       │
+│"Urn," Mindy said. "Once every 41    │"Urn," Mindy said. "Once every         │
+│hours, we'll have a 17 minute gap.   │forty-one hours, we'll have a          │
+│The orbits work out that way."       │seventeen-minute gap. The orbits work  │
+│                                     │out that way."                         │
+└─────────────────────────────────────┴───────────────────────────────────────┘
+
+Figure 4: Edits to numerals and scientific abbreviations in Watney's narration
+(top) and third-person character dialogue (bottom).
+
+Detecting transpositions with CollateX
+
+Wdiff does not detect transpositions, or text that has been moved to a
+different location in the novel. Using CollateX (Dekker & Middell 2011) as
+described in Schoch (2016) revealed a total of 126 transpositions. Twenty-eight
+(or 22%) involve punctuation and should be considered artefacts of the method;
+43 (or 34%) represent transpositions of a single word, showing stylistic
+preferences on the word-order level; 55 (or 44%) concern multi-word expressions
+which change the overall construction of a sentence or paragraph more
+substantially.
+
+Figure 5 shows a relatively minor transposition appearing in combination with a
+contraction of a sentence.
+
+Cumulative Effect of the Script-Identifiable Copyedits
+
+
+Taken together, the 2863 script-identifiable copyedits have substantial effects
+upon the text. Weir’s many misspellings and misuse of hyphens
+and capitalization are corrected. Numbers in Martianl are overwhelmingly
+written numerically, and 765 of these become words in Martian2, e.g. “8”
+becomes “eight”. We found 231 instances of edits involving abbreviations, e.g.
+“L” becomes “liters”.
+
+The copyedits work together in different ways when they appear in protagonist
+Mark Watney’s
+
+
+[317-4]
+
+Figure 5: An example of a transposition identified by CollateX.
+
+We conclude that, quantitatively and qualitatively, transpositions were not a
+major part of the edit to The Martian. However, future work could apply the
+same method to other, comparable variants of novels to gain better reference
+points.
+
+and expresses despair, loneliness, and introspection more often.
+
+[317-5]
+
+Figure 6: examples of toned-down profanity in the editing of The Martian
+
+Additionally, Martianl contains an epilogue that is completely cut in the edit.
+It portrays Watney, back on Earth, being openly and profanely rude to a young
+fan. In Martian2, meanwhile, text is added to have Watney express gracious
+appreciation for all the parties involved in his rescue and a widespread faith
+in human nature. The edit therefore alters the tone of the
+ending substantially.
+
+We believe that all of these changes, analyzed together with close reading,
+serve to align Watney's character with our overall hypothesized goal of
+the edit: to make Watney more “relatable,” “nice,” and “human,” and thus to
+appeal to a wider audience.
+
+Close Reading of Other Edits
+
+
+Edits Over the Course of the Novel
+
+When we grouped the other edits, placed them into a spreadsheet, and manually
+inspected them, a number of thematic and stylistic shifts between Martianl and 
+Martian2 became apparent.
+
+Profanity is a key stylistic feature of The Martian that is substantially cut
+and softened by the edit. Words like “fuck” and “shit” are substantially
+reduced (by about 33% and 15%, respectively), while numerous other words and
+phrases are softened with “lesser” profanity or simple non-profanity (e.g.
+“the shit hits the fan” becomes “all hell breaks loose”). Figure 6 shows a
+selection of these edits. Similarly, crude and sophomoric humor is cut in key
+instances. The plot of The Martian revolves around solving one problem after
+another to rescue an astronaut, Mark Watney, stranded on Mars, while relatively
+little text is devoted to Watney's emotions or inner world. In Martian2,
+however, Watney expresses significantly more emotion: he misses his family and
+friends more
+
+Patterns in the edits related to textual progression are revealed by measuring
+the absolute Levenshtein distance of the script-identifiable copyedits and
+other edits line by line (Levenshtein distance is a metric for measuring the
+difference between two sequences, see Navarro 2001).
+
+[317-6]
+
+Figure 7: Sum of absolute Levenshtein distance per line over textual
+progression (script-identifiable copyedits in red, other edits in blue).
+
+Figure 7 shows the sum of the absolute Levenshtein distances for each line of
+the novel (with Savitzky-Golay smoothing applied). The graph shows
+the substantial modifications to the ending of the novel, but also a large
+number of locations with smaller but nonetheless above-average modifications.
+
+Conclusion and Further Research
+
+We have identified and analyzed a number of key features that emerged from the
+editing of The Martian, notably on the level of style and character,
+which combine to make the novel more appealing to a wider audience.
+
+Ongoing research into The Martian concerns the relative frequency and function
+of parts of speech, quantifying the amount of syntactic change, and the legal
+issues affecting the obtaining and processing of the texts. We hope to present
+these additional findings in the near future.
+
+As for our typology of edits, an established methodology for classifying edits
+in the companion fields of textual analysis and scholarly editing is
+the distinction between the “accidentals” and “substantives” used by the
+Greg-Bowers tradition and included in the MLA Committee on Scholarly Editions’ 
+Guidelines for Editors of Scholarly Editions (Modern Language Association,
+2011). Scholars are not unanimous, however, in supporting this. G.
+Thomas Tanselle, for instance, found these terms "misleading and often
+untenable in their implication of a firm distinction in all cases” (Greetham
+1992, pp.335-336). Further, there appears to be no widely-applicable typology
+of edits in digital scholarly editing and collation, with different materials
+calling for different typologies (see TEI-L 2016).
+
+Our typology of edits departs from previously proposed ones by focusing
+entirely on types which can be identified automatically, based on surface
+features. While limited in scope and excluding any semantic criteria, our
+typology may serve as a first approach to the edits of any text and allow
+quantitative comparison of some key phenomena. We believe that our method could
+be applied to other variants of fiction — by itself or incorporated alongside
+another taxonomy, including accidentals/substantives — particularly to novels
+which begin as self-published works but are later edited and re-released, an
+increasingly important phenomenon in contemporary fiction.
+

@@ -1,0 +1,205 @@
+Contextual interpretation of digital music notation
+
+Kevin Page
+
+kevin.page@oerc.ox.ac.uk
+
+University of Oxford, United Kingdom
+
+David Lewis
+
+david.lewis@oerc.ox.ac.uk
+
+University of Oxford, United Kingdom
+
+David Weigl
+
+david.weigl@oerc.ox.ac.uk
+
+University of Oxford, United Kingdom
+
+Research Objects and scholarship in the digital age
+
+As scientific research practice has grown to include ever greater quantities of
+data, larger collaborations, and distributed methods, Research Objects
+(Bechhofer et al, 2013) have been introduced as a means to gather together the
+context surrounding an investigation and to support its future validation,
+understanding, and reuse. In many cases these Research Objects build upon the
+methods, output, and provenance already captured and encoded by workflow
+systems -- the digital environments in which the science is conducted.
+
+More recently there have been proposals for the use of Research Objects within
+the digital humanities and musicology (Dreyfus and Rindfleisch 2014; De Roure
+et al. 2016). Digital editions and annotations of digitally encoded works can
+be viewed as manifestations of workflows deployed in musicological scholarship,
+raising the question of how e.g. editorial annotations in a digital score
+should reference other digital items within the Research Object and vice versa.
+
+For example, a study of the Mariinsky Opera's rendition of Wagner's Ring cycle
+in November 2014 produced a multimedia dataset including audio, annotations
+made by a musicologist on a short score before the performance (annotations
+which could be identified a priori from the score such as dynamics, appearances
+of a leitmotif, etc.), further annotations captured digitally by the
+musicologist during the live performance (typically staging and interpretive
+commentary), and free-form text from a digital pen (Page et al.
+
+2016). If the score in use had been a digital edition encoded in MEI (the
+XML-based Music Encoding Initiative. as reviewed by Crawford and Lewis 2016)
+how might we reference the musicologist's annotations? Or the other media
+objects captured and the metadata describing them; existing Linked Data
+references to Wagner and leitmotifs; and to earlier surveys and studies made by
+the musicologist on leitmotif interpretation? Linked notation in support of
+musicology
+
+Notation examples are a vital part of analytical essays in musicology, helping
+to illustrate analytical observations and justify hypotheses, arguments and
+conclusions. They can be excerpts from a score, or custom-made notations which
+add annotations or comments to the original notation.
+
+Furthermore, the presentation of multiple analogous musical extracts for
+comparison is often required to support a musicological narrative. 
+Paradigmatic analysis, for example, involves passages of music placed one above
+another such that analogous elements are directly juxtaposed, with gaps left as
+necessary to ensure that vertical alignment is preserved. Stacked presentation
+of different scores or different parts of the same score have been used for
+well over a century, but they quickly become unwieldy and hard to interpret,
+especially as the number of extracts increases. What is not available in such
+paper-based approaches is the interactivity that can make complex comparisons
+between many extracts practical by turning a static presentation into an
+iterative exploration of digital materials.
+
+In this paper we consider the example of a digital companion presenting the
+contents of a Research Object studying the interpretation of leitmotif
+examples from Wagner's compositions, specifically the Ring cycle, as they are
+presented in numerous historical introductions, opera guides, leitmotivic
+threads and leitmotif lists included in libretto editions and piano scores. The
+study of the incidences of these particular leitmotif identifications consists
+of both the gathering of source material and its digitisation and
+cataloguing, and a musicological study of the potential relationships,
+influence and evolution between leitmotif interpretations. To enable the
+extension and repurposing of the identified leitmotif relationships they are
+structured using an ontology.
+
+Notation examples in leitmotif guides are usually abstractions drawn from a
+piano score. When reporting findings from this research it is desirable to
+present and relate the scholarly arguments back to the musicological context
+within which they are made: from the score excerpts in the source material; and
+to MEI encodings that illustrate and encode both the examples from which they
+are drawn and to complete (piano) scores of the overall operas.
+
+This enables matching and linking of the examples as they are described in the
+scholarly text, via semantic hyperlinks, to and from the score, including
+exact matches and variants, illustrating interpretations, and situating the
+examples back in context. Encoding interpretations in the form of notation
+examples as variant readings of a certain passage could thereby chart
+the ‘understanding' of the work as a history of its variants.
+
+(For example comparing: Richard Wagner, Die Walküre, piano score by Felix
+Mottl, Leipzig,
+
+Peters, 1914, p.165; Hans von Wolzogen, Thematischer Leitfaden durch die Musik
+zu Richard Wagners Festspiel Der Ring des Nibelungen, 2^nd ed., Leipzig,
+Schloemp, 1876, p.58, ‘Schicksalsmotiv'; Gustav Kobbe, Wagner's Music Dramas
+Analyzed With the Leading Motives, New York: Schirmer, 1923, p. 57, ‘Motive of
+Fate'; George Dunning Gribble, The Master Works of Richard Wagner, London,
+Everett, 1913, p. 289, ‘Fate Motif'.)
+
+Introducing MELD: Music Encoding and Linked Data
+
+To realise the digital notation companion we have developed the MELD framework
+(Music Encoding and Linked Data). MELD enables the interactive presentation of
+multimedia contents of the Research Object, such as the images, text, audio,
+and MEI encoded music notation described in the previous section. These can be
+explored contextually alongside each other through the use of semantic links,
+encoded using RDF, which describe the musicological relationships between
+the resources (and elements within them). In contrast to earlier technologies
+which have typically aligned resources against a timeline (e.g. in
+milliseconds, or using MIDI), MELD expresses relationships anchored
+to musically meaningful items scoped using MEI. Figure 1 shows a screenshot of
+MELD displaying text and notation, highlighting leitmotifs as identified in
+different historical guides.
+
+[585-1]
+
+Figure 1. MELD displaying contextualised text and music notation.
+
+To render our music notation (encoded using MEI) we use Verovio (Pugin et al.
+2013), an open-source MEI renderer that produces beautiful SVG renditions of
+the score. In addition, Verovio provides an architecture in which identifiers
+(in other words, anchors for our relational Linked Data expressions in the
+MEI XML) are persisted through to the rendering (in SVG) which can be connected
+to identifiers in our contextual information (in RDF). When rendered (and
+re-rendered) for the user in our web based application interface, the browser
+uses these identifiers to generate interface elements and undertake actions
+that combine information from the MEI and the Linked Data.
+
+[585-2]
+
+Figure 2. Musicological relationships, encoded using Open Annotations, within
+the Research Object (simplified).
+
+Within the Research Object, we treat the XML IDs of elements within the MEI
+resource as fragment identifiers, so URIs can be straightforwardly generated
+for each notation element of interest. We employ the Web Annotation Data Model
+(Sanderson et al. 2017), using these URIs as targets of annotations
+representing each musicological marking. Corresponding annotation bodies are
+associated with semantic tags defined to encode the different musicological
+interpretations, which are in turn the annotation bodies of a
+top-level annotation targeting the URI of the files currently being viewed,
+including the music encoding (MEI) and scholarly interpretation (HTML). A
+simplified example of such relationships is shown in Figure 2.
+
+[585-3]
+
+Figure 3. The MELD framework (shading corresponds to that in Figure 2).
+
+The MELD client then uses HTML/CSS and JavaScript, served by a simple web
+service implemented with Python Flask, and illustrated in Figure 3. The
+procedure driving the rendering and user interaction is illustrated in Figure
+1. The client processes a framed (see the explanation of framing) JSON-LD
+representation of the RDF graph instantiating the data model. It then performs
+an HTTP GET call to acquire the MEI resource targeted by the top-level
+annotation, and renders the corresponding musical score to SVG using Verovio.
+User interactions are captured using HTML divs drawn as bounding boxes over
+portions of the SVG corresponding to MEI elements of interest; this
+is simplified by Verovio's retention of MEI identifiers in the produced SVG
+output.
+
+Acknowledgements
+
+This work has been supported by the UK Arts and Humanities Research Council
+grant AH/L006820/1 ‘Transforming Musicology', and EPSRC grant EP/L019981/1
+‘Fusing Audio and Semantic Technologies for Intelligent Music Production and
+Consumption'. We thank all our colleagues on these projects who have supported
+and encouraged this work, particularly Carolin Rindfleisch for her
+complementary work on musicological ontologies, and Laurence Dreyfus for wider
+inspiration and motivation in developing these technologies.
+
+Crawford, T., & Lewis, R. (2016). Review: Music Encoding Initiative. Journal of
+the American Musicological Society, 69(1), 273-285.
+
+De Roure, D., Klyne, G., Page, K.R., Pybus, J., Weigl, D.M., Wilcoxson, M.,
+Willcox, P. (2016). Plans and Performances: Parallels in the Production of
+Science and Music. Proceedings of the 2016 IEEE 12th International Conference
+on e-Science. IEEE, pp. 185-192.
+
+Dreyfus, L., & Rindfleisch, C. (2014). Using Digital Libraries in the Research
+of the Reception and Interpretation of Richard Wagner's Leitmotifs. Proceedings
+of the 1st International Workshop on Digital Libraries for Musicology. ACM, pp.
+1-3
+
+Page, K., Nurmikko-Fuller, T., Rindfleisch, C., Weigl, D.
+
+(2016). Digital Annotation Tooling for Opera Performance Studies. Digital
+Humanities 2016: Conference Abstracts. Jagiellonian University & Pedagogical
+University,
+
+Krakow, pp. 306-309.
+
+Pugin, L., Zitellini, R., & Roland, P. (2014). Verovio: A Library for Engraving
+MEI Music Notation into SVG. Proceedings of the 15th International Society for
+Music Information Retrieval Conference, pp. 107-112.
+
+Sanderson, R., Ciccarese, P., Young, B. (2017). Web Annotation Data Model. W3C
+recommendation.
+

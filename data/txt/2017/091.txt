@@ -1,0 +1,119 @@
+Modelling a Prosopography for the Roman Republic The Digital Prosopography of
+the Roman Republic Project
+
+Luis Figueira
+
+luis.figueira@kcl.ac.uk
+
+King's Digital Lab
+
+King's College London, United Kingdom
+
+Miguel Vieira
+
+jose.m.vieira@kcl.ac.uk
+
+King's Digital Lab
+
+King's College London, United Kingdom
+
+In this abstract we describe the development of a web application for a
+prosopography of the Roman Republic, focusing on the data modelling, data
+harvesting and user interface. The web application offers finegrained data
+about the elite of the Roman Republic, allowing the detailed study of its
+attested individuals, including familial composition, office-holding
+patterns, internal hierarchies, property and wealth.
+
+The Digital Prosopography of the Roman Republic
+
+(DPRR) is an AHRC (Arts and Humanities Research Council) funded project,
+running from 2013 to May 2017. It is a collaborative project being developed
+by King's Digital Lab, together with the Classics and the Digital Humanities
+Departments from King's College London.
+
+The project was developed to allow users easy access to complex data to enable
+them to answer questions such as:
+
+•    list the individuals who were praetors between 200-100 BCE with nomen
+Caecilius;
+
+•    list proconsuls in Gallia between 100-80 BCE;
+
+•    show all persons who were both consul and pontifex between 123 and 100 BCE
+(i.e. consuls who were also pontifices);
+
+•    visualise the composition of the the senate in the year 100 BCE;
+
+• persons with a birth date and a death date between 250-100 BCE;
+
+• women that died of violent death.
+
+To preserve the richness of the data, while allowing answering research
+questions as above, the DPRR data model was designed to store the
+prosopographical data using the principles of the Factoid Model (Bradley and
+Short, 2002; Pasin and Bradley, 2012). This builds upon previous experience
+acquired developing similar projects (Prosopography of the Byzantine
+Empire, Clergy of Anglo-Saxon England Database, Prosopography of Anglo-Saxon
+England, Prosopography of the Byzantine World, People of Medieval Scotland,
+Making of Charlemagne's Europe).
+
+The data model is organised around four main entities: Person, PostAssertion, 
+StatusAssertion and RelationshipAssertion. The main entity, Person, stores
+information about each individual, such as names, gender, life dates, patrician
+indicator, etc. The PostAssertion entity stores data related to offices/posts
+held by individuals (such as praetor, consul, legate, etc), while the 
+StatusAssertion stores senatorial and equestrian class information. The 
+RelationshipAssertion represents personal relationships (brother of, son of,
+etc), connecting two different individuals within the database. All these
+entities are linked, as represented in Figure 1. All Assertion models are
+linked to a SecondarySource entity with details about the
+bibliographical references supporting the data.
+
+[091-1]
+
+Figure 1 - Simplified database model
+
+The data for the project has been harvested from
+
+multiple sources - mainly from Broughton's Magistrates of the Roman Republic
+(1951-86), Ruepke's Fasti Sacerdotum (2005) and Zmeskal's Adfinitas (2009). The
+data was automatically loaded using scripts developed for each source (Fig. 2).
+There's also a data editing interface, which was mostly used to make
+corrections to the automatically loaded data, as well as adding new information
+when needed.
+
+[091-2]
+
+Figure 2 - Data workflow
+
+Besides loading and entering data directly into the database, the project also
+has rules to infer new information about personal relationships and senators.
+An example is, the application creates a Senator object for a person that held
+a specific post in a given year, such as consul, praetor, aedile, tribunus
+plebis, censor, princeps senatus.
+
+The database, which stores all this information in
+
+an easily searchable format, is fronted by a web application (see the public
+version of the website). This website allows the public to explore the data
+using a faceted search interface with different filters that can be applied.
+This guides the user to achieve answers to the research questions above. By
+selecting individual results, it is possible to see all the information about
+a person, including visualisations of their relationship networks (Fig. 3).
+
+Visualisations of the senate composition on a yearly basis are also being
+created. We are currently working towards integrating the database with
+Linked Data technologies as part of the Standard for Networking Ancient
+Prosopographies (see the SNAP:DRGN pro^ject).
+
+The project is built using open source tools and technologies, mainly the
+Django application framework with a PostgreSQL database. The search interface
+is implemented using the Solr search engine together with the django-haystack
+search package for Django. The visualisations are created with d3plus and 
+linkurious. The project source code is also available as open source in a 
+GitHub repository.
+
+Our poster will illustrate the model that supports this digital resource, the
+methods used to retrieve the data and populate it, as well its usage for data
+exploration and visualisation.
+

@@ -1,0 +1,280 @@
+same Ukiyo-e prints that are exhibited in multiple databases with metadata
+values in different languages.
+
+Linking the Same Ukiyo-e Prints in Different Languages by Exploiting Word
+Semantic Relationships across Languages
+
+Yuting Song
+
+gr0260ff@ed.ritsumei.ac.jp
+
+Ritsumeikan University, Japan
+
+Taisuke Kimura
+
+is0013hh@ed.ritsumei.ac.jp
+
+Ritsumeikan University, Japan
+
+Biligsaikhan Batjargal
+
+biligsaikhan@gmail.com Ritsumeikan University, Japan
+
+Akira Maeda
+
+amaeda@is.ritsumei.ac.jp Ritsumeikan University, Japan
+
+Introduction
+
+Many libraries and museums around the world have been releasing their digital
+collections and making them accessible online. They provide new opportunities
+for people to acquire information, but they also pose new challenges for
+accessing these large quantities of humanities resources. Language barriers are
+one of the main issues for accessing multiple databases in different languages.
+In this paper, we propose a method to link Ukiyo-e prints between databases in
+different languages by exploiting semantic similarity of metadata values
+across languages, in order to achieve our ultimate research goal that aims to
+provide multilingual access to multiple and diverse databases. We believe
+our proposed method could assist users in accessing Ukiyo-e databases
+regardless of languages.
+
+Ukiyo-e, Japanese traditional woodblock print, is known as one of the popular
+arts of the Edo period (1603-1868). Many libraries, museums and galleries in
+Western countries have digitalized Ukiyo-e woodblock prints with the metadata
+values in different languages. Table 1 shows an example of the
+
+[369-1]
+
+Table 1. An example of the same Ukiyo-e prints that are exhibited in multiple
+databases with metadata values in different languages
+
+
+For linking the same Ukiyo-e prints between databases in different languages,
+our previous methods (Batjargal et al., 2014; Kimura et al., 2015; Kimura et
+al., 2016) utilize the metadata values to calculate the similarity between
+Ukiyo-e prints, in which the metadata values are translated into the same
+language by using bilingual dictionaries or online machine translation
+services.
+
+Resig (2013) has developed an image similarity based Ukiyo-e print search
+system, which is able to search the same Ukiyo-e prints from multiple databases
+regardless of languages. However, this method cannot be applied to other
+humanities resources that have no images, such as texts, audio, video and so
+on.
+
+In this paper, we use the metadata values to calculate the similarity between
+Ukiyo-e prints, which is the same as our previous methods (Batjargal et
+al., 2014; Kimura et al., 2015; Kimura et al., 2016). The difference is that we
+calculate similarity between metadata values of Ukiyo-e prints in
+different languages without translating.
+
+Methodology
+
+Our method is based on word embeddings (Mikolov et al., 2013a), which are
+dense, lowdimensional and real-valued vectors for representing words. By using
+word embeddings, the words with a similar meaning have closer distances in a
+vector space, which means the semantic relationships between words can be
+captured. An example is shown in Fig. 1, in which two words “storm” and
+“hurricane” that express similar concepts are closer in a vector space (only
+two dimensions are shown for simplicity). Word embeddings can be learned by
+using the Word2Vec toolkit, which employs a simple neural network model that
+can be trained on a large amount of unstructured text data in a short time
+(billions of words in hours).
+
+y |    .    0 rainfall
+
+q storm hurricane
+
+0 evening O ^niê^ht
+
+Fig. 1 An example of capturing the sematic relationships between words by using
+word embeddings
+
+Our proposed method is motivated by the idea of Mikolov et al., (2013b) that
+the same concepts have similar geometric arrangements across languages. Fig.2
+illustrates the vector representations of Japanese words (“S” and “M”) and
+English words (“rainfall” and “storm”) that are used to describe
+weather phenomena. It can be seen that the same concepts (e.g. weather
+phenomena) in Japanese and English have similar geometric arrangements in a
+vector space.
+
+What is more important is that the relationship between vector spaces that
+represent these two languages can possibly be captured by learning a mapping
+between them, e.g. a liner mapping (dotted arrows in Fig.2). If we know some
+word pairs in Japanese and English, e.g. “S” and “rainfall”, “M” and “storm”,
+we can learn a mapping that can help us to transform other words in the
+Japanese vector space to the English vector space.
+
+[369-2][369-3]
+
+Fig. 2 The vector representations of words that are used to describe weather
+phenomena (“storm” and “rainfall”) and time (“evening” and “night”) in Japanese
+(left) and English
+
+(right)
+
+Our goal is to measure the similarity between Ukiyo-e prints by using their
+metadata values in different languages. Motivated by the idea above,
+we represent textual metadata values as vectors in each language. Then, we
+learn a mapping between vector spaces that represent two languages in order
+to transform the vector representations of textual metadata values from source
+language space to target language space. Once we obtain the
+vector representations of textual metadata values in target language space, we
+can calculate the similarity between metadata values in different languages.
+
+Fig. 3 illustrates how our method works. Firstly, we represent the titles of
+Ukiyo-e prints by additive combination of the vectors of words that compose
+the titles (Step 1 shown in Fig. 3). And then, we learn the mapping between
+vector spaces that represent different languages by using some title pairs
+in Japanese and English (Step 2 shown in Fig. 3), which can help us to
+transform metadata values from one language space to the other language space.
+
+[369-4]
+
+|li T È ¡W (Japanese title)
+
+Storm below Mount Fuji (English title)
+
+below
+
+Storm
+
+Mount
+
+Word vectors
+
+Word vectors
+
+[——■■■■■] | Japanese title vector
+
+English title vector
+
+0 Storm below Mount Fuji .0 Clear Weather after Snow
+
+.ibTSiUcst,
+
+Mapping
+
+ÄUJ ®0#<ck
+
+• Weather after Sr
+
+The vector space that represents English
+
+(Tago Bay near Ejiri on the Tokaido)    Manninr
+
+0 .................—......'
+
+.............................Mapplnc
+
+(Noboto Bay)    [v]
+
+-£ 0
+
+The vector space that represents Japanese
+
+Tago Bay near Ejiri on the Tökaidö
+
+--------------->0
+
+> q Noboto Bay
+
+Step 1
+
+Step 1
+
+Step 2
+
+Fig. 3 An example that illustrates the main tasks of the proposed method
+
+Experiments
+
+We conducted experiments to evaluate our proposed method in linking the same
+Ukiyo-e prints in Japanese and English.
+
+In the experiments, the titles are used to calculate similarities among Ukiyo-e
+prints. Based on our method, the Japanese and English titles are represented by
+additive combination of the vectors of words that compose the titles. We train
+the Japanese and English word vectors on Japanese and English Wikipedia
+articles using Word2Vec toolkit.
+
+In the process of learning the mapping between two language spaces, we use 600
+Japanese-English parallel short sentence pairs for pre-training the mapping
+between Japanese and English vector spaces.
+
+In order to make this mapping more suitable to Ukiyo-e titles, we further use
+74 pairs of Japanese and English Ukiyo-e titles to optimize this mapping, in
+which each pair of titles refers to the same Ukiyo-e prints. This optimized
+mapping are used to transform other vectors of the titles in Japanese space to
+English space.
+
+We calculate the similarities between the titles of Ukiyo-e prints using cosine
+similarity. For each Japanese title, after we obtain the mapped vector
+in English space, our method outputs the most similar English title vector as
+its corresponding English title.
+
+We use 173 pairs of Japanese and English Ukiyo-e titles as the test data to
+evaluate our method. The precision at top-n are used to measure
+the experimental results, which means the percentage of Japanese titles whose
+truly corresponding English title are ranked in top n. In order to verify the
+effectiveness of using Ukiyo-e titles to optimize the mapping, we show the
+results of both conditions of using Ukiyo-e titles and without using them in
+the pre-training. The experimental results are shown in Table 2.
+
+┌──────────────────┬───────────┬──────────────┬───────────────┬───────────────┐
+│                  │Precision  │Precision     │Precision      │Precision      │
+│                  │in top-1   │within top-5  │within top-10  │within top-15  │
+├──────────────────┼───────────┼──────────────┼───────────────┼───────────────┤
+│Without using     │2.3%       │12.2%         │17.4%          │22.7%          │
+│Ukiyo-e titles    │           │              │               │               │
+├──────────────────┼───────────┼──────────────┼───────────────┼───────────────┤
+│Using Ukiyo-e     │29.1%      │41.9%         │50.0%          │54.7%          │
+│titles            │           │              │               │               │
+└──────────────────┴───────────┴──────────────┴───────────────┴───────────────┘
+
+Table 2. The experimental results
+
+Batjargal, B., Kuyama, T., F. Kimura and Maeda, A.
+
+(2014). “Identifying the same records across multiple Ukiyo-e image databases
+using textual data in different languages.” Proceedings of the 14th ACM/IEEE-CS
+Joint Conference on Digital Libraries. London, United Kingdom, pp. 193-96.
+
+Kimura, T., Batjargal, B., Kimura, F. and Maeda, A.
+
+(2015). “Finding the Same Artworks from Multiple Databases in Different
+Languages.” Digital Humanities 2015: Conference Abstracts. Sydney, Australia.
+
+Kimura, T., Song, Y., Batjargal, B., Kimura, F. and Maeda, A. (2016).
+“Identifying the Same Ukiyo-e Prints from Databases in Dutch and Japanese.” In
+Digital Humanities
+
+2016: Conference Abstracts. Krakow, Poland, pp. 822-24.
+
+Resig, J. (2013). “Aggregating and analyzing digitized Japanese woodblock
+prints.” In 3rd Annual Conference of the Japanese Association for Digital
+Humanities. Kyoto, Japan. https://ukiyo-e.org/about.
+
+Mikolov, T., Chen,K., Corrado, G. and Dean, J. (2013a). “Efficient Estimation
+of Word Representations in Vector Space.” arXiv preprint arXiv:1301.3781.
+
+Mikolov, T., Le, Q.V. and Sutskever, I. (2013b). “Exploiting
+
+similarities among languages for machine translation.” arXiv preprint
+arXiv:1309.4168.
+
+These results show that the precisions are further improved by using Japanese
+and English Ukiyo-e titles to optimize the mapping between Japanese and English
+vector spaces. The experimental results also confirm the usefulness of our
+proposed method for linking the same Ukiyo-e prints in Japanese and English.
+
+Conclusion
+
+Our proposed method measures the similarity between metadata values without
+using any bilingual dictionary or online machine translation system. Moreover,
+our proposed method represents the metadata values using word embeddings, which
+can capture the semantic relationships between metadata values.
+
+In the future, we will evaluate our method for linking Ukiyo-e prints in other
+languages.
+

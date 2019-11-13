@@ -1,0 +1,189 @@
+Dead and Beautiful: The
+
+Analysis of Colors by Means
+
+of Contrasts in Neo-Zombie
+
+Movies
+
+Niels-Oliver Walkowski
+
+walkowski@bbaw.de
+
+Berlin-Brandenburgische Akademie der Wissenschaften Germany
+
+Johannes Pause
+
+johannes.pause@tu-dresden.de
+
+Technische Universität Dresden
+
+The analysis of color in movies is a topic of increasing interest in the
+still-young research field known as digital film analysis or cinemetrics.
+The thesis of Brodbeck (2011) is one of the early examples which have been
+discussed broadly. Brodbeck created a donut plot for each movie in which
+dominant colors of scenes are represented by colored slices within the plot.
+Similar approaches were taken by (Baker 2015) and (Burghardt, Kao, and Wolff
+2016). Both approaches identify dominant colors of all frames in a movie and
+represent these colors as lines in a barcodelike visualization. In the first
+and the third project dominant colors are created by means of a clustering-
+
+algorithm, more precisely k-means. This algorithm is
+
+one of the most common approaches in color quantization and is also delivered
+for such tasks in well-known computer vision libraries like OpenCV.
+
+However, there are several issues with using k-means for color quantization in
+digital film analysis which are rarely discussed within the community. One of
+the more obvious problems is that k-means (and other non-hierarchical cluster
+algorithms) require pre-definition of the number of clusters to be found. Thus,
+an automated analysis of around 180,000 frames in a movie does not respect the
+fact that there are frames which are more complex in color than others. A more
+sophisticated procedure exists in which the k-means algorithm is used in a loop
+with different numbers of cluster. In this approach the best fitting number of
+clusters is defined and evaluated by the silhouette coefficient which is
+applied to the result of each loop. However, Figure 1 demonstrates that the
+
+best-fit in terms of clustering is definitely not the bestfit for the
+interpretation of colors in film analysis.
+
+[095-1]
+
+Figure 1: Cluster analysis of dominant colors in a frame image of The Walking
+Dead. According to the silhouette coefficient the number of two clusters
+produces the best clustering result.
+
+Colors which seem to be important even before any interpretation has taken
+place disappear in the clustering process because they are 'eaten' by
+other clusters. Figure 2 offers a very impressive example for this phenomenon.
+The red girl from Schindler's List -the most exciting thing that happens in the
+movie in terms of color- is not represented within the clusters transparently.
+The reason is that k-means has a tendency towards equally sized clusters and
+that the color difference is not big enough to survive this tendency.
+
+[095-2]
+
+Figure 2: Cluster analysis of color in a scene from 'Schindler's List'
+
+Another problem is that k-means produces slightly different results each time
+it runs. Hence, sometimes a color which would be perceived as different
+by humans is present in the result and sometimes it is not. The results differ
+most in between three and five clusters as predefined cluster values. However,
+this is exactly the span which is most often used for color quantization in
+digital film analysis. Finally, the k-means algorithm produces different
+results in correspondence with the color space in which a frame is represented.
+For instance, the HSV color space produces better results than the RGB color
+space.
+
+All of these problems call for a theoretical evaluation of what dominance means
+for dominant colors in digital film analysis. Unfortunately, the previously
+mentioned projects have not presented such evaluations. Furthermore, these
+projects also did not systematically interpret the results they have produced.
+For this reason, it is not transparent which semantics can be found in the
+patterns.
+
+All this being said, a different approach for the computational analysis of
+colors in movies seems necessary. This approach needs to introduce a
+starting point which is technologically less arguable and which offers concepts
+for the interpretation of results. The
+
+approach that will be presented builds upon the
+
+theory of seven color-contrasts developed by Johannes Itten (Itten 1961,
+36-109). Itten claims that the effect of colors is not absolute but depends on
+the surrounding color environment. Colors interact with each other and there
+are seven contrasts in which this interaction can be analyzed. These contrasts
+are:
+
+•    hue
+
+•    saturation
+
+•    light-dark
+
+•    cold-warm
+
+•    complementary
+
+•    simultaneous
+
+•    extension
+
+Each contrast has certain capabilities to structure and create effects in the
+narrative and aesthetic design of a movie. They can be used: to guide the
+attention of viewers, to create spatial ambiance, to create orientation or
+confusion, to support the symbolic layer or to create associations as well as
+emotions. Although these effects are not generalizable the approach
+of color-contrasts has more to provide to interpret color in movies than the
+analysis of single colors. This holds true especially where the dynamics of
+multiple contrasts are related with each other and begin to form a language of
+color. For instance, a movie might have a stable opposition between cold and
+warm colors but more progressive color dynamics (Wulff 1988) between light and
+dark colors. The results of such an analysis can be related to narrative
+aspects, characters, leitmotifs or the Mise en Scène in a movie or a corpus of
+movies.
+
+The technological implementation of this approach depends on the type of
+contrast that will be analyzed.
+
+Data for the first three contrasts can be obtained by converting movie frames
+to the HSV or HSB color space. The conversion between the YUV color space
+(in which many movie files are represented) into HSV is lossless in most cases
+(Ford and Roberts 1998). Each channel in HSV represents one such contrast.
+Usage of the CIE L*a*b* color space can be considered to comply with certain
+issues of color awareness that are not tackled by HSV and others. Other
+contrasts require further processing. For instance, to obtain cold and warm
+color values, each value in the hue channel can be associated with a value that
+represents how warm or cold it is. In general, values of red and yellow
+are conceived as warm. However, this effect is very much influenced by cultural
+and psychological aspects (Küppers 2000). Therefore, the association of
+color values with values of warmth is a task that requires decision-making. In
+contrast, the presence of complementary and simultaneous colors is
+a mathematical relationship and can be computed within a certain color space
+consistently.
+
+There are also several ways in which contrast data can be analyzed. Figures 3
+and 4 visualize two of such strategies. In both cases a histogram of one
+contrast was computed for every second of the movie. In Figure 3 the leftmost
+and rightmost peaks in each histogram was calculated. These peaks constitute
+the min- and max-bound of the contrast span in each frame. The x-axis
+represents the time-axis of the movie while the y-axis shows the value of each
+min- and max-bound.
+
+[095-3]
+
+Figure 3: Slightly interpolated boundaries of light-dark contrast in '28 Days
+Later'
+
+In Figure 4 the contrast of a spectrum was reduced to 16 bins and each contrast
+value that was produced by a critical number of pixels was plotted as a point.
+The size of the point represents the number of pixels in a frame for each bin.
+
+[095-4]
+
+Figure 4: The appearance of hue values above a certain threshold in '28 Days
+Later'
+
+The movie which underlies both visualizations is 28 Days Later. Figure 3
+represents the light-dark-contrast. It shows two sequences in which light
+and dark colors go up simultaneously for a certain amount
+
+of time. One sequence is between the 200th and the 800th frame the other
+between the 6000th and the beginning of the credits. In the first sequence
+the protagonist Jim awakes from coma and realizes that the world fell apart. In
+the second sequence the main group of persons reach the final save place. Thus,
+a similar pattern in one contrast frames the
+actual storyline.    However,    the    color-itself-contrast
+
+represented in Figure 4 is extremely different in these scenes. The first scene
+has a narrow spectrum while the spectrum of the second scene is broad. The
+narrow spectrum provokes disorientation because it tones down differences. The
+color segment is literally dazzling. In contrast, the spectrum and coverage
+of colors at the end mediate clarity, stability and order.
+
+This presentation will outline the problems of k-means for color quantification
+in digital film analysis. It will describe the theory of seven color-contrasts
+and give examples how such theory can be adopted computationally. Each step
+will be illustrated by an analysis of a corpus of three neo-zombie-movies,
+more precisely 28 Days Later, '[REC]' and World War Z.
+

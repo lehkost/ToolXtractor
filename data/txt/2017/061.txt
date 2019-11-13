@@ -1,0 +1,102 @@
+La localisation du jaune
+
+dans des dessins de dieux réalisés par des enfants
+
+Christelle Cocco
+
+christelle.cocco@unil.ch
+
+University of Lausanne, Switzerland
+
+Damien Firmenich
+
+damien.firmenich@epfl.ch
+
+University of Lausanne, Switzerland
+
+Pierre-Yves Brandt
+
+pierre-yves.brandt@unil.ch
+
+University of Lausanne, Switzerland
+
+Sabine Süsstrunk
+
+sabine.susstrunk@epfl.ch
+
+University of Lausanne, Switzerland
+
+Dans le cadre de la recherche interdisciplinaire, “Drawings of gods” (financé
+par le Fonds National Suisse), ancrée en psychologie de la religion et visant à
+comprendre les stratégies cognitives mises en œuvre par les enfants pour
+dessiner “dieu” (Brandt et al., 2009, Dandarova, 2013, Brandt, 2016),
+une question s'est posée quant à l'utilisation du jaune : “Est-ce que le jaune
+est une couleur privilégiée dans la représentation de dieux parce que la
+lumière est souvent associée au divin et que le jaune est utilisé pour
+représenter la lumière ?”.
+
+Afin de répondre à cette question, une première annotation manuelle des dessins
+collectés par les chercheurs dans différents pays a été effectuée dans une
+feuille de calcul, spécifiant dans quelle zone de l'image se trouve le jaune
+(au milieu, autour de la figure principale de dieu, en périphérie), s'il y
+avait présence d'un soleil jaune ou pas de jaune.
+
+Ce projet comptant actuellement plus de 6'500 dessins, il est devenu nécessaire
+de faire appel à une annotation automatique. Aussi, il est intéressant,
+du point de vue de la psychologie, de comprendre quelles décisions humaines
+peuvent être reproduites par un ordinateur. Bien que les méthodes de traitement
+d'images et de vision par ordinateur, combinées aux algorithmes de
+classification supervisée, soient très développées et performantes pour le
+traitement d'images naturelles (Szeliski, 2010), elles le sont beaucoup moins
+pour le traitement de dessins (Stork, 2009). Par conséquent, ce
+travail consiste à explorer les techniques possibles et à trouver des
+caractéristiques (“features”) pertinentes pour une classification supervisée.
+
+Pratiquement, après avoir défini ce qu'était la couleur jaune dans les dessins
+et extrait cette dernière, toutes les images ont été transformées en format
+carré, afin de permettre la comparaison des dessins au format paysage et au
+format portrait. Ensuite, différentes approches ont été testées pour reproduire
+l'annotation manuelle. La première consistait à extraire la gravité du jaune,
+définie comme la moyenne de l'intensité de cette couleur par ligne 
+(respectivement par colonne), pour la hauteur (respectivement la largeur) de
+chaque dessin. Comme attendu, les courbes obtenues montrent des pics dans les
+zones contenant une forte concentration de jaune, clairement repérables à l'œil
+nu. Cependant, en raison de la variabilité de l'intensité du jaune entre les
+différents dessins et l'application non régulière des couleurs dans chaque
+dessin, il n'a pas pu être défini de critère permettant de repérer ces pics.
+
+Dans un second temps, partant de la première approche, le centre de gravité du
+jaune dans chaque dessin a été extrait et deux cercles ayant pour origine ce
+centre ont été définis. Le but alors visé était de définir des surfaces
+correspondant aux zones annotées manuellement (milieu, autour ou
+périphérie), en se basant sur une hypothèse forte estimant que le centre de
+gravité du jaune correspond à celui de la figure principale. Cette méthode, qui
+a conduit à analyser les intensités de jaune dans les secteurs circulaires des
+cercles, a à nouveau été mise à mal par la variabilité dans l'ensemble des
+dessins.
+
+Inspirée de l'idée de zones délimitant l'espace de la seconde approche, la
+dernière méthode a consisté à diviser l'image carrée en 25 cases, formant
+ainsi une grille de cinq par cinq. Ensuite, en fonction de l'intensité du jaune
+dans chacune de ces cases et en faisant l'hypothèse que la figure principale
+est au centre de l'image, comme souvent observé dans les dessins d'enfants
+(Golomb, 1987, Winner, 2006), une série de conditions ont été choisies afin de
+déterminer la zone dans laquelle se trouve le jaune. En raison des résultats
+prometteurs ainsi obtenus, une classification supervisée multi-étiquette a été
+effectuée, utilisant, pour chaque image, les 25 cases comme caractéristiques
+des données et les annotations manuelles (“ground trouth”) comme étiquettes.
+Les meilleurs résultats ont été obtenus avec
+
+la méthode des “plus proches voisins”. À nouveau, la grande variété des
+techniques de dessins utilisées par les enfants, tout comme la non-constance de
+la position de la figure principale, conduisent à plusieurs erreurs.
+
+Ce travail, en cours, explore actuellement de nouvelles pistes, telles que la
+prise en compte d'autres couleurs, la modification des paramètres de
+l'algorithme de classification supervisée, la définition d'une nouvelle grille
+permettant de prendre en compte la position de la figure principale, etc.
+Pour conclure, il est clair que les données sous forme de dessins, souvent
+utilisées en psychologie, méritent une exploration systématique des méthodes
+permettant de les exploiter numériquement, ceci afin de pouvoir les traiter
+efficacement en quantité.
+

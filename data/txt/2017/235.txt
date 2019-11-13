@@ -1,0 +1,240 @@
+Transcriptional Implicature: Using a Transcript to Reason about an Exemplar
+
+Claus Huitfeldt
+
+Claus.Huitfeldt@uib.no
+
+University of Bergen, Norway
+
+C. M. Sperberg-McQueen
+
+cmsmcq@acm.org
+
+Black Mesa Technologies LLC
+
+United States of America
+
+What do transcripts tell us about their exemplars, and how? A transcript T is
+commonly said (inter alia) to reproduce as far as possible the letters and
+words of its exemplar E. The tokens of T typically reinstantiate the letter and
+word types of E; T may also contain commentary on E.
+
+Transcribers vary in their practice: some record page and line breaks in E,
+silently omit deletions, expand abbreviations, and correct spelling;
+others don't. Often a statement of practice documents such details, but some
+things apparently go without saying. We conjecture that what goes without
+saying will be the most common assumptions and habits in a community of
+practice. We have proposed the term "transcriptional implicature" to denote the
+inferences licensed by a transcript although not explicitly justified in the
+statement of practice [SMMH2014].
+
+Practice (and implicature) vary across communities, but we think that some
+silent assumptions are shared by almost every community of practice. We believe
+that we can identify a common core of such assumptions, and that individual
+practices can be characterized by listing their deviations from this core,
+which we call the "default rules" of transcriptional implicature.
+
+Like all implicatures, the rules of transcriptional implicature are defeasible:
+they are taken to hold in the absence of evidence to the contrary. [SMMH 2014]
+ proposes these rules:
+
+•    Reciprocity: There is a one-to-one relation between normal tokens in an
+exemplar E and normal tokens in its transcript T.
+
+•    Purity: Every normal token in T transcribes something in E.
+
+•    Completeness: Every normal token in E is transcribed by something in T.
+
+•    Type similarity: corresponding tokens in E and T have the same type, or
+non-identical but similar types.
+
+Given these rules, the transcription practice of any project can be described
+by defining what counts for that project as a special (not "normal") token and
+what type pairs count as similar. This paper puts these general principles to
+an empirical test by applying them to a concrete example: the transcript, in
+the Northwestern-Newberry Edition, of Hermann Melville's notes on the
+end-papers of a volume of Shakespeare [Melville, p 967-970]
+
+The "Symbols used" are (numbers ours):
+
+1.    [...] revision or insertion enclosed in square brackets was made later
+than initial inscription of leaf
+
+2.    <...> letters or words enclosed in diamond brackets were canceled by
+lining out
+
+3.    <...>word letter(s) or word(s) written over are enclosed in diamond
+brackets closed up to the following word or letter that was superimposed
+
+4.    ?word prefixed question mark indicates conjectural reading 5 xxxx
+undeciphered letters (number of x's approximates numbers of letters involved)
+
+5.    all words in roman are Melville's
+
+6.    all words in italics outside brackets are words Melville underlined
+
+7.    all words in italics inside brackets are editorial
+
+If transcriptional implicature is to play the role we ascribe to it, it must be
+possible to recast these rules in terms of normal tokens, special tokens, and
+types instantiated by tokens:
+
+•    Square brackets, diamond brackets, question marks prefixed to words,
+and sequences of the form xxxx in T are special tokens; they transcribe no
+material in E.
+
+•    Italic material inside brackets in T is special.
+
+•    A word written without underlining and the same word underlined have
+distinct types in E; the same holds for italic and roman
+
+material in T. Words underlined in T and the same words italicized in E are
+type-similar.
+
+•    Later additions to E have distinctive types; that is, we can distinguish
+them. A sequence of words inserted in E and the same sequence enclosed in
+square brackets in T are type-similar.
+
+•    Overlined words, overwritten words, and words neither overwritten nor
+overlined instantiate different types. Overlined or overwritten word-types are
+instantiated in T by enclosing the words in diamond brackets.
+
+•    "Undeciphered letter sequences of length N" are distinct types for
+distinct N, instantiated in E by undeciphered characters and in T by sequences
+of the form xxxx. The individual x tokens are special: they do not
+transcribe tokens of E.
+
+•    A word prefixed with a question mark and the same word without it
+instantiate different types in T. Such a word token, and its constituent
+character tokens, are type-identical with their exemplars in E if the editors'
+conjectural reading is correct. We describe such tokens in T as "probably
+type-identical" to their exemplars.
+
+Both generic and project-specific rules can be formalized using first-order
+logic. The generic rules include the rules of transcriptional implicature:
+
+(Vt t:tokens(T))(normal-transcript-token(t)0 (3ie e:tokens(E))(e = exemplar(t))
+
+(Ve e:tokens(E))(normal-exemplar-token(e)0 (3,t t:tokens(T))(t = transcript
+(e)))
+
+(Ve e:tokens(E), t: tokens(T))(t = transcript(e) 0 (type(e) = type(t) v
+type-similar(e, t))
+
+Reciprocity has no formalization here; it's a property of the functions
+exemplar() and transcript().
+
+Other generic rules constrain the classes of normal and special tokens:
+
+(Vt t:tokens(T))(normal-transcript-token(t) | special-transcript-token(t))
+
+(Ve e:tokens(E))(normal-exemplar-token(e) | special-exemplar-token(e))
+
+The Melville-specific rules identify special tokens in T:
+
+(Vt t:tokens(T))(special-transcript-token(t) 0 (square-bracket(t) v
+angle-bracket(t) v prefixed-question-mark(t) v xxx-sequence(t)
+
+v (italic(t) & within-square-brackets(t)) v (italic(t) & within-angle-brackets
+(t)) v prefixed-question-mark(t)
+
+v page-furniture-token(t)))
+
+The predicate page-furniture-token identifies material like running heads and
+page numbers in T. Project-specific type similarity rules cover
+conjectural readings:
+
+(Vt t:tokens(T))(Ve e:tokens(E))
+
+(probably-identical(type(t), type(e))0 type-similar(e, t))
+
+The Melville transcription policy defines no special exemplar tokens:
+
+-(3t t:tokens(E))(special-exemplar-token(t))
+
+We hypothesize that it is rules like those above that enable readers of a
+transcript to draw conclusions about an exemplar they have never seen.
+Such reasoning can be formalized with the aid of a full formal representation
+of T and its mapping of tokens to types. In the case of Melville's notes, such
+a formalization will involve several thousand tokens in T and E and their
+types. The formal representation will not be given in full here, but it will
+include formulae like the following, in which "d", "p524", "L1", etc.
+are logical constants naming tokens:
+
+document(d)
+
+page(p524)
+
+page(p525)
+
+document_pages(d, (p524, p525)). linetoken(Ll)
+
+line_word_tokens(Ll, (Llwl, Llw2, Llw3, Llw4, Llw5, Llw6, Llw7))
+
+word_token(Llwl)
+
+word_token(Llw2)
+
+word_token_type(Llwl, "A") wordtokentype(Llw2, "seaman")
+
+word_token_type(Llw7, "Tales.") line_token(L2)
+
+line_token(L40)
+
+linetype(LTl)
+
+line_type(LT2)
+
+line_type(LT40)
+
+page_lines(p524, (LI, L2, L3, ... L30)) page_lines(p525, (L31, L32, L33, ...
+L40))
+
+Sequences are here represented using comma-separated lists of items, enclosed
+in parentheses.
+
+As an example: We can infer from the transcript that the first line of the
+first page transcribed reads "A seaman figures in the Canterbury Tales." This
+will surprise no one who can read and understands what a transcript is. The
+challenge here, however, is to establish the result using nothing but the
+normal rules of logical inference, without hand-waving.
+
+Let us focus on the line token L1. We draw our initial inferences from the
+formal representation of T. As is usual for composite types, the type of the
+line is determined by the types of the words which make up the line. So the
+type of L1 is the sequence of words (or characters) "A seaman figures in the
+Canterbury Tales."
+
+composite_type_string(LTl, “A seaman figures in the Canterbury Tales.")
+
+Since L1 is not a square bracket, diamond bracket, etc., it can be inferred
+that L1 is a normal not a special token. From the rule of purity it then
+follows that there is some token e in E which L1 transcribes. This
+fact, together with the rule of type-similarity, tells us that e is a token
+which like L1 instantiates the composite type "A seaman figures in the
+Canterbury Tales."
+
+A second example: A student examining a reproduction of the original of
+Melville's notes might ask "Are the dots to the left of the first line
+significant, or just discolorations of the paper?" We take this question to
+mean "Do the dots instantiate a type?" Let us assume that they do. If they
+instantiate a type, then they are tokens in E; if they are tokens in E, then
+either they are normal or special. They cannot be special tokens: there are
+none in this transcription practice. If they are normal tokens, then there
+exists a token in T which instantiates the same type. But there are no such
+tokens in T. If there is no token in T which transcribes the dots at the upper
+left of the page, then they are not (in the transcribers' reading of E)
+normal tokens. If they are neither normal tokens nor special tokens, they are
+not tokens at all. So: they are merely marks, not tokens, and they instantiate
+no type.
+
+We have postulated transcriptional implicature as a way of bridging the gap
+between the explicit statements in descriptions of transcription practice and
+the inferences actually licensed; the empirical test reported suggests that the
+concept does provide the required basis for the intended inferences. If
+formal representations of the information content of a transcript can be
+generated automatically (e.g. from a TEI-encoded transcript), then we will be
+slightly closer to being able to describe formally the semantics
+of transcription-oriented markup languages like MECS-WIT or TEI when used to
+transcribe pre-existing exemplars.
+

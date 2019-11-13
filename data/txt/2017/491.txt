@@ -1,0 +1,551 @@
+The Course of Emotion in Three Centuries of German Text— A
+Methodological Framework
+
+Sven Buechel
+
+sven.buechel@uni-jena.de
+
+JULIE Lab, Friedrich Schiller University Jena, Germany
+
+Johannes Hellrich
+
+johannes.hellrich@uni-jena.de
+
+JULIE Lab, Friedrich Schiller University Jena, Germany
+
+Udo Hahn
+
+udo.hahn@uni-jena.de
+
+JULIE Lab, Friedrich Schiller University Jena, Germany
+
+Introduction
+
+Texts not only carry factual, but also affective information, such as
+expressions of joy or grief. In the humanities, especially literary studies,
+emotion expression and elicitation (often in texts from prior language stages)
+have been focused on in many contributions (see, e.g., Carroll and Gibson
+(2011), Poppe (2012), Hillebrand (2011)).
+
+Similarly, in natural language processing (NLP), emotion analytics have
+developed into an active area of research (Liu, 2015). Nevertheless, there is
+little previous work explicitly addressing emotion in historical language and
+the specific methodological problems this raises. Hamilton et al. (2016) as
+well as Cook and Stevenson (2010) presented methods for identifying
+amelioration and pejoration of words. Acerbi et al. (2013) and Bentley et al.
+(2014) demonstrated the potential of emotion analysis for the Digital
+Humanities (DH) by linking temporal emotion patterns in texts to major
+sociopolitical events and trends in the 20^th century.
+
+Our work goes beyond these studies in two ways: we claim to be more adequate as
+we combine these two approaches to analyze non-contemporary text based on
+time-specific lexical resources. We also claim to be more informative as we
+employ the Valence-Arousal-Dominance (VAD) model of emotion (Bradley and Lang,
+1994) instead of simple polarity (positiveness/negativeness) alone. We have
+already shown the latter to be beneficial in DH applications (Buechel et al.,
+2016a). We hope that our work will be a step towards a new set of tools
+especially beneficial for areas such as literary studies (e.g., in distant
+reading (Moretti, 2013)) or history of mind.
+
+Methods
+
+The VAD model of emotion assumes that affective states can be described
+relative to three emotional dimensions, i.e., Valence (corresponding to the
+concept of polarity, see above), Arousal (the degree of excitement or calmness)
+and Dominance (feeling in or out of control of a social situation). The VAD
+dimensions allow for a more fine-grained modeling than polarity alone, e.g.,
+words like orgasm and relaxed have similar Valence but opposing Arousal values
+(Bradley and Lang, 1999). Formally, the VAD model constitutes
+a three-dimensional vector space illustrated by Figure 1 (Buechel and Hahn,
+2016).
+
+The association of words with a VAD score is captured in emotion lexicons.
+These can either be empirically determined by aggregating subjective judgments
+of several human subjects; or they can be semiautomatically constructed
+allowing for greater size but reducing accuracy on individual words. For
+the semi-automatic construction, the typical approach is to expand an existing
+lexicon (the seed lexicon) based on word similarity (see below). There are
+several competing expansion algorithms. Cook and Stevenson (2010) were the
+first to describe expansion algorithms for the induction of the emotion value
+of words for non-contemporary language stages by using word similarity values
+determined from historical corpora.
+
+[491-1]
+
+Valence
+
+Figure 1 : The VAD vector space. For ease of understanding, the positions of
+six Basic Emotions (Ekman, 1992) are given.
+
+Extending this approach, we compared several emotion induction algorithms,
+viz., those by Turney and Littman (2003), Hamilton et al. (2016), and Bestgen
+(2008). The former two were slightly modified to make them deal with numerical
+input values (for a more detailed description of these methods, see
+
+Buechel et al. (2016b) and Hamilton et al. (2016)).
+
+We used point-wise mutual information with singular value decomposition (Levy
+et al, 2015; SVDPPMI) to measure word similarity, since it turned out to
+be superior for DH applications in previous work (Hell-rich and Hahn, 2016). We
+used the German ANGST lexicon (Schmidtke et al., 2014) as seed. The
+individual algorithms were evaluated by comparing our induced historical
+lexicons against judgments of knowledgeable PhD students from the humanities.
+For this task, we asked them to make their assessments as if they were
+contemporary readers from the respective time period. The Turney-Littman
+algorithm performed best in this set-up and was thus employed for all
+subsequent analyses.
+
+Experiments
+
+For demonstration purposes, we here apply our methodology to the core corpus of
+the Deutsches Textarchiv (DTA; Geyken, 2013, TCF version from May 11, 2016)
+[German Text Archive], a well-curated and balanced collection of historical
+German texts. We analyzed texts created between 1690 and 1899, splitting the
+resulting corpus into seven slices (each spanning 30 years) to achieve
+similarly sized and sufficiently large subcorpora for further processing. We
+computed word similarities within each of these slices and then applied the
+Turney-Littman expansion algorithm, thus creating seven distinct emotion
+lexicons, each describing the emotion of words for its specific period.
+Given these temporally stratified lexicons, we claim that shifts in emotion
+association of words can be traced over time by comparing the emotion values a
+word exhibits in different lexicons. To validate this claim, we selected the
+words for which we could compute similarity scores in each time step (as these
+methods are more accurate for high-frequency words, rare words were excluded
+from our study) and standardized their VAD values for each lexicon and
+dimension (VAD).
+
+4 -
+
+2 -
+
+0 -
+
+-2 -
+
+-4 -
+
+[491-2]
+
+1795
+
+Year
+
+1705
+
+1735
+
+1765
+
+1825
+
+1855
+
+1885
+
+Figure 2: Development of the lexical item Sünde [sin] during the study period
+relative to the VAD dimensions.
+
+┌────┬────────────────────────────────────────────────────────────────────────┐
+│    │Lemma and Translation                                                   │
+│Rank├──────────────────────────────────────────────┬─────────────────────────┤
+│    │1690s                                         │1890s                    │
+├────┼────────────┬─────────────────────────────────┼─────────────┬───────────┤
+│1   │todt-       │(German prefix for ‘death’ as in │Lamm         │lamb       │
+│    │            │‘deadly                          │             │           │
+├────┼────────────┼─────────────────────────────────┼─────────────┼───────────┤
+│    │            │sins’)                           │             │           │
+├────┼────────────┼─────────────────────────────────┼─────────────┼───────────┤
+│2   │Erzürnung   │infu nation                      │hinwegnehmen │to take    │
+│    │            │                                 │             │away       │
+├────┼────────────┼─────────────────────────────────┼─────────────┼───────────┤
+│3   │läßlich     │minor (clerical)                 │Verzeihung   │forgiveness│
+├────┼────────────┼─────────────────────────────────┼─────────────┼───────────┤
+│4   │beichten    │to confess                       │Ausschweifung│excess     │
+├────┼────────────┼─────────────────────────────────┼─────────────┼───────────┤
+│    │            │abatement/                       │             │           │
+│5   │Nachlaß     │                                 │Gotte        │god        │
+│    │            │inheritance                      │             │           │
+├────┼────────────┼─────────────────────────────────┼─────────────┼───────────┤
+│6   │Grobheit    │crudeness                        │Schande      │shame      │
+├────┼────────────┼─────────────────────────────────┼─────────────┼───────────┤
+│7   │verschweigen│to conceal                       │Reue         │repentance │
+├────┼────────────┼─────────────────────────────────┼─────────────┼───────────┤
+│8   │beweinen    │to beweep                        │Ärgernis     │nuisance   │
+├────┼────────────┼─────────────────────────────────┼─────────────┼───────────┤
+│9   │pichen      │to pitch                         │Laster       │vice       │
+├────┼────────────┼─────────────────────────────────┼─────────────┼───────────┤
+│10  │beichten    │to confess                       │aufrichtig   │sincere    │
+└────┴────────────┴─────────────────────────────────┴─────────────┴───────────┘
+
+Table 1: Top ten collocations of the lexical item Sünde [sin] in the DTA corpus
+comparing the 1690s and the 1890s using pointwise mutual information for
+scoring. Source:
+
+http://kaskade.dwds.de/dstar/dta/diacollo/
+
+We illustrate this approach with an example from
+
+Figure 2. It displays an overall amelioration of Sünde [sin] whose onset
+roughly coincides with the age of enlightenment—often understood as the
+starting point of secularization (Sheehan, 2003), although care must be taken
+when interpreting these word course graphs since noise can be introduced from
+various sources (such as word similarity and emotion induction algorithms);
+both strongly depend on the amount of data available for each time step. This
+observation is in line with well-known findings from descriptive lexicography
+(Grimm and Grimm, 1942). The same semantic shift can also be discovered by a
+more established method, namely collocation analysis.
+
+Table 1 reveals that Sünde, at the end of our examination period, has acquired
+an additional moral-bourgeois meaning facet (implied, e.g., by Ausschweifung 
+[excess], Ärgernis [nuisance] and Laster [vice]) which was not present in the
+beginning. There, only the religious sense is traceable.
+
+Going one step further, we then used these lexicons to examine how emotion is
+distributed over literary texts in the DTA in the course of time. We
+employed the Jena Emotion Analysis System (JEmAS; Buechel and Hahn, 2016), an
+open-source tool for emotion measurement using a configurable VAD lexicon. We
+processed each DTA text with the period-aligned lexicon,
+
+leading to the main methodological contribution of our work: linking the
+research areas of automatically inducing historical word emotion (e.g.,
+Hamilton et al., 2016) and emotion prediction in historical text (e.g., Acerbi
+et al., 2013).
+
+We scaled the resulting emotion values within each VAD dimension tracing the
+development of the three principal literary forms—Narrative, Lyric,
+and Drama—in German literature between 1690 and 1899. For each of the seven
+30-year periods (organized in rows), we created three scatterplots (one
+for each pair of the VAD dimensions; organized in columns) resulting in 21
+plots in total (Figure 3). Each data point represents one text—color and shape
+represent membership to the respective form.
+
+It is evident from the plots how the distinction of the individual forms
+increases and decreases in emotional terms in the course of time. This
+application differs from typical stylometric approaches since we employ
+emotional features instead of word counts. We find the most distinct emotional
+patterns between 1780 to 1809 (approximately covering the Weimar Classicism)
+and between 1870 to 1899 (covering the late German Realism). Drama displays
+consistently more Arousal than Lyric and Narrative since 1750, whereas Lyric
+seems to be the most positive class (Valence) expressing the least control
+(Dominance). Of course, the examination of the DTA offers many more intriguing
+findings, however, for brevity, we limit ourselves here to presenting examples.
+
+
+1690-1719
+
+
+1720-1749
+
+
+1750-1779
+
+
+1780-1809
+
+
+1810-1839
+
+
+1840-1869
+
+
+1870-1899
+
+
+œ
+
+=5
+
+O
+
+<
+
+
+œ
+
+=5
+
+O
+
+<
+
+
+œ
+
+=5
+
+O
+
+<
+
+
+œ
+
+=5
+
+O
+
+<
+
+
+œ
+
+=5
+
+O
+
+<
+
+
+œ
+
+=5
+
+O
+
+<
+
+
+œ
+
+=5
+
+O
+
+<
+
+
+n—i—i—r
+
+-4    0 2
+
+Valence
+
+
+n.
+
+
+n—i—i—r
+
+-4    0 2
+
+Valence
+
+
+n—i—i—r
+
+-4    0 2
+
+Valence
+
+
+^V'^:
+
+T-1-1-1—
+
+-4    0    2
+
+Valence
+
+
+K
+
+T-1-1-T“
+
+-4    0    2
+
+Valence
+
+
+*
+
+T-1-1-T
+
+-4    0    2
+
+Valence
+
+
+: X
+
+T-1-1-T
+
+-4    0    2
+
+Valence
+
+
+:    X
+
+T—i—i—r
+
+-4    0 2
+
+Valence
+
+
+[491-3]
+
+
+T—i—i—r
+
+-4    0 2
+
+Valence
+
+o
+
+Q
+
+[491-4]
+
+-4    0 2
+
+Valence
+
+
+œ
+
+=5
+
+O
+
+<
+
+
+[491-5]
+
+<
+
+
+T-1-1-T
+
+-4    0    2
+
+Valence
+
+
+: <■
+
+I-1-1-I^-
+
+
+-4    0 2
+
+Valence
+
+
+[491-6]
+
+
+T-1-1-T
+
+-4    0    2
+
+Valence
+
+
+[491-7]
+
+
+T-1-1-T
+
+-4    0    2
+
+Valence
+
+
+œ
+
+=5
+
+O
+
+<
+
+
+z I
+
+J I I I I I
+
+-3 -1    1
+
+Dominance
+
+
+: .<
+
+J I I I I I
+
+-3 -1 1 Dominance
+
+[491-8]
+
+-3    -1    1
+
+Dominance
+
+
+[491-9]
+
+
+J I I I I I
+
+-3    -1    1
+
+Dominance
+
+
+: #
+
+“*1 I I I I I
+
+-3 -1 1 Dominance
+
+
+[491-10]
+
+
+J I I I I I
+
+-3    -1    1
+
+Dominance
+
+
+[491-11]
+
+
+J I I I I I
+
+-3    -1    1
+
+Dominance
+
+
+Conclusion
+
+
+■ Lyric • Narrative a Drama
+
+In this contribution, we described a novel methodological framework for
+quantifying emotion in noncontemporary text. Applying this approach to a
+210-years section of the German DTA corpus, we find clear emotional signals for
+temporally evolving distinctions between the principal literary forms, viz.
+Narrative,
+
+Lyric, and Drama. All resources and software we developed for this work are 
+publicly available.
+
+Figure 3: Distribution und development of the principal literary forms, Lyric
+(blue), Drama (green) and Narrative (red), relative to each pair of VAD
+emotions (in columns)
+
+between 1690 and 1899 (each row representing a 30-year slice).
+
+Acknowledgments
+
+This research was partially conducted within the Graduate School “The Romantic
+Model" supported by grant GRK 2041/1 from the Deutsche Forschungsgemeinschaft
+(DFG).
+

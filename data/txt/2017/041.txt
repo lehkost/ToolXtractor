@@ -1,0 +1,259 @@
+A “Wind of Change”: Shaping Public Opinion of the “Arab Spring” Using Metaphors
+
+Alexandra Nunez
+
+nunez@linglit.tu-darmstadt.de
+
+Institut für Sprach- und Literaturwissenschaft TU Darmstadt, Germany
+
+Malte Gerloff
+
+gerloff@kdsl.informatik.tu-darmstadt.de Institut für Philosophie TU Darmstadt,
+Germany
+
+Erik-Län Do Dinh
+
+dodinh@kdsl.informatik.tu-darmstadt.de UKP Lab, TU Darmstadt, Germany
+
+Andrea Rapp
+
+rapp@linglit.tu-darmstadt.de
+
+Institut für Sprach- und Literaturwissenschaft TU Darmstadt, Germany
+
+Petra Gehring
+
+gehring@phil.tu-darmstadt.de
+
+Institut für Philosophie, TU Darmstadt, Germany
+
+Iryna Gurevych
+
+gurevych@cs.tu-darmstadt.de
+
+UKP Lab, TU Darmstadt, Germany
+
+Motivation
+
+How does mass media affect the way we think about controversial topics such as
+the “Arab Spring”? What persuasive role do metaphors play especially in opinion
+pieces?
+
+During the events of the years 2010-2011 in the Middle East & North Africa
+region a new discourse was established in the German media; immediately
+these events were assessed as a “wave” of democratization and liberation, and
+have been metaphorically labeled “Arab Spring”. Metaphors were frequently used
+to categorize and understand these events (Möller, 2014; Nunez, 2014).
+
+Given the premise that mass media organizes (Couldry, 2010) and shapes social
+reality (Luhmann, 1996), we analyze how the Arab Spring is categorized and
+assessed using metaphorical constructions in newspaper opinion pieces. We show
+ways in which particularly the use of metaphors reveals how the media tried to
+achieve acceptance for the events based on our cultural models (Quinn and
+Holland, 1987), which are grounded on our western knowledge.
+
+According to the Conceptual Metaphor Theory (Lakoff and Johnson, 1980)
+metaphors are ubiquitous and exhibit a binary source-target domain
+structure. The knowledge that we choose to function as a source domain
+illustrates which conventionalized, overt or tacit knowledge we require to
+understand new or abstract domains (target domains) in terms of our cultural
+imprints. Metaphors are instantiated on the text surface and give us clues
+toward our knowledge basis. Thus, the required knowledge can be described
+in terms of ubiquitous metaphorical patterns that function as semantic
+“anchors” in texts, and in terms of conceptual knowledge clusters that function
+as an intertextual semantic knowledge structure.
+
+As such, we constructed a pipeline that automatically detects metaphors
+appearing within certain grammatical constructions, before clustering them
+by presumed source and target domains. The results give us insights into how
+the Arab Spring is metaphorically structured by semantic clusters in opinion
+pieces.
+
+Corpus and annotation
+
+Our corpus consists of 300 opinion pieces (Ramge and Schuster, 2001) from five
+German newspapers, Frankfurter Rundschau, Die Zeit, Der Spiegel, taz, and Die
+Welt, which have been written between December 2010 and November 2011 and cover
+the Arab Spring.
+
+In nine of these opinion pieces, two of this abstract's authors annotated
+following grammatical constructions whether they constitute metaphors:
+adjective-noun (AN) pairs (e.g. “Tunisian spark”), and genitive constructions
+(GEN) (e.g. “torch of freedom”). Due to their interrelated components they
+provide a good
+
+insight into the structural systematicity of metaphorical mappings (source
+domain target domain). The difficulty of the task is reflected in a low
+inter-annotator agreement (0.45 Krippendorff’s a).
+
+Common sources of annotation disagreement included heavily conventionalized
+metaphors such as “social network”, personifications like “self-consciousness
+of a generation”, and metaphors that need a larger context to function. As gold
+standard for further
+
+training and evaluation we only use the agreed upon
+
+annotations (“annotated”, Table 1).
+
+Sentences AN constructions AN metaphors GEN constructions GEN metaphors
+
+┌─────────┬─────┬─────┬─────────┬────┬────────┐
+│annotated│538  │968  │116 (12%)│102 │29 (28%)│
+├─────────┼─────┼─────┼─────────┼────┼────────┤
+│complete │11402│19573│         │2758│        │
+└─────────┴─────┴─────┴─────────┴────┴────────┘
+
+Table 1: Constructions and metaphors in the corpus.
+
+Technical realization
+
+To examine our questions quantitatively, we contrast two approaches to
+automatically detect metaphors, namely random forests and
+multilayer-percep-tron. The extracted metaphors are subsequently clustered
+(Figure 1). To extract AN and GEN constructions we first perform automatic
+preprocessing, including part-of-speech tagging and dependency parsing.
+
+The random forests approach of Tsvetkov (2014) firmly roots in conceptual
+metaphor theory, mainly employing features extracted from manually
+crafted resources such as an abstractness wordlist and supersenses, to classify
+adjective-noun and subject-verb-object constructions. For use on other
+languages than English, a bilingual dictionary is required. We manually expand
+an existing dictionary to cover our corpus, and extend their system to classify
+GEN metaphors.
+
+The described feature-rich approach will be compared - with regards to what
+(kind of) metaphors can be found - to the shallow neural network approach by Do
+Dinh and Gurevych (2016), which does not presuppose any specific metaphor
+theory. It thus does not make use of external features, but rather learns
+exclusively from given annotations and their context. Preliminary experiments
+show that more training data is needed for this bottom-up approach.
+
+To gain further insight into usage of metaphor in our corpus, we cluster the
+automatically found metaphors - resp. their components - into
+coarse-grained semantic fields. While there are works using a theory-supported
+top-down approach, e.g. using source domain lists (Gordon et al., 2015), we
+employ a rather unsupervised approach, without preselecting the number of
+clusters or manually fixing cluster centers (similar to Shutova et al. (2010),
+who use spectral clustering for metaphor detection). To that end, we employ
+Affinity Propagation (Frey and Dueck, 2007), which we supply with cosine
+similarities between pretrained word embeddings (Reimers et al., 2014) of
+the metaphor components.
+
+[041-1]
+
+Figure 1: Few newspaper opinion pieces are annotated (1) and the obtained
+metaphors are used to leam different models A and B (2) (Tsvetkov, 2014; Do
+Dinh & Gurevych, 2016). These models are then applied to more articles to
+extract metaphors (3), which are subsequently clustered (4).
+
+Experiments and discussion
+
+We use cross-validation for the intrinsic evaluation of the metaphor detection
+part. For GEN metaphors, the tested system achieves 0.63 precision, 0.25
+recall, and 0.35 F1-score, with similar performance for AN metaphors. While
+these results seem low, the actual output of the system when trained on all
+annotated instances looks promising, and the precision is improved by filtering
+based on named entities.
+
+Kopf: Schwertern des Islams, Köpfen des verhassten Regimes, Handlanger des
+Regimes, Schlägern des Regimes, Arm des alten Regimes, Zähne eines Kamms, 
+Kugeln des Regimes, Brust des Leblosen, Gesicht des Exzesses, Gesicht der EZB, 
+Gesicht des Arabischen Frühlings, Gesicht arabischer Demokratien, Gesichter der
+Demonstranten, Gesichter der Jasmin-Revolution, Gesicht der Revolution, Gesicht
+der Muslimbruderschaft, Gesicht der ägyptischen Revolution, Gesicht des Landes,
+Gesicht der tunesischen Revolution, Gesicht der USA, Gesicht ihres Sohnes, 
+Gesichter der Vermissten, Fortsatz des alten Regimes, Wand der Angst, Loch der
+Diktatur, Schweine des Regimes, Augen vieler Araber, Hände des
+israelfeindlichen Regimes, Hand der Sozialisten, Hände des Obersten
+Kommandorates, Händen der Börse
+
+Figure 2: GEN metaphors clustered by first noun, with center “Kopf, hinting at
+conceptual metaphor POLITICAL SYSTEMS ARE BODIES
+
+The clustering creates an impression of which knowledge (source domain) is
+required for abstract concepts (target domains), and how abstract concepts are
+“perspectivized” in the corpus, while also giving an overview of occurring
+intertextual metaphors. Although the cluster assignment and the metaphor
+detection leave room for improvement (e.g. Figure 2: “face of her son”), the
+clusters already reveal the systema-ticity and constraints of metaphorical
+mappings. Thus, they point to strategies of newspapers that come along with the
+choice of the (conceptual) source domain.
+
+In Figure 2, bodily parts such as face, head, hand are used as source domains
+and mapped to political systems or processes (e.g. regime, democracy,
+revolution). This mapping draws on a long tradition in political and
+
+philosophical history (Musolff, 2004): head and face
+
+play a central role in our culture - comparing political processes with faces
+or heads conceptualize them as human beings. In this cluster the construction 
+face of indicates that the events are important, thus construed as worthy to
+support.
+
+Those prototypical examples for ontological metaphors also support the premise
+of embodied cognition (Johnson, 1987; Rohrer, 2010).
+
+Sturm: Schlussphase des alten Regimes, Sturm des arabischen Umbruchs, Sturm der
+Moleküle, Sturm der Entrüstung, Inseln der Diktatur, Insel der Stabilität, Wind
+der Freiheit, Wind der Demokratie, Wind der Revolution, Wind des Wandels
+
+Figure 3: GEN metaphors clustered by first noun, with center “Sturm”, hinting
+at conceptual metaphor POLITICAL SYSTEMS/PROCESSESAZALUES ARE NATURAL ELEMENTS
+
+The positive properties and the movement character of natural elements such as 
+wind and storm are mapped to the abstract (political) nouns freedom,
+revolution, or change. They receive a deontic (Hermanns, 1994) character,
+whereas dictatorship is conceptualized in terms of island which stands for
+inertia and stability (Figure 3). These examples already show how the chosen
+metaphors shape dualistic tendencies by categorizing the events on one hand as
+a dynamic movement (wind, storm) that has to be supported by western
+democracies, or on the other hand pleading for stability (island), thus
+implicitly supporting dictatorship.
+
+The analyzed clusters and metaphorical conceptualizations indicate a network of
+source domains that function as key concepts which structure the discourse of
+the Arab Spring, an assumption we will focus on in future work.
+
+Conclusion and future work
+
+Our study indicates that metaphorical constructions are important in media
+because of their ubiquitous use in opinion pieces. The generic extracted source
+domains already suggest that a specific network of knowledge is used in media
+to highlight certain political aspects of the Arab Spring. Furthermore, they
+illustrate how contents are emotionalized and ideologized during these events
+by metaphors and their framing effects. Usage of natural elements or body parts
+reduces complexity and conceptualizes the events as an organic development, in
+short: the Arab states become western democratic states. Thus contributing to
+the extension of western ideology, metaphors impart implicit cultural values.
+Combining our cognitive and discourse analytical questions we can summarize
+that the used “bottom-up” clustering is very helpful to get an explorative
+impression of the “intertextual consistencies” (Verschuren, 2012: 179) of
+chosen metaphors. They are good textual “anchors” and starting points to
+investigate the widespread metaphorical use, and thus knowledge domains, in
+corpora.
+
+With regard to the state of the art, corpus-based methodologies within the
+Digital Humanities community will benefit from our research by gaining the
+possibility to automatically compare thematic corpora by using the relationship
+of their metaphors to the common main cluster as a metric, therefore obtaining
+a new way to analyze the conceptual network being used. Our approach can help
+to facilitate corpus studies, e.g. by analyzing other discourse segments
+which deal with the implicit construction of identity and alterity within
+opinion pieces by using metaphors.
+
+In our presentation we will highlight the results and give a structured
+impression of the mappings and the implications of the used metaphors in our
+corpus and present in short our methodological basis.
+
+In future studies we will compare the conceptualization strategies of the Arab
+Spring and “Refugee Crisis” in German media, since we assume that the same
+metaphors and the same (metaphorical) interpretation patterns occur. Further,
+we plan to investigate another theory of metaphor which is based on Black 
+(1954, 1977) and Gehring (2010). The latter model is strongly interweaved with
+current discussions about “Begriff” (Müller-Meiningen and Schmieder, 2016;
+ Gehring, 2005, 2010) and discusses its ideological im-plication(s).
+Furthermore, the emphasis is placed on the function of metaphors as an
+epistemological tool by investigating, amongst others, the evolution of ideas
+and cultural values, e.g. in the historical text collection “Natur&Staat”
+(1903-11).
+

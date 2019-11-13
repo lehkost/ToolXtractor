@@ -1,0 +1,245 @@
+Network Dynamics, Plot Analysis: Approaching the Progressive Structuration
+of Literary Texts
+
+Frank Fischer
+
+frafis@gmail.com
+
+National Research University
+
+Higher School of Economics
+
+Russia
+
+Mathias Gobel
+
+goebel@sub.uni-goettingen.de
+
+Gottingen State and University Library, Germany
+
+Dario Kampkaspar
+
+kampkaspar@hab.de
+
+Herzog August Library, Germany
+
+Christopher Kittel
+
+contact@christopherkittel.eu
+
+University of Graz, Austria
+
+Peer Trilcke
+
+trilcke@uni-potsdam.de
+
+University of Potsdam, Germany
+
+Introduction and related works
+
+In recent years, the application of network analysis methods to literary texts
+has evolved into an independent research field of digital literary studies.
+Methods for the automated extraction of network data (named entity recognition,
+co-reference resolution) and their evaluation are of particular importance
+(El-son et al. 2010; Park et al. 2013; Agrarwal et al. 2013; Fischer et al.
+2015; Waumans et al. 2015; Jannidis et al. 2016). Based on the data obtained,
+several types of analyses were developed: an empirical, quantitative and
+hierarchical description of literary characters (Jannidis et al. 2016),
+corpus-based analyses exploring options for historical periodisation of
+literature (Trilcke et al. 2015) and types of aesthetic modelling of social
+formations in and by literary texts (Stiller et al. 2003; Stiller & Hudson
+2005; Trilcke et al. 2016).
+
+What has been neglected so far (although already suggested by Moretti 2011) is
+the application of network analysis as a tool for quantitative plot
+analysis. In fact, current approaches in the field of literary network analysis
+are not suited to gaining insights into the plot development of literary texts
+(Prado et al. 2016). The sequential dimension of literary texts, as
+a consequence of their temporality, usually remains in the dark: what is
+extracted, visualised and analysed
+
+are static networks. Plot, however, is essentially a concept supposed to
+theoretically encompass the temporality of narrative (as well as dramatic)
+texts: "the repeated attempts to redefine parameters of plot reflect both the
+centrality and the complexity of the temporal dimension of narrative"
+(Dannenberg 2005: pp. 435). Plot can be understood as a concept for the
+description of the "progressive structuration" (Kukkonen 2013: §4) of literary
+texts.
+
+Research objective: plot analysis
+
+Attempts to further develop literary network analysis towards a quantitative
+plot analysis must consider the temporal dimension in the modelling of their
+research objects. The structure of a literary text is to be modelled as a
+changing sequence of network states. It is only through looking into these
+network dynamics that we can discuss network-analytic approaches for
+a quantitative plot analysis.
+
+Following Prado et al. 2016, we are currently extending our research on
+literary networks (Trilcke 2013; Fischer et al. 2015ff.; Fischer et al. 2015;
+Trilcke et al. 2016) to the analysis of progressive structuration. Our goal is
+to examine whether (and with what kind of limitations) we can flesh out an
+operationalisation for the plot analysis of literary texts. By doing so, we
+are, of course, not trying to replace the semantically rich and versatile
+concept of 'plot' with a quantitative and thus reductionist concept. Rather, we
+will show that certain aspects of what is commonly discussed within the
+framework of plot analysis can be retraced by means of a computer-based
+analysis of network dynamics.
+
+The visualisation of dynamic graphs, as is common in other domains (Pohl et al.
+2008; Frederico et al. 2011), has recently been transferred to literary
+networks (Xanthos et al. 2016). While it may come in useful when close-reading
+a text and for didactic purposes, it is unsatisfactory when it comes to an
+actual corpus-based analysis. There are no canonical methods to help us compare
+network visualisations generated automatically by force-directed graph drawing
+algorithms. The reception of dynamic visualisations just does not offer
+practical analytical means. From a dedicated distant-reading kind of
+perspective, the calculation of dynamic network metrics and their
+statistical processing is much more promising as it offers options to describe
+general characteristics of networks from a larger corpus as well as to compare
+specific formal types of networks within the corpus.
+
+Measuring dynamic literary networks
+
+A number of basic global measures for the analysis of dynamic networks (i.e.,
+size, density, homogeneity in the distribution of ties, rate of changes in
+nodes, rate
+
+of changes in ties) has been discussed by Carley (2003:
+
+pp. 135-36). In addition, Prado et al. 2016 recently suggested the application
+of actor-oriented measures, especially centrality indices, for the
+reconstruction of plot development. We are currently applying these measures to
+our own corpus, consisting of 465 German language plays. We also developed a
+set of other measures with recourse to traditional theoretical concepts for the
+description of specific phenomena of plot development, especially with regard
+to types of dramatic expositions (Pfister 1977: pp. 124-36), the "classical"
+act structure of tragedy and the composition principle of main and secondary
+plots (Pfister 1977: pp. 286-89). Calculation of these measures was implemented
+in our own network analysis tool drama-vis (Kittel/Fischer 2017).
+
+Event-based measures
+
+In general, two types of measures can be distinguished for describing dramatic
+texts as dynamic networks: event-based and progression-based measures.
+Event-based measures are used to identify or characterise a particular point in
+time within a drama. In this context we developed an all-in index, a value that
+identifies the point in time at which all characters have occurred at least
+once in a drama (see Figure 1).
+
+[071-1]
+
+Figure 1 : All-in index for 6 selected plays
+
+
+The final-scene-size value characterises a specific point in time, in this case
+the last scene of a drama. It determines the percentage of all characters of
+a drama which appear on stage in the last scene. This value shows
+characteristic differences between dramatic subgenres, especially when
+comparing tragedies and comedies (see Figure 2).
+
+[071-2]
+
+Figure 2: Final-scene-size index (mean values of entire corpus and subgenres)
+
+Progression-based measures
+
+While event-based measures allow assumptions about a particular state/point in
+time of the dynamic network, progression-based measures allow a
+general characterisation of the transformation of a dramatic network. In this
+regard, we introduced a measure we call the drama-change rate. The basis of our
+calculation is a modified Levenshtein distance, which only takes into account
+insertions ("add character") and deletions ("delete character"). In each case,
+we compare characters present in two consecutive scenes, eventually resulting
+in what we call the segment-change rate (Figure 3).
+
+Scene 1    2    3    4    Scene 12    3
+
+[071-3]
+
+segment change rate    segment change rate
+
+» 1/2 = 0.5    =2/3 = 0.66
+
+Figure 3: Calculation of the segment-change rate (example)
+
+
+BI
+
+
+The sum of all segment-change rates of a drama divided by the number of all 
+segment-change rates is what we call the drama-change rate. The development of
+this rate can be represented in a chart, which due to its shape we tentatively
+called the beat chart (Figure 4).
+
+[071-4]
+
+Figure 4: Beat chart for Goethe's play "Iphigenie auf Tauris" (1787)
+
+Having calculated the drama-change-rate value for the entire corpus, we can
+start to compare a larger set of dramas with each other (Figure 5). It becomes
+evident that our corpus does not exhibit a clear trend along the timeline.
+Instead, we witness the emergence of characteristic types of dramas, which
+differ characteristically from the other texts in our corpus.
+
+[071-5]
+
+Figure 5: Historical distribution of drama-change rates in the DLINA corpus
+
+On the one hand, we can identify dramas exhibiting a
+
+high drama-change rate, i.e., highly dynamic dramas with a constant alternation
+of characters on stage (Figure 6). On the other hand, low-dynamic dramas can be
+
+[071-6]
+
+Figure 6: Two examples of highly dynamic dramas - left: Goethe's "Egmont"
+(1788); right: Lenz's "Der Hofmeister" (1774)
+
+[071-7]
+
+Figure 7: Two Examples for low-dynamic dramas - left: Goethe's "Der
+Burgergeneral" (1793), right: Rilke's "Ohne Gegenwart" (1898)
+
+A further option for the comparative analysis of our oscillatory beat charts is
+the analysis of the standard deviation of all segment-change rates of a drama.
+We can again distinguish two particularly striking types: On the one hand,
+there are dramas with a high standard deviation, indicating that extensive
+changes of characters alternate with small changes; we can call them
+high-dynamic dramas (Figure 8). On the other hand, there are dramas showing a
+low standard deviation, so the change on stage takes place in the same rhythm,
+we call these texts low-dynamic dramas (Fig-
+
+[071-8]
+
+Figure 8: Two Examples for high-dynamic dramas - left: Benkowitz's "Die
+Jubelfeier der Hölle" (1801), right: Goethe's "Faust I" (1808)
+
+[071-9]
+
+Figure 9: Two Examples for low-dynamic dramas - left: Schnitzler's "Anatol"
+(1893), right: Schnitzler's "Der Reigen" (1902)
+
+The preceding cases each describe characteristic deviations regarding the 
+drama-change rate of groups of texts. In addition, a 'normal type' of drama can
+be identified, which corresponds to the mean value for the corpus both in terms
+of arithmetic mean and standard deviation (Figure 10).
+
+[071-10]
+
+Figure 10: Beat chart for Ganghofer's "Der Herrgottschnitzer von Ammergau"
+(1880)
+
+It also appears that strong upward shifts, accompanied by a complete exchange
+of characters on stage, often coincide with act boundaries (vertical orange
+lines), which is in accordance with historical conventions of dramatic
+composition.
+
+Summary and further research
+
+Our research on dynamic networks provides basic components for a quantitative
+analysis of the progressive structuration of dramatic texts. Future
+research will have to develop and evaluate additional measures and it will be
+decisive to hold interpretations of these measures against the backdrop of
+historical drama poetics.
+

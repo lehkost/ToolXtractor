@@ -1,0 +1,135 @@
+A Collaborative Approach
+
+between Art History and
+
+Literature via IIIF
+
+Kiyonori Nagasaki
+
+nagasaki@dhii.jp
+
+International Institute for Digital Humanities, Japan
+
+Tetsuei Tsuda
+
+tsuda@tobunken.go.jp
+
+Tokyo Research Institute for Cultural Properties, Japan
+
+X. Jie Yang
+
+xyang@ucalgary.ca
+
+University of Calgary, Canada
+
+Yuho Kitazaki
+
+yuho.kitazaki@gmail.com
+
+University of Tokyo, Japan
+
+A. Charles Muller
+
+acmuller@l.u-tokyo.ac.jp Univerisity of Tokyo, Japan
+
+Masahiro Shimoda
+
+shimoda@l.u-tokyo.ac.jp University of Tokyo, Japan
+
+Introduction
+
+This paper describes a collaborative approach of information exchange between
+art history and literature via IIIF as conducted by two projects: the SAT
+
+Daizokyo Text Database Committee (SAT) and a project to leverage an open
+dataset of the National Institute of Japanese Literature. This approach is
+technically similar to that used by previous projects such as TILE and TEI.
+However, as it has not been easy for them to fully treat the binding of images
+of a book between Web services, this approach adopts the IIIF (International
+Image Interoperability Framework) so that both can connect easily and
+efficiently. After explaining the distinctive aspects of both projects, we will
+introduce a collaborative solution.
+
+In May 2016, SAT released the SAT Taishozo Image DB (SATiDB), which includes
+digital facsimiles of a series of Buddhist images and their interpretations
+in the Taisho Tripitaka consisting of 12 volumes originally published in 1933.
+SATiDB provides annotations for about 5,200 Buddhist icons (busson) and
+symbols (sanmayagyd and mandala) in the books and several search functions of
+the annotations with a simple translator from English to technical terms in CJK
+characters via the Digital Dictionary of Buddhism. As the annotations use a
+vocabulary of attributes of Buddhist icons, such as hair style, sitting style,
+type of chair, possessions, etc., which was defined by this project due to the
+absence of such a vocabulary in the source data, users can also search the
+objects by clicking a checkbox of one or more term in a list form of the
+vocabulary (Figure 1).
+
+[185-1]
+
+Figure 1. A search result of “burning hair”
+
+As the system is compliant with IIIF, the images and annotations can be
+leveraged in various ways, even from other web sites. SATiDB has a function to
+expose several objects in parallel by clicking checkboxes of cropped images by
+coordination of each object in the search results on the IIIF viewer, Mirador
+(Figure 2).
+
+[185-2]
+
+Figure 2. Checked images are displayed in parallel.
+
+The annotations were embedded by forty-three researchers in the field of
+Japanese art history on a web collaboration system in 2015. We developed the
+system utilizing RedHat Linux, Apache, PostgreSQL, PHP,
+
+jQuery, and Annotorious, which enabled the easy annotation of images. The
+annotations were stored in PostgreSQL including attributes such as date and
+responsibility. After input, the data were converted into IIIF Presentation API
+and distributed with hi-resolu-tion images converted from 60M-pixel images
+delivered with IIIF Image API. This system provides researchers of Japanese art
+history with a brand new function to see and compare Buddhist icons and
+symbols. Many positive comments have been received from the researchers of
+Japanese art history and the number of visitors of the site was over 12,000 in
+the first month, but no papers have yet been produced explicitly using this
+system.
+
+The other project also developed a Web collaboration system to embed
+transcription of Japanese texts (the issues of such transcription have been
+described by Nagasaki et al, 2016) line-by-line in the style of IIIF annotation
+which enables to search images as-they-are via Smart-GS. (Hashimoto et al,
+2014) It adopts OpenSeaDragon and its plugins to annotate images with zooming
+and has a function to convert them into the format of IIIF Presentation API. So
+far, two premodern woodcut printing books written in cursive Japanese script
+were completely done by two researchers and available via customized Mirador
+for right-to-left viewing-direction and vertical texts (Figure 3).
+
+[185-3]
+
+Figure 3. Customized Mirador for right-to-left viewing-direction and vertical
+texts
+
+Finally, we explain the approach of linking both projects. As one of the two
+transcribed woodcut printing books includes names of Buddhist saints, we
+added tags on the names to trigger an event to search the name and prepare a
+function to request queries to the SATiDB. On the other hand, in the SATiDB, a
+function to distribute only a list of search results including images cropped
+by IIIF Image API was implemented to pull search results from other Web sites
+by use of a form of URL such as:
+
+http://dzkimgs.l.u-tokyo.ac.jp/SATi/key:_keyword_
+
+[185-4]
+
+Figure 4. Search result of SATiDB by clicking a red-colored part of transcribed
+text
+
+As a result, readers- primarily researchers, but laypersons as well- can see
+images of related Buddhist icons on SATiDB while reading the book. See Figure 4
+to understand background of it. This is a typical solution of IIIF and easily
+applicable for any environment in the digital humanities.
+
+Acknowledgment
+
+This work was supported by JSPS KAKENHI Grant
+
+Numbers JP15H05725, JP16H03422.
+

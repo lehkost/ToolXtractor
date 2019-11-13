@@ -1,0 +1,123 @@
+Limiter l'impact des erreurs OCR sur les représentations distribuées de mots
+
+Axel Jean-Caurant
+
+axel.jean-caurant@univ-lr.fr
+
+Laboratoire Informatique, Image et Interaction (L3i) Uni-
+
+versite de La Rochelle, France
+
+Cyrille Suire
+
+cyrille.suire@univ-lr.fr
+
+Laboratoire Informatique, Image et Interaction (L3i) Uni-versite de La
+Rochelle, France
+
+Vincent Courboulay
+
+vincent.courboulay@univ-lr.fr
+
+Laboratoire Informatique, Image et Interaction (L3i) Uni-versite de La
+Rochelle, France
+
+Jean-Christophe Burie
+
+jean-christophe.burie@univ-lr.fr
+
+Laboratoire Informatique, Image et Interaction (L3i) Universite de La Rochelle,
+France
+
+Les chercheurs en Humanites numeriques intéresses par l'analyse de grands
+corpus textuels utilisent de nombreuses méthodes et outils issus de domaines
+informatiques comme le traitement du langage naturel (Piotrowski, 2012) ou
+l'analyse de réseaux (Lemercier, 2005). Des methodes récentes fondées sur les
+réseaux de neurones présentent egalement un interêt majeur. Word2Vec est une
+méthode qui a grandement facilité l'utilisation de tels modules (Mikolov,
+2013). Les différentes optimisations apportees permettent, très simplement,
+d'entraîner un module sur de grandes quantités de donnees en utilisant un
+simple ordinateur de bureau. Le code source a ete largement diffuse et a rendu
+cette methode très populaire, notamment parmi les chercheurs en Humanites
+numériques. Hamilton a par exemple montré l'interêt de ces modules pour
+analyser l'évolution de certains mots du langage au cours du temps (Hamilton,
+2016). Ces méthodes peuvent également être utilisées à d'autres fins. En effet,
+de nombreux corpus utiles aux Humanités numériques sont issus de processus de
+reconnaissance de carac-téres (OCR). Malheureusement, ces processus gé-nérent
+trés souvent des erreurs, en particulier quand les documents analysés sont de
+mauvaise qualité (documents anciens ou mal numérisés par exemple). Ces erreurs
+touchent notamment les entités nommées comme les noms de lieux ou de personnes,
+particuliérement intéressants pour les chercheurs (Gefen, 2015). Ces erreurs
+ont un impact majeur sur l'accés a l'information car elles peuvent empécher
+d'accéder a toutes les occurrences d'un mot d'intérêt.
+
+Dans ce poster, nous présentons la méthode que nous avons développée pour
+étendre l'usage de Word2Vec a l'identification des erreurs OCR
+dérivées d'entités nommées. Aprés avoir entraîné un modéle sur un corpus donné,
+chaque mot est associé a un vecteur représentatif. Il devient alors possible de
+comparer les vecteurs pour extraire des relations morphologiques ou sémantiques
+entre les mots. On peut par exemple calculer la distance cosinus qui
+sépare deux mots dans l'espace vectoriel du modéle. Si, au sein du corpus, ces
+mots apparaissent dans des contextes similaires, la distance qui les sépare
+sera faible. Or, une entité nommée, bien que mal reconnue par le processus OCR,
+apparaît souvent dans le méme contexte que l'entité originale. En combinant
+cette distance, qui agit sur les vecteurs, avec une distance d'édition sur les
+mots, nous pouvons identifier des mots proches sémantiquement et qui possèdent
+beaucoup de caractères en commun. Cette analyse produit ainsi une liste de
+termes qui ont toutes les chances d'étre des entités mal reconnues par le
+processus de reconnaissance de caractères.
+
+[183-1]
+
+Figure 1: Expérience menée par Bjerva et. al., qui présente les similarités
+entre différents personnages et quelques grands concepts. Plus une cellule est
+rouge, plus la similarité est importante.
+
+Une fois les erreurs identifiées, il est possible de s'intéresser a une entité
+nommée particulière. Sur la base des résultats précédents, nous proposons la
+construction d'un nouveau vecteur associant le vecteur de l'entité originale et
+les vecteurs représentatifs des erreurs. Ce nouveau vecteur est le résultat de
+la combinaison linéaire des vecteurs du mot original et des erreurs OCR. Pour
+modérer l'importance des vecteurs dans la combinaison, ces derniers sont
+pondères selon le nombre d'occurrences du terme correspondant dans le corpus.
+
+[183-2]
+
+gothness greekness
+
+liberty
+
+antiquity romanness
+
+Figure 2: Reproduction de l'expérience menée par Bjerva et. al., avec notre
+modèle modifié.
+
+[183-3]
+
+Figure 3: Comparaison des similarités Personne/Concept entre le modèle de
+Bjerva et. al. et notre modèle modifié. Chaque cellule représente la valeur
+absolue de la différence de similarité entre les deux modèles. Les cellules
+rouges présentent le plus de différences.
+
+Nous avons expérimenté notre méthode en reproduisant l'expérience men^e par
+Bjerva et. al. (Bjerva, 2015). Ces derniers se sont interesses aux
+relations qu'entretiennent différentes personnalités du VI^ème siecle avec de
+grands concepts (Modernite, Liberte, Gothique, ...). Ils ont utilisé Word2Vec
+pour entraîner un modele sur environ 11 000 textes latins, pour ensuite
+comparer les distances qui separent les personnes des concepts dans l'espace
+vectoriel du modele (voir figure 1). Nous avons utilise notre méthode
+pour calculer, pour chaque personne d'intérét, un nouveau vecteur représentatif
+prenant en compte les différentes erreurs OCR identifiées. Les distances
+entre personnes et concepts au sein de notre modéle modifié sont présentées
+dans la figure 2. Pour plus de clarté, les deux modéles sont comparés dans la
+figure 3. On peut par exemple observer qu'Odovacer, la personne pour qui les
+différences sont les plus grandes, est assez peu citée dans le corpus. Notre
+méthode a cependant identifié de nombreuses erreurs OCR qui ont révélé des
+informations inconnues au seul vecteur de l'entité originale.
+
+La méthode présentée ici permet d'identifier de potentielles erreurs OCR sur
+les entités nommées au sein d'un corpus. La prise en compte de ces erreurs
+peut avoir un impact non négligeable sur le modèle et donc sur les analyses qui
+en decoulent. Cela semble en particulier vrai pour les entites nommées peu
+présentes dans un corpus.
+

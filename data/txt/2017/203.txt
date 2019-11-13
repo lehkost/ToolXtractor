@@ -1,0 +1,216 @@
+Prototypical Emotion Developments in Literary Genres
+
+Evgeny Kim
+
+evgeny.kim@ims.uni-stuttgart.de Universität Stuttgart, Germany
+
+Sebastian Pado
+
+sebastian.pado@ims.uni-stuttgart.de Universität Stuttgart, Germany
+
+Roman Klinger
+
+roman.klinger@ims.uni-stuttgart.de Universität Stuttgart, Germany
+
+Introduction
+
+Storytelling is a central form of human artistic expression. An ingredient of
+the appeal of stories is their emotional content. Readers of literature
+form explicit mental representations of fictional characters’ emotional states
+(Gernsbacher, Goldsmith, and Robertson, 1992; Vega, 1996). Even more, a
+gripping "[...] literary work produces a complex emotional experience in the
+reader. This experience is inseparable from the depictive content of
+the narrative” (Hogan, 2011). This raises the question of the relationship
+between the narrative and emotional levels in literature. We explore how
+computational emotion analysis can contribute to the characterization of story
+genres, which are difficult to define and for which various criteria have
+been proposed, including stylistic ones (Biber and Conrad, 2009) and
+narratological ones (Chatman, 1978).
+
+Our hypothesis is that genres can be linked to the development of predominant
+emotions over the course of the text. To test this, we present a computational
+model of multi-label emotion analysis of literary genres and apply it to a set
+of English literary works from the Project Gutenberg for five genres, namely
+adventure, romance, mystery, science fiction, and humorous fiction. We identify
+prototypical shapes for each genre and show that this analysis produces
+results, which can find a place in the computational analysis of literary
+genres and extend existing stylometric approaches.
+
+Cuddon (2012) defines adventure as "a form of fiction [...] in which the hero
+conventionally undergoes a series of testing and episodic adventures” and
+mystery as a narrative involving the "detection of crime, with the motives,
+actions, arraignment, judgement and punishment of a criminal”. Baldick (2015)
+defined Romance as narratives with "improbable adventures of idealized
+characters”. Today, however, the term covers many forms of fiction, including
+love stories. We use the term romance as a literary genre in this broader
+sense. Regarding science fiction stories, it is generally agreed that they are
+"[...] about an amazing variety of things, topics, ideas. They include trips
+to other worlds, quests, the exploration of space...” (Cuddon, 2012). Humorous
+fiction is comical literature "written chiefly to amuse its audience" (Cuddon,
+2012).
+
+Methods
+
+We calculate emotion scores for eight basic emotions, namely joy, sadness,
+trust, disgust, fear, anger, surprise, and anticipation (Plutchik, 2001).
+We use the NRC Emotion Lexicon (Mohammad and Turney, 2013). Since the data in
+Project Gutenberg is diachronic, this method of emotion recognition might not
+be appropriate for older texts and, in general, may suffer from low recall.
+However, it can be considered a high-precision approach suitable for our
+purpose.
+
+To obtain an emotion analysis for a story, we start by computing emotion scores
+for spans of text (Klinger, Suliya, and Reiter, 2016). Formally, we compute
+the score es(e, S) for an emotion e and a span of tokens S=<tn,...,tm> as
+
+[203-1]
+
+where De is a dictionary containing words associated with emotion e and 1t6D is
+1 if t 6 D and 0 otherwise. We do this for each of our eight emotions,
+obtaining an eight dimensional "emotion vector” for each span. We analyzed the
+stability of our results across different settings and found that different
+dictionaries affect the actual values but not the relation between
+different time steps. These scores are not probabilities, but could be
+transformed if needed.
+
+To observe development over time, we could use sliding windows; however,
+continuous time series are notoriously difficult to interpret. Therefore, we
+adopt a simpler scheme inspired by the five-act theory of dramatic acts
+(Freytag, 1863), according to which dramas are divided into five acts:
+exposition, rising action, climax, falling action, and denouement.
+We consequently divide each text into five successive, equal-sized spans (since
+different texts have different length, the size of acts varies between texts)
+that we assume to correspond roughly to dramatic acts in Freytag's theory, with
+exposition at position 1 and denouement at position 5, and compute an
+eight-element emotion vector for each Act.
+
+Experimental Evaluation
+
+We now demonstrate how this emotion aggregation into five acts can contribute
+to the understanding of different literary genres.
+
+Data
+
+We collect 2113 books from Project Gutenberg that belong to five genres found
+in the Brown corpus (Francis and Kucera, 1979), namely adventure (585 books),
+romance (383 books), mystery (380 books), science fiction (562 books), and
+humorous fiction (203 books). The corpus is available from the authors
+upon request.
+
+The selection is based on the Library of Congress Subject Headings in the
+metadata. We select all books that contain the word “Fiction” in combination
+with one of the following labels: “Adventure stories”, “Love stories”,
+“Romantic fiction”, “Detective and mystery stories”, “Science fiction” or
+“Humor”. Furthermore, we reject books with the following labels:
+“Short stories”, “Complete works”, “Volume”, “Chapter”, “Collection”, “Part”.
+This constraint is aimed at excluding files which contain partial or
+multiple works.
+
+Qualitative analysis
+
+Each plot in Figure 1 depicts the act-by-act development for one emotion with
+their emotion score es(e,S). Since we interpret shapes rather than values, we
+omit the legend. The average over all books is shown in a dark-colored line.
+The area around that line corresponds to confidence intervals at a
+95% confidence level.
+
+For sadness, anger, fear, and disgust, all five genres show a close
+correspondence, namely a consistent increase of the emotion from Act 1 through
+Act 5 -corresponding to gripping narratives. Mystery and science fiction lack
+the drop in anger and tend to end with higher levels of this emotion. Joy is
+inverse to these emotions, showing a decreasing tendency from Act 1 to Act 5
+for all genres with exception of humorous fiction that shows a plateau between
+Acts 1 and 4.
+
+In adventures, all emotions increase in the first half of the books, but drop
+sharply between Act 4 and Act 5. This is consistent with Whetter (2008),
+according to whom adventures are marked by a late drop in emotional tension
+when the hero's misfortunes come to an end. The only exception is trust that
+shows increase towards the end for all genres, which is especially noticeable
+in adventures. A potential reason is that prototypical adventure novels are
+'upbeat’ in that they cultivate virtues such as courage and loyalty (Baldick,
+2015, p. 5) and depict heroes that do not lose trust even amid unexpected
+dangers.
+
+The results for anticipation and surprise show less coherent tendencies which
+we find difficult to interpret. These two emotions appear less constitutive to
+the narrative structure of genres, at least those that we currently consider:
+anticipation and surprise can occur under (almost) any circumstances.
+Mystery fiction has a slightly different pattern, where anticipation exhibits
+steady increase from Acts 1 to 4 and its peak coincides with the peak for
+surprise at Act 4.
+
+Quantitative analysis
+
+We analyze the genre-specific time course of emotions quantitatively by
+computing associations between genres and the Act in which an emotion “peaks”
+in a story. We define a random variable vie for an emotion peak as vie=1 iff
+the highest value of emotion e is in Act i. The association between each genre
+and emotion peaks vie follows point-wise mutual information (Church and Hanks,
+1990), where probabilities are computed as relative frequencies over the
+dataset.
+
+Figure 2 gives insight into the genre-specific emotion patterns. For instance,
+disgust is characteristic of Act 4 for all genres. The only exception is
+science fiction that does not list disgust or surprise among the top 10
+features. Trust is important at the beginning and in the end of adventures
+and science fiction, but is missing in mystery. Similarly, romance fiction is
+not characterized by anticipation among top-ranked features, corresponding to
+its “anticipation” curve that decreases monotone from beginning to end.
+Interestingly, humor is the only genre that does not contain joy among the top
+10 features.
+
+adventure romance    mystery    sci-fi    humor
+
+[203-2]
+
+Figure 1: Genre-specific emotion curves
+
+emotion = anger    emotion = anticipation    emotion = disgust    emotion =
+fear    adventure
+
+■ romance
+
+[203-3]
+
+emotion = joy    emotion = sadness    emotion = surprise    emotion = trust
+
+[203-4]
+
+12345    12345    12345    12345
+
+Acts    Acts    Acts    Acts
+
+Figure 2: Top 10 PMI features for each genre
+
+Related work
+
+Sentiment and emotion in fiction have been previously addressed computationally
+by Mohammad (2012), Nalisnick and Baird (2013), Heuser, Moretti, and Steiner
+(2016), among others. Samothrakis and Fasli (2015) is the only work we are
+aware of which discusses emotions in context of genres.
+
+The study most related to ours is Reagan et al. (2016). They propose a pipeline
+that tracks emotions in text. Their main claim is that stories typically
+follow one out of six “emotional arcs” regarding happiness. Conclusion,
+discussion and future work
+
+We investigated the relationship between emotional development in literature
+and genre and observe differences among emotions. The genre of adventure stands
+out, especially concerning the end of the story arc. Our results can provide a
+novel starting point for characterizing similarities and differences within and
+between literary genres.
+
+Our observations require further investigation regarding the underlying
+factors. For instance, it might be argued that the pattern for mystery stories
+is dominated by the subgenre of crime fiction. Future work will combine our
+distant reading approach with close and scalable reading. Furthermore, to
+improve emotion recognition, we plan to use distributional methods for
+expanding the existing lexical resources and adapting them to texts from
+different historical periods (cf. Buechel, Hellrich, and Hahn, 2016). 
+Acknowledgements
+
+This research has been conducted within the Center for Reflected Text Analytics
+(CRETA), which is funded by the German Ministry for Education and Research
+(BMBF).
+

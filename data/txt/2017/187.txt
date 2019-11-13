@@ -1,0 +1,176 @@
+Humanités Numériques et
+
+Web Sémantique : du
+
+langage naturel à une
+
+représentation
+
+computationnelle structurée et sémantique des données
+
+Pascaline Tchienehom
+
+pkenfack@u-paris10.fr
+
+Université de Paris 10, France
+
+Résumé
+
+ModRef est un projet du laboratoire Labex "Les
+
+passés dans le présent" qui accompagne divers projets sur des probiematiques
+relatives aux humanites numeriques (Oldman et al., 2014). Le projet
+ModRef s'interesse specifiquement au web semantique (Berners-Lee et al., 2001)
+et aux donnees ouvertes et liees. Le but de ce projet est de réaliser une
+migration de donnees heterogenes vers des triplestores encore appeles entrepôts
+ou collections de fichiers RDF afin d'ameliorer le partage, rechange et la
+decouverte de nouvelles connaissances. Pour ce faire, la norme CIDOC-CRM (Boeuf
+et al., 2015) a ete choisie car elle est actuellement la norme de réference
+pour la description semantique de l'information museographique ou d'heritage
+culturel (Hooland et Verborgh, 2014). Cette norme permet de décrire
+les caracteristiques globales des objets (identifiant, type, titre, materiau,
+dimension, note) mais egalement leur historique au travers d'evenements ou
+d'activites (origine, transfert de garde -localisations anciennes, localisation
+actuelle-, conservation) ainsi que les relations qui existent entre objets ou
+parties d'objets (bibliographie, composition, similarite, autre représentation
+-photo, dessin, tableau-, inscription). Par ailleurs, trois sous projets
+pilotes de ModRef ont été sélectionnés pour réaliser la migration des donnees :
+un conservatoire numerique de l'ensemble des documents rédiges en ecriture
+cuneiforme, un corpus numerique d'objets archeologiques a iconographie
+mythologique et une bibliotheque numerique sur l'histoire de France du 20ieme
+siecle. Les donnees de ces differents projets sont initialement decrites dans
+des bases de donnees ou dans des fichiers XML-EAD (Encoded Archival
+Description).
+
+Pour réaliser la preuve conceptuelle du projet ModRef, une architecture
+generale a ete definie; une modelisation semantique CIDOC-CRM et un alignement
+des donnees des differents sous projets pilotes ont ete proposes; une migration
+des donnees vers des triplestores a également ete effectuee. Une application
+web a ete developpee et deployee a l'adresse    "http://triplestore.modyco.fr
+".    Cette
+
+application web permet de decrire le projet ModRef mais aussi de consulter et
+d'interroger les triplestores crees. Les triplestores posent deux principaux
+defis scientifiques et techniques. Le premier est la migration de donnees
+souvent decrites initialement en langage naturel vers une representation
+computationnelle structurée, puis semantique de ces dernieres. L'autre defi est
+l'exploitation des triplestores via des Endpoint Sparql (interface de saisie et
+d'execution de requetes Sparql) ou via des interfaces sous forme de formulaires
+generaux d'interrogation.
+
+Migration de données vers des triplestores
+
+Une migration efficace et coherente de donnees fait appel a differentes
+competences. Pour assurer la perénisation de cette procedure, une
+architecture generale et rigoureuse du workflow des differents types de donnees
+a manipuler doit etre definie. Cette architecture explicite la demarche globale
+de tout projet qui souhaite faire migrer ses donnees vers des triplestores.
+Cette demarche se subdivise en differentes etapes bien identifiees :
+preparation des donnees (etude et description structurelle), modelisation
+semantique et alignement des donnees structurées avec le modele semantique et
+enfin creation et exposition des triplestores qui vont alors pouvoir etre
+consultes et interroges. Notons que initialement les donnees sont souvent non
+structurées ou semi-structurées (notes, rapports, livres, html) et qu'il faut
+dans un premier temps en extraire une representation structurée (tableurs, base
+de donnees, fichiers XML) pour pouvoir ensuite construire leur representation
+semantique plus facilement. Ce continuum d'etapes fait intervenir des
+competences diverses et necessite parfois d'adjoindre des
+profils intermediaires entre deux etapes pour assurer le passage d'un format de
+representation de donnees a un autre : (1) donnees non structurées ou
+semi structurées vers donnees structurées, et (2) donnees structurées vers
+donnees semantiques. Par ailleurs, l'element cle de l'architecture de la
+migration de donnees vers des triplestores est la modelisation et l'alignement
+des donnees avec le modele de graphe sémantique choisi. Un graphe sémantique
+est un ensemble de noeuds et d'arcs orientes qui obeissent a un certain nombre
+de contraintes et regies (raccourci, heritage, inverse, symetrie,
+transitivite). Ce sont ces regies et contraintes qui definissent la coherence
+et la validite d'un module. Nous avons utilise la version 6.2 de mai 2015 du
+CIDOC-CRM qui definit 94 classes et 168 proprietes ainsi que son implementation
+par l'Universite d'Erlangen-Nuremberg. Afin de réaliser la migration, il a
+fallu proceder a un alignement des donnees avec certains noeuds du graphe
+semantique a partir des informations extraites de bases de donnees ou de
+collections de fichiers XML-EAD. Les noeuds remplis par des valeurs sont des
+noeuds terminaux et les noeuds intermediaires sont remplis avec des URIs qui
+definissent ainsi des chemins vers les noeuds terminaux. Notons qu'une rigueur
+particuliere doit être apportée à la construction des URIs, a la fois pour leur
+lisibilite mais egalement pour la coherence des chemins dans le graphe afin
+d'eviter des conflits de chemins et garantir ainsi l'unicite d'un chemin
+donne par rapport a un autre. Nous avons identifie les classes utiles (menant
+vers au moins une valeur non vide) pour modeliser les donnees des projets
+pilotes. Ainsi, la modelisation et l'alignement effectues représentent des
+extraits de graphes relatifs aux quatre themes suivants : (1) caracteristiques
+generales (identifiant, type, titre, materiau, dimension, note),
+bibliographie, composition et similarite d'objets; (2) evenements de debut
+d'existence (origine) et de fin d'existence; (3) activites diverses (transfert
+de garde, conservation, mesure); (4) inscriptions et autres representations 
+(photo, dessin, tableau). De façon generale, ces extraits sont assez stables
+pour tout projet car, dans le CIDOC-CRM, il est possible d'identifier les
+chemins possibles menant a une information donnee sur un objet. L'alignement
+n'est pas une tache programmatique mais fait appel a des details de structure
+logique propre au modele de description de donnees choisi par chaque sous
+projet. C'est une tache a mi-chemin entre la modelisation et l'implementation
+qu'elle permet d'entrevoir un peu plus clairement. L'alignement definit ce a
+quoi correspond chaque noeud de notre graphe et il ne reste plus qu'a generer
+les fichiers CIDOC-CRM correspondants tout en respectant la syntaxe de la norme
+RDF. Les triplestores crées vont ensuite etre exposes pour consultation (sous
+trois formes : rdf, triplets et résumé attribut-valeur) et interrogation (
+formulaires généraux et Endpoint Sparql) via notre application web.
+L'exploitation des triplestores via l'interrogation et l'exploration de
+ces derniers et les benefices que l'on peut en tirer est l'autre aspect majeur
+autour de la question de ces nouveaux entrepots de documents RDF que sont
+les triplestores.
+
+Exploitation des triplestores
+
+L'intérêt des triplestores est qu'on a un modèle connu public et publie de
+représentation de l'information ce qui permet d'interroger les triplestores
+indifferemment avec des procedures identiques. Nous avons defini deux
+procedures d'exploitation de nos triplestores : des interfaces sous forme de 
+formulaires généraux et des Endpoint Sparql. Les formulaires generaux sont un
+moyen simple et assez intuitif, car trés proche du langage naturel,
+pour formuler des requetes vers nos triplestores. Il suffit de remplir les
+rubriques du formulaire qui nous interessent et de lancer la recherche. Une
+requete Sparql est automatiquement construite a partir des valeurs des champs
+renseignes du formulaire et c'est cette requete qui est utilisee pour
+interroger le triplestore. Au terme de l'execution de la requete, une liste
+d'objets selectionnes est renvoyee en résultat a l'usager. Par ailleurs, on
+peut aussi interroger nos triplestores via des Endpoint Sparql. Ce
+deuxieme mode d'interrogation necessite la connaissance du langage Sparql qui
+est aujourd'hui le langage de reference pour l'interrogation de documents
+RDF. Sparql est un langage assez simple mais pas toujours a la portee de tous.
+Ainsi, les formulaires generaux peuvent etre vus comme un premier point
+d'entrée pour l'interrogation des triplestores tandis que les Endpoint Sparql
+assurent une exploitation plus large de ces triplestores via une formulation
+libre de requetes de type "Select". Notons que la notion d'exploitation de
+triplestores fait appel aux notions d'interrogation et d'exploration de graphe.
+Ainsi, l'interrogation de triplestores consiste a formuler une requete Sparql
+pré-formatee (formulaires generaux) ou libre (Endpoint Sparql) tandis que
+l'exploration de triplestores est une forme d'interrogation uniquement possible
+via des Endpoint Sparql qui permet aussi de decouvrir differents chemins dans
+un graphe semantique vers des donnees precises. En effet, plusieurs chemins
+peuvent permettre d'obtenir une meme information dans un graphe (usage de
+diverses notions : raccourci, heritage, inverse, raffinement), sachant que ces
+chemins ne sont pas toujours tous renseignes. On peut donc ecrire des requetes
+Sparql pour decouvrir si differents chemins vers une donnee precise existent ou
+pour connaitre les noeuds terminaux. L'exploration est donc importante
+pour s'approprier un triplestore spécifique. L'exploration
+
+permet aussi la comparaison de differents triplestores qui décrivent des
+données similaires (objets d'une même periode historique, objets de meme type,
+objets identiques) dans un contexte de LOD (Linked Open Data), par exemple.
+Ainsi, la comparaison de chemins assure une meilleure decouverte des
+connaissances et augmente la correction ou l'enrichissement mutuel des
+connaissances des differents acteurs du LOD. Notre application web fournit un
+LOD pour ModRef ainsi qu'une liste de modeles de requetes Sparql
+pour interroger, explorer et valider nos triplestores separement ou ensemble. A
+plus long terme, l'objectif est d'integrer d'autres LOD sur internet (Beek et
+al., 2016) (Daga et al., 2016) pour un partage, un echange et une decouverte de
+nouvelles connaissances a plus grande echelle. Ainsi, le LOD doit ameliorer
+la decouverte de nouvelles connaissances, du fait de l'usage de formalismes, de
+langages de metadonnees, de thesaurus publies, standardises voire normalises. 
+Remerciements
+
+L'auteur remercie le laboratoire Labex "Les passes dans le présent" de
+l’Universite de Paris 10 et le projet ANR ModRef de réference
+ANR-11-LABX-0026-01.
+

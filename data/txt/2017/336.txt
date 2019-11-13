@@ -1,0 +1,248 @@
+Person«: A Character-Visualisation Tool for Dramatic Texts
+
+Justin Tonra
+
+justin.tonra@nuigalway.ie
+
+National University of Ireland Galway, Ireland
+
+David Kelly
+
+author.email@domain.com
+
+National University of Ireland Galway, Ireland
+
+Lindsay Reid
+
+lindsay.reid@nuigalway.ie
+
+National University of Ireland Galway, Ireland
+
+Introduction
+
+This paper explores the development of the Persons tool (code available on 
+Github), an interactive resource for exploring patterns of speeches by
+and mentions of characters in dramatic texts. Initially developed to examine
+works by Shakespeare, the tool has broad application to dramatic texts.
+
+Visualising the frequency, extent, and position of dialogue relating to a
+particular character presents users with a simple and immediate measure of
+that character’s prominence within the play. The Persons tool enables users to
+select and visualise individual characters’ involvement, producing a novel
+means of exploring large-scale structural, narrative, or character-focused
+patterns within the text.
+
+The tool is intended to facilitate character-based analysis and reveal
+structural patterns at the scale of the play. The tool was conceived with
+exploratory potential in mind, and is designed to allow users to customise the
+visualisation according to their particular interests or to follow a more
+speculative and disinterested reading of the play’s character-based features.
+
+This deliberate aim emerged from the heuristic development process described
+below, and a desire to produce an extensible exploratory tool for
+dramatic texts. From an initial focus on using digital tools to visualise the
+tangling and disentangling of character names and identities in THe ComeDy oF
+Errors, our interest broadened into exploring the potential for using character
+data to visualise larger structural and narrative patterns.
+
+We were also motivated by the use of network analysis and visualisation for
+scholarship on Shakespearean and other literary texts, including work by Yose
+et al (2016), Grandjean (2015), Moretti (2011), and Stiller, et al. (2003).
+These analyses are similarly character-based and have yielded many interesting
+insights. But in the reduction of the textual data to nodes and edges
+(characters and their interactions), network analysis has obscured
+the temporal. The work of Xanthos, et al. (2016) maintains this temporal
+dimension, while exploring the dynamics of the character networks as they
+evolve. In contrast, by visualising the characters at the level of the play as
+a whole, we aim to preserve characters’ locations within the space of the text,
+thereby enabling analysis of the dramatic time and structural duration of the
+play.
+
+Tool Development
+
+Tool development took part in two phases. First, the data was extracted and
+transformed into a suitable format. The user interface was then designed using
+an iterative process that enabled the exploration of various approaches to data
+presentation and interaction.
+
+Data Preparation
+
+The tool uses data contained in XML files provided in the New Variorum
+Shakespeare editions of THe ComeDy oF Errors and THe Winter's TaLe.
+
+Data was extracted using a custom-developed Python script which iterates
+through each play’s XML file extracting character and name data, along with
+line number, scene and act identifiers. The data as output as JSON, which
+reduces the complexity of using it with the JavaScript-based user interface.
+
+User Interface Design
+
+The tool’s web-based user interface (Figure 1) was developed using the open
+source Javascript library, D3 (Bostock et al, 2011). Persons developed from a
+fixed and static visualisation of THe ComeDy oF Errors to a more interactive
+and exploratory tool. In the heuristic spirit of the tool itself, we describe
+here its various iterations, the stages of its development, and the motivations
+for various changes to its design and functionality throughout the process.
+
+[336-1]
+
+[336-2]
+
+
+The Comedy of Errors
+
+Text Visualisation of Speakers
+
+[336-3]
+
+Figure 1: Persons Character Visualisation Interface - From the First to the
+Second Iteration
+
+
+Expanding the Second Iteration
+
+The second iteration of the tool adopted the circular layout of the tool to
+plot character involvement across the entire play, as shown in Figure 3. At
+this point, the tool was still static, and its focus on the two pairs of twin
+characters in THe ComeDy of Errors represented a desire to deploy visualisation
+for a particular exploratory purpose. The play operates on the basis of
+identity and confusion, as Antipholus and Dromio of Syracuse are mistaken for
+their Ephesian counterparts, and vice versa. Our aim was to plot the speeches
+of these four characters to see if the visualisation revealed any insights into
+how the identity question was introduced and managed at a structural level.
+
+Persona's focus on character and temporal visualisation is present in the first
+iteration of the tool (Figure 2). Speeches and mentions are plotted along
+a timeline, with a tabular view switching between the five acts of the play.
+All speeches and mentions are colour-coded, resulting in some interesting
+patterns and densities at certain parts of the text, but lacking the facility
+for isolating chosen characters. In addition, the tabular view of the five acts
+lacked the desired holistic view of the entire play.
+
+A timeline-based visualisation of stage entrances, speakers, names mentioned,
+and stage exits
+
+Act 1 Act 2 Act 3 Act 4 Act 5
+
+┌───────────┬──────────────┬───────┬──────────────────────┐
+│           │              │       │Mentions    Stage Exit│
+│           │              │       │                      │
+│           │              │Speaker│•                     │
+│           │Stage Entrance│       │                      │
+│Line Number│              │•      │1                     │
+│           │••            │       │                      │
+│           │              │1      │•                     │
+│           │              │       │                      │
+│           │              │       │•                     │
+├───────────┼──────────────┼───────┼──────────────────────┤
+│           │              │       │•                     │
+│           │              │       │                      │
+│80         │              │•      │•                     │
+│           │              │       │                      │
+│           │              │       │•                     │
+├───────────┼──────────────┼───────┼──────────────────────┤
+│           │              │•      │•                     │
+│140        │              │       │                      │
+│           │              │•      │•                     │
+├───────────┼──────────────┼───────┼──────────────────────┤
+│           │              │       │•                     │
+│           │              │       │                      │
+│160        │—             │•      │•                     │
+│           │              │       │                      │
+│           │              │       │•                     │
+├───────────┼──────────────┼───────┼──────────────────────┤
+│180        │              │1      │                      │
+├───────────┼──────────────┼───────┼──────────────────────┤
+│           │              │•      │                      │
+│200        │•             │       │•                     │
+│           │              │•      │                      │
+├───────────┼──────────────┼───────┼──────────────────────┤
+│           │              │!      │                      │
+│220        │              │       │•                     │
+│           │              │1      │                      │
+├───────────┼──────────────┼───────┼──────────────────────┤
+│           │              │i      │•                     │
+├───────────┼──────────────┼───────┴──────────────────────┤
+│           │Figure 2:     │First iteration design        │
+└───────────┴──────────────┴──────────────────────────────┘
+[336-4][336-5]
+
+Figure 3: Second iteration design
+
+Indeed, the visualisation presents several clustered scenes of engagement
+between the pairs of twins through which various errors and
+misunderstandings are played out. The tell-tale single appearance of Dromio of
+Syracuse's orange marker in Act 1, Scene 2 precisely represents the beginnings
+of the error and confusion: “What now? How chance thou art returned so soon?”
+
+An additional avenue of exploration in the second iteration of the tool was the
+geographical mapping of locations mentioned in the play. THe ComeDy of Errors 
+is known for including the only mention of America in Shakespeare's plays,
+among several other placenames in its text. In some respects, this
+visualisation gives a false impression of THe ComeDy of Errors as a
+worldly play. While eighteen locations are mentioned in the text, several of
+these are ironically located by Dromio of Syracuse on Nell the kitchen-maid's
+body, because “she is sphericall, like a globe: I could find out / Countries in
+her” (Act 3, Scene 2).
+
+The final interface
+
+As useful as this view of the play proved, we felt at this point that a more
+dynamic and interactive interface was required to allow users to
+test hypotheses like our own, or to undertake more exploratory and experimental
+visualisations of the data, as illustrated in Figure 4. The circular layout
+was retained, as it provided a useful method of presenting the play as a whole,
+while maintaining the temporal dimension of the character interactions.
+The character-selection menu and the scene-divisions in the outer ring were
+thus added in the final stage of development.
+
+[336-6]
+
+Figure 4: Final interface design
+
+Also added were visualisations of higher level metrics to illustrate the number
+of times a character speaks, and the number of lines they speak.
+
+Conclusion
+
+A major part of the tool's value is its extensibility. It may be used to create
+character visualisations for any play which is XML-encoded according to quite
+minimal specifications, and offer the opportunity to undertake comparative
+analysis of structural, narrative, and character-based patterns in different
+plays. Indeed, while the development of the tool focused on THe ComeDy oF
+Errors, a similar visualisation of THe Winter's TaLe (Figure 5) was generated
+from New Variorum Shakespeare XML files with no revision to our code.
+
+Highlight Speakers
+
+The Winter's Tale
+
+Text Visualisation of Speakers
+
+□    Gaoler
+
+□    Ladies
+
+[336-7]
+
+Toggle Checkboxes
+
+Figure 5: Visualisation of The Winter's Tale
+
+The trajectory of Persona's development from fixity to interactivity represents
+a conclusion that we drew in the course of this project: that a
+visualisation tool developed for a particular purpose need not be confined to
+its use for that objective alone. The modular and open-source principles of
+software development have contributed to a rich and fruitful habit of sharing
+within the field of Digital Humanities, and we hope that others will build upon
+the tool that we have developed here.
+
+Indeed, we have plans for further developments and improvements to Persons.
+Working towards a tool which will enable structural and thematic comparison of
+the thirty-six plays in the First Folio, the next phase will test for
+structural correlations in a thematic grouping of five additional Shakespearean
+plays. This development will strengthen Persona's potential for generating
+insights into macro-level structural analysis of dramatic texts, while testing
+its technical extensibility by incorporating XML files from another source, THe
+BoDLeian First Folio.
+

@@ -1,0 +1,291 @@
+Machine Vision algorithms
+
+on cadaster plans
+
+Sofia Ares Oliveira
+
+sofia.oliveiraares@epfl.ch
+
+École Polytechnique Fédérale de Lausanne, Switzerland
+
+Frederic Kaplan
+
+frederic.kaplan@epfl.ch,
+
+École Polytechnique Fédérale de Lausanne, Switzerland
+
+Isabella di Lenardo
+
+isabella.dilenardo@epfl.ch
+
+p, Switzerland
+
+Introduction
+
+Cadaster plans are cornerstones for reconstructing dense representations of the
+history of the city (di Lenardo and Kaplan, 2015). They provide information
+about the city urban shape, enabling to reconstruct footprints of most
+important urban components (buildings, streets, canals, bridges) as well as
+information about the urban population and city functions (census
+information, property, rent prices, etc.) (Noizet et al, 2013). Cadaster plans
+are usually the results of coordinated campaigns with standardized methods
+of measurement and representation. This means that large sets of documents
+follow the same representation conventions. This regularity opens the possibly
+of efficient automated process for analyzing them and possibly transforming
+the information they contain in geo-referenced databases that can be used as
+part of historical geographical information systems (Gregory et al, 2001).
+
+However, as some of these handwritten documents are more than 200 years old,
+the establishment of a processing pipeline for interpreting them remains
+extremely challenging. This may explain why, to our knowledge, no such system
+exists in the literature. This article reports our effort in this domain,
+presenting the first implementation of a fully automated process capable of
+segmenting and interpreting Napoleonic Cadaster Maps of the Veneto Region
+dating from the beginning of the 19th century. Our system extracts the geometry
+of each of the drawn parcels, and classifies, reads and interprets the
+handwritten labels. We believe the general principle of technologies used
+in the process could be adapted to other cadastral funds, although this has not
+been tested in the present study.
+
+Methodology
+
+Literature on map processing includes works on many different types of maps,
+from roads to topographic maps, including hydrographic and cadastral maps. Most
+studies focus on particular problems and features and thus develop
+techniques that are highly map specific (Chiang et al, 2014).
+
+Our work addresses the particular case of the Napoleonic cadaster of Venice
+dated 1808, but aims at developing a method highly adaptable to other cadasters
+with little extra effort.
+
+We propose a system that segments the cadastral map, identifies and extract
+segmented objects such as parcels and identifiers and recognizes the extracted
+hand-written digits. A demo code with examples of the results can be found at 
+https://github.com/dhlab-epfl/cadasters.
+
+The method is summarized in Fig. 1.
+
+[169-1]
+
+Figure 1: Overview of the system
+
+Preprocessing
+
+Usually, the processed images are ancient documents that have been digitized.
+To deal with the natural ageing of paper and eventual spots on the map without
+losing details, we use a non-local means de-noising method (Buades et al, 2005)
+to smooth the image.
+
+Segmentation
+
+We address the task of extracting the desired information from the document as
+a segmentation problem, which is a recurrent problem in image processing. A
+graph-based segmentation approach is adopted, which models the image as a
+weighted undirected graph. This allows to process the pixels or regions in the
+spatial domain of the image but also to use higher level information such as
+connections, similarities and dependencies between the elements.
+
+Because a group of pixels sharing some similarities are more perceptually
+meaningful than a simple pixel, we use SLIC method (Achanta et al, 2012) to
+create superpixels. Superpixels are clusters of pixels that share similarities
+and spatial proximity and have the advantage of reducing the complexity of
+image processing tasks.
+
+A graph is a mathematical structure composed of vertices and edges,
+representing a system of connections or interrelations among a set of
+objects. It is widely used to model relations, to study information systems or
+to organize data. In our case, the graph representing the image is initialized
+with superpixels as vertices. Its edges connect neighboring vertices
+(superpixels) and each edge has a weight which is a measure of the
+dissimilarity between neighboring elements. The distance (or dissimilarity)
+metric is based on color and edge/ridge features.
+
+The oversegmentation of the image resulting from superpixel generation is then
+reduced by grouping superpixels into homogeneous regions and merging the
+corresponding graph vertices. Our approach uses global homogeneity, meaning
+that the method minimizes intragroup dissimilarity and maximizes intergroup
+dissimilarity. The ‘dispersion' of edge weights (i.e standard deviation within
+a region) allows to spot high-weighted edges within a group and thus disconnect
+dissimilar vertices (i.e remove their edge) to end up with
+independent homogeneous regions.
+
+Region Classification
+
+The merged regions are classified into 3 classes: text, contour/delimitations
+and background (smooth textures such as parcels or streets) using a
+SVM classifier. The training data is composed of manually annotated samples of
+maps coming from the Napoleonic cadaster of Venice.
+
+Parcel Extraction
+
+The classification results allow the determination possible parcels candidates.
+A flood fill algorithm is applied, using a ridge detector to
+indicate boundaries. The chosen ridge detector was originally developed as a
+vessel enhancement filter (Frangi et al, 1998) and looks for multiscale second
+order local structures of the image that can be considered tubular. The
+obtained measure indicates how similar the structure is to a tube, and so it is
+able to detect ridges. Starting from one point in the regions labeled as
+background (seed point), the flood fill algorithm floods each zone, i.e
+parcels, streets, etc. and stops at the boundaries (output of the ridge
+detector).
+
+Each parcel of the image is extracted as a polygonal shape and the polygon's
+corner points are stored in GeoJSON format. If the image file is geo-referenced
+and contains geographical information (a GTIFF file for instance), polygons are
+exported according to the spatial reference system provided. This allows a fast
+and easy integration of the shapes into a geographic information system (GIS)
+and geographic information on the parcels can easily be collected.
+
+Digit Extraction
+
+The parcel identifier is usually contained within the parcel. This observation
+and the extracted polygons' information can be used to correct misclassified
+text regions and improve identifier extraction. Elements labeled as text
+regions are localized, delimited by bounding boxes and grouped so that
+neighboring characters are extracted together. Again, information from polygons
+is used to determine whether neighboring digits belong to the same identifier
+or not (i.e whether neighboring digits are located in the same parcel/polygon).
+Boxes that do not correspond to identifiers or digits are removed according to
+specific criteria. Finally, the boxes containing the parcels' identifiers
+are extracted.
+
+Since the digit recognition step requires horizontally oriented digits to
+output accurate prediction, the identifiers' boxes are rotated. A principal
+analysis component is applied to the binary image of the extracted numbers to
+determine the angle of the rotation.
+
+Digit Recognition
+
+The horizontally oriented numbers are separated into digits that are processed
+individually. A good digit segmentation is primordial since connected
+or overlapping digits lead to incorrect recognition. A Convolutional Neural
+Network (CNN) with two convolutional layers, two fully connected layers and a
+final softmax layer for multiclass classification is used to predict the
+identifiers. The CNN is trained on a mixed dataset composed of MNIST dataset
+(LeCun et al, 1998) and digit samples from Sommarioni register and has a
+performance of 99.1%. When predicting the numbers, the network outputs
+the inferred number with a confidence level indicating the reliability of the
+result.
+
+Results
+
+The proposed approach shows promising results in parcel extraction and
+identifier recognition. We performed the first ‘proof-of-concept' evaluations
+on manually labeled data taken from different cadaster samples. The total
+number of annotated objects are shown in Table 1.
+
+Most parcels and identifiers were correctly extracted (Table 2 & 3), which
+assured us of the feasibility of their automatic extraction. The precision can
+still be increased for example by using feedback from digit recognition
+results, i.e, the prediction and its confidence level permit the discarding
+regions where no reliable identifier has been recognized.
+
+[169-2]
+
+i7bi
+
+mb
+
+277/
+
+-J
+
+Figure 2: Sample of results: (a) original image, (b) polygon approximation of
+parcels, (c) extracted parcels and (d) identifier localization
+
+┌──────────────────────────────────────┬────┐
+│Parcels with labels                   │810 │
+├──────────────────────────────────────┼────┤
+│All parcels (with and without lab els)│1185│
+├──────────────────────────────────────┼────┤
+│Parcels' numbers                      │736 │
+└──────────────────────────────────────┴────┘
+
+Table 1: Count of ground-truth objects
+
+┌───────────────┬─────────────────┬─────────────────┐
+│               │Labelled parcels │All parcels      │
+├───────────────┼─────┬─────┬─────┼─────┬─────┬─────┤
+│IßJi           │> 0.6│> 0.7│> 0.8│> 0.6│> 0.7│> 0.8│
+├───────────────┼─────┼─────┼─────┼─────┼─────┼─────┤
+│Recall         │0.77 │0.76 │0.72 │0.72 │0.69 │0.60 │
+├───────────────┼─────┼─────┼─────┼─────┼─────┼─────┤
+│Precision      │0.55 │0.54 │0.51 │0.75 │0.71 │0.62 │
+├───────────────┼─────┴─────┴─────┼─────┴─────┴─────┤
+│Ground-truth   │810              │1185             │
+├───────────────┼─────────────────┴─────────────────┤
+│Total extracted│1144                               │
+└───────────────┴───────────────────────────────────┘
+
+Table 2: Results of parcel extraction with different Intersection over Union
+(IoU) thresholds
+
+Concerning the digit recognition, only 10% of the identifiers had their digits
+correctly recognized. Since the models used have shown good performance on
+nicely detached digits, this is not the fault of the recognition algorithm
+itself but rather of the digit segmentation procedure. The current segmentation
+is the main hindrance to an efficient digit recognition, thus, further work
+should focus on a better number processing algorithm. Another alternative is to
+avoid the segmentation problem and use a recurrent neural network such as LTSM
+to process the number as a sequence.
+
+Perspectives
+
+Our work shows promising results for easing and accelerating cadaster
+processing, especially given our method's efficient parcel segmentation and
+digit identification. Moreover, the export of a parcel's geometry into GeoJSON
+format opens up further perspectives to efficiently geo-reference ancient maps.
+The system can be extended and integrated into a user interface to take better
+advantage from the results, for example by allowing the user to correct or add
+information about parcels and identifiers.
+
+┌───────────────┬─────┬─────┬─────┐
+│Inter          │> 0.5│> 0.7│> 0.9│
+├───────────────┼─────┼─────┼─────┤
+│Recall         │0.90 │0.87 │0.81 │
+├───────────────┼─────┼─────┼─────┤
+│Precision      │0.58 │0.55 │0.51 │
+├───────────────┼─────┴─────┴─────┤
+│Ground-truth   │736              │
+├───────────────┼─────────────────┤
+│Total localized│1152             │
+└───────────────┴─────────────────┘
+
+Table 3: Results of parcels' number localization with different Intersection
+(overlapping percentage) thresholds.
+
+┌────────────────┬──────────────┬───────────────────────────────────────┐
+│                │              │Partial number                         │
+│                │Correct number├────────┬─────────┬─────────┬──────────┤
+│                │              │4 digits│3 digits │2 digits │1 digit   │
+├────────────────┼──────────────┼────────┼─────────┼─────────┼──────────┤
+│MNIST           │58 (.09)      │17 (.03)│105 (.16)│94 (.14) │165 (0.25)│
+├────────────────┼──────────────┼────────┼─────────┼─────────┼──────────┤
+│MNIST-Sommarioni│66 (.10)      │20 (.03)│90 (.14) │103 (.16)│163 (.26) │
+├────────────────┼──────────────┴────────┴─────────┴─────────┴──────────┤
+│Total localized │637                                                   │
+└────────────────┴──────────────────────────────────────────────────────┘
+
+Table 4: Results of parcels' number recognition
+
+The proposed method creates a bridge between previously seperate two data
+types: the raster object and the vector object. Currently, web-mapping
+tools consider vector objects as separate layers on the raster maps, and each
+object needs to be manually redesigned. The automatic vectorization
+process enables us to perform the visualization and annotation processes
+directly on the cartographic source without the prerequisite of complex skills.
+It should greatly facilitate large scale exploitation of such kinds of
+documents.
+
+features,” in Document Analysis and Recognition, 1993., Proceedings of the
+Second Interna- tional Conference on, pp. 577-580, IEEE.
+
+Chen, Y.-K. and Wang, J.-F. (2000). “Segmentation of
+
+single-or multiple-touching handwritten numeral string using background and
+foreground analysis,”
+
+Pattern Analysis and Machine Intelligence, IEEE
+
+Transactions on, vol. 22, no. 11, pp. 1304-1317.
+

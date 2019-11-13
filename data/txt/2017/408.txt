@@ -1,0 +1,235 @@
+Natural Language Processing for the Long Tail
+
+David Banman
+
+dbamman@berkeley.edu
+
+UC Berkeley, United States of America
+
+Natural language processing (NLP) is a research area that stands at the
+intersection of linguistics and computer science; its focus is the development
+of automatic methods that can reason about the internal structure of text. This
+includes part-of-speech tagging (which, for a sentence like John ate the
+apple, infers that John is a noun, and ate a verb), syntactic parsing (which
+infers that John is the syntactic subject of ate, and the apple its direct
+object), and named entity recognition (which infers that John is a Person, and
+that apple is not, for example, an Organization of the same name). Beyond these
+core tasks, NLP also encompasses sentiment analysis, named entity linking,
+information extraction, and machine translation (among many other
+applications).
+
+Over the past few years, NLP has become an increasingly important element in
+computational research in the humanities. Automatic part-of-speech taggers have
+been used to filter input in topic models (Jockers, 2013) and explore poetic
+enjambment (Houston, 2014). Syntactic parsers have been used to help select
+relevant context for concordances (Benner, 2014). Named entity recognizers have
+been used to map the attention given to various cities in American fiction
+(Wilkens, 2013) and to map toponyms in Joyce's Ulysses (Derven et al., 2014)
+and Pelagios texts (Simon et al., 2014). The sequence tagging models behind
+many part-of-speech taggers have also been used for identifying genres in books
+(Underwood et al., 2013).
+
+There is a substantial gap, however, between the quality of the NLP used by
+researchers in the humanities and the state of the art. Research in
+natural language processing has overwhelmingly focused much of its attention on
+English, and specifically on the domain of news (simply as a function of the
+availability of training data). The Penn Treebank (Marcus et al., 1993)
+—containing morphosyntactic annotations of the Wall Street Journal—has driven
+automatic parsing performance in English above 92% (Andor et al., 2016);
+part-of-speech tagging on this same data now yields accuracies over 97%
+(S0gaard, 2011). While a handful of other high-resource languages
+(German, French, Spanish, Japanese) have attained comparable performance on
+similar data (Hajic et al., 2009), many languages simply have too few resources
+(or none whatsoever) to train robust automatic tools. Even within English,
+out-of-domain performance of many NLP tasks—in which, for example, a syntactic
+parser trained on the Wall Street Journal is used to automatically label the
+syntax for Paradise Lost—is bleak. Figure 1 illustrates one sentence from 
+Paradise Lost automatically tagged and parsed using a tool trained on the Wall
+Street Journal. Since this model is trained on newswire, it expects newswire as
+its input; errors in the part-of-speech assignment snowball to bigger errors in
+syntax.
+
+[408-1]
+
+Figure 1: Parsers and part-of-speech taggers trained on the
+
+WSJ expect newswire syntax. Automatically parsed syntactic dependency graph
+with part-of-speech tags for Long is the way and hard, that out of Hell leads
+up to light. Errors in part-of-speech tags and dependency arcs are shown in
+red. Part-of-speech errors snowball into major
+
+syntactic errors.
+
+Table 1 provides a summary of recent research that has investigated the
+disparity between training data and test data for several NLP tasks (including
+part-of-speech tagging, syntactic parsing and named entity recognition). While
+many of these tools are trained on the same fixed corpora (comprised primarily
+of newswire), they suffer a dramatic drop in performance when used to analyze
+texts that come from a substantially different domain. Without any form of
+adaptation (such as normalizing spelling across time spans), the performance of
+an out-of-the-box part-of-speech tagger can, at worse, be half that of its
+performance on contemporary newswire. On average, differences in style amount
+to a drop in performance of approximately 10-20 absolute percentage points
+across tasks. These are substantial losses.
+
+┌───────────────────────┬───────┬──────────┬────────┬────────────────┬────────┐
+│Citation               │Task   │In domain │Accuracy│Out domain      │Accuracy│
+├───────────────────────┼───────┼──────────┼────────┼────────────────┼────────┤
+│RäüSQRetal. (2007)     │POS    │English   │97.0%   │Shakespeare     │81.9%   │
+│                       │       │news      │        │                │        │
+├───────────────────────┼───────┼──────────┼────────┼────────────────┼────────┤
+│§^giW[ft]etal.(2011)   │POS    │German    │97.0%   │Early Modem     │69.6%   │
+│                       │       │news      │        │German          │        │
+├───────────────────────┼───────┼──────────┼────────┼────────────────┼────────┤
+│Moon and Baidridge,    │POS    │WSJ       │97.3%   │Middle English  │56.2%   │
+│(2007)                 │       │          │        │                │        │
+├───────────────────────┼───────┼──────────┼────────┼────────────────┼────────┤
+│gfiSUagSidSMiand       │       │Italian   │        │                │        │
+│                       │POS    │news      │97.0%   │Dante           │75.0%   │
+│Xaa&9dß(2008)          │       │          │        │                │        │
+├───────────────────────┼───────┼──────────┼────────┼────────────────┼────────┤
+│l&xsw&et al. (2013b)   │POS    │WSJ       │97.3%   │Twitter         │73.7%   │
+├───────────────────────┼───────┼──────────┼────────┼────────────────┼────────┤
+│Yang and Eisenstein    │POS    │WSJ       │        │Early Modem     │74.3%   │
+│(2016)                 │       │          │        │English         │        │
+├───────────────────────┼───────┼──────────┼────────┼────────────────┼────────┤
+│                       │PS     │          │        │                │        │
+│Südsa(2oon             │       │WSJ       │86.3 F  │Brown corpus    │80.6 F  │
+│                       │parsing│          │        │                │        │
+├───────────────────────┼───────┼──────────┼────────┼────────────────┼────────┤
+│                       │PS     │          │        │GENIA medical   │        │
+│Lease and CMroM (2005) │       │WSJ       │89.5 F  │texts           │76.3 F  │
+│                       │parsing│          │        │                │        │
+├───────────────────────┼───────┼──────────┼────────┼────────────────┼────────┤
+│                       │Dep.   │          │        │                │        │
+│ßjHgaetal. (2013)      │       │WSJ       │88.2%   │Patent data     │79.6%   │
+│                       │parsing│          │        │                │        │
+├───────────────────────┼───────┼──────────┼────────┼────────────────┼────────┤
+│                       │Dep.   │          │        │                │        │
+│ggjggetal. (2014)      │       │WSJ       │86.9%   │Broadcast news  │79.4%   │
+│                       │parsing│          │        │                │        │
+├───────────────────────┼───────┼──────────┼────────┼────────────────┼────────┤
+│                       │       │          │        │Magazines       │77.1%   │
+├───────────────────────┼───────┼──────────┼────────┼────────────────┼────────┤
+│                       │       │          │        │Broadcast       │        │
+│                       │       │          │        │                │73.4%   │
+│                       │       │          │        │conversation    │        │
+├───────────────────────┼───────┼──────────┼────────┼────────────────┼────────┤
+│QSi«W&et al. (2013a)   │NER    │CoNLL 2003│89.0 F  │Twitter         │41.0 F  │
+└───────────────────────┴───────┴──────────┴────────┴────────────────┴────────┘
+
+Figure 2: Out-of-domain performance for several NLP tasks, including POS
+tagging, phrase structure (PS) parsing, dependency parsing and named entity
+recognition. Accuracies are reported in percentages; phrase structure parsing
+and NER are reported in F1 measure.
+
+While many techniques are currently under development in the NLP community for
+domain adaptation (Blitzer et al., 2006; Chelba and Acero, 2006; Daumé III,
+2009; Glorot et al., 2011; Yang and Eisenstein, 2014), including leveraging
+fortuitous data (Plank, 2016), they often require specialized expertise that
+can be a bottleneck for researchers in the humanities. The simplest and most
+empowering solution is often to create in-domain data and train NLP methods on
+it directly; in-domain data can substantially increase performance, almost to
+levels approaching state-of-the-art on newswire. When adding training data of
+Early Modern German and adding spelling normalization, Scheible et al. (2011)
+ increase POS tagging accuracy on Early Modern German texts from 69.6% to
+91.0%; when Moon and Baldridge (2007) train a POS tagger on Middle
+English texts, this pushes their accuracy from 56.2% to 93.7%; when Derczynski
+et al. (2013b) train a POS tagger directly on Twitter data, this increases
+accuracy from 73.7% to 88.4%. In-domain data is astoundingly helpful for many
+NLP tasks, from part-of-speech tagging and syntactic parsing to temporal
+tagging (Strotgen and Gertz, 2012).
+
+The difficulty, of course, is that training data is expensive to create at
+scale since it relies on human judgments; and the cost of this data scales with
+the complexity of the task, so that morphosyntactic or semantic annotations
+(which require a holistic understanding of an entire sentence) are
+often prohibitive. Few projects achieve this scale for domains in the
+humanities, but when they do, they have real impact - these include WordHoard,
+which contains part-of-speech annotations for Shakespeare, Chaucer and Spenser
+(Mueller, 2015); the Penn and York parsed corpora of historical English (Taylor
+and Kroch, 2000; Kroch et al., 2004; Taylor et al., 2006); the Perseus Greek
+and Latin treebanks (Bamman and Crane, 2011), which contain
+morphosyntactic annotations for classical Greek and Latin works; the Index
+Thomisticus (Passarotti, 2007), which contains morphosyntactic annotations for
+the works of Thomas Aquinas; the PROIEL treebank (Haug and J0hndal, 2008),
+which contains similar annotations for several translations of the Bible
+(Greek, Latin, Gothic, Armenian and Church Slavonic); the Tycho Brahe Parsed
+Corpus of Historical Portuguese (Galves and Faria, 2010); the Icelandic Parsed
+Historical Corpus (Rognvaldsson et al., 2012), and Twitter, annotated
+for part-of-speech (Gimpel et al., 2011) and dependency syntax (Kong et al.,
+2014).
+
+The availability of these annotated corpora means that we have the ability to
+train NLP tools for some dialects, domains and genres in Ancient Greek,
+Latin, Early Modern English, historical Portuguese, and a few other languages;
+this doesn't help the scholar working on John Milton, Virginia Woolf, Miguel
+Cervantes, or the countless other authors and genres in the long tail of
+underserved domains that researchers are increasingly finding high-quality NLP
+useful to help analyze. In this talk, I'll argue for an alternative: an open
+repository of linguistic annotations that scholars can use to train statistical
+models for processing natural language in a variety of domains,
+leveraging information from complementary sources (such as the works of
+Shakespeare) to perform well on a target domain of interest (such as the works
+of Christopher Marlowe). What this repository critically relies on is the
+expertise of the individuals who simultaneously are the consumers of NLP for
+their long-tail domain and are in the uniquely best position to
+create linguistic data to support their own work—and in doing so, can help
+develop an ecosystem that can support the work of others.
+
+┌───────────────────────┬───────┬──────────┬────────┬────────────────┬────────┐
+│Citation               │Task   │In domain │Accuracy│Out domain      │Accuracy│
+├───────────────────────┼───────┼──────────┼────────┼────────────────┼────────┤
+│RäüSQRetal. (2007)     │POS    │English   │97.0%   │Shakespeare     │81.9%   │
+│                       │       │news      │        │                │        │
+├───────────────────────┼───────┼──────────┼────────┼────────────────┼────────┤
+│§^giW[ft]etal.(2011)   │POS    │German    │97.0%   │Early Modem     │69.6%   │
+│                       │       │news      │        │German          │        │
+├───────────────────────┼───────┼──────────┼────────┼────────────────┼────────┤
+│Moon and Baidridge,    │POS    │WSJ       │97.3%   │Middle English  │56.2%   │
+│(2007)                 │       │          │        │                │        │
+├───────────────────────┼───────┼──────────┼────────┼────────────────┼────────┤
+│gfiSUagSidSMiand       │       │Italian   │        │                │        │
+│                       │POS    │news      │97.0%   │Dante           │75.0%   │
+│Xaa&9dß(2008)          │       │          │        │                │        │
+├───────────────────────┼───────┼──────────┼────────┼────────────────┼────────┤
+│l&xsw&et al. (2013b)   │POS    │WSJ       │97.3%   │Twitter         │73.7%   │
+├───────────────────────┼───────┼──────────┼────────┼────────────────┼────────┤
+│Yang and Eisenstein    │POS    │WSJ       │        │Early Modem     │74.3%   │
+│(2016)                 │       │          │        │English         │        │
+├───────────────────────┼───────┼──────────┼────────┼────────────────┼────────┤
+│                       │PS     │          │        │                │        │
+│Südsa(2oon             │       │WSJ       │86.3 F  │Brown corpus    │80.6 F  │
+│                       │parsing│          │        │                │        │
+├───────────────────────┼───────┼──────────┼────────┼────────────────┼────────┤
+│                       │PS     │          │        │GENIA medical   │        │
+│Lease and CMroM (2005) │       │WSJ       │89.5 F  │texts           │76.3 F  │
+│                       │parsing│          │        │                │        │
+├───────────────────────┼───────┼──────────┼────────┼────────────────┼────────┤
+│                       │Dep.   │          │        │                │        │
+│ßjHgaetal. (2013)      │       │WSJ       │88.2%   │Patent data     │79.6%   │
+│                       │parsing│          │        │                │        │
+├───────────────────────┼───────┼──────────┼────────┼────────────────┼────────┤
+│                       │Dep.   │          │        │                │        │
+│ggjggetal. (2014)      │       │WSJ       │86.9%   │Broadcast news  │79.4%   │
+│                       │parsing│          │        │                │        │
+├───────────────────────┼───────┼──────────┼────────┼────────────────┼────────┤
+│                       │       │          │        │Magazines       │77.1%   │
+├───────────────────────┼───────┼──────────┼────────┼────────────────┼────────┤
+│                       │       │          │        │Broadcast       │        │
+│                       │       │          │        │                │73.4%   │
+│                       │       │          │        │conversation    │        │
+├───────────────────────┼───────┼──────────┼────────┼────────────────┼────────┤
+│QSi«W&et al. (2013a)   │NER    │CoNLL 2003│89.0 F  │Twitter         │41.0 F  │
+└───────────────────────┴───────┴──────────┴────────┴────────────────┴────────┘
+
+Figure 1. Out-of-domain performance for several NLP tasks, including POS
+tagging, phrase structure (PS) parsing, dependency parsing and named entity
+recognition. Accuracies are reported in percentages; phrase structure parsing
+and NER are reported in F1 measure.
+
+Acknowledgements
+
+Many thanks to the anonymous reviewers for helpful feedback. This work is
+supported by a grant by the Digital Humanities at Berkeley initiative.
+

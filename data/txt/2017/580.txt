@@ -1,0 +1,313 @@
+Cultural (Re-)formations: Structuring a Linked Data Ontology for
+Intersectional Identities
+
+Susan Brown
+
+sbrown@uoguelph.ca
+
+University of Guelph, Canada
+
+Abigel Lemak
+
+alemak@uoguelph.ca
+
+University of Guelph, Canada
+
+Colin Faulkner
+
+cfaulk01@mail.uoguelph.ca
+
+University of Guelph, Canada
+
+Kim Martin
+
+author.email@domain.com
+
+University of Guelph, Canada
+
+Rob Warren
+
+rwarren@math.carleton.ca
+
+Carleton University, Canada
+
+Introduction
+
+Cultural diversity has been an increasing source of debate within the digital
+humanities community. The concentration within the Debates in Digital
+Humanities series (Gold, 2012; Gold and Klein, 2016) of pieces reflecting the
+increasing prominence of matters related to race, gender, cultural diversity
+and difference is but one marker of the extent to which diversity matters. The
+Orlando Project in feminist literary history incorporated an intersectional
+understanding of identity categories from the outset (Brown, Clements
+and Grundy, 2006-2017). Translating Orlando's Extensible Markup Language (XML)
+data into linked open data (LOD) to make it accessible, interoperable, and
+amenable to a range of analytical approaches (Simpson and Brown) requires an
+ontology that will serve both Orlando and the broader research community hosted
+by the Canadian Writing Research Collaboratory (CWRC). This paper outlines the
+CWRC ontology design and the challenges of shifting from semi-structured to
+structured data (Smith, 2016: 273).
+
+Much work on digital diversity expresses skepticism of the ability of
+systematized knowledge structures to capture the performative, processual, and
+contingent nature of lived subjectivities. Tara McPherson stresses that
+“computers are themselves encoders of culture” and calls for more attention to
+be paid to the interconnectedness of the structures of code and the management
+of race socially: "Just as the relational database works by normalizing
+data—that is, by stripping it of meaningful, idiosyncratic context, creating
+a system of interchangeable equivalencies—our own scholarly practices tend to
+exist in relatively hermetically sealed boxes or nodes." Scholars including
+Lisa Nakamura (2002: 120) and Moya Bailey (2011) see value in “messiness” as a
+way to push against and redefine the contours of a digital humanities
+scholarship that remains rooted in predominantly white epistemology.
+
+At the same time, relegating representations of difference to narrative rather
+than structured data will produce gaps within big data that are both
+impoverishing for humanities inquiry and dangerous in their political
+implications (Lerman, 2013; Trevinarus, 2014; “Use”; Brown and Simpson, 2013).
+Adriel DeanHall and Robert Warren (2013) have advocated approaches that respect
+the privacy and preferences of lived human subjects while improving the
+responsiveness of online systems to diversity and complexity. Within a LOD
+context, what are finally findable, processable, and reusable on the global
+graph are things, not strings, so the challenge is the extent to which nuance,
+context, and indeed messiness can be incorporated into a LOD ontology.
+
+The Orlando Project (Brown, et al., 2006-2017) charted a middle ground between
+narrative and structure for its bespoke XML tagset. The team struggled with the
+hierarchical nature of XML particularly in relation to identity categories,
+torn between knowledge
+
+that readers would turn to Orlando to find writers associated with particular
+cultural identities and recognition that such categories are discursive rather
+than essential (Fuss, 2013). It devised a “Cultural Formation” tagset to depict
+identity as neither unitary nor immutable, and as much related to
+representational acts as to the lived experiences into which those
+representations blur. Precisely because constituted through discursive and
+social practices, vocabularies associated with subjectivities and identities
+can shift over time and place, and throughout an individual’s lifetime.
+
+Cultural formation tagset
+
+The Cultural Formation (CF) tagset recognizes categorization as endemic to
+social experience, while incorporating variation in terminology and
+contextual-ization of identity categories by employing tags at different
+discursive levels. CF tags describe the subject positions of individuals
+through 1) contextual tags that encode substantial discussions: class;
+language; nationality; race and ethnicity; religion; and sexuality; and 2)
+granular tags that describe, in a word or short phrase, class; ethnicity;
+gender; geographical heritage; language; nationality; national heritage;
+political affiliation; race or colour; religious denomination, and sexual
+identity. With the exception of gender and social class, the Orlando schema
+eschewed fixed attribute values for the granular tags, allowing the prose to
+employ the most appropriate language for the context. The structure was not
+entirely logical or parallel, and we are making the ontology more consistent.
+The granular tags possess attributes regarding forebears and whether a subject
+self-identified with a particular term. The tagset aimed to highlight the
+extent to which social classification is culturally produced and discursively
+embedded. Rather than disambiguating leaky cultural categories, it considered
+them as mutually constitutive with historically specific discursive frameworks,
+including our tagging structures.
+
+CF encoding pointed users towards a framework for raising and debating complex
+matters for cultural investigation rather than standardized
+classifications, refusing to neatly group writers into distinct and
+fixed categories, since those categories were neither stable nor mutually
+exclusive (Algee-Hewitt, Porter, Walser, forthcoming). It can represent quite
+complex identities, as in the case of Anna Leonowens, the writer whose story of
+life as governess to the royal Siamese harem was popularized in The King and I.
+Partial markup for the first paragraph of her CF description is shown in Figure
+1.
+
+Although AL herself, In attempting to adopt an unequivocally < NATIONALITY
+SELF-DEFINED=SELFYES > English </NATIONALITY> Identity, Implicitly claimed
+that she was < RACECOLOUR SELF-DEFINED=SELFYES > white </RACECOLOUR>, evidence
+suggests that while her father was probably < NAriONALHERITAGE >
+
+Welsh </NATIONALHERITAGE> (he had lived In <PLACE > <REGION > Middlesex </
+REGION> <GEOG REG=England > </GEOG> </PLACE> ) and presumably white, her mother
+was quite possibly < RACECOLOUR > Eurasian </RACECOLOUR>. [citations omitted]
+If this Is the case then AL suppressed her mixed-race origins.
+
+Figure 1: Adapted from Brown, Clements and Grundy, “Anna Leonowens”, Life tab,
+Show Markup option
+
+The CF component of Orlando's knowledge representation is thus crucial to its
+intersectional approach to identity (Brown et al., 2006). Creating a LOD
+ontology that was not self-referential, however, requires translating the
+strings or literal values from CF tags, to link Orlando's semantic structures
+to other semantic web communities.
+
+LOD ontology creation
+
+An ontology “is a formal naming and definition of the types, properties, and
+interrelationships of the entities that really or fundamentally exist for a
+particular domain of discourse” (Wikipedia, Ontology - Information Science).
+Using a standard ontology language such as OWL allows others to interact and
+exchange with a particular view of the world through a computational process of
+mediation. As a representation of that understanding, an ontology can be
+referenced, (dis)agreed with, extended, and used operationally. The coexistence
+of different representations provides the foundation for translations between
+LOD concepts.
+
+Ontology creation in our case, as in many others, was driven by the
+idiosyncrasies and limitations of an existing data set. The information
+architectures of application databases or XML stores are not always
+reconcilable to a consistent information system. The CF tagset represents a
+major challenge in that its structure was designed to eschew disambiguation.
+Even the major tags were difficult to relate within a concise on-
+
+[580-1]
+
+Figure 2: Schematic representation of the granular Cultural
+
+Formation tags from Orlando (Please note that these representations are
+simplified in order to make them legible to the reader.)
+
+For example, nationality and national heritage are not employed as commensurate
+with citizenship, a well-defined legal concept related to an organized state.
+They can also be related to a geographical area, which may or may not coincide
+with a state. Finally, nationhood can reference socio-political constructs such
+as Lesbian Nation (Johnston, 1973; Ross, 1995; Munt, 1998) or disavowals of
+nationality such as Virginia Woolf's (1938: 197), which Orlando
+quotes alongside assigning Woolf an English nationality, a contradiction that
+requires contextual evidence to make sense.
+
+Linked into context
+
+We decided to make all human-readable annotations within the dataset instances
+of contextual notes
+
+to which the ontological classes are directly tied (Fig-
+
+[580-2]
+
+Figure 3: Schematic representation of how the discursive context (note) links
+to the classificatory structure, and how classificatory labels relate to
+predicates and external ontologies. Skos:narrower/broader relationships are
+also used, but omitted here to improve legibility
+
+Thus we model the discursive context within a Race[or]EthnicityContext class.
+The note instance links to instances of granular category labels,
+here RaceColour; it provides the provenance and the basis for links to source
+information. Linking to the provenance of the LOD is particularly important for
+disputed or contradictory information, as in our example. We are modeling the
+original Orlando narrative as a source document for our LOD provenance using
+the the Web Annotation Data Model's subproperty instances. We aim to link every
+triple to the prose from which it is derived, providing provenance
+information and contains citations to the sources on which identity assertions
+are based.
+
+Relating cultural formations
+
+Cultural formation for Orlando is understood primarily as representational,
+which is not to say that cultural formation is not real or that it has no
+material effects. The complex signifiers of cultural identities float across
+Orlando tags as cdata or free text in a semistructured representation of
+cultural identities and categories. For the CWRC ontology, we strategized
+to relate this ontological perspective to that of external vocabularies without
+conflating our truth with theirs. Our architecture does not import other
+ontologies wholesale, but adopts components of major vocabularies such as BIBO,
+FOAF, and FRBR, and relates to large vocabularies in defined ways. As indicated
+in Figure 3, the instances of cwrc:whiteRaceColour and cwrc:whiteEthnicity
+within the CWRC ontology are subclasses of the cwrc:whiteLabel. This retains
+the ambiguity of terms such as “white” or “Jewish” precisely as labels that
+draw together particular types of identity categories, as well as subClasses of
+those labels. As indicated, those subClasses can be linked to terms in external
+vocabularies, but both internal and external terms are understood within the
+CWRC ontology as labels. Indeed, constructing this ontology has brought home to
+us the need for the LOD community to think through with greater care the
+relationship between representation and “reality” in LOD ontologies. A further
+complication is that identity categories are not only historically contingent
+but often also change over a particular individual's lifetime. The Orlando
+dataset supports such nuance in only a few cases, so we have not started with
+this gnarly problem, but we aim to build into the ontology the capacity to
+represent such cultural formation dynamics in order to accommodate more
+temporally precise data.
+
+Conclusion
+
+The CWRC ontology design avoids representing RDF extractions from Orlando data
+as positivist assertions, and yet produces machine-readable OWL/RDF-compliant
+graph structures. It allows references to, without endorsing, external
+ontological vocabularies that are nevertheless part of documenting
+intersectional cultural processes and identities.
+
+We will present CWRC ontology as built around the CF design described here, and
+we will demonstrate its implications through several practical examples. Figure
+4 shows schematically the intersectionality of multiple identity categories
+associated with Leonowens, including the ways that instances are related by
+subclass relationships in accordance with OWL principles. This importantly
+allows us to reference components of other ontologies (here the Muninn
+Appearances ontology, Library of Congress Subject Headings, Getty Art and
+Architecture Thesaurus, and DBpedia) without adopting them wholesale.
+
+[580-3]
+
+<P ID=b-leonan-0-P--4 > Although <NAME STAND ARD=Leonowens, Anna > AL </NAME>
+herself, in attempting to adopt an unequivocally «NATIONALITY SELF-DEFINED=
+SELFYES >English </ NATIONALITY> identity, implicitly claimed that she was
+<RACEC0L0UR SELF-DEFINED=SELFYES > white < / RACEC0L0UR>, evidence suggests
+that while her father ...
+
+in attempting to adopt an unequivocally «NATIONALITY SELF-DEFINED=SELFYES >
+English </NATIONALITY> identity, implicitly claimed that she was «RACECOLOUR
+SELF-DEFINED=SELFYES > white </RACECOLOUR>, evidence suggests that while her
+father was probably N UIONALHERITAGE Welsh    (he had lived in «PLACE >
+
+Middlesex    England
+
+GE0G> </PLAC L -) and presumably white, her mother was quite possibly
+«RACECOLOUR > Eurasian <ZRACECOLOUR>... If this is the case then «NAME STANDARD
+=Leonowens, Anna > AL </ NAME> suppressed her mixed-race origins. </P>
+
+rdfstsubClassOf
+
+#whiteLabel
+
+externalOntologyl
+
+rdfstsubClassOf
+
+#welsh
+
+externalOntologyl
+
+RACECOLOUR», evidence suggests that while her father was
+
+probably«NATIONALHERITAGE > Welsh NAT1ONALHERITAGL (he had lived in «PLACE >
+«REGION > Middlesex «/REGION» <GEOG REG=England > </GE0G> <1 PLACE>) and
+presumably white...
+
+Figure 4: Cultural Formation triples related to Anna Leonowens, with
+corresponding XML-encoded context notes
+
+Figure 5 indicates the ability to see patterns and
+
+outliers related to different categorizations of Jewishness in a small subset
+of Orlando authors.
+
+[580-4]
+
+Figure 5: Subset of CF triples related to a subset of writers, with sample
+context annotations and external links; predicates linking individuals to
+subclasses are inferred (e.g. the edge between Elizabeth Sarah Gooch
+and cwrc:jewishReligion is hasReligion)
+
+Our live presentation will demonstrate the ontology in action using the
+interactive HuViz (Humanities Visual-izer) interface with a larger dataset.
+
+Ontologies
+
+•    CWRC ontology:    http://sparql.cwrc.ca/ontol-
+
+ogy/cwrc
+
+•    CWRC sparql end point: http://sparql.cwrc.ca/
+
+•    Orlando Biography schema containing Cultural Formation tagset: https://
+github.com/cwrc/CWRC-
+
+Schema/blob/master/schemas/orlando_biog-
+
+raphy.rng
+

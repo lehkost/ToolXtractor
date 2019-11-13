@@ -1,0 +1,297 @@
+Regional Classification of Traditional Japanese Folk Songs from
+Southwest Regions
+
+Akihiro Kawase
+
+akawase@mail.doshisha.ac.jp Doshisha University, Japan
+
+Introduction
+
+The main purpose of this study is to grasp the pitch transition patterns from
+pieces of traditional Japanese folk songs among southern three regions of
+Honshu (the Main Island of Japan), and by making comparisons with Koizumi’s
+tetrachord theory in order to make the regional classification by the tendency
+in pitch information.
+
+A tetrachord is a unit consisting of two stable outlining tones called kaku-on
+(nuclear tones), and one unstable intermediate tone located between the nuclear
+tone. Influenced by the methods of Western comparative musicology, the Japanese
+musicologist Fumio Koizumi conceived of a scale based not on the octave unit
+but rather on the interval of a perfect fourth, and has developed his
+tetrachord theory to account traditional Japanese music (Koizumi,
+1958). Depending on the position of the intermediate tone, four different
+tetrachords can be formed (see Table 1 and Figure 1).
+
+Japanese folk songs is the transition pattern, which is based on an interval of
+perfect fourth pitch that constructs Koizumi’s four basic tetrachords; (2)
+ regionally adjacent areas tend to have similar musical characteristics; and
+(3) the differences in the musical characteristics almost match the East-West
+division in the geolinguistics or in the folkloristics from a
+broader perspective. However, to conduct more detailed analysis in order to
+empirically clarify the structures by which music has spread and changed in
+traditional settlements, it is necessary to expand the data and make
+comparisons based on the old Japanese provinces (ancient administrative units
+that were used under the ritsuryo system before the modern prefecture system
+was established).
+
+[116-1]
+
+minor major
+
+third second Min'yo
+
+tetrachord
+
+minor major second third Miyako-bushiyo
+
+tetrachord
+
+m aj or minor second third
+
+Ritsu
+
+tetrachord
+
+major minor third second
+
+Ryukyu
+
+tetrachord
+
+Figure 1. Example of four different types of Koizumi's tetrachord when taking
+A-D as kaku-on (nuclear tones).
+
+Overview of data
+
+We extracted the musical notes for works included in the “Nihon Min’yo Taikan”,
+and digitized the entire scores from each province in the Kyushu district 
+(geographically located in the southern part of Japan), Chugoku district (the
+westernmost region of Japan’s largest island of Honshu), and Shikoku district 
+(literally meaning four provinces, located south of Honshu and east of Kyushu
+district). In total, there were 474,191 tones in the sample of 2,383 songs
+for the 25 provinces (see Figure 2).
+
+┌────┬──────────┬──────────────────────────────────┐
+│Type│Name      │Pitch intervals                   │
+├────┼──────────┼──────────────────────────────────┤
+│[   │          │Minor third (3) + major second (2)│
+├────┼──────────┼──────────────────────────────────┤
+│II  │Wxj&k&ittk│Minor second (1) + major third (4)│
+├────┼──────────┼──────────────────────────────────┤
+│III │          │Major second (2J + minor third (3)│
+├────┼──────────┼──────────────────────────────────┤
+│IV  │          │Major third (4) + minor second (1)│
+└────┴──────────┴──────────────────────────────────┘
+
+Table 1. Koizumi's four basic tetrachords.
+
+
+In the previous study, we have sampled and digitized the five largest song
+genres within the music corpora of the Nihon Min’yo Taikan (Anthology
+of Japanese Folk Songs, 1944-1993) from 45 Japanese prefectures, and have
+clarified the following three points by extracting and comparing their
+respective musical patterns (Kawase and Tokosumi 2011): (1) the most important
+characteristics in the melody of
+
+
+[116-2]
+
+Figure 2. Geographical divisions of the three districts under the old provinces
+
+Procedure
+
+The procedures are as follows: (1) we digitized all the songs from each
+district and generated sequences that contain interval information from the
+song melodies; (2) extracted four transition probabilities of tetrachords for
+every province separately, and create a 24-dimensional data with 25 samples
+(provinces); and (3) applied principal components analysis (PCA) to identify
+patterns in the data, and to highlight their similarities and differences.
+
+In order to digitize the Japanese folk song pieces, we generate a sequence of
+notes by converting the music score into MusicXML file format. We devised
+a method of digitizing each note in terms of its relative pitch by subtracting
+the next pitch height for a given MusicXML. It is possible to generate a
+sequence T that carries information about the pitch to the next note: T = (t1,
+t2, ... , ti, ..., tn). An example of the corresponding pitch intervals for ti
+can be written as shown in Table 2. We treat sequence T as a categorical time
+series, and execute N-gram to capture transitions and their trends.
+
+Using a bigram model representing pitch transitions, all four types of
+tetrachords from Table 1 can be expressed as follows in ascending order:
+min'yo (+3, +2), miyako bushi (+1, +4), ritsu (+2, +3), and ryukyu (+4, +1).
+Depending on the positions of the three initial pitches in a tetrachord, six
+transition patterns can be considered in perceiving a tetrachord in two steps
+(bigram). Therefore, the amount of tetrachords within two steps can be obtained
+by counting the pairs of 24 transition patterns in sequence T.
+
+┌──┬─────────────────────┬──┬───────────────┐
+│ti│Pitch Intervals      │h │Pitch Intervals│
+├──┼─────────────────────┼──┼───────────────┤
+│0 │perfect unison       │7 │perfect fifth  │
+├──┼─────────────────────┼──┼───────────────┤
+│1 │minor second         │8 │minor sixth    │
+├──┼─────────────────────┼──┼───────────────┤
+│2 │major second         │9 │major sixth    │
+├──┼─────────────────────┼──┼───────────────┤
+│3 │minor third          │10│minor seventh  │
+├──┼─────────────────────┼──┼───────────────┤
+│4 │major third          │11│major seventh  │
+├──┼─────────────────────┼──┼───────────────┤
+│5 │perfect fourth       │12│perfect octave │
+├──┼─────────────────────┼──┼───────────────┤
+│6 │aug.four th/dim.fifth│13│minor ninth    │
+└──┴─────────────────────┴──┴───────────────┘
+
+Table 2. Corresponding pitch intervals
+
+Results and discussions
+
+The relative frequency of the first transition (unigram), is maintained between
+“-5” and “+5”; the interval of a perfect fourth pitch (see Figure 3). As
+the graph forms a symmetric shape with respect to “0”, the pitch transitions
+occur almost equally in both descending and ascending order.
+
+The implementation of the PCA is summarized as follows. As shown in Table 3,
+the component loadings for the first three principal components of
+each province explain more than 85.88% of the variability.
+
+0 20 20
+
+: JL ^; JL- JL
+
+-12 -9 -6 -3 0    *3 +6 *9 +12    -12 -9 -6 -3 0    *3 *6 *9 *12    -12 -9 -6
+-3    0    +3 +6 +9 +11
+
+(a) Kyushu    (b) Shikoku    (c) Chugoku
+
+Figure 3. First transition frequencies for three regions
+
+In the first column, the values of all 24 variables represent a positive
+quantity, and have almost the same weight. This result indicates that the
+profile of the first PCA axis is the persuasiveness of the tetrachord. Thus, as
+the value increases, the inclination of a pitch transition enhances
+its persuasiveness, and the value decreases, it loses its persuasiveness. In
+the second column, all variables for the min’yo and the ritsu represent a
+negative quantity, while 11 variables for the miyako-bushi and the ryukyu
+represent a positive quantity. According to ethnomusicological research, the
+min'yo and ritsu tetrachords appear frequently in Japanese folk songs. In
+contrast, the miyako-bushi and ryukyu tetrachords, steadily shifted from the
+ritsu and min-yo tetrachords respectively, and then increased in popularity as
+an emotional crutch (Koizumi, 1977). This result indicates that the profile of
+the second PCA axis is the
+
+relative pitch intervals between the nuclear tone and its intermediate tone, or
+in other words, the differences in patterns of transition from the
+nuclear tone. Thus, as the value increases, the adjacent intermediate tone
+forming the tetrachord tends to form a minor second interval (sort of a minor
+key progression), and as the value decreases, it tends to form a major second
+interval (sort of a major key progression).
+
+The corresponding scores for each sample are plotted in a two-dimensional space
+to complete the PCA (Figure 4). We see that there is a strong contrast between
+min'yo, ritsu, miyako-bushi, and ryukyu. It is possible to clarify the
+structural commonalities and differences between areas. Figure 5 is the result
+of applying the hierarchical cluster analysis (Euclid distance, Ward method) to
+the corresponding scores. In addition, if we look for a height where there
+are three vertical lines and trace the lines down to the individuals, the
+partition corresponding to three clusters. If we plot this result on a map, we
+see that provinces are clearly classified according to geographical factors and
+cultural backgrounds (Figure 6).
+
+
+[116-3]
+
+Table 3. Component loadings for 24 transition patterns for tetrachords
+
+
+k07
+
+
+£03
+
+£05
+
+
+‘ 108    ^k02
+
+
+c09
+
+clO
+
+
+s04
+
+
+k09
+
+k06
+
+
+c04
+
+cll
+
+
+s02
+
+
+c05
+
+
+-5
+
+0
+
+Dim 1 (64.37%)
+
+Figure 4. Plot oC the fiest two component scores
+
+[116-4]
+
+
+Figure 5. Dendrogram based on Domponent scores using Wah^cd m ettiod
+
+
+Sea of Japan
+
+
+Chugoku
+
+
+Shikoku
+
+
+Kansai
+
+
+Pacific Ocean
+
+
+Kyusyu
+
+
+[116-5]
+
+
+Figure 6. Clustering results plotted on a map
+
+
+Conclusion
+
+In this study, we digitized the melodies of endangered traditional Japanese
+folk songs from three regions, and quantitatively classified them according to
+the old province by executing principal components analysis and hierarchical
+cluster analysis in terms of pitch transitions based on a unit of
+Koizumi's tetrachord theory. As a result, compared to our previous studies on
+the small amount of data (e.g. Kawase 2016a,    2016b,    2016c), regions were
+
+successively classified according to both geographical factors and cultural
+backgrounds in detail, and classified the melodies into two basic
+groups according to the behavior of the intermediate tone. We firmly assured
+that the melodic structures of tetrachords in each province are shared by land
+and sea routes based on actual music data analysis. Acknowledgments
+
+This work was mainly supported by the Japanese Society for the Promotion of
+Science (JSPS) Grants-in-Aid for Scientific Research (15K21601).
+

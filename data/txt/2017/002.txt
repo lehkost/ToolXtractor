@@ -1,0 +1,261 @@
+Untangling the Social Network of Musicians
+
+Stefan Janicke
+
+stjaenicke@informatik.uni-leipzig.de Leipzig University, Germany
+
+JosefFocht
+
+josef.focht@uni-leipzig.de
+
+Leipzig University, Germany
+
+Introduction
+
+As opposed to the former idea of creative autonomy, in recent years, humanities
+research tends to investigate cultural contexts and circumstances,
+inspirational models, and the ways that knowledge, experience and expertise
+have been transferred over time. We address the question of "creative transfer"
+within the field of music. Due to the everlasting significance
+
+of musical works, relationships between musicians -the entry point for such an
+investigation - are well documented in archives, libraries and museums. In
+print media, usually only a single relation between two musicians is narrated.
+Furthermore, it is common for the biography of only one of the two musicians to
+report on the relationship. Larger overviews of social networks between several
+musicians seldom exist. Although some digital resources exist, these are often
+reduced to the milieux of popular musicians like Mozart and Beethoven.
+
+Since 2005, musicologists of the project Bavarian Musicians Encyclopedia Online
+(Bayerisches Musiker Lexikon Online, BMLO) have systematically
+collected biographical data (an example is given in Figure 1) and examined
+relationships between musicians from print media - a tedious work that results
+in a unique database of great value for musicology. The BMLO contains musicians
+from all kinds of musical professions (e.g., composers, singers, musicologists,
+instrument makers, ...), most of whom had an active lifetime period living in
+Bavaria or a considerable influence on Bavaria. Now providing information about
+around 28,000 musicians, the BMLO has achieved global scope, one that is
+underpinned by the many musicologists worldwide who use the BMLO for their
+daily work.
+
+[002-1]
+
+
+Schumann, Robert (Robert Alexander)
+
+* 8. Juni 1810 Zwickau, t 29. Juli 1856 Bonn Geschlecht männlich
+
+Konfess i o n evangel isch-lutherisch Beziehungen
+
+Schumann, Clara (1819-1896), Pianistin
+
+Wieck, Friedrich (1785-1873), Musikpädagoge Schüler
+
+Nottebohm, Martin Gustav (1817-1882), Musikforscher Wasielewski, Wilhelm Joseph
+von (1822-1896), Musikforscher
+
+Kollegen
+
+Hauptmann, Moritz (1792-1868), Geiger Mendelssohn Bartholdy, Felix (1809-1847),
+Komponist
+
+Panofka, Heinrich (1807-1887), Gesangslehrer Chopin, Frédéric (1810-1849),
+Komponist Joachim, Joseph (1831-1907), Geiger Brahms, Johannes (1833-1897),
+Komponist
+
+Musikalische Berufe Pianist, Komponist Weitere Tätigkeiten Journalist,
+Jurist Träger/Sparte Medien
+
+Wirkungsortc Bayreuth, Berlin, Bonn, Colditz, Dresden, Düsseldorf, Frankfurt/
+Main, Hamburg, Heidelberg, Karlsbad, Köln, Kreischa, Leipzig, Mailand, Maxen,
+Moskau, München, St. Petersburg, Wien, Zwickau
+
+Figure 1: Biographical information about Robert Schumann
+
+in the BMLO. Alongside information about a musician's lifetime, denomination,
+professions or places of activity, the database provides a number of
+relationships by type. Next to his partner Clara Schumann, further relations
+are listed to Robert Schumann's father in law, to his students, colleagues,
+and other acquainted musicians in his social network
+
+In earlier works, we developed visual interfaces on the basis of the BMLO data
+for profiling musicians (Jä-nicke et al, 2016), and for the distant reading of
+musicians' biographies (Khulusi et al, 2016). However, the social network
+inherent in the BMLO has remained untouched so far. Using the BMLO, only the
+social network of single musicians can be observed, as is the case when using
+print media. In order to facilitate an extensive analysis of the entire social
+network concealed in the BMLO, we designed a visualization that brings together
+all of the relationships in the form of an interactive social network graph. In
+contrast to previous means of investigating the transfer of musical knowledge,
+we allow for the dynamic exploration of relationships among musicians over
+generations.
+
+Graph Topology
+
+Information regarding relationships to other musicians in the database is
+provided for 9,805 musicians of the BMLO. Only one relation exists for
+around 46,5% of these musicians, and just 261 musicians have ten or more
+relations. Adolf Wilhelm August Sandberger is the musician with most relations
+(97). The average number of relations for musicians is 2.6. The resultant graph
+structure of the social network consists of 1,420 connected components, the
+largest component connects 5,539 musicians, the second largest only 56
+musicians - 1,385 connected components contain less than ten musicians.
+
+Due to the above mentioned topological features of the graph, the typical,
+straightforward visualization using a force-directed layout approach, e.g., by
+using tools such as Gephi (Bastian, 2009), leads to a global overview of the
+social network (see Figure 2). However, local structures are hardly readable,
+which makes an interactive exploration nearly impossible. The objective of this
+work was to develop a graph design that makes the social network of musicians
+visually accessible for the first time, and, moreover, capable of being
+explored in accordance with the research questions of the collaborating
+musicologists. We focused on the largest connected component that causes the
+greatest challenges for this task.
+
+[002-2]
+
+Figure 2: The largest connected component with 5,539 musicians visualized using
+Gephi.
+
+
+Graph & Interface Design to Analyze Teacher-Student Relationships
+
+The preliminary step when generating the social network graph is filtering
+according to the underlying research question. At first, a filtering can be
+done by relationship type(s). Second, it is possible to focus exclusively on
+musicians with specific professions (e.g., instrumentalists). In the following
+discussion, we focus on the motivating example for this work: the analysis of
+teacher-student relationships to investigate how musical knowledge, experience
+and expertise have been transferred over time. The corresponding filter keeps
+3,994 musicians, the largest connected component of this sub-network - the
+research object of the musicologists - contains 2,769 teachers and students.
+The Gephi output for this graph is given in Figure 3.
+
+[002-3]
+
+Figure 3: The largest connected component of the teacher-student network with
+2,769 musicians visualized using Gephi.
+
+
+Although the structures are slightly finer due to the reduced number of nodes
+and edges, the highly connected part in the interior of the graph remains
+cluttered. Here, we list our design decisions applied in order to generate a
+readable graph (see Figure 4) and a navigable interface.
+
+[002-4]
+
+Figure 4: The largest connected component of the teacher-student network with
+2,769 musicians (608 nodes) visualized with our method.
+
+• Temporally aligned graph: It was particularly important for the musicologists
+that the graph layout includes a temporal dimension, so that relations can be
+chronologically analyzed from left-to-right. Therefore, we applied a
+force-directed graph layout and used fixed x-values that represent a
+time-stamp,
+
+which reflects the middle of a musician's creative lifetime (see Janicke 2016),
+on a horizontal time axis. As a result, the nodes only spread vertically and
+the chronological order remains intact.
+
+•    Node grouping: Because the underlying research question investigates
+transfer paths of musical knowledge, we hide the nodes of musicians who never
+had the role of a teacher. Still, these musicians are grouped to their
+teachers, and can be accessed in the exploration process. This design decision
+reduces the number of nodes to be displayed from 2,769 to 608.
+
+•    Node layout: To illustrate the significance and the influence of
+personalities, the sizes of nodes reflect the number of students of the
+corresponding teachers, which makes teachers with many students salient. Per
+default, node labels are hidden, but for navigation purposes, a user-defined
+number of node labels with the corresponding musicians names can be shown on
+demand. Either the most popular musicians or the teachers with most students
+can be highlighted.
+
+•    Interactivity: Hovering over a node shows the corresponding musician and
+two lists of students (those who became teachers and those who did not) in a
+popup box. Clicking a node highlights all connections to a teacher's students
+who became themselves teachers. This way, transfer paths of musical knowledge
+can be assembled interactively.
+
+•    Musical profession analysis: For the selected (via mouse click) musicians
+in the graph, the evolution of musical professions can be analyzed. Therefore,
+all musical professions of the teachers' students are listed by decreasing
+frequency. For each profession, a bar chart illustrates when they have been
+pursued.
+
+Analysis of Teacher-Student Relationships
+
+This section outlines a usage scenario of the teacher-student network taking
+the example of Adolf Wilhelm August Sandberger who established musicology as a
+subject of study in Munich.
+
+First, we compare Sandberger to one of his teachers, Joseph Rheinberger, both
+being the teachers with the highest numbers of students (the BMLO lists
+97 students for Sandberger and 87 students for Rheinberger). Of special
+interest was the comparative analysis of the musical professions of their
+students in order to assess the similarity of both teachers' studentries.
+Figure 5 shows the two selected teachers in the social network, and a view at
+the summarized musical professions of their students is given. While
+composition was the major musical profession of Rheinbergers students (70x),
+this number drops for Sandbergers
+
+students (52x). On the other hand, the number of musicologists increase (10x
+   65x). Other significant
+
+changes can be seen for the professions choirmaster (29x    9x), organist
+(19x    8x), music writer (12x
+
+29x) and music editor (5x    26x). Thus, the visualiza
+
+tion reflects a change of the musical profile of both studentries from
+composition to composition science- a hypothesis that could be verified with
+our system.
+
+Second, we examined the change of teaching since Sandberger established
+musicology in Munich. Therefore, we observed the musical professions of the
+students of Sandberger and his successors in Munich, Rudolf von Ficker,
+Thrasybulos Georgios Georgiades and Theodor Göllner (see Fig. 6). While the
+musicologist is the most frequent taught musical profession, the composer gets
+less and less important. The last teacher Theodor Göllner even had no student
+with the composer as musical profession. Thus, the change from composition to
+composition science that already started with Sandberger compared to
+Rheinberger, steadily continued with Sandberger's successors.
+
+[002-5]
+
+Figure 5: Comparing the students of Joseph Rheinberger and Adolf Wilhelm August
+Sandberger.
+
+[002-6]
+
+Figure 6: Temporal change of teaching in Munich.
+
+Conclusion
+
+Through close collaboration with computer scientists and musicologists
+implementing a user-centered design approach, we developed a visualization that
+allows for the dynamic, interactive exploration of the social network of
+musicians, focusing primarily on teacher-student relationships. In contrast to
+out-of-the-box tools like Gephi, we took the research questions of the
+collaborating musicologists into account when designing the graph and the user
+interface. Although detailed information about individual relation periods
+between musicians as well as the taught musical professions are not included in
+the underlying database, the provided interface facilitates a novel view on the
+social network of musicians, which allows to draw conclusions on the question
+of the transfer of musical knowledge.
+
+The value of our system for users of the BMLO is not only that social networks
+are visualized for the first time, but also that the graph may be filtered in
+accordance with the way that specific research questions can be investigated.
+Next to teacher-student relationships, familial or labor relationships also
+create valuable networks to be explored. Furthermore, it is possible to analyze
+sub-networks concerning musical professions, and to combine relationship types
+with musical professions. For example, when combining teacher-student
+relationships with the musical profession instrumentalist (see Fig. 7),
+Wolfgang Amadeus Mozart shows up at the beginning of the instrument
+playing knowledge transfer.
+
+[002-7]
+
+Figure 7: Teaching instrumentalists.
+
