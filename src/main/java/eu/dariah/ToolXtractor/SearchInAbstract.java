@@ -45,7 +45,7 @@ public class SearchInAbstract {
             LinkData linkAbstractTool = new LinkData(dhAbstract.getIdentifier());
             for(String toolname : toolnames) {
                 if(! stopwords.contains(toolname)) {
-                    if(dhAbstract.getTitle().contains(toolname) || dhAbstract.getDescription().contains(toolname)) {
+                    if((dhAbstract.getTitle() != null && dhAbstract.getTitle().contains(toolname)) || (dhAbstract.getDescription() != null && dhAbstract.getDescription().contains(toolname))) {
                         String regex = REGEX_FIND_WORD;
                         if(isMoreUpperCaseAsSpaces(toolname) && !ignoreCase) { //We should not ignore case
                             regex = REGEX_FIND_WORD_WITH_CASE;
@@ -53,12 +53,15 @@ public class SearchInAbstract {
                         regex = String.format(regex, Pattern.quote(toolname));
                         Pattern p = Pattern.compile(regex, Pattern.DOTALL); //DOTALL option for multiline
 
-                        Matcher m = p.matcher(dhAbstract.getTitle());
-                        if(m.matches()) {
+                        Matcher m = null;
+                        if(dhAbstract.getTitle() != null) {
+                            m = p.matcher(dhAbstract.getTitle());
+                        }
+                        if (m != null && m.matches()) {
                             linkAbstractTool.getMentioned().add(toolname);
                         } else {
                             m = p.matcher(dhAbstract.getDescription());
-                            if(m.matches()) {
+                            if (m.matches()) {
                                 linkAbstractTool.getMentioned().add(toolname);
                             }
                         }

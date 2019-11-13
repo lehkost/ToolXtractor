@@ -25,6 +25,7 @@ public class DHSAXParser {
         SAXParser parser = parserFactor.newSAXParser();
         DHSAXHandler handler = new DHSAXHandler(identifier);
         XMLReader xmlReader = parser.getXMLReader();
+        xmlReader.setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd", false);
         xmlReader.setContentHandler(handler);
 
         InputSource source = new InputSource(inputStream);
