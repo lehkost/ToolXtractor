@@ -34,7 +34,7 @@ public class ParseDirectory {
             if(! file.isDirectory()) {
                 if(file.getName().toLowerCase().endsWith(".xml") || file.getName().toLowerCase().endsWith(".html"))
                     parse(parser, file);
-                if(file.getName().toLowerCase().endsWith(".txt"))
+                else
                     parseTxt(file);
             } else {
                 parseDirectory(file);
