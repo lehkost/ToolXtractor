@@ -59,7 +59,7 @@ public class SearchInAbstract {
                         }
                         if (m != null && m.matches()) {
                             linkAbstractTool.getMentioned().add(toolname);
-                        } else {
+                        } else if(dhAbstract.getDescription() != null) {
                             m = p.matcher(dhAbstract.getDescription());
                             if (m.matches()) {
                                 linkAbstractTool.getMentioned().add(toolname);
