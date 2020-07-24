@@ -37,6 +37,11 @@ public class SearchInAbstract {
         if(stopwordFilename != null) {
             stopwords = ListRetrieverFromFile.getListWordsFromFile(stopwordFilename);
         }
+        search(dhAbstractList, toolnames, stopwords, ignoreCase);
+    }
+
+    public void search(List<DHAbstract> dhAbstractList, Set<String> toolnames, Set<String> stopwords,
+                       boolean ignoreCase) {
         int size = dhAbstractList.size();
         int i = 0;
         for(DHAbstract dhAbstract : dhAbstractList) {
@@ -45,7 +50,7 @@ public class SearchInAbstract {
             LinkData linkAbstractTool = new LinkData(dhAbstract.getIdentifier());
             for(String toolname : toolnames) {
                 if(! stopwords.contains(toolname)) {
-                    if((dhAbstract.getTitle() != null && dhAbstract.getTitle().contains(toolname)) || (dhAbstract.getDescription() != null && dhAbstract.getDescription().contains(toolname))) {
+                    if(dhAbstract.getTitle() != null || dhAbstract.getDescription() != null) {
                         String regex = REGEX_FIND_WORD;
                         if(isMoreUpperCaseAsSpaces(toolname) && !ignoreCase) { //We should not ignore case
                             regex = REGEX_FIND_WORD_WITH_CASE;
