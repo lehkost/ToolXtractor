@@ -29,6 +29,7 @@ public class ToolXtractor {
                 " use) (1 tool per line)");
         options.addOption("reverse", false, "Reverse the order of the result (by default ascending order)");
         options.addOption("verbose", false, "Add extra verbose information");
+        options.addOption("printJson", false, "A special case, for SSHOC Marketplace relations, print a JSON file instead");
 
 
         CommandLineParser parser = new DefaultParser();
@@ -58,12 +59,17 @@ public class ToolXtractor {
                 System.out.println("Start searching in the files");
                 SearchInAbstract searchInAbstract = new SearchInAbstract(cmd.hasOption("verbose"));
                 searchInAbstract.search(dhAbstracts, cmd.getOptionValue("inputTools"),
-                        cmd.getOptionValue("stopwords"), cmd.hasOption("ignoreCase"));
+                        cmd.getOptionValue("stopwords"), cmd.hasOption("ignoreCase"), cmd.hasOption("printJson"));
                 System.out.println("Finish searching in the files (in " + (System.currentTimeMillis() - start) + "ms)");
-                if(cmd.hasOption("byAbstract"))
-                    printResults(searchInAbstract.getLinkAbstractToolList(), cmd.hasOption("reverse"));
-                if(cmd.hasOption("byTool"))
-                    printResults(searchInAbstract.getLinkToolAbstractList(), cmd.hasOption("reverse"));
+
+                if(cmd.hasOption("printJson")) {
+                    printResultsInJSON(searchInAbstract.getLinkToolAbstractList(), cmd.hasOption("reverse"));
+                } else {
+                    if(cmd.hasOption("byAbstract"))
+                        printResults(searchInAbstract.getLinkAbstractToolList(), cmd.hasOption("reverse"));
+                    if(cmd.hasOption("byTool"))
+                        printResults(searchInAbstract.getLinkToolAbstractList(), cmd.hasOption("reverse"));
+                }
             } else {
                 throw new RuntimeException("The directory used must exist (and be a directory, not a file)");
             }
@@ -90,6 +96,33 @@ public class ToolXtractor {
                 for (String mentioned : linkData.getMentioned()) {
                     System.out.println("-- " + mentioned);
                 }
+            }
+        }
+    }
+
+    private static void printResultsInJSON(List<LinkData> linkDataList, boolean reverse) {
+        linkDataList.sort(new LinkData(""));
+        if(reverse)
+            Collections.reverse(linkDataList);
+        System.out.println("[");
+        int sizeLinkDataList = linkDataList.size();
+        for(int a = 0; a < sizeLinkDataList; a++) {
+            if(linkDataList.get(a).getMentioned().size() > 0) {
+                System.out.println("{\"" + linkDataList.get(a).getIdentifier() + "\":[");
+                int sizeMentioned = linkDataList.get(a).getMentioned().size();
+                for (int i = 0; i < sizeMentioned; i++) {
+                    System.out.print("\"" + linkDataList.get(a).getMentioned().get(i) + "\"");
+                    if(i == sizeMentioned - 1) {
+                        System.out.println("]}");
+                    } else {
+                        System.out.println(",");
+                    }
+                }
+            }
+            if(a == sizeLinkDataList - 1) {
+                System.out.println("]");
+            } else {
+                System.out.println(",");
             }
         }
     }

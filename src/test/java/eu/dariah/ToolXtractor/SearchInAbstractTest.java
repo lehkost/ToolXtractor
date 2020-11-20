@@ -17,7 +17,7 @@ public class SearchInAbstractTest {
         dhAbstract.setTitle("Title");
         dhAbstract.setDescription("A test with Spacy.");
         searchInAbstract.search(Collections.singletonList(dhAbstract), Collections.singleton("spaCy"),
-                Collections.emptySet(), true);
+                Collections.emptySet(), true, false);
         List<LinkData> linkDataList = searchInAbstract.getLinkAbstractToolList();
         Assert.assertEquals(linkDataList.size(), 1);
         Assert.assertEquals(linkDataList.get(0).getMentioned().size(), 1);

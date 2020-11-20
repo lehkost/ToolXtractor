@@ -31,23 +31,27 @@ public class SearchInAbstract {
     }
 
     public void search(List<DHAbstract> dhAbstractList, String toolFilename, String stopwordFilename,
-                       boolean ignoreCase) throws IOException {
+                       boolean ignoreCase, boolean printTitleInsteadOfIdentifier) throws IOException {
         Set<String> toolnames = ListRetrieverFromFile.getListWordsFromFile(toolFilename);
         Set<String> stopwords = new HashSet<>(0);
         if(stopwordFilename != null) {
             stopwords = ListRetrieverFromFile.getListWordsFromFile(stopwordFilename);
         }
-        search(dhAbstractList, toolnames, stopwords, ignoreCase);
+        search(dhAbstractList, toolnames, stopwords, ignoreCase, printTitleInsteadOfIdentifier);
     }
 
     public void search(List<DHAbstract> dhAbstractList, Set<String> toolnames, Set<String> stopwords,
-                       boolean ignoreCase) {
+                       boolean ignoreCase, boolean printTitleInsteadOfIdentifier) {
         int size = dhAbstractList.size();
         int i = 0;
         for(DHAbstract dhAbstract : dhAbstractList) {
             if(this.debug)
                 System.out.println("Searching in file " + (++i) + " / " + size);
-            LinkData linkAbstractTool = new LinkData(dhAbstract.getIdentifier());
+            LinkData linkAbstractTool;
+            if(printTitleInsteadOfIdentifier)
+                linkAbstractTool = new LinkData(dhAbstract.getTitle());
+            else
+                linkAbstractTool = new LinkData(dhAbstract.getIdentifier());
             for(String toolname : toolnames) {
                 if(! stopwords.contains(toolname)) {
                     if(dhAbstract.getTitle() != null || dhAbstract.getDescription() != null) {
