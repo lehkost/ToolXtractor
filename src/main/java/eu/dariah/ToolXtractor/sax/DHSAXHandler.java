@@ -1,6 +1,7 @@
 package eu.dariah.ToolXtractor.sax;
 
 import eu.dariah.ToolXtractor.model.DHAbstract;
+import org.apache.commons.lang3.StringUtils;
 import org.xml.sax.Attributes;
 import org.xml.sax.helpers.DefaultHandler;
 
@@ -31,11 +32,13 @@ public class DHSAXHandler extends DefaultHandler {
     public void endElement(String namespaceURI, String localName, String qname){
         switch(qname){
             case "title":
-                dhAbstract.setTitle(content);
+                if(!StringUtils.strip(content).equals("") && (dhAbstract.getTitle() == null || dhAbstract.getTitle().equals("")))
+                    dhAbstract.setTitle(content);
                 content = "";
                 break;
             case "body":
-                dhAbstract.setDescription(content);
+                if(!StringUtils.strip(content).equals("") && (dhAbstract.getDescription() == null || dhAbstract.getDescription().equals("")))
+                    dhAbstract.setDescription(content);
                 content = "";
                 break;
         }
