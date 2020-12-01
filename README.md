@@ -33,6 +33,13 @@ Usage: ```java -jar ToolXtractor-full.jar```
  
  ```-ignoreCase```
  By default, we use case for matching tool names, by using this option, we will ignore the case
+ 
+ ```-printJson```
+ TODO
+ 
+ ```-preAnnotateTEI```
+ TODO
+ 
 
 # Dataset
 All under CC and retrieved from the ADHO github page: https://github.com/ADHO/
