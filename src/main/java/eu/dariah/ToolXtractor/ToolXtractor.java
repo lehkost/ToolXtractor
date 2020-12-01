@@ -30,6 +30,8 @@ public class ToolXtractor {
         options.addOption("reverse", false, "Reverse the order of the result (by default ascending order)");
         options.addOption("verbose", false, "Add extra verbose information");
         options.addOption("printJson", false, "A special case, for SSHOC Marketplace relations, print a JSON file instead");
+        options.addOption("preAnnotateTEI", false, "When exploring TEI files, you can also pre-annotate them, see " +
+                "README.md for full description.");
 
 
         CommandLineParser parser = new DefaultParser();
