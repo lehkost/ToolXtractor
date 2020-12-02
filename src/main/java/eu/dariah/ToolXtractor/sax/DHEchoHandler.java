@@ -76,7 +76,6 @@ public class DHEchoHandler extends DefaultHandler {
             return;
         String s = "" + textBuffer;
         for(String toolname : toolnames) {
-            logger.info(toolname);
             Pattern pattern = RegexPreparer.regexPreparation(toolname, ignoreCase);
             s = RegexPreparer.replaceStringInText(pattern, s);
         }
