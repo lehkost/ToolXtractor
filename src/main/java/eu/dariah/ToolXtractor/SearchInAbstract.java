@@ -54,16 +54,10 @@ public class SearchInAbstract {
                 if(! stopwords.contains(toolname)) {
                     if(dhAbstract.getTitle() != null || dhAbstract.getDescription() != null) {
                         Pattern p = RegexPreparer.regexPreparation(toolname, ignoreCase);
-                        List<String> textFoundInTitle = RegexPreparer.findStringInText(p,
-                                dhAbstract.getTitle(), false);
-                        if(! textFoundInTitle.isEmpty()) {
+                        if(RegexPreparer.findStringInText(p, dhAbstract.getTitle())) {
                             linkAbstractTool.getMentioned().add(toolname);
-                        } else {
-                            List<String> textFoundInDesc = RegexPreparer.findStringInText(p,
-                                    dhAbstract.getDescription(), false);
-                            if(! textFoundInDesc.isEmpty()) {
-                                linkAbstractTool.getMentioned().add(toolname);
-                            }
+                        } else if(RegexPreparer.findStringInText(p, dhAbstract.getDescription())) {
+                            linkAbstractTool.getMentioned().add(toolname);
                         }
                     }
                 }

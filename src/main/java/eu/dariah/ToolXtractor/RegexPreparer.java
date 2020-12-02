@@ -21,20 +21,14 @@ public abstract class RegexPreparer {
 //        Pattern p = Pattern.compile(regex, Pattern.DOTALL); //DOTALL option for multiline
         return Pattern.compile(regex, Pattern.DOTALL); //DOTALL option for multiline
     }
-    public static List<String> findStringInText(Pattern p, String text, boolean replaceStringInText) {
-        if(replaceStringInText) {
-            text = p.matcher(text).replaceAll("<rs type=\"software\">$1</rs>");
-            System.out.println(text);
-        }
-        List<String> allMatches = new ArrayList<>();
-
-        if(text != null) {
-            Matcher m = p.matcher(text);
-            while (m.find()) {
-                allMatches.add(m.group());
-            }
-        }
-        return allMatches;
+    public static boolean findStringInText(Pattern p, String text) {
+        Matcher m = p.matcher(text);
+        return m.find();
+    }
+    public static String replaceStringInText(Pattern p, String text) {
+        Matcher m = p.matcher(text);
+        text = m.replaceAll("<rs type=\"software\">$1</rs>");
+        return text;
     }
 
     private static boolean isMoreUpperCaseAsSpaces(String input) {

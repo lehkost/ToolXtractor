@@ -2,7 +2,9 @@ package eu.dariah.ToolXtractor;
 
 import org.apache.log4j.Logger;
 import org.w3c.dom.*;
+import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
+import org.xml.sax.XMLReader;
 
 import javax.xml.parsers.*;
 import javax.xml.transform.Transformer;
@@ -30,8 +32,10 @@ public class DHPreAnnotation {
         Node body = document.getElementsByTagName("body").item(0);
 
         for(String tool : tools) {
-            replaceWithSAX(title, tool, ignoreCase);
-            replaceWithSAX(body, tool, ignoreCase);
+            Node newTitle = replaceWithSAX(title, tool, ignoreCase);
+            Node newBody = replaceWithSAX(body, tool, ignoreCase);
+            replaceNode(newTitle, title);
+            replaceNode(newBody, body);
         }
 
         DOMSource source = new DOMSource(document);
@@ -42,10 +46,32 @@ public class DHPreAnnotation {
         transformer.transform(source, result);
     }
 
-    private void replaceWithSAX(Node node, String tool, boolean ignoreCase) {
+    private void replaceNode(Node newNode, Node oldNode) {
+        Node parent = oldNode.getParentNode();
+        parent.replaceChild(newNode, oldNode);
+    }
+
+    private Node replaceWithSAX(Node node, String tool, boolean ignoreCase) {
         String nodeTxt = node.getTextContent();
         Pattern p = RegexPreparer.regexPreparation(tool, ignoreCase);
-        List<String> findTextInTitle = RegexPreparer.findStringInText(p, nodeTxt, true);
+        String replacedTextInNode = RegexPreparer.replaceStringInText(p, nodeTxt);
+        node.setTextContent(replacedTextInNode);
+        logger.info(node.getTextContent());
+        return node;
+//        logger.info(replacedTextInNode);
+//
+//        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+//        try {
+//            //Create DocumentBuilder with default configuration
+//            DocumentBuilder builder = factory.newDocumentBuilder();
+//            //Parse the content to Document object
+//            Document doc = builder.parse(new InputSource(new StringReader(replacedTextInNode)));
+//            logger.info(doc.getFirstChild());
+//        }
+//        catch (Exception e) {
+//            logger.error("Error", e);
+//        }
+
 //        try {
 //            StringWriter writer = new StringWriter();
 //            Transformer transformer = TransformerFactory.newInstance().newTransformer();
