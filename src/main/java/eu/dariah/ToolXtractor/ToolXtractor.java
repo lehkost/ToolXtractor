@@ -72,6 +72,10 @@ public class ToolXtractor {
                     if(cmd.hasOption("byTool"))
                         printResults(searchInAbstract.getLinkToolAbstractList(), cmd.hasOption("reverse"));
                 }
+                if(cmd.hasOption("preAnnotateTEI")) {
+                    DHPreAnnotation dhPreAnnotation = new DHPreAnnotation();
+                    dhPreAnnotation.preAnnotate(searchInAbstract.getLinkAbstractToolList(), cmd.hasOption("ignoreCase"));
+                }
             } else {
                 throw new RuntimeException("The directory used must exist (and be a directory, not a file)");
             }
@@ -87,7 +91,7 @@ public class ToolXtractor {
     }
 
     private static void printResults(List<LinkData> linkDataList, boolean reverse) {
-        linkDataList.sort(new LinkData(""));
+        linkDataList.sort(new LinkData("", null));
         if(reverse)
             Collections.reverse(linkDataList);
         System.out.println("There are " + linkDataList.size() + " items listed below, and each have their own linked items");
@@ -103,7 +107,7 @@ public class ToolXtractor {
     }
 
     private static void printResultsInJSON(List<LinkData> linkDataList, boolean reverse) {
-        linkDataList.sort(new LinkData(""));
+        linkDataList.sort(new LinkData("", null));
         if(reverse)
             Collections.reverse(linkDataList);
         System.out.println("[");

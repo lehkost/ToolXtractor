@@ -44,7 +44,9 @@ public class ParseDirectory {
 
     private void parse(DHSAXParser parser, File file) {
         try {
-            dhAbstractList.add(parser.parseXml(new FileInputStream(file), file.getName()));
+            DHAbstract dhAbstract = parser.parseXml(new FileInputStream(file), file.getName());
+            dhAbstract.setFilepath(file.getAbsolutePath());
+            dhAbstractList.add(dhAbstract);
         } catch (Exception e) {
             System.out.println("Error parsing " + file.getAbsolutePath());
         }
@@ -54,6 +56,7 @@ public class ParseDirectory {
         try {
             DHAbstract dhAbstract = new DHAbstract(file.getName());
             dhAbstract.setDescription(FileUtils.readFileToString(file, "UTF-8"));
+            dhAbstract.setFilepath(file.getAbsolutePath());
             dhAbstractList.add(dhAbstract);
         } catch (Exception e) {
             System.out.println("Error parsing " + file.getAbsolutePath());

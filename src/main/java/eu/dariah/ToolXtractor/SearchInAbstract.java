@@ -47,9 +47,9 @@ public class SearchInAbstract {
                 System.out.println("Searching in file " + (++i) + " / " + size);
             LinkData linkAbstractTool;
             if(printTitleInsteadOfIdentifier)
-                linkAbstractTool = new LinkData(dhAbstract.getTitle());
+                linkAbstractTool = new LinkData(dhAbstract.getTitle(), dhAbstract);
             else
-                linkAbstractTool = new LinkData(dhAbstract.getIdentifier());
+                linkAbstractTool = new LinkData(dhAbstract.getIdentifier(), dhAbstract);
             for(String toolname : toolnames) {
                 if(! stopwords.contains(toolname)) {
                     if(dhAbstract.getTitle() != null || dhAbstract.getDescription() != null) {
@@ -86,7 +86,7 @@ public class SearchInAbstract {
                     }
                 }
                 if(! toolExists) {
-                    LinkData linkToolAbstract = new LinkData(toolname);
+                    LinkData linkToolAbstract = new LinkData(toolname, linkAbstractTool.getDhAbstract());
                     linkToolAbstract.getMentioned().add(linkAbstractTool.getIdentifier());
                     linkToolAbstractList.add(linkToolAbstract);
                 }
