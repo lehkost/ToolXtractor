@@ -1,21 +1,24 @@
 package eu.dariah.ToolXtractor.sax;
 
 import java.io.*;
+import java.util.Collection;
 import java.util.regex.Pattern;
 
 import eu.dariah.ToolXtractor.RegexPreparer;
+import org.apache.log4j.Logger;
 import org.xml.sax.*;
 import org.xml.sax.helpers.DefaultHandler;
 
 public class DHEchoHandler extends DefaultHandler {
-    StringBuffer textBuffer;
+    private static Logger logger = Logger.getLogger(DHEchoHandler.class);
+    private StringBuffer textBuffer;
     private OutputStreamWriter outputStreamWriter;
-    private String toolname;
+    private Collection<String> toolnames;
     private boolean ignoreCase;
 
-    public DHEchoHandler(OutputStreamWriter outputStreamWriter, String toolname, boolean ignoreCase) {
+    public DHEchoHandler(OutputStreamWriter outputStreamWriter, Collection<String> toolnames, boolean ignoreCase) {
         this.outputStreamWriter = outputStreamWriter;
-        this.toolname = toolname;
+        this.toolnames = toolnames;
         this.ignoreCase = ignoreCase;
     }
 
@@ -72,8 +75,11 @@ public class DHEchoHandler extends DefaultHandler {
         if (textBuffer == null)
             return;
         String s = "" + textBuffer;
-        Pattern pattern = RegexPreparer.regexPreparation(toolname, ignoreCase);
-        s = RegexPreparer.replaceStringInText(pattern, s);
+        for(String toolname : toolnames) {
+            logger.info(toolname);
+            Pattern pattern = RegexPreparer.regexPreparation(toolname, ignoreCase);
+            s = RegexPreparer.replaceStringInText(pattern, s);
+        }
         emit(s);
         textBuffer = null;
     }

@@ -11,10 +11,12 @@ import java.util.List;
  */
 public class LinkData implements Comparator<LinkData>, Comparable<LinkData> {
     private String identifier;
+    private DHAbstract dhAbstract;
     private List<String> mentioned;
 
-    public LinkData(String identifier) {
+    public LinkData(String identifier, DHAbstract dhAbstract) {
         this.identifier = identifier;
+        this.dhAbstract = dhAbstract;
         this.mentioned = new ArrayList<>();
     }
 
@@ -28,6 +30,14 @@ public class LinkData implements Comparator<LinkData>, Comparable<LinkData> {
 
     public void setMentioned(List<String> mentioned) {
         this.mentioned = mentioned;
+    }
+
+    public DHAbstract getDhAbstract() {
+        return dhAbstract;
+    }
+
+    public void setDhAbstract(DHAbstract dhAbstract) {
+        this.dhAbstract = dhAbstract;
     }
 
     @Override
