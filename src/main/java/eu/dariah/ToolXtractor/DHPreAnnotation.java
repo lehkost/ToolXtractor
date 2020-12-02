@@ -15,12 +15,14 @@ public class DHPreAnnotation {
 
     public void preAnnotate(List<LinkData> linkAbstractToolList, boolean ignoreCase) throws IOException, SAXException, ParserConfigurationException {
         for(LinkData linkAbstractTool : linkAbstractToolList) {
-            File xmlFile = new File(linkAbstractTool.getDhAbstract().getFilepath());
-            if(! new File("./output_annotation/").exists()) {
-                new File("./output_annotation/").mkdir();
+            if(! linkAbstractTool.getMentioned().isEmpty()) {
+                File xmlFile = new File(linkAbstractTool.getDhAbstract().getFilepath());
+                if (!new File("./output_annotation/").exists()) {
+                    new File("./output_annotation/").mkdir();
+                }
+                File outputXmlFile = new File("./output_annotation/" + xmlFile.getName());
+                preAnnotateXmlFile(xmlFile, outputXmlFile, linkAbstractTool.getMentioned(), ignoreCase);
             }
-            File outputXmlFile = new File("./output_annotation/" + xmlFile.getName());
-            preAnnotateXmlFile(xmlFile, outputXmlFile, linkAbstractTool.getMentioned(), ignoreCase);
         }
     }
 
