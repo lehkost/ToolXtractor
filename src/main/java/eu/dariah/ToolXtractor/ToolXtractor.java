@@ -73,8 +73,13 @@ public class ToolXtractor {
                         printResults(searchInAbstract.getLinkToolAbstractList(), cmd.hasOption("reverse"));
                 }
                 if(cmd.hasOption("preAnnotateTEI")) {
+                    System.out.println("======================");
+                    System.out.println("Pre-annotation started");
+                    long startAnnotation = System.currentTimeMillis();
                     DHPreAnnotation dhPreAnnotation = new DHPreAnnotation();
                     dhPreAnnotation.preAnnotate(searchInAbstract.getLinkAbstractToolList(), cmd.hasOption("ignoreCase"));
+                    System.out.println("Pre-annotation finished in " + (System.currentTimeMillis() - startAnnotation) + "ms");
+                    System.out.println("======================");
                 }
             } else {
                 throw new RuntimeException("The directory used must exist (and be a directory, not a file)");
