@@ -10,6 +10,7 @@ import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStreamWriter;
 
 /**
  * DHSAXParser
@@ -31,5 +32,18 @@ public class DHSAXParser {
         InputSource source = new InputSource(inputStream);
         xmlReader.parse(source);
         return handler.getDhAbstract();
+    }
+
+    public void rewriteXml(InputStream inputStream, OutputStreamWriter outputStreamWriter, String toolname,
+                           boolean ignoreCase) throws ParserConfigurationException, SAXException, IOException {
+        SAXParserFactory parserFactor = SAXParserFactory.newInstance();
+        SAXParser parser = parserFactor.newSAXParser();
+        DHEchoHandler handler = new DHEchoHandler(outputStreamWriter, toolname, ignoreCase);
+        XMLReader xmlReader = parser.getXMLReader();
+        xmlReader.setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd", false);
+        xmlReader.setContentHandler(handler);
+
+        InputSource source = new InputSource(inputStream);
+        xmlReader.parse(source);
     }
 }
