@@ -25,7 +25,7 @@ public class ParseDirectoryTest {
     public void testGetDhAbstractList() {
         parseDirectory.parseDirectory();
         List<DHAbstract> dhAbstracts = parseDirectory.getDhAbstractList();
-        System.out.println(dhAbstracts);
-        Assert.assertEquals(2, dhAbstracts.size());
+        dhAbstracts.forEach(s -> System.out.println(s.getFilepath()));
+        Assert.assertEquals(3, dhAbstracts.size());
     }
 }

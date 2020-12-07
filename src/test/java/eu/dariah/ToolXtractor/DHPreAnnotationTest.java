@@ -19,7 +19,7 @@ public class DHPreAnnotationTest {
         File xmlInputFile = new File("src/test/resources/data/3.xml");
         File xmlOutputFile = new File("src/test/resources/data/annotated_3.xml");
         dhPreAnnotation.preAnnotateXmlFile(xmlInputFile, xmlOutputFile, Collections.singleton("spacy"), false);
-//        xmlOutputFile.delete();
+        xmlOutputFile.delete();
     }
 
 }
