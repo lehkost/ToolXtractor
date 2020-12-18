@@ -34,12 +34,12 @@ Usage: ```java -jar ToolXtractor-full.jar```
  ```-ignoreCase```
  By default, we use case for matching tool names, by using this option, we will ignore the case
 
-# Dataset
-All under CC and retrieved from the ADHO github page: https://github.com/ADHO/
+# Datasets
+We provide two sample datasets in this repository, both encoded in TEI:
 
-Only for the year [2017](https://github.com/ADHO/dh2017) we used the tool [Grobid](https://github.com/kermitt2/grobid/) to create XML-TEI files.
-
-For the year 2019, the TEI files will soon be online on the [ADHO](https://github.com/ADHO/) repository.
+1. Papers from DH conferences 2015–2020, licenced under CC BY and retrieved from ADHO's GitHub page: https://github.com/ADHO/
+   * caveat: for papers of [DH2017](https://github.com/ADHO/dh2017) we used the tool [Grobid](https://github.com/kermitt2/grobid/) to create XML-TEI files (however, Grobid failed to convert all files properly, some of these conversions contain only parts of the PDF versions, that's why we also provide plain-text TXT versions for DH2017).
+2. Articles from [DH Quarterly](http://www.digitalhumanities.org/dhq/), licenced under CC BY-ND and retrieved via the official download link: http://www.digitalhumanities.org/dhq/data/dhq-xml.zip (not available at the moment).
 
 # Example of output
 ```
