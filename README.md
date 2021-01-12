@@ -5,7 +5,7 @@ Extract tools from TEI-encoded abstracts against a matching list.
 ```mvn clean package```
 
 # Launch the tool
-```java -jar target/ToolXtractor-full.jar -byTool -dir data/xml/2015/ -inputTools src/main/resources/tools_teresah.txt```
+```java -jar target/ToolXtractor-full.jar -byTool -dir data/DH/xml/2015/ -inputTools src/main/resources/tools_teresah.txt```
 
 ## Options
 Usage: ```java -jar ToolXtractor-full.jar```
@@ -39,11 +39,11 @@ We provide two sample datasets in this repository, both encoded in TEI:
 
 1. Papers from DH conferences 2015–2020, licenced under CC BY and retrieved from ADHO's GitHub page: https://github.com/ADHO/
    * caveat: for papers of [DH2017](https://github.com/ADHO/dh2017) we used the tool [Grobid](https://github.com/kermitt2/grobid/) to create XML-TEI files (however, Grobid failed to convert all files properly, some of these conversions contain only parts of the PDF versions, that's why we also provide plain-text TXT versions for DH2017).
-2. Articles from [DH Quarterly](http://www.digitalhumanities.org/dhq/), licenced under CC BY-ND and retrieved via the official download link: http://www.digitalhumanities.org/dhq/data/dhq-xml.zip (not available at the moment).
+2. Articles from [DH Quarterly](http://www.digitalhumanities.org/dhq/), licenced under CC BY-ND and retrieved via the official download link: http://www.digitalhumanities.org/dhq/data/dhq-xml.zip (placed in the folder ```/data/DHQ/```).
 
 # Example of output
 ```
-$ java -jar target/ToolXtractor-full.jar -byTool -dir data/xml/2015/ -inputTools src/main/resources/tools_teresah.txt -stopwords src/main/resources/stopwords.txt -reverse
+$ java -jar target/ToolXtractor-full.jar -byTool -dir data/DH/xml/2015/ -inputTools src/main/resources/tools_teresah.txt -stopwords src/main/resources/stopwords.txt -reverse
 Start parsing the directories
 Finished parsing the directories (in 1849ms)
 Start searching in the files
