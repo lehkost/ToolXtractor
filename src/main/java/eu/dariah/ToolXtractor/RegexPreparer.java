@@ -16,9 +16,19 @@ public abstract class RegexPreparer {
 //        Pattern p = Pattern.compile(regex, Pattern.DOTALL); //DOTALL option for multiline
         return Pattern.compile(regex, Pattern.DOTALL); //DOTALL option for multiline
     }
+
+    /**
+     *
+     * @param p The REGEX Pattern used to search
+     * @param text The String in which we search
+     * @return Return true if the Pattern was found, else otherwise. Will also only return false if the String is null
+     */
     public static boolean findStringInText(Pattern p, String text) {
-        Matcher m = p.matcher(text);
-        return m.find();
+        if(text != null) {
+            Matcher m = p.matcher(text);
+            return m.find();
+        }
+        return false;
     }
     public static String replaceStringInText(Pattern p, String text) {
         Matcher m = p.matcher(text);
