@@ -30,6 +30,8 @@ public class ToolXtractor {
         options.addOption("reverse", false, "Reverse the order of the result (by default ascending order)");
         options.addOption("verbose", false, "Add extra verbose information");
         options.addOption("printJson", false, "A special case, for SSHOC Marketplace relations, print a JSON file instead");
+        options.addOption("preAnnotateTEI", false, "When exploring TEI files, you can also pre-annotate them, see " +
+                "README.md for full description.");
 
 
         CommandLineParser parser = new DefaultParser();
@@ -70,6 +72,15 @@ public class ToolXtractor {
                     if(cmd.hasOption("byTool"))
                         printResults(searchInAbstract.getLinkToolAbstractList(), cmd.hasOption("reverse"));
                 }
+                if(cmd.hasOption("preAnnotateTEI")) {
+                    System.out.println("======================");
+                    System.out.println("Pre-annotation started");
+                    long startAnnotation = System.currentTimeMillis();
+                    DHPreAnnotation dhPreAnnotation = new DHPreAnnotation();
+                    dhPreAnnotation.preAnnotate(searchInAbstract.getLinkAbstractToolList(), cmd.hasOption("ignoreCase"));
+                    System.out.println("Pre-annotation finished in " + (System.currentTimeMillis() - startAnnotation) + "ms");
+                    System.out.println("======================");
+                }
             } else {
                 throw new RuntimeException("The directory used must exist (and be a directory, not a file)");
             }
@@ -85,7 +96,7 @@ public class ToolXtractor {
     }
 
     private static void printResults(List<LinkData> linkDataList, boolean reverse) {
-        linkDataList.sort(new LinkData(""));
+        linkDataList.sort(new LinkData("", null));
         if(reverse)
             Collections.reverse(linkDataList);
         System.out.println("There are " + linkDataList.size() + " items listed below, and each have their own linked items");
@@ -101,7 +112,7 @@ public class ToolXtractor {
     }
 
     private static void printResultsInJSON(List<LinkData> linkDataList, boolean reverse) {
-        linkDataList.sort(new LinkData(""));
+        linkDataList.sort(new LinkData("", null));
         if(reverse)
             Collections.reverse(linkDataList);
         System.out.println("[");
