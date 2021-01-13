@@ -35,10 +35,12 @@ Usage: ```java -jar ToolXtractor-full.jar```
  By default, we use case for matching tool names, by using this option, we will ignore the case
  
  ```-printJson```
- TODO
+ For the SSH Open Marketplace, we have a script to create relations between entities. This option creates an output 
+ that can be used with such script. It is a different way to show the results. 
  
  ```-preAnnotateTEI```
- TODO
+ In a directory called `output_annotation/`, the TEI files will be created with annotation of the tools found within 
+ a `<rs>` element.
  
 
 # Datasets
